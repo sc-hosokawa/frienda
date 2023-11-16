@@ -1,0 +1,1 @@
+# FRIENDSHIP. DAO Monorepo
