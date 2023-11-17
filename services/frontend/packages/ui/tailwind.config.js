@@ -1,0 +1,1 @@
+module.exports = require("@fsdao/configs/tailwind/tailwind.config");
