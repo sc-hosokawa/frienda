@@ -27,8 +27,8 @@ runs:
       run: cd ${{ inputs.path }} && pnpm install
       shell: bash
     - name: Lint
-      run: cd ${{ inputs.path }}/${{ inputs.app }} && pnpm lint
+      run: cd ${{ inputs.path }}/apps/${{ inputs.app }} && pnpm lint
       shell: bash
     - name: Build
-      run: cd ${{ inputs.path }}/${{ inputs.app }} && pnpm build
+      run: cd ${{ inputs.path }}/apps/${{ inputs.app }} && pnpm build
       shell: bash
