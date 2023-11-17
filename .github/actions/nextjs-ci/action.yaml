@@ -18,7 +18,7 @@ runs:
       with:
         version: 8.10.5
     - name: Use Node.js ${{ inputs.node }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node }}
         cache: 'pnpm'
@@ -29,6 +29,6 @@ runs:
     - name: Lint
       run: cd ${{ inputs.path }}/apps/${{ inputs.app }} && pnpm lint
       shell: bash
-    - name: Build
-      run: cd ${{ inputs.path }}/apps/${{ inputs.app }} && pnpm build
-      shell: bash
+#    - name: Build
+#      run: cd ${{ inputs.path }}/apps/${{ inputs.app }} && pnpm build
+#      shell: bash

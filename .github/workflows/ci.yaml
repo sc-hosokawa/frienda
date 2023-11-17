@@ -26,7 +26,7 @@ jobs:
       contains(github.event.head_commit.message, 'backend')
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Go CI
         uses: ./.github/actions/go-ci
         with:
@@ -41,7 +41,7 @@ jobs:
         node-version: [18, 20]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Admin CI
         uses: ./.github/actions/nextjs-ci
         with:
@@ -58,7 +58,7 @@ jobs:
         node-version: [18, 20]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Client CI
         uses: ./.github/actions/nextjs-ci
         with:
@@ -72,7 +72,7 @@ jobs:
       contains(github.event.head_commit.message, 'contract')
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Contract CI
         uses: ./.github/actions/contract-ci
         with:
