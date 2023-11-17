@@ -1,0 +1,21 @@
+name: Contract CI
+inputs:
+  environment: 
+    description: "CI environment"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'pnpm'
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8.10.5
+    - name: Install Dependencies
+      run: cd ${{ inputs.path }} && pnpm install
+    - name: Hardhat Test
+      run: cd ${{ inputs.path }} && pnpm hardhat test --verbose
+    - name: Hardhat Coverage
+      run: cd ${{ inputs.path }} && pnpm hardhat coverage
