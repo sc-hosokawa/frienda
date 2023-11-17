@@ -1,8 +1,10 @@
 name: Contract CI
+
 inputs:
   path: 
     description: "CI environment"
     required: true
+
 runs:
   using: "composite"
   steps:
@@ -14,15 +16,12 @@ runs:
         node-version: 18
         cache: 'pnpm'
         cache-dependency-path: 'services/contract/pnpm-lock.yaml'
-    - name: sample
-      run: echo ${{ inputs.path }}
-      shell: bash
     - name: Install Dependencies
       run: cd ${{ inputs.path }} && pnpm install
       shell: bash
     - name: Hardhat Test
-      run: cd ${{ inputs.path }} && pnpm hardhat test --verbose
+      run: cd ${{ inputs.path }} && pnpm hardhat test
       shell: bash
-    - name: Hardhat Coverage
-      run: cd ${{ inputs.path }} && pnpm hardhat coverage
-      shell: bash
+#    - name: Hardhat Coverage
+#      run: cd ${{ inputs.path }} && pnpm hardhat coverage
+#      shell: bash
