@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Go CI
-        uses: ./.github/actions/go-ci.yaml
+        uses: ./.github/actions/go-ci
         with:
           path: 'services/backend'
 
@@ -60,7 +60,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Client CI
-        uses: ./.github/actions/nextjs-ci.yaml
+        uses: ./.github/actions/nextjs-ci
         with:
           path: 'services/frontend'
           app: 'client'
