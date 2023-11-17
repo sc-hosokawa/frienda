@@ -22,9 +22,13 @@ runs:
       with:
         node-version: ${ inputs.node }
         cache: 'pnpm'
+        cache-dependency-path: 'services/frontend/pnpm-lock.yaml'
     - name: Install Dependencies
       run: cd ${{ inputs.path }} && pnpm install
+      shell: bash
     - name: Lint
       run: cd ${{ inputs.path }}/${ inputs.app } && pnpm lint
+      shell: bash
     - name: Build
       run: cd ${{ inputs.path }}/${ inputs.app } && pnpm build
+      shell: bash
