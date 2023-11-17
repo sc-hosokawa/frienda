@@ -43,7 +43,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Admin CI
-        uses: ./.github/actions/nextjs-ci.yaml
+        uses: ./.github/actions/nextjs-ci
         with:
           path: 'services/frontend'
           app: 'admin'
