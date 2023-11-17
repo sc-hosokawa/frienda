@@ -15,7 +15,10 @@ runs:
         version: 8.10.5
     - name: Install Dependencies
       run: cd ${{ inputs.path }} && pnpm install
+      shell: bash
     - name: Hardhat Test
       run: cd ${{ inputs.path }} && pnpm hardhat test --verbose
+      shell: bash
     - name: Hardhat Coverage
       run: cd ${{ inputs.path }} && pnpm hardhat coverage
+      shell: bash
