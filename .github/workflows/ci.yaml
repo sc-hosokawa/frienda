@@ -23,7 +23,7 @@ jobs:
   backend:
     runs-on: ubuntu-latest
     if: |
-      contains(github.event.head_commit.message, 'services/backend')
+      contains(github.event.head_commit.message, 'backend')
     steps:
       - name: Go CI
         uses: ./.github/actions/go-ci.yaml
@@ -33,7 +33,7 @@ jobs:
   admin:
     runs-on: ubuntu-latest
     if: |
-      contains(github.event.head_commit.message, 'services/frontend/admin')
+      contains(github.event.head_commit.message, 'admin')
     steps:
       - name: Admin CI
         uses: ./.github/actions/nextjs-ci.yaml
@@ -44,7 +44,7 @@ jobs:
   client:
     runs-on: ubuntu-latest
     if: |
-      contains(github.event.head_commit.message, 'services/frontend/client')
+      contains(github.event.head_commit.message, 'client')
     steps:
       - name: Client CI
         uses: ./.github/actions/nextjs-ci.yaml
@@ -55,7 +55,7 @@ jobs:
   contract:
     runs-on: ubuntu-latest
     if: |
-      contains(github.event.head_commit.message, 'services/contract')
+      contains(github.event.head_commit.message, 'contract')
     steps:
       - name: Contract CI
         uses: ./.github/actions/contract-ci.yaml
