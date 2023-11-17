@@ -1,1 +1,1 @@
-# FRIENDSHIP. DAO Admin App
+# FRIENDSHIP. DAO Admin

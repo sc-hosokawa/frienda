@@ -17,18 +17,18 @@ runs:
     - uses: pnpm/action-setup@v2
       with:
         version: 8.10.5
-    - name: Use Node.js ${ inputs.node }
+    - name: Use Node.js ${{ inputs.node }}
       uses: actions/setup-node@v3
       with:
-        node-version: ${ inputs.node }
+        node-version: ${{ inputs.node }}
         cache: 'pnpm'
         cache-dependency-path: 'services/frontend/pnpm-lock.yaml'
     - name: Install Dependencies
       run: cd ${{ inputs.path }} && pnpm install
       shell: bash
     - name: Lint
-      run: cd ${{ inputs.path }}/${ inputs.app } && pnpm lint
+      run: cd ${{ inputs.path }}/${{ inputs.app }} && pnpm lint
       shell: bash
     - name: Build
-      run: cd ${{ inputs.path }}/${ inputs.app } && pnpm build
+      run: cd ${{ inputs.path }}/${{ inputs.app }} && pnpm build
       shell: bash
