@@ -1,0 +1,63 @@
+name: fsdao/CI
+
+on:
+  push:
+    paths:
+      - 'services/backend/**'
+      - 'services/frontend/admin/**'
+      - 'services/frontend/client/**'
+      - 'services/frontend/mobile/**'
+      - 'services/contract/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'services/backend/**'
+      - 'services/frontend/apps/client/**'
+      - 'services/frontend/apps/admin/**'
+      - 'services/frontend/apps/mobile/**'
+      - 'services/contract/**'
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.message, 'services/backend')
+    steps:
+      - name: Go CI
+        uses: ./.github/actions/go-ci.yaml
+        with:
+          path: 'services/backend'
+
+  admin:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.message, 'services/frontend/admin')
+    steps:
+      - name: Admin CI
+        uses: ./.github/actions/nextjs-ci.yaml
+        with:
+          path: 'services/frontend'
+          app: 'admin'
+
+  client:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.message, 'services/frontend/client')
+    steps:
+      - name: Client CI
+        uses: ./.github/actions/nextjs-ci.yaml
+        with:
+          path: 'services/frontend'
+          app: 'client'
+
+  contract:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.message, 'services/contract')
+    steps:
+      - name: Contract CI
+        uses: ./.github/actions/contract-ci.yaml
+        with:
+          path: 'services/contract'
