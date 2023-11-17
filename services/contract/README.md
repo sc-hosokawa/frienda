@@ -1,6 +1,5 @@
 # FRIENDSHIP.DAO Contracts
 
-
 ```shell
 npx hardhat help
 npx hardhat test
