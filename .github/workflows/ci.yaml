@@ -4,9 +4,9 @@ on:
   push:
     paths:
       - 'services/backend/**'
-      - 'services/frontend/admin/**'
-      - 'services/frontend/client/**'
-      - 'services/frontend/mobile/**'
+      - 'services/frontend/apps/admin/**'
+      - 'services/frontend/apps/client/**'
+      - 'services/frontend/apps/mobile/**'
       - 'services/contract/**'
   pull_request:
     branches:
