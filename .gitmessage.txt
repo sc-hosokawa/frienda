@@ -1,4 +1,4 @@
-[full_prefix]
+[branch]
 
 # ==== Prefix ====
 # fix:      A bug fix
