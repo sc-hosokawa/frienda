@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Rust CI
-        uses: ./.github/actions/go-ci
+        uses: ./.github/actions/backend-ci
         with:
           path: 'services/backend'
 
