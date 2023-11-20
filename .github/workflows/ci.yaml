@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Go CI
+      - name: Rust CI
         uses: ./.github/actions/go-ci
         with:
           path: 'services/backend'

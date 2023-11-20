@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "server-core",
+    "server-extention",
+    "shared"
+]
+resolver = "2"

@@ -1,0 +1,16 @@
+name: Backend CI
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - name: Install Dependencies
+      run: cd services/backend && cargo build --release
+      shell: bash
+    - name: Test
+      run: cd services/backend && cargo test
+      shell: bash
