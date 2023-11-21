@@ -1,4 +1,4 @@
-name: fsdao/CI
+name: fsdao/Test
 
 on:
   push:
@@ -27,8 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Rust CI
-        uses: ./.github/actions/backend-ci
+      - name: Rust Test
+        uses: ./.github/actions/backend-test
         with:
           path: 'services/backend'
 
@@ -42,8 +42,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Admin CI
-        uses: ./.github/actions/nextjs-ci
+      - name: Admin Test
+        uses: ./.github/actions/nextjs-test
         with:
           path: 'services/frontend'
           app: 'admin'
@@ -60,7 +60,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Client CI
-        uses: ./.github/actions/nextjs-ci
+        uses: ./.github/actions/nextjs-test
         with:
           path: 'services/frontend'
           app: 'client'
@@ -73,7 +73,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Contract CI
-        uses: ./.github/actions/contract-ci
+      - name: Contract Test
+        uses: ./.github/actions/contract-test
         with:
           path: 'services/contract'
