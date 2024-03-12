@@ -1,0 +1,11 @@
+name: fsdao
+
+packages:
+  - apps/**
+  - packages/**
+
+scripts:
+  bootstrap:
+    run: melos bootstrap
+  test:
+    run: melos run test

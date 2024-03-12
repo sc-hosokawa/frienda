@@ -1,0 +1,7 @@
+name: fsdao
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+dev_dependencies:
+  melos: ^4.1.0
+
