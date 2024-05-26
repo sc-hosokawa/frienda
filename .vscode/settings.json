@@ -2,4 +2,4 @@
     "rust-analyzer.linkedProjects": [
       "./services/backend/Cargo.toml"
     ]
-  }
+}
