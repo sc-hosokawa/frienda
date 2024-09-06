@@ -15,7 +15,7 @@ gql-mobile:
 
 # Backend
 api-dev:
-	docker compose up -d
+	docker compose up
 	cd services/backend/server-core && cargo watch -x run
 
 api:
