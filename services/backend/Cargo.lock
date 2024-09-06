@@ -941,7 +941,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "entity"
+name = "entities"
 version = "0.1.0"
 dependencies = [
  "sea-orm",
@@ -1210,6 +1210,13 @@ name = "gimli"
 version = "0.29.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "40ecd4077b5ae9fd2e9e169b102c6c330d0605168eb0e8bf79952b256dbefffd"
+
+[[package]]
+name = "graphql"
+version = "0.1.0"
+dependencies = [
+ "entities",
+]
 
 [[package]]
 name = "h2"
@@ -2368,8 +2375,9 @@ dependencies = [
  "async-graphql",
  "async-graphql-actix-web",
  "dotenvy",
- "entity",
+ "entities",
  "futures",
+ "graphql",
  "sea-orm",
  "shared",
  "tracing",
