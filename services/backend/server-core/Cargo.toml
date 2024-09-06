@@ -4,6 +4,13 @@ version = "0.1.0"
 edition = "2021"
 default-run = "server-core"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+shared = { path = "../shared" }
+actix-web = { workspace = true }
+futures = { workspace = true }
+sea-orm = { workspace = true }
+dotenvy = { workspace = true }
+tracing-subscriber = { workspace = true }
+tracing = { workspace = true }
+async-graphql = { workspace = true }
+async-graphql-actix-web = { workspace = true }
