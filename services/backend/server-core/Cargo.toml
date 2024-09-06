@@ -5,6 +5,7 @@ edition = "2021"
 default-run = "server-core"
 
 [dependencies]
+entity = { path = "./entity" }
 shared = { path = "../shared" }
 actix-web = { workspace = true }
 futures = { workspace = true }

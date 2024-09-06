@@ -941,6 +941,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "entity"
+version = "0.1.0"
+dependencies = [
+ "sea-orm",
+]
+
+[[package]]
 name = "enum-ordinalize"
 version = "4.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2361,6 +2368,7 @@ dependencies = [
  "async-graphql",
  "async-graphql-actix-web",
  "dotenvy",
+ "entity",
  "futures",
  "sea-orm",
  "shared",
