@@ -346,6 +346,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "application"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "async-graphql",
+ "async-graphql-actix-web",
+ "domain",
+ "dotenvy",
+ "futures",
+ "sea-orm",
+ "shared",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "arrayvec"
 version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -905,6 +921,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "domain"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "async-graphql",
+ "async-graphql-actix-web",
+ "dotenvy",
+ "futures",
+ "sea-orm",
+ "shared",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "dotenvy"
 version = "0.15.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -938,13 +969,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b45de904aa0b010bce2ab45264d0631681847fa7b6f2eaa7dab7619943bc4f59"
 dependencies = [
  "cfg-if",
-]
-
-[[package]]
-name = "entities"
-version = "0.1.0"
-dependencies = [
- "sea-orm",
 ]
 
 [[package]]
@@ -1212,13 +1236,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "40ecd4077b5ae9fd2e9e169b102c6c330d0605168eb0e8bf79952b256dbefffd"
 
 [[package]]
-name = "graphql"
-version = "0.1.0"
-dependencies = [
- "entities",
-]
-
-[[package]]
 name = "h2"
 version = "0.3.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1421,6 +1438,23 @@ dependencies = [
  "equivalent",
  "hashbrown 0.14.5",
  "serde",
+]
+
+[[package]]
+name = "infrastracture"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "application",
+ "async-graphql",
+ "async-graphql-actix-web",
+ "domain",
+ "dotenvy",
+ "futures",
+ "sea-orm",
+ "shared",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
@@ -1898,6 +1932,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "presentation"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "application",
+ "async-graphql",
+ "async-graphql-actix-web",
+ "domain",
+ "dotenvy",
+ "futures",
+ "sea-orm",
+ "shared",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "proc-macro-crate"
 version = "3.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2372,12 +2423,14 @@ name = "server-core"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "application",
  "async-graphql",
  "async-graphql-actix-web",
+ "domain",
  "dotenvy",
- "entities",
  "futures",
- "graphql",
+ "infrastracture",
+ "presentation",
  "sea-orm",
  "shared",
  "tracing",
