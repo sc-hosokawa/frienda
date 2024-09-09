@@ -1,1 +1,24 @@
-
+pub mod artists;
+pub mod comments;
+pub mod favorites;
+pub mod indicators;
+pub mod maps;
+pub mod message_room;
+pub mod messages;
+pub mod news;
+pub mod notifications;
+pub mod offers;
+pub mod plays_daily;
+pub mod plays_monthly;
+pub mod plays_yearly;
+pub mod product_track;
+pub mod products;
+pub mod quests;
+pub mod raids;
+pub mod rooms;
+pub mod short_notes;
+pub mod tracks;
+pub mod txs_credential;
+pub mod txs_fsp;
+pub mod user_artist;
+pub mod users;
