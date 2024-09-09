@@ -4,8 +4,8 @@
 setup-gql: copy-schema .WAIT gql-webui gql-mobile
 
 copy-schema:
-	cp services/backend/schema.graphql services/webui/
-	cp services/backend/schema.graphql services/mobile/
+	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/webui/
+	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/
 
 gql-webui:
 	cd services/webui && pnpm gql-codegen
@@ -15,11 +15,11 @@ gql-mobile:
 
 # Backend
 api-dev:
-	docker compose up
+	docker compose up -d && \
 	cd services/backend/server-core && cargo watch -x run
 
 api:
-	docker compose up -d
+	docker compose up -d && \
 	cd services/backend/server-core && cargo run
 
 # WebUI
