@@ -1,5 +1,3 @@
--- Create tables
-
 CREATE TYPE "offer_status" AS ENUM (
   'ongoing',
   'suspend',
@@ -47,7 +45,8 @@ CREATE TABLE "maps" (
   "following_user_id" uuid,
   "followed_user_id" uuid,
   "status" bool,
-  "created_at" timestamp
+  "created_at" timestamp,
+  PRIMARY KEY ("followed_user_id", "following_user_id")
 );
 
 CREATE TABLE "txs_fsp" (
@@ -158,7 +157,8 @@ CREATE TABLE "artists" (
 
 CREATE TABLE "user_artist" (
   "user_id" uuid,
-  "artist_id" uuid
+  "artist_id" uuid,
+  PRIMARY KEY ("user_id", "artist_id")
 );
 
 CREATE TABLE "products" (
@@ -172,7 +172,8 @@ CREATE TABLE "tracks" (
 
 CREATE TABLE "product_track" (
   "upc" varchar,
-  "isrc" varchar
+  "isrc" varchar,
+  PRIMARY KEY ("upc", "isrc")
 );
 
 CREATE TABLE "plays_daily" (
@@ -183,7 +184,8 @@ CREATE TABLE "plays_daily" (
   "line" int,
   "amazon" int,
   "youtube" int,
-  "sum" int
+  "sum" int,
+  PRIMARY KEY ("isrc", "date")
 );
 
 CREATE TABLE "plays_monthly" (
@@ -194,10 +196,11 @@ CREATE TABLE "plays_monthly" (
   "line" int,
   "amazon" int,
   "youtube" int,
-  "sum" int
+  "sum" int,
+  PRIMARY KEY ("isrc", "month")
 );
 
-CREATE TABLE "plays_yeary" (
+CREATE TABLE "plays_yearly" (
   "isrc" varchar,
   "year" varchar,
   "spotify" int,
@@ -205,7 +208,8 @@ CREATE TABLE "plays_yeary" (
   "line" int,
   "amazon" int,
   "youtube" int,
-  "sum" int
+  "sum" int,
+  PRIMARY KEY ("isrc", "year")
 );
 
 CREATE TABLE "indicators" (
@@ -231,6 +235,10 @@ CREATE TABLE "room_user" (
   "room_id" uuid,
   "user_id" uuid
 );
+
+CREATE INDEX ON "users" ("id");
+
+CREATE INDEX ON "artists" ("id");
 
 COMMENT ON COLUMN "news"."body" IS 'Content of the post';
 
@@ -260,7 +268,7 @@ ALTER TABLE "plays_daily" ADD FOREIGN KEY ("isrc") REFERENCES "tracks" ("isrc");
 
 ALTER TABLE "plays_monthly" ADD FOREIGN KEY ("isrc") REFERENCES "tracks" ("isrc");
 
-ALTER TABLE "plays_yeary" ADD FOREIGN KEY ("isrc") REFERENCES "tracks" ("isrc");
+ALTER TABLE "plays_yearly" ADD FOREIGN KEY ("isrc") REFERENCES "tracks" ("isrc");
 
 ALTER TABLE "messages" ADD FOREIGN KEY ("room_id") REFERENCES "rooms" ("id");
 
