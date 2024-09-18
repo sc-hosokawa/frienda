@@ -25,6 +25,8 @@ update-entities:
 update-models:
 	cd services/backend/server-core && \
 	cargo run --bin generate-models
+	cd services/backend && \
+	cargo fmt
 
 api-dev:
 	docker compose up -d --build && \
