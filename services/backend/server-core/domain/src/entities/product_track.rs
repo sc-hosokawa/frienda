@@ -18,7 +18,7 @@ pub enum Relation {
         from = "Column::Upc",
         to = "super::products::Column::Upc",
         on_update = "NoAction",
-        on_delete = "Cascade"
+        on_delete = "NoAction"
     )]
     Products,
     #[sea_orm(
@@ -26,7 +26,7 @@ pub enum Relation {
         from = "Column::Isrc",
         to = "super::tracks::Column::Isrc",
         on_update = "NoAction",
-        on_delete = "Cascade"
+        on_delete = "NoAction"
     )]
     Tracks,
 }

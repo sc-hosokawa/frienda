@@ -7,10 +7,10 @@ use sea_orm::entity::prelude::*;
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
-    pub from: Uuid,
-    pub to: Uuid,
-    pub amount: i64,
-    pub tx_at: DateTime,
+    pub from: Option<Uuid>,
+    pub to: Option<Uuid>,
+    pub amount: Option<i32>,
+    pub tx_at: Option<DateTime>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -20,7 +20,7 @@ pub enum Relation {
         from = "Column::From",
         to = "super::users::Column::Id",
         on_update = "NoAction",
-        on_delete = "Cascade"
+        on_delete = "NoAction"
     )]
     Users2,
     #[sea_orm(
@@ -28,7 +28,7 @@ pub enum Relation {
         from = "Column::To",
         to = "super::users::Column::Id",
         on_update = "NoAction",
-        on_delete = "Cascade"
+        on_delete = "NoAction"
     )]
     Users1,
 }

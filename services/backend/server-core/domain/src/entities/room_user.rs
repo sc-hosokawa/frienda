@@ -3,34 +3,44 @@
 use sea_orm::entity::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
-#[sea_orm(table_name = "maps")]
+#[sea_orm(table_name = "room_user")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
-    pub following_user_id: Uuid,
-    #[sea_orm(primary_key, auto_increment = false)]
-    pub followed_user_id: Uuid,
-    pub status: Option<bool>,
-    pub created_at: Option<DateTime>,
+    pub id: Uuid,
+    pub room_id: Option<Uuid>,
+    pub user_id: Option<Uuid>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
     #[sea_orm(
-        belongs_to = "super::users::Entity",
-        from = "Column::FollowedUserId",
-        to = "super::users::Column::Id",
+        belongs_to = "super::rooms::Entity",
+        from = "Column::RoomId",
+        to = "super::rooms::Column::Id",
         on_update = "NoAction",
         on_delete = "NoAction"
     )]
-    Users2,
+    Rooms,
     #[sea_orm(
         belongs_to = "super::users::Entity",
-        from = "Column::FollowingUserId",
+        from = "Column::UserId",
         to = "super::users::Column::Id",
         on_update = "NoAction",
         on_delete = "NoAction"
     )]
-    Users1,
+    Users,
+}
+
+impl Related<super::rooms::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Rooms.def()
+    }
+}
+
+impl Related<super::users::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Users.def()
+    }
 }
 
 impl ActiveModelBehavior for ActiveModel {}

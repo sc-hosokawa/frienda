@@ -13,13 +13,25 @@ gql-webui:
 gql-mobile:
 	cd services/mobile && flutter pub run build_runner build --delete-conflicting-outputs 
 
+# Postgres
+run-pg:
+	docker compose up -d --build
+
 # Backend
+update-entities:
+	cd services/backend/server-core && \
+	sea-orm-cli generate entity -u postgres://postgres:postgres@localhost:5432/postgres -o domain/src/entities
+
+update-models:
+	cd services/backend/server-core && \
+	cargo run --bin generate-models
+
 api-dev:
-	docker compose up -d && \
+	docker compose up -d --build && \
 	cd services/backend/server-core && cargo watch -x run
 
 api:
-	docker compose up -d && \
+	docker compose up -d --build && \
 	cd services/backend/server-core && cargo run
 
 # WebUI

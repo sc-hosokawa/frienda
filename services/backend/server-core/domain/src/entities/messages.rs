@@ -7,24 +7,21 @@ use sea_orm::entity::prelude::*;
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
-    pub room_id: Uuid,
-    pub send_by: Uuid,
-    pub recipient: Uuid,
-    #[sea_orm(column_type = "Text")]
-    pub message: String,
-    pub created_at: DateTime,
+    pub room_id: Option<Uuid>,
+    pub send_by: Option<Uuid>,
+    pub recipient: Option<Uuid>,
+    pub message: Option<String>,
+    pub created_at: Option<DateTime>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::message_room::Entity")]
-    MessageRoom,
     #[sea_orm(
         belongs_to = "super::rooms::Entity",
         from = "Column::RoomId",
         to = "super::rooms::Column::Id",
         on_update = "NoAction",
-        on_delete = "Cascade"
+        on_delete = "NoAction"
     )]
     Rooms,
     #[sea_orm(
@@ -32,7 +29,7 @@ pub enum Relation {
         from = "Column::Recipient",
         to = "super::users::Column::Id",
         on_update = "NoAction",
-        on_delete = "Cascade"
+        on_delete = "NoAction"
     )]
     Users2,
     #[sea_orm(
@@ -40,23 +37,14 @@ pub enum Relation {
         from = "Column::SendBy",
         to = "super::users::Column::Id",
         on_update = "NoAction",
-        on_delete = "Cascade"
+        on_delete = "NoAction"
     )]
     Users1,
 }
 
-impl Related<super::message_room::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::MessageRoom.def()
-    }
-}
-
 impl Related<super::rooms::Entity> for Entity {
     fn to() -> RelationDef {
-        super::message_room::Relation::Rooms.def()
-    }
-    fn via() -> Option<RelationDef> {
-        Some(super::message_room::Relation::Messages.def().rev())
+        Relation::Rooms.def()
     }
 }
 

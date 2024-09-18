@@ -11,24 +11,21 @@ pub struct Model {
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::message_room::Entity")]
-    MessageRoom,
     #[sea_orm(has_many = "super::messages::Entity")]
     Messages,
-}
-
-impl Related<super::message_room::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::MessageRoom.def()
-    }
+    #[sea_orm(has_many = "super::room_user::Entity")]
+    RoomUser,
 }
 
 impl Related<super::messages::Entity> for Entity {
     fn to() -> RelationDef {
-        super::message_room::Relation::Messages.def()
+        Relation::Messages.def()
     }
-    fn via() -> Option<RelationDef> {
-        Some(super::message_room::Relation::Rooms.def().rev())
+}
+
+impl Related<super::room_user::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::RoomUser.def()
     }
 }
 

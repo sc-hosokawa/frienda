@@ -3,14 +3,24 @@
 use sea_orm::entity::prelude::*;
 
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
-#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "offer_status")]
-pub enum OfferStatus {
-    #[sea_orm(string_value = "finished")]
-    Finished,
-    #[sea_orm(string_value = "ongoing")]
-    Ongoing,
-    #[sea_orm(string_value = "suspend")]
-    Suspend,
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "artist_status")]
+pub enum ArtistStatus {
+    #[sea_orm(string_value = "hidden")]
+    Hidden,
+    #[sea_orm(string_value = "unknown")]
+    Unknown,
+    #[sea_orm(string_value = "visible")]
+    Visible,
+}
+#[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "purchase_status")]
+pub enum PurchaseStatus {
+    #[sea_orm(string_value = "fail")]
+    Fail,
+    #[sea_orm(string_value = "pending")]
+    Pending,
+    #[sea_orm(string_value = "success")]
+    Success,
 }
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_role")]

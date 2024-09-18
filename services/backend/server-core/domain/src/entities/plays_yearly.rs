@@ -8,13 +8,13 @@ pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub isrc: String,
     #[sea_orm(primary_key, auto_increment = false)]
-    pub date: Date,
-    pub spotify: i32,
-    pub apple: i32,
-    pub line: i32,
-    pub amazon: i32,
-    pub youtube: i32,
-    pub sum: i32,
+    pub year: String,
+    pub spotify: Option<i32>,
+    pub apple: Option<i32>,
+    pub line: Option<i32>,
+    pub amazon: Option<i32>,
+    pub youtube: Option<i32>,
+    pub sum: Option<i32>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -24,7 +24,7 @@ pub enum Relation {
         from = "Column::Isrc",
         to = "super::tracks::Column::Isrc",
         on_update = "NoAction",
-        on_delete = "Cascade"
+        on_delete = "NoAction"
     )]
     Tracks,
 }

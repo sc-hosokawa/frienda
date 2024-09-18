@@ -10,11 +10,14 @@ pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
     pub username: String,
-    pub role: UserRole,
+    pub role: Option<UserRole>,
     pub evm_addr: Option<String>,
-    pub status: UserStatus,
+    pub status: Option<UserStatus>,
     pub invited_by: Option<Uuid>,
-    pub created_at: DateTime,
+    pub fsp: Option<i32>,
+    pub credential: Option<i32>,
+    pub update_at: Option<DateTime>,
+    pub created_at: Option<DateTime>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -23,14 +26,14 @@ pub enum Relation {
     Comments,
     #[sea_orm(has_many = "super::news::Entity")]
     News,
-    #[sea_orm(has_many = "super::notifications::Entity")]
-    Notifications,
     #[sea_orm(has_many = "super::offers::Entity")]
     Offers,
+    #[sea_orm(has_many = "super::purchase_history::Entity")]
+    PurchaseHistory,
     #[sea_orm(has_many = "super::raids::Entity")]
     Raids,
-    #[sea_orm(has_many = "super::txs_credential::Entity")]
-    TxsCredential,
+    #[sea_orm(has_many = "super::room_user::Entity")]
+    RoomUser,
     #[sea_orm(has_many = "super::user_artist::Entity")]
     UserArtist,
 }
@@ -47,15 +50,15 @@ impl Related<super::news::Entity> for Entity {
     }
 }
 
-impl Related<super::notifications::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Notifications.def()
-    }
-}
-
 impl Related<super::offers::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::Offers.def()
+    }
+}
+
+impl Related<super::purchase_history::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::PurchaseHistory.def()
     }
 }
 
@@ -65,9 +68,9 @@ impl Related<super::raids::Entity> for Entity {
     }
 }
 
-impl Related<super::txs_credential::Entity> for Entity {
+impl Related<super::room_user::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::TxsCredential.def()
+        Relation::RoomUser.def()
     }
 }
 
