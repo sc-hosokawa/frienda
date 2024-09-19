@@ -1,4 +1,4 @@
-.PHONY: setup-gql gql-webui gql-mobile api-dev api webui-client-dev webui-admin-dev mobile-dev
+.PHONY: setup-gql gql-webui gql-mobile api-dev api webui-client-dev webui-admin-dev mobile-dev update-entities update-models run-pg down-pg stop-pg
 
 # GraphQL Schema
 setup-gql: copy-schema .WAIT gql-webui gql-mobile
@@ -16,6 +16,12 @@ gql-mobile:
 # Postgres
 run-pg:
 	docker compose up -d --build
+
+down-pg:
+	docker compose down
+
+stop-pg:
+	docker compose stop
 
 # Backend
 update-entities:
