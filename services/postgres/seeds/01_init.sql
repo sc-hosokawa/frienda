@@ -25,13 +25,17 @@ DROP TABLE IF EXISTS indicators;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS rooms;
 DROP TABLE IF EXISTS room_user;
+DROP TABLE IF EXISTS exchange_prize_history;
+DROP TABLE IF EXISTS prizes;
 
 -- Drop existing types
 DROP TYPE IF EXISTS offer_status;
 DROP TYPE IF EXISTS user_status;
 DROP TYPE IF EXISTS user_role;
+DROP TYPE IF EXISTS user_category;
 DROP TYPE IF EXISTS artist_status;
 DROP TYPE IF EXISTS purchase_status;
+DROP TYPE IF EXISTS offer_category;
 
 -- Install extensions
 CREATE EXTENSION IF NOT EXISTS "ulid";
