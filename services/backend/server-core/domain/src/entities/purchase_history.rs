@@ -9,13 +9,11 @@ pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub purchase_id: Uuid,
     pub event_id: Option<i32>,
-    pub user_id: Option<Uuid>,
-    pub product_id: Option<String>,
-    pub amount: Option<i32>,
-    pub currency: Option<i32>,
+    pub user_id: Uuid,
+    pub amount: i32,
     pub payment_method: Option<String>,
     pub status: Option<PurchaseStatus>,
-    pub timestamp: Option<DateTime>,
+    pub timestamp: DateTime,
     pub stripe_payment_intent_id: Option<String>,
 }
 

@@ -12,7 +12,8 @@ pub struct Model {
     pub body: Option<String>,
     pub user_id: Option<Uuid>,
     pub category: Option<String>,
-    pub created_at: Option<DateTime>,
+    pub created_at: DateTime,
+    pub content: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

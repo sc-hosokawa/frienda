@@ -10,7 +10,8 @@ pub struct Model {
     pub user_id: Option<Uuid>,
     #[sea_orm(column_type = "custom(\"ulid\")", nullable)]
     pub offer_id: Option<String>,
-    pub created_at: Option<DateTime>,
+    pub created_at: DateTime,
+    pub content: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

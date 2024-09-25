@@ -11,7 +11,7 @@ pub struct Model {
     pub send_by: Option<Uuid>,
     pub recipient: Option<Uuid>,
     pub message: Option<String>,
-    pub created_at: Option<DateTime>,
+    pub created_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

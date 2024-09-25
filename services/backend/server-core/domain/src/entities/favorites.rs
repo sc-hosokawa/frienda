@@ -9,6 +9,7 @@ pub struct Model {
     pub id: Uuid,
     pub user_id: Option<Uuid>,
     pub liked_by: Option<Uuid>,
+    pub created_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

@@ -9,6 +9,7 @@ pub struct Model {
     pub id: i32,
     pub title: Option<String>,
     pub content: Option<String>,
+    pub created_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

@@ -2,6 +2,7 @@
 
 pub use super::artists::Entity as Artists;
 pub use super::comments::Entity as Comments;
+pub use super::exchange_prize_history::Entity as ExchangePrizeHistory;
 pub use super::favorites::Entity as Favorites;
 pub use super::indicators::Entity as Indicators;
 pub use super::maps::Entity as Maps;
@@ -12,6 +13,7 @@ pub use super::offers::Entity as Offers;
 pub use super::plays_daily::Entity as PlaysDaily;
 pub use super::plays_monthly::Entity as PlaysMonthly;
 pub use super::plays_yearly::Entity as PlaysYearly;
+pub use super::prizes::Entity as Prizes;
 pub use super::product_track::Entity as ProductTrack;
 pub use super::products::Entity as Products;
 pub use super::purchase_history::Entity as PurchaseHistory;

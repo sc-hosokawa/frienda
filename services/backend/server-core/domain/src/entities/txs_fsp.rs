@@ -8,9 +8,9 @@ pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
     pub from: Option<Uuid>,
-    pub to: Option<Uuid>,
-    pub amount: Option<i32>,
-    pub tx_at: Option<DateTime>,
+    pub to: Uuid,
+    pub amount: i32,
+    pub tx_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

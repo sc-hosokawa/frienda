@@ -8,7 +8,7 @@ pub struct Model {
     #[sea_orm(primary_key)]
     pub event_id: i32,
     pub payload: Option<Json>,
-    pub timestamp: Option<DateTime>,
+    pub timestamp: DateTime,
     pub processed: Option<bool>,
 }
 

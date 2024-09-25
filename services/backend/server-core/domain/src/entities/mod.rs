@@ -4,6 +4,7 @@ pub mod prelude;
 
 pub mod artists;
 pub mod comments;
+pub mod exchange_prize_history;
 pub mod favorites;
 pub mod indicators;
 pub mod maps;
@@ -14,6 +15,7 @@ pub mod offers;
 pub mod plays_daily;
 pub mod plays_monthly;
 pub mod plays_yearly;
+pub mod prizes;
 pub mod product_track;
 pub mod products;
 pub mod purchase_history;

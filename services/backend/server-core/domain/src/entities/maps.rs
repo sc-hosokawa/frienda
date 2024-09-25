@@ -9,8 +9,7 @@ pub struct Model {
     pub following_user_id: Uuid,
     #[sea_orm(primary_key, auto_increment = false)]
     pub followed_user_id: Uuid,
-    pub status: Option<bool>,
-    pub created_at: Option<DateTime>,
+    pub created_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

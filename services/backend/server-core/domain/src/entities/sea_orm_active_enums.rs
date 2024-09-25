@@ -13,6 +13,18 @@ pub enum ArtistStatus {
     Visible,
 }
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "offer_category")]
+pub enum OfferCategory {
+    #[sea_orm(string_value = "creation")]
+    Creation,
+    #[sea_orm(string_value = "event")]
+    Event,
+    #[sea_orm(string_value = "other")]
+    Other,
+    #[sea_orm(string_value = "promotion")]
+    Promotion,
+}
+#[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "purchase_status")]
 pub enum PurchaseStatus {
     #[sea_orm(string_value = "fail")]
@@ -23,14 +35,16 @@ pub enum PurchaseStatus {
     Success,
 }
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
-#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_role")]
-pub enum UserRole {
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_category")]
+pub enum UserCategory {
+    #[sea_orm(string_value = "creater")]
+    Creater,
     #[sea_orm(string_value = "curator")]
     Curator,
     #[sea_orm(string_value = "musician")]
     Musician,
-    #[sea_orm(string_value = "other")]
-    Other,
+    #[sea_orm(string_value = "supporter")]
+    Supporter,
 }
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_status")]
