@@ -12,3 +12,4 @@ tracing-subscriber = { workspace = true }
 tracing = { workspace = true }
 async-graphql = { workspace = true }
 async-graphql-actix-web = { workspace = true }
+thiserror = { workspace = true }
