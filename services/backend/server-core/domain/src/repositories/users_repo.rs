@@ -1,5 +1,5 @@
 use crate::entities::sea_orm_active_enums::{UserCategory, UserStatus};
-use crate::entities::users::Entity as User;
+use crate::entities::users::Model as User;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 use uuid::Uuid;

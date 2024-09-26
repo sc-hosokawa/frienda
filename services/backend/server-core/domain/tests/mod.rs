@@ -8,3 +8,6 @@ mod tests {
         assert_eq!(target, "Domain");
     }
 }
+
+mod entities;
+mod repositories;

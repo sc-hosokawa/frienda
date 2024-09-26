@@ -1,7 +1,7 @@
-use domain::entities::users::Model as User;
-use domain::entities::sea_orm_active_enums::{UserCategory, UserStatus};
-use uuid::Uuid;
 use chrono::Utc;
+use domain::entities::sea_orm_active_enums::{UserCategory, UserStatus};
+use domain::entities::users::Model as User;
+use uuid::Uuid;
 
 #[test]
 fn test_user_entity() {
@@ -10,7 +10,7 @@ fn test_user_entity() {
     let now: chrono::NaiveDateTime = Utc::now().naive_utc();
 
     // ユーザーの作成
-    let user: User = User {
+    let user = User {
         id,
         username: username.clone(),
         evm_addr: None,
@@ -20,7 +20,7 @@ fn test_user_entity() {
         credential: 0,
         category: UserCategory::Musician,
         created_at: now,
-        updated_at: now
+        updated_at: now,
     };
 
     // 属性の確認
