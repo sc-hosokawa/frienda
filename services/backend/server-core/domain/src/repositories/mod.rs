@@ -1,1 +1,11 @@
+pub mod exchange_prize_history_repo;
+pub mod maps_repo;
+pub mod offers_repo;
+pub mod prizes_repo;
+pub mod purchase_history_repo;
+pub mod quests_repo;
+pub mod raids_repo;
+pub mod txs_fsp_repo;
 pub mod users_repo;
+pub mod webhook_clerk_repo;
+pub mod webhook_stripe_repo;

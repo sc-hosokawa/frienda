@@ -1,0 +1,21 @@
+use crate::entities::sea_orm_active_enums::{UserCategory, UserStatus};
+use crate::entities::users::Entity as User;
+use async_trait::async_trait;
+use shared::error::domain_err::DomainError;
+use uuid::Uuid;
+
+#[async_trait]
+pub trait UsersRepository {
+    async fn find_by_id(&self, id: Uuid) -> Result<Option<User>, DomainError>;
+    async fn find_by_email(&self, email: &str) -> Result<Option<User>, DomainError>;
+    async fn create(&self, user: &User) -> Result<User, DomainError>;
+    async fn update(&self, user: &User) -> Result<User, DomainError>;
+    async fn delete(&self, id: Uuid) -> Result<(), DomainError>;
+    async fn list(&self, limit: usize, offset: usize) -> Result<Vec<User>, DomainError>;
+    async fn find_by_username(&self, username: &str) -> Result<Option<User>, DomainError>;
+    async fn find_by_evm_addr(&self, evm_addr: &str) -> Result<Option<User>, DomainError>;
+    async fn find_by_invited_by(&self, invited_by: Uuid) -> Result<Vec<User>, DomainError>;
+    async fn update_status(&self, id: Uuid, status: UserStatus) -> Result<User, DomainError>;
+    async fn find_by_category(&self, category: UserCategory) -> Result<Vec<User>, DomainError>;
+    async fn count(&self) -> Result<i64, DomainError>;
+}
