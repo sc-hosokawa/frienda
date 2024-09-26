@@ -15,3 +15,8 @@ async-graphql = { workspace = true }
 async-graphql-actix-web = { workspace = true }
 async-trait = { workspace = true }
 uuid = { workspace = true }
+
+[dev-dependencies]
+chrono = "0.4.38"
+mockall = "0.13.0"
+tokio = { version = "1.40.0", features = ["macros"] }
