@@ -55,6 +55,7 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "maps" (
+  "id" ulid NOT NULL DEFAULT (gen_ulid()),
   "following_user_id" uuid NOT NULL,
   "followed_user_id" uuid NOT NULL,
   "created_at" timestamp NOT NULL DEFAULT (now()),
@@ -280,6 +281,8 @@ CREATE TABLE "room_user" (
 );
 
 CREATE INDEX ON "users" ("evm_addr");
+
+CREATE INDEX ON "maps" ("id");
 
 CREATE INDEX ON "txs_fsp" ("from");
 
