@@ -9,7 +9,7 @@ pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
     pub name: String,
-    pub since: Option<DateTime>,
+    pub since: Option<Date>,
     pub universal_id: Option<String>,
     pub apple_key: Option<String>,
     pub spotify_key: Option<String>,
@@ -17,7 +17,7 @@ pub struct Model {
     pub amazon_key: Option<String>,
     pub youtube_key: Option<String>,
     pub image: Option<String>,
-    pub fsp: Option<i32>,
+    pub fsp: i32,
     pub status: Option<ArtistStatus>,
 }
 

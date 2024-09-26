@@ -7,13 +7,12 @@ use sea_orm::entity::prelude::*;
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false, column_type = "custom(\"ulid\")")]
     pub id: String,
-    pub title: Option<String>,
-    #[sea_orm(column_type = "Text", nullable)]
-    pub body: Option<String>,
+    pub title: String,
+    #[sea_orm(column_type = "Text")]
+    pub contents: String,
     pub user_id: Option<Uuid>,
     pub category: Option<String>,
     pub created_at: DateTime,
-    pub content: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

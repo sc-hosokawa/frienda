@@ -9,11 +9,11 @@ pub struct Model {
     pub isrc: String,
     #[sea_orm(primary_key, auto_increment = false)]
     pub year: String,
-    pub spotify: Option<i32>,
-    pub apple: Option<i32>,
-    pub line: Option<i32>,
-    pub amazon: Option<i32>,
-    pub youtube: Option<i32>,
+    pub spotify: i32,
+    pub apple: i32,
+    pub line: i32,
+    pub amazon: i32,
+    pub youtube: i32,
     pub sum: Option<i32>,
 }
 
