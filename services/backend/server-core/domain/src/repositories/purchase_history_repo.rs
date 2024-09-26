@@ -1,4 +1,4 @@
-use crate::entities::purchase_history::Entity as PurchaseHistory;
+use crate::entities::purchase_history::Model as PurchaseHistory;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 use uuid::Uuid;

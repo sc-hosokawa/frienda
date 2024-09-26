@@ -1,4 +1,4 @@
-use crate::entities::webhook_clerk::Entity as WebhookClerk;
+use crate::entities::webhook_clerk::Model as WebhookClerk;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 

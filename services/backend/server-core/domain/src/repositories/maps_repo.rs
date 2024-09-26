@@ -1,4 +1,4 @@
-use crate::entities::maps::Entity as Map;
+use crate::entities::maps::Model as Map;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 

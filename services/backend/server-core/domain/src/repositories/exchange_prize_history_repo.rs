@@ -1,4 +1,4 @@
-use crate::entities::exchange_prize_history::Entity as ExchangePrizeHistory;
+use crate::entities::exchange_prize_history::Model as ExchangePrizeHistory;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 

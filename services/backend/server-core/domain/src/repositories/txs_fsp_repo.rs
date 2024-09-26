@@ -1,4 +1,4 @@
-use crate::entities::txs_fsp::Entity as TxsFsp;
+use crate::entities::txs_fsp::Model as TxsFsp;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 

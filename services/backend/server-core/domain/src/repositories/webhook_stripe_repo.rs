@@ -1,4 +1,4 @@
-use crate::entities::webhook_stripe::Entity as WebhookStripe;
+use crate::entities::webhook_stripe::Model as WebhookStripe;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 

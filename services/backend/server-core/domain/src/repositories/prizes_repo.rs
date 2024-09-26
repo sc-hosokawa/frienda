@@ -1,4 +1,4 @@
-use crate::entities::prizes::Entity as Prize;
+use crate::entities::prizes::Model as Prize;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 

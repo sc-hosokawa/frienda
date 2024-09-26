@@ -1,4 +1,4 @@
-use crate::entities::raids::Entity as Raid;
+use crate::entities::raids::Model as Raid;
 use crate::entities::sea_orm_active_enums::OfferCategory;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;

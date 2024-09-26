@@ -1,4 +1,4 @@
-use crate::entities::offers::Entity as Offer;
+use crate::entities::offers::Model as Offer;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 

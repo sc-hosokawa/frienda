@@ -1,4 +1,4 @@
-use crate::entities::quests::Entity as Quest;
+use crate::entities::quests::Model as Quest;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
