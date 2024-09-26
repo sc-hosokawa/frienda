@@ -13,8 +13,8 @@ sea-orm = { version = "1.0.1", features = ["sqlx-postgres", "runtime-tokio-rustl
 dotenvy = "0.15.7"
 tracing-subscriber = "0.3.18"
 tracing = "0.1.40"
-async-graphql = "7.0.9"
-async-graphql-actix-web = "7.0.9"
+async-graphql = "7.0.10"
+async-graphql-actix-web = "7.0.10"
 async-trait = "0.1.83"
-uuid = "1.10.0"
+uuid = { version = "1.10.0", features = ["v4"] }
 thiserror = "1.0.64"
