@@ -1,9 +1,10 @@
 use async_trait::async_trait;
 use chrono::Utc;
 use domain::entities::sea_orm_active_enums::{UserCategory, UserStatus};
-use domain::entities::users::Model as User;
+use domain::entities::users::{ActiveModel as ActiveUser, Model as User};
 use domain::repositories::users_repo::UsersRepository;
 use mockall::mock;
+use sea_orm::Set;
 use shared::error::domain_err::DomainError;
 use uuid::Uuid;
 
@@ -14,8 +15,8 @@ mock! {
     impl UsersRepository for UsersRepository {
         async fn find_by_id(&self, id: Uuid) -> Result<Option<User>, DomainError>;
         async fn find_by_email(&self, email: &str) -> Result<Option<User>, DomainError>;
-        async fn create(&self, user: &User) -> Result<User, DomainError>;
-        async fn update(&self, user: &User) -> Result<User, DomainError>;
+        async fn create(&self, user: &ActiveUser) -> Result<User, DomainError>;
+        async fn update(&self, user: &ActiveUser) -> Result<User, DomainError>;
         async fn delete(&self, id: Uuid) -> Result<(), DomainError>;
         async fn list(&self, limit: usize, offset: usize) -> Result<Vec<User>, DomainError>;
         async fn find_by_username(&self, username: &str) -> Result<Option<User>, DomainError>;
@@ -50,24 +51,43 @@ fn create_test_user(
 
 #[tokio::test]
 async fn test_user_repository_create() {
-    let user = create_test_user(
-        Uuid::new_v4(),
-        Some("0x1234567890123456789012345678901234567890".to_string()),
-        UserStatus::Joined,
-        None,
-        UserCategory::Musician,
-    );
+    let new_user = ActiveUser {
+        username: Set("Alice".to_owned()),
+        evm_addr: Set(None),
+        status: Set(Some(UserStatus::Invited)),
+        invited_by: Set(None),
+        category: Set(UserCategory::Musician),
+        ..Default::default()
+    };
+
     let mut mock_repository = MockUsersRepository::new();
 
-    let expected_user = user.clone();
+    let expected_user = User {
+        id: Uuid::new_v4(), // 新しいUUIDを生成
+        username: "Alice".to_owned(),
+        evm_addr: None,
+        status: Some(UserStatus::Invited),
+        invited_by: None,
+        category: UserCategory::Musician,
+        fsp: 0,
+        credential: 0,
+        created_at: Utc::now().naive_utc(),
+        updated_at: Utc::now().naive_utc(),
+    };
+
     mock_repository
         .expect_create()
-        .with(mockall::predicate::eq(user.clone()))
+        .with(mockall::predicate::eq(new_user.clone()))
         .times(1)
         .returning(move |_| Ok(expected_user.clone()));
 
-    let created_user = mock_repository.create(&user).await.unwrap();
-    assert_eq!(created_user, user);
+    let created_user = mock_repository.create(&new_user).await.unwrap();
+
+    assert_eq!(created_user.username, "Alice");
+    assert_eq!(created_user.evm_addr, None);
+    assert_eq!(created_user.status, Some(UserStatus::Invited));
+    assert_eq!(created_user.invited_by, None);
+    assert_eq!(created_user.category, UserCategory::Musician);
 }
 
 #[tokio::test]

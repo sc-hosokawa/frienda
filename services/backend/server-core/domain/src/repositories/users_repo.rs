@@ -1,5 +1,5 @@
 use crate::entities::sea_orm_active_enums::{UserCategory, UserStatus};
-use crate::entities::users::Model as User;
+use crate::entities::users::{ActiveModel as ActiveUser, Model as User};
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 use uuid::Uuid;
@@ -8,8 +8,8 @@ use uuid::Uuid;
 pub trait UsersRepository {
     async fn find_by_id(&self, id: Uuid) -> Result<Option<User>, DomainError>;
     async fn find_by_email(&self, email: &str) -> Result<Option<User>, DomainError>;
-    async fn create(&self, user: &User) -> Result<User, DomainError>;
-    async fn update(&self, user: &User) -> Result<User, DomainError>;
+    async fn create(&self, user: &ActiveUser) -> Result<User, DomainError>;
+    async fn update(&self, user: &ActiveUser) -> Result<User, DomainError>;
     async fn delete(&self, id: Uuid) -> Result<(), DomainError>;
     async fn list(&self, limit: usize, offset: usize) -> Result<Vec<User>, DomainError>;
     async fn find_by_username(&self, username: &str) -> Result<Option<User>, DomainError>;
