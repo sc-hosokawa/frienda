@@ -16,8 +16,6 @@ struct StripeEventData {
 }
 
 pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
-    const MAX_BODY_BYTES: usize = 65536;
-
     let body = match payload.next().await {
         Some(Ok(bytes)) => match String::from_utf8(bytes.to_vec()) {
             Ok(string) => string,
