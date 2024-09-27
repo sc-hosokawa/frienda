@@ -63,7 +63,7 @@ async fn test_user_repository_create() {
     let mut mock_repository = MockUsersRepository::new();
 
     let expected_user = User {
-        id: Uuid::new_v4(), // 新しいUUIDを生成
+        id: Uuid::new_v4(),
         username: "Alice".to_owned(),
         evm_addr: None,
         status: Some(UserStatus::Invited),
@@ -88,6 +88,8 @@ async fn test_user_repository_create() {
     assert_eq!(created_user.status, Some(UserStatus::Invited));
     assert_eq!(created_user.invited_by, None);
     assert_eq!(created_user.category, UserCategory::Musician);
+    assert_eq!(created_user.fsp, 0);
+    assert_eq!(created_user.credential, 0);
 }
 
 #[tokio::test]
