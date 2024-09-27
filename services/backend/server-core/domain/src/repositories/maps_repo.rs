@@ -1,11 +1,12 @@
-use crate::entities::maps::Model as Map;
+use crate::entities::maps::{ActiveModel as MapActiveModel, Model as Map};
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
 #[async_trait]
 pub trait MapsRepository {
-    async fn create(&self, map: Map) -> Result<Map, DomainError>;
-    async fn update(&self, map: Map) -> Result<Map, DomainError>;
+    async fn create(&self, map: &MapActiveModel) -> Result<Map, DomainError>;
+    async fn update(&self, map: &MapActiveModel) -> Result<Map, DomainError>;
+
     async fn delete(&self, id: &str) -> Result<(), DomainError>;
     async fn get_by_id(&self, id: &str) -> Result<Option<Map>, DomainError>;
     async fn get_by_following_user_id(&self, user_id: &str) -> Result<Vec<Map>, DomainError>;

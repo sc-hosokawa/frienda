@@ -8,14 +8,15 @@ use shared::error::domain_err::DomainError;
 pub trait WebhookStripeRepository {
     async fn create(
         &self,
-        webhook_stripe: WebhookStripeActiveModel,
+        webhook_stripe: &WebhookStripeActiveModel,
     ) -> Result<WebhookStripe, DomainError>;
-    async fn find_by_id(&self, id: i32) -> Result<Option<WebhookStripe>, DomainError>;
-    async fn find_all(&self) -> Result<Vec<WebhookStripe>, DomainError>;
     async fn update(
         &self,
-        webhook_stripe: WebhookStripeActiveModel,
+        webhook_stripe: &WebhookStripeActiveModel,
     ) -> Result<WebhookStripe, DomainError>;
+
+    async fn find_by_id(&self, id: i32) -> Result<Option<WebhookStripe>, DomainError>;
+    async fn find_all(&self) -> Result<Vec<WebhookStripe>, DomainError>;
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
     async fn count(&self) -> Result<i64, DomainError>;
     async fn find_by_status(&self, status: bool) -> Result<Vec<WebhookStripe>, DomainError>;

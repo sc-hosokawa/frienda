@@ -1,4 +1,6 @@
-use crate::entities::exchange_prize_history::Model as ExchangePrizeHistory;
+use crate::entities::exchange_prize_history::{
+    ActiveModel as ExchangePrizeHistoryActiveModel, Model as ExchangePrizeHistory,
+};
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
@@ -6,15 +8,15 @@ use shared::error::domain_err::DomainError;
 pub trait ExchangePrizeHistoryRepository {
     async fn create(
         &self,
-        history: ExchangePrizeHistory,
+        history: &ExchangePrizeHistoryActiveModel,
     ) -> Result<ExchangePrizeHistory, DomainError>;
-    async fn get_by_id(&self, id: i32) -> Result<Option<ExchangePrizeHistory>, DomainError>;
     async fn update(
         &self,
-        history: ExchangePrizeHistory,
+        history: &ExchangePrizeHistoryActiveModel,
     ) -> Result<ExchangePrizeHistory, DomainError>;
-    async fn delete(&self, id: i32) -> Result<(), DomainError>;
 
+    async fn delete(&self, id: i32) -> Result<(), DomainError>;
+    async fn get_by_id(&self, id: i32) -> Result<Option<ExchangePrizeHistory>, DomainError>;
     async fn get_by_user_id(&self, user_id: i32) -> Result<Vec<ExchangePrizeHistory>, DomainError>;
     async fn get_by_prize_id(
         &self,

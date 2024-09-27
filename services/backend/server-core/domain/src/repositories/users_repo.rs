@@ -6,10 +6,11 @@ use uuid::Uuid;
 
 #[async_trait]
 pub trait UsersRepository {
-    async fn find_by_id(&self, id: Uuid) -> Result<Option<User>, DomainError>;
-    async fn find_by_email(&self, email: &str) -> Result<Option<User>, DomainError>;
     async fn create(&self, user: &ActiveUser) -> Result<User, DomainError>;
     async fn update(&self, user: &ActiveUser) -> Result<User, DomainError>;
+
+    async fn find_by_id(&self, id: Uuid) -> Result<Option<User>, DomainError>;
+    async fn find_by_email(&self, email: &str) -> Result<Option<User>, DomainError>;
     async fn delete(&self, id: Uuid) -> Result<(), DomainError>;
     async fn list(&self, limit: usize, offset: usize) -> Result<Vec<User>, DomainError>;
     async fn find_by_username(&self, username: &str) -> Result<Option<User>, DomainError>;
