@@ -10,7 +10,9 @@ async function main() {
 
   console.log("Initializing Credential...");
 
-  const initializeTx = await credential.write.initialize([deployer.account.address]);
+  const initializeTx = await credential.write.initialize([deployer.account.address], {
+    account: deployer.account,
+  });
   await (await hre.viem.getPublicClient()).waitForTransactionReceipt({ hash: initializeTx });
 
   console.log("Credential initialized");

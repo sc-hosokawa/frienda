@@ -37,12 +37,14 @@ contract Credential is Initializable, ERC20Upgradeable, ERC20BurnableUpgradeable
     }
 
     function mint(address[] memory to, uint256[] memory amount) public onlyOwner {
+        require(to.length == amount.length, "Credential: to and amount arrays must be the same length");
         for (uint256 i = 0; i < to.length; i++) {
             _mint(to[i], amount[i]);
         }
     }
 
     function burn(address[] memory from, uint256[] memory amount) public onlyOwner {
+        require(from.length == amount.length, "Credential: from and amount arrays must be the same length");
         for (uint256 i = 0; i < from.length; i++) {
             _burn(from[i], amount[i]);
         }

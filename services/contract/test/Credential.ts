@@ -5,7 +5,7 @@ import { getAddress, parseEther } from "viem";
 
 describe("Credential", function () {
   async function deployCredentialFixture() {
-    const [owner, otherAccount] = await hre.viem.getWalletClients();
+    const [owner, alice, bob] = await hre.viem.getWalletClients();
     
     const credential = await hre.viem.deployContract("Credential", [], {
       walletClient: owner,
@@ -13,7 +13,7 @@ describe("Credential", function () {
 
     await credential.write.initialize([owner.account.address]);
 
-    return { credential, owner, otherAccount };
+    return { credential, owner, alice, bob };
   }
 
   describe("Deployment", function () {
@@ -31,10 +31,11 @@ describe("Credential", function () {
 
   describe("Minting", function () {
     it("Should allow owner to mint tokens", async function () {
-      const { credential, owner, otherAccount } = await loadFixture(deployCredentialFixture);
+      const { credential, owner, alice, bob } = await loadFixture(deployCredentialFixture);
       const amount = parseEther("100");
-      await credential.write.mint([otherAccount.account.address, amount]);
-      expect(await credential.read.balanceOf([otherAccount.account.address])).to.equal(amount);
+      await credential.write.mint([alice.account.address, bob.account.address], [amount, amount]);
+      expect(await credential.read.balanceOf(alice.account.address)).to.equal(amount);
+      expect(await credential.read.balanceOf(bob.account.address)).to.equal(amount);
     });
 
     it("Should not allow non-owner to mint tokens", async function () {
