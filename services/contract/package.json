@@ -3,9 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "clean": "pnpm hardhat clean",
+    "test": "GAS_REPORT=true pnpm hardhat test",
+    "test:inheritance": "pnpm hardhat run scripts/checks/inheritance-ordering.ts",
+    "balance": "pnpm hardhat run scripts/utils/balances.ts",
+    "hhnode": "pnpm hardhat node",
+    "deploy-credential": "pnpm hardhat run scripts/credential/deploy.ts",
+    "init-credential": "pnpm hardhat run scripts/credential/initialize.ts",
+    "lint:es": "eslint . --ext .ts,.js,.tsx,.jsx",
+    "lint:sol": "solhint --config .solhint.json --ignore-path .solhintignore contracts/**/*.sol test/foundry/**/*.sol",
+    "lint:fix": "eslint --fix . --ext .ts,.js,.tsx,.jsx",
+    "format": "prettier --write ."
+  },
   "keywords": [],
-  "author": "",
+  "author": "Naoki Akazawa",
   "license": "ISC",
   "devDependencies": {
     "@nomicfoundation/hardhat-foundry": "^1.1.2",
@@ -23,7 +35,9 @@
     "solidity-coverage": "^0.8.13",
     "ts-node": "^10.9.2",
     "typescript": "~5.3.3",
-    "viem": "^1.21.4"
+    "viem": "^1.21.4",
+    "dotenv": "^16.4.5",
+    "solhint": "^5.0.3"
   },
   "engines": {
     "npm": "please_use_pnpm_instead",

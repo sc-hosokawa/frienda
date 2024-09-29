@@ -1,6 +1,10 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox-viem";
 import "@nomicfoundation/hardhat-foundry";
+import "@nomicfoundation/hardhat-verify";
 import "hardhat-gas-reporter";
 
 const mnemonic: string =
@@ -9,7 +13,15 @@ const mnemonic: string =
     : "test test test test test test test test test test test junk";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.27",
+  solidity: {
+    version: "0.8.27",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
@@ -61,7 +73,11 @@ const config: HardhatUserConfig = {
     enabled: process.env.GAS_REPORT ? true : false,
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_KEY !== undefined ? process.env.ETHERSCAN_KEY : "",
+    apiKey: {
+      polygon: process.env.POLYGONSCAN_KEY !== undefined ? process.env.POLYGONSCAN_KEY : "",
+      polygonMumbai: process.env.POLYGONSCAN_KEY !== undefined ? process.env.POLYGONSCAN_KEY : "",
+      sepolia: process.env.ETHERSCAN_KEY !== undefined ? process.env.ETHERSCAN_KEY : "",
+    },
   },
 };
 
