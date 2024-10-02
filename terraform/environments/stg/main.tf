@@ -25,7 +25,15 @@ resource "google_cloud_run_service" "frienda_server" {
           name  = "DATABASE_URL"
           value = "postgres://${google_sql_user.default.name}:${google_sql_user.default.password}@/${google_sql_database.default.name}?host=/cloudsql/${google_sql_database_instance.instance.connection_name}"
         }
+        resources {
+          limits = {
+            cpu    = "1000m"
+            memory = "512Mi"
+          }
+        }
       }
+      # サービスアカウントの指定を削除
+      # service_account_name = google_service_account.frienda_server.email
     }
 
     metadata {
@@ -45,10 +53,17 @@ resource "google_cloud_run_service" "frienda_server" {
 resource "google_sql_database_instance" "instance" {
   name             = "my-database-instance"
   region           = var.region
-  database_version = "POSTGRES_16"
+  database_version = "POSTGRES_15"
 
   settings {
-    tier = "db-f1-micro"
+    tier = "db-custom-1-3840"
+    ip_configuration {
+      ipv4_enabled    = false
+      private_network = google_compute_network.private_network.id
+    }
+    backup_configuration {
+      enabled = true
+    }
   }
 
   deletion_protection = false
@@ -64,5 +79,29 @@ resource "google_sql_database" "default" {
 resource "google_sql_user" "default" {
   name     = "my-user"
   instance = google_sql_database_instance.instance.name
-  password = var.db_password
+  password = random_password.db_password.result
+}
+
+# Generate random password for database
+resource "random_password" "db_password" {
+  length  = 16
+  special = true
+}
+
+# Service Account for Cloud Run
+resource "google_service_account" "frienda_server" {
+  account_id   = "frienda-server-sa"
+  display_name = "FRIENDA Server Service Account"
+}
+
+# Private VPC network
+resource "google_compute_network" "private_network" {
+  name = "private-network"
+}
+
+# IAMポリシーをデフォルトのサービスアカウントに適用
+resource "google_project_iam_member" "default_account_cloudsql" {
+  project = var.project_id
+  role    = "roles/cloudsql.client"
+  member  = "serviceAccount:${var.project_id}@appspot.gserviceaccount.com"
 }
