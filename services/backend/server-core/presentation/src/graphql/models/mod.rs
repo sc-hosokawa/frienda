@@ -2,6 +2,7 @@ pub mod artists;
 pub mod comments;
 pub mod exchange_prize_history;
 pub mod favorites;
+pub mod health_check;
 pub mod indicators;
 pub mod maps;
 pub mod message_room;

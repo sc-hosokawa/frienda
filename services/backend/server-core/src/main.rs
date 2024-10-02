@@ -1,22 +1,78 @@
-use actix_web::{web, App, HttpServer};
+use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
+use async_graphql::{http::GraphiQLSource, EmptySubscription, Schema};
+use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
 use infrastracture::handlers;
+use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSchema};
+use shared::db::connect::establish_db_connection;
+use shared::logger::init_logger;
+use dotenvy::dotenv;
 use std::env;
+use std::sync::Arc;
+
+use application::health_check::{HealthCheckUsecase, HealthCheckUseCase};
+use infrastracture::persistences::health_check_repo_impl::HealthCheckRepoImpl;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    println!("Starting server...");
+    match dotenv() {
+        Ok(_) => tracing::info!("Loaded .env file"),
+        Err(e) => tracing::error!("Failed to load .env file: {}", e),
+    }
+    init_logger().expect("Failed to initialize logger");
+    bootstrap().await
+}
 
-    let host = env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
-    let port = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
+async fn bootstrap() -> Result<(), std::io::Error> {
+    let host: String = env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
+    let port: String = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
     let port: u16 = port.parse().expect("PORT must be a number");
+    let db_url: String = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 
-    HttpServer::new(|| {
-        App::new().route(
-            "/stripe",
-            web::post().to(handlers::stripe_webhook::webhook_handler),
-        )
+    let db = establish_db_connection(db_url)
+        .await
+        .expect("Failed to connect to database");
+
+    let health_check_repo: Arc<HealthCheckRepoImpl> = Arc::new(HealthCheckRepoImpl::new(db.clone()));
+    let health_check_usecase: Arc<dyn HealthCheckUseCase> = Arc::new(HealthCheckUsecase::new(health_check_repo));
+
+    let schema = Schema::build(QueryRoot, MutationRoot, EmptySubscription)
+        .data(health_check_usecase.clone())
+        .data(db.clone())  // Add this line
+        .finish();
+
+    tracing::info!("Starting server...");
+    tracing::info!("GraphiQL IDE: http://{}:{}/graphql", host, port);
+
+    HttpServer::new(move || {
+        App::new()
+            .app_data(web::Data::new(schema.clone()))
+            .service(web::resource("/graphql").guard(guard::Post()).to(index))
+            .service(
+                web::resource("/graphql")
+                    .guard(guard::Get())
+                    .to(index_graphiql),
+            )
+            .route(
+                "/stripe",
+                web::post().to(handlers::stripe_webhook::webhook_handler),
+            )
     })
     .bind((host, port))?
     .run()
-    .await
+    .await?;
+
+    Ok(())
+}
+
+async fn index(
+    schema: web::Data<AppSchema>,
+    req: GraphQLRequest,
+) -> GraphQLResponse {
+    schema.execute(req.into_inner()).await.into()
+}
+
+async fn index_graphiql() -> Result<HttpResponse> {
+    Ok(HttpResponse::Ok()
+        .content_type("text/html; charset=utf-8")
+        .body(GraphiQLSource::build().endpoint("/graphql").finish()))
 }

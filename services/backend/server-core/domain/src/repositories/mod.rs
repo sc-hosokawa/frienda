@@ -1,4 +1,5 @@
 pub mod exchange_prize_history_repo;
+pub mod health_check;
 pub mod maps_repo;
 pub mod offers_repo;
 pub mod prizes_repo;

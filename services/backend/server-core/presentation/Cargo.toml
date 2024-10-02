@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 domain = { path = "../domain" }
 application = { path = "../application" }
+infrastracture = { path = "../infrastracture" }
 shared = { path = "../../shared" }
 actix-web = { workspace = true }
 futures = { workspace = true }

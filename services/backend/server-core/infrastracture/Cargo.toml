@@ -17,3 +17,6 @@ async-graphql = { workspace = true }
 async-graphql-actix-web = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
+derive-new = { workspace = true }
+anyhow = { workspace = true }
+async-trait = { workspace = true }
