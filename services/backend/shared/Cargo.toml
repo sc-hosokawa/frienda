@@ -13,3 +13,4 @@ tracing = { workspace = true }
 async-graphql = { workspace = true }
 async-graphql-actix-web = { workspace = true }
 thiserror = { workspace = true }
+strum = { workspace = true }
