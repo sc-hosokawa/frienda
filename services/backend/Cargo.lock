@@ -951,20 +951,15 @@ dependencies = [
 name = "domain"
 version = "0.1.0"
 dependencies = [
- "actix-web",
  "anyhow",
- "async-graphql",
- "async-graphql-actix-web",
  "async-trait",
  "chrono",
- "dotenvy",
  "futures",
  "mockall",
  "sea-orm",
  "shared",
  "tokio",
  "tracing",
- "tracing-subscriber",
  "uuid",
 ]
 
@@ -1497,14 +1492,12 @@ dependencies = [
  "async-trait",
  "derive-new",
  "domain",
- "dotenvy",
  "futures",
  "sea-orm",
  "serde",
  "serde_json",
  "shared",
  "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]

@@ -1,15 +1,15 @@
 use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
 use async_graphql::{http::GraphiQLSource, EmptySubscription, Schema};
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
+use dotenvy::dotenv;
 use infrastracture::handlers;
 use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSchema};
 use shared::db::connect::establish_db_connection;
 use shared::logger::init_logger;
-use dotenvy::dotenv;
 use std::env;
 use std::sync::Arc;
 
-use application::health_check::{HealthCheckUsecase, HealthCheckUseCase};
+use application::health_check::{HealthCheckUseCase, HealthCheckUsecase};
 use infrastracture::persistences::health_check_repo_impl::HealthCheckRepoImpl;
 
 #[actix_web::main]
@@ -32,12 +32,14 @@ async fn bootstrap() -> Result<(), std::io::Error> {
         .await
         .expect("Failed to connect to database");
 
-    let health_check_repo: Arc<HealthCheckRepoImpl> = Arc::new(HealthCheckRepoImpl::new(db.clone()));
-    let health_check_usecase: Arc<dyn HealthCheckUseCase> = Arc::new(HealthCheckUsecase::new(health_check_repo));
+    let health_check_repo: Arc<HealthCheckRepoImpl> =
+        Arc::new(HealthCheckRepoImpl::new(db.clone()));
+    let health_check_usecase: Arc<dyn HealthCheckUseCase> =
+        Arc::new(HealthCheckUsecase::new(health_check_repo));
 
     let schema = Schema::build(QueryRoot, MutationRoot, EmptySubscription)
         .data(health_check_usecase.clone())
-        .data(db.clone())  // Add this line
+        .data(db.clone()) // Add this line
         .finish();
 
     tracing::info!("Starting server...");
@@ -64,10 +66,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     Ok(())
 }
 
-async fn index(
-    schema: web::Data<AppSchema>,
-    req: GraphQLRequest,
-) -> GraphQLResponse {
+async fn index(schema: web::Data<AppSchema>, req: GraphQLRequest) -> GraphQLResponse {
     schema.execute(req.into_inner()).await.into()
 }
 

@@ -3,7 +3,8 @@ WORKDIR /app
 COPY . .
 RUN cargo build --release --package server-core
 
-FROM debian:bookworm-slim
+# FROM debian:bookworm-slim
+FROM gcr.io/distroless/base-debian12
 COPY --from=builder /app/target/release/server-core /usr/local/bin/
-EXPOSE 8080 5432
+EXPOSE 8080
 CMD ["server-core"]
