@@ -18,8 +18,8 @@ resource "google_cloud_run_v2_service" "frienda_server" {
   location = var.region
 
   template {
-		scaling {
-			max_instance_count = 2
+    scaling {
+      max_instance_count = 2
     }
 
     volumes {
@@ -57,7 +57,7 @@ resource "google_cloud_run_v2_service" "frienda_server" {
 
 # Cloud SQL Instance
 resource "google_sql_database_instance" "instance" {
-  name             = "my-database-instance"
+  name             = "frienda-stg-pg"
   region           = var.region
   database_version = "POSTGRES_16"
 
@@ -79,7 +79,7 @@ resource "google_sql_database_instance" "instance" {
 
 # Database
 resource "google_sql_database" "default" {
-  name     = "my-database"
+  name     = "frienda"
   instance = google_sql_database_instance.instance.name
 }
 

@@ -43,7 +43,7 @@ resource "google_cloud_run_v2_service" "frienda_server" {
       }
       env {
         name  = "DATABASE_URL"
-        value = "postgresql://${google_sql_database_instance.instance.name}:5432/your_database_name"
+        value = "postgresql://${google_sql_database_instance.instance.name}:5432/${google_sql_database_instance.instance.name}"
       }
       volume_mounts {
         name       = "cloudsql"
