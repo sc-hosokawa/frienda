@@ -2,6 +2,7 @@ use sea_orm::{ConnectOptions, Database, DatabaseConnection, DbErr};
 
 pub async fn establish_db_connection(db_url: String) -> Result<DatabaseConnection, DbErr> {
     tracing::info!("Connecting to database...");
+    tracing::info!("DB_URL: {}", db_url);
     let mut opt: ConnectOptions = ConnectOptions::new(db_url);
     opt.sqlx_logging(true);
 

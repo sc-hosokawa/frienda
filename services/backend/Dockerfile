@@ -5,5 +5,5 @@ RUN cargo build --release --package server-core
 
 FROM debian:bookworm-slim
 COPY --from=builder /app/target/release/server-core /usr/local/bin/
-EXPOSE 8080
+EXPOSE 8080 5432
 CMD ["server-core"]
