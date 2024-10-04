@@ -5,6 +5,9 @@ terraform {
       version = "5.8.0"
     }
   }
+  backend "gcs" {
+    bucket = "frienda-terraform-state"
+  }
 }
 
 provider "google" {
@@ -108,4 +111,64 @@ resource "google_cloud_run_v2_service_iam_policy" "policy" {
   location    = var.region
   name        = google_cloud_run_v2_service.frienda_server.name
   policy_data = data.google_iam_policy.no_auth.policy_data
+}
+
+// ======= Object Storage =======
+resource "google_storage_bucket" "terraform-state-store" {
+  name          = "frienda-terraform-state"
+  location      = "us-west1"
+  storage_class = "REGIONAL"
+
+  versioning {
+    enabled = true
+  }
+
+  lifecycle_rule {
+    action {
+      type = "Delete"
+    }
+    condition {
+      num_newer_versions = 5
+    }
+  }
+}
+
+resource "google_storage_bucket" "photo_storage" {
+  name          = "frienda-photo-storage"
+  location      = var.region
+  storage_class = "STANDARD"
+
+  uniform_bucket_level_access = true
+
+  lifecycle_rule {
+    condition {
+      age = 365
+    }
+    action {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE"
+    }
+  }
+}
+
+resource "google_storage_bucket" "general_file_storage" {
+  name          = "frienda-general-files"
+  location      = var.region
+  storage_class = "STANDARD"
+
+  uniform_bucket_level_access = true
+
+  versioning {
+    enabled = true
+  }
+
+  lifecycle_rule {
+    condition {
+      age = 30
+    }
+    action {
+      type          = "SetStorageClass"
+      storage_class = "COLDLINE"
+    }
+  }
 }
