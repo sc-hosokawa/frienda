@@ -55,7 +55,7 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "maps" (
-  "id" ulid NOT NULL DEFAULT (gen_ulid()),
+  "id" ulid NOT NULL,
   "following_user_id" uuid NOT NULL,
   "followed_user_id" uuid NOT NULL,
   "created_at" timestamp NOT NULL DEFAULT (now()),
@@ -82,7 +82,7 @@ CREATE TABLE "purchase_history" (
 );
 
 CREATE TABLE "prizes" (
-  "id" ulid PRIMARY KEY DEFAULT (gen_ulid()),
+  "id" ulid PRIMARY KEY,
   "name" varchar NOT NULL,
   "point" int NOT NULL,
   "description" varchar NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE "prizes" (
 );
 
 CREATE TABLE "exchange_prize_history" (
-  "id" ulid PRIMARY KEY DEFAULT (gen_ulid()),
+  "id" ulid PRIMARY KEY,
   "prize_id" ulid NOT NULL,
   "user" ulid NOT NULL,
   "point" int NOT NULL,
@@ -114,14 +114,14 @@ CREATE TABLE "webhook_clerk" (
 );
 
 CREATE TABLE "quests" (
-  "id" ulid PRIMARY KEY DEFAULT (gen_ulid()),
+  "id" ulid PRIMARY KEY,
   "name" varchar NOT NULL,
   "description" varchar NOT NULL,
   "created_at" timestamp NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "offers" (
-  "id" ulid PRIMARY KEY DEFAULT (gen_ulid()),
+  "id" ulid PRIMARY KEY,
   "raid_id" ulid,
   "owner" uuid,
   "release_dt" timestamp NOT NULL DEFAULT (now()),
@@ -134,7 +134,7 @@ CREATE TABLE "offers" (
 );
 
 CREATE TABLE "raids" (
-  "id" ulid PRIMARY KEY DEFAULT (gen_ulid()),
+  "id" ulid PRIMARY KEY,
   "owner" uuid NOT NULL,
   "title" varchar NOT NULL,
   "description" varchar NOT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE "raids" (
 );
 
 CREATE TABLE "comments" (
-  "id" ulid PRIMARY KEY DEFAULT (gen_ulid()),
+  "id" ulid PRIMARY KEY,
   "user_id" uuid,
   "offer_id" ulid,
   "created_at" timestamp NOT NULL DEFAULT (now()),
@@ -152,7 +152,7 @@ CREATE TABLE "comments" (
 );
 
 CREATE TABLE "news" (
-  "id" ulid PRIMARY KEY DEFAULT (gen_ulid()),
+  "id" ulid PRIMARY KEY,
   "title" varchar NOT NULL,
   "contents" text NOT NULL,
   "user_id" uuid,
