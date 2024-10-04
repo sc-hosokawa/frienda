@@ -1,7 +1,7 @@
 [workspace]
 members = [
     "server-core",
-    "server-extention",
+    "server-extension",
     "shared"
 ]
 resolver = "2"

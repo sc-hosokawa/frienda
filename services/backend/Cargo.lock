@@ -2574,7 +2574,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "server-extention"
+name = "server-extension"
 version = "0.1.0"
 dependencies = [
  "shared",
