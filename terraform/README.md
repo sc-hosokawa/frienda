@@ -1,0 +1,1 @@
+# FRIENDA Terraform

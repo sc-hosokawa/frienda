@@ -1,21 +1,17 @@
 variable "project_id" {
-  description = "The ID of the project in which resources will be managed."
   type        = string
+  description = "The project ID"
   sensitive   = true
 }
 
 variable "region" {
-  description = "The region to deploy to"
   type        = string
+  description = "The region"
   default     = "asia-northeast1"
 }
 
 variable "frienda_server_image" {
-  description = "Docker image for frienda server"
   type        = string
-}
-
-variable "secret_id" {
-  description = "ID of the secret in Secret Manager"
-  type        = string
+  description = "The image of the frienda server"
+  sensitive   = true
 }
