@@ -8,6 +8,7 @@ resolver = "2"
 
 [workspace.dependencies]
 actix-web = "4.9.0"
+actix-cors = "0.7.0"
 futures = "0.3.30"
 sea-orm = { version = "1.0.1", features = ["sqlx-postgres", "runtime-tokio-rustls", "debug-print"] }
 dotenvy = "0.15.7"

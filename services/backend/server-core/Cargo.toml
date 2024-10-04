@@ -11,6 +11,7 @@ infrastracture = { path = "./infrastracture" }
 presentation = { path = "./presentation" }
 shared = { path = "../shared" }
 actix-web = { workspace = true }
+actix-cors = { workspace = true }
 futures = { workspace = true }
 sea-orm = { workspace = true }
 dotenvy = { workspace = true }
