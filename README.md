@@ -2,6 +2,8 @@
 
 [![fsdao/Test](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/ci.yaml/badge.svg)](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/ci.yaml)
 
+[![Deploy Server](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/deploy_server.yaml/badge.svg?branch=main)](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/deploy_server.yaml)
+
 ## Clone
 ```
 git clone --recursive https://github.com/FRIENDSHIP-DAO/frienda.git

@@ -15,6 +15,8 @@ pub fn init_logger() -> Result<(), Box<dyn std::error::Error>> {
         .with_file(true)
         .with_line_number(true)
         .with_target(false);
+    #[cfg(not(debug_assertions))]
+    let subscriber = subscriber.json();
 
     tracing_subscriber::registry()
         .with(subscriber)
