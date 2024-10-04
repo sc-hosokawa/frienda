@@ -2,7 +2,6 @@ use actix_cors::Cors;
 use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
 use async_graphql::{http::GraphiQLSource, EmptySubscription, Schema};
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
-use tracing_actix_web::TracingLogger;
 use dotenvy::dotenv;
 use infrastracture::handlers;
 use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSchema};
@@ -10,6 +9,7 @@ use shared::db::connect::establish_db_connection;
 use shared::logger::init_logger;
 use std::env;
 use std::sync::Arc;
+use tracing_actix_web::TracingLogger;
 
 use application::health_check::{HealthCheckUseCase, HealthCheckUsecase};
 use infrastracture::persistences::health_check_repo_impl::HealthCheckRepoImpl;

@@ -8,9 +8,6 @@ runs:
       with:
         toolchain: stable
         override: true
-    - name: Install Dependencies
-      run: cd services/backend && cargo build --release
-      shell: bash
     - name: Test
       run: cd services/backend && cargo test
       shell: bash
