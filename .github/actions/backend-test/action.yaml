@@ -19,5 +19,8 @@ runs:
       run: cd services/backend && cargo nextest run
       shell: bash
     - name: Clippy
+      run: cd services/backend && cargo clippy
+      shell: bash
+    - name: Format Check
       run: cd services/backend && cargo fmt -- --check
       shell: bash
