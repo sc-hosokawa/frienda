@@ -8,15 +8,11 @@ runs:
       with:
         toolchain: stable
         override: true
-    - name: Install cargo-related tools
-      uses: taiki-e/install-action@v2
-      with:
-        tools: cargo-nextest
     - name: Install Dependencies
       run: cd services/backend && cargo build --release
       shell: bash
     - name: Test
-      run: cd services/backend && cargo nextest run
+      run: cd services/backend && cargo test
       shell: bash
     - name: Clippy
       run: cd services/backend && cargo clippy

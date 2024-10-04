@@ -2,6 +2,7 @@ use actix_cors::Cors;
 use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
 use async_graphql::{http::GraphiQLSource, EmptySubscription, Schema};
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
+use tracing_actix_web::TracingLogger;
 use dotenvy::dotenv;
 use infrastracture::handlers;
 use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSchema};
@@ -54,6 +55,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
             .max_age(3600);
         App::new()
             .wrap(cors)
+            .wrap(TracingLogger::default())
             .app_data(web::Data::new(schema.clone()))
             .service(web::resource("/graphql").guard(guard::Post()).to(index))
             .service(

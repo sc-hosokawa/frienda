@@ -14,6 +14,7 @@ sea-orm = { version = "1.0.1", features = ["sqlx-postgres", "runtime-tokio-rustl
 dotenvy = "0.15.7"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
 tracing = { version = "0.1.40" }
+tracing-actix-web = "0.7.13"
 async-graphql = "7.0.11"
 async-graphql-actix-web = "7.0.11"
 async-trait = "0.1.83"
