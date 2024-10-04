@@ -11,7 +11,7 @@ runs:
     - name: Install cargo-related tools
       uses: taiki-e/install-action@v2
       with:
-        tools: nextest
+        tools: cargo-nextest
     - name: Install Dependencies
       run: cd services/backend && cargo build --release
       shell: bash
