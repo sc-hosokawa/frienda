@@ -1,4 +1,4 @@
-name: Deploy Server
+name: Deploy Dev Server
 
 on:
   push:
@@ -12,6 +12,8 @@ env:
   SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
   IMAGE: ${{ secrets.GCP_IMAGE }}
   REGION: ${{ secrets.GCP_REGION }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  SERVER_NAME: ${{ secrets.SERVER_NAME }}
   TAG: latest
 
 jobs:
@@ -47,3 +49,6 @@ jobs:
 
       - name: Push
         run: docker push asia-northeast1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME/$IMAGE:$TAG
+
+      - name: Deploy
+        run: gcloud run deploy ${{ secrets.SERVER_NAME }} --image asia-northeast1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME/$IMAGE:$TAG --region ${{ secrets.GCP_REGION }} --allow-unauthenticated --set-env-vars DATABASE_URL=$DATABASE_URL

@@ -85,7 +85,7 @@ resource "google_cloud_run_v2_service" "frienda_server" {
 
   template {
     containers {
-      image = var.frienda_server_image
+      image = "${var.frienda_server_image}:${var.frienda_server_image_tag}"
       env {
         name  = "DATABASE_URL"
         value = "postgres://${google_sql_user.users.name}:${google_sql_user.users.password}@${google_sql_database_instance.main.private_ip_address}/${google_sql_database.frienda_db.name}"
@@ -95,6 +95,10 @@ resource "google_cloud_run_v2_service" "frienda_server" {
       connector = google_vpc_access_connector.connector.id
       egress    = "ALL_TRAFFIC"
     }
+  }
+  lifecycle {
+    ignore_changes        = [template]
+    create_before_destroy = true
   }
 }
 

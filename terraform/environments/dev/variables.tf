@@ -15,3 +15,10 @@ variable "frienda_server_image" {
   description = "The image of the frienda server"
   sensitive   = true
 }
+
+variable "frienda_server_image_tag" {
+  type        = string
+  description = "The image tag of the frienda server"
+  default     = "latest"
+  sensitive   = true
+}
