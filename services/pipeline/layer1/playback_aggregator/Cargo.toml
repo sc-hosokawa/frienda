@@ -9,6 +9,8 @@ sea-orm = { version = "1.0.1", features = ["sqlx-postgres", "runtime-tokio-rustl
 dotenvy = "0.15.7"
 tracing-subscriber = { version = "0.3.18" }
 tracing = "0.1.40"
+tokio = { version = "1.40.0", features = ["macros", "rt-multi-thread"] }
+polars = "0.43.1"
 
 
 [profile.release]
