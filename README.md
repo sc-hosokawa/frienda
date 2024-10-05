@@ -2,7 +2,9 @@
 
 [![fsdao/Test](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/ci.yaml/badge.svg)](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/ci.yaml)
 
-[![Deploy Server](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/deploy_server.yaml/badge.svg?branch=main)](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/deploy_server.yaml)
+---
+
+[![Deploy Dev Server](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/deploy_dev_server.yaml/badge.svg?branch=main)](https://github.com/FRIENDSHIP-DAO/frienda/actions/workflows/deploy_dev_server.yaml)
 
 ## Clone
 ```
