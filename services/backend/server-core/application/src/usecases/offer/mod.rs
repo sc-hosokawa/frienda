@@ -1,1 +1,20 @@
-
+pub mod apply_task_usecase;
+pub mod approve_task_application_usecase;
+pub mod cancel_task_usecase;
+pub mod complete_task_usecase;
+pub mod create_community_usecase;
+pub mod extend_task_deadline_usecase;
+pub mod filter_tasks_by_skills_usecase;
+pub mod follow_user_usecase;
+pub mod get_task_analytics_usecase;
+pub mod get_user_task_history_usecase;
+pub mod introduce_ai_assistant_usecase;
+pub mod provide_learning_content_usecase;
+pub mod rate_task_completion_usecase;
+pub mod recommend_tasks_for_user_usecase;
+pub mod register_task_usecase;
+pub mod report_task_issue_usecase;
+pub mod search_tasks_usecase;
+pub mod set_task_deadline_usecase;
+pub mod share_task_usecase;
+pub mod update_task_usecase;
