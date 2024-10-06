@@ -10,11 +10,18 @@ dotenvy = "0.15.7"
 tracing-subscriber = { version = "0.3.18" }
 tracing = "0.1.40"
 tokio = { version = "1.40.0", features = ["macros", "rt-multi-thread"] }
-polars = "0.43.1"
+serde_json = "1.0.128"
+chrono = "0.4.38"
+anyhow = "1.0.89"
+tempfile = "3.13.0"
+zip = "2.2.0"
+walkdir = "2.5.0"
 
 
 [profile.release]
-opt-level = 3
+opt-level = "s"
 debug = false
 lto = true
 codegen-units = 1
+strip = true
+panic = "abort"
