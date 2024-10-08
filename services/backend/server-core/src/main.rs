@@ -39,7 +39,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     let health_check_usecase: Arc<dyn HealthCheckUseCase> =
         Arc::new(HealthCheckUsecase::new(health_check_repo));
 
-    let schema = Schema::build(QueryRoot, MutationRoot, EmptySubscription)
+    let schema = Schema::build(QueryRoot::default(), MutationRoot, EmptySubscription)
         .data(health_check_usecase.clone())
         .data(db.clone())
         .finish();

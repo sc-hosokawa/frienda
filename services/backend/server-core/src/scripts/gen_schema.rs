@@ -5,7 +5,8 @@ use async_graphql::*;
 use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSchema};
 
 fn main() {
-    let schema: AppSchema = Schema::build(QueryRoot, MutationRoot, EmptySubscription).finish();
+    let schema: AppSchema =
+        Schema::build(QueryRoot::default(), MutationRoot, EmptySubscription).finish();
     let sdl: String = schema.sdl();
 
     match OpenOptions::new()
