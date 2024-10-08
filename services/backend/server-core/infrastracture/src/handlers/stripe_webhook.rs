@@ -16,7 +16,7 @@ struct StripeEventData {
     object: serde_json::Value,
 }
 
-#[instrument(skip(payload))]
+#[instrument(name = "stripe_webhook", skip(payload))]
 pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
     let body = match payload.next().await {
         Some(Ok(bytes)) => match String::from_utf8(bytes.to_vec()) {

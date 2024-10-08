@@ -71,6 +71,10 @@ async fn bootstrap() -> Result<(), std::io::Error> {
                 "/stripe",
                 web::post().to(handlers::stripe_webhook::webhook_handler),
             )
+            .route(
+                "/clerk",
+                web::post().to(handlers::clerk_webhook::webhook_handler),
+            )
     })
     .bind((host, port))?
     .run()
