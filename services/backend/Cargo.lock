@@ -2271,11 +2271,10 @@ name = "presentation"
 version = "0.1.0"
 dependencies = [
  "actix-web",
- "application",
  "async-graphql",
  "async-graphql-actix-web",
  "futures",
- "infrastracture",
+ "registry",
  "sea-orm",
  "shared",
  "tracing",
@@ -2446,6 +2445,16 @@ name = "regex-syntax"
 version = "0.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7a66a03ae7c801facd77a29370b4faec201768915ac14a721ba36f20bc9c209b"
+
+[[package]]
+name = "registry"
+version = "0.1.0"
+dependencies = [
+ "application",
+ "infrastracture",
+ "sea-orm",
+ "tracing",
+]
 
 [[package]]
 name = "rend"
@@ -2876,6 +2885,7 @@ dependencies = [
  "futures",
  "infrastracture",
  "presentation",
+ "registry",
  "sea-orm",
  "shared",
  "tracing",

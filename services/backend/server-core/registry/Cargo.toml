@@ -1,0 +1,10 @@
+[package]
+name = "registry"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+application = { path = "../application" }
+infrastracture = { path = "../infrastracture" }
+tracing = { workspace = true }
+sea-orm = { workspace = true }

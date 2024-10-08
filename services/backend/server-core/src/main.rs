@@ -8,11 +8,9 @@ use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSche
 use shared::db::connect::establish_db_connection;
 use shared::logger::init_logger;
 use std::env;
-use std::sync::Arc;
 use tracing_actix_web::TracingLogger;
 
-use application::health_check::{HealthCheckUseCase, HealthCheckUsecase};
-use infrastracture::persistences::health_check_repo_impl::HealthCheckRepoImpl;
+use registry::*;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -34,13 +32,11 @@ async fn bootstrap() -> Result<(), std::io::Error> {
         .await
         .expect("Failed to connect to database");
 
-    let health_check_repo: Arc<HealthCheckRepoImpl> =
-        Arc::new(HealthCheckRepoImpl::new(db.clone()));
-    let health_check_usecase: Arc<dyn HealthCheckUseCase> =
-        Arc::new(HealthCheckUsecase::new(health_check_repo));
+    let repos = create_repositories(db.clone());
+    let usecases = create_usecases(repos);
 
     let schema = Schema::build(QueryRoot::default(), MutationRoot, EmptySubscription)
-        .data(health_check_usecase.clone())
+        .data(usecases)
         .data(db.clone())
         .finish();
 

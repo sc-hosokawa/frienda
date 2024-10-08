@@ -9,6 +9,7 @@ domain = { path = "./domain" }
 application = { path = "./application" }
 infrastracture = { path = "./infrastracture" }
 presentation = { path = "./presentation" }
+registry = { path = "./registry" }
 shared = { path = "../shared" }
 actix-web = { workspace = true }
 actix-cors = { workspace = true }

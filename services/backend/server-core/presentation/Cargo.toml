@@ -4,8 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-application = { path = "../application" }
-infrastracture = { path = "../infrastracture" }
+registry = { path = "../registry" }
 shared = { path = "../../shared" }
 actix-web = { workspace = true }
 futures = { workspace = true }
