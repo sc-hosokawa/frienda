@@ -9,7 +9,7 @@ resolver = "2"
 [workspace.dependencies]
 actix-web = "4.9.0"
 actix-cors = "0.7.0"
-futures = "0.3.30"
+futures = "0.3.31"
 sea-orm = { version = "1.0.1", features = ["sqlx-postgres", "runtime-tokio-rustls", "debug-print"] }
 dotenvy = "0.15.7"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
@@ -25,8 +25,8 @@ serde_json = "1.0.128"
 derive-new = "0.7.0"
 strum = { version = "0.26.3", features = ["derive"] }
 anyhow = "1.0.89"
-svix = "1.20.0"
-http = "1"
+svix = "1.38.0"
+http = "1.1.0"
 
 [profile.release]
 opt-level = "s"
