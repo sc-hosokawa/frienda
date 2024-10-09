@@ -1,1 +1,22 @@
-
+pub mod analyze_play_count_trends_usecase;
+pub mod compare_track_play_counts_usecase;
+pub mod export_play_count_data_usecase;
+pub mod filter_play_count_data_usecase;
+pub mod generate_play_count_graph_usecase;
+pub mod generate_play_count_report_usecase;
+pub mod get_artist_total_play_count_usecase;
+pub mod get_play_count_by_device_usecase;
+pub mod get_play_count_by_genre_usecase;
+pub mod get_play_count_by_region_usecase;
+pub mod get_play_count_by_time_period_usecase;
+pub mod get_play_count_by_time_usecase;
+pub mod get_play_count_history_usecase;
+pub mod get_playlist_play_count_usecase;
+pub mod get_realtime_play_count_usecase;
+pub mod get_song_playback_count_usecase;
+pub mod get_top_artists_usecase;
+pub mod get_top_tracks_usecase;
+pub mod get_trending_songs_usecase;
+pub mod get_user_listening_stats_usecase;
+pub mod predict_future_play_count_usecase;
+pub mod set_play_count_alert_usecase;
