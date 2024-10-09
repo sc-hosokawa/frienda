@@ -1,15 +1,17 @@
-import hre from "hardhat";
+import {ethers, upgrades} from "hardhat";
 
 async function main() {
-  const [deployer] = await hre.viem.getWalletClients();
-  console.log("Deployer address:", deployer.account.address);
+  const [deployer] = await ethers.getSigners();
+  console.log("========== Deployer address:", deployer.address);
 
-  console.log("Deploying Credential...");
-  const credential = await hre.viem.deployContract("Credential", [], {
-    walletClient: deployer,
-  });
-  console.log("Credential deployed to:", credential.address);
-  console.log("Finished")
+  console.log("========== Deploying Contracts...");
+  const factory = await ethers.getContractFactory("Credential");
+  const credential_contract = await upgrades.deployProxy(factory, [deployer.address]);
+
+  await credential_contract.waitForDeployment();
+  const credential_address = await credential_contract.getAddress();
+  console.log("========== Deployed to:", credential_address);
+  console.log("========== Finished")
 }
 
 main().catch((error) => {

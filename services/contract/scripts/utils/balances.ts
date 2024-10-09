@@ -1,12 +1,11 @@
-import hre from "hardhat";
+import {ethers} from "hardhat";
 
 async function main() {
-  const addresses = await hre.viem.getWalletClients();
-  const publicClient = await hre.viem.getPublicClient();
+  const accounts = await ethers.getSigners();
 
-  for (const addr of addresses.slice(0, 5)) {
-    const balance = await publicClient.getBalance({ address: addr.account.address });
-    console.log(`Address: ${addr.account.address}, Balance: ${balance}`);
+  for (const account of accounts.slice(0, 5)) {
+    const balance = await ethers.provider.getBalance(account.address);
+    console.log(`========== Address: ${account.address}, Balance: ${balance}`);
   }
 }
 

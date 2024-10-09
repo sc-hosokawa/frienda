@@ -2,10 +2,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox-viem";
+import "@nomicfoundation/hardhat-toolbox";
 import "@nomicfoundation/hardhat-foundry";
 import "@nomicfoundation/hardhat-verify";
 import "hardhat-gas-reporter";
+import "@openzeppelin/hardhat-upgrades";
 
 const mnemonic: string =
   process.env.MNEMONIC !== undefined
