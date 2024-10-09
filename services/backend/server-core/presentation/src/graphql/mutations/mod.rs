@@ -1,10 +1,16 @@
-use async_graphql::Object;
+mod community;
+mod general;
+mod message;
+mod notification;
+mod offer;
 
-pub struct MutationRoot;
+use async_graphql::MergedObject;
 
-#[Object]
-impl MutationRoot {
-    async fn health(&self) -> String {
-        "system is healthy".to_string()
-    }
-}
+#[derive(MergedObject, Default)]
+pub struct MutationRoot(
+    community::CommunityMutation,
+    general::GeneralMutation,
+    message::MessageMutation,
+    notification::NotificationMutation,
+    offer::OfferMutation,
+);

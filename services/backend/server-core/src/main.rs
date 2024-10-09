@@ -35,10 +35,14 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     let repos = create_repositories(db.clone());
     let usecases = create_usecases(repos);
 
-    let schema = Schema::build(QueryRoot::default(), MutationRoot, EmptySubscription)
-        .data(usecases)
-        .data(db.clone())
-        .finish();
+    let schema = Schema::build(
+        QueryRoot::default(),
+        MutationRoot::default(),
+        EmptySubscription,
+    )
+    .data(usecases)
+    .data(db.clone())
+    .finish();
 
     tracing::info!("Starting server...");
     tracing::info!("GraphiQL IDE: http://{}:{}/graphql", host, port);

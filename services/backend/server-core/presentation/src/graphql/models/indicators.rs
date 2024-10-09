@@ -1,7 +1,7 @@
 use async_graphql::{InputObject, SimpleObject};
 
 #[derive(SimpleObject)]
-pub struct Indicator {
+pub struct IndicatorData {
     pub id: String,
     pub name: String,
     pub description: String,

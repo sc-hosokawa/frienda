@@ -1,0 +1,228 @@
+input AddNewConnectionInput {
+	userId: String!
+}
+
+type AddNewConnectionResponse {
+	mapId: String!
+}
+
+type ArtistPlaybackOverviewData {
+	id: String!
+	name: String!
+	imageUrl: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+
+type ConnectingByUserData {
+	id: String!
+	name: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+input CreateNewMessageRoomInput {
+	title: String!
+	content: String!
+}
+
+type CreateNewMessageRoomResponse {
+	id: String!
+}
+
+input CreateNewNotificationInput {
+	title: String!
+	content: String!
+}
+
+type CreateNewNotificationResponse {
+	id: String!
+}
+
+input CreateNewOfferInput {
+	title: String!
+	content: String!
+}
+
+type CreateNewOfferResponse {
+	id: String!
+}
+
+input CreateNewUserDataInput {
+	email: String!
+	firstName: String!
+	lastName: String!
+	imageUrl: String!
+}
+
+type CreateNewUserDataResponse {
+	id: String!
+}
+
+input DeleteNotificationInput {
+	id: String!
+}
+
+type DeleteNotificationResponse {
+	id: String!
+}
+
+input DeleteOfferInput {
+	id: String!
+}
+
+type DeleteOfferResponse {
+	id: String!
+}
+
+
+type HealthCheck {
+	status: String!
+}
+
+
+type IndicatorData {
+	id: String!
+	name: String!
+	description: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+
+type MessageRoomsByUserData {
+	id: String!
+	name: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type MessagesByMessageRoomIdData {
+	id: String!
+	title: String!
+	content: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type MutationRoot {
+	addNewConnection(input: AddNewConnectionInput!): AddNewConnectionResponse!
+	createNewUserData(input: CreateNewUserDataInput!): CreateNewUserDataResponse!
+	createNewMessageRoom(input: CreateNewMessageRoomInput!): CreateNewMessageRoomResponse!
+	sendMessage(input: SendMessageInput!): SendMessageResponse!
+	createNewNotification(input: CreateNewNotificationInput!): CreateNewNotificationResponse!
+	updateNotification(input: UpdateNotificationInput!): UpdateNotificationResponse!
+	deleteNotification(input: DeleteNotificationInput!): DeleteNotificationResponse!
+	createNewOffer(input: CreateNewOfferInput!): CreateNewOfferResponse!
+	updateOffer(input: UpdateOfferInput!): UpdateOfferResponse!
+	deleteOffer(input: DeleteOfferInput!): DeleteOfferResponse!
+}
+
+type NotificationsByUserData {
+	id: String!
+	title: String!
+	content: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type NotificationsData {
+	id: String!
+	title: String!
+	content: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type OffersData {
+	id: String!
+	title: String!
+	content: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type QueryRoot {
+	healthCheck: HealthCheck!
+	getOverviewData: ArtistPlaybackOverviewData!
+	getTrendingData: ArtistPlaybackOverviewData!
+	getLineChartData: ArtistPlaybackOverviewData!
+	getSegmentData: ArtistPlaybackOverviewData!
+	getAvailableIndicatorsData: IndicatorData!
+	getCommunities: ConnectingByUserData!
+	getUserInfo: UserInfoData!
+	getAllOffers: OffersData!
+	getOffersByCategory: OffersData!
+	getOffersById: OffersData!
+	getOffersByOwner: OffersData!
+	getOffersByApplied: OffersData!
+	getOffersByAppliedUser: OffersData!
+	getOffersByStatus: OffersData!
+	getOffersByTag: OffersData!
+	getOffersByTitle: OffersData!
+	getOffersByDeadline: OffersData!
+	getOffersByPoints: OffersData!
+	getOffersByUserCategory: OffersData!
+	getMessageRooms: MessageRoomsByUserData!
+	getMessagesByMessageRoomId(messageRoomId: String!): MessagesByMessageRoomIdData!
+	getNotifications: NotificationsByUserData!
+	getAllNotifications: NotificationsData!
+	getUserData: UserData!
+}
+
+input SendMessageInput {
+	title: String!
+	content: String!
+}
+
+type SendMessageResponse {
+	id: String!
+}
+
+
+input UpdateNotificationInput {
+	id: String!
+	title: String!
+	content: String!
+}
+
+type UpdateNotificationResponse {
+	id: String!
+}
+
+input UpdateOfferInput {
+	id: String!
+	title: String!
+	content: String!
+}
+
+type UpdateOfferResponse {
+	id: String!
+}
+
+type UserData {
+	id: String!
+	email: String!
+	firstName: String!
+	lastName: String!
+	imageUrl: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type UserInfoData {
+	id: String!
+	firstName: String!
+	lastName: String!
+	imageUrl: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+directive @include(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+directive @skip(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+schema {
+	query: QueryRoot
+	mutation: MutationRoot
+}

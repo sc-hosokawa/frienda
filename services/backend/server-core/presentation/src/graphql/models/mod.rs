@@ -1,5 +1,9 @@
 pub mod artists;
 pub mod comments;
+pub mod communities;
 pub mod health_check;
 pub mod indicators;
+pub mod messages;
+pub mod notifications;
+pub mod offers;
 pub mod users;
