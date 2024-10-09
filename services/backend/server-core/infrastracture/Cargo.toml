@@ -20,3 +20,4 @@ anyhow = { workspace = true }
 async-trait = { workspace = true }
 svix = { workspace = true }
 http = { workspace = true }
+cloud-storage = { workspace = true }
