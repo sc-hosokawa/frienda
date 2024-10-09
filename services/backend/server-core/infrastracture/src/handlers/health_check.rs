@@ -2,7 +2,7 @@ use actix_web::{web, HttpResponse, Responder};
 use futures::StreamExt;
 use tracing;
 
-#[tracing::instrument(skip(payload))]
+#[tracing::instrument(name = "health_check", skip(payload))]
 pub async fn health_check(mut payload: web::Payload) -> impl Responder {
     let body: String = match payload.next().await {
         Some(Ok(bytes)) => match String::from_utf8(bytes.to_vec()) {
