@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   utils: 
     path: ../../packages/utils
+  smooth_page_indicator: ^1.2.0+3
+  flutter_native_splash: ^2.4.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -89,3 +91,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  color: '#ffffff'
+  image: 'assets/logo_visualonly.jpg'
+  color_dark: '#262626'
+  image_dark: 'assets/logo_visualonly.jpg'
+  fullscreen: true
+  android_12:
+    icon_background_color: '#ffffff'
+    image: 'assets/logo_visualonly.jpg'
