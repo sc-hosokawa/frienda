@@ -1,0 +1,67 @@
+query HealthCheck {
+  healthCheck {
+    status
+  }
+}
+
+query GetUserInfo {
+  getUserInfo {
+    id
+    firstName
+    lastName
+    imageUrl
+    createdAt
+    updatedAt
+  }
+}
+
+query GetAllOffers {
+  getAllOffers {
+    id
+    title
+    content
+    createdAt
+    updatedAt
+  }
+}
+
+query GetMessageRooms {
+  getMessageRooms {
+    id
+    name
+    createdAt
+    updatedAt
+  }
+}
+
+query GetMessagesByMessageRoomId($messageRoomId: String!) {
+  getMessagesByMessageRoomId(messageRoomId: $messageRoomId) {
+    id
+    title
+    content
+    createdAt
+    updatedAt
+  }
+}
+
+query GetNotifications {
+  getNotifications {
+    id
+    title
+    content
+    createdAt
+    updatedAt
+  }
+}
+
+query GetUserData {
+  getUserData {
+    id
+    email
+    firstName
+    lastName
+    imageUrl
+    createdAt
+    updatedAt
+  }
+}
