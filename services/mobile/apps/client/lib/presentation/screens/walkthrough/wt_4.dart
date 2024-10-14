@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:client/presentation/screens/bottom_navigation_bar.dart';
+import 'package:client/presentation/screens/main_screen.dart';
 
 class WalkthroughPage4 extends StatelessWidget {
   const WalkthroughPage4({super.key});
@@ -17,11 +17,6 @@ class WalkthroughPage4 extends StatelessWidget {
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 240),
-          const Text(
-            "Describe 3",
-            style: TextStyle(color: Colors.black, fontSize: 20),
-          ),
-          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(

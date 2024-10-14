@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:client/presentation/screens/bottom_navigation_bar.dart';
+import 'package:client/presentation/screens/main_screen.dart';
 import 'package:client/presentation/screens/walkthrough/wt_1.dart';
 import 'package:client/presentation/screens/walkthrough/wt_2.dart';
 import 'package:client/presentation/screens/walkthrough/wt_3.dart';
