@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:client/presentation/screens/bottom_navigation_bar.dart';
+import 'package:client/presentation/screens/walkthrough/wt_1.dart';
+import 'package:client/presentation/screens/walkthrough/wt_2.dart';
+import 'package:client/presentation/screens/walkthrough/wt_3.dart';
+import 'package:client/presentation/screens/walkthrough/wt_4.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +31,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const int pageCount = 6;
+  static const int pageCount = 4;
   final PageController _pageController = PageController(keepPage: true);
 
   @override
@@ -34,10 +39,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Stack(
         children: [
-          PageView.builder(
+          PageView(
             controller: _pageController,
-            itemCount: pageCount,
-            itemBuilder: (context, index) => _buildPage(index),
+            children: const [
+              WalkthroughPage1(),
+              WalkthroughPage2(),
+              WalkthroughPage3(),
+              WalkthroughPage4(),
+            ],
           ),
           Positioned(
             left: 0,
@@ -55,27 +64,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPage(int index) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/friendshipdao_loop.gif',
-            height: 200,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(height: 240),
-          Text(
-            index == 0 ? "<< Swipe to Start" : "Describe $index",
-            style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
         ],
       ),
