@@ -16,7 +16,6 @@ void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  // クライアントの初期化を待つ
   final client = await initClient();
   providerContainer.read(clientProvider.notifier).state = client;
 

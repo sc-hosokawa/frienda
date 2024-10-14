@@ -15,7 +15,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('FRIENDSHIP.'),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 16.0),

@@ -4,7 +4,6 @@ import 'package:client/presentation/widgets/dashboard.dart';
 import 'package:client/presentation/widgets/offer.dart';
 import 'package:client/presentation/widgets/more.dart';
 import 'package:client/presentation/widgets/components/bottom_bar.dart';
-import 'package:client/presentation/widgets/components/header_bar.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   const MyBottomNavigationBar({super.key});
@@ -32,10 +31,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-          title: "FRIENDSHIP.",
-          points: 1000,
-          profileImagePath: "assets/logo_visualonly.jpg"),
+      appBar: AppBar(
+        title: const Text('FRIENDSHIP.'),
+      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

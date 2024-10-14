@@ -70,7 +70,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       if (response.hasErrors) {
         _showSnackBar(context, 'エラー: ${response.graphqlErrors}');
       } else {
-        _showSnackBar(context, 'ヘルスチェック成功');
+        _showSnackBar(context, response.data!.healthCheck.toString());
       }
     } catch (e) {
       _showSnackBar(context, '予期せぬエラー: $e');
