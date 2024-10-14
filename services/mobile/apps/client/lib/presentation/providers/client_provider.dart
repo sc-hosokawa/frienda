@@ -5,6 +5,9 @@ import 'package:ferry_hive_store/ferry_hive_store.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/graphql/__generated__/schema.schema.gql.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
+final clientProvider = StateProvider<Client?>((ref) => null);
 
 Future<Client> initClient() async {
   await Hive.initFlutter();
@@ -14,9 +17,6 @@ Future<Client> initClient() async {
   final link = HttpLink(
       'https://frienda-server-962498306731.asia-northeast1.run.app/graphql');
   final client = Client(link: link, cache: cache);
+  FlutterNativeSplash.remove();
   return client;
 }
-
-final clientProvider = FutureProvider<Client>((ref) async {
-  return await initClient();
-});

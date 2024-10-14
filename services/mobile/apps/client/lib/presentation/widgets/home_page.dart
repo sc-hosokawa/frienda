@@ -3,52 +3,79 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
-// ferry
+
 import 'package:client/graphql/__generated__/schema.schema.gql.dart';
 import 'package:client/graphql/query/__generated__/query.data.gql.dart';
 import 'package:client/graphql/query/__generated__/query.req.gql.dart';
 import 'package:client/graphql/query/__generated__/query.var.gql.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final clientAsync = ref.watch(clientProvider);
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends ConsumerState<HomePage> {
+  final _isLoading = ValueNotifier<bool>(false);
+
+  @override
+  void dispose() {
+    _isLoading.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Home Page'),
-          ElevatedButton(
-            onPressed: () => _performHealthCheck(context, clientAsync),
-            child: Text('ヘルスチェック実行'),
+          ValueListenableBuilder<bool>(
+            valueListenable: _isLoading,
+            builder: (context, isLoading, child) {
+              return ElevatedButton(
+                onPressed:
+                    isLoading ? null : () => _performHealthCheck(context),
+                child: isLoading
+                    ? SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : Text('ヘルスチェック実行'),
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  void _performHealthCheck(
-      BuildContext context, AsyncValue<Client> clientAsync) async {
-    if (clientAsync.value == null) {
-      _showSnackBar(context, 'クライアントが初期化されていません');
-      return;
-    }
+  Future<void> _performHealthCheck(BuildContext context) async {
+    final clientAsync = ref.read(clientProvider);
+    if (clientAsync == null) return;
+
+    _isLoading.value = true;
 
     final healthCheckReq =
         GHealthCheckReq((b) => b..fetchPolicy = FetchPolicy.NoCache);
     try {
-      await for (var response in clientAsync.value!.request(healthCheckReq)) {
-        if (response.hasErrors) {
-          _showSnackBar(context, 'エラー: ${response.graphqlErrors}');
-        } else {
-          _showSnackBar(context, 'ヘルスチェック成功');
-        }
+      final response = await clientAsync.request(healthCheckReq).first;
+      if (response.hasErrors) {
+        _showSnackBar(context, 'エラー: ${response.graphqlErrors}');
+      } else {
+        _showSnackBar(context, 'ヘルスチェック成功');
       }
     } catch (e) {
       _showSnackBar(context, '予期せぬエラー: $e');
+    } finally {
+      _isLoading.value = false;
     }
   }
 

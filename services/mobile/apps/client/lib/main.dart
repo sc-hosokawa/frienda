@@ -6,10 +6,23 @@ import 'package:client/presentation/screens/walkthrough/wt_2.dart';
 import 'package:client/presentation/screens/walkthrough/wt_3.dart';
 import 'package:client/presentation/screens/walkthrough/wt_4.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:client/presentation/providers/client_provider.dart';
+import 'package:ferry/ferry.dart';
 
-void main() {
+final providerContainer = ProviderContainer();
+
+void main() async {
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // クライアントの初期化を待つ
+  final client = await initClient();
+  providerContainer.read(clientProvider.notifier).state = client;
+
   runApp(
-    ProviderScope(
+    UncontrolledProviderScope(
+      container: providerContainer,
       child: MyApp(),
     ),
   );
