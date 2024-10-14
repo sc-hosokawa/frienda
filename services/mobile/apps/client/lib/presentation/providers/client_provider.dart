@@ -11,7 +11,8 @@ Future<Client> initClient() async {
   final box = await Hive.openBox('graphql');
   final store = HiveStore(box);
   final cache = Cache(store: store, possibleTypes: possibleTypesMap);
-  final link = HttpLink('http://127.0.0.1:8080/graphql');
+  final link = HttpLink(
+      'https://frienda-server-962498306731.asia-northeast1.run.app/graphql');
   final client = Client(link: link, cache: cache);
   return client;
 }

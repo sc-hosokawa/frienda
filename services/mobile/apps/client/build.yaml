@@ -6,32 +6,11 @@ targets:
         options:
           schema: client|lib/graphql/schema.graphql
           global_enum_fallbacks: true
-          type_overrides:
-            Date:
-              name: DateTime
-            DateTime:
-              name: DateTime
-            JSON:
-              name: JsonObject
-              import: package:built_value/json_object.dart
 
       ferry_generator|serializer_builder:
         enabled: true
         options:
           schema: client|lib/graphql/schema.graphql
-          type_overrides:
-            Date:
-              name: DateTime
-            DateTime:
-              name: DateTime
-            JSON:
-              name: JsonObject
-              import: package:built_value/json_object.dart
-          custom_serializers:
-            - name: DateTimeSerializer
-              import: package:client/graphql/serializer/date_time_serializer.dart
-            - name: JsonObjectSerializer
-              import: package:built_value/src/json_object_serializer.dart
 
       json_serializable:
         options:

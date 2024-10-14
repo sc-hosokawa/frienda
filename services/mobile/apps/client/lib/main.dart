@@ -5,9 +5,14 @@ import 'package:client/presentation/screens/walkthrough/wt_1.dart';
 import 'package:client/presentation/screens/walkthrough/wt_2.dart';
 import 'package:client/presentation/screens/walkthrough/wt_3.dart';
 import 'package:client/presentation/screens/walkthrough/wt_4.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
