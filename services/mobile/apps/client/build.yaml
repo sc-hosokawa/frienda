@@ -4,13 +4,13 @@ targets:
       ferry_generator|graphql_builder:
         enabled: true
         options:
-          schema: client|lib/graphql/schema.graphql
+          schema: client|lib/data/graphql/schema.graphql
           global_enum_fallbacks: true
 
       ferry_generator|serializer_builder:
         enabled: true
         options:
-          schema: client|lib/graphql/schema.graphql
+          schema: client|lib/data/graphql/schema.graphql
 
       json_serializable:
         options:

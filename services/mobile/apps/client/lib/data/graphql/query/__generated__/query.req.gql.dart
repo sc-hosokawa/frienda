@@ -4,10 +4,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:client/graphql/__generated__/serializers.gql.dart' as _i6;
-import 'package:client/graphql/query/__generated__/query.ast.gql.dart' as _i5;
-import 'package:client/graphql/query/__generated__/query.data.gql.dart' as _i2;
-import 'package:client/graphql/query/__generated__/query.var.gql.dart' as _i3;
+import 'package:client/data/graphql/__generated__/serializers.gql.dart' as _i6;
+import 'package:client/data/graphql/query/__generated__/query.ast.gql.dart'
+    as _i5;
+import 'package:client/data/graphql/query/__generated__/query.data.gql.dart'
+    as _i2;
+import 'package:client/data/graphql/query/__generated__/query.var.gql.dart'
+    as _i3;
 import 'package:ferry_exec/ferry_exec.dart' as _i1;
 import 'package:gql_exec/gql_exec.dart' as _i4;
 

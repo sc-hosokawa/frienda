@@ -25,6 +25,7 @@ dependencies:
   hive_flutter: ^1.1.0
   freezed_annotation: ^2.4.4
   flutter_secure_storage: ^4.2.1
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
@@ -33,6 +34,7 @@ dev_dependencies:
   ferry_generator: ^0.9.1-dev.2
   build_runner: ^2.4.13
   freezed: ^2.5.7
+  json_serializable: ^6.8.0
 
 flutter:
   uses-material-design: true

@@ -4,7 +4,7 @@ import 'package:ferry/ferry.dart';
 import 'package:ferry_hive_store/ferry_hive_store.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:client/graphql/__generated__/schema.schema.gql.dart';
+import 'package:client/data/graphql/__generated__/schema.schema.gql.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 final clientProvider = StateProvider<Client?>((ref) => null);

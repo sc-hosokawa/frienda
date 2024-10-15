@@ -4,10 +4,11 @@ import 'package:ferry/ferry.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 
-import 'package:client/graphql/__generated__/schema.schema.gql.dart';
-import 'package:client/graphql/query/__generated__/query.data.gql.dart';
-import 'package:client/graphql/query/__generated__/query.req.gql.dart';
-import 'package:client/graphql/query/__generated__/query.var.gql.dart';
+import 'package:client/data/graphql/__generated__/schema.schema.gql.dart';
+import 'package:client/data/graphql/query/__generated__/query.data.gql.dart';
+import 'package:client/data/graphql/query/__generated__/query.req.gql.dart';
+import 'package:client/data/graphql/query/__generated__/query.var.gql.dart';
+import 'package:client/data/model/health_check/health_check.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -70,7 +71,9 @@ class _HomePageState extends ConsumerState<HomePage> {
       if (response.hasErrors) {
         _showSnackBar(context, 'エラー: ${response.graphqlErrors}');
       } else {
-        _showSnackBar(context, response.data!.healthCheck.toString());
+        final healthcheck =
+            Healthcheck.fromJson(response.data!.healthCheck.toJson());
+        _showSnackBar(context, 'ステータス: ${healthcheck.status}');
       }
     } catch (e) {
       _showSnackBar(context, '予期せぬエラー: $e');

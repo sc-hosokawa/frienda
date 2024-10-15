@@ -4,7 +4,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
-import 'package:client/graphql/__generated__/schema.schema.gql.dart'
+import 'package:client/data/graphql/__generated__/schema.schema.gql.dart'
     show
         GAddNewConnectionInput,
         GCreateNewMessageRoomInput,
@@ -16,7 +16,7 @@ import 'package:client/graphql/__generated__/schema.schema.gql.dart'
         GSendMessageInput,
         GUpdateNotificationInput,
         GUpdateOfferInput;
-import 'package:client/graphql/mutation/__generated__/mutation.data.gql.dart'
+import 'package:client/data/graphql/mutation/__generated__/mutation.data.gql.dart'
     show
         GAddNewConnectionData,
         GAddNewConnectionData_addNewConnection,
@@ -30,7 +30,7 @@ import 'package:client/graphql/mutation/__generated__/mutation.data.gql.dart'
         GSendMessageData_sendMessage,
         GUpdateOfferData,
         GUpdateOfferData_updateOffer;
-import 'package:client/graphql/mutation/__generated__/mutation.req.gql.dart'
+import 'package:client/data/graphql/mutation/__generated__/mutation.req.gql.dart'
     show
         GAddNewConnectionReq,
         GCreateNewMessageRoomReq,
@@ -38,7 +38,7 @@ import 'package:client/graphql/mutation/__generated__/mutation.req.gql.dart'
         GDeleteOfferReq,
         GSendMessageReq,
         GUpdateOfferReq;
-import 'package:client/graphql/mutation/__generated__/mutation.var.gql.dart'
+import 'package:client/data/graphql/mutation/__generated__/mutation.var.gql.dart'
     show
         GAddNewConnectionVars,
         GCreateNewMessageRoomVars,
@@ -46,7 +46,7 @@ import 'package:client/graphql/mutation/__generated__/mutation.var.gql.dart'
         GDeleteOfferVars,
         GSendMessageVars,
         GUpdateOfferVars;
-import 'package:client/graphql/query/__generated__/query.data.gql.dart'
+import 'package:client/data/graphql/query/__generated__/query.data.gql.dart'
     show
         GGetAllOffersData,
         GGetAllOffersData_getAllOffers,
@@ -62,7 +62,7 @@ import 'package:client/graphql/query/__generated__/query.data.gql.dart'
         GGetUserInfoData_getUserInfo,
         GHealthCheckData,
         GHealthCheckData_healthCheck;
-import 'package:client/graphql/query/__generated__/query.req.gql.dart'
+import 'package:client/data/graphql/query/__generated__/query.req.gql.dart'
     show
         GGetAllOffersReq,
         GGetMessageRoomsReq,
@@ -71,7 +71,7 @@ import 'package:client/graphql/query/__generated__/query.req.gql.dart'
         GGetUserDataReq,
         GGetUserInfoReq,
         GHealthCheckReq;
-import 'package:client/graphql/query/__generated__/query.var.gql.dart'
+import 'package:client/data/graphql/query/__generated__/query.var.gql.dart'
     show
         GGetAllOffersVars,
         GGetMessageRoomsVars,
