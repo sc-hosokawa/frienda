@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:client/presentation/widgets/offer_detail.dart';
+import 'package:client/presentation/widgets/offer/offer_detail.dart';
 
 class Offer extends StatelessWidget {
   const Offer({super.key});
