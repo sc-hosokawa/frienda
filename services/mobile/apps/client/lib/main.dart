@@ -34,7 +34,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'FRIENDSHIP. DAO App Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        // アイコンのデフォルト色を設定
+        iconTheme: IconThemeData(color: Colors.green),
+        // テキストのデフォルト色を設定
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(color: Colors.grey[800]),
+          bodyMedium: TextStyle(color: Colors.grey[800]),
+          titleMedium: TextStyle(color: Colors.grey[800]),
+          // 他のテキストスタイルも必要に応じて設定
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.grey[30],
+            foregroundColor: Colors.lightGreen,
+          ),
+        ),
+      ),
       home: const HomePage(),
     );
   }
