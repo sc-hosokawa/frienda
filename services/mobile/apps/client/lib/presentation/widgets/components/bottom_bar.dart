@@ -24,6 +24,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
       label: 'offer',
     ),
     BottomNavigationBarItem(
+      icon: Icon(Icons.money),
+      label: 'fsp',
+    ),
+    BottomNavigationBarItem(
       icon: Icon(Icons.more_horiz),
       label: 'more',
     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:client/presentation/widgets/home_page.dart';
 import 'package:client/presentation/widgets/dashboard.dart';
 import 'package:client/presentation/widgets/offer.dart';
+import 'package:client/presentation/widgets/fsp_wallet.dart';
 import 'package:client/presentation/widgets/more.dart';
 import 'package:client/presentation/widgets/components/bottom_bar.dart';
 import 'package:client/presentation/widgets/components/header_bar.dart';
@@ -20,12 +21,14 @@ class _MainScreenState extends State<MainScreen> {
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
   ];
 
   final List<String> _sectionTitles = [
     'FRIENDSHIP.',
     'Dashboard',
     'Offer',
+    'FSP',
     'More',
   ];
 
@@ -37,6 +40,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // _selectedIndexが範囲内にあることを確認
+    final safeIndex = _selectedIndex.clamp(0, _sectionTitles.length - 1);
+
     return WillPopScope(
       onWillPop: () async {
         final isFirstRouteInCurrentTab =
@@ -45,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
       },
       child: Scaffold(
         appBar: CustomAppBar(
-            title: _sectionTitles[_selectedIndex],
+            title: _sectionTitles[safeIndex],
             points: 1000,
             profileImagePath: 'assets/logo_visualonly.jpg'),
         body: IndexedStack(
@@ -55,6 +61,7 @@ class _MainScreenState extends State<MainScreen> {
             _buildOffstageNavigator(1),
             _buildOffstageNavigator(2),
             _buildOffstageNavigator(3),
+            _buildOffstageNavigator(4),
           ],
         ),
         bottomNavigationBar: CustomBottomNavigationBar(
@@ -66,6 +73,11 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildOffstageNavigator(int index) {
+    // インデックスが範囲内かチェック
+    if (index < 0 || index >= _navigatorKeys.length) {
+      return Container(); // 範囲外の場合は空のコンテナを返す
+    }
+
     return Offstage(
       offstage: _selectedIndex != index,
       child: Navigator(
@@ -81,6 +93,8 @@ class _MainScreenState extends State<MainScreen> {
                 case 2:
                   return Offer();
                 case 3:
+                  return Fsp();
+                case 4:
                   return More();
                 default:
                   return HomePage();

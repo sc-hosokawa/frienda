@@ -5,11 +5,6 @@ class More extends StatelessWidget {
 
   final List<Map<String, dynamic>> _items = const [
     {
-      'icon': Icons.money,
-      'title': 'FSP',
-      'description': 'ポイントの操作をします',
-    },
-    {
       'icon': Icons.settings,
       'title': '設定',
       'description': 'アプリの設定を変更します',
