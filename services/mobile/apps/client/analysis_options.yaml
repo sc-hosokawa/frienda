@@ -2,16 +2,14 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
-    avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    avoid_print: false
+    prefer_single_quotes: true
 
 analyzer:
   errors:
     unused_import: ignore
   exclude:
-    - lib/graphql/__generated__/**
-    - lib/graphql/mutation/__generated__/**
-    - lib/graphql/query/__generated__/**
-
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+    - lib/data/graphql/__generated__/**
+    - lib/data/graphql/mutation/__generated__/**
+    - lib/data/graphql/query/__generated__/**
+    - lib/data/model/**
