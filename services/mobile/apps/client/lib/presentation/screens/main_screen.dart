@@ -32,20 +32,42 @@ class _MainScreenState extends State<MainScreen> {
     'More',
   ];
 
+  List<bool> _hasHistory = List.filled(5, false);
+
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (_selectedIndex == index) {
+      // 同じタブをタップした場合、ルートに戻る
+      _resetToRoot(index);
+    } else {
+      // 異なるタブをタップした場合、タブを切り替える
+      setState(() {
+        _selectedIndex = index;
+        _hasHistory[index] = false; // 履歴をリセット
+      });
+    }
+  }
+
+  void _resetToRoot(int index) {
+    final NavigatorState? navigator = _navigatorKeys[index].currentState;
+    if (navigator != null) {
+      navigator.popUntil((route) => route.isFirst);
+      setState(() {
+        _hasHistory[index] = false;
+      });
+    }
   }
 
   bool _canPop() {
-    return _navigatorKeys[_selectedIndex].currentState?.canPop() ?? false;
+    return _hasHistory[_selectedIndex];
   }
 
   void _handleBackPress() {
     if (_canPop()) {
       _navigatorKeys[_selectedIndex].currentState?.pop();
-      setState(() {});
+      setState(() {
+        _hasHistory[_selectedIndex] =
+            _navigatorKeys[_selectedIndex].currentState?.canPop() ?? false;
+      });
     }
   }
 
@@ -95,20 +117,35 @@ class _MainScreenState extends State<MainScreen> {
         onGenerateRoute: (routeSettings) {
           return MaterialPageRoute(
             builder: (context) {
+              Widget page;
               switch (index) {
                 case 0:
-                  return HomePage();
+                  page = HomePage();
+                  break;
                 case 1:
-                  return Dashboard();
+                  page = Dashboard();
+                  break;
                 case 2:
-                  return Offer();
+                  page = Offer();
+                  break;
                 case 3:
-                  return Fsp();
+                  page = Fsp();
+                  break;
                 case 4:
-                  return More();
+                  page = More();
+                  break;
                 default:
-                  return HomePage();
+                  page = HomePage();
               }
+              return WillPopScope(
+                onWillPop: () async {
+                  setState(() {
+                    _hasHistory[index] = true;
+                  });
+                  return true;
+                },
+                child: page,
+              );
             },
           );
         },
