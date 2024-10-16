@@ -21,7 +21,7 @@ class WalkthroughPage4 extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => const MyBottomNavigationBar(),
+                  builder: (context) => const MainScreen(),
                 ),
               );
             },
