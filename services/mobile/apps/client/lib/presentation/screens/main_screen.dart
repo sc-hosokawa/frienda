@@ -32,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
     'More',
   ];
 
-  List<bool> _hasHistory = List.filled(5, false);
+  final List<bool> _hasHistory = List.filled(5, false);
 
   void _onItemTapped(int index) {
     if (_selectedIndex == index) {
