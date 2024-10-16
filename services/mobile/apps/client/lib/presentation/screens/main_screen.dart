@@ -38,22 +38,37 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  bool _canPop() {
+    return _navigatorKeys[_selectedIndex].currentState?.canPop() ?? false;
+  }
+
+  void _handleBackPress() {
+    if (_canPop()) {
+      _navigatorKeys[_selectedIndex].currentState?.pop();
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // _selectedIndexが範囲内にあることを確認
     final safeIndex = _selectedIndex.clamp(0, _sectionTitles.length - 1);
 
     return WillPopScope(
       onWillPop: () async {
-        final isFirstRouteInCurrentTab =
-            !await _navigatorKeys[_selectedIndex].currentState!.maybePop();
-        return isFirstRouteInCurrentTab;
+        if (_canPop()) {
+          _handleBackPress();
+          return false;
+        }
+        return false;
       },
       child: Scaffold(
         appBar: CustomAppBar(
-            title: _sectionTitles[safeIndex],
-            points: 1000,
-            profileImagePath: 'assets/logo_visualonly.jpg'),
+          title: _sectionTitles[safeIndex],
+          points: 1000,
+          profileImagePath: 'assets/logo_visualonly.jpg',
+          showBackButton: _canPop(),
+          onBackPressed: _handleBackPress,
+        ),
         body: IndexedStack(
           index: _selectedIndex,
           children: [
@@ -73,11 +88,6 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildOffstageNavigator(int index) {
-    // インデックスが範囲内かチェック
-    if (index < 0 || index >= _navigatorKeys.length) {
-      return Container(); // 範囲外の場合は空のコンテナを返す
-    }
-
     return Offstage(
       offstage: _selectedIndex != index,
       child: Navigator(

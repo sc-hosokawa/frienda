@@ -4,17 +4,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final int points;
   final String profileImagePath;
+  final bool showBackButton;
+  final VoidCallback? onBackPressed;
 
   const CustomAppBar({
     super.key,
     required this.title,
     required this.points,
     required this.profileImagePath,
+    this.showBackButton = false,
+    this.onBackPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: showBackButton
+          ? IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: onBackPressed,
+            )
+          : null,
+      title: Text(title),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
@@ -33,17 +44,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ],
-      leadingWidth: 200,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 16.0),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-          ),
-        ),
-      ),
     );
   }
 
