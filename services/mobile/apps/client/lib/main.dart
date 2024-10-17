@@ -35,35 +35,70 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FRIENDSHIP. DAO App',
       theme: ThemeData(
-          primarySwatch: Colors.green,
-          scaffoldBackgroundColor: Colors.white,
-          appBarTheme: AppBarTheme(
+        brightness: Brightness.light,
+        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.grey[800],
+          elevation: 0,
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.white,
+          elevation: 1,
+        ),
+        iconTheme: IconThemeData(color: Colors.green),
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(color: Colors.grey[800]),
+          bodyMedium: TextStyle(color: Colors.grey[800]),
+          titleMedium: TextStyle(color: Colors.grey[800]),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
-            foregroundColor: Colors.grey[800],
-            elevation: 0,
+            foregroundColor: Colors.lightGreen,
           ),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Colors.white,
-            elevation: 1,
+        ),
+        cardTheme: CardTheme(color: Colors.white),
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: Colors.green.withOpacity(0.3),
+          cursorColor: Colors.green,
+          selectionHandleColor: Colors.green,
+        ),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: Colors.grey[900],
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey[900],
+          foregroundColor: Colors.grey[200],
+          elevation: 0,
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.grey[900],
+          elevation: 1,
+        ),
+        iconTheme: IconThemeData(color: Colors.green),
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(color: Colors.grey[200]),
+          bodyMedium: TextStyle(color: Colors.grey[200]),
+          titleMedium: TextStyle(color: Colors.grey[200]),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.grey[800],
+            foregroundColor: Colors.lightGreen,
           ),
-          iconTheme: IconThemeData(color: Colors.green),
-          textTheme: TextTheme(
-            bodyLarge: TextStyle(color: Colors.grey[800]),
-            bodyMedium: TextStyle(color: Colors.grey[800]),
-            titleMedium: TextStyle(color: Colors.grey[800]),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.lightGreen,
-            ),
-          ),
-          cardTheme: CardTheme(color: Colors.white),
-          textSelectionTheme: TextSelectionThemeData(
-            selectionColor: Colors.green.withOpacity(0.3),
-            cursorColor: Colors.green,
-            selectionHandleColor: Colors.green,
-          )),
+        ),
+        cardTheme: CardTheme(color: Colors.grey[800]),
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: Colors.green.withOpacity(0.3),
+          cursorColor: Colors.green,
+          selectionHandleColor: Colors.green,
+        ),
+      ),
+      themeMode: ThemeMode.system,
       home: const HomePage(),
     );
   }
