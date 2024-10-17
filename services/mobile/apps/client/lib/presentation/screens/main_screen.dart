@@ -39,10 +39,10 @@ class _MainScreenState extends State<MainScreen> {
       // 同じタブをタップした場合、ルートに戻る
       _resetToRoot(index);
     } else {
-      // 異なるタブをタップした場合、タブを切り替える
+      // 異なるタブをタップした場合、タブを切り替えてナビゲーターをリセット
       setState(() {
         _selectedIndex = index;
-        _hasHistory[index] = false; // 履歴をリセット
+        _resetNavigator(index);
       });
     }
   }
@@ -54,6 +54,14 @@ class _MainScreenState extends State<MainScreen> {
       setState(() {
         _hasHistory[index] = false;
       });
+    }
+  }
+
+  void _resetNavigator(int index) {
+    final NavigatorState? navigator = _navigatorKeys[index].currentState;
+    if (navigator != null) {
+      navigator.popUntil((route) => route.isFirst);
+      _hasHistory[index] = false;
     }
   }
 
