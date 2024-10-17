@@ -23,10 +23,30 @@ class Fsp extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width * 2 / 3,
               padding: const EdgeInsets.all(24),
-              child: Text(
-                '1,000 fsp',
-                style: Theme.of(context).textTheme.headlineSmall,
-                textAlign: TextAlign.center,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    '1,000 fsp',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  const Divider(),
+                  const SizedBox(height: 8),
+                  Text(
+                    '期間限定 100 fsp',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    textAlign: TextAlign.right,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'クレデンシャル 15 cred',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    textAlign: TextAlign.right,
+                  ),
+                ],
               ),
             ),
           ),
@@ -73,7 +93,7 @@ class Fsp extends StatelessWidget {
               return ListTile(
                 leading: Icon(Icons.history),
                 title: Text('取引 ${index + 1}'),
-                subtitle: Text('¥10,000'),
+                subtitle: Text('10,000 fsp'),
                 trailing: Text('2023/04/${index + 1}'),
                 onTap: () {
                   Navigator.push(
