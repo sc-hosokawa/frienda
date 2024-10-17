@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
           ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             backgroundColor: Colors.white,
+            elevation: 1,
           ),
           iconTheme: IconThemeData(color: Colors.green),
           textTheme: TextTheme(
@@ -57,7 +58,12 @@ class MyApp extends StatelessWidget {
               foregroundColor: Colors.lightGreen,
             ),
           ),
-          cardTheme: CardTheme(color: Colors.white)),
+          cardTheme: CardTheme(color: Colors.white),
+          textSelectionTheme: TextSelectionThemeData(
+            selectionColor: Colors.green.withOpacity(0.3),
+            cursorColor: Colors.green,
+            selectionHandleColor: Colors.green,
+          )),
       home: const HomePage(),
     );
   }

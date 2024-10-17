@@ -59,7 +59,8 @@ class Fsp extends StatelessWidget {
                         builder: (context) => const Transactions()),
                   );
                 },
-                child: const Text('もっと見る'),
+                child:
+                    const Text('もっと見る', style: TextStyle(color: Colors.green)),
               ),
             ],
           ),
