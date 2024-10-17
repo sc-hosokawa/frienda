@@ -35,29 +35,29 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FRIENDSHIP. DAO App',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.grey[800],
-          elevation: 0,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.white,
-        ),
-        iconTheme: IconThemeData(color: Colors.green),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(color: Colors.grey[800]),
-          bodyMedium: TextStyle(color: Colors.grey[800]),
-          titleMedium: TextStyle(color: Colors.grey[800]),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey[30],
-            foregroundColor: Colors.lightGreen,
+          primarySwatch: Colors.green,
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.grey[800],
+            elevation: 0,
           ),
-        ),
-      ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.white,
+          ),
+          iconTheme: IconThemeData(color: Colors.green),
+          textTheme: TextTheme(
+            bodyLarge: TextStyle(color: Colors.grey[800]),
+            bodyMedium: TextStyle(color: Colors.grey[800]),
+            titleMedium: TextStyle(color: Colors.grey[800]),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.lightGreen,
+            ),
+          ),
+          cardTheme: CardTheme(color: Colors.white)),
       home: const HomePage(),
     );
   }
