@@ -9,6 +9,7 @@ import 'package:client/data/graphql/query/__generated__/query.data.gql.dart';
 import 'package:client/data/graphql/query/__generated__/query.req.gql.dart';
 import 'package:client/data/graphql/query/__generated__/query.var.gql.dart';
 import 'package:client/data/model/health_check/health_check.dart';
+import 'package:client/presentation/widgets/home/notifications.dart'; // Notificationsウィジェットをインポート
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -28,33 +29,110 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Home Page'),
-          ValueListenableBuilder<bool>(
-            valueListenable: _isLoading,
-            builder: (context, isLoading, child) {
-              return ElevatedButton(
-                onPressed:
-                    isLoading ? null : () => _performHealthCheck(context),
-                child: isLoading
-                    ? SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      )
-                    : Text('ヘルスチェック実行'),
+          _buildActionsSection(),
+          _buildNotificationsSection(),
+          _buildNewsSection(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('Actions', style: Theme.of(context).textTheme.titleSmall),
+        ),
+        SizedBox(
+          height: 120,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: EdgeInsets.only(left: 16, right: index == 4 ? 16 : 0),
+                child: SizedBox(
+                  width: 100,
+                  child: Center(child: Text('Action ${index + 1}')),
+                ),
               );
             },
           ),
-        ],
-      ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNotificationsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Notifications',
+                  style: Theme.of(context).textTheme.titleSmall),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Notifications()),
+                  );
+                },
+                child: Text('View all'),
+              ),
+            ],
+          ),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: 5,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text('Notification ${index + 1}'),
+              subtitle: Text('This is a notification description'),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNewsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('News', style: Theme.of(context).textTheme.titleSmall),
+        ),
+        SizedBox(
+          height: 200,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5, // 仮のアイテム数
+            itemBuilder: (context, index) {
+              return Card(
+                margin: EdgeInsets.only(left: 16, right: index == 4 ? 16 : 0),
+                child: SizedBox(
+                  width: 300,
+                  child: Center(child: Text('News ${index + 1}')),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
