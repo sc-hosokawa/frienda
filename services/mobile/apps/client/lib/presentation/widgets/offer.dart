@@ -38,27 +38,37 @@ class _OfferState extends State<Offer> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      opacity: _isTransitioning ? 0.0 : 1.0,
-      duration: const Duration(milliseconds: 200),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 150,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 3,
-              itemBuilder: (context, index) => _buildOfferCard(context, index),
+    return Scaffold(
+      body: AnimatedOpacity(
+        opacity: _isTransitioning ? 0.0 : 1.0,
+        duration: const Duration(milliseconds: 200),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 150,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 3,
+                itemBuilder: (context, index) =>
+                    _buildOfferCard(context, index),
+              ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: offers.length,
-              itemBuilder: (context, index) =>
-                  _buildOfferListTile(context, index),
+            Expanded(
+              child: ListView.builder(
+                itemCount: offers.length,
+                itemBuilder: (context, index) =>
+                    _buildOfferListTile(context, index),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // TODO: Implement add new offer functionality
+          print('Add new offer');
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
