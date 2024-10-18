@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:client/presentation/widgets/fsp/prize_detail.dart';
 
 class Exchange extends StatelessWidget {
   const Exchange({super.key});
@@ -24,33 +25,47 @@ class Exchange extends StatelessWidget {
             ),
             itemCount: 10,
             itemBuilder: (context, index) {
-              return Card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Image.network(
-                        'https://placehold.jp/150x150.png', // サムネイルのプレースホルダー
-                        fit: BoxFit.cover,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PrizeDetail(
+                        itemName: 'アイテム ${index + 1}',
+                        itemPrice: '${(index + 1) * 100} FSP',
+                        itemImage: 'https://placehold.jp/150x150.png',
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'アイテム ${index + 1}',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Text(
-                            '${(index + 1) * 100} FSP',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
+                  );
+                },
+                child: Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Image.network(
+                          'https://placehold.jp/150x150.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'アイテム ${index + 1}',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text(
+                              '${(index + 1) * 100} FSP',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
