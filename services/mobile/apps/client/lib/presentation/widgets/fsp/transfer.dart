@@ -129,6 +129,7 @@ class _TransferState extends State<Transfer> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('ポイントを送付しました')),
                   );
+                  _clearForm(); // フォームをクリア
                 },
                 feedback: Container(),
                 child: ElevatedButton(
@@ -154,6 +155,13 @@ class _TransferState extends State<Transfer> {
         );
       },
     );
+  }
+
+  void _clearForm() {
+    setState(() {
+      _recipientController.clear();
+      _pointsController.clear();
+    });
   }
 }
 
