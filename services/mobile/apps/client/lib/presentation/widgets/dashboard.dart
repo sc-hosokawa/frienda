@@ -51,14 +51,25 @@ class _DashboardState extends State<Dashboard> {
             showTitles: true,
             reservedSize: 22,
             interval: 1,
-            getTitlesWidget: (value, _) => Text(
-              'Day ${value.toInt() + 1}',
-              style: const TextStyle(
-                color: _textColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
-            ),
+            getTitlesWidget: (value, _) {
+              // データポイントに合わせてラベルを設定
+              switch (value.toInt()) {
+                case 0:
+                  return _buildBottomTitleWidget('Day 1');
+                case 2:
+                  return _buildBottomTitleWidget('Day 2');
+                case 4:
+                  return _buildBottomTitleWidget('Day 3');
+                case 6:
+                  return _buildBottomTitleWidget('Day 4');
+                case 8:
+                  return _buildBottomTitleWidget('Day 5');
+                case 10:
+                  return _buildBottomTitleWidget('Day 6');
+                default:
+                  return const SizedBox.shrink();
+              }
+            },
           ),
         ),
         rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -97,6 +108,17 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildBottomTitleWidget(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        color: _textColor,
+        fontWeight: FontWeight.bold,
+        fontSize: 12,
+      ),
     );
   }
 
@@ -139,6 +161,8 @@ class _DashboardState extends State<Dashboard> {
             _buildArtistSelector(),
             const SizedBox(height: 20),
             _buildStatsSection(),
+            const SizedBox(height: 20),
+            _buildTrendingSection(),
             const SizedBox(height: 20),
             _buildLineChartSection(),
             const SizedBox(height: 20),
@@ -187,8 +211,6 @@ class _DashboardState extends State<Dashboard> {
               _buildStatItem('Song Played', '1,234,567', 'Total'),
               const VerticalDivider(thickness: 1, width: 1),
               _buildStatItem('Song Played', '98,765', 'Week'),
-              const VerticalDivider(thickness: 1, width: 1),
-              _buildStatItem('Listeners', '543,210', 'Total'),
             ],
           ),
         ),
@@ -382,7 +404,7 @@ class _DashboardState extends State<Dashboard> {
 
   Widget _buildGenerationSection() {
     return Card(
-      color: Colors.grey[850], // 真っ黒から濃いグレーに変更
+      color: Colors.grey[850],
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -548,6 +570,85 @@ class _DashboardState extends State<Dashboard> {
           style: const TextStyle(color: Colors.white, fontSize: 12),
         ),
       ],
+    );
+  }
+
+  Widget _buildTrendingSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Trending', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 10),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: 5,
+          itemBuilder: (context, index) {
+            return _buildTrendingItem(index);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTrendingItem(int index) {
+    final rank = index + 1;
+    final isUp = index % 2 == 0;
+    final changeIcon = isUp ? Icons.arrow_upward : Icons.arrow_downward;
+    final changeColor = isUp ? Colors.green : Colors.red;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 30,
+            child: Text(
+              '$rank',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ),
+          Icon(changeIcon, color: changeColor),
+          const SizedBox(width: 10),
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                    'https://ogre.natalie.mu/media/news/music/2024/0913/Thefin_jkt2014.jpg?imwidth=750&imdensity=1'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Song name $rank',
+                  style: Theme.of(context).textTheme.titleMedium,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                'Total: ${1000000 - index * 100000}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Text(
+                'Week: ${100000 - index * 10000}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
