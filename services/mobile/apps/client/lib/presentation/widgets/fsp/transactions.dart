@@ -8,7 +8,13 @@ class Transactions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('取引履歴', style: Theme.of(context).textTheme.titleSmall),
+        SafeArea(
+          child: AppBar(
+            title: const Text('取引履歴'),
+            titleTextStyle: Theme.of(context).textTheme.titleMedium,
+            centerTitle: true,
+          ),
+        ),
         Expanded(
           child: ListView.builder(
             itemCount: 30,

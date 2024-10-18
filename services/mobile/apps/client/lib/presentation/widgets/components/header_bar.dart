@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:client/presentation/widgets/more.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -36,9 +37,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(width: 8),
-              CircleAvatar(
-                radius: 16,
-                backgroundImage: AssetImage(profileImagePath),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => More()),
+                  );
+                },
+                child: CircleAvatar(
+                  radius: 16,
+                  backgroundImage: AssetImage(profileImagePath),
+                ),
               ),
             ],
           ),

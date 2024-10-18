@@ -23,16 +23,23 @@ class More extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: _items.length,
-      itemBuilder: (context, index) {
-        final item = _items[index];
-        return _buildListItem(
-          icon: item['icon'] as IconData,
-          title: item['title'] as String,
-          description: item['description'] as String,
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('その他'),
+      ),
+      body: Material(
+        child: ListView.builder(
+          itemCount: _items.length,
+          itemBuilder: (context, index) {
+            final item = _items[index];
+            return _buildListItem(
+              icon: item['icon'] as IconData,
+              title: item['title'] as String,
+              description: item['description'] as String,
+            );
+          },
+        ),
+      ),
     );
   }
 

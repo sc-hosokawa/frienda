@@ -29,7 +29,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.more_horiz),
-      label: 'more',
+      label: 'community',
     ),
   ];
 

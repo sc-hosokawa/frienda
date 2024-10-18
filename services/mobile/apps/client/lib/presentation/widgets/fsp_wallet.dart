@@ -5,6 +5,7 @@ import 'package:client/presentation/widgets/fsp/receive.dart';
 import 'package:client/presentation/widgets/fsp/purchase.dart';
 import 'package:client/presentation/widgets/fsp/transactions.dart';
 import 'package:client/presentation/widgets/fsp/tx_detail.dart';
+import 'package:client/routing/navigation.dart';
 
 class Fsp extends StatelessWidget {
   const Fsp({super.key});
@@ -21,7 +22,7 @@ class Fsp extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Container(
-              width: MediaQuery.of(context).size.width * 2 / 3,
+              width: MediaQuery.of(context).size.width * 5 / 6,
               padding: const EdgeInsets.all(24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -29,10 +30,10 @@ class Fsp extends StatelessWidget {
                 children: [
                   Text(
                     '1,000 fsp',
-                    style: Theme.of(context).textTheme.headlineSmall,
+                    style: Theme.of(context).textTheme.headlineLarge,
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   const Divider(),
                   const SizedBox(height: 8),
                   Text(
@@ -73,11 +74,7 @@ class Fsp extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Transactions()),
-                  );
+                  navigateWithFadeTransition(context, const Transactions());
                 },
                 child:
                     const Text('もっと見る', style: TextStyle(color: Colors.green)),
@@ -96,10 +93,9 @@ class Fsp extends StatelessWidget {
                 subtitle: Text('10,000 fsp'),
                 trailing: Text('2023/04/${index + 1}'),
                 onTap: () {
-                  Navigator.push(
+                  navigateWithFadeTransition(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => TxDetail(txId: index.toString())),
+                    TxDetail(txId: index.toString()),
                   );
                 },
               );
@@ -119,7 +115,7 @@ class Fsp extends StatelessWidget {
           Widget? destinationWidget;
           switch (label) {
             case '送付':
-              destinationWidget = const Transfer();
+              destinationWidget = Transfer();
               break;
             case '受取':
               destinationWidget = const Receive();
@@ -132,10 +128,7 @@ class Fsp extends StatelessWidget {
               break;
           }
           if (destinationWidget != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => destinationWidget!),
-            );
+            navigateWithFadeTransition(context, destinationWidget);
           }
         },
         style: ElevatedButton.styleFrom(

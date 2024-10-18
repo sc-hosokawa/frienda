@@ -111,37 +111,84 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildArtistSelector(),
+            const SizedBox(height: 20),
+            _buildStatsSection(),
+            const SizedBox(height: 20),
+            _buildLineChartSection(),
+            const SizedBox(height: 20),
+            _buildGenderPlayCountSection(),
+            const SizedBox(height: 20),
+            _buildWorldwidePlayCountSection(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildArtistSelector() {
+    return GestureDetector(
+      onTap: _showArtistSelectionBottomSheet,
+      child: Row(
         children: [
-          GestureDetector(
-            onTap: _showArtistSelectionBottomSheet,
-            child: Row(
-              children: [
-                const CircleAvatar(
-                  radius: 16,
-                  backgroundColor: Color(0xFFE0E0E0),
-                  child: Icon(Icons.person, size: 20, color: Color(0xFF616161)),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  _selectedArtist,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(width: 4),
-                const Icon(Icons.arrow_drop_down),
-              ],
-            ),
+          const CircleAvatar(
+            radius: 16,
+            backgroundColor: Color(0xFFE0E0E0),
+            child: Icon(Icons.person, size: 20, color: Color(0xFF616161)),
           ),
-          const SizedBox(height: 20),
-          AspectRatio(
-            aspectRatio: 1,
-            child: LineChart(_createChartData()),
+          const SizedBox(width: 8),
+          Text(
+            _selectedArtist,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
+          const SizedBox(width: 4),
+          const Icon(Icons.arrow_drop_down),
         ],
       ),
+    );
+  }
+
+  Widget _buildStatsSection() {
+    // TODO: Implement stats section
+    return const Placeholder(
+      fallbackHeight: 100,
+      child: Center(child: Text('Stats Section')),
+    );
+  }
+
+  Widget _buildLineChartSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('再生数推移', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 10),
+        AspectRatio(
+          aspectRatio: 1.5,
+          child: LineChart(_createChartData()),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGenderPlayCountSection() {
+    // TODO: Implement gender play count section
+    return const Placeholder(
+      fallbackHeight: 200,
+      child: Center(child: Text('Gender Play Count Section')),
+    );
+  }
+
+  Widget _buildWorldwidePlayCountSection() {
+    // TODO: Implement worldwide play count section
+    return const Placeholder(
+      fallbackHeight: 300,
+      child: Center(child: Text('Worldwide Play Count Section')),
     );
   }
 }

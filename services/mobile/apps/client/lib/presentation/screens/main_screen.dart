@@ -3,7 +3,7 @@ import 'package:client/presentation/widgets/home_page.dart';
 import 'package:client/presentation/widgets/dashboard.dart';
 import 'package:client/presentation/widgets/offer.dart';
 import 'package:client/presentation/widgets/fsp_wallet.dart';
-import 'package:client/presentation/widgets/more.dart';
+import 'package:client/presentation/widgets/community.dart';
 import 'package:client/presentation/widgets/components/bottom_bar.dart';
 import 'package:client/presentation/widgets/components/header_bar.dart';
 
@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
     'Dashboard',
     'Offer',
     'FSP',
-    'More',
+    'Community',
   ];
 
   final List<bool> _hasHistory = List.filled(5, false);
@@ -140,7 +140,7 @@ class _MainScreenState extends State<MainScreen> {
                   page = Fsp();
                   break;
                 case 4:
-                  page = More();
+                  page = Community();
                   break;
                 default:
                   page = HomePage();
