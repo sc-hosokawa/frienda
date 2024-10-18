@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_graph_view/flutter_graph_view.dart';
+import 'package:client/presentation/widgets/community/details.dart';
 
 Map<String, Vertex> vertexStorage = {};
 
@@ -12,6 +13,8 @@ class Community extends StatefulWidget {
 }
 
 class _CommunityState extends State<Community> {
+  String _selectedView = 'Map View';
+
   void saveVertex(Vertex v) {
     vertexStorage[v.id as String] = v;
   }
@@ -98,42 +101,103 @@ class _CommunityState extends State<Community> {
       'edges': edges,
     };
 
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 2,
-      child: FlutterGraphWidget(
-        data: data,
-        algorithm: RandomAlgorithm(
-          decorators: [
-            PersistenceDecorator(saveVertex, loadVertex),
-            CoulombDecorator(k: 1000), // 反発力を調整
-            HookeDecorator(length: 1000, k: 0.01), // バネの強さを調整
-            HookeCenterDecorator(length: 1000, k: 0.01), // 中心への引力を調整
-          ],
+    return Column(
+      children: [
+        // ドロップダウンメニュー
+        DropdownButton<String>(
+          value: _selectedView,
+          items: ['Map View', 'List View']
+              .map((String value) => DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  ))
+              .toList(),
+          onChanged: (String? newValue) {
+            if (newValue != null) {
+              setState(() {
+                _selectedView = newValue;
+              });
+            }
+          },
         ),
-        convertor: MapConvertor(),
-        options: Options()
-          ..enableHit = false
-          ..panelDelay = const Duration(milliseconds: 500)
-          ..graphStyle = (GraphStyle()
-            ..tagColor = {'tag8': Colors.orangeAccent.shade200}
-            ..tagColorByIndex = [
-              Colors.red.shade200,
-              Colors.orange.shade200,
-              Colors.yellow.shade200,
-              Colors.green.shade200,
-              Colors.blue.shade200,
-              Colors.blueAccent.shade200,
-              Colors.purple.shade200,
-              Colors.pink.shade200,
-              Colors.blueGrey.shade200,
-              Colors.deepOrange.shade200,
-            ])
-          ..useLegend = false
-          ..edgePanelBuilder = edgePanelBuilder
-          ..vertexPanelBuilder = vertexPanelBuilder
-          ..edgeShape = EdgeLineShape()
-          ..vertexShape = VertexCircleShape(),
+        // グラフ表示
+        Expanded(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: _selectedView == 'Map View'
+                ? FlutterGraphWidget(
+                    data: data,
+                    algorithm: RandomAlgorithm(
+                      decorators: [
+                        PersistenceDecorator(saveVertex, loadVertex),
+                        CoulombDecorator(k: 1000), // 反発力を調整
+                        HookeDecorator(length: 1000, k: 0.01), // バネの強さを調整
+                        HookeCenterDecorator(
+                            length: 1000, k: 0.01), // 中心への引力を調整
+                      ],
+                    ),
+                    convertor: MapConvertor(),
+                    options: Options()
+                      ..enableHit = false
+                      ..panelDelay = const Duration(milliseconds: 500)
+                      ..graphStyle = (GraphStyle()
+                        ..tagColor = {'tag8': Colors.orangeAccent.shade200}
+                        ..tagColorByIndex = [
+                          Colors.red.shade200,
+                          Colors.orange.shade200,
+                          Colors.yellow.shade200,
+                          Colors.green.shade200,
+                          Colors.blue.shade200,
+                          Colors.blueAccent.shade200,
+                          Colors.purple.shade200,
+                          Colors.pink.shade200,
+                          Colors.blueGrey.shade200,
+                          Colors.deepOrange.shade200,
+                        ])
+                      ..useLegend = false
+                      ..edgePanelBuilder = edgePanelBuilder
+                      ..vertexPanelBuilder = vertexPanelBuilder
+                      ..edgeShape = EdgeLineShape()
+                      ..vertexShape = VertexCircleShape(),
+                  )
+                : _buildListView(vertexes.toList()),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: _buildTags(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTags() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          _buildTagItem('Musician', Colors.blue),
+          const SizedBox(width: 8),
+          _buildTagItem('Curator', Colors.green),
+          const SizedBox(width: 8),
+          _buildTagItem('Creator', Colors.orange),
+          const SizedBox(width: 8),
+          _buildTagItem('Supporter', Colors.purple),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTagItem(String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(color: Colors.white, fontSize: 12),
       ),
     );
   }
@@ -197,6 +261,36 @@ class _CommunityState extends State<Community> {
           ),
         )
       ],
+    );
+  }
+
+  Widget _buildListView(List<Map<dynamic, dynamic>> vertexes) {
+    // node0 を除外し、他のノードをリストに表示
+    var targetNodes =
+        vertexes.where((vertex) => vertex['id'] != 'node0').toList();
+
+    return ListView.builder(
+      itemCount: targetNodes.length,
+      itemBuilder: (context, index) {
+        var node = targetNodes[index];
+        return ListTile(
+          leading: CircleAvatar(
+            // プロフィール画像がない場合はプレースホルダーを表示
+            backgroundImage: AssetImage('assets/logo_visualonly.jpg'),
+            // 実際のプロフィール画像がある場合は以下のようにします
+            // backgroundImage: NetworkImage(node['profileImageUrl']),
+          ),
+          title: Text(node['id']), // ノードの名前（例：node1）
+          subtitle: Text('Type: ${node['tag']}'), // ノードの種類
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NodeDetailPage(node: node),
+            ),
+          ),
+          // 必要に応じて他の属性を表示
+        );
+      },
     );
   }
 }
