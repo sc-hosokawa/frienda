@@ -20,7 +20,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       label: 'dashboard',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.people),
+      icon: Icon(Icons.task),
       label: 'offer',
     ),
     BottomNavigationBarItem(
@@ -28,7 +28,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       label: 'fsp',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.more_horiz),
+      icon: Icon(Icons.people),
       label: 'community',
     ),
   ];
