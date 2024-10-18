@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_graph_view/flutter_graph_view.dart';
 
-// グローバル変数として vertex の保存用 Map を追加
 Map<String, Vertex> vertexStorage = {};
 
 class Community extends StatefulWidget {
@@ -13,7 +12,6 @@ class Community extends StatefulWidget {
 }
 
 class _CommunityState extends State<Community> {
-  // vertex の保存と読み込みのための関数を追加
   void saveVertex(Vertex v) {
     vertexStorage[v.id as String] = v;
   }
@@ -22,25 +20,70 @@ class _CommunityState extends State<Community> {
     return vertexStorage;
   }
 
+  // 円形レイアウトの初期位置を計算する関数
+  Map<String, Offset> calculateInitialPositions(
+      double radius, bool isHalfCircle) {
+    Map<String, Offset> positions = {};
+    int nodeCount = 9; // node1からnode9まで
+
+    // 中心のnode0の位置
+    positions['node0'] = const Offset(0, 0);
+
+    // 周りのノードの位置を計算
+    for (int i = 1; i <= nodeCount; i++) {
+      // 角度の計算（半円の場合は180度、円の場合は360度で分割）
+      double angle = (isHalfCircle ? pi : 2 * pi) * (i - 1) / nodeCount;
+      if (isHalfCircle) {
+        // 半円の場合は角度を調整（0°から180°の範囲にする）
+        angle = pi - angle;
+      }
+
+      // 極座標から直交座標に変換
+      double x = radius * cos(angle);
+      double y = radius * sin(angle);
+
+      positions['node$i'] = Offset(x, y);
+    }
+
+    return positions;
+  }
+
   @override
   Widget build(BuildContext context) {
+    // 初期位置を計算（radius は適宜調整）
+    final initialPositions = calculateInitialPositions(
+        200, false); // false for full circle, true for half circle
+
     var vertexes = <Map>{};
     var r = Random();
-    for (var i = 0; i < 10; i++) {
-      vertexes.add(
-        {
-          'id': 'node$i',
-          'tag': 'tag${r.nextInt(9)}',
-          'tags': [
-            'tag${r.nextInt(9)}',
-            if (r.nextBool()) 'tag${r.nextInt(4)}',
-            if (r.nextBool()) 'tag${r.nextInt(8)}'
-          ],
-        },
-      );
-    }
-    var edges = <Map>{};
 
+    // node0（中心ノード）の追加
+    vertexes.add({
+      'id': 'node0',
+      'tag': 'tag${r.nextInt(9)}',
+      'tags': [
+        'tag${r.nextInt(9)}',
+        if (r.nextBool()) 'tag${r.nextInt(4)}',
+        if (r.nextBool()) 'tag${r.nextInt(8)}'
+      ],
+      'position': initialPositions['node0'], // 初期位置を設定
+    });
+
+    // 周りのノードの追加
+    for (var i = 1; i < 10; i++) {
+      vertexes.add({
+        'id': 'node$i',
+        'tag': 'tag${r.nextInt(9)}',
+        'tags': [
+          'tag${r.nextInt(9)}',
+          if (r.nextBool()) 'tag${r.nextInt(4)}',
+          if (r.nextBool()) 'tag${r.nextInt(8)}'
+        ],
+        'position': initialPositions['node$i'], // 初期位置を設定
+      });
+    }
+
+    var edges = <Map>{};
     for (var i = 1; i < 10; i++) {
       edges.add({
         'srcId': 'node0',
@@ -62,11 +105,10 @@ class _CommunityState extends State<Community> {
         data: data,
         algorithm: RandomAlgorithm(
           decorators: [
-            PersistenceDecorator(
-                saveVertex, loadVertex), // PersistenceDecorator を追加
-            CoulombDecorator(),
-            HookeDecorator(),
-            HookeCenterDecorator(),
+            PersistenceDecorator(saveVertex, loadVertex),
+            CoulombDecorator(k: 1000), // 反発力を調整
+            HookeDecorator(length: 1000, k: 0.01), // バネの強さを調整
+            HookeCenterDecorator(length: 1000, k: 0.01), // 中心への引力を調整
           ],
         ),
         convertor: MapConvertor(),
