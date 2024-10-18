@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'dart:convert';
 
 class Receive extends StatefulWidget {
   const Receive({super.key});
@@ -12,6 +13,14 @@ class Receive extends StatefulWidget {
 class _ReceiveState extends State<Receive> {
   final TextEditingController _pointsController = TextEditingController();
   String _qrData = '';
+
+  String _generateQRData() {
+    final data = {
+      'username': 'example_user',
+      'points': _pointsController.text,
+    };
+    return jsonEncode(data);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +59,7 @@ class _ReceiveState extends State<Receive> {
                       icon: const Icon(Icons.qr_code),
                       onPressed: () {
                         setState(() {
-                          _qrData = _pointsController.text;
+                          _qrData = _generateQRData();
                         });
                       },
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'dart:convert';
 
 class Transfer extends StatefulWidget {
   const Transfer({super.key});
@@ -26,13 +27,17 @@ class _TransferState extends State<Transfer> {
 
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((scanData) {
-      if (scanData.code != null) {
+      try {
+        final decodedData = jsonDecode(scanData.code);
         setState(() {
-          _recipientController.text = scanData.code!;
+          _recipientController.text = decodedData['username'] ?? '';
+          _pointsController.text = decodedData['points'] ?? '';
         });
-        controller.dispose();
-        Navigator.pop(context);
+      } catch (e) {
+        print('Invalid QR code data: $e');
       }
+      controller.dispose();
+      Navigator.pop(context);
     });
   }
 
