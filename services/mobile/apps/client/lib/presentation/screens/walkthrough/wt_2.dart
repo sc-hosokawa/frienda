@@ -17,7 +17,7 @@ class WalkthroughPage2 extends StatelessWidget {
           ),
           const SizedBox(height: 240),
           const Text(
-            "Describe 1",
+            'Describe 1',
             style: TextStyle(color: Colors.black, fontSize: 20),
           ),
         ],

@@ -17,7 +17,7 @@ class WalkthroughPage1 extends StatelessWidget {
           ),
           const SizedBox(height: 240),
           const Text(
-            "<< Swipe to Start",
+            '<< Swipe to Start',
             style: TextStyle(color: Colors.black, fontSize: 20),
           ),
         ],
