@@ -14,6 +14,9 @@ class _TransferState extends State<Transfer> {
   bool _isLongPressed = true;
   int _availablePoints = 1000; // 仮の初期値
 
+  // フォームのキーを追加
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     _recipientController.dispose();
@@ -60,29 +63,38 @@ class _TransferState extends State<Transfer> {
           ),
         ),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 24),
-                _AvailablePointsAndQRScanner(onQRScanTap: _startQRScanner),
-                const SizedBox(height: 24),
-                _TransferInputFields(
-                  recipientController: _recipientController,
-                  pointsController: _pointsController,
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () => _showConfirmationDialog(context),
-                  child: const Text('送る'),
-                ),
-              ],
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 24),
+                  _AvailablePointsAndQRScanner(onQRScanTap: _startQRScanner),
+                  const SizedBox(height: 24),
+                  _TransferInputFields(
+                    recipientController: _recipientController,
+                    pointsController: _pointsController,
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () => _validateAndShowConfirmation(context),
+                    child: const Text('送る'),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ],
     );
+  }
+
+  void _validateAndShowConfirmation(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      _showConfirmationDialog(context);
+    }
   }
 
   void _showConfirmationDialog(BuildContext context) {
@@ -108,36 +120,29 @@ class _TransferState extends State<Transfer> {
           actions: <Widget>[
             SizedBox(
               width: double.infinity,
-              child: GestureDetector(
-                onLongPress: () {
+              child: LongPressDraggable<String>(
+                data: 'transfer',
+                delay: const Duration(seconds: 1),
+                onDragStarted: () {
                   // TODO: ポイント送付の処理を追加
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('ポイントを送付しました')),
                   );
                 },
-                child: StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setState) {
-                    return GestureDetector(
-                      onLongPressStart: (_) =>
-                          setState(() => _isLongPressed = true),
-                      onLongPressEnd: (_) =>
-                          setState(() => _isLongPressed = false),
-                      child: ElevatedButton(
-                        onPressed: null,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              _isLongPressed ? Colors.lightGreen : Colors.green,
-                          foregroundColor: Colors.white,
-                        ),
-                        child: const Text('送付（長押し）'),
-                      ),
-                    );
-                  },
+                feedback: Container(),
+                child: ElevatedButton(
+                  onPressed: () {}, // 通常のタップでは何も起こらない
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    minimumSize: Size(double.infinity, 50),
+                  ),
+                  child: const Text('送付（1秒間長押し）'),
                 ),
               ),
             ),
-            const SizedBox(height: 8), // ボタン間のスペース
+            const SizedBox(height: 8),
             SizedBox(
               width: double.infinity,
               child: TextButton(
@@ -198,21 +203,36 @@ class _TransferInputFields extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
+        TextFormField(
           controller: recipientController,
           decoration: const InputDecoration(
             labelText: '受取ユーザーのユーザー名かEmail',
             border: OutlineInputBorder(),
           ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return '受取ユーザーを入力してください';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 16),
-        TextField(
+        TextFormField(
           controller: pointsController,
           decoration: const InputDecoration(
             labelText: '送るポイント数',
             border: OutlineInputBorder(),
           ),
           keyboardType: TextInputType.number,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'ポイント数を入力してください';
+            }
+            if (int.tryParse(value) == null) {
+              return '有効な数字を入力してください';
+            }
+            return null;
+          },
         ),
       ],
     );
