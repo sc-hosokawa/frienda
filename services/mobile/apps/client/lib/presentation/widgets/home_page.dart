@@ -38,6 +38,12 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Widget _buildActionsSection() {
+    final List<String> actions = [];
+
+    if (actions.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -49,13 +55,14 @@ class _HomePageState extends ConsumerState<HomePage> {
           height: 120,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 5,
+            itemCount: actions.length,
             itemBuilder: (context, index) {
               return Card(
-                margin: EdgeInsets.only(left: 16, right: index == 4 ? 16 : 0),
+                margin: EdgeInsets.only(
+                    left: 16, right: index == actions.length - 1 ? 16 : 0),
                 child: SizedBox(
                   width: 240,
-                  child: Center(child: Text('Action ${index + 1}')),
+                  child: Center(child: Text(actions[index])),
                 ),
               );
             },
