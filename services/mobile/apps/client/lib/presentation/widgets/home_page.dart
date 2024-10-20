@@ -29,8 +29,8 @@ class _HomePageState extends ConsumerState<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildActionsSection(),
-          _buildMessagesSection(),
           _buildNewsSection(),
+          _buildMessagesSection(),
           _buildTrendingSection(),
         ],
       ),
@@ -72,6 +72,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
+  // TODO: Unreadを最大5件表示、5件ない場合は最新のメッセを全体で5件になるまで取得。なお未読のメッセはハイライトする。
   Widget _buildMessagesSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,19 +100,53 @@ class _HomePageState extends ConsumerState<HomePage> {
           physics: NeverScrollableScrollPhysics(),
           itemCount: 5,
           itemBuilder: (context, index) {
-            return ListTile(
-              leading: CircleAvatar(
-                child: Text('U${index + 1}'),
+            bool isUnread = _isMessageUnread(index);
+            return Container(
+              color: isUnread ? Colors.grey[800] : null,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MessageRoom()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 16.0),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        child: Text('U${index + 1}'),
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'User ${index + 1}',
+                              style: TextStyle(
+                                fontWeight: isUnread
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                            Text(
+                              'Latest message from User ${index + 1}',
+                              style: TextStyle(
+                                fontWeight: isUnread
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text('${index + 1}m ago'),
+                    ],
+                  ),
+                ),
               ),
-              title: Text('User ${index + 1}'),
-              subtitle: Text('Latest message from User ${index + 1}'),
-              trailing: Text('${index + 1}m ago'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MessageRoom()),
-                );
-              },
             );
           },
         ),
@@ -227,5 +262,11 @@ class _HomePageState extends ConsumerState<HomePage> {
         ],
       ),
     );
+  }
+
+  // Add this method to check if a message is unread
+  bool _isMessageUnread(int index) {
+    // TODO: Implement actual logic to check if the message is unread
+    return index % 2 == 0; // For demonstration, every other message is unread
   }
 }
