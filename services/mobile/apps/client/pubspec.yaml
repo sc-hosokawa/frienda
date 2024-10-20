@@ -47,6 +47,7 @@ flutter:
     - assets/friendshipdao_loop.gif
     - assets/logo_visualonly.jpg
     - assets/friendship_logo_white.png
+    - assets/logo_visualonly_dark.jpg
 
   # fonts:
   #   - family: Schyler
@@ -65,7 +66,7 @@ flutter_native_splash:
   color: '#ffffff'
   image: 'assets/logo_visualonly.jpg'
   color_dark: '#262626'
-  image_dark: 'assets/logo_visualonly.jpg'
+  image_dark: 'assets/logo_visualonly_black.jpg'
   fullscreen: true
   android_12:
     icon_background_color: '#ffffff'

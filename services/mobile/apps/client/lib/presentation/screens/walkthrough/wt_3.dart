@@ -5,23 +5,20 @@ class WalkthroughPage3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/friendshipdao_loop.gif',
-            height: 200,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(height: 240),
-          const Text(
-            'Describe 2',
-            style: TextStyle(color: Colors.black, fontSize: 20),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/friendshipdao_loop.gif',
+          height: 200,
+          fit: BoxFit.contain,
+        ),
+        const SizedBox(height: 240),
+        const Text(
+          'Describe 2',
+          style: TextStyle(fontSize: 20),
+        ),
+      ],
     );
   }
 }
