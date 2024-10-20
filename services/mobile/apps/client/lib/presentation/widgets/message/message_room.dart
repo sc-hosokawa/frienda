@@ -58,6 +58,10 @@ class _MessageRoomState extends State<MessageRoom> {
           ),
           child: Row(
             children: [
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: _attachFile,
+              ),
               Expanded(
                 child: TextField(
                   controller: _messageController,
@@ -76,17 +80,26 @@ class _MessageRoomState extends State<MessageRoom> {
               SizedBox(width: 8),
               IconButton(
                 icon: Icon(Icons.send),
-                onPressed: () {
-                  // TODO: メッセージ送信の処理を実装
-                  print('送信されたメッセージ: ${_messageController.text}');
-                  _messageController.clear();
-                },
+                onPressed: _sendMessage,
               ),
             ],
           ),
         ),
       ],
     );
+  }
+
+  void _attachFile() async {
+    // TODO: Implement file picking logic
+    print('File attachment button pressed');
+  }
+
+  void _sendMessage() {
+    if (_messageController.text.isNotEmpty) {
+      // TODO: Implement message sending logic
+      print('送信されたメッセージ: ${_messageController.text}');
+      _messageController.clear();
+    }
   }
 
   String _getLongMessage(int index) {
