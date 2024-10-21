@@ -28,10 +28,10 @@ class _TransferState extends State<Transfer> {
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((scanData) {
       try {
-        final decodedData = jsonDecode(scanData.code);
+        final decodedData = jsonDecode(scanData.code ?? '');
         setState(() {
-          _recipientController.text = decodedData['username'] ?? '';
-          _pointsController.text = decodedData['points'] ?? '';
+          _recipientController.text = decodedData['username']?.toString() ?? '';
+          _pointsController.text = decodedData['points']?.toString() ?? '';
         });
       } catch (e) {
         print('Invalid QR code data: $e');

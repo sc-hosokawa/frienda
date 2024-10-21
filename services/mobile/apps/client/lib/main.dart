@@ -98,7 +98,7 @@ class MyApp extends StatelessWidget {
           selectionHandleColor: Colors.green,
         ),
       ),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       home: const HomePage(),
     );
   }
