@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home/notifications.dart';
 import 'more/setting.dart';
-import 'more/helpme.dart';
+// import 'more/helpme.dart';
 import 'more/about.dart';
 
 class More extends StatelessWidget {
@@ -18,11 +18,13 @@ class More extends StatelessWidget {
       'title': '設定',
       'description': 'アプリの設定を変更します',
     },
+    /*
     {
       'icon': Icons.help,
       'title': 'ヘルプ',
       'description': 'よくある質問と回答',
     },
+     */
     {
       'icon': Icons.info,
       'title': 'アプリについて',
@@ -88,12 +90,16 @@ class More extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => const Setting()),
           );
-        } else if (title == 'ヘルプ') {
+        }
+        /*
+        else if (title == 'ヘルプ') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const HelpMe()),
           );
-        } else if (title == 'アプリについて') {
+        }
+         */
+        else if (title == 'アプリについて') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const About()),
