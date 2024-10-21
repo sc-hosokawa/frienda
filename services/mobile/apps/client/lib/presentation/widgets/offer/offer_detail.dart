@@ -32,8 +32,6 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
             children: [
               _buildArtwork(),
               SizedBox(height: 16),
-              _buildCategories(),
-              SizedBox(height: 16),
               _buildTitle(),
               SizedBox(height: 16),
               _buildApplyButton(),
@@ -114,6 +112,7 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
         _buildDetailRow('期限', '2024/10/31'),
         _buildDetailRow('場所', '東京都'),
         _buildDetailRow('対象', '2 Artists'),
+        _buildDetailRow('カテゴリ', 'Music'),
       ],
     );
   }
@@ -139,6 +138,7 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
             ),
         SizedBox(width: 8),
         Text('brady_nakayama', style: TextStyle(color: Colors.white)),
+        SizedBox(width: 8),
         Text('4 connections', style: TextStyle(color: Colors.grey)),
         SizedBox(width: 8),
       ],
@@ -210,12 +210,12 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
       child: ElevatedButton(
         onPressed: _isApplied ? null : _showConfirmationDialog,
         style: ElevatedButton.styleFrom(
-          backgroundColor: _isApplied ? Colors.grey : Colors.blue,
+          backgroundColor: _isApplied ? Colors.grey : Colors.lightGreen,
           padding: EdgeInsets.symmetric(vertical: 12),
         ),
         child: Text(
           _isApplied ? 'Applied' : 'このOfferに申し込む',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, color: Colors.white),
         ),
       ),
     );

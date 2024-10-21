@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:client/presentation/widgets/offer/offer_detail.dart';
 import 'package:client/routing/navigation.dart';
+import 'package:client/presentation/widgets/offer/add_new_offer.dart';
 
 class Offer extends StatefulWidget {
   const Offer({super.key});
@@ -17,6 +18,11 @@ class _OfferState extends State<Offer> {
     'Offer 3',
     'Offer 4',
     'Offer 5'
+  ];
+  final List<String> ownedOffers = const [
+    'My Offer 1',
+    'My Offer 2',
+    'My Offer 3',
   ];
 
   void _navigateToOfferDetail(BuildContext context) async {
@@ -36,6 +42,23 @@ class _OfferState extends State<Offer> {
     }
   }
 
+  void _navigateToAddNewOffer(BuildContext context) async {
+    setState(() {
+      _isTransitioning = true;
+    });
+
+    await navigateWithFadeTransition(
+      context,
+      const AddNewOffer(),
+    );
+
+    if (mounted) {
+      setState(() {
+        _isTransitioning = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,39 +68,11 @@ class _OfferState extends State<Offer> {
         child: Column(
           children: [
             _buildOverviewCard(),
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16.0, bottom: 8.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '進行中',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 150,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 3,
-                itemBuilder: (context, index) =>
-                    _buildOfferCard(context, index),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0, top: 16.0, bottom: 8.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '応募できるOffer',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ),
+            _buildSectionTitle('自分のOffer'),
+            _buildOwnedOfferCarousel(),
+            _buildSectionTitle('進行中'),
+            _buildOngoingOfferCarousel(),
+            _buildSectionTitle('応募できるOffer'),
             Expanded(
               child: ListView.builder(
                 itemCount: offers.length,
@@ -89,10 +84,7 @@ class _OfferState extends State<Offer> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Implement add new offer functionality
-          print('Add new offer');
-        },
+        onPressed: () => _navigateToAddNewOffer(context),
         child: const Icon(Icons.add),
       ),
     );
@@ -221,15 +213,64 @@ class _OfferState extends State<Offer> {
     );
   }
 
-  Widget _buildOfferCard(BuildContext context, int index) {
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 8.0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOwnedOfferCarousel() {
+    return SizedBox(
+      height: 150,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: ownedOffers.length,
+        itemBuilder: (context, index) =>
+            _buildOfferCard(context, index, isOwned: true),
+      ),
+    );
+  }
+
+  Widget _buildOngoingOfferCarousel() {
+    return SizedBox(
+      height: 150,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 3,
+        itemBuilder: (context, index) => _buildOfferCard(context, index),
+      ),
+    );
+  }
+
+  Widget _buildOfferCard(BuildContext context, int index,
+      {bool isOwned = false}) {
+    final offerList = isOwned ? ownedOffers : offers;
+    final cardColor = isOwned ? Colors.blue[100] : Colors.white;
+    final textColor = isOwned ? Colors.blue[800] : Colors.black;
+
     return Container(
       width: 150,
       margin: const EdgeInsets.all(8),
       child: GestureDetector(
         onTap: () => _navigateToOfferDetail(context),
         child: Card(
+          color: cardColor,
           child: Center(
-            child: Text(offers[index], style: const TextStyle(fontSize: 18)),
+            child: Text(
+              offerList[index],
+              style: TextStyle(fontSize: 18, color: textColor),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       ),
