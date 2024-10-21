@@ -58,6 +58,8 @@ class _ReceiveState extends State<Receive> {
                     IconButton(
                       icon: const Icon(Icons.qr_code),
                       onPressed: () {
+                        // キーボードを閉じる
+                        FocusScope.of(context).unfocus();
                         setState(() {
                           _qrData = _generateQRData();
                         });
