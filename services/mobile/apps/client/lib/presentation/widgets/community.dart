@@ -13,7 +13,7 @@ class Community extends StatefulWidget {
 }
 
 class _CommunityState extends State<Community> {
-  String _selectedView = 'Map View';
+  String _selectedView = 'List View'; // ここを 'List View' に変更
 
   void saveVertex(Vertex v) {
     vertexStorage[v.id as String] = v;
@@ -106,7 +106,7 @@ class _CommunityState extends State<Community> {
         // ドロップダウンメニュー
         DropdownButton<String>(
           value: _selectedView,
-          items: ['Map View', 'List View']
+          items: ['List View', 'Map View']
               .map((String value) => DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -265,30 +265,36 @@ class _CommunityState extends State<Community> {
   }
 
   Widget _buildListView(List<Map<dynamic, dynamic>> vertexes) {
-    // node0 を除外し、他のノードをリストに表示
     var targetNodes =
         vertexes.where((vertex) => vertex['id'] != 'node0').toList();
+    var r = Random();
 
     return ListView.builder(
       itemCount: targetNodes.length,
       itemBuilder: (context, index) {
         var node = targetNodes[index];
+        // ランダムにタグを選択
+        var tags = ['Musician', 'Curator', 'Creator', 'Supporter'];
+        var randomTag = tags[r.nextInt(tags.length)];
+        // ランダムなコネクション数を生成（1から5の範囲）
+        var connections = r.nextInt(5) + 1;
+
         return ListTile(
           leading: CircleAvatar(
-            // プロフィール画像がない場合はプレースホルダーを表示
             backgroundImage: AssetImage('assets/logo_visualonly.jpg'),
-            // 実際のプロフィール画像がある場合は以下のようにします
-            // backgroundImage: NetworkImage(node['profileImageUrl']),
           ),
-          title: Text(node['id']), // ノードの名前（例：node1）
-          subtitle: Text('Type: ${node['tag']}'), // ノードの種類
+          title: Text(node['id']),
+          subtitle: Text(randomTag), // ランダムに選択されたタグを表示
+          trailing: Chip(
+            label: Text('$connections'),
+            backgroundColor: Colors.grey[800],
+          ), // コネクション数を表示
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => NodeDetailPage(node: node),
             ),
           ),
-          // 必要に応じて他の属性を表示
         );
       },
     );

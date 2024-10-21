@@ -7,40 +7,76 @@ class NodeDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SafeArea(
-          child: AppBar(
-            title: const Text('ユーザー詳細'),
-            titleTextStyle: Theme.of(context).textTheme.titleMedium,
-            centerTitle: true,
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('assets/logo_visualonly.jpg'),
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ユーザー詳細'),
+        titleTextStyle: Theme.of(context).textTheme.titleMedium,
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: AssetImage('assets/logo_visualonly.jpg'),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      node['name'] ?? 'No Name',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 20),
-                Text('ID: ${node['id']}',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
-                Text('Type: ${node['tag']}'),
-                SizedBox(height: 10),
-                Text('Tags: ${node['tags'].join(', ')}'),
-                // 他の属性を表示する場合はここに追加
-              ],
-            ),
+              ),
+              SizedBox(height: 20),
+              _buildSection('説明', node['description']),
+              _buildSection('スキル', node['skills']?.join(', ')),
+              _buildSection('カテゴリ', node['category']),
+              _buildListSection('Offers', node['offers']),
+              _buildListSection('Connections', node['connections']),
+            ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSection(String title, String? content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        SizedBox(height: 5),
+        Text(content ?? 'Not specified'),
+        SizedBox(height: 15),
+      ],
+    );
+  }
+
+  Widget _buildListSection(String title, List<dynamic>? items) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        SizedBox(height: 5),
+        if (items != null && items.isNotEmpty)
+          Column(
+            children: items
+                .map((item) => ListTile(title: Text(item.toString())))
+                .toList(),
+          )
+        else
+          Text('No $title available'),
+        SizedBox(height: 15),
       ],
     );
   }

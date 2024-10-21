@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:countries_world_map/countries_world_map.dart';
 import 'package:countries_world_map/data/maps/world_map.dart';
+import 'package:client/presentation/widgets/components/artist_select_sheet.dart';
+import 'package:client/presentation/widgets/dashboard/new_artists.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -137,7 +139,14 @@ class _DashboardState extends State<Dashboard> {
           Expanded(
             child: _ArtistList(onSelectArtist: _selectArtist),
           ),
-          const _AddNewArtistButton(),
+          _AddNewArtistButton(
+            onArtistsAdded: (List<String> newArtists) {
+              setState(() {
+                // ここで新しいアーティストを追加する処理を実装
+                // 例: _artists.addAll(newArtists);
+              });
+            },
+          ),
         ],
       ),
     );
@@ -697,15 +706,24 @@ class _ArtistListTile extends StatelessWidget {
 }
 
 class _AddNewArtistButton extends StatelessWidget {
-  const _AddNewArtistButton({super.key});
+  final Function(List<String>) onArtistsAdded;
+
+  const _AddNewArtistButton({super.key, required this.onArtistsAdded});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: InkWell(
-        onTap: () {
-          // TODO: 新規アーティスト追加の処理を実装
-          Navigator.pop(context);
+        onTap: () async {
+          final result = await Navigator.of(context).push<List<String>>(
+            MaterialPageRoute(
+              builder: (context) => const NewArtists(),
+            ),
+          );
+          if (result != null && result.isNotEmpty) {
+            onArtistsAdded(result);
+          }
+          Navigator.pop(context); // Close the bottom sheet
         },
         child: const Padding(
           padding: EdgeInsets.symmetric(vertical: 16.0),

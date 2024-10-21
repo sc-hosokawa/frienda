@@ -4,8 +4,8 @@ import 'package:client/presentation/widgets/fsp/exchange.dart';
 import 'package:client/presentation/widgets/fsp/receive.dart';
 import 'package:client/presentation/widgets/fsp/purchase.dart';
 import 'package:client/presentation/widgets/fsp/transactions.dart';
-import 'package:client/presentation/widgets/fsp/tx_detail.dart';
 import 'package:client/routing/navigation.dart';
+import 'package:intl/intl.dart'; // 日付フォーマット用
 
 class Fsp extends StatelessWidget {
   const Fsp({super.key});
@@ -87,17 +87,35 @@ class Fsp extends StatelessWidget {
           child: ListView.builder(
             itemCount: 5,
             itemBuilder: (context, index) {
+              final isIncoming = index % 2 == 0;
+              final date = DateTime.now().subtract(Duration(days: index));
+              final formattedDate = DateFormat('yyyy/MM/dd HH:mm').format(date);
+              final points = (index + 1) * 1000;
+
               return ListTile(
-                leading: Icon(Icons.history),
-                title: Text('取引 ${index + 1}'),
-                subtitle: Text('10,000 fsp'),
-                trailing: Text('2023/04/${index + 1}'),
-                onTap: () {
-                  navigateWithFadeTransition(
-                    context,
-                    TxDetail(txId: index.toString()),
-                  );
-                },
+                leading: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      isIncoming ? Icons.arrow_downward : Icons.arrow_upward,
+                      color: isIncoming ? Colors.green : Colors.red,
+                      size: 20,
+                    ),
+                    SizedBox(width: 8),
+                    CircleAvatar(
+                      child: Text('${index + 1}'),
+                    ),
+                  ],
+                ),
+                title: Text('取引相手 ${index + 1}'),
+                subtitle: Text(formattedDate),
+                trailing: Text(
+                  '${isIncoming ? "+" : "-"}$points fsp',
+                  style: TextStyle(
+                    color: isIncoming ? Colors.green : Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               );
             },
           ),

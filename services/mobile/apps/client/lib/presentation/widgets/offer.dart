@@ -65,19 +65,18 @@ class _OfferState extends State<Offer> {
       body: AnimatedOpacity(
         opacity: _isTransitioning ? 0.0 : 1.0,
         duration: const Duration(milliseconds: 200),
-        child: Column(
-          children: [
-            _buildOverviewCard(),
-            _buildSectionTitle('自分のOffer'),
-            _buildOwnedOfferCarousel(),
-            _buildSectionTitle('進行中'),
-            _buildOngoingOfferCarousel(),
-            _buildSectionTitle('応募できるOffer'),
-            Expanded(
-              child: ListView.builder(
-                itemCount: offers.length,
-                itemBuilder: (context, index) =>
-                    _buildOfferListTile(context, index),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(child: _buildOverviewCard()),
+            SliverToBoxAdapter(child: _buildSectionTitle('自分のOffer')),
+            SliverToBoxAdapter(child: _buildOwnedOfferCarousel()),
+            SliverToBoxAdapter(child: _buildSectionTitle('進行中')),
+            SliverToBoxAdapter(child: _buildOngoingOfferCarousel()),
+            SliverToBoxAdapter(child: _buildSectionTitle('応募できるOffer')),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => _buildOfferListTile(context, index),
+                childCount: offers.length,
               ),
             ),
           ],

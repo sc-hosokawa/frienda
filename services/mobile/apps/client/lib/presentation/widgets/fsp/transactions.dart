@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:client/presentation/widgets/fsp/tx_detail.dart';
+import 'package:intl/intl.dart'; // 日付フォーマット用
 
 class Transactions extends StatelessWidget {
   const Transactions({super.key});
@@ -19,17 +19,35 @@ class Transactions extends StatelessWidget {
           child: ListView.builder(
             itemCount: 30,
             itemBuilder: (context, index) {
+              final isIncoming = index % 2 == 0;
+              final date = DateTime.now().subtract(Duration(days: index));
+              final formattedDate = DateFormat('yyyy/MM/dd HH:mm').format(date);
+              final points = (index + 1) * 100;
+
               return ListTile(
-                title: Text('取引 ${index + 1}'),
-                subtitle: Text('取引の詳細情報'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TxDetail(txId: index.toString()),
+                leading: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      isIncoming ? Icons.arrow_downward : Icons.arrow_upward,
+                      color: isIncoming ? Colors.green : Colors.red,
+                      size: 20,
                     ),
-                  );
-                },
+                    SizedBox(width: 8),
+                    CircleAvatar(
+                      child: Text('${index + 1}'),
+                    ),
+                  ],
+                ),
+                title: Text('取引相手 ${index + 1}'),
+                subtitle: Text(formattedDate),
+                trailing: Text(
+                  '${isIncoming ? "+" : "-"}$points ポイント',
+                  style: TextStyle(
+                    color: isIncoming ? Colors.green : Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               );
             },
           ),

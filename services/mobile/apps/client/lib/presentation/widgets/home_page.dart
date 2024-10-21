@@ -32,6 +32,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           _buildNewsSection(),
           _buildMessagesSection(),
           _buildTrendingSection(),
+          SizedBox(height: 16),
         ],
       ),
     );
@@ -82,7 +83,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Messages', style: Theme.of(context).textTheme.titleSmall),
+              Text('Messages', style: Theme.of(context).textTheme.titleMedium),
               TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -189,7 +190,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child:
-              Text('Trending', style: Theme.of(context).textTheme.titleSmall),
+              Text('Trending', style: Theme.of(context).textTheme.titleMedium),
         ),
         ListView.builder(
           shrinkWrap: true,
