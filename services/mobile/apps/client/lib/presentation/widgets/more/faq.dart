@@ -57,22 +57,26 @@ class _FAQItemState extends State<FAQItem> {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8.0),
-      child: ExpansionTile(
-        title: Text(
-          widget.question,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(widget.answer),
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          title: Text(
+            widget.question,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-        ],
-        onExpansionChanged: (expanded) {
-          setState(() {
-            _expanded = expanded;
-          });
-        },
+          onExpansionChanged: (expanded) {
+            setState(() {
+              _expanded = expanded;
+            });
+          },
+          maintainState: true,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(widget.answer),
+            ),
+          ],
+        ),
       ),
     );
   }
