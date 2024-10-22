@@ -148,13 +148,13 @@ class MessageBubble extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: isMyMessage ? Colors.blue[100] : Colors.grey[300],
+                color: isMyMessage ? Colors.green[300] : Colors.grey[300],
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
                 message,
                 style: TextStyle(
-                  color: isMyMessage ? Colors.black87 : Colors.black,
+                  color: Colors.black87,
                   fontSize: 16,
                 ),
               ),
