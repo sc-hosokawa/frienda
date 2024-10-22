@@ -93,7 +93,6 @@ class _OfferState extends State<Offer> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Card(
-        color: Colors.black,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
