@@ -17,6 +17,7 @@ class _DashboardState extends State<Dashboard> {
   String _selectedArtist = 'Artist 1';
   String _selectedSong = 'Song 1';
   String _selectedPeriod = '1week';
+  String _selectedWork = 'UPC 1'; // 新しく追加
 
   static const _gridColor = Color(0xffe7e8ec);
   static const _borderColor = Color(0xff37434d);
@@ -268,10 +269,12 @@ class _DashboardState extends State<Dashboard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        _buildWorkDropdown(),
+        const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('再生数推移', style: Theme.of(context).textTheme.titleMedium),
+            Text('Play Count'),
             Row(
               children: [
                 _buildSongDropdown(),
@@ -285,6 +288,34 @@ class _DashboardState extends State<Dashboard> {
         AspectRatio(
           aspectRatio: 1.5,
           child: LineChart(_createChartData()),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWorkDropdown() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('作品選択', style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 4),
+        DropdownButton<String>(
+          value: _selectedWork,
+          isExpanded: true,
+          onChanged: (String? newValue) {
+            setState(() {
+              _selectedWork = newValue!;
+              // ここで作品が変更されたときの処理を追加
+              // 例: データの再取得やグラフの更新など
+            });
+          },
+          items: <String>['UPC 1', 'UPC 2', 'UPC 3', 'UPC 4']
+              .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
         ),
       ],
     );
@@ -334,6 +365,12 @@ class _DashboardState extends State<Dashboard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Gender', style: TextStyle(color: Colors.white)),
+              ],
+            ),
             const SizedBox(height: 32),
             SizedBox(
               height: 200,
@@ -420,6 +457,12 @@ class _DashboardState extends State<Dashboard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Generation', style: TextStyle(color: Colors.white)),
+              ],
+            ),
             const SizedBox(height: 32),
             Row(
               children: [
@@ -522,6 +565,12 @@ class _DashboardState extends State<Dashboard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Geography', style: TextStyle(color: Colors.white)),
+              ],
+            ),
             const SizedBox(height: 24),
             AspectRatio(
               aspectRatio: 16 / 9,
