@@ -2,7 +2,7 @@ name: client
 description: "A FRIENDSHIP. App"
 publish_to: 'none'
 
-version: 1.0.1+1
+version: 1.0.1+3
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
@@ -32,6 +32,7 @@ dependencies:
   countries_world_map: ^1.3.0
   flutter_graph_view: ^1.1.3+1
   app_settings: ^5.1.1
+  flutter_launcher_icons: ^0.14.1
 
 dev_dependencies:
   flutter_test:
@@ -72,3 +73,8 @@ flutter_native_splash:
   android_12:
     icon_background_color: '#ffffff'
     image: 'assets/logo_visualonly.jpg'
+
+flutter_icons:       
+  android: true
+  ios: true
+  image_path: "assets/logo_visualonly.jpg"
