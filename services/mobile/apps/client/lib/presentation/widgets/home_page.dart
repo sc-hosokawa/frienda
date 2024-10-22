@@ -29,7 +29,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildActionsSection(),
-          _buildNewsSection(),
+          // _buildNewsSection(),
           _buildMessagesSection(),
           _buildTrendingSection(),
           SizedBox(height: 16),
@@ -155,6 +155,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
+/*
   Widget _buildNewsSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,6 +183,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       ],
     );
   }
+*/
 
   Widget _buildTrendingSection() {
     return Column(
