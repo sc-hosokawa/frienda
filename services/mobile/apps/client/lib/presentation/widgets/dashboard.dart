@@ -4,6 +4,7 @@ import 'package:countries_world_map/countries_world_map.dart';
 import 'package:countries_world_map/data/maps/world_map.dart';
 import 'package:client/presentation/widgets/components/artist_select_sheet.dart';
 import 'package:client/presentation/widgets/dashboard/new_artists.dart';
+import 'package:intl/intl.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -540,6 +541,8 @@ class _DashboardState extends State<Dashboard> {
             ),
             const SizedBox(height: 16),
             _buildLegendWorldMap(),
+            const SizedBox(height: 16),
+            _buildCountryPlayCountList(playCountData),
           ],
         ),
       ),
@@ -578,6 +581,34 @@ class _DashboardState extends State<Dashboard> {
           label,
           style: const TextStyle(color: Colors.white, fontSize: 12),
         ),
+      ],
+    );
+  }
+
+  Widget _buildCountryPlayCountList(Map<String, int> playCountData) {
+    final sortedEntries = playCountData.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        ...sortedEntries.map((entry) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    entry.key,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    NumberFormat.compact().format(entry.value),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            )),
       ],
     );
   }
