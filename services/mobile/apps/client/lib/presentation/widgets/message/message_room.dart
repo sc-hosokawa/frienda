@@ -19,73 +19,76 @@ class _MessageRoomState extends State<MessageRoom> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SafeArea(
-          child: AppBar(
-            title: const Text('メッセージ'),
-            titleTextStyle: Theme.of(context).textTheme.titleMedium,
-            centerTitle: true,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Column(
+        children: [
+          SafeArea(
+            child: AppBar(
+              title: const Text('メッセージ'),
+              titleTextStyle: Theme.of(context).textTheme.titleMedium,
+              centerTitle: true,
+            ),
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            reverse: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              final isMyMessage = index % 2 == 0;
-              return MessageBubble(
-                message: _getLongMessage(9 - index),
-                isMyMessage: isMyMessage,
-                timestamp:
-                    DateTime.now().subtract(Duration(minutes: (9 - index) * 5)),
-              );
-            },
+          Expanded(
+            child: ListView.builder(
+              reverse: true,
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                final isMyMessage = index % 2 == 0;
+                return MessageBubble(
+                  message: _getLongMessage(9 - index),
+                  isMyMessage: isMyMessage,
+                  timestamp: DateTime.now()
+                      .subtract(Duration(minutes: (9 - index) * 5)),
+                );
+              },
+            ),
           ),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 5,
-                offset: Offset(0, -1),
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: _attachFile,
-              ),
-              Expanded(
-                child: TextField(
-                  controller: _messageController,
-                  decoration: InputDecoration(
-                    hintText: 'メッセージを入力...',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: Offset(0, -1),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: _attachFile,
+                ),
+                Expanded(
+                  child: TextField(
+                    controller: _messageController,
+                    decoration: InputDecoration(
+                      hintText: 'メッセージを入力...',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      filled: true,
+                      fillColor: Theme.of(context).cardColor,
                     ),
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    filled: true,
-                    fillColor: Theme.of(context).cardColor,
                   ),
                 ),
-              ),
-              SizedBox(width: 8),
-              IconButton(
-                icon: Icon(Icons.send),
-                onPressed: _sendMessage,
-              ),
-            ],
+                SizedBox(width: 8),
+                IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: _sendMessage,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
