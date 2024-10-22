@@ -17,7 +17,7 @@ class _DashboardState extends State<Dashboard> {
   String _selectedArtist = 'Artist 1';
   String _selectedSong = 'Song 1';
   String _selectedPeriod = '1week';
-  String _selectedWork = 'UPC 1'; // 新しく追加
+  String _selectedWork = 'UPC 1';
 
   static const _gridColor = Color(0xffe7e8ec);
   static const _borderColor = Color(0xff37434d);
@@ -220,7 +220,7 @@ class _DashboardState extends State<Dashboard> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildStatItem('Song Played', '1,234,567', 'Total'),
-              const VerticalDivider(thickness: 1, width: 1),
+              const VerticalDivider(thickness: 2, width: 1, color: Colors.grey),
               _buildStatItem('Song Played', '98,765', 'Week'),
             ],
           ),
