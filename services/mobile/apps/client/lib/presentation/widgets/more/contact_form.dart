@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ContactForm extends StatefulWidget {
-  const ContactForm({Key? key}) : super(key: key);
+  const ContactForm({super.key});
 
   @override
   _ContactFormState createState() => _ContactFormState();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:client/presentation/widgets/more/faq.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
@@ -63,7 +64,9 @@ class About extends StatelessWidget {
       title: Text(title),
       subtitle: Text(description),
       onTap: () {
-        // TODO: Implement setting item tap logic
+        {
+          // TODO: Implement other item tap logic
+        }
       },
     );
   }

@@ -31,11 +31,6 @@ class Setting extends StatelessWidget {
       'description': 'ユーザー情報の変更や退会手続きを行います',
     },
     {
-      'icon': Icons.question_answer,
-      'title': 'よくある質問',
-      'description': 'FAQ一覧を確認します',
-    },
-    {
       'icon': Icons.contact_support,
       'title': 'お問い合わせ / 不具合報告',
       'description': 'サポートチームに連絡します',
