@@ -6,6 +6,7 @@ import 'package:client/presentation/widgets/fsp/purchase.dart';
 import 'package:client/presentation/widgets/fsp/transactions.dart';
 import 'package:client/routing/navigation.dart';
 import 'package:intl/intl.dart'; // 日付フォーマット用
+import 'package:client/presentation/widgets/fsp/allocation.dart'; // 追加
 
 class Fsp extends StatelessWidget {
   const Fsp({super.key});
@@ -60,6 +61,7 @@ class Fsp extends StatelessWidget {
             _buildMenuButton(context, '受取', Icons.call_received),
             _buildMenuButton(context, '購入', Icons.shopping_cart),
             _buildMenuButton(context, '交換', Icons.swap_horiz),
+            _buildMenuButton(context, '分配', Icons.pie_chart), // 追加
           ],
         ),
         const SizedBox(height: 16),
@@ -143,6 +145,9 @@ class Fsp extends StatelessWidget {
               break;
             case '交換':
               destinationWidget = const Exchange();
+              break;
+            case '分配':
+              destinationWidget = const Allocation(); // 追加
               break;
           }
           if (destinationWidget != null) {
