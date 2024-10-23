@@ -18,6 +18,13 @@ class WalkthroughPage4 extends StatelessWidget {
           'Describe 3',
           style: TextStyle(fontSize: 20),
         ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/login');
+          },
+          child: const Text('ログイン'),
+        ),
       ],
     );
   }

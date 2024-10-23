@@ -63,8 +63,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 _isLoading
                     ? CircularProgressIndicator()
                     : ElevatedButton(
-                        child: Text('ログイン'),
                         onPressed: _signIn,
+                        child: Text('ログイン'),
                       ),
                 SizedBox(height: 16),
                 TextButton(

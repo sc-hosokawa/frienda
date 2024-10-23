@@ -21,9 +21,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  print('Firebase initialized');
   final client = await initClient();
-  print('Client initialized');
 
   providerContainer.read(clientProvider.notifier).state = client;
 
@@ -41,74 +39,76 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FRIENDSHIP. DAO App',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.green,
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.grey[800],
-          elevation: 0,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.white,
-          elevation: 1,
-        ),
-        iconTheme: IconThemeData(color: Colors.green),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(color: Colors.grey[800]),
-          bodyMedium: TextStyle(color: Colors.grey[800]),
-          titleMedium: TextStyle(color: Colors.grey[800]),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
+        title: 'FRIENDSHIP. DAO App',
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: Colors.green,
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: AppBarTheme(
             backgroundColor: Colors.white,
-            foregroundColor: Colors.lightGreen,
+            foregroundColor: Colors.grey[800],
+            elevation: 0,
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.white,
+            elevation: 1,
+          ),
+          iconTheme: IconThemeData(color: Colors.green),
+          textTheme: TextTheme(
+            bodyLarge: TextStyle(color: Colors.grey[800]),
+            bodyMedium: TextStyle(color: Colors.grey[800]),
+            titleMedium: TextStyle(color: Colors.grey[800]),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.lightGreen,
+            ),
+          ),
+          cardTheme: CardTheme(color: Colors.white),
+          textSelectionTheme: TextSelectionThemeData(
+            selectionColor: Colors.green.withOpacity(0.3),
+            cursorColor: Colors.green,
+            selectionHandleColor: Colors.green,
           ),
         ),
-        cardTheme: CardTheme(color: Colors.white),
-        textSelectionTheme: TextSelectionThemeData(
-          selectionColor: Colors.green.withOpacity(0.3),
-          cursorColor: Colors.green,
-          selectionHandleColor: Colors.green,
-        ),
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.green,
-        scaffoldBackgroundColor: Colors.black,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.grey[200],
-          elevation: 0,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey[900],
-          elevation: 1,
-        ),
-        iconTheme: IconThemeData(color: Colors.green),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(color: Colors.grey[200]),
-          bodyMedium: TextStyle(color: Colors.grey[200]),
-          titleMedium: TextStyle(color: Colors.grey[200]),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey[800],
-            foregroundColor: Colors.lightGreen,
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.green,
+          scaffoldBackgroundColor: Colors.black,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.grey[200],
+            elevation: 0,
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.grey[900],
+            elevation: 1,
+          ),
+          iconTheme: IconThemeData(color: Colors.green),
+          textTheme: TextTheme(
+            bodyLarge: TextStyle(color: Colors.grey[200]),
+            bodyMedium: TextStyle(color: Colors.grey[200]),
+            titleMedium: TextStyle(color: Colors.grey[200]),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.grey[800],
+              foregroundColor: Colors.lightGreen,
+            ),
+          ),
+          cardTheme: CardTheme(color: Colors.grey[800]),
+          textSelectionTheme: TextSelectionThemeData(
+            selectionColor: Colors.green.withOpacity(0.3),
+            cursorColor: Colors.green,
+            selectionHandleColor: Colors.green,
           ),
         ),
-        cardTheme: CardTheme(color: Colors.grey[800]),
-        textSelectionTheme: TextSelectionThemeData(
-          selectionColor: Colors.green.withOpacity(0.3),
-          cursorColor: Colors.green,
-          selectionHandleColor: Colors.green,
-        ),
-      ),
-      themeMode: ThemeMode.dark,
-      home: const HomePage(),
-    );
+        themeMode: ThemeMode.dark,
+        home: const HomePage(),
+        routes: {
+          '/login': (context) => const LoginPage(),
+        });
   }
 }
 
@@ -120,7 +120,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const int pageCount = 5;
+  static const int pageCount = 4;
   final PageController _pageController = PageController(keepPage: true);
 
   @override
@@ -135,7 +135,6 @@ class _HomePageState extends State<HomePage> {
               WalkthroughPage2(),
               WalkthroughPage3(),
               WalkthroughPage4(),
-              LoginPage(),
             ],
           ),
           Positioned(
