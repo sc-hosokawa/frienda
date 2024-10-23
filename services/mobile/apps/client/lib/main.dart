@@ -5,10 +5,14 @@ import 'package:client/presentation/screens/walkthrough/wt_1.dart';
 import 'package:client/presentation/screens/walkthrough/wt_2.dart';
 import 'package:client/presentation/screens/walkthrough/wt_3.dart';
 import 'package:client/presentation/screens/walkthrough/wt_4.dart';
+import 'package:client/presentation/screens/auth/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:ferry/ferry.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 final providerContainer = ProviderContainer();
 
@@ -16,7 +20,11 @@ void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  print('Firebase initialized');
   final client = await initClient();
+  print('Client initialized');
+
   providerContainer.read(clientProvider.notifier).state = client;
 
   runApp(
@@ -112,7 +120,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const int pageCount = 4;
+  static const int pageCount = 5;
   final PageController _pageController = PageController(keepPage: true);
 
   @override
@@ -127,6 +135,7 @@ class _HomePageState extends State<HomePage> {
               WalkthroughPage2(),
               WalkthroughPage3(),
               WalkthroughPage4(),
+              LoginPage(),
             ],
           ),
           Positioned(

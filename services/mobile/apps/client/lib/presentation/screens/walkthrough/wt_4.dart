@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:client/presentation/screens/main_screen.dart';
 
 class WalkthroughPage4 extends StatelessWidget {
   const WalkthroughPage4({super.key});
@@ -15,15 +14,9 @@ class WalkthroughPage4 extends StatelessWidget {
           fit: BoxFit.contain,
         ),
         const SizedBox(height: 240),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const MainScreen(),
-              ),
-            );
-          },
-          child: const Text('次へ'),
+        const Text(
+          'Describe 3',
+          style: TextStyle(fontSize: 20),
         ),
       ],
     );
