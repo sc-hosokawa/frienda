@@ -5,6 +5,7 @@ import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:client/presentation/widgets/message/message_list.dart';
 import 'package:client/presentation/widgets/message/message_room.dart';
+import 'package:client/presentation/providers/auth_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -24,6 +25,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authProvider);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "23181195188",
+    "project_id": "frienda-auth-test1",
+    "storage_bucket": "frienda-auth-test1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23181195188:android:52ea4f139c7a11307fe4e1",
+        "android_client_info": {
+          "package_name": "com.example.client"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiIj7IcHQ4a31-rRJBtMW_vSyxWCZYnFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
