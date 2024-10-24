@@ -66,6 +66,15 @@
 		<string></string>
 		<key>NSCameraUsageDescription</key>
 		<string>アプリ内でQRコードをスキャンするため、カメラへのアクセスが必要です。</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>画像をアップロードするために、写真へのアクセスが必要です。</string>
+		<key>UIBackgroundModes</key>
+		<array>
+			<string>fetch</string>
+			<string>remote-notification</string>
+		</array>
+		<key>NSAppleMusicUsageDescription</key>
+		<string>音楽を再生するために、音楽へのアクセスが必要です。</string>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 	</dict>

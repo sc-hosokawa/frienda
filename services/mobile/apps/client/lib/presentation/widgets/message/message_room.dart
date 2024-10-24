@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class MessageRoom extends StatefulWidget {
   const MessageRoom({super.key});
@@ -93,8 +97,112 @@ class _MessageRoomState extends State<MessageRoom> {
   }
 
   void _attachFile() async {
-    // TODO: Implement file picking logic
-    print('File attachment button pressed');
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.photo),
+                title: Text('写真'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.file_present),
+                title: Text('ファイル'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickFile();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _pickImage() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        print('Selected image: ${image.path}');
+        await _uploadImageToCloudStorage(image);
+      } else {
+        print('No image selected');
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
+
+  Future<void> _uploadImageToCloudStorage(XFile image) async {
+    try {
+      File imageFile = File(image.path);
+      FirebaseStorage storage = FirebaseStorage.instance;
+      String fileName = 'images/${DateTime.now().millisecondsSinceEpoch}.jpg';
+      Reference ref = storage.ref().child(fileName);
+
+      UploadTask uploadTask = ref.putFile(imageFile);
+
+      await uploadTask.whenComplete(() => print('Image uploaded'));
+
+      // アップロードされた画像のURLを取得
+      String downloadURL = await ref.getDownloadURL();
+      print('Image available at: $downloadURL');
+
+      // TODO: ここでダウンロードURLをメッセージに添付するなどの処理を行う
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
+  }
+
+  void _pickFile() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.any,
+        allowMultiple: true,
+      );
+
+      if (result != null) {
+        List<PlatformFile> files = result.files;
+        for (var file in files) {
+          print('Selected file: ${file.name}, Size: ${file.size} bytes');
+          await _uploadFileToCloudStorage(file);
+        }
+      } else {
+        print('No file selected');
+      }
+    } catch (e) {
+      print('Error picking file: $e');
+    }
+  }
+
+  Future<void> _uploadFileToCloudStorage(PlatformFile file) async {
+    try {
+      File fileToUpload = File(file.path!);
+      FirebaseStorage storage = FirebaseStorage.instance;
+      Reference ref = storage.ref().child('uploads/${file.name}');
+
+      UploadTask uploadTask = ref.putFile(fileToUpload);
+
+      await uploadTask.whenComplete(() => print('File uploaded'));
+
+      // アップロードされたファイルのURLを取得
+      String downloadURL = await ref.getDownloadURL();
+      print('File available at: $downloadURL');
+
+      // TODO: ここでダウンロードURLをメッセージに添付するなどの処理を行う
+    } catch (e) {
+      print('Error uploading file: $e');
+    }
   }
 
   void _sendMessage() {
