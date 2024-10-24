@@ -18,6 +18,7 @@ class _DashboardState extends State<Dashboard> {
   String _selectedSong = 'Song 1';
   String _selectedPeriod = '1week';
   String _selectedWork = 'UPC 1';
+  String _selectedDSP = 'All';
 
   static const _gridColor = Color(0xffe7e8ec);
   static const _borderColor = Color(0xff37434d);
@@ -285,11 +286,53 @@ class _DashboardState extends State<Dashboard> {
           ],
         ),
         const SizedBox(height: 10),
+        _buildDSPSelector(),
+        const SizedBox(height: 20),
         AspectRatio(
           aspectRatio: 1.5,
           child: LineChart(_createChartData()),
         ),
       ],
+    );
+  }
+
+  Widget _buildDSPSelector() {
+    List<String> dsps = [
+      'All',
+      'Spotify',
+      'Apple Music',
+      'YouTube Music',
+      'Amazon Music',
+      'LINE MUSIC',
+    ];
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: dsps.map((dsp) => _buildDSPChip(dsp)).toList(),
+      ),
+    );
+  }
+
+  Widget _buildDSPChip(String dsp) {
+    bool isSelected = _selectedDSP == dsp;
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: FilterChip(
+        label: Text(dsp),
+        selected: isSelected,
+        onSelected: (bool selected) {
+          setState(() {
+            _selectedDSP = selected ? dsp : 'All DSPs';
+          });
+        },
+        showCheckmark: false,
+        backgroundColor: Colors.grey[500],
+        selectedColor: Colors.green,
+        labelStyle: TextStyle(
+          color: Colors.black,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+        ),
+      ),
     );
   }
 
