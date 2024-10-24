@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FRIENDSHIP. DAO App',
       theme: ThemeData(
+        fontFamily: 'Jost',
         brightness: Brightness.light,
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.white,
@@ -49,9 +50,12 @@ class MyApp extends StatelessWidget {
         ),
         iconTheme: IconThemeData(color: Colors.green),
         textTheme: TextTheme(
-          bodyLarge: TextStyle(color: Colors.grey[800]),
-          bodyMedium: TextStyle(color: Colors.grey[800]),
-          titleMedium: TextStyle(color: Colors.grey[800]),
+          bodyLarge: TextStyle(
+              color: Colors.grey[800], fontFamilyFallback: ['NotoSansJP']),
+          bodyMedium: TextStyle(
+              color: Colors.grey[800], fontFamilyFallback: ['NotoSansJP']),
+          titleMedium: TextStyle(
+              color: Colors.grey[800], fontFamilyFallback: ['NotoSansJP']),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -67,6 +71,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData(
+        fontFamily: 'Jost',
         brightness: Brightness.dark,
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.black,
@@ -81,9 +86,12 @@ class MyApp extends StatelessWidget {
         ),
         iconTheme: IconThemeData(color: Colors.green),
         textTheme: TextTheme(
-          bodyLarge: TextStyle(color: Colors.grey[200]),
-          bodyMedium: TextStyle(color: Colors.grey[200]),
-          titleMedium: TextStyle(color: Colors.grey[200]),
+          bodyLarge: TextStyle(
+              color: Colors.grey[200], fontFamilyFallback: ['NotoSansJP']),
+          bodyMedium: TextStyle(
+              color: Colors.grey[200], fontFamilyFallback: ['NotoSansJP']),
+          titleMedium: TextStyle(
+              color: Colors.grey[200], fontFamilyFallback: ['NotoSansJP']),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
