@@ -321,17 +321,20 @@ class _DashboardState extends State<Dashboard> {
         label: Text(dsp),
         selected: isSelected,
         onSelected: (bool selected) {
-          setState(() {
-            _selectedDSP = selected ? dsp : 'All DSPs';
-          });
+          if (!isSelected) {
+            setState(() {
+              _selectedDSP = dsp;
+            });
+          }
         },
         showCheckmark: false,
         backgroundColor: Colors.grey[500],
         selectedColor: Colors.green,
         labelStyle: TextStyle(
           color: Colors.black,
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
     );
   }
