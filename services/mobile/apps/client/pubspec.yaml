@@ -2,7 +2,7 @@ name: client
 description: "A FRIENDSHIP. App"
 publish_to: 'none'
 
-version: 1.0.1+7
+version: 1.0.1+8
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
