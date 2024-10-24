@@ -101,7 +101,6 @@ class _OfferState extends State<Offer> {
               Row(
                 children: [
                   Expanded(child: _buildOverviewItem('Total', 4, Colors.blue)),
-                  _buildVerticalDivider(),
                   Expanded(
                     child: Row(
                       children: [
@@ -117,7 +116,6 @@ class _OfferState extends State<Offer> {
                 children: [
                   Expanded(
                       child: _buildOverviewItem('Applying', 1, Colors.green)),
-                  _buildVerticalDivider(),
                   Expanded(
                     child: Row(
                       children: [
@@ -134,15 +132,6 @@ class _OfferState extends State<Offer> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildVerticalDivider() {
-    return Container(
-      height: 40,
-      width: 1,
-      color: Colors.white24,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
     );
   }
 
