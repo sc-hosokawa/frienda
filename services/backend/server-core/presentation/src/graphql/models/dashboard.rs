@@ -1,5 +1,5 @@
 use crate::graphql::models::track::*;
-use async_graphql::{InputObject, SimpleObject};
+use async_graphql::SimpleObject;
 
 // ===== Query =====
 
