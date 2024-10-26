@@ -1,4 +1,4 @@
-mutation AddNewConnection($input: AddNewConnectionInput!) {
+mutation AddNewConnection($input: AddNewConnectionByUserInput!) {
   addNewConnection(input: $input) {
     mapId
   }
@@ -31,5 +31,91 @@ mutation UpdateOffer($input: UpdateOfferInput!) {
 mutation DeleteOffer($input: DeleteOfferInput!) {
   deleteOffer(input: $input) {
     id
+  }
+}
+
+mutation CreateNewUserData($input: CreateNewUserDataInput!) {
+  createNewUserData(input: $input) {
+    userId
+    name
+    imageUrl
+  }
+}
+
+mutation UpdateUserData($input: UpdateUserDataInput!) {
+  updateUserData(input: $input) {
+    userInfo {
+      id
+      email
+      name
+      imageUrl
+      fspBalance
+      fspBalanceTemp
+      credentialBalance
+      roles
+      primaryRole
+      belongsToArtists {
+        id
+        name
+        imageUrl
+        isAccepted
+      }
+      primaryArtist {
+        id
+        name
+        imageUrl
+        isAccepted
+      }
+    }
+  }
+}
+
+mutation UpdateBelongsToArtistStatus($input: UpdateBelongsToArtistStatusInput!) {
+  updateBelongsToArtistStatus(input: $input) {
+    artistList {
+      artistList {
+        id
+        name
+        imageUrl
+        isAccepted
+      }
+    }
+  }
+}
+
+mutation ContactToAdmin($input: ContactToAdminInput!) {
+  contactToAdmin(input: $input) {
+    id
+  }
+}
+
+mutation CreateNewNotification($input: CreateNewNotificationInput!) {
+  createNewNotification(input: $input) {
+    id
+  }
+}
+
+mutation UpdateNotification($input: UpdateNotificationInput!) {
+  updateNotification(input: $input) {
+    id
+  }
+}
+
+mutation DeleteNotification($input: DeleteNotificationInput!) {
+  deleteNotification(input: $input) {
+    id
+  }
+}
+
+mutation CreateFspTx($input: CreateNewTransactionInput!) {
+  createFspTx(input: $input) {
+    newBalance
+  }
+}
+
+mutation CreateNewArtist($input: CreateNewArtistInput!) {
+  createNewArtist(input: $input) {
+    id
+    name
   }
 }

@@ -5,71 +5,406 @@ query HealthCheck {
 }
 
 # Login時に取得するユーザー情報
-
 query GetUserInfo {
   getUserInfo {
-    id
-    firstName
-    lastName
-    imageUrl
-    createdAt
-    updatedAt
+    userInfo {
+      id
+      email
+      name
+      imageUrl
+      fspBalance
+      fspBalanceTemp
+      credentialBalance
+      roles
+      primaryRole
+      belongsToArtists {
+        id
+        name
+        imageUrl
+        isAccepted
+      }
+      primaryArtist {
+        id
+        name
+        imageUrl
+        isAccepted
+      }
+    }
   }
 }
-
-
-
-
-
-
 
 query GetAllOffers {
   getAllOffers {
     id
     title
-    content
-    createdAt
-    updatedAt
+    description
+    imageUrl
+    fee
+    category
   }
 }
 
 query GetMessageRooms {
   getMessageRooms {
-    id
-    name
-    createdAt
-    updatedAt
+    messageRoomList {
+      id
+      countOfMessages
+      category
+      latestMessage {
+        id
+        sendBy {
+          id
+          name
+          imageUrl
+        }
+        message
+        createdAt
+        attachedFile
+        attachedImg
+      }
+      latestSentAt
+      isRead
+    }
+    countOfMessageRooms
   }
 }
 
 query GetMessagesByMessageRoomId($messageRoomId: String!) {
   getMessagesByMessageRoomId(messageRoomId: $messageRoomId) {
     id
-    title
-    content
-    createdAt
-    updatedAt
+    to {
+      id
+      name
+      imageUrl
+    }
+    messageList {
+      id
+      sendBy {
+        id
+        name
+        imageUrl
+      }
+      message
+      createdAt
+      attachedFile
+      attachedImg
+    }
   }
 }
 
-query GetNotifications {
-  getNotifications {
-    id
-    title
-    content
-    createdAt
-    updatedAt
+query GetNotifications($count: Int!, $offset: Int!) {
+  getNotifications(count: $count, offset: $offset) {
+    notifications {
+      id
+      title
+      content
+      createdAt
+      updatedAt
+    }
   }
 }
 
-query GetUserData {
-  getUserData {
+query GetUserData($userId: String!) {
+  getUserData(userId: $userId) {
     id
     email
-    firstName
-    lastName
+    name
     imageUrl
-    createdAt
-    updatedAt
+    fspBalance
+    fspBalanceTemp
+    credentialBalance
+    roles
+    primaryRole
+    belongsToArtists {
+      id
+      name
+      imageUrl
+      isAccepted
+    }
+    primaryArtist {
+      id
+      name
+      imageUrl
+      isAccepted
+    }
+  }
+}
+
+# 新しいクエリを追加
+
+query GetOverviewData($artistId: String) {
+  getOverviewData(artistId: $artistId) {
+    totalPlaybacks
+    weeklyPlaybacks
+  }
+}
+
+query GetTrendingData($artistId: String) {
+  getTrendingData(artistId: $artistId) {
+    trendingTracks {
+      isrc
+      imgUrl
+      title
+    }
+  }
+}
+
+query GetLineChartData($artistId: String, $isrc: String, $dsp: String, $period: String) {
+  getLineChartData(artistId: $artistId, isrc: $isrc, dsp: $dsp, period: $period) {
+    lineChartData
+  }
+}
+
+query GetPlaybacksByGenderData($artistId: String, $isrc: String, $dsp: String, $period: String) {
+  getPlaybacksByGenderData(artistId: $artistId, isrc: $isrc, dsp: $dsp, period: $period) {
+    malePlaybacks
+    femalePlaybacks
+    unknownPlaybacks
+  }
+}
+
+query GetPlaybacksByGenerationData($artistId: String, $isrc: String, $dsp: String, $period: String) {
+  getPlaybacksByGenerationData(artistId: $artistId, isrc: $isrc, dsp: $dsp, period: $period) {
+    playbacksOver60
+    playbacks50S
+    playbacks40S
+    playbacks30S
+    playbacks20S
+    playbacksUnder10S
+  }
+}
+
+query GetCommunities {
+  getCommunities {
+    connectedUserList {
+      id
+      connectedUser {
+        id
+        name
+        imageUrl
+        roles
+        primaryRole
+        primaryArtist {
+          id
+          name
+          imageUrl
+          isAccepted
+        }
+      }
+    }
+    countOfUsers
+  }
+}
+
+query GetOfferStatsByUser($userId: String!) {
+  getOfferStatsByUser(userId: $userId) {
+    inprogressOffers
+    appledOffers
+    completedOffers
+    rejectedOffers
+    canceledOffers
+    totalEarnings
+  }
+}
+
+query GetOffersByOwner($ownerId: String!) {
+  getOffersByOwner(ownerId: $ownerId) {
+    offerList {
+      id
+      title
+      description
+      imageUrl
+      fee
+      category
+    }
+  }
+}
+
+query GetOffersByStatus($userId: String!) {
+  getOffersByStatus(userId: $userId) {
+    inprogressOffers {
+      id
+      title
+      description
+      imageUrl
+      fee
+      category
+    }
+    appledOffers {
+      id
+      title
+      description
+      imageUrl
+      fee
+      category
+    }
+  }
+}
+
+query GetOffers($count: Int!) {
+  getOffers(count: $count) {
+    offerList {
+      id
+      title
+      description
+      imageUrl
+      fee
+      category
+    }
+  }
+}
+
+query GetOffersByCategory($category: String!) {
+  getOffersByCategory(category: $category) {
+    offerList {
+      id
+      title
+      description
+      imageUrl
+      fee
+      category
+    }
+  }
+}
+
+query GetMessagesInProgress {
+  getMessagesInProgress {
+    messageRoomList {
+      id
+      countOfMessages
+      category
+      latestMessage {
+        id
+        sendBy {
+          id
+          name
+          imageUrl
+        }
+        message
+        createdAt
+        attachedFile
+        attachedImg
+      }
+      latestSentAt
+      isRead
+    }
+    countOfMessageRooms
+  }
+}
+
+query GetAllNotifications {
+  getAllNotifications {
+    notifications {
+      id
+      title
+      content
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+query GetBelongedArtists($userId: String!) {
+  getBelongedArtists(userId: $userId) {
+    artistList {
+      id
+      name
+      imageUrl
+      isAccepted
+    }
+  }
+}
+
+query GetAllArtists {
+  getAllArtists {
+    artistList {
+      id
+      name
+      fsp
+      imageUrl
+    }
+  }
+}
+
+query GetArtistById($artistId: String!) {
+  getArtistById(artistId: $artistId) {
+    id
+    name
+    imgUrl
+    fsp
+    status
+    since
+    universalId
+    appleKey
+    spotifyKey
+    lineKey
+    amazonKey
+    youtubeKey
+  }
+}
+
+query GetPopularPrizes {
+  getPopularPrizes {
+    id
+    imgUrl
+    name
+    point
+  }
+}
+
+query GetAllPrizes {
+  getAllPrizes {
+    id
+    imgUrl
+    name
+    point
+  }
+}
+
+query GetPrizeDetail($prizeId: Int!) {
+  getPrizeDetail(prizeId: $prizeId) {
+    id
+    imgUrl
+    name
+    point
+    description
+    representation
+    condition
+  }
+}
+
+query GetFspHistory($userId: String!, $count: Int!) {
+  getFspHistory(userId: $userId, count: $count) {
+    transactionList {
+      id
+      from {
+        id
+        name
+        imageUrl
+      }
+      to {
+        id
+        name
+        imageUrl
+      }
+      amount
+      txAt
+    }
+  }
+}
+
+query GetFspHistoryByUser($userId: String!, $count: Int!) {
+  getFspHistoryByUser(userId: $userId, count: $count) {
+    transactionList {
+      id
+      amount
+      direction
+      counterParty {
+        id
+        name
+        imageUrl
+      }
+      txAt
+    }
   }
 }
