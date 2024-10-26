@@ -6,4 +6,6 @@ use shared::error::domain_err::DomainError;
 pub trait IndicatorsRepository {
     async fn create(&self, indicator: &IndicatorActiveModel) -> Result<Indicator, DomainError>;
     async fn update(&self, indicator: &IndicatorActiveModel) -> Result<Indicator, DomainError>;
+
+    async fn delete(&self, id: i16) -> Result<(), DomainError>;
 }

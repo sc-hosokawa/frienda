@@ -5,11 +5,21 @@ use registry::Usecases;
 #[derive(Default)]
 pub struct GeneralQuery;
 
-// ===== for Query =====
-
 #[Object]
 impl GeneralQuery {
-    async fn get_user_data(&self, ctx: &Context<'_>) -> Result<models::users::UserData> {
+    async fn get_user_data(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<models::users::UserDetailData> {
+        todo!()
+    }
+
+    async fn get_belonged_artists(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<models::artists::ArtistByUserDataList> {
         todo!()
     }
 }

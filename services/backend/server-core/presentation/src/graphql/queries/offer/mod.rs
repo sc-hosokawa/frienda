@@ -7,22 +7,52 @@ pub struct OfferQuery;
 
 #[Object]
 impl OfferQuery {
-    async fn get_all_offers(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
+    async fn get_offer_stats_by_user(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<models::offers::OfferStatsByUserData> {
+        todo!()
+    }
+
+    async fn get_all_offers(&self, ctx: &Context<'_>) -> Result<Vec<models::offers::OfferData>> {
+        todo!()
+    }
+
+    async fn get_offers_by_owner(
+        &self,
+        ctx: &Context<'_>,
+        owner_id: String,
+    ) -> Result<models::offers::OffersData> {
+        todo!()
+    }
+
+    async fn get_offers_by_status(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<models::offers::OfferByStatusData> {
+        todo!()
+    }
+
+    async fn get_offers(
+        &self,
+        ctx: &Context<'_>,
+        count: i32,
+    ) -> Result<models::offers::OffersData> {
         todo!()
     }
 
     async fn get_offers_by_category(
         &self,
         ctx: &Context<'_>,
+        category: String,
     ) -> Result<models::offers::OffersData> {
         todo!()
     }
 
+    /*
     async fn get_offers_by_id(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
-        todo!()
-    }
-
-    async fn get_offers_by_owner(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
         todo!()
     }
 
@@ -66,4 +96,5 @@ impl OfferQuery {
     ) -> Result<models::offers::OffersData> {
         todo!()
     }
+    */
 }

@@ -1,4 +1,4 @@
-input AddNewConnectionInput {
+input AddNewConnectionByUserInput {
 	userId: String!
 }
 
@@ -6,25 +6,90 @@ type AddNewConnectionResponse {
 	mapId: String!
 }
 
-type ArtistPlaybackOverviewData {
+type ArtistByUserData {
 	id: String!
 	name: String!
-	imageUrl: String!
-	createdAt: String!
-	updatedAt: String!
+	imageUrl: String
+	isAccepted: Boolean!
+}
+
+type ArtistByUserDataList {
+	artistList: [ArtistByUserData!]!
+}
+
+type ArtistData {
+	id: String!
+	name: String!
+	fsp: Int!
+	imageUrl: String
+}
+
+type ArtistFullData {
+	id: String!
+	name: String!
+	imgUrl: String
+	fsp: Int!
+	status: String
+	since: String
+	universalId: String
+	appleKey: String
+	spotifyKey: String
+	lineKey: String
+	amazonKey: String
+	youtubeKey: String
+}
+
+type ArtistsData {
+	artistList: [ArtistData!]!
 }
 
 
-type ConnectingByUserData {
+type ChartData {
+	lineChartData: [Int!]!
+}
+
+type ConnectedUserByUserData {
+	id: String!
+	connectedUser: UserBasicData!
+}
+
+type ConnectedUsersData {
+	connectedUserList: [ConnectedUserByUserData!]!
+	countOfUsers: Int
+}
+
+input ContactToAdminInput {
+	username: String!
+	category: String!
+	email: String!
+	content: String!
+}
+
+type ContactToAdminResponse {
+	id: String!
+}
+
+input CreateNewArtistInput {
+	name: String!
+	imgUrl: String
+	fsp: Int!
+	status: String
+	since: String
+	universalId: String
+	appleKey: String
+	spotifyKey: String
+	lineKey: String
+	amazonKey: String
+	youtubeKey: String
+}
+
+type CreateNewArtistResponse {
 	id: String!
 	name: String!
-	createdAt: String!
-	updatedAt: String!
 }
 
 input CreateNewMessageRoomInput {
-	title: String!
-	content: String!
+	category: String!
 }
 
 type CreateNewMessageRoomResponse {
@@ -34,6 +99,8 @@ type CreateNewMessageRoomResponse {
 input CreateNewNotificationInput {
 	title: String!
 	content: String!
+	target: String
+	userId: String
 }
 
 type CreateNewNotificationResponse {
@@ -41,23 +108,44 @@ type CreateNewNotificationResponse {
 }
 
 input CreateNewOfferInput {
+	owner: String!
+	releaseDt: String!
 	title: String!
-	content: String!
+	description: String!
+	fee: Int!
+	imageUrl: String
+	raidId: Int
+	category: String
 }
 
 type CreateNewOfferResponse {
-	id: String!
+	id: Int!
+}
+
+input CreateNewTransactionInput {
+	from: String
+	to: String!
+	amount: Int!
+	note: String
+}
+
+type CreateNewTransactionResponse {
+	newBalance: Int!
 }
 
 input CreateNewUserDataInput {
 	email: String!
-	firstName: String!
-	lastName: String!
-	imageUrl: String!
+	name: String!
+	imageUrl: String
+	invitedBy: String
+	category: String!
+	primaryCategory: String!
 }
 
 type CreateNewUserDataResponse {
-	id: String!
+	userId: String!
+	name: String!
+	imageUrl: String
 }
 
 input DeleteNotificationInput {
@@ -69,11 +157,11 @@ type DeleteNotificationResponse {
 }
 
 input DeleteOfferInput {
-	id: String!
+	id: Int!
 }
 
 type DeleteOfferResponse {
-	id: String!
+	id: Int!
 }
 
 
@@ -82,33 +170,42 @@ type HealthCheck {
 }
 
 
-type IndicatorData {
+
+type MessageData {
 	id: String!
-	name: String!
-	description: String!
+	sendBy: UserSimpleData!
+	message: String!
 	createdAt: String!
-	updatedAt: String!
+	attachedFile: [String!]
+	attachedImg: [String!]
 }
 
+type MessageRoomData {
+	id: String!
+	countOfMessages: Int
+	category: String
+	latestMessage: MessageData
+	latestSentAt: String
+	isRead: Boolean!
+}
 
 type MessageRoomsByUserData {
-	id: String!
-	name: String!
-	createdAt: String!
-	updatedAt: String!
+	messageRoomList: [MessageRoomData!]!
+	countOfMessageRooms: Int!
 }
 
-type MessagesByMessageRoomIdData {
+type MessagesByRoomIdByUserData {
 	id: String!
-	title: String!
-	content: String!
-	createdAt: String!
-	updatedAt: String!
+	to: UserSimpleData!
+	messageList: [MessageData!]!
 }
 
 type MutationRoot {
-	addNewConnection(input: AddNewConnectionInput!): AddNewConnectionResponse!
+	addNewConnection(input: AddNewConnectionByUserInput!): AddNewConnectionResponse!
 	createNewUserData(input: CreateNewUserDataInput!): CreateNewUserDataResponse!
+	updateUserData(input: UpdateUserDataInput!): UpdateUserDataResponse!
+	updateBelongsToArtistStatus(input: UpdateBelongsToArtistStatusInput!): UpdateBelongsToArtistStatusResponse!
+	contactToAdmin(input: ContactToAdminInput!): ContactToAdminResponse!
 	createNewMessageRoom(input: CreateNewMessageRoomInput!): CreateNewMessageRoomResponse!
 	sendMessage(input: SendMessageInput!): SendMessageResponse!
 	createNewNotification(input: CreateNewNotificationInput!): CreateNewNotificationResponse!
@@ -117,9 +214,11 @@ type MutationRoot {
 	createNewOffer(input: CreateNewOfferInput!): CreateNewOfferResponse!
 	updateOffer(input: UpdateOfferInput!): UpdateOfferResponse!
 	deleteOffer(input: DeleteOfferInput!): DeleteOfferResponse!
+	createFspTx(input: CreateNewTransactionInput!): CreateNewTransactionResponse!
+	createNewArtist(input: CreateNewArtistInput!): CreateNewArtistResponse!
 }
 
-type NotificationsByUserData {
+type NotificationData {
 	id: String!
 	title: String!
 	content: String!
@@ -128,52 +227,105 @@ type NotificationsByUserData {
 }
 
 type NotificationsData {
-	id: String!
+	notifications: [NotificationData!]!
+}
+
+type OfferByStatusData {
+	inprogressOffers: [OfferData!]!
+	appledOffers: [OfferData!]!
+}
+
+type OfferData {
+	id: Int!
 	title: String!
-	content: String!
-	createdAt: String!
-	updatedAt: String!
+	description: String!
+	imageUrl: String
+	fee: Int!
+	category: String
+}
+
+type OfferStatsByUserData {
+	inprogressOffers: Int!
+	appledOffers: Int!
+	completedOffers: Int!
+	rejectedOffers: Int!
+	canceledOffers: Int!
+	totalEarnings: Int!
 }
 
 type OffersData {
-	id: String!
-	title: String!
-	content: String!
-	createdAt: String!
-	updatedAt: String!
+	offerList: [OfferData!]!
+}
+
+type PlaybacksByGenderData {
+	malePlaybacks: Int!
+	femalePlaybacks: Int!
+	unknownPlaybacks: Int!
+}
+
+type PlaybacksByGenerationData {
+	playbacksOver60: Int!
+	playbacks50S: Int!
+	playbacks40S: Int!
+	playbacks30S: Int!
+	playbacks20S: Int!
+	playbacksUnder10S: Int!
+}
+
+type PrizeData {
+	id: Int!
+	imgUrl: String
+	name: String!
+	point: Int!
+}
+
+type PrizeDetailData {
+	id: Int!
+	imgUrl: String
+	name: String!
+	point: Int!
+	description: String!
+	representation: String!
+	condition: String
 }
 
 type QueryRoot {
 	healthCheck: HealthCheck!
-	getOverviewData: ArtistPlaybackOverviewData!
-	getTrendingData: ArtistPlaybackOverviewData!
-	getLineChartData: ArtistPlaybackOverviewData!
-	getSegmentData: ArtistPlaybackOverviewData!
-	getAvailableIndicatorsData: IndicatorData!
-	getCommunities: ConnectingByUserData!
-	getUserInfo: UserInfoData!
-	getAllOffers: OffersData!
-	getOffersByCategory: OffersData!
-	getOffersById: OffersData!
-	getOffersByOwner: OffersData!
-	getOffersByApplied: OffersData!
-	getOffersByAppliedUser: OffersData!
-	getOffersByStatus: OffersData!
-	getOffersByTag: OffersData!
-	getOffersByTitle: OffersData!
-	getOffersByDeadline: OffersData!
-	getOffersByPoints: OffersData!
-	getOffersByUserCategory: OffersData!
+	getOverviewData(artistId: String): TotalOverviewData!
+	getTrendingData(artistId: String): TrendingData!
+	getLineChartData(artistId: String, isrc: String, dsp: String, period: String): ChartData!
+	getPlaybacksByGenderData(artistId: String, isrc: String, dsp: String, period: String): PlaybacksByGenderData!
+	getPlaybacksByGenerationData(artistId: String, isrc: String, dsp: String, period: String): PlaybacksByGenerationData!
+	getCommunities: ConnectedUsersData!
+	getUserInfo: UserFullData!
+	getOfferStatsByUser(userId: String!): OfferStatsByUserData!
+	getAllOffers: [OfferData!]!
+	getOffersByOwner(ownerId: String!): OffersData!
+	getOffersByStatus(userId: String!): OfferByStatusData!
+	getOffers(count: Int!): OffersData!
+	getOffersByCategory(category: String!): OffersData!
 	getMessageRooms: MessageRoomsByUserData!
-	getMessagesByMessageRoomId(messageRoomId: String!): MessagesByMessageRoomIdData!
-	getNotifications: NotificationsByUserData!
+	getMessagesInProgress: MessageRoomsByUserData!
+	getMessagesByMessageRoomId(messageRoomId: String!): MessagesByRoomIdByUserData!
+	getNotifications(count: Int!, offset: Int!): NotificationsData!
 	getAllNotifications: NotificationsData!
-	getUserData: UserData!
+	getUserData(userId: String!): UserDetailData!
+	getBelongedArtists(userId: String!): ArtistByUserDataList!
+	getAllArtists: ArtistsData!
+	getArtistById(artistId: String!): ArtistFullData!
+	getPopularPrizes: [PrizeData!]!
+	getAllPrizes: [PrizeData!]!
+	getPrizeDetail(prizeId: Int!): PrizeDetailData!
+	getFspHistory(userId: String!, count: Int!): TransactionsData!
+	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 }
 
 input SendMessageInput {
-	title: String!
-	content: String!
+	roomId: String!
+	sentBy: String!
+	message: String!
+	attachedFile: [String!]
+	attachedImg: [String!]
 }
 
 type SendMessageResponse {
@@ -181,10 +333,64 @@ type SendMessageResponse {
 }
 
 
+type TotalOverviewData {
+	totalPlaybacks: Int!
+	weeklyPlaybacks: Int!
+}
+
+type TrackData {
+	isrc: String!
+	imgUrl: String
+	title: String!
+}
+
+type TransactionByUserData {
+	id: String!
+	amount: Int!
+	direction: TransactionDirection!
+	counterParty: UserSimpleData!
+	txAt: String!
+}
+
+type TransactionData {
+	id: String!
+	from: UserSimpleData
+	to: UserSimpleData
+	amount: Int!
+	txAt: String!
+}
+
+enum TransactionDirection {
+	IN
+	OUT
+}
+
+type TransactionsByUserData {
+	transactionList: [TransactionByUserData!]!
+}
+
+type TransactionsData {
+	transactionList: [TransactionData!]!
+}
+
+type TrendingData {
+	trendingTracks: [TrackData!]!
+}
+
+input UpdateBelongsToArtistStatusInput {
+	id: String!
+	artistId: String
+	status: String
+}
+
+type UpdateBelongsToArtistStatusResponse {
+	artistList: ArtistByUserDataList!
+}
+
 input UpdateNotificationInput {
 	id: String!
-	title: String!
-	content: String!
+	title: String
+	content: String
 }
 
 type UpdateNotificationResponse {
@@ -193,31 +399,63 @@ type UpdateNotificationResponse {
 
 input UpdateOfferInput {
 	id: String!
-	title: String!
-	content: String!
+	title: String
+	description: String
+	fee: Int
+	imageUrl: String
+	raidId: Int
+	category: String
 }
 
 type UpdateOfferResponse {
-	id: String!
+	id: Int!
 }
 
-type UserData {
+input UpdateUserDataInput {
+	id: String!
+	email: String
+	name: String
+	imageUrl: String
+	primaryCategory: String
+	evmAddr: String
+	status: String
+}
+
+type UpdateUserDataResponse {
+	userInfo: UserDetailData!
+}
+
+type UserBasicData {
+	id: String!
+	name: String!
+	imageUrl: String
+	roles: [String!]!
+	primaryRole: String!
+	primaryArtist: ArtistByUserData
+}
+
+type UserDetailData {
 	id: String!
 	email: String!
-	firstName: String!
-	lastName: String!
-	imageUrl: String!
-	createdAt: String!
-	updatedAt: String!
+	name: String!
+	imageUrl: String
+	fspBalance: Int!
+	fspBalanceTemp: Int!
+	credentialBalance: Int!
+	roles: [String!]!
+	primaryRole: String!
+	belongsToArtists: [ArtistByUserData!]!
+	primaryArtist: ArtistByUserData
 }
 
-type UserInfoData {
+type UserFullData {
+	userInfo: UserDetailData!
+}
+
+type UserSimpleData {
 	id: String!
-	firstName: String!
-	lastName: String!
-	imageUrl: String!
-	createdAt: String!
-	updatedAt: String!
+	name: String!
+	imageUrl: String
 }
 
 directive @include(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT

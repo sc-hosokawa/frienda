@@ -10,7 +10,7 @@ impl CommunityMutation {
     async fn add_new_connection(
         &self,
         ctx: &Context<'_>,
-        input: models::communities::AddNewConnectionInput,
+        input: models::communities::AddNewConnectionByUserInput,
     ) -> Result<models::communities::AddNewConnectionResponse> {
         todo!()
     }

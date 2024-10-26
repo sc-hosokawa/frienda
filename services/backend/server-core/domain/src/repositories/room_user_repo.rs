@@ -6,4 +6,6 @@ use shared::error::domain_err::DomainError;
 pub trait RoomUserRepository {
     async fn create(&self, room_user: &RoomUserActiveModel) -> Result<RoomUser, DomainError>;
     async fn update(&self, room_user: &RoomUserActiveModel) -> Result<RoomUser, DomainError>;
+
+    async fn delete(&self, id: i32) -> Result<(), DomainError>;
 }

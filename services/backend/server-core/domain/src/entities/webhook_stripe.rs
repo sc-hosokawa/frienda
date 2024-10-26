@@ -9,7 +9,7 @@ pub struct Model {
     pub event_id: i32,
     pub payload: Option<Json>,
     pub timestamp: DateTime,
-    pub processed: Option<bool>,
+    pub processed: bool,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

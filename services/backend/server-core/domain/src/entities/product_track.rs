@@ -5,6 +5,7 @@ use sea_orm::entity::prelude::*;
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
 #[sea_orm(table_name = "product_track")]
 pub struct Model {
+    pub id: i32,
     #[sea_orm(primary_key, auto_increment = false)]
     pub upc: String,
     #[sea_orm(primary_key, auto_increment = false)]

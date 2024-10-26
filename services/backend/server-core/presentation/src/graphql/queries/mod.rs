@@ -1,5 +1,6 @@
 mod health_check;
 
+mod artist;
 mod community;
 mod dashboard;
 mod general;
@@ -7,6 +8,8 @@ mod message;
 mod news;
 mod notification;
 mod offer;
+mod points_tx;
+mod prize;
 
 use async_graphql::MergedObject;
 use health_check::HealthCheckQuery;
@@ -20,4 +23,7 @@ pub struct QueryRoot(
     message::MessageQuery,
     notification::NotificationQuery,
     general::GeneralQuery,
+    artist::ArtistQuery,
+    prize::PrizeQuery,
+    points_tx::PointsTxQuery,
 );

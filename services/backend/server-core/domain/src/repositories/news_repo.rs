@@ -6,4 +6,7 @@ use shared::error::domain_err::DomainError;
 pub trait NewsRepository {
     async fn create(&self, news: &NewsActiveModel) -> Result<News, DomainError>;
     async fn update(&self, news: &NewsActiveModel) -> Result<News, DomainError>;
+
+    async fn delete(&self, id: i32) -> Result<(), DomainError>;
+    async fn get_by_id(&self, id: i32) -> Result<Option<News>, DomainError>;
 }

@@ -6,4 +6,6 @@ use shared::error::domain_err::DomainError;
 pub trait UserArtistRepository {
     async fn create(&self, user_artist: &UserArtistActiveModel) -> Result<UserArtist, DomainError>;
     async fn update(&self, user_artist: &UserArtistActiveModel) -> Result<UserArtist, DomainError>;
+
+    async fn delete(&self, id: i32) -> Result<(), DomainError>;
 }

@@ -10,11 +10,11 @@ impl CommunityQuery {
     async fn get_communities(
         &self,
         ctx: &Context<'_>,
-    ) -> Result<models::users::ConnectingByUserData> {
+    ) -> Result<models::communities::ConnectedUsersData> {
         todo!()
     }
 
-    async fn get_user_info(&self, ctx: &Context<'_>) -> Result<models::users::UserInfoData> {
+    async fn get_user_info(&self, ctx: &Context<'_>) -> Result<models::users::UserFullData> {
         todo!()
     }
 }

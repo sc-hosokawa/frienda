@@ -8,14 +8,16 @@ use sea_orm::entity::prelude::*;
 #[sea_orm(table_name = "users")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
-    pub id: Uuid,
+    pub id: String,
     pub username: String,
+    pub img_url: Option<String>,
     pub evm_addr: Option<String>,
-    pub status: Option<UserStatus>,
-    pub invited_by: Option<Uuid>,
+    pub status: UserStatus,
+    pub invited_by: Option<String>,
     pub fsp: i32,
     pub credential: i32,
     pub category: UserCategory,
+    pub primary_category: UserCategory,
     pub created_at: DateTime,
     pub updated_at: DateTime,
 }
@@ -26,8 +28,14 @@ pub enum Relation {
     Comments,
     #[sea_orm(has_many = "super::exchange_prize_history::Entity")]
     ExchangePrizeHistory,
+    #[sea_orm(has_many = "super::messages::Entity")]
+    Messages,
     #[sea_orm(has_many = "super::news::Entity")]
     News,
+    #[sea_orm(has_many = "super::notification_user::Entity")]
+    NotificationUser,
+    #[sea_orm(has_many = "super::offer_user::Entity")]
+    OfferUser,
     #[sea_orm(has_many = "super::offers::Entity")]
     Offers,
     #[sea_orm(has_many = "super::prizes::Entity")]
@@ -54,15 +62,27 @@ impl Related<super::exchange_prize_history::Entity> for Entity {
     }
 }
 
+impl Related<super::messages::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Messages.def()
+    }
+}
+
 impl Related<super::news::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::News.def()
     }
 }
 
-impl Related<super::offers::Entity> for Entity {
+impl Related<super::notification_user::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::Offers.def()
+        Relation::NotificationUser.def()
+    }
+}
+
+impl Related<super::offer_user::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::OfferUser.def()
     }
 }
 
@@ -102,6 +122,24 @@ impl Related<super::artists::Entity> for Entity {
     }
     fn via() -> Option<RelationDef> {
         Some(super::user_artist::Relation::Users.def().rev())
+    }
+}
+
+impl Related<super::offers::Entity> for Entity {
+    fn to() -> RelationDef {
+        super::offer_user::Relation::Offers.def()
+    }
+    fn via() -> Option<RelationDef> {
+        Some(super::offer_user::Relation::Users.def().rev())
+    }
+}
+
+impl Related<super::rooms::Entity> for Entity {
+    fn to() -> RelationDef {
+        super::room_user::Relation::Rooms.def()
+    }
+    fn via() -> Option<RelationDef> {
+        Some(super::room_user::Relation::Users.def().rev())
     }
 }
 

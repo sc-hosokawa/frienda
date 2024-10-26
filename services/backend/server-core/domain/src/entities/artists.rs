@@ -9,6 +9,9 @@ pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
     pub name: String,
+    pub img_url: Option<String>,
+    pub fsp: i32,
+    pub status: ArtistStatus,
     pub since: Option<Date>,
     pub universal_id: Option<String>,
     pub apple_key: Option<String>,
@@ -16,9 +19,6 @@ pub struct Model {
     pub line_key: Option<String>,
     pub amazon_key: Option<String>,
     pub youtube_key: Option<String>,
-    pub image: Option<String>,
-    pub fsp: i32,
-    pub status: Option<ArtistStatus>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

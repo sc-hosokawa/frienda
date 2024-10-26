@@ -12,7 +12,14 @@ impl MessageQuery {
     async fn get_message_rooms(
         &self,
         ctx: &Context<'_>,
-    ) -> Result<models::users::MessageRoomsByUserData> {
+    ) -> Result<models::messages::MessageRoomsByUserData> {
+        todo!()
+    }
+
+    async fn get_messages_in_progress(
+        &self,
+        ctx: &Context<'_>,
+    ) -> Result<models::messages::MessageRoomsByUserData> {
         todo!()
     }
 
@@ -20,7 +27,7 @@ impl MessageQuery {
         &self,
         ctx: &Context<'_>,
         message_room_id: String,
-    ) -> Result<models::messages::MessagesByMessageRoomIdData> {
+    ) -> Result<models::messages::MessagesByRoomIdByUserData> {
         todo!()
     }
 }

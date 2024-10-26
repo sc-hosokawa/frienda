@@ -23,9 +23,5 @@ async-graphql = { workspace = true }
 async-graphql-actix-web = { workspace = true }
 
 [[bin]]
-name = "generate-models"
-path = "src/scripts/gen_models.rs"
-
-[[bin]]
 name = "generate-schemas"
 path = "src/scripts/gen_schema.rs"

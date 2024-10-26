@@ -1,116 +1,68 @@
+use crate::graphql::models::artists::*;
 use async_graphql::{InputObject, SimpleObject};
 
-// ===== Query =====
+// ===== Query ====
 
 #[derive(SimpleObject)]
-pub struct UserData {
+pub struct UserSimpleData {
+    pub id: String,
+    pub name: String,
+    pub image_url: Option<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct UserBasicData {
+    pub id: String,
+    pub name: String,
+    pub image_url: Option<String>,
+    pub roles: Vec<String>,
+    pub primary_role: String,
+    pub primary_artist: Option<ArtistByUserData>,
+}
+
+#[derive(SimpleObject)]
+pub struct UserDetailData {
     pub id: String,
     pub email: String,
-    pub first_name: String,
-    pub last_name: String,
-    pub image_url: String,
-    pub created_at: String,
-    pub updated_at: String,
-}
-// TODO: ユーザーのアーティスト一覧を取得する（アクセプト済みのみ）
-// TODO: ユーザーのFSP残高とクレデンシャル残高を取得する
-// TODO: ユーザーのロールとポリシーを取得する
-
-#[derive(SimpleObject)]
-pub struct ArtistsByUserData {
-    pub id: String,
     pub name: String,
-    pub image_url: String,
-    pub created_at: String,
-    pub updated_at: String,
+    pub image_url: Option<String>,
+    pub fsp_balance: i32,
+    pub fsp_balance_temp: i32,
+    pub credential_balance: i32,
+    pub roles: Vec<String>,
+    pub primary_role: String,
+    pub belongs_to_artists: Vec<ArtistByUserData>,
+    pub primary_artist: Option<ArtistByUserData>,
 }
-// TODO: ユーザーが所属しているアーティストの配列
 
 #[derive(SimpleObject)]
-pub struct FspBalanceData {
-    pub balance: String,
-    pub created_at: String,
-    pub updated_at: String,
+pub struct UserFullData {
+    pub user_info: UserDetailData,
 }
-// TODO: ユーザーのFSP残高を取得する
+// TODO: ユーザーの紹介ページで利用するデータ
 
 #[derive(SimpleObject)]
-pub struct CredentialBalanceData {
-    pub balance: String,
-    pub created_at: String,
-    pub updated_at: String,
+pub struct MessageRoomByUserData {
+    pub room_id: String,
+    pub latest_sent_at: String,
+    pub latest_message: MessageData,
 }
-// TODO: ユーザーのクレデンシャル残高を取得する
 
 #[derive(SimpleObject)]
-pub struct MessageRoomsByUserData {
+pub struct MessageData {
     pub id: String,
-    pub name: String,
+    pub sent_by: String,
+    pub message: String,
     pub created_at: String,
-    pub updated_at: String,
 }
-// TODO: ユーザーのメッセージルームの配列を取得する
-// TODO: 最新のメッセージも取得する
-
-#[derive(SimpleObject)]
-pub struct RolesByUserData {
-    pub id: String,
-    pub name: String,
-    pub created_at: String,
-    pub updated_at: String,
-}
-// TODO: ユーザーのロールの配列を取得する
 
 #[derive(SimpleObject)]
 pub struct PoliciesByUserData {
     pub id: String,
-    pub name: String,
-    pub created_at: String,
-    pub updated_at: String,
 }
 // TODO: ユーザーのポリシーの配列を取得する
 
-#[derive(SimpleObject)]
-pub struct ConnectingByUserData {
-    pub id: String,
-    pub name: String,
-    pub created_at: String,
-    pub updated_at: String,
-}
-// TODO: ユーザーのフォローしているユーザーの配列を取得する
-
-#[derive(SimpleObject)]
-pub struct ConnectedByUserData {
-    pub id: String,
-    pub name: String,
-    pub created_at: String,
-    pub updated_at: String,
-}
-// TODO: ユーザーのフォロワーの配列を取得する
-
-#[derive(SimpleObject)]
-pub struct NotificationsByUserData {
-    pub id: String,
-    pub title: String,
-    pub content: String,
-    pub created_at: String,
-    pub updated_at: String,
-}
-// TODO: ユーザーの通知の配列を取得する
-
-#[derive(SimpleObject)]
-pub struct UserInfoData {
-    pub id: String,
-    pub first_name: String,
-    pub last_name: String,
-    pub image_url: String,
-    pub created_at: String,
-    pub updated_at: String,
-}
-// TODO: ユーザーの紹介ページで利用するデータ
-
 // ===== Mutation =====
-
 #[derive(InputObject)]
 pub struct UsersInput {
     pub id: String,
@@ -123,21 +75,44 @@ pub struct UsersInput {
 #[derive(InputObject)]
 pub struct CreateNewUserDataInput {
     pub email: String,
-    pub first_name: String,
-    pub last_name: String,
-    pub image_url: String,
+    pub name: String,
+    pub image_url: Option<String>,
+    pub invited_by: Option<String>,
+    pub category: String,
+    pub primary_category: String,
 }
 
 #[derive(SimpleObject)]
 pub struct CreateNewUserDataResponse {
-    pub id: String,
+    pub user_id: String,
+    pub name: String,
+    pub image_url: Option<String>,
 }
 
 #[derive(InputObject)]
 pub struct UpdateUserDataInput {
     pub id: String,
-    pub email: String,
-    pub first_name: String,
-    pub last_name: String,
-    pub image_url: String,
+    pub email: Option<String>,
+    pub name: Option<String>,
+    pub image_url: Option<String>,
+    pub primary_category: Option<String>,
+    pub evm_addr: Option<String>,
+    pub status: Option<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct UpdateUserDataResponse {
+    pub user_info: UserDetailData,
+}
+
+#[derive(InputObject)]
+pub struct UpdateBelongsToArtistStatusInput {
+    pub id: String,
+    pub artist_id: Option<String>,
+    pub status: Option<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct UpdateBelongsToArtistStatusResponse {
+    pub artist_list: ArtistByUserDataList,
 }

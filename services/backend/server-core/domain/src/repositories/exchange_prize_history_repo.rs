@@ -17,7 +17,8 @@ pub trait ExchangePrizeHistoryRepository {
 
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
     async fn get_by_id(&self, id: i32) -> Result<Option<ExchangePrizeHistory>, DomainError>;
-    async fn get_by_user_id(&self, user_id: i32) -> Result<Vec<ExchangePrizeHistory>, DomainError>;
+    async fn get_by_user_id(&self, user_id: &str)
+        -> Result<Vec<ExchangePrizeHistory>, DomainError>;
     async fn get_by_prize_id(
         &self,
         prize_id: i32,

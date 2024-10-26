@@ -3,13 +3,13 @@
 use sea_orm::entity::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
-#[sea_orm(table_name = "webhook_clerk")]
+#[sea_orm(table_name = "quest_user")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
-    pub payload: Option<Json>,
-    pub timestamp: DateTime,
-    pub processed: Option<bool>,
+    pub user: String,
+    pub quest: i32,
+    pub is_done: bool,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

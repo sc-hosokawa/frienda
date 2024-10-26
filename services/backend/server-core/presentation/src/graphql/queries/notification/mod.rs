@@ -10,7 +10,9 @@ impl NotificationQuery {
     async fn get_notifications(
         &self,
         ctx: &Context<'_>,
-    ) -> Result<models::users::NotificationsByUserData> {
+        count: i32,
+        offset: i32,
+    ) -> Result<models::notifications::NotificationsData> {
         todo!()
     }
     async fn get_all_notifications(

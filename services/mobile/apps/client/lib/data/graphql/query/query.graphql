@@ -4,6 +4,8 @@ query HealthCheck {
   }
 }
 
+# Login時に取得するユーザー情報
+
 query GetUserInfo {
   getUserInfo {
     id
@@ -14,6 +16,12 @@ query GetUserInfo {
     updatedAt
   }
 }
+
+
+
+
+
+
 
 query GetAllOffers {
   getAllOffers {
