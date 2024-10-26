@@ -29,6 +29,10 @@ svix = "1.38.0"
 http = "1.1.0"
 cloud-storage = "0.11.1"
 polars = "0.43.1"
+actix-web-httpauth = "0.8.2"
+alcoholic_jwt = "1.0.1"
+reqwest = { version = "0.12.8", features = ["json"] }
+derive_more = "1.0.0"
 
 [profile.release]
 opt-level = "s"

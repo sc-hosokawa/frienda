@@ -21,6 +21,11 @@ tracing = { workspace = true }
 tracing-actix-web = { workspace = true }
 async-graphql = { workspace = true }
 async-graphql-actix-web = { workspace = true }
+actix-web-httpauth = { workspace = true }
+alcoholic_jwt = { workspace = true }
+serde = { workspace = true }
+reqwest = { workspace = true }
+derive_more = { workspace = true }
 
 [[bin]]
 name = "generate-schemas"
