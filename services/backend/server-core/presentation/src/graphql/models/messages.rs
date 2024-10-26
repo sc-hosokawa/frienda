@@ -1,5 +1,8 @@
 use crate::graphql::models::users::*;
+use anyhow::Error;
+use application::usecases::messaging::send_message_usecase;
 use async_graphql::{InputObject, SimpleObject};
+use uuid::Uuid;
 
 // ===== for Query =====
 #[derive(SimpleObject)]
@@ -62,3 +65,27 @@ pub struct SendMessageInput {
 pub struct SendMessageResponse {
     pub id: String, // uuid
 }
+
+// ===== Convert to usecase input =====
+impl SendMessageInput {
+    pub fn into_usecase_input(self) -> Result<send_message_usecase::SendMessageInput, Error> {
+        Ok(send_message_usecase::SendMessageInput {
+            room_id: Uuid::parse_str(&self.room_id)?,
+            sent_by: self.sent_by,
+            message: self.message,
+            attached_file: self.attached_file,
+            attached_img: self.attached_img,
+        })
+    }
+}
+
+// ===== Convert from usecase output =====
+/*
+impl SendMessageResponse {
+    pub fn from_usecase_output(output: send_message_usecase::SendMessageOutput) -> Self {
+        Self {
+            id: output.id.to_string(),
+        }
+    }
+}
+*/

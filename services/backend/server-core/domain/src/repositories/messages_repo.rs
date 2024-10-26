@@ -4,7 +4,7 @@ use shared::error::domain_err::DomainError;
 use uuid::Uuid;
 
 #[async_trait]
-pub trait MessagesRepository {
+pub trait MessagesRepository: Send + Sync {
     async fn create(&self, message: &MessageActiveModel) -> Result<Message, DomainError>;
     async fn update(&self, message: &MessageActiveModel) -> Result<Message, DomainError>;
 

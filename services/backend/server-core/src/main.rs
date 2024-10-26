@@ -96,7 +96,10 @@ async fn index_graphiql() -> Result<HttpResponse> {
         .body(GraphiQLSource::build().endpoint("/graphql").finish()))
 }
 
-async fn validator(req: ServiceRequest, credentials: BearerAuth) -> Result<ServiceRequest, (Error, ServiceRequest)> {
+async fn validator(
+    req: ServiceRequest,
+    credentials: BearerAuth,
+) -> Result<ServiceRequest, (Error, ServiceRequest)> {
     let config = req.app_data::<Config>().cloned().unwrap_or_default();
 
     println!("req.app_data::<Config>():{:?}", req.app_data::<Config>());

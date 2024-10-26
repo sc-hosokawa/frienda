@@ -408,8 +408,10 @@ dependencies = [
  "async-trait",
  "domain",
  "futures",
+ "sea-orm",
  "shared",
  "tracing",
+ "uuid",
 ]
 
 [[package]]
@@ -2515,6 +2517,8 @@ name = "presentation"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "anyhow",
+ "application",
  "async-graphql",
  "async-graphql-actix-web",
  "futures",
@@ -2522,6 +2526,7 @@ dependencies = [
  "sea-orm",
  "shared",
  "tracing",
+ "uuid",
 ]
 
 [[package]]
