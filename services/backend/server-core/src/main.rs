@@ -1,5 +1,5 @@
 use actix_cors::Cors;
-use actix_web::{guard, web, App, HttpResponse, HttpServer, Result, dev::ServiceRequest, Error};
+use actix_web::{dev::ServiceRequest, guard, web, App, Error, HttpResponse, HttpServer, Result};
 use actix_web_httpauth::extractors::bearer::{BearerAuth, Config};
 use actix_web_httpauth::extractors::AuthenticationError;
 use actix_web_httpauth::middleware::HttpAuthentication;
@@ -32,7 +32,6 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     let port: String = env::var("PORT").unwrap_or_else(|_| "8080".to_string());
     let port: u16 = port.parse().expect("PORT must be a number");
     let db_url: String = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-
 
     let db = establish_db_connection(db_url)
         .await
@@ -97,8 +96,7 @@ async fn index_graphiql() -> Result<HttpResponse> {
         .body(GraphiQLSource::build().endpoint("/graphql").finish()))
 }
 
-
-async fn validator(req: ServiceRequest, credentials: BearerAuth) -> Result<ServiceRequest, Error> {
+async fn validator(req: ServiceRequest, credentials: BearerAuth) -> Result<ServiceRequest, (Error, ServiceRequest)> {
     let config = req.app_data::<Config>().cloned().unwrap_or_default();
 
     println!("req.app_data::<Config>():{:?}", req.app_data::<Config>());
@@ -109,9 +107,9 @@ async fn validator(req: ServiceRequest, credentials: BearerAuth) -> Result<Servi
             if res {
                 Ok(req)
             } else {
-                Err(AuthenticationError::from(config).into())
+                Err((AuthenticationError::from(config).into(), req))
             }
         }
-        Err(_) => Err(AuthenticationError::from(config).into()),
+        Err(_) => Err((AuthenticationError::from(config).into(), req)),
     }
 }

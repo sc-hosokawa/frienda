@@ -45,19 +45,18 @@ async fn fetch_jwks(uri: &str) -> Result<JWKS, Box<dyn Error>> {
     Ok(val)
 }
 
-
 use actix_web::{error::ResponseError, HttpResponse};
 use derive_more::Display;
 
 #[derive(Debug, Display)]
 pub enum ServiceError {
-    #[display(fmt = "Internal Server Error")]
+    #[display("Internal Server Error")]
     InternalServerError,
 
-    #[display(fmt = "BadRequest: {}", _0)]
+    #[display("BadRequest: {_0}")]
     BadRequest(String),
 
-    #[display(fmt = "JWKSFetchError")]
+    #[display("JWKSFetchError")]
     JWKSFetchError,
 }
 
