@@ -1,6 +1,7 @@
 use async_trait::async_trait;
 use sea_orm::ActiveValue;
 use std::sync::Arc;
+use uuid::Uuid;
 
 use domain::entities::room_user::ActiveModel as RoomUserActiveModel;
 use domain::entities::rooms::ActiveModel as RoomActiveModel;
@@ -22,7 +23,7 @@ pub struct CreateMessageRoomInput {
 //
 #[async_trait]
 pub trait CreateMessageRoomUsecaseTrait: Send + Sync {
-    async fn create(&self, input: CreateMessageRoomInput) -> Result<(), anyhow::Error>;
+    async fn create(&self, input: CreateMessageRoomInput) -> Result<Uuid, anyhow::Error>;
 }
 
 //
@@ -50,7 +51,7 @@ impl CreateMessageRoomUsecase {
 //
 #[async_trait]
 impl CreateMessageRoomUsecaseTrait for CreateMessageRoomUsecase {
-    async fn create(&self, input: CreateMessageRoomInput) -> Result<(), anyhow::Error> {
+    async fn create(&self, input: CreateMessageRoomInput) -> Result<Uuid, anyhow::Error> {
         // Create the room
         let room = RoomActiveModel {
             r#type: ActiveValue::Set(input.category),
@@ -82,6 +83,6 @@ impl CreateMessageRoomUsecaseTrait for CreateMessageRoomUsecase {
         // Create all room users
         self.room_user_repo.create_many(room_users).await?;
 
-        Ok(())
+        Ok(created_room.id)
     }
 }

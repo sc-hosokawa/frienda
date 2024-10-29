@@ -1,9 +1,13 @@
 use async_trait::async_trait;
 use sea_orm::ActiveValue;
 use std::sync::Arc;
+use tracing::info;
+use uuid::Uuid;
 
 use domain::entities::txs_fsp::ActiveModel as TxsFspActiveModel;
+use domain::entities::users::Model as User;
 use domain::repositories::txs_fsp_repo::TxsFspRepository;
+use domain::repositories::users_repo::UsersRepository;
 
 //
 // Define the input for the usecase
@@ -20,12 +24,14 @@ pub struct TransferPointBetweenAccountsInput {
 //
 #[async_trait]
 pub trait TransferPointBetweenAccountsUsecaseTrait: Send + Sync {
-    async fn transfer(&self, input: TransferPointBetweenAccountsInput)
-        -> Result<(), anyhow::Error>;
+    async fn transfer(
+        &self,
+        input: TransferPointBetweenAccountsInput,
+    ) -> Result<Uuid, anyhow::Error>;
     async fn bulk_transfer(
         &self,
         input: Vec<TransferPointBetweenAccountsInput>,
-    ) -> Result<(), anyhow::Error>;
+    ) -> Result<Uuid, anyhow::Error>;
 }
 
 //
@@ -33,11 +39,18 @@ pub trait TransferPointBetweenAccountsUsecaseTrait: Send + Sync {
 //
 pub struct TransferPointBetweenAccountsUsecase {
     txs_fsp_repo: Arc<dyn TxsFspRepository>,
+    users_repo: Arc<dyn UsersRepository>,
 }
 
 impl TransferPointBetweenAccountsUsecase {
-    pub fn new(txs_fsp_repo: Arc<dyn TxsFspRepository>) -> Self {
-        Self { txs_fsp_repo }
+    pub fn new(
+        txs_fsp_repo: Arc<dyn TxsFspRepository>,
+        users_repo: Arc<dyn UsersRepository>,
+    ) -> Self {
+        Self {
+            txs_fsp_repo,
+            users_repo,
+        }
     }
 }
 
@@ -49,7 +62,36 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
     async fn transfer(
         &self,
         input: TransferPointBetweenAccountsInput,
-    ) -> Result<(), anyhow::Error> {
+    ) -> Result<Uuid, anyhow::Error> {
+        if let Some(from) = &input.from {
+            if from != "u_00000000000000000000000000" {
+                let from_user = self
+                    .users_repo
+                    .find_by_id(from)
+                    .await?
+                    .ok_or_else(|| anyhow::anyhow!("User not found"))?;
+                if from_user.fsp < input.amount {
+                    return Err(anyhow::anyhow!("Insufficient balance"));
+                }
+                let from_user_info: User = self
+                    .users_repo
+                    .update_fsp(&from_user.id, -input.amount)
+                    .await?;
+                info!("from_user_info: {:?}", from_user_info.id);
+            }
+        }
+
+        let to_user = self
+            .users_repo
+            .find_by_id(&input.to)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("User not found"))?;
+        let to_user_info: User = self
+            .users_repo
+            .update_fsp(&to_user.id, input.amount)
+            .await?;
+        info!("to_user_info: {:?}", to_user_info.id);
+
         let tx_fsp: TxsFspActiveModel = TxsFspActiveModel {
             from: ActiveValue::Set(input.from),
             to: ActiveValue::Set(input.to),
@@ -57,30 +99,54 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
             notes: ActiveValue::Set(input.notes),
             ..Default::default()
         };
-        self.txs_fsp_repo.create(tx_fsp).await?;
+        let res = self.txs_fsp_repo.create(tx_fsp).await?;
 
-        Ok(())
+        Ok(res.id)
     }
 
     async fn bulk_transfer(
         &self,
         input: Vec<TransferPointBetweenAccountsInput>,
-    ) -> Result<(), anyhow::Error> {
+    ) -> Result<Uuid, anyhow::Error> {
         let mut tx_fsps: Vec<TxsFspActiveModel> = Vec::with_capacity(input.len());
 
-        for transfer in input {
+        for transfer in &input {
+            if let Some(from) = &transfer.from {
+                if from != "u_00000000000000000000000000" {
+                    if let Ok(Some(from_user)) = self.users_repo.find_by_id(from).await {
+                        if from_user.fsp < transfer.amount {
+                            return Err(anyhow::anyhow!("Insufficient balance"));
+                        }
+                        let from_user_info: User =
+                            self.users_repo.update_fsp(from, -transfer.amount).await?;
+                        info!("BulkTx::from_user_info: {:?}", from_user_info.id);
+                    }
+                }
+            }
+
+            let _to_user = self
+                .users_repo
+                .find_by_id(&transfer.to)
+                .await?
+                .ok_or_else(|| anyhow::anyhow!("To user not found"))?;
+            let to_user_info: User = self
+                .users_repo
+                .update_fsp(&transfer.to, transfer.amount)
+                .await?;
+            info!("BulkTx::to_user_info: {:?}", to_user_info.id);
+
             let tx_fsp = TxsFspActiveModel {
-                from: ActiveValue::Set(transfer.from),
-                to: ActiveValue::Set(transfer.to),
+                from: ActiveValue::Set(transfer.from.clone()),
+                to: ActiveValue::Set(transfer.to.clone()),
                 amount: ActiveValue::Set(transfer.amount),
-                notes: ActiveValue::Set(transfer.notes),
+                notes: ActiveValue::Set(transfer.notes.clone()),
                 ..Default::default()
             };
             tx_fsps.push(tx_fsp);
         }
 
-        self.txs_fsp_repo.create_many(tx_fsps).await?;
+        let res = self.txs_fsp_repo.create_many(tx_fsps).await?;
 
-        Ok(())
+        Ok(res.id)
     }
 }

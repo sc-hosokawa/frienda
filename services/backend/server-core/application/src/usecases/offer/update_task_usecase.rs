@@ -5,6 +5,7 @@ use std::sync::Arc;
 
 use domain::entities::offer_attach::ActiveModel as OfferAttachActiveModel;
 use domain::entities::offers::ActiveModel as OfferActiveModel;
+use domain::entities::offers::Model as Offer;
 use domain::entities::sea_orm_active_enums::{OfferCategory, UserCategory};
 use domain::repositories::offer_attach_repo::OfferAttachRepository;
 use domain::repositories::offers_repo::OffersRepository;
@@ -29,12 +30,18 @@ pub struct UpdateTaskInput {
     pub attached_files: Option<Vec<String>>,
 }
 
+pub struct UpdateTaskOutput {
+    pub offer: Offer,
+    pub attached_files: Option<Vec<String>>,
+    pub attached_imgs: Option<Vec<String>>,
+}
+
 //
 // Define the interface for the usecase
 //
 #[async_trait]
 pub trait UpdateTaskUsecaseTrait: Send + Sync {
-    async fn update(&self, input: UpdateTaskInput) -> Result<(), anyhow::Error>;
+    async fn update(&self, input: UpdateTaskInput) -> Result<UpdateTaskOutput, anyhow::Error>;
 }
 
 //
@@ -62,7 +69,7 @@ impl UpdateTaskUsecase {
 //
 #[async_trait]
 impl UpdateTaskUsecaseTrait for UpdateTaskUsecase {
-    async fn update(&self, input: UpdateTaskInput) -> Result<(), anyhow::Error> {
+    async fn update(&self, input: UpdateTaskInput) -> Result<UpdateTaskOutput, anyhow::Error> {
         let offer = self
             .offers_repo
             .get_by_id(input.id)
@@ -105,15 +112,18 @@ impl UpdateTaskUsecaseTrait for UpdateTaskUsecase {
             updated_offer.deadline = ActiveValue::Set(deadline.naive_utc());
         }
 
-        self.offers_repo.update(updated_offer).await?;
+        let new_offer = self.offers_repo.update(updated_offer).await?;
 
         // Handle attached media (images and files)
         if input.attached_imgs.is_some() || input.attached_files.is_some() {
-            let attached_media: Vec<String> = input
-                .attached_imgs
+            // Clone the values before using them in the iterator
+            let attached_files = input.attached_files.clone();
+            let attached_imgs = input.attached_imgs.clone();
+
+            let attached_media: Vec<String> = attached_imgs
                 .unwrap_or_default()
                 .into_iter()
-                .chain(input.attached_files.unwrap_or_default().into_iter())
+                .chain(attached_files.unwrap_or_default().into_iter())
                 .collect();
 
             // Get existing attachments
@@ -148,6 +158,11 @@ impl UpdateTaskUsecaseTrait for UpdateTaskUsecase {
                 }
             }
         }
-        Ok(())
+
+        Ok(UpdateTaskOutput {
+            offer: new_offer,
+            attached_files: input.attached_files,
+            attached_imgs: input.attached_imgs,
+        })
     }
 }

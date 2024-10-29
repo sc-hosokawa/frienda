@@ -92,6 +92,7 @@ pub struct UpdateOfferStatusInput {
 #[derive(SimpleObject)]
 pub struct UpdateOfferStatusResponse {
     pub id: i32,
+    pub offer_id: i32,
 }
 
 #[derive(InputObject)]

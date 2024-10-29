@@ -15,7 +15,7 @@ impl OfferMutation {
         input: models::offers::CreateNewOfferInput,
     ) -> Result<models::offers::CreateNewOfferResponse> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        let result = usecases
+        let new_offer_id = usecases
             .register_task
             .register_task(
                 application::usecases::offer::register_task_usecase::RegisterTaskInput {
@@ -43,7 +43,7 @@ impl OfferMutation {
                 },
             )
             .await?;
-        Ok(models::offers::CreateNewOfferResponse { id: 7 })
+        Ok(models::offers::CreateNewOfferResponse { id: new_offer_id })
     }
 
     async fn update_offer_info(
@@ -78,7 +78,7 @@ impl OfferMutation {
             )
             .await?;
 
-        Ok(models::offers::UpdateOfferResponse { id: 7 })
+        Ok(models::offers::UpdateOfferResponse { id: result.offer.id })
     }
 
     async fn update_offer_status(
@@ -124,7 +124,10 @@ impl OfferMutation {
                     .await,
             }?;
 
-        Ok(models::offers::UpdateOfferStatusResponse { id: 7 })
+        Ok(models::offers::UpdateOfferStatusResponse {
+            id: result.0,
+            offer_id: result.1,
+        })
     }
 
     async fn delete_offer(
@@ -132,6 +135,16 @@ impl OfferMutation {
         ctx: &Context<'_>,
         input: models::offers::DeleteOfferInput,
     ) -> Result<models::offers::DeleteOfferResponse> {
-        todo!()
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .delete_offer
+            .delete(
+                application::usecases::offer::delete_offer_usecase::DeleteOfferInput {
+                    id: input.id,
+                },
+            )
+            .await?;
+
+        Ok(models::offers::DeleteOfferResponse { id: result })
     }
 }

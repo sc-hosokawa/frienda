@@ -3,7 +3,7 @@ use sea_orm::ActiveValue;
 use std::sync::Arc;
 
 use domain::entities::sea_orm_active_enums::UserCategory;
-use domain::entities::users::ActiveModel as UserActiveModel;
+use domain::entities::users::{ActiveModel as UserActiveModel, Model as User};
 use domain::repositories::users_repo::UsersRepository;
 
 //
@@ -24,7 +24,7 @@ pub struct CreateUserInput {
 //
 #[async_trait]
 pub trait CreateUserUsecaseTrait: Send + Sync {
-    async fn create(&self, input: CreateUserInput) -> Result<(), anyhow::Error>;
+    async fn create(&self, input: CreateUserInput) -> Result<User, anyhow::Error>;
 }
 
 //
@@ -45,7 +45,7 @@ impl CreateUserUsecase {
 //
 #[async_trait]
 impl CreateUserUsecaseTrait for CreateUserUsecase {
-    async fn create(&self, input: CreateUserInput) -> Result<(), anyhow::Error> {
+    async fn create(&self, input: CreateUserInput) -> Result<User, anyhow::Error> {
         let user: UserActiveModel = UserActiveModel {
             id: ActiveValue::Set(input.id),
             email: ActiveValue::Set(input.email),
@@ -57,8 +57,8 @@ impl CreateUserUsecaseTrait for CreateUserUsecase {
             ..Default::default()
         };
 
-        self.users_repo.create(user).await?;
+        let res = self.users_repo.create(user).await?;
 
-        Ok(())
+        Ok(res)
     }
 }

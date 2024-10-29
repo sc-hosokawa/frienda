@@ -32,10 +32,12 @@ impl TxsFspRepository for TxsFspRepoImpl {
         Ok(res)
     }
 
-    async fn create_many(&self, txs_fsps: Vec<TxsFspActiveModel>) -> Result<(), DomainError> {
-        let _res: InsertResult<TxsFspActiveModel> =
-            TxsFspEntity::insert_many(txs_fsps).exec(&self.db).await?;
-        Ok(())
+    async fn create_many(&self, txs_fsps: Vec<TxsFspActiveModel>) -> Result<TxsFsp, DomainError> {
+        let res = TxsFspEntity::insert_many(txs_fsps).exec(&self.db).await?;
+        let inserted_txs_fsps = TxsFspEntity::find_by_id(res.last_insert_id)
+            .one(&self.db)
+            .await?;
+        Ok(inserted_txs_fsps.unwrap())
     }
 
     async fn get_by_user_id(&self, user_id: &str, count: i32) -> Result<Vec<TxsFsp>, DomainError> {

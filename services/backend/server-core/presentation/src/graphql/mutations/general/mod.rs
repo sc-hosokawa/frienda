@@ -14,7 +14,7 @@ impl GeneralMutation {
         input: models::users::CreateNewUserDataInput,
     ) -> Result<models::users::CreateNewUserDataResponse> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        usecases
+        let res = usecases
             .create_user
             .create(
                 application::usecases::basic::create_user_usecase::CreateUserInput {
@@ -33,9 +33,9 @@ impl GeneralMutation {
             .await?;
 
         Ok(models::users::CreateNewUserDataResponse {
-            user_id: input.id,
-            name: input.name,
-            image_url: input.image_url,
+            user_id: res.id,
+            name: res.username,
+            image_url: res.img_url,
         })
     }
 
@@ -53,7 +53,7 @@ impl GeneralMutation {
                     name: input.name,
                     image_url: input.image_url,
                     email: input.email,
-                    // TODO
+                    // TODO: 処理内容を吟味する
                     primary_category: input.primary_category.as_deref().map(|category| {
                         models::users::from_string_to_user_category(category).unwrap()
                     }),

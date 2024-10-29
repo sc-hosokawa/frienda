@@ -23,16 +23,18 @@ impl PointsTxMutation {
                 notes: input.note,
             })
             .await?;
-        Ok(models::transactions::CreateNewTransactionResponse { new_balance: 2 })
+        Ok(models::transactions::CreateNewTransactionResponse {
+            tx_id: result.to_string(),
+        })
     }
 
     async fn create_bulk_fsp_tx(
         &self,
         ctx: &Context<'_>,
         input: Vec<models::transactions::CreateNewTransactionInput>,
-    ) -> Result<Vec<models::transactions::CreateNewTransactionResponse>> {
+    ) -> Result<models::transactions::CreateNewTransactionResponse> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        let result = usecases
+        let last_tx_id = usecases
             .transfer_point_between_accounts
             .bulk_transfer(input.iter().map(|i|
                 application::usecases::point::transfer_point_between_accounts_usecase::TransferPointBetweenAccountsInput {
@@ -43,8 +45,8 @@ impl PointsTxMutation {
                 }
             ).collect())
             .await?;
-        Ok(vec![models::transactions::CreateNewTransactionResponse {
-            new_balance: 2,
-        }])
+        Ok(models::transactions::CreateNewTransactionResponse {
+            tx_id: last_tx_id.to_string(),
+        })
     }
 }

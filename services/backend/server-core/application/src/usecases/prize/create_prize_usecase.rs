@@ -22,7 +22,7 @@ pub struct CreatePrizeInput {
 //
 #[async_trait]
 pub trait CreatePrizeUsecaseTrait: Send + Sync {
-    async fn create(&self, input: CreatePrizeInput) -> Result<(), anyhow::Error>;
+    async fn create(&self, input: CreatePrizeInput) -> Result<i32, anyhow::Error>;
 }
 
 //
@@ -43,12 +43,17 @@ impl CreatePrizeUsecase {
 //
 #[async_trait]
 impl CreatePrizeUsecaseTrait for CreatePrizeUsecase {
-    async fn create(&self, input: CreatePrizeInput) -> Result<(), anyhow::Error> {
+    async fn create(&self, input: CreatePrizeInput) -> Result<i32, anyhow::Error> {
         let prize: PrizeActiveModel = PrizeActiveModel {
             name: ActiveValue::Set(input.name),
+            point: ActiveValue::Set(input.point),
+            description: ActiveValue::Set(input.description),
+            representation: ActiveValue::Set(input.representation),
+            condition: ActiveValue::Set(input.condition),
+            img_url: ActiveValue::Set(input.img_url),
             ..Default::default()
         };
-        self.prizes_repo.create(prize).await?;
-        Ok(())
+        let res = self.prizes_repo.create(prize).await?;
+        Ok(res.id)
     }
 }

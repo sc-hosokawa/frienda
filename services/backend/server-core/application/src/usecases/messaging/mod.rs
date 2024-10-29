@@ -6,7 +6,6 @@ pub mod create_message_room_usecase;
 pub mod delete_message_usecase;
 pub mod get_messages_usecase;
 pub mod get_room_list_usecase;
-pub mod mark_message_as_read_usecase;
 pub mod pin_conversation_usecase;
 pub mod remove_user_from_group_conversation_usecase;
 pub mod search_messages_usecase;

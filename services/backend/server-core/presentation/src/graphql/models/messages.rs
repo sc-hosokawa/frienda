@@ -74,6 +74,10 @@ pub struct SendMessageInput {
 #[derive(SimpleObject)]
 pub struct SendMessageResponse {
     pub id: String, // uuid
+    pub message: String,
+    pub sent_at: String,
+    pub attached_file: Option<Vec<String>>,
+    pub attached_img: Option<Vec<String>>,
 }
 
 // ===== Convert to usecase input =====

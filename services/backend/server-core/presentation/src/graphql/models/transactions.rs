@@ -47,7 +47,7 @@ pub struct CreateNewTransactionInput {
 
 #[derive(SimpleObject)]
 pub struct CreateNewTransactionResponse {
-    pub new_balance: i32,
+    pub tx_id: String,
 }
 
 // ===== Convert =====

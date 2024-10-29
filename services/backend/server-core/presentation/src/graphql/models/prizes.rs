@@ -45,6 +45,19 @@ pub struct CreateNewPrizeResponse {
 }
 
 #[derive(InputObject)]
+pub struct ExchangePrizeInput {
+    pub user_id: String,
+    pub prize_id: i32,
+    pub amount: Option<i32>,
+}
+
+#[derive(SimpleObject)]
+pub struct ExchangePrizeResponse {
+    pub id: i32,
+    pub tx_id: String,
+}
+
+#[derive(InputObject)]
 pub struct DeletePrizeInput {
     pub id: i32,
 }

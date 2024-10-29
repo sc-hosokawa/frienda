@@ -1,4 +1,3 @@
-pub mod adjust_user_point_balance_usecase;
 pub mod approve_point_request_usecase;
 pub mod cancel_point_purchase_usecase;
 pub mod check_point_balance_usecase;

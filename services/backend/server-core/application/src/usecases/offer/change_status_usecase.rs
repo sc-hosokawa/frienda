@@ -2,6 +2,8 @@ use async_trait::async_trait;
 use sea_orm::ActiveValue;
 use std::sync::Arc;
 use tokio::try_join;
+use tracing::{info, instrument};
+use uuid::Uuid;
 
 use domain::entities::offer_user::ActiveModel as OfferUserActiveModel;
 use domain::entities::offers::ActiveModel as OfferActiveModel;
@@ -15,6 +17,7 @@ use domain::repositories::users_repo::UsersRepository;
 //
 // Define the input for the usecase
 //
+#[derive(Debug)]
 pub struct ChangeStatusInput {
     pub id: i32,
     pub user_id: String,
@@ -26,9 +29,9 @@ pub struct ChangeStatusInput {
 //
 #[async_trait]
 pub trait ChangeStatusUsecaseTrait: Send + Sync {
-    async fn apply(&self, input: ChangeStatusInput) -> Result<(), anyhow::Error>;
-    async fn change_status(&self, input: ChangeStatusInput) -> Result<(), anyhow::Error>;
-    async fn complete(&self, input: ChangeStatusInput) -> Result<(), anyhow::Error>;
+    async fn apply(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error>;
+    async fn change_status(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error>;
+    async fn complete(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error>;
 }
 
 //
@@ -62,7 +65,9 @@ impl ChangeStatusUsecase {
 //
 #[async_trait]
 impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
-    async fn apply(&self, input: ChangeStatusInput) -> Result<(), anyhow::Error> {
+    #[instrument(skip(self), fields(offer_id = input.id, user_id = %input.user_id))]
+    async fn apply(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error> {
+        info!("Applying for offer");
         let new_status: OfferUserActiveModel = OfferUserActiveModel {
             offer_id: ActiveValue::Set(input.id),
             user_id: ActiveValue::Set(input.user_id),
@@ -70,13 +75,15 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
             ..Default::default()
         };
 
-        self.offer_user_repo.create(new_status).await?;
+        let res = self.offer_user_repo.create(new_status).await?;
+        info!("Successfully applied for offer");
 
-        Ok(())
+        Ok((res.id, res.offer_id))
     }
 
-    async fn change_status(&self, input: ChangeStatusInput) -> Result<(), anyhow::Error> {
-        // Validate the input status
+    #[instrument(skip(self), fields(offer_id = input.id, user_id = %input.user_id, status = ?input.status))]
+    async fn change_status(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error> {
+        info!("Changing offer status");
         match input.status {
             OfferStatus::Rejected | OfferStatus::Ongoing => {}
             _ => {
@@ -86,21 +93,23 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
             }
         }
 
-        let offer_user = self
+        let offer_user_mapping = self
             .offer_user_repo
-            .get_by_id(input.id)
+            .get_by_user_id_and_offer_id(&input.user_id, input.id)
             .await?
             .ok_or_else(|| anyhow::anyhow!("Offer user mapping not found"))?;
 
-        let mut updated_offer_user: OfferUserActiveModel = offer_user.into();
+        let mut updated_offer_user: OfferUserActiveModel = offer_user_mapping.into();
         updated_offer_user.status = ActiveValue::Set(input.status);
 
-        self.offer_user_repo.update(updated_offer_user).await?;
+        let res = self.offer_user_repo.update(updated_offer_user).await?;
 
-        Ok(())
+        Ok((res.id, res.offer_id))
     }
 
-    async fn complete(&self, input: ChangeStatusInput) -> Result<(), anyhow::Error> {
+    #[instrument(skip(self), fields(offer_id = input.id, user_id = %input.user_id))]
+    async fn complete(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error> {
+        info!("Completing offer");
         match input.status {
             OfferStatus::Finished => {}
             _ => {
@@ -110,26 +119,34 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
             }
         }
 
-        let (offer_user, offer) = try_join!(
-            self.offer_user_repo.get_by_id(input.id),
-            self.offers_repo.get_by_id(input.id)
-        )?;
+        let offer_user_mapping = self
+            .offer_user_repo
+            .get_by_user_id_and_offer_id(&input.user_id, input.id)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("Offer user mapping not found"))?;
 
-        let offer_user =
-            offer_user.ok_or_else(|| anyhow::anyhow!("Offer user mapping not found"))?;
-        let offer = offer.ok_or_else(|| anyhow::anyhow!("Offer not found"))?;
+        if offer_user_mapping.status != OfferStatus::Ongoing {
+            return Err(anyhow::anyhow!(
+                "Offer user mapping is not in Ongoing status"
+            ));
+        }
 
-        let user_id = offer_user.user_id.clone();
+        let offer = self
+            .offers_repo
+            .get_by_id(input.id)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("Offer not found"))?;
 
-        // Update user's FSP balance
+        let user_id = offer_user_mapping.user_id.clone();
+
+        // Update user's FSP balances
         self.users_repo.update_fsp(&user_id, offer.fee).await?;
-        // Update offer owner's FSP balance
         self.users_repo.update_fsp(&offer.owner, -offer.fee).await?;
 
         let (updated_offer_user, updated_offer, txs_fsp) = (
             OfferUserActiveModel {
                 status: ActiveValue::Set(OfferStatus::Finished),
-                ..offer_user.into()
+                ..offer_user_mapping.into()
             },
             OfferActiveModel {
                 publicity: ActiveValue::Set(false),
@@ -144,12 +161,14 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
             },
         );
 
-        try_join!(
+        let (offer_user_result, offer_result, txs_fsp_result) = try_join!(
             self.offer_user_repo.update(updated_offer_user),
             self.offers_repo.update(updated_offer),
             self.txs_fsp_repo.create(txs_fsp)
         )?;
 
-        Ok(())
+        info!("Successfully completed offer");
+        info!("FSP tx id: {}", txs_fsp_result.id);
+        Ok((offer_user_result.id, offer_result.id))
     }
 }

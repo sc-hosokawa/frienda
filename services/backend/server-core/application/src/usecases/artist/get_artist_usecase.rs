@@ -54,6 +54,6 @@ impl GetArtistUsecaseTrait for GetArtistUsecase {
 
     async fn get_all_artists(&self) -> Result<GetArtistUsecaseOutput, anyhow::Error> {
         let artists = self.artists_repo.find_all().await?;
-        Ok(GetArtistUsecaseOutput { artists: artists })
+        Ok(GetArtistUsecaseOutput { artists })
     }
 }

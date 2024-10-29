@@ -35,7 +35,7 @@ pub struct RegisterTaskInput {
 //
 #[async_trait]
 pub trait RegisterTaskUsecaseTrait: Send + Sync {
-    async fn register_task(&self, input: RegisterTaskInput) -> Result<(), anyhow::Error>;
+    async fn register_task(&self, input: RegisterTaskInput) -> Result<i32, anyhow::Error>;
 }
 
 //
@@ -63,13 +63,17 @@ impl RegisterTaskUsecase {
 //
 #[async_trait]
 impl RegisterTaskUsecaseTrait for RegisterTaskUsecase {
-    async fn register_task(&self, input: RegisterTaskInput) -> Result<(), anyhow::Error> {
+    async fn register_task(&self, input: RegisterTaskInput) -> Result<i32, anyhow::Error> {
         let offer: OfferActiveModel = OfferActiveModel {
             owner: ActiveValue::Set(input.owner),
             deadline: ActiveValue::Set(input.deadline.naive_utc()),
             title: ActiveValue::Set(input.title),
             description: ActiveValue::Set(input.description),
             fee: ActiveValue::Set(input.fee),
+            place: ActiveValue::Set(input.place),
+            attention: ActiveValue::Set(input.attention),
+            required_skill: ActiveValue::Set(input.required_skill),
+            target_role: ActiveValue::Set(input.target_role),
             img_url: ActiveValue::Set(input.image_url),
             publicity: ActiveValue::Set(true),
             raid_id: ActiveValue::Set(input.raid_id),
@@ -99,6 +103,6 @@ impl RegisterTaskUsecaseTrait for RegisterTaskUsecase {
             self.offer_attach_repo.create_many(offer_attaches).await?;
         }
 
-        Ok(())
+        Ok(offer.id)
     }
 }

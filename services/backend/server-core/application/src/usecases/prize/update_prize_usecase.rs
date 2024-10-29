@@ -24,7 +24,7 @@ pub struct UpdatePrizeInput {
 //
 #[async_trait]
 pub trait UpdatePrizeUsecaseTrait: Send + Sync {
-    async fn update(&self, input: UpdatePrizeInput) -> Result<(), anyhow::Error>;
+    async fn update(&self, input: UpdatePrizeInput) -> Result<i32, anyhow::Error>;
 }
 
 //
@@ -45,7 +45,7 @@ impl UpdatePrizeUsecase {
 //
 #[async_trait]
 impl UpdatePrizeUsecaseTrait for UpdatePrizeUsecase {
-    async fn update(&self, input: UpdatePrizeInput) -> Result<(), anyhow::Error> {
+    async fn update(&self, input: UpdatePrizeInput) -> Result<i32, anyhow::Error> {
         let prize = self
             .prizes_repo
             .get_by_id(input.id)
@@ -76,8 +76,8 @@ impl UpdatePrizeUsecaseTrait for UpdatePrizeUsecase {
             updated_prize.publicity = ActiveValue::Set(publicity);
         }
 
-        self.prizes_repo.update(updated_prize).await?;
+        let res = self.prizes_repo.update(updated_prize).await?;
 
-        Ok(())
+        Ok(res.id)
     }
 }

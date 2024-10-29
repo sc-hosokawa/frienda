@@ -15,7 +15,7 @@ pub struct DeleteOfferInput {
 //
 #[async_trait]
 pub trait DeleteOfferUsecaseTrait: Send + Sync {
-    async fn delete(&self, input: DeleteOfferInput) -> Result<(), anyhow::Error>;
+    async fn delete(&self, input: DeleteOfferInput) -> Result<i32, anyhow::Error>;
 }
 
 //
@@ -36,8 +36,8 @@ impl DeleteOfferUsecase {
 //
 #[async_trait]
 impl DeleteOfferUsecaseTrait for DeleteOfferUsecase {
-    async fn delete(&self, input: DeleteOfferInput) -> Result<(), anyhow::Error> {
+    async fn delete(&self, input: DeleteOfferInput) -> Result<i32, anyhow::Error> {
         self.offers_repo.delete(input.id).await?;
-        Ok(())
+        Ok(input.id)
     }
 }

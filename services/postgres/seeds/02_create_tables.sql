@@ -65,6 +65,7 @@ CREATE TABLE "users" (
   "status" user_status NOT NULL DEFAULT 'invited',
   "invited_by" varchar(28),
   "fsp" int NOT NULL DEFAULT 0,
+  "fsp_temp" int NOT NULL DEFAULT 0,
   "credential" int NOT NULL DEFAULT 0,
   "category" user_category NOT NULL,
   "primary_category" user_category NOT NULL,
@@ -323,7 +324,7 @@ CREATE TABLE "messages" (
   "id" uuid PRIMARY KEY NOT NULL DEFAULT (gen_random_uuid()),
   "room_id" uuid NOT NULL,
   "send_by" varchar(28) NOT NULL,
-  "message" varchar NOT NULL,
+  "message" varchar NOT NULL DEFAULT '',
   "created_at" timestamp NOT NULL DEFAULT (now())
 );
 

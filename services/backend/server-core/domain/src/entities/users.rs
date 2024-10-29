@@ -18,6 +18,7 @@ pub struct Model {
     pub status: UserStatus,
     pub invited_by: Option<String>,
     pub fsp: i32,
+    pub fsp_temp: i32,
     pub credential: i32,
     pub category: UserCategory,
     pub primary_category: UserCategory,

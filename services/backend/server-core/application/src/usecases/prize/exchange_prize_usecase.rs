@@ -1,6 +1,7 @@
 use async_trait::async_trait;
 use sea_orm::ActiveValue;
 use std::sync::Arc;
+use uuid::Uuid;
 
 use domain::entities::exchange_prize_history::ActiveModel as ExchangePrizeHistoryActiveModel;
 use domain::entities::txs_fsp::ActiveModel as FspTxActiveModel;
@@ -25,7 +26,7 @@ pub struct ExchangePrizeInput {
 //
 #[async_trait]
 pub trait ExchangePrizeUsecaseTrait: Send + Sync {
-    async fn exchange(&self, input: ExchangePrizeInput) -> Result<(), anyhow::Error>;
+    async fn exchange(&self, input: ExchangePrizeInput) -> Result<(i32, Uuid), anyhow::Error>;
 }
 
 //
@@ -59,7 +60,7 @@ impl ExchangePrizeUsecase {
 //
 #[async_trait]
 impl ExchangePrizeUsecaseTrait for ExchangePrizeUsecase {
-    async fn exchange(&self, input: ExchangePrizeInput) -> Result<(), anyhow::Error> {
+    async fn exchange(&self, input: ExchangePrizeInput) -> Result<(i32, Uuid), anyhow::Error> {
         // prizeの確認
         let prize = self
             .prizes_repo
@@ -70,12 +71,19 @@ impl ExchangePrizeUsecaseTrait for ExchangePrizeUsecase {
         let amount = input.amount.unwrap_or(1);
         let total_points = prize.point * amount;
 
-        // userのfsp残高の更新と取得を同時に行う
-        let user: User = self
+        // ユーザーの残高チェック
+        let user = self
             .users_repo
-            .find_by_id_and_update_fsp(&input.user_id, -total_points)
+            .find_by_id(&input.user_id)
             .await?
-            .ok_or_else(|| anyhow::anyhow!("User not found or insufficient balance"))?;
+            .ok_or_else(|| anyhow::anyhow!("User not found"))?;
+
+        if user.fsp < total_points {
+            return Err(anyhow::anyhow!("Insufficient balance"));
+        }
+
+        // 残高の更新
+        let user = self.users_repo.update_fsp(&user.id, -total_points).await?;
 
         // representation_userのfsp残高の更新
         self.users_repo
@@ -102,12 +110,12 @@ impl ExchangePrizeUsecaseTrait for ExchangePrizeUsecase {
         };
 
         // 並行して実行
-        tokio::try_join!(
+        let (created_exchange_prize_history, created_fsp_tx_id) = tokio::try_join!(
             self.exchange_prize_history_repo
                 .create(exchange_prize_history),
             self.txs_fsp_repo.create(fsp_tx)
         )?;
 
-        Ok(())
+        Ok((created_exchange_prize_history.id, created_fsp_tx_id.id))
     }
 }

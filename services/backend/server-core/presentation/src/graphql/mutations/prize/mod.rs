@@ -27,6 +27,28 @@ impl PrizeMutation {
                 },
             )
             .await?;
-        Ok(models::prizes::CreateNewPrizeResponse { id: 91 })
+        Ok(models::prizes::CreateNewPrizeResponse { id: result })
+    }
+
+    async fn exchange_prize(
+        &self,
+        ctx: &Context<'_>,
+        input: models::prizes::ExchangePrizeInput,
+    ) -> Result<models::prizes::ExchangePrizeResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .exchange_prize
+            .exchange(
+                application::usecases::prize::exchange_prize_usecase::ExchangePrizeInput {
+                    user_id: input.user_id,
+                    prize_id: input.prize_id,
+                    amount: input.amount,
+                },
+            )
+            .await?;
+        Ok(models::prizes::ExchangePrizeResponse {
+            id: result.0,
+            tx_id: result.1.to_string(),
+        })
     }
 }

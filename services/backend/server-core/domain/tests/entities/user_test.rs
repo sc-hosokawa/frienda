@@ -10,6 +10,7 @@ fn test_user_entity() {
     let evm_addr = Some("0x1234567890123456789012345678901234567890".to_string());
     let invited_by = Some(Uuid::new_v4().to_string());
     let fsp = 100;
+    let fsp_temp = 0;
     let credential = 50;
     let category = UserCategory::Musician;
     let now = Utc::now().naive_utc();
@@ -32,6 +33,7 @@ fn test_user_entity() {
         status: UserStatus::Joined,
         invited_by: invited_by.clone(),
         fsp,
+        fsp_temp,
         credential,
         category: category.clone(),
         created_at: now,
@@ -96,6 +98,7 @@ fn test_user_entity() {
         status: UserStatus::Joined,
         invited_by: None,
         fsp: 0,
+        fsp_temp: 0,
         credential: 0,
         category: UserCategory::Musician,
         created_at: now,

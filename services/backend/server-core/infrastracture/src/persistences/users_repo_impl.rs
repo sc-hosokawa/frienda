@@ -36,6 +36,7 @@ impl UsersRepository for UsersRepoImpl {
         let new_fsp: i32 = user.fsp + fsp;
 
         let update_user: ActiveUser = ActiveUser {
+            id: ActiveValue::Set(user.id),
             fsp: ActiveValue::Set(new_fsp),
             ..Default::default()
         };
@@ -69,6 +70,7 @@ impl UsersRepository for UsersRepoImpl {
         let new_fsp: i32 = user.fsp + fsp;
 
         let update_user: ActiveUser = ActiveUser {
+            id: ActiveValue::Set(user.id),
             fsp: ActiveValue::Set(new_fsp),
             ..Default::default()
         };
@@ -129,6 +131,7 @@ impl UsersRepository for UsersRepoImpl {
         let user = UserEntity::find_by_id(id).one(&self.db).await?.unwrap();
 
         let update_user: ActiveUser = ActiveUser {
+            id: ActiveValue::Set(user.id),
             status: ActiveValue::Set(status),
             ..Default::default()
         };

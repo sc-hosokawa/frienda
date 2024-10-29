@@ -196,6 +196,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
         get_user_point_balance: Arc::new(GetUserPointBalanceUsecase::new(repos.users.clone())),
         transfer_point_between_accounts: Arc::new(TransferPointBetweenAccountsUsecase::new(
             repos.txs_fsp.clone(),
+            repos.users.clone(),
         )),
     }
 }
