@@ -4,6 +4,7 @@ import 'package:client/presentation/screens/main_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/auth_provider.dart';
 import 'package:client/presentation/screens/web_view_screen.dart';
+import 'package:client/presentation/screens/auth/profile_setup.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -139,10 +140,28 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           password: _passwordController.text,
         );
 
-        await ref.read(authProvider.notifier).setAuthInfo(userCredential.user!);
+        final User user = userCredential.user!;
+
+        final String? idToken = await user.getIdToken();
+        if (idToken == null) {
+          throw Exception('IDトークンの取得に失敗しました');
+        }
+
+        await ref.read(authProvider.notifier).setAuthInfo(user);
 
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => MainScreen()));
+          context,
+          MaterialPageRoute(
+            builder: (_) => ProfileSetupScreen(
+              user: user,
+              initialData: {
+                'uid': user.uid,
+                'email': user.email ?? '',
+                'idToken': idToken,
+              },
+            ),
+          ),
+        );
       } on FirebaseAuthException catch (e) {
         String message;
         if (e.code == 'weak-password') {
@@ -155,10 +174,12 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(message)),
         );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('エラーが発生しました: ${e.toString()}')),
+        );
       } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() => _isLoading = false);
       }
     }
   }

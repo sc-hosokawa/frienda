@@ -20,11 +20,12 @@ final providerContainer = ProviderContainer();
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   WebViewPlatform.instance = WebViewPlatform.instance;
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final client = await initClient();
+  FlutterNativeSplash.remove();
 
   providerContainer.read(clientProvider.notifier).state = client;
 
