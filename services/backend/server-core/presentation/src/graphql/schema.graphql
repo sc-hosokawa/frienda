@@ -190,6 +190,17 @@ type DeleteOfferResponse {
 	id: Int!
 }
 
+input ExchangePrizeInput {
+	userId: String!
+	prizeId: Int!
+	amount: Int
+}
+
+type ExchangePrizeResponse {
+	id: Int!
+	txId: String!
+}
+
 
 type HealthCheck {
 	status: String!
@@ -240,6 +251,7 @@ type MutationRoot {
 	createFspTx(input: CreateNewTransactionInput!): CreateNewTransactionResponse!
 	createBulkFspTx(input: [CreateNewTransactionInput!]!): CreateNewTransactionResponse!
 	createPrize(input: CreateNewPrizeInput!): CreateNewPrizeResponse!
+	exchangePrize(input: ExchangePrizeInput!): ExchangePrizeResponse!
 	createNewArtist(input: CreateNewArtistInput!): CreateNewArtistResponse!
 }
 
