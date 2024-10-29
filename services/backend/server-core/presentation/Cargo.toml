@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+domain = { path = "../domain" }
+application = { path = "../application" }
 registry = { path = "../registry" }
 shared = { path = "../../shared" }
 actix-web = { workspace = true }
@@ -12,3 +14,6 @@ sea-orm = { workspace = true }
 tracing = { workspace = true }
 async-graphql = { workspace = true }
 async-graphql-actix-web = { workspace = true }
+uuid = { workspace = true }
+anyhow = { workspace = true }
+chrono = { workspace = true }

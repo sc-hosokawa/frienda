@@ -1,11 +1,12 @@
-pub mod apply_task_usecase;
-pub mod approve_task_application_usecase;
-pub mod cancel_task_usecase;
-pub mod complete_task_usecase;
-pub mod create_community_usecase;
+pub mod change_status_usecase;
+pub mod delete_offer_usecase;
 pub mod extend_task_deadline_usecase;
 pub mod filter_tasks_by_skills_usecase;
 pub mod follow_user_usecase;
+pub mod get_available_offer_usecase;
+pub mod get_offer_by_owner_usecase;
+pub mod get_offer_by_status_usecase;
+pub mod get_offer_stats_usecase;
 pub mod get_task_analytics_usecase;
 pub mod get_user_task_history_usecase;
 pub mod introduce_ai_assistant_usecase;

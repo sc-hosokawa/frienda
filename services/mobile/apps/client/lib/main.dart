@@ -5,10 +5,14 @@ import 'package:client/presentation/screens/walkthrough/wt_1.dart';
 import 'package:client/presentation/screens/walkthrough/wt_2.dart';
 import 'package:client/presentation/screens/walkthrough/wt_3.dart';
 import 'package:client/presentation/screens/walkthrough/wt_4.dart';
+import 'package:client/presentation/screens/auth/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:ferry/ferry.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 final providerContainer = ProviderContainer();
 
@@ -16,7 +20,9 @@ void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final client = await initClient();
+
   providerContainer.read(clientProvider.notifier).state = client;
 
   runApp(
@@ -33,82 +39,84 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FRIENDSHIP. DAO App',
-      theme: ThemeData(
-        fontFamily: 'Jost',
-        brightness: Brightness.light,
-        primarySwatch: Colors.green,
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.grey[800],
-          elevation: 0,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.white,
-          elevation: 1,
-        ),
-        iconTheme: IconThemeData(color: Colors.green),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(
-              color: Colors.grey[800], fontFamilyFallback: ['NotoSansJP']),
-          bodyMedium: TextStyle(
-              color: Colors.grey[800], fontFamilyFallback: ['NotoSansJP']),
-          titleMedium: TextStyle(
-              color: Colors.grey[800], fontFamilyFallback: ['NotoSansJP']),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
+        title: 'FRIENDSHIP. DAO App',
+        theme: ThemeData(
+          fontFamily: 'Jost',
+          brightness: Brightness.light,
+          primarySwatch: Colors.green,
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: AppBarTheme(
             backgroundColor: Colors.white,
-            foregroundColor: Colors.lightGreen,
+            foregroundColor: Colors.grey[800],
+            elevation: 0,
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.white,
+            elevation: 1,
+          ),
+          iconTheme: IconThemeData(color: Colors.green),
+          textTheme: TextTheme(
+            bodyLarge: TextStyle(
+                color: Colors.grey[800], fontFamilyFallback: ['NotoSansJP']),
+            bodyMedium: TextStyle(
+                color: Colors.grey[800], fontFamilyFallback: ['NotoSansJP']),
+            titleMedium: TextStyle(
+                color: Colors.grey[800], fontFamilyFallback: ['NotoSansJP']),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.lightGreen,
+            ),
+          ),
+          cardTheme: CardTheme(color: Colors.white),
+          textSelectionTheme: TextSelectionThemeData(
+            selectionColor: Colors.green.withOpacity(0.3),
+            cursorColor: Colors.green,
+            selectionHandleColor: Colors.green,
           ),
         ),
-        cardTheme: CardTheme(color: Colors.white),
-        textSelectionTheme: TextSelectionThemeData(
-          selectionColor: Colors.green.withOpacity(0.3),
-          cursorColor: Colors.green,
-          selectionHandleColor: Colors.green,
-        ),
-      ),
-      darkTheme: ThemeData(
-        fontFamily: 'Jost',
-        brightness: Brightness.dark,
-        primarySwatch: Colors.green,
-        scaffoldBackgroundColor: Colors.black,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.grey[200],
-          elevation: 0,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey[900],
-          elevation: 1,
-        ),
-        iconTheme: IconThemeData(color: Colors.green),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(
-              color: Colors.grey[200], fontFamilyFallback: ['NotoSansJP']),
-          bodyMedium: TextStyle(
-              color: Colors.grey[200], fontFamilyFallback: ['NotoSansJP']),
-          titleMedium: TextStyle(
-              color: Colors.grey[200], fontFamilyFallback: ['NotoSansJP']),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey[800],
-            foregroundColor: Colors.lightGreen,
+        darkTheme: ThemeData(
+          fontFamily: 'Jost',
+          brightness: Brightness.dark,
+          primarySwatch: Colors.green,
+          scaffoldBackgroundColor: Colors.black,
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.grey[200],
+            elevation: 0,
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.grey[900],
+            elevation: 1,
+          ),
+          iconTheme: IconThemeData(color: Colors.green),
+          textTheme: TextTheme(
+            bodyLarge: TextStyle(
+                color: Colors.grey[200], fontFamilyFallback: ['NotoSansJP']),
+            bodyMedium: TextStyle(
+                color: Colors.grey[200], fontFamilyFallback: ['NotoSansJP']),
+            titleMedium: TextStyle(
+                color: Colors.grey[200], fontFamilyFallback: ['NotoSansJP']),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.grey[800],
+              foregroundColor: Colors.lightGreen,
+            ),
+          ),
+          cardTheme: CardTheme(color: Colors.grey[800]),
+          textSelectionTheme: TextSelectionThemeData(
+            selectionColor: Colors.green.withOpacity(0.3),
+            cursorColor: Colors.green,
+            selectionHandleColor: Colors.green,
           ),
         ),
-        cardTheme: CardTheme(color: Colors.grey[800]),
-        textSelectionTheme: TextSelectionThemeData(
-          selectionColor: Colors.green.withOpacity(0.3),
-          cursorColor: Colors.green,
-          selectionHandleColor: Colors.green,
-        ),
-      ),
-      themeMode: ThemeMode.dark,
-      home: const HomePage(),
-    );
+        themeMode: ThemeMode.dark,
+        home: const HomePage(),
+        routes: {
+          '/login': (context) => const LoginPage(),
+        });
   }
 }
 

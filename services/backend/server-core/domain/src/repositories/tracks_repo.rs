@@ -6,4 +6,7 @@ use shared::error::domain_err::DomainError;
 pub trait TracksRepository {
     async fn create(&self, track: &TrackActiveModel) -> Result<Track, DomainError>;
     async fn update(&self, track: &TrackActiveModel) -> Result<Track, DomainError>;
+
+    async fn delete(&self, isrc: &str) -> Result<(), DomainError>;
+    async fn get_by_isrc(&self, isrc: &str) -> Result<Option<Track>, DomainError>;
 }

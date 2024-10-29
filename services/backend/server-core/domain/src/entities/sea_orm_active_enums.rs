@@ -13,6 +13,14 @@ pub enum ArtistStatus {
     Visible,
 }
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "message_room_type")]
+pub enum MessageRoomType {
+    #[sea_orm(string_value = "dm")]
+    Dm,
+    #[sea_orm(string_value = "group")]
+    Group,
+}
+#[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "offer_category")]
 pub enum OfferCategory {
     #[sea_orm(string_value = "creation")]
@@ -25,6 +33,22 @@ pub enum OfferCategory {
     Promotion,
 }
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "offer_status")]
+pub enum OfferStatus {
+    #[sea_orm(string_value = "applied")]
+    Applied,
+    #[sea_orm(string_value = "canceled")]
+    Canceled,
+    #[sea_orm(string_value = "finished")]
+    Finished,
+    #[sea_orm(string_value = "ongoing")]
+    Ongoing,
+    #[sea_orm(string_value = "rejected")]
+    Rejected,
+    #[sea_orm(string_value = "suspend")]
+    Suspend,
+}
+#[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "purchase_status")]
 pub enum PurchaseStatus {
     #[sea_orm(string_value = "fail")]
@@ -33,6 +57,16 @@ pub enum PurchaseStatus {
     Pending,
     #[sea_orm(string_value = "success")]
     Success,
+}
+#[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_artist_status")]
+pub enum UserArtistStatus {
+    #[sea_orm(string_value = "accept")]
+    Accept,
+    #[sea_orm(string_value = "check")]
+    Check,
+    #[sea_orm(string_value = "reject")]
+    Reject,
 }
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_category")]

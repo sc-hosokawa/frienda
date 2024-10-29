@@ -6,9 +6,9 @@ use sea_orm::entity::prelude::*;
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
 #[sea_orm(table_name = "raids")]
 pub struct Model {
-    #[sea_orm(primary_key, auto_increment = false, column_type = "custom(\"ulid\")")]
-    pub id: String,
-    pub owner: Uuid,
+    #[sea_orm(primary_key)]
+    pub id: i32,
+    pub owner: String,
     pub title: String,
     pub description: String,
     pub category: OfferCategory,

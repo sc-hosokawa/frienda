@@ -18,7 +18,7 @@ abstract class GAddNewConnectionVars
           [void Function(GAddNewConnectionVarsBuilder b) updates]) =
       _$GAddNewConnectionVars;
 
-  _i1.GAddNewConnectionInput get input;
+  _i1.GAddNewConnectionByUserInput get input;
   static Serializer<GAddNewConnectionVars> get serializer =>
       _$gAddNewConnectionVarsSerializer;
 
@@ -148,6 +148,225 @@ abstract class GDeleteOfferVars
   static GDeleteOfferVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
         GDeleteOfferVars.serializer,
+        json,
+      );
+}
+
+abstract class GCreateNewUserDataVars
+    implements Built<GCreateNewUserDataVars, GCreateNewUserDataVarsBuilder> {
+  GCreateNewUserDataVars._();
+
+  factory GCreateNewUserDataVars(
+          [void Function(GCreateNewUserDataVarsBuilder b) updates]) =
+      _$GCreateNewUserDataVars;
+
+  _i1.GCreateNewUserDataInput get input;
+  static Serializer<GCreateNewUserDataVars> get serializer =>
+      _$gCreateNewUserDataVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GCreateNewUserDataVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewUserDataVars? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GCreateNewUserDataVars.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateUserDataVars
+    implements Built<GUpdateUserDataVars, GUpdateUserDataVarsBuilder> {
+  GUpdateUserDataVars._();
+
+  factory GUpdateUserDataVars(
+          [void Function(GUpdateUserDataVarsBuilder b) updates]) =
+      _$GUpdateUserDataVars;
+
+  _i1.GUpdateUserDataInput get input;
+  static Serializer<GUpdateUserDataVars> get serializer =>
+      _$gUpdateUserDataVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GUpdateUserDataVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateUserDataVars? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GUpdateUserDataVars.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateBelongsToArtistStatusVars
+    implements
+        Built<GUpdateBelongsToArtistStatusVars,
+            GUpdateBelongsToArtistStatusVarsBuilder> {
+  GUpdateBelongsToArtistStatusVars._();
+
+  factory GUpdateBelongsToArtistStatusVars(
+          [void Function(GUpdateBelongsToArtistStatusVarsBuilder b) updates]) =
+      _$GUpdateBelongsToArtistStatusVars;
+
+  _i1.GUpdateBelongsToArtistStatusInput get input;
+  static Serializer<GUpdateBelongsToArtistStatusVars> get serializer =>
+      _$gUpdateBelongsToArtistStatusVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GUpdateBelongsToArtistStatusVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateBelongsToArtistStatusVars? fromJson(
+          Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GUpdateBelongsToArtistStatusVars.serializer,
+        json,
+      );
+}
+
+abstract class GContactToAdminVars
+    implements Built<GContactToAdminVars, GContactToAdminVarsBuilder> {
+  GContactToAdminVars._();
+
+  factory GContactToAdminVars(
+          [void Function(GContactToAdminVarsBuilder b) updates]) =
+      _$GContactToAdminVars;
+
+  _i1.GContactToAdminInput get input;
+  static Serializer<GContactToAdminVars> get serializer =>
+      _$gContactToAdminVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GContactToAdminVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GContactToAdminVars? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GContactToAdminVars.serializer,
+        json,
+      );
+}
+
+abstract class GCreateNewNotificationVars
+    implements
+        Built<GCreateNewNotificationVars, GCreateNewNotificationVarsBuilder> {
+  GCreateNewNotificationVars._();
+
+  factory GCreateNewNotificationVars(
+          [void Function(GCreateNewNotificationVarsBuilder b) updates]) =
+      _$GCreateNewNotificationVars;
+
+  _i1.GCreateNewNotificationInput get input;
+  static Serializer<GCreateNewNotificationVars> get serializer =>
+      _$gCreateNewNotificationVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GCreateNewNotificationVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewNotificationVars? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GCreateNewNotificationVars.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateNotificationVars
+    implements Built<GUpdateNotificationVars, GUpdateNotificationVarsBuilder> {
+  GUpdateNotificationVars._();
+
+  factory GUpdateNotificationVars(
+          [void Function(GUpdateNotificationVarsBuilder b) updates]) =
+      _$GUpdateNotificationVars;
+
+  _i1.GUpdateNotificationInput get input;
+  static Serializer<GUpdateNotificationVars> get serializer =>
+      _$gUpdateNotificationVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GUpdateNotificationVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateNotificationVars? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GUpdateNotificationVars.serializer,
+        json,
+      );
+}
+
+abstract class GDeleteNotificationVars
+    implements Built<GDeleteNotificationVars, GDeleteNotificationVarsBuilder> {
+  GDeleteNotificationVars._();
+
+  factory GDeleteNotificationVars(
+          [void Function(GDeleteNotificationVarsBuilder b) updates]) =
+      _$GDeleteNotificationVars;
+
+  _i1.GDeleteNotificationInput get input;
+  static Serializer<GDeleteNotificationVars> get serializer =>
+      _$gDeleteNotificationVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GDeleteNotificationVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GDeleteNotificationVars? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GDeleteNotificationVars.serializer,
+        json,
+      );
+}
+
+abstract class GCreateFspTxVars
+    implements Built<GCreateFspTxVars, GCreateFspTxVarsBuilder> {
+  GCreateFspTxVars._();
+
+  factory GCreateFspTxVars([void Function(GCreateFspTxVarsBuilder b) updates]) =
+      _$GCreateFspTxVars;
+
+  _i1.GCreateNewTransactionInput get input;
+  static Serializer<GCreateFspTxVars> get serializer =>
+      _$gCreateFspTxVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GCreateFspTxVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateFspTxVars? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GCreateFspTxVars.serializer,
+        json,
+      );
+}
+
+abstract class GCreateNewArtistVars
+    implements Built<GCreateNewArtistVars, GCreateNewArtistVarsBuilder> {
+  GCreateNewArtistVars._();
+
+  factory GCreateNewArtistVars(
+          [void Function(GCreateNewArtistVarsBuilder b) updates]) =
+      _$GCreateNewArtistVars;
+
+  _i1.GCreateNewArtistInput get input;
+  static Serializer<GCreateNewArtistVars> get serializer =>
+      _$gCreateNewArtistVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
+        GCreateNewArtistVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewArtistVars? fromJson(Map<String, dynamic> json) =>
+      _i2.serializers.deserializeWith(
+        GCreateNewArtistVars.serializer,
         json,
       );
 }

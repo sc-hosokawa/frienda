@@ -18,6 +18,25 @@ Serializer<GUpdateOfferVars> _$gUpdateOfferVarsSerializer =
     new _$GUpdateOfferVarsSerializer();
 Serializer<GDeleteOfferVars> _$gDeleteOfferVarsSerializer =
     new _$GDeleteOfferVarsSerializer();
+Serializer<GCreateNewUserDataVars> _$gCreateNewUserDataVarsSerializer =
+    new _$GCreateNewUserDataVarsSerializer();
+Serializer<GUpdateUserDataVars> _$gUpdateUserDataVarsSerializer =
+    new _$GUpdateUserDataVarsSerializer();
+Serializer<GUpdateBelongsToArtistStatusVars>
+    _$gUpdateBelongsToArtistStatusVarsSerializer =
+    new _$GUpdateBelongsToArtistStatusVarsSerializer();
+Serializer<GContactToAdminVars> _$gContactToAdminVarsSerializer =
+    new _$GContactToAdminVarsSerializer();
+Serializer<GCreateNewNotificationVars> _$gCreateNewNotificationVarsSerializer =
+    new _$GCreateNewNotificationVarsSerializer();
+Serializer<GUpdateNotificationVars> _$gUpdateNotificationVarsSerializer =
+    new _$GUpdateNotificationVarsSerializer();
+Serializer<GDeleteNotificationVars> _$gDeleteNotificationVarsSerializer =
+    new _$GDeleteNotificationVarsSerializer();
+Serializer<GCreateFspTxVars> _$gCreateFspTxVarsSerializer =
+    new _$GCreateFspTxVarsSerializer();
+Serializer<GCreateNewArtistVars> _$gCreateNewArtistVarsSerializer =
+    new _$GCreateNewArtistVarsSerializer();
 
 class _$GAddNewConnectionVarsSerializer
     implements StructuredSerializer<GAddNewConnectionVars> {
@@ -36,7 +55,7 @@ class _$GAddNewConnectionVarsSerializer
     final result = <Object?>[
       'input',
       serializers.serialize(object.input,
-          specifiedType: const FullType(_i1.GAddNewConnectionInput)),
+          specifiedType: const FullType(_i1.GAddNewConnectionByUserInput)),
     ];
 
     return result;
@@ -56,8 +75,9 @@ class _$GAddNewConnectionVarsSerializer
       switch (key) {
         case 'input':
           result.input.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.GAddNewConnectionInput))!
-              as _i1.GAddNewConnectionInput);
+                  specifiedType:
+                      const FullType(_i1.GAddNewConnectionByUserInput))!
+              as _i1.GAddNewConnectionByUserInput);
           break;
       }
     }
@@ -290,9 +310,431 @@ class _$GDeleteOfferVarsSerializer
   }
 }
 
+class _$GCreateNewUserDataVarsSerializer
+    implements StructuredSerializer<GCreateNewUserDataVars> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateNewUserDataVars,
+    _$GCreateNewUserDataVars
+  ];
+  @override
+  final String wireName = 'GCreateNewUserDataVars';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateNewUserDataVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GCreateNewUserDataInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateNewUserDataVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewUserDataVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.GCreateNewUserDataInput))!
+              as _i1.GCreateNewUserDataInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateUserDataVarsSerializer
+    implements StructuredSerializer<GUpdateUserDataVars> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateUserDataVars,
+    _$GUpdateUserDataVars
+  ];
+  @override
+  final String wireName = 'GUpdateUserDataVars';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateUserDataVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GUpdateUserDataInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateUserDataVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateUserDataVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.GUpdateUserDataInput))!
+              as _i1.GUpdateUserDataInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateBelongsToArtistStatusVarsSerializer
+    implements StructuredSerializer<GUpdateBelongsToArtistStatusVars> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateBelongsToArtistStatusVars,
+    _$GUpdateBelongsToArtistStatusVars
+  ];
+  @override
+  final String wireName = 'GUpdateBelongsToArtistStatusVars';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateBelongsToArtistStatusVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GUpdateBelongsToArtistStatusInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateBelongsToArtistStatusVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateBelongsToArtistStatusVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(_i1.GUpdateBelongsToArtistStatusInput))!
+              as _i1.GUpdateBelongsToArtistStatusInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GContactToAdminVarsSerializer
+    implements StructuredSerializer<GContactToAdminVars> {
+  @override
+  final Iterable<Type> types = const [
+    GContactToAdminVars,
+    _$GContactToAdminVars
+  ];
+  @override
+  final String wireName = 'GContactToAdminVars';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GContactToAdminVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GContactToAdminInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GContactToAdminVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GContactToAdminVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.GContactToAdminInput))!
+              as _i1.GContactToAdminInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateNewNotificationVarsSerializer
+    implements StructuredSerializer<GCreateNewNotificationVars> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateNewNotificationVars,
+    _$GCreateNewNotificationVars
+  ];
+  @override
+  final String wireName = 'GCreateNewNotificationVars';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateNewNotificationVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GCreateNewNotificationInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateNewNotificationVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewNotificationVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(_i1.GCreateNewNotificationInput))!
+              as _i1.GCreateNewNotificationInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateNotificationVarsSerializer
+    implements StructuredSerializer<GUpdateNotificationVars> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateNotificationVars,
+    _$GUpdateNotificationVars
+  ];
+  @override
+  final String wireName = 'GUpdateNotificationVars';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateNotificationVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GUpdateNotificationInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateNotificationVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateNotificationVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.GUpdateNotificationInput))!
+              as _i1.GUpdateNotificationInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteNotificationVarsSerializer
+    implements StructuredSerializer<GDeleteNotificationVars> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteNotificationVars,
+    _$GDeleteNotificationVars
+  ];
+  @override
+  final String wireName = 'GDeleteNotificationVars';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GDeleteNotificationVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GDeleteNotificationInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteNotificationVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteNotificationVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.GDeleteNotificationInput))!
+              as _i1.GDeleteNotificationInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateFspTxVarsSerializer
+    implements StructuredSerializer<GCreateFspTxVars> {
+  @override
+  final Iterable<Type> types = const [GCreateFspTxVars, _$GCreateFspTxVars];
+  @override
+  final String wireName = 'GCreateFspTxVars';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GCreateFspTxVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GCreateNewTransactionInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateFspTxVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateFspTxVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(_i1.GCreateNewTransactionInput))!
+              as _i1.GCreateNewTransactionInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateNewArtistVarsSerializer
+    implements StructuredSerializer<GCreateNewArtistVars> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateNewArtistVars,
+    _$GCreateNewArtistVars
+  ];
+  @override
+  final String wireName = 'GCreateNewArtistVars';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateNewArtistVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GCreateNewArtistInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateNewArtistVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewArtistVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.GCreateNewArtistInput))!
+              as _i1.GCreateNewArtistInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GAddNewConnectionVars extends GAddNewConnectionVars {
   @override
-  final _i1.GAddNewConnectionInput input;
+  final _i1.GAddNewConnectionByUserInput input;
 
   factory _$GAddNewConnectionVars(
           [void Function(GAddNewConnectionVarsBuilder)? updates]) =>
@@ -338,10 +780,11 @@ class GAddNewConnectionVarsBuilder
     implements Builder<GAddNewConnectionVars, GAddNewConnectionVarsBuilder> {
   _$GAddNewConnectionVars? _$v;
 
-  _i1.GAddNewConnectionInputBuilder? _input;
-  _i1.GAddNewConnectionInputBuilder get input =>
-      _$this._input ??= new _i1.GAddNewConnectionInputBuilder();
-  set input(_i1.GAddNewConnectionInputBuilder? input) => _$this._input = input;
+  _i1.GAddNewConnectionByUserInputBuilder? _input;
+  _i1.GAddNewConnectionByUserInputBuilder get input =>
+      _$this._input ??= new _i1.GAddNewConnectionByUserInputBuilder();
+  set input(_i1.GAddNewConnectionByUserInputBuilder? input) =>
+      _$this._input = input;
 
   GAddNewConnectionVarsBuilder();
 
@@ -866,6 +1309,899 @@ class GDeleteOfferVarsBuilder
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GDeleteOfferVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateNewUserDataVars extends GCreateNewUserDataVars {
+  @override
+  final _i1.GCreateNewUserDataInput input;
+
+  factory _$GCreateNewUserDataVars(
+          [void Function(GCreateNewUserDataVarsBuilder)? updates]) =>
+      (new GCreateNewUserDataVarsBuilder()..update(updates))._build();
+
+  _$GCreateNewUserDataVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        input, r'GCreateNewUserDataVars', 'input');
+  }
+
+  @override
+  GCreateNewUserDataVars rebuild(
+          void Function(GCreateNewUserDataVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewUserDataVarsBuilder toBuilder() =>
+      new GCreateNewUserDataVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateNewUserDataVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateNewUserDataVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GCreateNewUserDataVarsBuilder
+    implements Builder<GCreateNewUserDataVars, GCreateNewUserDataVarsBuilder> {
+  _$GCreateNewUserDataVars? _$v;
+
+  _i1.GCreateNewUserDataInputBuilder? _input;
+  _i1.GCreateNewUserDataInputBuilder get input =>
+      _$this._input ??= new _i1.GCreateNewUserDataInputBuilder();
+  set input(_i1.GCreateNewUserDataInputBuilder? input) => _$this._input = input;
+
+  GCreateNewUserDataVarsBuilder();
+
+  GCreateNewUserDataVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewUserDataVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewUserDataVars;
+  }
+
+  @override
+  void update(void Function(GCreateNewUserDataVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewUserDataVars build() => _build();
+
+  _$GCreateNewUserDataVars _build() {
+    _$GCreateNewUserDataVars _$result;
+    try {
+      _$result = _$v ?? new _$GCreateNewUserDataVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateNewUserDataVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateUserDataVars extends GUpdateUserDataVars {
+  @override
+  final _i1.GUpdateUserDataInput input;
+
+  factory _$GUpdateUserDataVars(
+          [void Function(GUpdateUserDataVarsBuilder)? updates]) =>
+      (new GUpdateUserDataVarsBuilder()..update(updates))._build();
+
+  _$GUpdateUserDataVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        input, r'GUpdateUserDataVars', 'input');
+  }
+
+  @override
+  GUpdateUserDataVars rebuild(
+          void Function(GUpdateUserDataVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateUserDataVarsBuilder toBuilder() =>
+      new GUpdateUserDataVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateUserDataVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateUserDataVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GUpdateUserDataVarsBuilder
+    implements Builder<GUpdateUserDataVars, GUpdateUserDataVarsBuilder> {
+  _$GUpdateUserDataVars? _$v;
+
+  _i1.GUpdateUserDataInputBuilder? _input;
+  _i1.GUpdateUserDataInputBuilder get input =>
+      _$this._input ??= new _i1.GUpdateUserDataInputBuilder();
+  set input(_i1.GUpdateUserDataInputBuilder? input) => _$this._input = input;
+
+  GUpdateUserDataVarsBuilder();
+
+  GUpdateUserDataVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateUserDataVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateUserDataVars;
+  }
+
+  @override
+  void update(void Function(GUpdateUserDataVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateUserDataVars build() => _build();
+
+  _$GUpdateUserDataVars _build() {
+    _$GUpdateUserDataVars _$result;
+    try {
+      _$result = _$v ?? new _$GUpdateUserDataVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateUserDataVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateBelongsToArtistStatusVars
+    extends GUpdateBelongsToArtistStatusVars {
+  @override
+  final _i1.GUpdateBelongsToArtistStatusInput input;
+
+  factory _$GUpdateBelongsToArtistStatusVars(
+          [void Function(GUpdateBelongsToArtistStatusVarsBuilder)? updates]) =>
+      (new GUpdateBelongsToArtistStatusVarsBuilder()..update(updates))._build();
+
+  _$GUpdateBelongsToArtistStatusVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        input, r'GUpdateBelongsToArtistStatusVars', 'input');
+  }
+
+  @override
+  GUpdateBelongsToArtistStatusVars rebuild(
+          void Function(GUpdateBelongsToArtistStatusVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateBelongsToArtistStatusVarsBuilder toBuilder() =>
+      new GUpdateBelongsToArtistStatusVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateBelongsToArtistStatusVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateBelongsToArtistStatusVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GUpdateBelongsToArtistStatusVarsBuilder
+    implements
+        Builder<GUpdateBelongsToArtistStatusVars,
+            GUpdateBelongsToArtistStatusVarsBuilder> {
+  _$GUpdateBelongsToArtistStatusVars? _$v;
+
+  _i1.GUpdateBelongsToArtistStatusInputBuilder? _input;
+  _i1.GUpdateBelongsToArtistStatusInputBuilder get input =>
+      _$this._input ??= new _i1.GUpdateBelongsToArtistStatusInputBuilder();
+  set input(_i1.GUpdateBelongsToArtistStatusInputBuilder? input) =>
+      _$this._input = input;
+
+  GUpdateBelongsToArtistStatusVarsBuilder();
+
+  GUpdateBelongsToArtistStatusVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateBelongsToArtistStatusVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateBelongsToArtistStatusVars;
+  }
+
+  @override
+  void update(void Function(GUpdateBelongsToArtistStatusVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateBelongsToArtistStatusVars build() => _build();
+
+  _$GUpdateBelongsToArtistStatusVars _build() {
+    _$GUpdateBelongsToArtistStatusVars _$result;
+    try {
+      _$result =
+          _$v ?? new _$GUpdateBelongsToArtistStatusVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateBelongsToArtistStatusVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GContactToAdminVars extends GContactToAdminVars {
+  @override
+  final _i1.GContactToAdminInput input;
+
+  factory _$GContactToAdminVars(
+          [void Function(GContactToAdminVarsBuilder)? updates]) =>
+      (new GContactToAdminVarsBuilder()..update(updates))._build();
+
+  _$GContactToAdminVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        input, r'GContactToAdminVars', 'input');
+  }
+
+  @override
+  GContactToAdminVars rebuild(
+          void Function(GContactToAdminVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GContactToAdminVarsBuilder toBuilder() =>
+      new GContactToAdminVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GContactToAdminVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GContactToAdminVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GContactToAdminVarsBuilder
+    implements Builder<GContactToAdminVars, GContactToAdminVarsBuilder> {
+  _$GContactToAdminVars? _$v;
+
+  _i1.GContactToAdminInputBuilder? _input;
+  _i1.GContactToAdminInputBuilder get input =>
+      _$this._input ??= new _i1.GContactToAdminInputBuilder();
+  set input(_i1.GContactToAdminInputBuilder? input) => _$this._input = input;
+
+  GContactToAdminVarsBuilder();
+
+  GContactToAdminVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GContactToAdminVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GContactToAdminVars;
+  }
+
+  @override
+  void update(void Function(GContactToAdminVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GContactToAdminVars build() => _build();
+
+  _$GContactToAdminVars _build() {
+    _$GContactToAdminVars _$result;
+    try {
+      _$result = _$v ?? new _$GContactToAdminVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GContactToAdminVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateNewNotificationVars extends GCreateNewNotificationVars {
+  @override
+  final _i1.GCreateNewNotificationInput input;
+
+  factory _$GCreateNewNotificationVars(
+          [void Function(GCreateNewNotificationVarsBuilder)? updates]) =>
+      (new GCreateNewNotificationVarsBuilder()..update(updates))._build();
+
+  _$GCreateNewNotificationVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        input, r'GCreateNewNotificationVars', 'input');
+  }
+
+  @override
+  GCreateNewNotificationVars rebuild(
+          void Function(GCreateNewNotificationVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewNotificationVarsBuilder toBuilder() =>
+      new GCreateNewNotificationVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateNewNotificationVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateNewNotificationVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GCreateNewNotificationVarsBuilder
+    implements
+        Builder<GCreateNewNotificationVars, GCreateNewNotificationVarsBuilder> {
+  _$GCreateNewNotificationVars? _$v;
+
+  _i1.GCreateNewNotificationInputBuilder? _input;
+  _i1.GCreateNewNotificationInputBuilder get input =>
+      _$this._input ??= new _i1.GCreateNewNotificationInputBuilder();
+  set input(_i1.GCreateNewNotificationInputBuilder? input) =>
+      _$this._input = input;
+
+  GCreateNewNotificationVarsBuilder();
+
+  GCreateNewNotificationVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewNotificationVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewNotificationVars;
+  }
+
+  @override
+  void update(void Function(GCreateNewNotificationVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewNotificationVars build() => _build();
+
+  _$GCreateNewNotificationVars _build() {
+    _$GCreateNewNotificationVars _$result;
+    try {
+      _$result =
+          _$v ?? new _$GCreateNewNotificationVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateNewNotificationVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateNotificationVars extends GUpdateNotificationVars {
+  @override
+  final _i1.GUpdateNotificationInput input;
+
+  factory _$GUpdateNotificationVars(
+          [void Function(GUpdateNotificationVarsBuilder)? updates]) =>
+      (new GUpdateNotificationVarsBuilder()..update(updates))._build();
+
+  _$GUpdateNotificationVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        input, r'GUpdateNotificationVars', 'input');
+  }
+
+  @override
+  GUpdateNotificationVars rebuild(
+          void Function(GUpdateNotificationVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateNotificationVarsBuilder toBuilder() =>
+      new GUpdateNotificationVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateNotificationVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateNotificationVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GUpdateNotificationVarsBuilder
+    implements
+        Builder<GUpdateNotificationVars, GUpdateNotificationVarsBuilder> {
+  _$GUpdateNotificationVars? _$v;
+
+  _i1.GUpdateNotificationInputBuilder? _input;
+  _i1.GUpdateNotificationInputBuilder get input =>
+      _$this._input ??= new _i1.GUpdateNotificationInputBuilder();
+  set input(_i1.GUpdateNotificationInputBuilder? input) =>
+      _$this._input = input;
+
+  GUpdateNotificationVarsBuilder();
+
+  GUpdateNotificationVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateNotificationVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateNotificationVars;
+  }
+
+  @override
+  void update(void Function(GUpdateNotificationVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateNotificationVars build() => _build();
+
+  _$GUpdateNotificationVars _build() {
+    _$GUpdateNotificationVars _$result;
+    try {
+      _$result = _$v ?? new _$GUpdateNotificationVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateNotificationVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteNotificationVars extends GDeleteNotificationVars {
+  @override
+  final _i1.GDeleteNotificationInput input;
+
+  factory _$GDeleteNotificationVars(
+          [void Function(GDeleteNotificationVarsBuilder)? updates]) =>
+      (new GDeleteNotificationVarsBuilder()..update(updates))._build();
+
+  _$GDeleteNotificationVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        input, r'GDeleteNotificationVars', 'input');
+  }
+
+  @override
+  GDeleteNotificationVars rebuild(
+          void Function(GDeleteNotificationVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteNotificationVarsBuilder toBuilder() =>
+      new GDeleteNotificationVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteNotificationVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteNotificationVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GDeleteNotificationVarsBuilder
+    implements
+        Builder<GDeleteNotificationVars, GDeleteNotificationVarsBuilder> {
+  _$GDeleteNotificationVars? _$v;
+
+  _i1.GDeleteNotificationInputBuilder? _input;
+  _i1.GDeleteNotificationInputBuilder get input =>
+      _$this._input ??= new _i1.GDeleteNotificationInputBuilder();
+  set input(_i1.GDeleteNotificationInputBuilder? input) =>
+      _$this._input = input;
+
+  GDeleteNotificationVarsBuilder();
+
+  GDeleteNotificationVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteNotificationVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteNotificationVars;
+  }
+
+  @override
+  void update(void Function(GDeleteNotificationVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteNotificationVars build() => _build();
+
+  _$GDeleteNotificationVars _build() {
+    _$GDeleteNotificationVars _$result;
+    try {
+      _$result = _$v ?? new _$GDeleteNotificationVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GDeleteNotificationVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateFspTxVars extends GCreateFspTxVars {
+  @override
+  final _i1.GCreateNewTransactionInput input;
+
+  factory _$GCreateFspTxVars(
+          [void Function(GCreateFspTxVarsBuilder)? updates]) =>
+      (new GCreateFspTxVarsBuilder()..update(updates))._build();
+
+  _$GCreateFspTxVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(input, r'GCreateFspTxVars', 'input');
+  }
+
+  @override
+  GCreateFspTxVars rebuild(void Function(GCreateFspTxVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateFspTxVarsBuilder toBuilder() =>
+      new GCreateFspTxVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateFspTxVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateFspTxVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GCreateFspTxVarsBuilder
+    implements Builder<GCreateFspTxVars, GCreateFspTxVarsBuilder> {
+  _$GCreateFspTxVars? _$v;
+
+  _i1.GCreateNewTransactionInputBuilder? _input;
+  _i1.GCreateNewTransactionInputBuilder get input =>
+      _$this._input ??= new _i1.GCreateNewTransactionInputBuilder();
+  set input(_i1.GCreateNewTransactionInputBuilder? input) =>
+      _$this._input = input;
+
+  GCreateFspTxVarsBuilder();
+
+  GCreateFspTxVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateFspTxVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateFspTxVars;
+  }
+
+  @override
+  void update(void Function(GCreateFspTxVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateFspTxVars build() => _build();
+
+  _$GCreateFspTxVars _build() {
+    _$GCreateFspTxVars _$result;
+    try {
+      _$result = _$v ?? new _$GCreateFspTxVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateFspTxVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateNewArtistVars extends GCreateNewArtistVars {
+  @override
+  final _i1.GCreateNewArtistInput input;
+
+  factory _$GCreateNewArtistVars(
+          [void Function(GCreateNewArtistVarsBuilder)? updates]) =>
+      (new GCreateNewArtistVarsBuilder()..update(updates))._build();
+
+  _$GCreateNewArtistVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        input, r'GCreateNewArtistVars', 'input');
+  }
+
+  @override
+  GCreateNewArtistVars rebuild(
+          void Function(GCreateNewArtistVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewArtistVarsBuilder toBuilder() =>
+      new GCreateNewArtistVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateNewArtistVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateNewArtistVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GCreateNewArtistVarsBuilder
+    implements Builder<GCreateNewArtistVars, GCreateNewArtistVarsBuilder> {
+  _$GCreateNewArtistVars? _$v;
+
+  _i1.GCreateNewArtistInputBuilder? _input;
+  _i1.GCreateNewArtistInputBuilder get input =>
+      _$this._input ??= new _i1.GCreateNewArtistInputBuilder();
+  set input(_i1.GCreateNewArtistInputBuilder? input) => _$this._input = input;
+
+  GCreateNewArtistVarsBuilder();
+
+  GCreateNewArtistVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewArtistVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewArtistVars;
+  }
+
+  @override
+  void update(void Function(GCreateNewArtistVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewArtistVars build() => _build();
+
+  _$GCreateNewArtistVars _build() {
+    _$GCreateNewArtistVars _$result;
+    try {
+      _$result = _$v ?? new _$GCreateNewArtistVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateNewArtistVars', _$failedField, e.toString());
       }
       rethrow;
     }

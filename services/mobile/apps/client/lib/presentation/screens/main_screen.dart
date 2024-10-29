@@ -96,8 +96,6 @@ class _MainScreenState extends State<MainScreen> {
           title: _sectionTitles[safeIndex],
           points: 1000,
           profileImagePath: 'assets/logo_visualonly.jpg',
-          showBackButton: _canPop(),
-          onBackPressed: _handleBackPress,
         ),
         body: IndexedStack(
           index: _selectedIndex,

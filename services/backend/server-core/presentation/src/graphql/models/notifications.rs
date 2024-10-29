@@ -3,7 +3,7 @@ use async_graphql::{InputObject, SimpleObject};
 // ===== Query =====
 
 #[derive(SimpleObject)]
-pub struct NotificationsData {
+pub struct NotificationData {
     pub id: String,
     pub title: String,
     pub content: String,
@@ -11,19 +11,25 @@ pub struct NotificationsData {
     pub updated_at: String,
 }
 
-// ===== Mutation =====
+#[derive(SimpleObject)]
+pub struct NotificationsData {
+    pub notifications: Vec<NotificationData>,
+}
 
+// ===== Mutation =====
 #[derive(InputObject)]
 pub struct CreateNewNotificationInput {
     pub title: String,
     pub content: String,
+    pub target: Option<String>,
+    pub user_id: Option<String>,
 }
 
 #[derive(InputObject)]
 pub struct UpdateNotificationInput {
     pub id: String,
-    pub title: String,
-    pub content: String,
+    pub title: Option<String>,
+    pub content: Option<String>,
 }
 
 #[derive(InputObject)]

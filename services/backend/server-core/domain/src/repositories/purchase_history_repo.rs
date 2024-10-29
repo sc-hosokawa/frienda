@@ -16,6 +16,6 @@ pub trait PurchaseHistoryRepository {
         purchase: &PurchaseHistoryActiveModel,
     ) -> Result<PurchaseHistory, DomainError>;
 
-    async fn get_by_id(&self, purchase_id: Uuid) -> Result<Option<PurchaseHistory>, DomainError>;
-    async fn get_by_user_id(&self, user_id: Uuid) -> Result<Vec<PurchaseHistory>, DomainError>;
+    async fn get_by_id(&self, purchase_id: &Uuid) -> Result<Option<PurchaseHistory>, DomainError>;
+    async fn get_by_user_id(&self, user_id: &str) -> Result<Vec<PurchaseHistory>, DomainError>;
 }

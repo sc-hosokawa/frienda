@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:client/presentation/widgets/more/contact_form.dart';
+import 'package:client/presentation/widgets/more/account_setting.dart';
 
 class Setting extends StatelessWidget {
   const Setting({super.key});
@@ -83,6 +84,10 @@ class Setting extends StatelessWidget {
         } else if (title == 'お問い合わせ / 不具合報告') {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const ContactForm()),
+          );
+        } else if (title == 'アカウント設定') {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const AccountSettings()),
           );
         } else {
           // TODO: Implement other setting item tap logic

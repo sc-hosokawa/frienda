@@ -8,6 +8,7 @@ pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub upc: String,
     pub title: String,
+    pub img_url: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -19,15 +20,6 @@ pub enum Relation {
 impl Related<super::product_track::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::ProductTrack.def()
-    }
-}
-
-impl Related<super::tracks::Entity> for Entity {
-    fn to() -> RelationDef {
-        super::product_track::Relation::Tracks.def()
-    }
-    fn via() -> Option<RelationDef> {
-        Some(super::product_track::Relation::Products.def().rev())
     }
 }
 

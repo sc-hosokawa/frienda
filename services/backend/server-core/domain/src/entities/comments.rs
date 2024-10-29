@@ -5,13 +5,12 @@ use sea_orm::entity::prelude::*;
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
 #[sea_orm(table_name = "comments")]
 pub struct Model {
-    #[sea_orm(primary_key, auto_increment = false, column_type = "custom(\"ulid\")")]
-    pub id: String,
-    pub user_id: Option<Uuid>,
-    #[sea_orm(column_type = "custom(\"ulid\")", nullable)]
-    pub offer_id: Option<String>,
+    #[sea_orm(primary_key, auto_increment = false)]
+    pub id: i32,
+    pub commented_user_id: String,
+    pub offer_id: i32,
     pub created_at: DateTime,
-    pub content: Option<String>,
+    pub content: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -26,7 +25,7 @@ pub enum Relation {
     Offers,
     #[sea_orm(
         belongs_to = "super::users::Entity",
-        from = "Column::UserId",
+        from = "Column::CommentedUserId",
         to = "super::users::Column::Id",
         on_update = "NoAction",
         on_delete = "NoAction"

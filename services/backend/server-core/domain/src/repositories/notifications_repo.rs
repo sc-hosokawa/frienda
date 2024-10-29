@@ -14,4 +14,6 @@ pub trait NotificationsRepository {
         &self,
         notification: &NotificationActiveModel,
     ) -> Result<Notification, DomainError>;
+
+    async fn get_by_id(&self, id: i32) -> Result<Option<Notification>, DomainError>;
 }

@@ -7,6 +7,8 @@ use sea_orm::entity::prelude::*;
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub isrc: String,
+    pub img_url: Option<String>,
+    pub title: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -42,15 +44,6 @@ impl Related<super::plays_yearly::Entity> for Entity {
 impl Related<super::product_track::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::ProductTrack.def()
-    }
-}
-
-impl Related<super::products::Entity> for Entity {
-    fn to() -> RelationDef {
-        super::product_track::Relation::Products.def()
-    }
-    fn via() -> Option<RelationDef> {
-        Some(super::product_track::Relation::Tracks.def().rev())
     }
 }
 

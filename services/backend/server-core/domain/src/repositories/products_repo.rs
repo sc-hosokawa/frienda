@@ -6,4 +6,7 @@ use shared::error::domain_err::DomainError;
 pub trait ProductsRepository {
     async fn create(&self, product: &ProductActiveModel) -> Result<Product, DomainError>;
     async fn update(&self, product: &ProductActiveModel) -> Result<Product, DomainError>;
+
+    async fn delete(&self, upc: &str) -> Result<(), DomainError>;
+    async fn get_by_upc(&self, upc: &str) -> Result<Option<Product>, DomainError>;
 }

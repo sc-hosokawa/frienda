@@ -5,12 +5,10 @@ use sea_orm::entity::prelude::*;
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
 #[sea_orm(table_name = "maps")]
 pub struct Model {
-    #[sea_orm(column_type = "custom(\"ulid\")")]
-    pub id: String,
     #[sea_orm(primary_key, auto_increment = false)]
-    pub following_user_id: Uuid,
-    #[sea_orm(primary_key, auto_increment = false)]
-    pub followed_user_id: Uuid,
+    pub id: Uuid,
+    pub following_user_id: String,
+    pub followed_user_id: String,
     pub created_at: DateTime,
 }
 

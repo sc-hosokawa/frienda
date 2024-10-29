@@ -1,5 +1,8 @@
 use actix_cors::Cors;
-use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
+use actix_web::{dev::ServiceRequest, guard, web, App, Error, HttpResponse, HttpServer, Result};
+use actix_web_httpauth::extractors::bearer::{BearerAuth, Config};
+use actix_web_httpauth::extractors::AuthenticationError;
+use actix_web_httpauth::middleware::HttpAuthentication;
 use async_graphql::{http::GraphiQLSource, EmptySubscription, Schema};
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
 use dotenvy::dotenv;
@@ -11,6 +14,8 @@ use std::env;
 use tracing_actix_web::TracingLogger;
 
 use registry::*;
+
+mod auth;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -40,7 +45,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
         MutationRoot::default(),
         EmptySubscription,
     )
-    .data(usecases)
+    .data(std::sync::Arc::new(usecases))
     .data(db.clone())
     .finish();
 
@@ -48,6 +53,8 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     tracing::info!("GraphiQL IDE: http://{}:{}/graphql", host, port);
 
     HttpServer::new(move || {
+        // TODO: Middlewareに追加すること！
+        let auth = HttpAuthentication::bearer(validator);
         let cors = Cors::default()
             .allow_any_origin()
             .allow_any_method()
@@ -71,10 +78,6 @@ async fn bootstrap() -> Result<(), std::io::Error> {
                 "/stripe",
                 web::post().to(handlers::stripe_webhook::webhook_handler),
             )
-            .route(
-                "/clerk",
-                web::post().to(handlers::clerk_webhook::webhook_handler),
-            )
     })
     .bind((host, port))?
     .run()
@@ -91,4 +94,25 @@ async fn index_graphiql() -> Result<HttpResponse> {
     Ok(HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
         .body(GraphiQLSource::build().endpoint("/graphql").finish()))
+}
+
+async fn validator(
+    req: ServiceRequest,
+    credentials: BearerAuth,
+) -> Result<ServiceRequest, (Error, ServiceRequest)> {
+    let config = req.app_data::<Config>().cloned().unwrap_or_default();
+
+    println!("req.app_data::<Config>():{:?}", req.app_data::<Config>());
+    println!("credentials.token():{}", credentials.token());
+
+    match auth::validate_token(credentials.token()).await {
+        Ok(res) => {
+            if res {
+                Ok(req)
+            } else {
+                Err((AuthenticationError::from(config).into(), req))
+            }
+        }
+        Err(_) => Err((AuthenticationError::from(config).into(), req)),
+    }
 }
