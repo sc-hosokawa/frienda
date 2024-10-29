@@ -78,7 +78,9 @@ impl OfferMutation {
             )
             .await?;
 
-        Ok(models::offers::UpdateOfferResponse { id: result.offer.id })
+        Ok(models::offers::UpdateOfferResponse {
+            id: result.offer.id,
+        })
     }
 
     async fn update_offer_status(
