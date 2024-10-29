@@ -8,16 +8,6 @@ part of 'mutation.req.gql.dart';
 
 Serializer<GAddNewConnectionReq> _$gAddNewConnectionReqSerializer =
     new _$GAddNewConnectionReqSerializer();
-Serializer<GCreateNewMessageRoomReq> _$gCreateNewMessageRoomReqSerializer =
-    new _$GCreateNewMessageRoomReqSerializer();
-Serializer<GSendMessageReq> _$gSendMessageReqSerializer =
-    new _$GSendMessageReqSerializer();
-Serializer<GCreateNewOfferReq> _$gCreateNewOfferReqSerializer =
-    new _$GCreateNewOfferReqSerializer();
-Serializer<GUpdateOfferReq> _$gUpdateOfferReqSerializer =
-    new _$GUpdateOfferReqSerializer();
-Serializer<GDeleteOfferReq> _$gDeleteOfferReqSerializer =
-    new _$GDeleteOfferReqSerializer();
 Serializer<GCreateNewUserDataReq> _$gCreateNewUserDataReqSerializer =
     new _$GCreateNewUserDataReqSerializer();
 Serializer<GUpdateUserDataReq> _$gUpdateUserDataReqSerializer =
@@ -27,14 +17,32 @@ Serializer<GUpdateBelongsToArtistStatusReq>
     new _$GUpdateBelongsToArtistStatusReqSerializer();
 Serializer<GContactToAdminReq> _$gContactToAdminReqSerializer =
     new _$GContactToAdminReqSerializer();
+Serializer<GCreateNewMessageRoomReq> _$gCreateNewMessageRoomReqSerializer =
+    new _$GCreateNewMessageRoomReqSerializer();
+Serializer<GSendMessageReq> _$gSendMessageReqSerializer =
+    new _$GSendMessageReqSerializer();
 Serializer<GCreateNewNotificationReq> _$gCreateNewNotificationReqSerializer =
     new _$GCreateNewNotificationReqSerializer();
 Serializer<GUpdateNotificationReq> _$gUpdateNotificationReqSerializer =
     new _$GUpdateNotificationReqSerializer();
 Serializer<GDeleteNotificationReq> _$gDeleteNotificationReqSerializer =
     new _$GDeleteNotificationReqSerializer();
+Serializer<GCreateNewOfferReq> _$gCreateNewOfferReqSerializer =
+    new _$GCreateNewOfferReqSerializer();
+Serializer<GUpdateOfferInfoReq> _$gUpdateOfferInfoReqSerializer =
+    new _$GUpdateOfferInfoReqSerializer();
+Serializer<GUpdateOfferStatusReq> _$gUpdateOfferStatusReqSerializer =
+    new _$GUpdateOfferStatusReqSerializer();
+Serializer<GDeleteOfferReq> _$gDeleteOfferReqSerializer =
+    new _$GDeleteOfferReqSerializer();
 Serializer<GCreateFspTxReq> _$gCreateFspTxReqSerializer =
     new _$GCreateFspTxReqSerializer();
+Serializer<GCreateBulkFspTxReq> _$gCreateBulkFspTxReqSerializer =
+    new _$GCreateBulkFspTxReqSerializer();
+Serializer<GCreatePrizeReq> _$gCreatePrizeReqSerializer =
+    new _$GCreatePrizeReqSerializer();
+Serializer<GExchangePrizeReq> _$gExchangePrizeReqSerializer =
+    new _$GExchangePrizeReqSerializer();
 Serializer<GCreateNewArtistReq> _$gCreateNewArtistReqSerializer =
     new _$GCreateNewArtistReqSerializer();
 
@@ -132,601 +140,6 @@ class _$GAddNewConnectionReqSerializer
           result.optimisticResponse.replace(serializers.deserialize(value,
                   specifiedType: const FullType(_i2.GAddNewConnectionData))!
               as _i2.GAddNewConnectionData);
-          break;
-        case 'updateCacheHandlerKey':
-          result.updateCacheHandlerKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'updateCacheHandlerContext':
-          result.updateCacheHandlerContext = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ])) as Map<String, dynamic>?;
-          break;
-        case 'fetchPolicy':
-          result.fetchPolicy = serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.FetchPolicy))
-              as _i1.FetchPolicy?;
-          break;
-        case 'executeOnListen':
-          result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreateNewMessageRoomReqSerializer
-    implements StructuredSerializer<GCreateNewMessageRoomReq> {
-  @override
-  final Iterable<Type> types = const [
-    GCreateNewMessageRoomReq,
-    _$GCreateNewMessageRoomReq
-  ];
-  @override
-  final String wireName = 'GCreateNewMessageRoomReq';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreateNewMessageRoomReq object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GCreateNewMessageRoomVars)),
-      'operation',
-      serializers.serialize(object.operation,
-          specifiedType: const FullType(_i4.Operation)),
-      'executeOnListen',
-      serializers.serialize(object.executeOnListen,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.requestId;
-    if (value != null) {
-      result
-        ..add('requestId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.optimisticResponse;
-    if (value != null) {
-      result
-        ..add('optimisticResponse')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GCreateNewMessageRoomData)));
-    }
-    value = object.updateCacheHandlerKey;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.updateCacheHandlerContext;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                Map, const [const FullType(String), const FullType(dynamic)])));
-    }
-    value = object.fetchPolicy;
-    if (value != null) {
-      result
-        ..add('fetchPolicy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    return result;
-  }
-
-  @override
-  GCreateNewMessageRoomReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateNewMessageRoomReqBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GCreateNewMessageRoomVars))!
-              as _i3.GCreateNewMessageRoomVars);
-          break;
-        case 'operation':
-          result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
-          break;
-        case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'optimisticResponse':
-          result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GCreateNewMessageRoomData))!
-              as _i2.GCreateNewMessageRoomData);
-          break;
-        case 'updateCacheHandlerKey':
-          result.updateCacheHandlerKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'updateCacheHandlerContext':
-          result.updateCacheHandlerContext = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ])) as Map<String, dynamic>?;
-          break;
-        case 'fetchPolicy':
-          result.fetchPolicy = serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.FetchPolicy))
-              as _i1.FetchPolicy?;
-          break;
-        case 'executeOnListen':
-          result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GSendMessageReqSerializer
-    implements StructuredSerializer<GSendMessageReq> {
-  @override
-  final Iterable<Type> types = const [GSendMessageReq, _$GSendMessageReq];
-  @override
-  final String wireName = 'GSendMessageReq';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GSendMessageReq object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GSendMessageVars)),
-      'operation',
-      serializers.serialize(object.operation,
-          specifiedType: const FullType(_i4.Operation)),
-      'executeOnListen',
-      serializers.serialize(object.executeOnListen,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.requestId;
-    if (value != null) {
-      result
-        ..add('requestId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.optimisticResponse;
-    if (value != null) {
-      result
-        ..add('optimisticResponse')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GSendMessageData)));
-    }
-    value = object.updateCacheHandlerKey;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.updateCacheHandlerContext;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                Map, const [const FullType(String), const FullType(dynamic)])));
-    }
-    value = object.fetchPolicy;
-    if (value != null) {
-      result
-        ..add('fetchPolicy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    return result;
-  }
-
-  @override
-  GSendMessageReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GSendMessageReqBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GSendMessageVars))!
-              as _i3.GSendMessageVars);
-          break;
-        case 'operation':
-          result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
-          break;
-        case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'optimisticResponse':
-          result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GSendMessageData))!
-              as _i2.GSendMessageData);
-          break;
-        case 'updateCacheHandlerKey':
-          result.updateCacheHandlerKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'updateCacheHandlerContext':
-          result.updateCacheHandlerContext = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ])) as Map<String, dynamic>?;
-          break;
-        case 'fetchPolicy':
-          result.fetchPolicy = serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.FetchPolicy))
-              as _i1.FetchPolicy?;
-          break;
-        case 'executeOnListen':
-          result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreateNewOfferReqSerializer
-    implements StructuredSerializer<GCreateNewOfferReq> {
-  @override
-  final Iterable<Type> types = const [GCreateNewOfferReq, _$GCreateNewOfferReq];
-  @override
-  final String wireName = 'GCreateNewOfferReq';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreateNewOfferReq object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GCreateNewOfferVars)),
-      'operation',
-      serializers.serialize(object.operation,
-          specifiedType: const FullType(_i4.Operation)),
-      'executeOnListen',
-      serializers.serialize(object.executeOnListen,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.requestId;
-    if (value != null) {
-      result
-        ..add('requestId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.optimisticResponse;
-    if (value != null) {
-      result
-        ..add('optimisticResponse')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GCreateNewOfferData)));
-    }
-    value = object.updateCacheHandlerKey;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.updateCacheHandlerContext;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                Map, const [const FullType(String), const FullType(dynamic)])));
-    }
-    value = object.fetchPolicy;
-    if (value != null) {
-      result
-        ..add('fetchPolicy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    return result;
-  }
-
-  @override
-  GCreateNewOfferReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateNewOfferReqBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GCreateNewOfferVars))!
-              as _i3.GCreateNewOfferVars);
-          break;
-        case 'operation':
-          result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
-          break;
-        case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'optimisticResponse':
-          result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GCreateNewOfferData))!
-              as _i2.GCreateNewOfferData);
-          break;
-        case 'updateCacheHandlerKey':
-          result.updateCacheHandlerKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'updateCacheHandlerContext':
-          result.updateCacheHandlerContext = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ])) as Map<String, dynamic>?;
-          break;
-        case 'fetchPolicy':
-          result.fetchPolicy = serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.FetchPolicy))
-              as _i1.FetchPolicy?;
-          break;
-        case 'executeOnListen':
-          result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GUpdateOfferReqSerializer
-    implements StructuredSerializer<GUpdateOfferReq> {
-  @override
-  final Iterable<Type> types = const [GUpdateOfferReq, _$GUpdateOfferReq];
-  @override
-  final String wireName = 'GUpdateOfferReq';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GUpdateOfferReq object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GUpdateOfferVars)),
-      'operation',
-      serializers.serialize(object.operation,
-          specifiedType: const FullType(_i4.Operation)),
-      'executeOnListen',
-      serializers.serialize(object.executeOnListen,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.requestId;
-    if (value != null) {
-      result
-        ..add('requestId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.optimisticResponse;
-    if (value != null) {
-      result
-        ..add('optimisticResponse')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GUpdateOfferData)));
-    }
-    value = object.updateCacheHandlerKey;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.updateCacheHandlerContext;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                Map, const [const FullType(String), const FullType(dynamic)])));
-    }
-    value = object.fetchPolicy;
-    if (value != null) {
-      result
-        ..add('fetchPolicy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    return result;
-  }
-
-  @override
-  GUpdateOfferReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateOfferReqBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUpdateOfferVars))!
-              as _i3.GUpdateOfferVars);
-          break;
-        case 'operation':
-          result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
-          break;
-        case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'optimisticResponse':
-          result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GUpdateOfferData))!
-              as _i2.GUpdateOfferData);
-          break;
-        case 'updateCacheHandlerKey':
-          result.updateCacheHandlerKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'updateCacheHandlerContext':
-          result.updateCacheHandlerContext = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ])) as Map<String, dynamic>?;
-          break;
-        case 'fetchPolicy':
-          result.fetchPolicy = serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.FetchPolicy))
-              as _i1.FetchPolicy?;
-          break;
-        case 'executeOnListen':
-          result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GDeleteOfferReqSerializer
-    implements StructuredSerializer<GDeleteOfferReq> {
-  @override
-  final Iterable<Type> types = const [GDeleteOfferReq, _$GDeleteOfferReq];
-  @override
-  final String wireName = 'GDeleteOfferReq';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GDeleteOfferReq object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GDeleteOfferVars)),
-      'operation',
-      serializers.serialize(object.operation,
-          specifiedType: const FullType(_i4.Operation)),
-      'executeOnListen',
-      serializers.serialize(object.executeOnListen,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.requestId;
-    if (value != null) {
-      result
-        ..add('requestId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.optimisticResponse;
-    if (value != null) {
-      result
-        ..add('optimisticResponse')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GDeleteOfferData)));
-    }
-    value = object.updateCacheHandlerKey;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.updateCacheHandlerContext;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                Map, const [const FullType(String), const FullType(dynamic)])));
-    }
-    value = object.fetchPolicy;
-    if (value != null) {
-      result
-        ..add('fetchPolicy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    return result;
-  }
-
-  @override
-  GDeleteOfferReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDeleteOfferReqBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GDeleteOfferVars))!
-              as _i3.GDeleteOfferVars);
-          break;
-        case 'operation':
-          result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
-          break;
-        case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'optimisticResponse':
-          result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GDeleteOfferData))!
-              as _i2.GDeleteOfferData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -1240,6 +653,246 @@ class _$GContactToAdminReqSerializer
   }
 }
 
+class _$GCreateNewMessageRoomReqSerializer
+    implements StructuredSerializer<GCreateNewMessageRoomReq> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateNewMessageRoomReq,
+    _$GCreateNewMessageRoomReq
+  ];
+  @override
+  final String wireName = 'GCreateNewMessageRoomReq';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateNewMessageRoomReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GCreateNewMessageRoomVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GCreateNewMessageRoomData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GCreateNewMessageRoomReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewMessageRoomReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GCreateNewMessageRoomVars))!
+              as _i3.GCreateNewMessageRoomVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GCreateNewMessageRoomData))!
+              as _i2.GCreateNewMessageRoomData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GSendMessageReqSerializer
+    implements StructuredSerializer<GSendMessageReq> {
+  @override
+  final Iterable<Type> types = const [GSendMessageReq, _$GSendMessageReq];
+  @override
+  final String wireName = 'GSendMessageReq';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GSendMessageReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GSendMessageVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GSendMessageData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GSendMessageReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GSendMessageReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GSendMessageVars))!
+              as _i3.GSendMessageVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GSendMessageData))!
+              as _i2.GSendMessageData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCreateNewNotificationReqSerializer
     implements StructuredSerializer<GCreateNewNotificationReq> {
   @override
@@ -1608,6 +1261,487 @@ class _$GDeleteNotificationReqSerializer
   }
 }
 
+class _$GCreateNewOfferReqSerializer
+    implements StructuredSerializer<GCreateNewOfferReq> {
+  @override
+  final Iterable<Type> types = const [GCreateNewOfferReq, _$GCreateNewOfferReq];
+  @override
+  final String wireName = 'GCreateNewOfferReq';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateNewOfferReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GCreateNewOfferVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GCreateNewOfferData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GCreateNewOfferReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewOfferReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GCreateNewOfferVars))!
+              as _i3.GCreateNewOfferVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GCreateNewOfferData))!
+              as _i2.GCreateNewOfferData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateOfferInfoReqSerializer
+    implements StructuredSerializer<GUpdateOfferInfoReq> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateOfferInfoReq,
+    _$GUpdateOfferInfoReq
+  ];
+  @override
+  final String wireName = 'GUpdateOfferInfoReq';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateOfferInfoReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GUpdateOfferInfoVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GUpdateOfferInfoData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GUpdateOfferInfoReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateOfferInfoReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GUpdateOfferInfoVars))!
+              as _i3.GUpdateOfferInfoVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GUpdateOfferInfoData))!
+              as _i2.GUpdateOfferInfoData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateOfferStatusReqSerializer
+    implements StructuredSerializer<GUpdateOfferStatusReq> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateOfferStatusReq,
+    _$GUpdateOfferStatusReq
+  ];
+  @override
+  final String wireName = 'GUpdateOfferStatusReq';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateOfferStatusReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GUpdateOfferStatusVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GUpdateOfferStatusData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GUpdateOfferStatusReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateOfferStatusReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GUpdateOfferStatusVars))!
+              as _i3.GUpdateOfferStatusVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GUpdateOfferStatusData))!
+              as _i2.GUpdateOfferStatusData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteOfferReqSerializer
+    implements StructuredSerializer<GDeleteOfferReq> {
+  @override
+  final Iterable<Type> types = const [GDeleteOfferReq, _$GDeleteOfferReq];
+  @override
+  final String wireName = 'GDeleteOfferReq';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GDeleteOfferReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GDeleteOfferVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GDeleteOfferData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GDeleteOfferReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteOfferReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GDeleteOfferVars))!
+              as _i3.GDeleteOfferVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GDeleteOfferData))!
+              as _i2.GDeleteOfferData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCreateFspTxReqSerializer
     implements StructuredSerializer<GCreateFspTxReq> {
   @override
@@ -1698,6 +1832,364 @@ class _$GCreateFspTxReqSerializer
           result.optimisticResponse.replace(serializers.deserialize(value,
                   specifiedType: const FullType(_i2.GCreateFspTxData))!
               as _i2.GCreateFspTxData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateBulkFspTxReqSerializer
+    implements StructuredSerializer<GCreateBulkFspTxReq> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateBulkFspTxReq,
+    _$GCreateBulkFspTxReq
+  ];
+  @override
+  final String wireName = 'GCreateBulkFspTxReq';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateBulkFspTxReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GCreateBulkFspTxVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GCreateBulkFspTxData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GCreateBulkFspTxReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateBulkFspTxReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GCreateBulkFspTxVars))!
+              as _i3.GCreateBulkFspTxVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GCreateBulkFspTxData))!
+              as _i2.GCreateBulkFspTxData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreatePrizeReqSerializer
+    implements StructuredSerializer<GCreatePrizeReq> {
+  @override
+  final Iterable<Type> types = const [GCreatePrizeReq, _$GCreatePrizeReq];
+  @override
+  final String wireName = 'GCreatePrizeReq';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GCreatePrizeReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GCreatePrizeVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GCreatePrizeData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GCreatePrizeReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreatePrizeReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GCreatePrizeVars))!
+              as _i3.GCreatePrizeVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GCreatePrizeData))!
+              as _i2.GCreatePrizeData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GExchangePrizeReqSerializer
+    implements StructuredSerializer<GExchangePrizeReq> {
+  @override
+  final Iterable<Type> types = const [GExchangePrizeReq, _$GExchangePrizeReq];
+  @override
+  final String wireName = 'GExchangePrizeReq';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GExchangePrizeReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GExchangePrizeVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GExchangePrizeData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GExchangePrizeReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GExchangePrizeReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GExchangePrizeVars))!
+              as _i3.GExchangePrizeVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GExchangePrizeData))!
+              as _i2.GExchangePrizeData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -2080,1195 +2572,6 @@ class GAddNewConnectionReqBuilder
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GAddNewConnectionReq', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreateNewMessageRoomReq extends GCreateNewMessageRoomReq {
-  @override
-  final _i3.GCreateNewMessageRoomVars vars;
-  @override
-  final _i4.Operation operation;
-  @override
-  final String? requestId;
-  @override
-  final _i2.GCreateNewMessageRoomData? Function(
-          _i2.GCreateNewMessageRoomData?, _i2.GCreateNewMessageRoomData?)?
-      updateResult;
-  @override
-  final _i2.GCreateNewMessageRoomData? optimisticResponse;
-  @override
-  final String? updateCacheHandlerKey;
-  @override
-  final Map<String, dynamic>? updateCacheHandlerContext;
-  @override
-  final _i1.FetchPolicy? fetchPolicy;
-  @override
-  final bool executeOnListen;
-  @override
-  final _i4.Context? context;
-
-  factory _$GCreateNewMessageRoomReq(
-          [void Function(GCreateNewMessageRoomReqBuilder)? updates]) =>
-      (new GCreateNewMessageRoomReqBuilder()..update(updates))._build();
-
-  _$GCreateNewMessageRoomReq._(
-      {required this.vars,
-      required this.operation,
-      this.requestId,
-      this.updateResult,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.updateCacheHandlerContext,
-      this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        vars, r'GCreateNewMessageRoomReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        operation, r'GCreateNewMessageRoomReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GCreateNewMessageRoomReq', 'executeOnListen');
-  }
-
-  @override
-  GCreateNewMessageRoomReq rebuild(
-          void Function(GCreateNewMessageRoomReqBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreateNewMessageRoomReqBuilder toBuilder() =>
-      new GCreateNewMessageRoomReqBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
-    return other is GCreateNewMessageRoomReq &&
-        vars == other.vars &&
-        operation == other.operation &&
-        requestId == other.requestId &&
-        updateResult == _$dynamicOther.updateResult &&
-        optimisticResponse == other.optimisticResponse &&
-        updateCacheHandlerKey == other.updateCacheHandlerKey &&
-        updateCacheHandlerContext == other.updateCacheHandlerContext &&
-        fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, vars.hashCode);
-    _$hash = $jc(_$hash, operation.hashCode);
-    _$hash = $jc(_$hash, requestId.hashCode);
-    _$hash = $jc(_$hash, updateResult.hashCode);
-    _$hash = $jc(_$hash, optimisticResponse.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
-    _$hash = $jc(_$hash, fetchPolicy.hashCode);
-    _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreateNewMessageRoomReq')
-          ..add('vars', vars)
-          ..add('operation', operation)
-          ..add('requestId', requestId)
-          ..add('updateResult', updateResult)
-          ..add('optimisticResponse', optimisticResponse)
-          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
-          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
-          ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
-        .toString();
-  }
-}
-
-class GCreateNewMessageRoomReqBuilder
-    implements
-        Builder<GCreateNewMessageRoomReq, GCreateNewMessageRoomReqBuilder> {
-  _$GCreateNewMessageRoomReq? _$v;
-
-  _i3.GCreateNewMessageRoomVarsBuilder? _vars;
-  _i3.GCreateNewMessageRoomVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GCreateNewMessageRoomVarsBuilder();
-  set vars(_i3.GCreateNewMessageRoomVarsBuilder? vars) => _$this._vars = vars;
-
-  _i4.Operation? _operation;
-  _i4.Operation? get operation => _$this._operation;
-  set operation(_i4.Operation? operation) => _$this._operation = operation;
-
-  String? _requestId;
-  String? get requestId => _$this._requestId;
-  set requestId(String? requestId) => _$this._requestId = requestId;
-
-  _i2.GCreateNewMessageRoomData? Function(
-          _i2.GCreateNewMessageRoomData?, _i2.GCreateNewMessageRoomData?)?
-      _updateResult;
-  _i2.GCreateNewMessageRoomData? Function(
-          _i2.GCreateNewMessageRoomData?, _i2.GCreateNewMessageRoomData?)?
-      get updateResult => _$this._updateResult;
-  set updateResult(
-          _i2.GCreateNewMessageRoomData? Function(
-                  _i2.GCreateNewMessageRoomData?,
-                  _i2.GCreateNewMessageRoomData?)?
-              updateResult) =>
-      _$this._updateResult = updateResult;
-
-  _i2.GCreateNewMessageRoomDataBuilder? _optimisticResponse;
-  _i2.GCreateNewMessageRoomDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GCreateNewMessageRoomDataBuilder();
-  set optimisticResponse(
-          _i2.GCreateNewMessageRoomDataBuilder? optimisticResponse) =>
-      _$this._optimisticResponse = optimisticResponse;
-
-  String? _updateCacheHandlerKey;
-  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
-      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
-
-  Map<String, dynamic>? _updateCacheHandlerContext;
-  Map<String, dynamic>? get updateCacheHandlerContext =>
-      _$this._updateCacheHandlerContext;
-  set updateCacheHandlerContext(
-          Map<String, dynamic>? updateCacheHandlerContext) =>
-      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
-
-  _i1.FetchPolicy? _fetchPolicy;
-  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
-      _$this._fetchPolicy = fetchPolicy;
-
-  bool? _executeOnListen;
-  bool? get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool? executeOnListen) =>
-      _$this._executeOnListen = executeOnListen;
-
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
-  GCreateNewMessageRoomReqBuilder() {
-    GCreateNewMessageRoomReq._initializeBuilder(this);
-  }
-
-  GCreateNewMessageRoomReqBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _vars = $v.vars.toBuilder();
-      _operation = $v.operation;
-      _requestId = $v.requestId;
-      _updateResult = $v.updateResult;
-      _optimisticResponse = $v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
-      _fetchPolicy = $v.fetchPolicy;
-      _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreateNewMessageRoomReq other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateNewMessageRoomReq;
-  }
-
-  @override
-  void update(void Function(GCreateNewMessageRoomReqBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreateNewMessageRoomReq build() => _build();
-
-  _$GCreateNewMessageRoomReq _build() {
-    _$GCreateNewMessageRoomReq _$result;
-    try {
-      _$result = _$v ??
-          new _$GCreateNewMessageRoomReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GCreateNewMessageRoomReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen,
-                  r'GCreateNewMessageRoomReq',
-                  'executeOnListen'),
-              context: context);
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'vars';
-        vars.build();
-
-        _$failedField = 'optimisticResponse';
-        _optimisticResponse?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GCreateNewMessageRoomReq', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GSendMessageReq extends GSendMessageReq {
-  @override
-  final _i3.GSendMessageVars vars;
-  @override
-  final _i4.Operation operation;
-  @override
-  final String? requestId;
-  @override
-  final _i2.GSendMessageData? Function(
-      _i2.GSendMessageData?, _i2.GSendMessageData?)? updateResult;
-  @override
-  final _i2.GSendMessageData? optimisticResponse;
-  @override
-  final String? updateCacheHandlerKey;
-  @override
-  final Map<String, dynamic>? updateCacheHandlerContext;
-  @override
-  final _i1.FetchPolicy? fetchPolicy;
-  @override
-  final bool executeOnListen;
-  @override
-  final _i4.Context? context;
-
-  factory _$GSendMessageReq([void Function(GSendMessageReqBuilder)? updates]) =>
-      (new GSendMessageReqBuilder()..update(updates))._build();
-
-  _$GSendMessageReq._(
-      {required this.vars,
-      required this.operation,
-      this.requestId,
-      this.updateResult,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.updateCacheHandlerContext,
-      this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GSendMessageReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        operation, r'GSendMessageReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GSendMessageReq', 'executeOnListen');
-  }
-
-  @override
-  GSendMessageReq rebuild(void Function(GSendMessageReqBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GSendMessageReqBuilder toBuilder() =>
-      new GSendMessageReqBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
-    return other is GSendMessageReq &&
-        vars == other.vars &&
-        operation == other.operation &&
-        requestId == other.requestId &&
-        updateResult == _$dynamicOther.updateResult &&
-        optimisticResponse == other.optimisticResponse &&
-        updateCacheHandlerKey == other.updateCacheHandlerKey &&
-        updateCacheHandlerContext == other.updateCacheHandlerContext &&
-        fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, vars.hashCode);
-    _$hash = $jc(_$hash, operation.hashCode);
-    _$hash = $jc(_$hash, requestId.hashCode);
-    _$hash = $jc(_$hash, updateResult.hashCode);
-    _$hash = $jc(_$hash, optimisticResponse.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
-    _$hash = $jc(_$hash, fetchPolicy.hashCode);
-    _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GSendMessageReq')
-          ..add('vars', vars)
-          ..add('operation', operation)
-          ..add('requestId', requestId)
-          ..add('updateResult', updateResult)
-          ..add('optimisticResponse', optimisticResponse)
-          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
-          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
-          ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
-        .toString();
-  }
-}
-
-class GSendMessageReqBuilder
-    implements Builder<GSendMessageReq, GSendMessageReqBuilder> {
-  _$GSendMessageReq? _$v;
-
-  _i3.GSendMessageVarsBuilder? _vars;
-  _i3.GSendMessageVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GSendMessageVarsBuilder();
-  set vars(_i3.GSendMessageVarsBuilder? vars) => _$this._vars = vars;
-
-  _i4.Operation? _operation;
-  _i4.Operation? get operation => _$this._operation;
-  set operation(_i4.Operation? operation) => _$this._operation = operation;
-
-  String? _requestId;
-  String? get requestId => _$this._requestId;
-  set requestId(String? requestId) => _$this._requestId = requestId;
-
-  _i2.GSendMessageData? Function(_i2.GSendMessageData?, _i2.GSendMessageData?)?
-      _updateResult;
-  _i2.GSendMessageData? Function(_i2.GSendMessageData?, _i2.GSendMessageData?)?
-      get updateResult => _$this._updateResult;
-  set updateResult(
-          _i2.GSendMessageData? Function(
-                  _i2.GSendMessageData?, _i2.GSendMessageData?)?
-              updateResult) =>
-      _$this._updateResult = updateResult;
-
-  _i2.GSendMessageDataBuilder? _optimisticResponse;
-  _i2.GSendMessageDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GSendMessageDataBuilder();
-  set optimisticResponse(_i2.GSendMessageDataBuilder? optimisticResponse) =>
-      _$this._optimisticResponse = optimisticResponse;
-
-  String? _updateCacheHandlerKey;
-  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
-      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
-
-  Map<String, dynamic>? _updateCacheHandlerContext;
-  Map<String, dynamic>? get updateCacheHandlerContext =>
-      _$this._updateCacheHandlerContext;
-  set updateCacheHandlerContext(
-          Map<String, dynamic>? updateCacheHandlerContext) =>
-      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
-
-  _i1.FetchPolicy? _fetchPolicy;
-  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
-      _$this._fetchPolicy = fetchPolicy;
-
-  bool? _executeOnListen;
-  bool? get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool? executeOnListen) =>
-      _$this._executeOnListen = executeOnListen;
-
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
-  GSendMessageReqBuilder() {
-    GSendMessageReq._initializeBuilder(this);
-  }
-
-  GSendMessageReqBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _vars = $v.vars.toBuilder();
-      _operation = $v.operation;
-      _requestId = $v.requestId;
-      _updateResult = $v.updateResult;
-      _optimisticResponse = $v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
-      _fetchPolicy = $v.fetchPolicy;
-      _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GSendMessageReq other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GSendMessageReq;
-  }
-
-  @override
-  void update(void Function(GSendMessageReqBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GSendMessageReq build() => _build();
-
-  _$GSendMessageReq _build() {
-    _$GSendMessageReq _$result;
-    try {
-      _$result = _$v ??
-          new _$GSendMessageReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GSendMessageReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GSendMessageReq', 'executeOnListen'),
-              context: context);
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'vars';
-        vars.build();
-
-        _$failedField = 'optimisticResponse';
-        _optimisticResponse?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GSendMessageReq', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreateNewOfferReq extends GCreateNewOfferReq {
-  @override
-  final _i3.GCreateNewOfferVars vars;
-  @override
-  final _i4.Operation operation;
-  @override
-  final String? requestId;
-  @override
-  final _i2.GCreateNewOfferData? Function(
-      _i2.GCreateNewOfferData?, _i2.GCreateNewOfferData?)? updateResult;
-  @override
-  final _i2.GCreateNewOfferData? optimisticResponse;
-  @override
-  final String? updateCacheHandlerKey;
-  @override
-  final Map<String, dynamic>? updateCacheHandlerContext;
-  @override
-  final _i1.FetchPolicy? fetchPolicy;
-  @override
-  final bool executeOnListen;
-  @override
-  final _i4.Context? context;
-
-  factory _$GCreateNewOfferReq(
-          [void Function(GCreateNewOfferReqBuilder)? updates]) =>
-      (new GCreateNewOfferReqBuilder()..update(updates))._build();
-
-  _$GCreateNewOfferReq._(
-      {required this.vars,
-      required this.operation,
-      this.requestId,
-      this.updateResult,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.updateCacheHandlerContext,
-      this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GCreateNewOfferReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        operation, r'GCreateNewOfferReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GCreateNewOfferReq', 'executeOnListen');
-  }
-
-  @override
-  GCreateNewOfferReq rebuild(
-          void Function(GCreateNewOfferReqBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreateNewOfferReqBuilder toBuilder() =>
-      new GCreateNewOfferReqBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
-    return other is GCreateNewOfferReq &&
-        vars == other.vars &&
-        operation == other.operation &&
-        requestId == other.requestId &&
-        updateResult == _$dynamicOther.updateResult &&
-        optimisticResponse == other.optimisticResponse &&
-        updateCacheHandlerKey == other.updateCacheHandlerKey &&
-        updateCacheHandlerContext == other.updateCacheHandlerContext &&
-        fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, vars.hashCode);
-    _$hash = $jc(_$hash, operation.hashCode);
-    _$hash = $jc(_$hash, requestId.hashCode);
-    _$hash = $jc(_$hash, updateResult.hashCode);
-    _$hash = $jc(_$hash, optimisticResponse.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
-    _$hash = $jc(_$hash, fetchPolicy.hashCode);
-    _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreateNewOfferReq')
-          ..add('vars', vars)
-          ..add('operation', operation)
-          ..add('requestId', requestId)
-          ..add('updateResult', updateResult)
-          ..add('optimisticResponse', optimisticResponse)
-          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
-          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
-          ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
-        .toString();
-  }
-}
-
-class GCreateNewOfferReqBuilder
-    implements Builder<GCreateNewOfferReq, GCreateNewOfferReqBuilder> {
-  _$GCreateNewOfferReq? _$v;
-
-  _i3.GCreateNewOfferVarsBuilder? _vars;
-  _i3.GCreateNewOfferVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GCreateNewOfferVarsBuilder();
-  set vars(_i3.GCreateNewOfferVarsBuilder? vars) => _$this._vars = vars;
-
-  _i4.Operation? _operation;
-  _i4.Operation? get operation => _$this._operation;
-  set operation(_i4.Operation? operation) => _$this._operation = operation;
-
-  String? _requestId;
-  String? get requestId => _$this._requestId;
-  set requestId(String? requestId) => _$this._requestId = requestId;
-
-  _i2.GCreateNewOfferData? Function(
-      _i2.GCreateNewOfferData?, _i2.GCreateNewOfferData?)? _updateResult;
-  _i2.GCreateNewOfferData? Function(
-          _i2.GCreateNewOfferData?, _i2.GCreateNewOfferData?)?
-      get updateResult => _$this._updateResult;
-  set updateResult(
-          _i2.GCreateNewOfferData? Function(
-                  _i2.GCreateNewOfferData?, _i2.GCreateNewOfferData?)?
-              updateResult) =>
-      _$this._updateResult = updateResult;
-
-  _i2.GCreateNewOfferDataBuilder? _optimisticResponse;
-  _i2.GCreateNewOfferDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GCreateNewOfferDataBuilder();
-  set optimisticResponse(_i2.GCreateNewOfferDataBuilder? optimisticResponse) =>
-      _$this._optimisticResponse = optimisticResponse;
-
-  String? _updateCacheHandlerKey;
-  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
-      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
-
-  Map<String, dynamic>? _updateCacheHandlerContext;
-  Map<String, dynamic>? get updateCacheHandlerContext =>
-      _$this._updateCacheHandlerContext;
-  set updateCacheHandlerContext(
-          Map<String, dynamic>? updateCacheHandlerContext) =>
-      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
-
-  _i1.FetchPolicy? _fetchPolicy;
-  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
-      _$this._fetchPolicy = fetchPolicy;
-
-  bool? _executeOnListen;
-  bool? get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool? executeOnListen) =>
-      _$this._executeOnListen = executeOnListen;
-
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
-  GCreateNewOfferReqBuilder() {
-    GCreateNewOfferReq._initializeBuilder(this);
-  }
-
-  GCreateNewOfferReqBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _vars = $v.vars.toBuilder();
-      _operation = $v.operation;
-      _requestId = $v.requestId;
-      _updateResult = $v.updateResult;
-      _optimisticResponse = $v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
-      _fetchPolicy = $v.fetchPolicy;
-      _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreateNewOfferReq other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateNewOfferReq;
-  }
-
-  @override
-  void update(void Function(GCreateNewOfferReqBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreateNewOfferReq build() => _build();
-
-  _$GCreateNewOfferReq _build() {
-    _$GCreateNewOfferReq _$result;
-    try {
-      _$result = _$v ??
-          new _$GCreateNewOfferReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GCreateNewOfferReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GCreateNewOfferReq', 'executeOnListen'),
-              context: context);
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'vars';
-        vars.build();
-
-        _$failedField = 'optimisticResponse';
-        _optimisticResponse?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GCreateNewOfferReq', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GUpdateOfferReq extends GUpdateOfferReq {
-  @override
-  final _i3.GUpdateOfferVars vars;
-  @override
-  final _i4.Operation operation;
-  @override
-  final String? requestId;
-  @override
-  final _i2.GUpdateOfferData? Function(
-      _i2.GUpdateOfferData?, _i2.GUpdateOfferData?)? updateResult;
-  @override
-  final _i2.GUpdateOfferData? optimisticResponse;
-  @override
-  final String? updateCacheHandlerKey;
-  @override
-  final Map<String, dynamic>? updateCacheHandlerContext;
-  @override
-  final _i1.FetchPolicy? fetchPolicy;
-  @override
-  final bool executeOnListen;
-  @override
-  final _i4.Context? context;
-
-  factory _$GUpdateOfferReq([void Function(GUpdateOfferReqBuilder)? updates]) =>
-      (new GUpdateOfferReqBuilder()..update(updates))._build();
-
-  _$GUpdateOfferReq._(
-      {required this.vars,
-      required this.operation,
-      this.requestId,
-      this.updateResult,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.updateCacheHandlerContext,
-      this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GUpdateOfferReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        operation, r'GUpdateOfferReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GUpdateOfferReq', 'executeOnListen');
-  }
-
-  @override
-  GUpdateOfferReq rebuild(void Function(GUpdateOfferReqBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GUpdateOfferReqBuilder toBuilder() =>
-      new GUpdateOfferReqBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
-    return other is GUpdateOfferReq &&
-        vars == other.vars &&
-        operation == other.operation &&
-        requestId == other.requestId &&
-        updateResult == _$dynamicOther.updateResult &&
-        optimisticResponse == other.optimisticResponse &&
-        updateCacheHandlerKey == other.updateCacheHandlerKey &&
-        updateCacheHandlerContext == other.updateCacheHandlerContext &&
-        fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, vars.hashCode);
-    _$hash = $jc(_$hash, operation.hashCode);
-    _$hash = $jc(_$hash, requestId.hashCode);
-    _$hash = $jc(_$hash, updateResult.hashCode);
-    _$hash = $jc(_$hash, optimisticResponse.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
-    _$hash = $jc(_$hash, fetchPolicy.hashCode);
-    _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateOfferReq')
-          ..add('vars', vars)
-          ..add('operation', operation)
-          ..add('requestId', requestId)
-          ..add('updateResult', updateResult)
-          ..add('optimisticResponse', optimisticResponse)
-          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
-          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
-          ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
-        .toString();
-  }
-}
-
-class GUpdateOfferReqBuilder
-    implements Builder<GUpdateOfferReq, GUpdateOfferReqBuilder> {
-  _$GUpdateOfferReq? _$v;
-
-  _i3.GUpdateOfferVarsBuilder? _vars;
-  _i3.GUpdateOfferVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GUpdateOfferVarsBuilder();
-  set vars(_i3.GUpdateOfferVarsBuilder? vars) => _$this._vars = vars;
-
-  _i4.Operation? _operation;
-  _i4.Operation? get operation => _$this._operation;
-  set operation(_i4.Operation? operation) => _$this._operation = operation;
-
-  String? _requestId;
-  String? get requestId => _$this._requestId;
-  set requestId(String? requestId) => _$this._requestId = requestId;
-
-  _i2.GUpdateOfferData? Function(_i2.GUpdateOfferData?, _i2.GUpdateOfferData?)?
-      _updateResult;
-  _i2.GUpdateOfferData? Function(_i2.GUpdateOfferData?, _i2.GUpdateOfferData?)?
-      get updateResult => _$this._updateResult;
-  set updateResult(
-          _i2.GUpdateOfferData? Function(
-                  _i2.GUpdateOfferData?, _i2.GUpdateOfferData?)?
-              updateResult) =>
-      _$this._updateResult = updateResult;
-
-  _i2.GUpdateOfferDataBuilder? _optimisticResponse;
-  _i2.GUpdateOfferDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GUpdateOfferDataBuilder();
-  set optimisticResponse(_i2.GUpdateOfferDataBuilder? optimisticResponse) =>
-      _$this._optimisticResponse = optimisticResponse;
-
-  String? _updateCacheHandlerKey;
-  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
-      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
-
-  Map<String, dynamic>? _updateCacheHandlerContext;
-  Map<String, dynamic>? get updateCacheHandlerContext =>
-      _$this._updateCacheHandlerContext;
-  set updateCacheHandlerContext(
-          Map<String, dynamic>? updateCacheHandlerContext) =>
-      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
-
-  _i1.FetchPolicy? _fetchPolicy;
-  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
-      _$this._fetchPolicy = fetchPolicy;
-
-  bool? _executeOnListen;
-  bool? get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool? executeOnListen) =>
-      _$this._executeOnListen = executeOnListen;
-
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
-  GUpdateOfferReqBuilder() {
-    GUpdateOfferReq._initializeBuilder(this);
-  }
-
-  GUpdateOfferReqBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _vars = $v.vars.toBuilder();
-      _operation = $v.operation;
-      _requestId = $v.requestId;
-      _updateResult = $v.updateResult;
-      _optimisticResponse = $v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
-      _fetchPolicy = $v.fetchPolicy;
-      _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GUpdateOfferReq other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateOfferReq;
-  }
-
-  @override
-  void update(void Function(GUpdateOfferReqBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GUpdateOfferReq build() => _build();
-
-  _$GUpdateOfferReq _build() {
-    _$GUpdateOfferReq _$result;
-    try {
-      _$result = _$v ??
-          new _$GUpdateOfferReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GUpdateOfferReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GUpdateOfferReq', 'executeOnListen'),
-              context: context);
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'vars';
-        vars.build();
-
-        _$failedField = 'optimisticResponse';
-        _optimisticResponse?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GUpdateOfferReq', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GDeleteOfferReq extends GDeleteOfferReq {
-  @override
-  final _i3.GDeleteOfferVars vars;
-  @override
-  final _i4.Operation operation;
-  @override
-  final String? requestId;
-  @override
-  final _i2.GDeleteOfferData? Function(
-      _i2.GDeleteOfferData?, _i2.GDeleteOfferData?)? updateResult;
-  @override
-  final _i2.GDeleteOfferData? optimisticResponse;
-  @override
-  final String? updateCacheHandlerKey;
-  @override
-  final Map<String, dynamic>? updateCacheHandlerContext;
-  @override
-  final _i1.FetchPolicy? fetchPolicy;
-  @override
-  final bool executeOnListen;
-  @override
-  final _i4.Context? context;
-
-  factory _$GDeleteOfferReq([void Function(GDeleteOfferReqBuilder)? updates]) =>
-      (new GDeleteOfferReqBuilder()..update(updates))._build();
-
-  _$GDeleteOfferReq._(
-      {required this.vars,
-      required this.operation,
-      this.requestId,
-      this.updateResult,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.updateCacheHandlerContext,
-      this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GDeleteOfferReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        operation, r'GDeleteOfferReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GDeleteOfferReq', 'executeOnListen');
-  }
-
-  @override
-  GDeleteOfferReq rebuild(void Function(GDeleteOfferReqBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GDeleteOfferReqBuilder toBuilder() =>
-      new GDeleteOfferReqBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
-    return other is GDeleteOfferReq &&
-        vars == other.vars &&
-        operation == other.operation &&
-        requestId == other.requestId &&
-        updateResult == _$dynamicOther.updateResult &&
-        optimisticResponse == other.optimisticResponse &&
-        updateCacheHandlerKey == other.updateCacheHandlerKey &&
-        updateCacheHandlerContext == other.updateCacheHandlerContext &&
-        fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, vars.hashCode);
-    _$hash = $jc(_$hash, operation.hashCode);
-    _$hash = $jc(_$hash, requestId.hashCode);
-    _$hash = $jc(_$hash, updateResult.hashCode);
-    _$hash = $jc(_$hash, optimisticResponse.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
-    _$hash = $jc(_$hash, fetchPolicy.hashCode);
-    _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GDeleteOfferReq')
-          ..add('vars', vars)
-          ..add('operation', operation)
-          ..add('requestId', requestId)
-          ..add('updateResult', updateResult)
-          ..add('optimisticResponse', optimisticResponse)
-          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
-          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
-          ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
-        .toString();
-  }
-}
-
-class GDeleteOfferReqBuilder
-    implements Builder<GDeleteOfferReq, GDeleteOfferReqBuilder> {
-  _$GDeleteOfferReq? _$v;
-
-  _i3.GDeleteOfferVarsBuilder? _vars;
-  _i3.GDeleteOfferVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GDeleteOfferVarsBuilder();
-  set vars(_i3.GDeleteOfferVarsBuilder? vars) => _$this._vars = vars;
-
-  _i4.Operation? _operation;
-  _i4.Operation? get operation => _$this._operation;
-  set operation(_i4.Operation? operation) => _$this._operation = operation;
-
-  String? _requestId;
-  String? get requestId => _$this._requestId;
-  set requestId(String? requestId) => _$this._requestId = requestId;
-
-  _i2.GDeleteOfferData? Function(_i2.GDeleteOfferData?, _i2.GDeleteOfferData?)?
-      _updateResult;
-  _i2.GDeleteOfferData? Function(_i2.GDeleteOfferData?, _i2.GDeleteOfferData?)?
-      get updateResult => _$this._updateResult;
-  set updateResult(
-          _i2.GDeleteOfferData? Function(
-                  _i2.GDeleteOfferData?, _i2.GDeleteOfferData?)?
-              updateResult) =>
-      _$this._updateResult = updateResult;
-
-  _i2.GDeleteOfferDataBuilder? _optimisticResponse;
-  _i2.GDeleteOfferDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GDeleteOfferDataBuilder();
-  set optimisticResponse(_i2.GDeleteOfferDataBuilder? optimisticResponse) =>
-      _$this._optimisticResponse = optimisticResponse;
-
-  String? _updateCacheHandlerKey;
-  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
-      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
-
-  Map<String, dynamic>? _updateCacheHandlerContext;
-  Map<String, dynamic>? get updateCacheHandlerContext =>
-      _$this._updateCacheHandlerContext;
-  set updateCacheHandlerContext(
-          Map<String, dynamic>? updateCacheHandlerContext) =>
-      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
-
-  _i1.FetchPolicy? _fetchPolicy;
-  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
-      _$this._fetchPolicy = fetchPolicy;
-
-  bool? _executeOnListen;
-  bool? get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool? executeOnListen) =>
-      _$this._executeOnListen = executeOnListen;
-
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
-  GDeleteOfferReqBuilder() {
-    GDeleteOfferReq._initializeBuilder(this);
-  }
-
-  GDeleteOfferReqBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _vars = $v.vars.toBuilder();
-      _operation = $v.operation;
-      _requestId = $v.requestId;
-      _updateResult = $v.updateResult;
-      _optimisticResponse = $v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
-      _fetchPolicy = $v.fetchPolicy;
-      _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GDeleteOfferReq other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDeleteOfferReq;
-  }
-
-  @override
-  void update(void Function(GDeleteOfferReqBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GDeleteOfferReq build() => _build();
-
-  _$GDeleteOfferReq _build() {
-    _$GDeleteOfferReq _$result;
-    try {
-      _$result = _$v ??
-          new _$GDeleteOfferReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GDeleteOfferReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GDeleteOfferReq', 'executeOnListen'),
-              context: context);
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'vars';
-        vars.build();
-
-        _$failedField = 'optimisticResponse';
-        _optimisticResponse?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GDeleteOfferReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -4244,6 +3547,487 @@ class GContactToAdminReqBuilder
   }
 }
 
+class _$GCreateNewMessageRoomReq extends GCreateNewMessageRoomReq {
+  @override
+  final _i3.GCreateNewMessageRoomVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GCreateNewMessageRoomData? Function(
+          _i2.GCreateNewMessageRoomData?, _i2.GCreateNewMessageRoomData?)?
+      updateResult;
+  @override
+  final _i2.GCreateNewMessageRoomData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+  @override
+  final _i4.Context? context;
+
+  factory _$GCreateNewMessageRoomReq(
+          [void Function(GCreateNewMessageRoomReqBuilder)? updates]) =>
+      (new GCreateNewMessageRoomReqBuilder()..update(updates))._build();
+
+  _$GCreateNewMessageRoomReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen,
+      this.context})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        vars, r'GCreateNewMessageRoomReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GCreateNewMessageRoomReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GCreateNewMessageRoomReq', 'executeOnListen');
+  }
+
+  @override
+  GCreateNewMessageRoomReq rebuild(
+          void Function(GCreateNewMessageRoomReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewMessageRoomReqBuilder toBuilder() =>
+      new GCreateNewMessageRoomReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GCreateNewMessageRoomReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateNewMessageRoomReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
+        .toString();
+  }
+}
+
+class GCreateNewMessageRoomReqBuilder
+    implements
+        Builder<GCreateNewMessageRoomReq, GCreateNewMessageRoomReqBuilder> {
+  _$GCreateNewMessageRoomReq? _$v;
+
+  _i3.GCreateNewMessageRoomVarsBuilder? _vars;
+  _i3.GCreateNewMessageRoomVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GCreateNewMessageRoomVarsBuilder();
+  set vars(_i3.GCreateNewMessageRoomVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GCreateNewMessageRoomData? Function(
+          _i2.GCreateNewMessageRoomData?, _i2.GCreateNewMessageRoomData?)?
+      _updateResult;
+  _i2.GCreateNewMessageRoomData? Function(
+          _i2.GCreateNewMessageRoomData?, _i2.GCreateNewMessageRoomData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GCreateNewMessageRoomData? Function(
+                  _i2.GCreateNewMessageRoomData?,
+                  _i2.GCreateNewMessageRoomData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GCreateNewMessageRoomDataBuilder? _optimisticResponse;
+  _i2.GCreateNewMessageRoomDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GCreateNewMessageRoomDataBuilder();
+  set optimisticResponse(
+          _i2.GCreateNewMessageRoomDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GCreateNewMessageRoomReqBuilder() {
+    GCreateNewMessageRoomReq._initializeBuilder(this);
+  }
+
+  GCreateNewMessageRoomReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewMessageRoomReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewMessageRoomReq;
+  }
+
+  @override
+  void update(void Function(GCreateNewMessageRoomReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewMessageRoomReq build() => _build();
+
+  _$GCreateNewMessageRoomReq _build() {
+    _$GCreateNewMessageRoomReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateNewMessageRoomReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GCreateNewMessageRoomReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen,
+                  r'GCreateNewMessageRoomReq',
+                  'executeOnListen'),
+              context: context);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateNewMessageRoomReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GSendMessageReq extends GSendMessageReq {
+  @override
+  final _i3.GSendMessageVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GSendMessageData? Function(
+      _i2.GSendMessageData?, _i2.GSendMessageData?)? updateResult;
+  @override
+  final _i2.GSendMessageData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+  @override
+  final _i4.Context? context;
+
+  factory _$GSendMessageReq([void Function(GSendMessageReqBuilder)? updates]) =>
+      (new GSendMessageReqBuilder()..update(updates))._build();
+
+  _$GSendMessageReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen,
+      this.context})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(vars, r'GSendMessageReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GSendMessageReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GSendMessageReq', 'executeOnListen');
+  }
+
+  @override
+  GSendMessageReq rebuild(void Function(GSendMessageReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GSendMessageReqBuilder toBuilder() =>
+      new GSendMessageReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GSendMessageReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GSendMessageReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
+        .toString();
+  }
+}
+
+class GSendMessageReqBuilder
+    implements Builder<GSendMessageReq, GSendMessageReqBuilder> {
+  _$GSendMessageReq? _$v;
+
+  _i3.GSendMessageVarsBuilder? _vars;
+  _i3.GSendMessageVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GSendMessageVarsBuilder();
+  set vars(_i3.GSendMessageVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GSendMessageData? Function(_i2.GSendMessageData?, _i2.GSendMessageData?)?
+      _updateResult;
+  _i2.GSendMessageData? Function(_i2.GSendMessageData?, _i2.GSendMessageData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GSendMessageData? Function(
+                  _i2.GSendMessageData?, _i2.GSendMessageData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GSendMessageDataBuilder? _optimisticResponse;
+  _i2.GSendMessageDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GSendMessageDataBuilder();
+  set optimisticResponse(_i2.GSendMessageDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GSendMessageReqBuilder() {
+    GSendMessageReq._initializeBuilder(this);
+  }
+
+  GSendMessageReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GSendMessageReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GSendMessageReq;
+  }
+
+  @override
+  void update(void Function(GSendMessageReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GSendMessageReq build() => _build();
+
+  _$GSendMessageReq _build() {
+    _$GSendMessageReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GSendMessageReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GSendMessageReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, r'GSendMessageReq', 'executeOnListen'),
+              context: context);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GSendMessageReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreateNewNotificationReq extends GCreateNewNotificationReq {
   @override
   final _i3.GCreateNewNotificationVars vars;
@@ -4977,6 +4761,957 @@ class GDeleteNotificationReqBuilder
   }
 }
 
+class _$GCreateNewOfferReq extends GCreateNewOfferReq {
+  @override
+  final _i3.GCreateNewOfferVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GCreateNewOfferData? Function(
+      _i2.GCreateNewOfferData?, _i2.GCreateNewOfferData?)? updateResult;
+  @override
+  final _i2.GCreateNewOfferData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+  @override
+  final _i4.Context? context;
+
+  factory _$GCreateNewOfferReq(
+          [void Function(GCreateNewOfferReqBuilder)? updates]) =>
+      (new GCreateNewOfferReqBuilder()..update(updates))._build();
+
+  _$GCreateNewOfferReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen,
+      this.context})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(vars, r'GCreateNewOfferReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GCreateNewOfferReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GCreateNewOfferReq', 'executeOnListen');
+  }
+
+  @override
+  GCreateNewOfferReq rebuild(
+          void Function(GCreateNewOfferReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewOfferReqBuilder toBuilder() =>
+      new GCreateNewOfferReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GCreateNewOfferReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateNewOfferReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
+        .toString();
+  }
+}
+
+class GCreateNewOfferReqBuilder
+    implements Builder<GCreateNewOfferReq, GCreateNewOfferReqBuilder> {
+  _$GCreateNewOfferReq? _$v;
+
+  _i3.GCreateNewOfferVarsBuilder? _vars;
+  _i3.GCreateNewOfferVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GCreateNewOfferVarsBuilder();
+  set vars(_i3.GCreateNewOfferVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GCreateNewOfferData? Function(
+      _i2.GCreateNewOfferData?, _i2.GCreateNewOfferData?)? _updateResult;
+  _i2.GCreateNewOfferData? Function(
+          _i2.GCreateNewOfferData?, _i2.GCreateNewOfferData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GCreateNewOfferData? Function(
+                  _i2.GCreateNewOfferData?, _i2.GCreateNewOfferData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GCreateNewOfferDataBuilder? _optimisticResponse;
+  _i2.GCreateNewOfferDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GCreateNewOfferDataBuilder();
+  set optimisticResponse(_i2.GCreateNewOfferDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GCreateNewOfferReqBuilder() {
+    GCreateNewOfferReq._initializeBuilder(this);
+  }
+
+  GCreateNewOfferReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewOfferReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewOfferReq;
+  }
+
+  @override
+  void update(void Function(GCreateNewOfferReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewOfferReq build() => _build();
+
+  _$GCreateNewOfferReq _build() {
+    _$GCreateNewOfferReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateNewOfferReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GCreateNewOfferReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, r'GCreateNewOfferReq', 'executeOnListen'),
+              context: context);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateNewOfferReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateOfferInfoReq extends GUpdateOfferInfoReq {
+  @override
+  final _i3.GUpdateOfferInfoVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GUpdateOfferInfoData? Function(
+      _i2.GUpdateOfferInfoData?, _i2.GUpdateOfferInfoData?)? updateResult;
+  @override
+  final _i2.GUpdateOfferInfoData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+  @override
+  final _i4.Context? context;
+
+  factory _$GUpdateOfferInfoReq(
+          [void Function(GUpdateOfferInfoReqBuilder)? updates]) =>
+      (new GUpdateOfferInfoReqBuilder()..update(updates))._build();
+
+  _$GUpdateOfferInfoReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen,
+      this.context})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(vars, r'GUpdateOfferInfoReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GUpdateOfferInfoReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GUpdateOfferInfoReq', 'executeOnListen');
+  }
+
+  @override
+  GUpdateOfferInfoReq rebuild(
+          void Function(GUpdateOfferInfoReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateOfferInfoReqBuilder toBuilder() =>
+      new GUpdateOfferInfoReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GUpdateOfferInfoReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateOfferInfoReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
+        .toString();
+  }
+}
+
+class GUpdateOfferInfoReqBuilder
+    implements Builder<GUpdateOfferInfoReq, GUpdateOfferInfoReqBuilder> {
+  _$GUpdateOfferInfoReq? _$v;
+
+  _i3.GUpdateOfferInfoVarsBuilder? _vars;
+  _i3.GUpdateOfferInfoVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GUpdateOfferInfoVarsBuilder();
+  set vars(_i3.GUpdateOfferInfoVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GUpdateOfferInfoData? Function(
+      _i2.GUpdateOfferInfoData?, _i2.GUpdateOfferInfoData?)? _updateResult;
+  _i2.GUpdateOfferInfoData? Function(
+          _i2.GUpdateOfferInfoData?, _i2.GUpdateOfferInfoData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GUpdateOfferInfoData? Function(
+                  _i2.GUpdateOfferInfoData?, _i2.GUpdateOfferInfoData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GUpdateOfferInfoDataBuilder? _optimisticResponse;
+  _i2.GUpdateOfferInfoDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GUpdateOfferInfoDataBuilder();
+  set optimisticResponse(_i2.GUpdateOfferInfoDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GUpdateOfferInfoReqBuilder() {
+    GUpdateOfferInfoReq._initializeBuilder(this);
+  }
+
+  GUpdateOfferInfoReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateOfferInfoReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateOfferInfoReq;
+  }
+
+  @override
+  void update(void Function(GUpdateOfferInfoReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateOfferInfoReq build() => _build();
+
+  _$GUpdateOfferInfoReq _build() {
+    _$GUpdateOfferInfoReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GUpdateOfferInfoReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GUpdateOfferInfoReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, r'GUpdateOfferInfoReq', 'executeOnListen'),
+              context: context);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateOfferInfoReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateOfferStatusReq extends GUpdateOfferStatusReq {
+  @override
+  final _i3.GUpdateOfferStatusVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GUpdateOfferStatusData? Function(
+      _i2.GUpdateOfferStatusData?, _i2.GUpdateOfferStatusData?)? updateResult;
+  @override
+  final _i2.GUpdateOfferStatusData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+  @override
+  final _i4.Context? context;
+
+  factory _$GUpdateOfferStatusReq(
+          [void Function(GUpdateOfferStatusReqBuilder)? updates]) =>
+      (new GUpdateOfferStatusReqBuilder()..update(updates))._build();
+
+  _$GUpdateOfferStatusReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen,
+      this.context})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        vars, r'GUpdateOfferStatusReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GUpdateOfferStatusReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GUpdateOfferStatusReq', 'executeOnListen');
+  }
+
+  @override
+  GUpdateOfferStatusReq rebuild(
+          void Function(GUpdateOfferStatusReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateOfferStatusReqBuilder toBuilder() =>
+      new GUpdateOfferStatusReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GUpdateOfferStatusReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateOfferStatusReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
+        .toString();
+  }
+}
+
+class GUpdateOfferStatusReqBuilder
+    implements Builder<GUpdateOfferStatusReq, GUpdateOfferStatusReqBuilder> {
+  _$GUpdateOfferStatusReq? _$v;
+
+  _i3.GUpdateOfferStatusVarsBuilder? _vars;
+  _i3.GUpdateOfferStatusVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GUpdateOfferStatusVarsBuilder();
+  set vars(_i3.GUpdateOfferStatusVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GUpdateOfferStatusData? Function(
+      _i2.GUpdateOfferStatusData?, _i2.GUpdateOfferStatusData?)? _updateResult;
+  _i2.GUpdateOfferStatusData? Function(
+          _i2.GUpdateOfferStatusData?, _i2.GUpdateOfferStatusData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GUpdateOfferStatusData? Function(
+                  _i2.GUpdateOfferStatusData?, _i2.GUpdateOfferStatusData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GUpdateOfferStatusDataBuilder? _optimisticResponse;
+  _i2.GUpdateOfferStatusDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GUpdateOfferStatusDataBuilder();
+  set optimisticResponse(
+          _i2.GUpdateOfferStatusDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GUpdateOfferStatusReqBuilder() {
+    GUpdateOfferStatusReq._initializeBuilder(this);
+  }
+
+  GUpdateOfferStatusReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateOfferStatusReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateOfferStatusReq;
+  }
+
+  @override
+  void update(void Function(GUpdateOfferStatusReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateOfferStatusReq build() => _build();
+
+  _$GUpdateOfferStatusReq _build() {
+    _$GUpdateOfferStatusReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GUpdateOfferStatusReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GUpdateOfferStatusReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, r'GUpdateOfferStatusReq', 'executeOnListen'),
+              context: context);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateOfferStatusReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteOfferReq extends GDeleteOfferReq {
+  @override
+  final _i3.GDeleteOfferVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GDeleteOfferData? Function(
+      _i2.GDeleteOfferData?, _i2.GDeleteOfferData?)? updateResult;
+  @override
+  final _i2.GDeleteOfferData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+  @override
+  final _i4.Context? context;
+
+  factory _$GDeleteOfferReq([void Function(GDeleteOfferReqBuilder)? updates]) =>
+      (new GDeleteOfferReqBuilder()..update(updates))._build();
+
+  _$GDeleteOfferReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen,
+      this.context})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(vars, r'GDeleteOfferReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GDeleteOfferReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GDeleteOfferReq', 'executeOnListen');
+  }
+
+  @override
+  GDeleteOfferReq rebuild(void Function(GDeleteOfferReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteOfferReqBuilder toBuilder() =>
+      new GDeleteOfferReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GDeleteOfferReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteOfferReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
+        .toString();
+  }
+}
+
+class GDeleteOfferReqBuilder
+    implements Builder<GDeleteOfferReq, GDeleteOfferReqBuilder> {
+  _$GDeleteOfferReq? _$v;
+
+  _i3.GDeleteOfferVarsBuilder? _vars;
+  _i3.GDeleteOfferVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GDeleteOfferVarsBuilder();
+  set vars(_i3.GDeleteOfferVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GDeleteOfferData? Function(_i2.GDeleteOfferData?, _i2.GDeleteOfferData?)?
+      _updateResult;
+  _i2.GDeleteOfferData? Function(_i2.GDeleteOfferData?, _i2.GDeleteOfferData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GDeleteOfferData? Function(
+                  _i2.GDeleteOfferData?, _i2.GDeleteOfferData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GDeleteOfferDataBuilder? _optimisticResponse;
+  _i2.GDeleteOfferDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GDeleteOfferDataBuilder();
+  set optimisticResponse(_i2.GDeleteOfferDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GDeleteOfferReqBuilder() {
+    GDeleteOfferReq._initializeBuilder(this);
+  }
+
+  GDeleteOfferReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteOfferReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteOfferReq;
+  }
+
+  @override
+  void update(void Function(GDeleteOfferReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteOfferReq build() => _build();
+
+  _$GDeleteOfferReq _build() {
+    _$GDeleteOfferReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GDeleteOfferReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GDeleteOfferReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, r'GDeleteOfferReq', 'executeOnListen'),
+              context: context);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GDeleteOfferReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreateFspTxReq extends GCreateFspTxReq {
   @override
   final _i3.GCreateFspTxVars vars;
@@ -5204,6 +5939,716 @@ class GCreateFspTxReqBuilder
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GCreateFspTxReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateBulkFspTxReq extends GCreateBulkFspTxReq {
+  @override
+  final _i3.GCreateBulkFspTxVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GCreateBulkFspTxData? Function(
+      _i2.GCreateBulkFspTxData?, _i2.GCreateBulkFspTxData?)? updateResult;
+  @override
+  final _i2.GCreateBulkFspTxData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+  @override
+  final _i4.Context? context;
+
+  factory _$GCreateBulkFspTxReq(
+          [void Function(GCreateBulkFspTxReqBuilder)? updates]) =>
+      (new GCreateBulkFspTxReqBuilder()..update(updates))._build();
+
+  _$GCreateBulkFspTxReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen,
+      this.context})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(vars, r'GCreateBulkFspTxReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GCreateBulkFspTxReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GCreateBulkFspTxReq', 'executeOnListen');
+  }
+
+  @override
+  GCreateBulkFspTxReq rebuild(
+          void Function(GCreateBulkFspTxReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateBulkFspTxReqBuilder toBuilder() =>
+      new GCreateBulkFspTxReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GCreateBulkFspTxReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateBulkFspTxReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
+        .toString();
+  }
+}
+
+class GCreateBulkFspTxReqBuilder
+    implements Builder<GCreateBulkFspTxReq, GCreateBulkFspTxReqBuilder> {
+  _$GCreateBulkFspTxReq? _$v;
+
+  _i3.GCreateBulkFspTxVarsBuilder? _vars;
+  _i3.GCreateBulkFspTxVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GCreateBulkFspTxVarsBuilder();
+  set vars(_i3.GCreateBulkFspTxVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GCreateBulkFspTxData? Function(
+      _i2.GCreateBulkFspTxData?, _i2.GCreateBulkFspTxData?)? _updateResult;
+  _i2.GCreateBulkFspTxData? Function(
+          _i2.GCreateBulkFspTxData?, _i2.GCreateBulkFspTxData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GCreateBulkFspTxData? Function(
+                  _i2.GCreateBulkFspTxData?, _i2.GCreateBulkFspTxData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GCreateBulkFspTxDataBuilder? _optimisticResponse;
+  _i2.GCreateBulkFspTxDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GCreateBulkFspTxDataBuilder();
+  set optimisticResponse(_i2.GCreateBulkFspTxDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GCreateBulkFspTxReqBuilder() {
+    GCreateBulkFspTxReq._initializeBuilder(this);
+  }
+
+  GCreateBulkFspTxReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateBulkFspTxReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateBulkFspTxReq;
+  }
+
+  @override
+  void update(void Function(GCreateBulkFspTxReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateBulkFspTxReq build() => _build();
+
+  _$GCreateBulkFspTxReq _build() {
+    _$GCreateBulkFspTxReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateBulkFspTxReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GCreateBulkFspTxReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, r'GCreateBulkFspTxReq', 'executeOnListen'),
+              context: context);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateBulkFspTxReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreatePrizeReq extends GCreatePrizeReq {
+  @override
+  final _i3.GCreatePrizeVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GCreatePrizeData? Function(
+      _i2.GCreatePrizeData?, _i2.GCreatePrizeData?)? updateResult;
+  @override
+  final _i2.GCreatePrizeData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+  @override
+  final _i4.Context? context;
+
+  factory _$GCreatePrizeReq([void Function(GCreatePrizeReqBuilder)? updates]) =>
+      (new GCreatePrizeReqBuilder()..update(updates))._build();
+
+  _$GCreatePrizeReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen,
+      this.context})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(vars, r'GCreatePrizeReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GCreatePrizeReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GCreatePrizeReq', 'executeOnListen');
+  }
+
+  @override
+  GCreatePrizeReq rebuild(void Function(GCreatePrizeReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreatePrizeReqBuilder toBuilder() =>
+      new GCreatePrizeReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GCreatePrizeReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreatePrizeReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
+        .toString();
+  }
+}
+
+class GCreatePrizeReqBuilder
+    implements Builder<GCreatePrizeReq, GCreatePrizeReqBuilder> {
+  _$GCreatePrizeReq? _$v;
+
+  _i3.GCreatePrizeVarsBuilder? _vars;
+  _i3.GCreatePrizeVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GCreatePrizeVarsBuilder();
+  set vars(_i3.GCreatePrizeVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GCreatePrizeData? Function(_i2.GCreatePrizeData?, _i2.GCreatePrizeData?)?
+      _updateResult;
+  _i2.GCreatePrizeData? Function(_i2.GCreatePrizeData?, _i2.GCreatePrizeData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GCreatePrizeData? Function(
+                  _i2.GCreatePrizeData?, _i2.GCreatePrizeData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GCreatePrizeDataBuilder? _optimisticResponse;
+  _i2.GCreatePrizeDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GCreatePrizeDataBuilder();
+  set optimisticResponse(_i2.GCreatePrizeDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GCreatePrizeReqBuilder() {
+    GCreatePrizeReq._initializeBuilder(this);
+  }
+
+  GCreatePrizeReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreatePrizeReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreatePrizeReq;
+  }
+
+  @override
+  void update(void Function(GCreatePrizeReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreatePrizeReq build() => _build();
+
+  _$GCreatePrizeReq _build() {
+    _$GCreatePrizeReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreatePrizeReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GCreatePrizeReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, r'GCreatePrizeReq', 'executeOnListen'),
+              context: context);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreatePrizeReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GExchangePrizeReq extends GExchangePrizeReq {
+  @override
+  final _i3.GExchangePrizeVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GExchangePrizeData? Function(
+      _i2.GExchangePrizeData?, _i2.GExchangePrizeData?)? updateResult;
+  @override
+  final _i2.GExchangePrizeData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+  @override
+  final _i4.Context? context;
+
+  factory _$GExchangePrizeReq(
+          [void Function(GExchangePrizeReqBuilder)? updates]) =>
+      (new GExchangePrizeReqBuilder()..update(updates))._build();
+
+  _$GExchangePrizeReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen,
+      this.context})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(vars, r'GExchangePrizeReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GExchangePrizeReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GExchangePrizeReq', 'executeOnListen');
+  }
+
+  @override
+  GExchangePrizeReq rebuild(void Function(GExchangePrizeReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GExchangePrizeReqBuilder toBuilder() =>
+      new GExchangePrizeReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GExchangePrizeReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GExchangePrizeReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
+        .toString();
+  }
+}
+
+class GExchangePrizeReqBuilder
+    implements Builder<GExchangePrizeReq, GExchangePrizeReqBuilder> {
+  _$GExchangePrizeReq? _$v;
+
+  _i3.GExchangePrizeVarsBuilder? _vars;
+  _i3.GExchangePrizeVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GExchangePrizeVarsBuilder();
+  set vars(_i3.GExchangePrizeVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GExchangePrizeData? Function(
+      _i2.GExchangePrizeData?, _i2.GExchangePrizeData?)? _updateResult;
+  _i2.GExchangePrizeData? Function(
+          _i2.GExchangePrizeData?, _i2.GExchangePrizeData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GExchangePrizeData? Function(
+                  _i2.GExchangePrizeData?, _i2.GExchangePrizeData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GExchangePrizeDataBuilder? _optimisticResponse;
+  _i2.GExchangePrizeDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GExchangePrizeDataBuilder();
+  set optimisticResponse(_i2.GExchangePrizeDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GExchangePrizeReqBuilder() {
+    GExchangePrizeReq._initializeBuilder(this);
+  }
+
+  GExchangePrizeReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GExchangePrizeReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GExchangePrizeReq;
+  }
+
+  @override
+  void update(void Function(GExchangePrizeReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GExchangePrizeReq build() => _build();
+
+  _$GExchangePrizeReq _build() {
+    _$GExchangePrizeReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GExchangePrizeReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GExchangePrizeReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, r'GExchangePrizeReq', 'executeOnListen'),
+              context: context);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GExchangePrizeReq', _$failedField, e.toString());
       }
       rethrow;
     }

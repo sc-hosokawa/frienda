@@ -97,402 +97,6 @@ abstract class GAddNewConnectionReq
       );
 }
 
-abstract class GCreateNewMessageRoomReq
-    implements
-        Built<GCreateNewMessageRoomReq, GCreateNewMessageRoomReqBuilder>,
-        _i1.OperationRequest<_i2.GCreateNewMessageRoomData,
-            _i3.GCreateNewMessageRoomVars> {
-  GCreateNewMessageRoomReq._();
-
-  factory GCreateNewMessageRoomReq(
-          [void Function(GCreateNewMessageRoomReqBuilder b) updates]) =
-      _$GCreateNewMessageRoomReq;
-
-  static void _initializeBuilder(GCreateNewMessageRoomReqBuilder b) => b
-    ..operation = _i4.Operation(
-      document: _i5.document,
-      operationName: 'CreateNewMessageRoom',
-    )
-    ..executeOnListen = true;
-
-  @override
-  _i3.GCreateNewMessageRoomVars get vars;
-  @override
-  _i4.Operation get operation;
-  @override
-  _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
-
-  @override
-  String? get requestId;
-  @override
-  @BuiltValueField(serialize: false)
-  _i2.GCreateNewMessageRoomData? Function(
-    _i2.GCreateNewMessageRoomData?,
-    _i2.GCreateNewMessageRoomData?,
-  )? get updateResult;
-  @override
-  _i2.GCreateNewMessageRoomData? get optimisticResponse;
-  @override
-  String? get updateCacheHandlerKey;
-  @override
-  Map<String, dynamic>? get updateCacheHandlerContext;
-  @override
-  _i1.FetchPolicy? get fetchPolicy;
-  @override
-  bool get executeOnListen;
-  @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
-  _i2.GCreateNewMessageRoomData? parseData(Map<String, dynamic> json) =>
-      _i2.GCreateNewMessageRoomData.fromJson(json);
-
-  @override
-  Map<String, dynamic> varsToJson() => vars.toJson();
-
-  @override
-  Map<String, dynamic> dataToJson(_i2.GCreateNewMessageRoomData data) =>
-      data.toJson();
-
-  @override
-  _i1.OperationRequest<_i2.GCreateNewMessageRoomData,
-      _i3.GCreateNewMessageRoomVars> transformOperation(
-          _i4.Operation Function(_i4.Operation) transform) =>
-      this.rebuild((b) => b..operation = transform(operation));
-
-  static Serializer<GCreateNewMessageRoomReq> get serializer =>
-      _$gCreateNewMessageRoomReqSerializer;
-
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GCreateNewMessageRoomReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreateNewMessageRoomReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GCreateNewMessageRoomReq.serializer,
-        json,
-      );
-}
-
-abstract class GSendMessageReq
-    implements
-        Built<GSendMessageReq, GSendMessageReqBuilder>,
-        _i1.OperationRequest<_i2.GSendMessageData, _i3.GSendMessageVars> {
-  GSendMessageReq._();
-
-  factory GSendMessageReq([void Function(GSendMessageReqBuilder b) updates]) =
-      _$GSendMessageReq;
-
-  static void _initializeBuilder(GSendMessageReqBuilder b) => b
-    ..operation = _i4.Operation(
-      document: _i5.document,
-      operationName: 'SendMessage',
-    )
-    ..executeOnListen = true;
-
-  @override
-  _i3.GSendMessageVars get vars;
-  @override
-  _i4.Operation get operation;
-  @override
-  _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
-
-  @override
-  String? get requestId;
-  @override
-  @BuiltValueField(serialize: false)
-  _i2.GSendMessageData? Function(
-    _i2.GSendMessageData?,
-    _i2.GSendMessageData?,
-  )? get updateResult;
-  @override
-  _i2.GSendMessageData? get optimisticResponse;
-  @override
-  String? get updateCacheHandlerKey;
-  @override
-  Map<String, dynamic>? get updateCacheHandlerContext;
-  @override
-  _i1.FetchPolicy? get fetchPolicy;
-  @override
-  bool get executeOnListen;
-  @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
-  _i2.GSendMessageData? parseData(Map<String, dynamic> json) =>
-      _i2.GSendMessageData.fromJson(json);
-
-  @override
-  Map<String, dynamic> varsToJson() => vars.toJson();
-
-  @override
-  Map<String, dynamic> dataToJson(_i2.GSendMessageData data) => data.toJson();
-
-  @override
-  _i1.OperationRequest<_i2.GSendMessageData, _i3.GSendMessageVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
-
-  static Serializer<GSendMessageReq> get serializer =>
-      _$gSendMessageReqSerializer;
-
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GSendMessageReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GSendMessageReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GSendMessageReq.serializer,
-        json,
-      );
-}
-
-abstract class GCreateNewOfferReq
-    implements
-        Built<GCreateNewOfferReq, GCreateNewOfferReqBuilder>,
-        _i1.OperationRequest<_i2.GCreateNewOfferData, _i3.GCreateNewOfferVars> {
-  GCreateNewOfferReq._();
-
-  factory GCreateNewOfferReq(
-          [void Function(GCreateNewOfferReqBuilder b) updates]) =
-      _$GCreateNewOfferReq;
-
-  static void _initializeBuilder(GCreateNewOfferReqBuilder b) => b
-    ..operation = _i4.Operation(
-      document: _i5.document,
-      operationName: 'CreateNewOffer',
-    )
-    ..executeOnListen = true;
-
-  @override
-  _i3.GCreateNewOfferVars get vars;
-  @override
-  _i4.Operation get operation;
-  @override
-  _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
-
-  @override
-  String? get requestId;
-  @override
-  @BuiltValueField(serialize: false)
-  _i2.GCreateNewOfferData? Function(
-    _i2.GCreateNewOfferData?,
-    _i2.GCreateNewOfferData?,
-  )? get updateResult;
-  @override
-  _i2.GCreateNewOfferData? get optimisticResponse;
-  @override
-  String? get updateCacheHandlerKey;
-  @override
-  Map<String, dynamic>? get updateCacheHandlerContext;
-  @override
-  _i1.FetchPolicy? get fetchPolicy;
-  @override
-  bool get executeOnListen;
-  @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
-  _i2.GCreateNewOfferData? parseData(Map<String, dynamic> json) =>
-      _i2.GCreateNewOfferData.fromJson(json);
-
-  @override
-  Map<String, dynamic> varsToJson() => vars.toJson();
-
-  @override
-  Map<String, dynamic> dataToJson(_i2.GCreateNewOfferData data) =>
-      data.toJson();
-
-  @override
-  _i1.OperationRequest<_i2.GCreateNewOfferData, _i3.GCreateNewOfferVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
-
-  static Serializer<GCreateNewOfferReq> get serializer =>
-      _$gCreateNewOfferReqSerializer;
-
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GCreateNewOfferReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreateNewOfferReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GCreateNewOfferReq.serializer,
-        json,
-      );
-}
-
-abstract class GUpdateOfferReq
-    implements
-        Built<GUpdateOfferReq, GUpdateOfferReqBuilder>,
-        _i1.OperationRequest<_i2.GUpdateOfferData, _i3.GUpdateOfferVars> {
-  GUpdateOfferReq._();
-
-  factory GUpdateOfferReq([void Function(GUpdateOfferReqBuilder b) updates]) =
-      _$GUpdateOfferReq;
-
-  static void _initializeBuilder(GUpdateOfferReqBuilder b) => b
-    ..operation = _i4.Operation(
-      document: _i5.document,
-      operationName: 'UpdateOffer',
-    )
-    ..executeOnListen = true;
-
-  @override
-  _i3.GUpdateOfferVars get vars;
-  @override
-  _i4.Operation get operation;
-  @override
-  _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
-
-  @override
-  String? get requestId;
-  @override
-  @BuiltValueField(serialize: false)
-  _i2.GUpdateOfferData? Function(
-    _i2.GUpdateOfferData?,
-    _i2.GUpdateOfferData?,
-  )? get updateResult;
-  @override
-  _i2.GUpdateOfferData? get optimisticResponse;
-  @override
-  String? get updateCacheHandlerKey;
-  @override
-  Map<String, dynamic>? get updateCacheHandlerContext;
-  @override
-  _i1.FetchPolicy? get fetchPolicy;
-  @override
-  bool get executeOnListen;
-  @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
-  _i2.GUpdateOfferData? parseData(Map<String, dynamic> json) =>
-      _i2.GUpdateOfferData.fromJson(json);
-
-  @override
-  Map<String, dynamic> varsToJson() => vars.toJson();
-
-  @override
-  Map<String, dynamic> dataToJson(_i2.GUpdateOfferData data) => data.toJson();
-
-  @override
-  _i1.OperationRequest<_i2.GUpdateOfferData, _i3.GUpdateOfferVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
-
-  static Serializer<GUpdateOfferReq> get serializer =>
-      _$gUpdateOfferReqSerializer;
-
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GUpdateOfferReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GUpdateOfferReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GUpdateOfferReq.serializer,
-        json,
-      );
-}
-
-abstract class GDeleteOfferReq
-    implements
-        Built<GDeleteOfferReq, GDeleteOfferReqBuilder>,
-        _i1.OperationRequest<_i2.GDeleteOfferData, _i3.GDeleteOfferVars> {
-  GDeleteOfferReq._();
-
-  factory GDeleteOfferReq([void Function(GDeleteOfferReqBuilder b) updates]) =
-      _$GDeleteOfferReq;
-
-  static void _initializeBuilder(GDeleteOfferReqBuilder b) => b
-    ..operation = _i4.Operation(
-      document: _i5.document,
-      operationName: 'DeleteOffer',
-    )
-    ..executeOnListen = true;
-
-  @override
-  _i3.GDeleteOfferVars get vars;
-  @override
-  _i4.Operation get operation;
-  @override
-  _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
-      );
-
-  @override
-  String? get requestId;
-  @override
-  @BuiltValueField(serialize: false)
-  _i2.GDeleteOfferData? Function(
-    _i2.GDeleteOfferData?,
-    _i2.GDeleteOfferData?,
-  )? get updateResult;
-  @override
-  _i2.GDeleteOfferData? get optimisticResponse;
-  @override
-  String? get updateCacheHandlerKey;
-  @override
-  Map<String, dynamic>? get updateCacheHandlerContext;
-  @override
-  _i1.FetchPolicy? get fetchPolicy;
-  @override
-  bool get executeOnListen;
-  @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
-  _i2.GDeleteOfferData? parseData(Map<String, dynamic> json) =>
-      _i2.GDeleteOfferData.fromJson(json);
-
-  @override
-  Map<String, dynamic> varsToJson() => vars.toJson();
-
-  @override
-  Map<String, dynamic> dataToJson(_i2.GDeleteOfferData data) => data.toJson();
-
-  @override
-  _i1.OperationRequest<_i2.GDeleteOfferData, _i3.GDeleteOfferVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
-
-  static Serializer<GDeleteOfferReq> get serializer =>
-      _$gDeleteOfferReqSerializer;
-
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GDeleteOfferReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GDeleteOfferReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GDeleteOfferReq.serializer,
-        json,
-      );
-}
-
 abstract class GCreateNewUserDataReq
     implements
         Built<GCreateNewUserDataReq, GCreateNewUserDataReqBuilder>,
@@ -817,6 +421,166 @@ abstract class GContactToAdminReq
       );
 }
 
+abstract class GCreateNewMessageRoomReq
+    implements
+        Built<GCreateNewMessageRoomReq, GCreateNewMessageRoomReqBuilder>,
+        _i1.OperationRequest<_i2.GCreateNewMessageRoomData,
+            _i3.GCreateNewMessageRoomVars> {
+  GCreateNewMessageRoomReq._();
+
+  factory GCreateNewMessageRoomReq(
+          [void Function(GCreateNewMessageRoomReqBuilder b) updates]) =
+      _$GCreateNewMessageRoomReq;
+
+  static void _initializeBuilder(GCreateNewMessageRoomReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'CreateNewMessageRoom',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GCreateNewMessageRoomVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GCreateNewMessageRoomData? Function(
+    _i2.GCreateNewMessageRoomData?,
+    _i2.GCreateNewMessageRoomData?,
+  )? get updateResult;
+  @override
+  _i2.GCreateNewMessageRoomData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GCreateNewMessageRoomData? parseData(Map<String, dynamic> json) =>
+      _i2.GCreateNewMessageRoomData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateNewMessageRoomData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateNewMessageRoomData,
+      _i3.GCreateNewMessageRoomVars> transformOperation(
+          _i4.Operation Function(_i4.Operation) transform) =>
+      this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GCreateNewMessageRoomReq> get serializer =>
+      _$gCreateNewMessageRoomReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GCreateNewMessageRoomReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewMessageRoomReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GCreateNewMessageRoomReq.serializer,
+        json,
+      );
+}
+
+abstract class GSendMessageReq
+    implements
+        Built<GSendMessageReq, GSendMessageReqBuilder>,
+        _i1.OperationRequest<_i2.GSendMessageData, _i3.GSendMessageVars> {
+  GSendMessageReq._();
+
+  factory GSendMessageReq([void Function(GSendMessageReqBuilder b) updates]) =
+      _$GSendMessageReq;
+
+  static void _initializeBuilder(GSendMessageReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'SendMessage',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GSendMessageVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GSendMessageData? Function(
+    _i2.GSendMessageData?,
+    _i2.GSendMessageData?,
+  )? get updateResult;
+  @override
+  _i2.GSendMessageData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GSendMessageData? parseData(Map<String, dynamic> json) =>
+      _i2.GSendMessageData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GSendMessageData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GSendMessageData, _i3.GSendMessageVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GSendMessageReq> get serializer =>
+      _$gSendMessageReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GSendMessageReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GSendMessageReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GSendMessageReq.serializer,
+        json,
+      );
+}
+
 abstract class GCreateNewNotificationReq
     implements
         Built<GCreateNewNotificationReq, GCreateNewNotificationReqBuilder>,
@@ -1061,6 +825,326 @@ abstract class GDeleteNotificationReq
       );
 }
 
+abstract class GCreateNewOfferReq
+    implements
+        Built<GCreateNewOfferReq, GCreateNewOfferReqBuilder>,
+        _i1.OperationRequest<_i2.GCreateNewOfferData, _i3.GCreateNewOfferVars> {
+  GCreateNewOfferReq._();
+
+  factory GCreateNewOfferReq(
+          [void Function(GCreateNewOfferReqBuilder b) updates]) =
+      _$GCreateNewOfferReq;
+
+  static void _initializeBuilder(GCreateNewOfferReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'CreateNewOffer',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GCreateNewOfferVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GCreateNewOfferData? Function(
+    _i2.GCreateNewOfferData?,
+    _i2.GCreateNewOfferData?,
+  )? get updateResult;
+  @override
+  _i2.GCreateNewOfferData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GCreateNewOfferData? parseData(Map<String, dynamic> json) =>
+      _i2.GCreateNewOfferData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateNewOfferData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateNewOfferData, _i3.GCreateNewOfferVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GCreateNewOfferReq> get serializer =>
+      _$gCreateNewOfferReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GCreateNewOfferReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewOfferReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GCreateNewOfferReq.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateOfferInfoReq
+    implements
+        Built<GUpdateOfferInfoReq, GUpdateOfferInfoReqBuilder>,
+        _i1
+        .OperationRequest<_i2.GUpdateOfferInfoData, _i3.GUpdateOfferInfoVars> {
+  GUpdateOfferInfoReq._();
+
+  factory GUpdateOfferInfoReq(
+          [void Function(GUpdateOfferInfoReqBuilder b) updates]) =
+      _$GUpdateOfferInfoReq;
+
+  static void _initializeBuilder(GUpdateOfferInfoReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'UpdateOfferInfo',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GUpdateOfferInfoVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GUpdateOfferInfoData? Function(
+    _i2.GUpdateOfferInfoData?,
+    _i2.GUpdateOfferInfoData?,
+  )? get updateResult;
+  @override
+  _i2.GUpdateOfferInfoData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GUpdateOfferInfoData? parseData(Map<String, dynamic> json) =>
+      _i2.GUpdateOfferInfoData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUpdateOfferInfoData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUpdateOfferInfoData, _i3.GUpdateOfferInfoVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GUpdateOfferInfoReq> get serializer =>
+      _$gUpdateOfferInfoReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GUpdateOfferInfoReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateOfferInfoReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GUpdateOfferInfoReq.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateOfferStatusReq
+    implements
+        Built<GUpdateOfferStatusReq, GUpdateOfferStatusReqBuilder>,
+        _i1.OperationRequest<_i2.GUpdateOfferStatusData,
+            _i3.GUpdateOfferStatusVars> {
+  GUpdateOfferStatusReq._();
+
+  factory GUpdateOfferStatusReq(
+          [void Function(GUpdateOfferStatusReqBuilder b) updates]) =
+      _$GUpdateOfferStatusReq;
+
+  static void _initializeBuilder(GUpdateOfferStatusReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'UpdateOfferStatus',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GUpdateOfferStatusVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GUpdateOfferStatusData? Function(
+    _i2.GUpdateOfferStatusData?,
+    _i2.GUpdateOfferStatusData?,
+  )? get updateResult;
+  @override
+  _i2.GUpdateOfferStatusData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GUpdateOfferStatusData? parseData(Map<String, dynamic> json) =>
+      _i2.GUpdateOfferStatusData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GUpdateOfferStatusData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GUpdateOfferStatusData, _i3.GUpdateOfferStatusVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GUpdateOfferStatusReq> get serializer =>
+      _$gUpdateOfferStatusReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GUpdateOfferStatusReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateOfferStatusReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GUpdateOfferStatusReq.serializer,
+        json,
+      );
+}
+
+abstract class GDeleteOfferReq
+    implements
+        Built<GDeleteOfferReq, GDeleteOfferReqBuilder>,
+        _i1.OperationRequest<_i2.GDeleteOfferData, _i3.GDeleteOfferVars> {
+  GDeleteOfferReq._();
+
+  factory GDeleteOfferReq([void Function(GDeleteOfferReqBuilder b) updates]) =
+      _$GDeleteOfferReq;
+
+  static void _initializeBuilder(GDeleteOfferReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'DeleteOffer',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GDeleteOfferVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GDeleteOfferData? Function(
+    _i2.GDeleteOfferData?,
+    _i2.GDeleteOfferData?,
+  )? get updateResult;
+  @override
+  _i2.GDeleteOfferData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GDeleteOfferData? parseData(Map<String, dynamic> json) =>
+      _i2.GDeleteOfferData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GDeleteOfferData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GDeleteOfferData, _i3.GDeleteOfferVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GDeleteOfferReq> get serializer =>
+      _$gDeleteOfferReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GDeleteOfferReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GDeleteOfferReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GDeleteOfferReq.serializer,
+        json,
+      );
+}
+
 abstract class GCreateFspTxReq
     implements
         Built<GCreateFspTxReq, GCreateFspTxReqBuilder>,
@@ -1135,6 +1219,244 @@ abstract class GCreateFspTxReq
   static GCreateFspTxReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GCreateFspTxReq.serializer,
+        json,
+      );
+}
+
+abstract class GCreateBulkFspTxReq
+    implements
+        Built<GCreateBulkFspTxReq, GCreateBulkFspTxReqBuilder>,
+        _i1
+        .OperationRequest<_i2.GCreateBulkFspTxData, _i3.GCreateBulkFspTxVars> {
+  GCreateBulkFspTxReq._();
+
+  factory GCreateBulkFspTxReq(
+          [void Function(GCreateBulkFspTxReqBuilder b) updates]) =
+      _$GCreateBulkFspTxReq;
+
+  static void _initializeBuilder(GCreateBulkFspTxReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'CreateBulkFspTx',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GCreateBulkFspTxVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GCreateBulkFspTxData? Function(
+    _i2.GCreateBulkFspTxData?,
+    _i2.GCreateBulkFspTxData?,
+  )? get updateResult;
+  @override
+  _i2.GCreateBulkFspTxData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GCreateBulkFspTxData? parseData(Map<String, dynamic> json) =>
+      _i2.GCreateBulkFspTxData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreateBulkFspTxData data) =>
+      data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreateBulkFspTxData, _i3.GCreateBulkFspTxVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GCreateBulkFspTxReq> get serializer =>
+      _$gCreateBulkFspTxReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GCreateBulkFspTxReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateBulkFspTxReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GCreateBulkFspTxReq.serializer,
+        json,
+      );
+}
+
+abstract class GCreatePrizeReq
+    implements
+        Built<GCreatePrizeReq, GCreatePrizeReqBuilder>,
+        _i1.OperationRequest<_i2.GCreatePrizeData, _i3.GCreatePrizeVars> {
+  GCreatePrizeReq._();
+
+  factory GCreatePrizeReq([void Function(GCreatePrizeReqBuilder b) updates]) =
+      _$GCreatePrizeReq;
+
+  static void _initializeBuilder(GCreatePrizeReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'CreatePrize',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GCreatePrizeVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GCreatePrizeData? Function(
+    _i2.GCreatePrizeData?,
+    _i2.GCreatePrizeData?,
+  )? get updateResult;
+  @override
+  _i2.GCreatePrizeData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GCreatePrizeData? parseData(Map<String, dynamic> json) =>
+      _i2.GCreatePrizeData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GCreatePrizeData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GCreatePrizeData, _i3.GCreatePrizeVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GCreatePrizeReq> get serializer =>
+      _$gCreatePrizeReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GCreatePrizeReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreatePrizeReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GCreatePrizeReq.serializer,
+        json,
+      );
+}
+
+abstract class GExchangePrizeReq
+    implements
+        Built<GExchangePrizeReq, GExchangePrizeReqBuilder>,
+        _i1.OperationRequest<_i2.GExchangePrizeData, _i3.GExchangePrizeVars> {
+  GExchangePrizeReq._();
+
+  factory GExchangePrizeReq(
+          [void Function(GExchangePrizeReqBuilder b) updates]) =
+      _$GExchangePrizeReq;
+
+  static void _initializeBuilder(GExchangePrizeReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'ExchangePrize',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GExchangePrizeVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GExchangePrizeData? Function(
+    _i2.GExchangePrizeData?,
+    _i2.GExchangePrizeData?,
+  )? get updateResult;
+  @override
+  _i2.GExchangePrizeData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GExchangePrizeData? parseData(Map<String, dynamic> json) =>
+      _i2.GExchangePrizeData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(_i2.GExchangePrizeData data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GExchangePrizeData, _i3.GExchangePrizeVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GExchangePrizeReq> get serializer =>
+      _$gExchangePrizeReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GExchangePrizeReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GExchangePrizeReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GExchangePrizeReq.serializer,
         json,
       );
 }

@@ -70,893 +70,6 @@ abstract class GHealthCheckData_healthCheck
       );
 }
 
-abstract class GGetUserInfoData
-    implements Built<GGetUserInfoData, GGetUserInfoDataBuilder> {
-  GGetUserInfoData._();
-
-  factory GGetUserInfoData([void Function(GGetUserInfoDataBuilder b) updates]) =
-      _$GGetUserInfoData;
-
-  static void _initializeBuilder(GGetUserInfoDataBuilder b) =>
-      b..G__typename = 'QueryRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GGetUserInfoData_getUserInfo get getUserInfo;
-  static Serializer<GGetUserInfoData> get serializer =>
-      _$gGetUserInfoDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserInfoData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserInfoData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserInfoData.serializer,
-        json,
-      );
-}
-
-abstract class GGetUserInfoData_getUserInfo
-    implements
-        Built<GGetUserInfoData_getUserInfo,
-            GGetUserInfoData_getUserInfoBuilder> {
-  GGetUserInfoData_getUserInfo._();
-
-  factory GGetUserInfoData_getUserInfo(
-          [void Function(GGetUserInfoData_getUserInfoBuilder b) updates]) =
-      _$GGetUserInfoData_getUserInfo;
-
-  static void _initializeBuilder(GGetUserInfoData_getUserInfoBuilder b) =>
-      b..G__typename = 'UserFullData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GGetUserInfoData_getUserInfo_userInfo get userInfo;
-  static Serializer<GGetUserInfoData_getUserInfo> get serializer =>
-      _$gGetUserInfoDataGetUserInfoSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserInfoData_getUserInfo.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserInfoData_getUserInfo? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserInfoData_getUserInfo.serializer,
-        json,
-      );
-}
-
-abstract class GGetUserInfoData_getUserInfo_userInfo
-    implements
-        Built<GGetUserInfoData_getUserInfo_userInfo,
-            GGetUserInfoData_getUserInfo_userInfoBuilder> {
-  GGetUserInfoData_getUserInfo_userInfo._();
-
-  factory GGetUserInfoData_getUserInfo_userInfo(
-      [void Function(GGetUserInfoData_getUserInfo_userInfoBuilder b)
-          updates]) = _$GGetUserInfoData_getUserInfo_userInfo;
-
-  static void _initializeBuilder(
-          GGetUserInfoData_getUserInfo_userInfoBuilder b) =>
-      b..G__typename = 'UserDetailData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get email;
-  String get name;
-  String? get imageUrl;
-  int get fspBalance;
-  int get fspBalanceTemp;
-  int get credentialBalance;
-  BuiltList<String> get roles;
-  String get primaryRole;
-  BuiltList<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
-      get belongsToArtists;
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtist? get primaryArtist;
-  static Serializer<GGetUserInfoData_getUserInfo_userInfo> get serializer =>
-      _$gGetUserInfoDataGetUserInfoUserInfoSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserInfoData_getUserInfo_userInfo.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserInfoData_getUserInfo_userInfo? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserInfoData_getUserInfo_userInfo.serializer,
-        json,
-      );
-}
-
-abstract class GGetUserInfoData_getUserInfo_userInfo_belongsToArtists
-    implements
-        Built<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists,
-            GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder> {
-  GGetUserInfoData_getUserInfo_userInfo_belongsToArtists._();
-
-  factory GGetUserInfoData_getUserInfo_userInfo_belongsToArtists(
-      [void Function(
-              GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder b)
-          updates]) = _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists;
-
-  static void _initializeBuilder(
-          GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder b) =>
-      b..G__typename = 'ArtistByUserData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get name;
-  String? get imageUrl;
-  bool get isAccepted;
-  static Serializer<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
-      get serializer =>
-          _$gGetUserInfoDataGetUserInfoUserInfoBelongsToArtistsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserInfoData_getUserInfo_userInfo_belongsToArtists.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserInfoData_getUserInfo_userInfo_belongsToArtists? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserInfoData_getUserInfo_userInfo_belongsToArtists.serializer,
-        json,
-      );
-}
-
-abstract class GGetUserInfoData_getUserInfo_userInfo_primaryArtist
-    implements
-        Built<GGetUserInfoData_getUserInfo_userInfo_primaryArtist,
-            GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder> {
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtist._();
-
-  factory GGetUserInfoData_getUserInfo_userInfo_primaryArtist(
-      [void Function(
-              GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder b)
-          updates]) = _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist;
-
-  static void _initializeBuilder(
-          GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder b) =>
-      b..G__typename = 'ArtistByUserData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get name;
-  String? get imageUrl;
-  bool get isAccepted;
-  static Serializer<GGetUserInfoData_getUserInfo_userInfo_primaryArtist>
-      get serializer =>
-          _$gGetUserInfoDataGetUserInfoUserInfoPrimaryArtistSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserInfoData_getUserInfo_userInfo_primaryArtist.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserInfoData_getUserInfo_userInfo_primaryArtist? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserInfoData_getUserInfo_userInfo_primaryArtist.serializer,
-        json,
-      );
-}
-
-abstract class GGetAllOffersData
-    implements Built<GGetAllOffersData, GGetAllOffersDataBuilder> {
-  GGetAllOffersData._();
-
-  factory GGetAllOffersData(
-          [void Function(GGetAllOffersDataBuilder b) updates]) =
-      _$GGetAllOffersData;
-
-  static void _initializeBuilder(GGetAllOffersDataBuilder b) =>
-      b..G__typename = 'QueryRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  BuiltList<GGetAllOffersData_getAllOffers> get getAllOffers;
-  static Serializer<GGetAllOffersData> get serializer =>
-      _$gGetAllOffersDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetAllOffersData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetAllOffersData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetAllOffersData.serializer,
-        json,
-      );
-}
-
-abstract class GGetAllOffersData_getAllOffers
-    implements
-        Built<GGetAllOffersData_getAllOffers,
-            GGetAllOffersData_getAllOffersBuilder> {
-  GGetAllOffersData_getAllOffers._();
-
-  factory GGetAllOffersData_getAllOffers(
-          [void Function(GGetAllOffersData_getAllOffersBuilder b) updates]) =
-      _$GGetAllOffersData_getAllOffers;
-
-  static void _initializeBuilder(GGetAllOffersData_getAllOffersBuilder b) =>
-      b..G__typename = 'OfferData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  int get id;
-  String get title;
-  String get description;
-  String? get imageUrl;
-  int get fee;
-  String? get category;
-  static Serializer<GGetAllOffersData_getAllOffers> get serializer =>
-      _$gGetAllOffersDataGetAllOffersSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetAllOffersData_getAllOffers.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetAllOffersData_getAllOffers? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetAllOffersData_getAllOffers.serializer,
-        json,
-      );
-}
-
-abstract class GGetMessageRoomsData
-    implements Built<GGetMessageRoomsData, GGetMessageRoomsDataBuilder> {
-  GGetMessageRoomsData._();
-
-  factory GGetMessageRoomsData(
-          [void Function(GGetMessageRoomsDataBuilder b) updates]) =
-      _$GGetMessageRoomsData;
-
-  static void _initializeBuilder(GGetMessageRoomsDataBuilder b) =>
-      b..G__typename = 'QueryRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GGetMessageRoomsData_getMessageRooms get getMessageRooms;
-  static Serializer<GGetMessageRoomsData> get serializer =>
-      _$gGetMessageRoomsDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessageRoomsData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessageRoomsData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetMessageRoomsData.serializer,
-        json,
-      );
-}
-
-abstract class GGetMessageRoomsData_getMessageRooms
-    implements
-        Built<GGetMessageRoomsData_getMessageRooms,
-            GGetMessageRoomsData_getMessageRoomsBuilder> {
-  GGetMessageRoomsData_getMessageRooms._();
-
-  factory GGetMessageRoomsData_getMessageRooms(
-      [void Function(GGetMessageRoomsData_getMessageRoomsBuilder b)
-          updates]) = _$GGetMessageRoomsData_getMessageRooms;
-
-  static void _initializeBuilder(
-          GGetMessageRoomsData_getMessageRoomsBuilder b) =>
-      b..G__typename = 'MessageRoomsByUserData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  BuiltList<GGetMessageRoomsData_getMessageRooms_messageRoomList>
-      get messageRoomList;
-  int get countOfMessageRooms;
-  static Serializer<GGetMessageRoomsData_getMessageRooms> get serializer =>
-      _$gGetMessageRoomsDataGetMessageRoomsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessageRoomsData_getMessageRooms.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessageRoomsData_getMessageRooms? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetMessageRoomsData_getMessageRooms.serializer,
-        json,
-      );
-}
-
-abstract class GGetMessageRoomsData_getMessageRooms_messageRoomList
-    implements
-        Built<GGetMessageRoomsData_getMessageRooms_messageRoomList,
-            GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder> {
-  GGetMessageRoomsData_getMessageRooms_messageRoomList._();
-
-  factory GGetMessageRoomsData_getMessageRooms_messageRoomList(
-      [void Function(
-              GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder b)
-          updates]) = _$GGetMessageRoomsData_getMessageRooms_messageRoomList;
-
-  static void _initializeBuilder(
-          GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder b) =>
-      b..G__typename = 'MessageRoomData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  int? get countOfMessages;
-  String? get category;
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage?
-      get latestMessage;
-  String? get latestSentAt;
-  bool get isRead;
-  static Serializer<GGetMessageRoomsData_getMessageRooms_messageRoomList>
-      get serializer =>
-          _$gGetMessageRoomsDataGetMessageRoomsMessageRoomListSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessageRoomsData_getMessageRooms_messageRoomList.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessageRoomsData_getMessageRooms_messageRoomList? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetMessageRoomsData_getMessageRooms_messageRoomList.serializer,
-        json,
-      );
-}
-
-abstract class GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-    implements
-        Built<
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage,
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder> {
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage._();
-
-  factory GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage(
-          [void Function(
-                  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder
-                      b)
-              updates]) =
-      _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage;
-
-  static void _initializeBuilder(
-          GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder
-              b) =>
-      b..G__typename = 'MessageData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-      get sendBy;
-  String get message;
-  String get createdAt;
-  BuiltList<String>? get attachedFile;
-  BuiltList<String>? get attachedImg;
-  static Serializer<
-          GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage>
-      get serializer =>
-          _$gGetMessageRoomsDataGetMessageRoomsMessageRoomListLatestMessageSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-            .serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage?
-      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-                .serializer,
-            json,
-          );
-}
-
-abstract class GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-    implements
-        Built<
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy,
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder> {
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy._();
-
-  factory GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy(
-          [void Function(
-                  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder
-                      b)
-              updates]) =
-      _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy;
-
-  static void _initializeBuilder(
-          GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder
-              b) =>
-      b..G__typename = 'UserSimpleData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get name;
-  String? get imageUrl;
-  static Serializer<
-          GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy>
-      get serializer =>
-          _$gGetMessageRoomsDataGetMessageRoomsMessageRoomListLatestMessageSendBySerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-            .serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy?
-      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-                .serializer,
-            json,
-          );
-}
-
-abstract class GGetMessagesByMessageRoomIdData
-    implements
-        Built<GGetMessagesByMessageRoomIdData,
-            GGetMessagesByMessageRoomIdDataBuilder> {
-  GGetMessagesByMessageRoomIdData._();
-
-  factory GGetMessagesByMessageRoomIdData(
-          [void Function(GGetMessagesByMessageRoomIdDataBuilder b) updates]) =
-      _$GGetMessagesByMessageRoomIdData;
-
-  static void _initializeBuilder(GGetMessagesByMessageRoomIdDataBuilder b) =>
-      b..G__typename = 'QueryRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
-      get getMessagesByMessageRoomId;
-  static Serializer<GGetMessagesByMessageRoomIdData> get serializer =>
-      _$gGetMessagesByMessageRoomIdDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessagesByMessageRoomIdData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessagesByMessageRoomIdData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetMessagesByMessageRoomIdData.serializer,
-        json,
-      );
-}
-
-abstract class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
-    implements
-        Built<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId,
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder> {
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId._();
-
-  factory GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId(
-      [void Function(
-              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
-                  b)
-          updates]) = _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId;
-
-  static void _initializeBuilder(
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
-              b) =>
-      b..G__typename = 'MessagesByRoomIdByUserData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to get to;
-  BuiltList<
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
-      get messageList;
-  static Serializer<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId>
-      get serializer =>
-          _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId.serializer,
-        json,
-      );
-}
-
-abstract class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
-    implements
-        Built<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to,
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder> {
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to._();
-
-  factory GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to(
-          [void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
-                      b)
-              updates]) =
-      _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to;
-
-  static void _initializeBuilder(
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
-              b) =>
-      b..G__typename = 'UserSimpleData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get name;
-  String? get imageUrl;
-  static Serializer<
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to>
-      get serializer =>
-          _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdToSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
-            .serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to?
-      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
-                .serializer,
-            json,
-          );
-}
-
-abstract class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-    implements
-        Built<
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList,
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder> {
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList._();
-
-  factory GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList(
-          [void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
-                      b)
-              updates]) =
-      _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList;
-
-  static void _initializeBuilder(
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
-              b) =>
-      b..G__typename = 'MessageData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-      get sendBy;
-  String get message;
-  String get createdAt;
-  BuiltList<String>? get attachedFile;
-  BuiltList<String>? get attachedImg;
-  static Serializer<
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
-      get serializer =>
-          _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdMessageListSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-            .serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList?
-      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-                .serializer,
-            json,
-          );
-}
-
-abstract class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-    implements
-        Built<
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy,
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder> {
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy._();
-
-  factory GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy(
-          [void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder
-                      b)
-              updates]) =
-      _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy;
-
-  static void _initializeBuilder(
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder
-              b) =>
-      b..G__typename = 'UserSimpleData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get name;
-  String? get imageUrl;
-  static Serializer<
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy>
-      get serializer =>
-          _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdMessageListSendBySerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-            .serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy?
-      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-                .serializer,
-            json,
-          );
-}
-
-abstract class GGetNotificationsData
-    implements Built<GGetNotificationsData, GGetNotificationsDataBuilder> {
-  GGetNotificationsData._();
-
-  factory GGetNotificationsData(
-          [void Function(GGetNotificationsDataBuilder b) updates]) =
-      _$GGetNotificationsData;
-
-  static void _initializeBuilder(GGetNotificationsDataBuilder b) =>
-      b..G__typename = 'QueryRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GGetNotificationsData_getNotifications get getNotifications;
-  static Serializer<GGetNotificationsData> get serializer =>
-      _$gGetNotificationsDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetNotificationsData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetNotificationsData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetNotificationsData.serializer,
-        json,
-      );
-}
-
-abstract class GGetNotificationsData_getNotifications
-    implements
-        Built<GGetNotificationsData_getNotifications,
-            GGetNotificationsData_getNotificationsBuilder> {
-  GGetNotificationsData_getNotifications._();
-
-  factory GGetNotificationsData_getNotifications(
-      [void Function(GGetNotificationsData_getNotificationsBuilder b)
-          updates]) = _$GGetNotificationsData_getNotifications;
-
-  static void _initializeBuilder(
-          GGetNotificationsData_getNotificationsBuilder b) =>
-      b..G__typename = 'NotificationsData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  BuiltList<GGetNotificationsData_getNotifications_notifications>
-      get notifications;
-  static Serializer<GGetNotificationsData_getNotifications> get serializer =>
-      _$gGetNotificationsDataGetNotificationsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetNotificationsData_getNotifications.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetNotificationsData_getNotifications? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetNotificationsData_getNotifications.serializer,
-        json,
-      );
-}
-
-abstract class GGetNotificationsData_getNotifications_notifications
-    implements
-        Built<GGetNotificationsData_getNotifications_notifications,
-            GGetNotificationsData_getNotifications_notificationsBuilder> {
-  GGetNotificationsData_getNotifications_notifications._();
-
-  factory GGetNotificationsData_getNotifications_notifications(
-      [void Function(
-              GGetNotificationsData_getNotifications_notificationsBuilder b)
-          updates]) = _$GGetNotificationsData_getNotifications_notifications;
-
-  static void _initializeBuilder(
-          GGetNotificationsData_getNotifications_notificationsBuilder b) =>
-      b..G__typename = 'NotificationData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get title;
-  String get content;
-  String get createdAt;
-  String get updatedAt;
-  static Serializer<GGetNotificationsData_getNotifications_notifications>
-      get serializer =>
-          _$gGetNotificationsDataGetNotificationsNotificationsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetNotificationsData_getNotifications_notifications.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetNotificationsData_getNotifications_notifications? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetNotificationsData_getNotifications_notifications.serializer,
-        json,
-      );
-}
-
-abstract class GGetUserDataData
-    implements Built<GGetUserDataData, GGetUserDataDataBuilder> {
-  GGetUserDataData._();
-
-  factory GGetUserDataData([void Function(GGetUserDataDataBuilder b) updates]) =
-      _$GGetUserDataData;
-
-  static void _initializeBuilder(GGetUserDataDataBuilder b) =>
-      b..G__typename = 'QueryRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GGetUserDataData_getUserData get getUserData;
-  static Serializer<GGetUserDataData> get serializer =>
-      _$gGetUserDataDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserDataData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserDataData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserDataData.serializer,
-        json,
-      );
-}
-
-abstract class GGetUserDataData_getUserData
-    implements
-        Built<GGetUserDataData_getUserData,
-            GGetUserDataData_getUserDataBuilder> {
-  GGetUserDataData_getUserData._();
-
-  factory GGetUserDataData_getUserData(
-          [void Function(GGetUserDataData_getUserDataBuilder b) updates]) =
-      _$GGetUserDataData_getUserData;
-
-  static void _initializeBuilder(GGetUserDataData_getUserDataBuilder b) =>
-      b..G__typename = 'UserDetailData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get email;
-  String get name;
-  String? get imageUrl;
-  int get fspBalance;
-  int get fspBalanceTemp;
-  int get credentialBalance;
-  BuiltList<String> get roles;
-  String get primaryRole;
-  BuiltList<GGetUserDataData_getUserData_belongsToArtists> get belongsToArtists;
-  GGetUserDataData_getUserData_primaryArtist? get primaryArtist;
-  static Serializer<GGetUserDataData_getUserData> get serializer =>
-      _$gGetUserDataDataGetUserDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserDataData_getUserData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserDataData_getUserData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserDataData_getUserData.serializer,
-        json,
-      );
-}
-
-abstract class GGetUserDataData_getUserData_belongsToArtists
-    implements
-        Built<GGetUserDataData_getUserData_belongsToArtists,
-            GGetUserDataData_getUserData_belongsToArtistsBuilder> {
-  GGetUserDataData_getUserData_belongsToArtists._();
-
-  factory GGetUserDataData_getUserData_belongsToArtists(
-      [void Function(GGetUserDataData_getUserData_belongsToArtistsBuilder b)
-          updates]) = _$GGetUserDataData_getUserData_belongsToArtists;
-
-  static void _initializeBuilder(
-          GGetUserDataData_getUserData_belongsToArtistsBuilder b) =>
-      b..G__typename = 'ArtistByUserData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get name;
-  String? get imageUrl;
-  bool get isAccepted;
-  static Serializer<GGetUserDataData_getUserData_belongsToArtists>
-      get serializer => _$gGetUserDataDataGetUserDataBelongsToArtistsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserDataData_getUserData_belongsToArtists.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserDataData_getUserData_belongsToArtists? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserDataData_getUserData_belongsToArtists.serializer,
-        json,
-      );
-}
-
-abstract class GGetUserDataData_getUserData_primaryArtist
-    implements
-        Built<GGetUserDataData_getUserData_primaryArtist,
-            GGetUserDataData_getUserData_primaryArtistBuilder> {
-  GGetUserDataData_getUserData_primaryArtist._();
-
-  factory GGetUserDataData_getUserData_primaryArtist(
-      [void Function(GGetUserDataData_getUserData_primaryArtistBuilder b)
-          updates]) = _$GGetUserDataData_getUserData_primaryArtist;
-
-  static void _initializeBuilder(
-          GGetUserDataData_getUserData_primaryArtistBuilder b) =>
-      b..G__typename = 'ArtistByUserData';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  String get name;
-  String? get imageUrl;
-  bool get isAccepted;
-  static Serializer<GGetUserDataData_getUserData_primaryArtist>
-      get serializer => _$gGetUserDataDataGetUserDataPrimaryArtistSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserDataData_getUserData_primaryArtist.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserDataData_getUserData_primaryArtist? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserDataData_getUserData_primaryArtist.serializer,
-        json,
-      );
-}
-
 abstract class GGetOverviewDataData
     implements Built<GGetOverviewDataData, GGetOverviewDataDataBuilder> {
   GGetOverviewDataData._();
@@ -1453,7 +566,7 @@ abstract class GGetCommunitiesData_getCommunities_connectedUserList_connectedUse
   String get id;
   String get name;
   String? get imageUrl;
-  BuiltList<String> get roles;
+  String get role;
   String get primaryRole;
   GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist?
       get primaryArtist;
@@ -1500,7 +613,9 @@ abstract class GGetCommunitiesData_getCommunities_connectedUserList_connectedUse
   String get id;
   String get name;
   String? get imageUrl;
-  bool get isAccepted;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
   static Serializer<
           GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist>
       get serializer =>
@@ -1518,6 +633,188 @@ abstract class GGetCommunitiesData_getCommunities_connectedUserList_connectedUse
                 .serializer,
             json,
           );
+}
+
+abstract class GGetUserInfoData
+    implements Built<GGetUserInfoData, GGetUserInfoDataBuilder> {
+  GGetUserInfoData._();
+
+  factory GGetUserInfoData([void Function(GGetUserInfoDataBuilder b) updates]) =
+      _$GGetUserInfoData;
+
+  static void _initializeBuilder(GGetUserInfoDataBuilder b) =>
+      b..G__typename = 'QueryRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GGetUserInfoData_getUserInfo get getUserInfo;
+  static Serializer<GGetUserInfoData> get serializer =>
+      _$gGetUserInfoDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserInfoData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserInfoData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserInfoData.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserInfoData_getUserInfo
+    implements
+        Built<GGetUserInfoData_getUserInfo,
+            GGetUserInfoData_getUserInfoBuilder> {
+  GGetUserInfoData_getUserInfo._();
+
+  factory GGetUserInfoData_getUserInfo(
+          [void Function(GGetUserInfoData_getUserInfoBuilder b) updates]) =
+      _$GGetUserInfoData_getUserInfo;
+
+  static void _initializeBuilder(GGetUserInfoData_getUserInfoBuilder b) =>
+      b..G__typename = 'UserFullData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GGetUserInfoData_getUserInfo_userInfo get userInfo;
+  static Serializer<GGetUserInfoData_getUserInfo> get serializer =>
+      _$gGetUserInfoDataGetUserInfoSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserInfoData_getUserInfo.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserInfoData_getUserInfo? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserInfoData_getUserInfo.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserInfoData_getUserInfo_userInfo
+    implements
+        Built<GGetUserInfoData_getUserInfo_userInfo,
+            GGetUserInfoData_getUserInfo_userInfoBuilder> {
+  GGetUserInfoData_getUserInfo_userInfo._();
+
+  factory GGetUserInfoData_getUserInfo_userInfo(
+      [void Function(GGetUserInfoData_getUserInfo_userInfoBuilder b)
+          updates]) = _$GGetUserInfoData_getUserInfo_userInfo;
+
+  static void _initializeBuilder(
+          GGetUserInfoData_getUserInfo_userInfoBuilder b) =>
+      b..G__typename = 'UserDetailData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get email;
+  String get name;
+  String? get imageUrl;
+  int get fspBalance;
+  int get credentialBalance;
+  String get role;
+  String get primaryRole;
+  BuiltList<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
+      get belongsToArtists;
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtist? get primaryArtist;
+  static Serializer<GGetUserInfoData_getUserInfo_userInfo> get serializer =>
+      _$gGetUserInfoDataGetUserInfoUserInfoSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserInfoData_getUserInfo_userInfo.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserInfoData_getUserInfo_userInfo? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserInfoData_getUserInfo_userInfo.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserInfoData_getUserInfo_userInfo_belongsToArtists
+    implements
+        Built<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists,
+            GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder> {
+  GGetUserInfoData_getUserInfo_userInfo_belongsToArtists._();
+
+  factory GGetUserInfoData_getUserInfo_userInfo_belongsToArtists(
+      [void Function(
+              GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder b)
+          updates]) = _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists;
+
+  static void _initializeBuilder(
+          GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder b) =>
+      b..G__typename = 'ArtistByUserData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get name;
+  String? get imageUrl;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
+  static Serializer<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
+      get serializer =>
+          _$gGetUserInfoDataGetUserInfoUserInfoBelongsToArtistsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserInfoData_getUserInfo_userInfo_belongsToArtists.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserInfoData_getUserInfo_userInfo_belongsToArtists? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserInfoData_getUserInfo_userInfo_belongsToArtists.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserInfoData_getUserInfo_userInfo_primaryArtist
+    implements
+        Built<GGetUserInfoData_getUserInfo_userInfo_primaryArtist,
+            GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder> {
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtist._();
+
+  factory GGetUserInfoData_getUserInfo_userInfo_primaryArtist(
+      [void Function(
+              GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder b)
+          updates]) = _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist;
+
+  static void _initializeBuilder(
+          GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder b) =>
+      b..G__typename = 'ArtistByUserData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get name;
+  String? get imageUrl;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
+  static Serializer<GGetUserInfoData_getUserInfo_userInfo_primaryArtist>
+      get serializer =>
+          _$gGetUserInfoDataGetUserInfoUserInfoPrimaryArtistSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserInfoData_getUserInfo_userInfo_primaryArtist.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserInfoData_getUserInfo_userInfo_primaryArtist? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserInfoData_getUserInfo_userInfo_primaryArtist.serializer,
+        json,
+      );
 }
 
 abstract class GGetOfferStatsByUserData
@@ -1566,11 +863,10 @@ abstract class GGetOfferStatsByUserData_getOfferStatsByUser
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  int get inprogressOffers;
-  int get appledOffers;
+  int get totalOffers;
+  int get ongoingOffers;
+  int get appliedOffers;
   int get completedOffers;
-  int get rejectedOffers;
-  int get canceledOffers;
   int get totalEarnings;
   static Serializer<GGetOfferStatsByUserData_getOfferStatsByUser>
       get serializer => _$gGetOfferStatsByUserDataGetOfferStatsByUserSerializer;
@@ -1736,8 +1032,8 @@ abstract class GGetOffersByStatusData_getOffersByStatus
   String get G__typename;
   BuiltList<GGetOffersByStatusData_getOffersByStatus_inprogressOffers>
       get inprogressOffers;
-  BuiltList<GGetOffersByStatusData_getOffersByStatus_appledOffers>
-      get appledOffers;
+  BuiltList<GGetOffersByStatusData_getOffersByStatus_appliedOffers>
+      get appliedOffers;
   static Serializer<GGetOffersByStatusData_getOffersByStatus> get serializer =>
       _$gGetOffersByStatusDataGetOffersByStatusSerializer;
 
@@ -1795,19 +1091,19 @@ abstract class GGetOffersByStatusData_getOffersByStatus_inprogressOffers
       );
 }
 
-abstract class GGetOffersByStatusData_getOffersByStatus_appledOffers
+abstract class GGetOffersByStatusData_getOffersByStatus_appliedOffers
     implements
-        Built<GGetOffersByStatusData_getOffersByStatus_appledOffers,
-            GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder> {
-  GGetOffersByStatusData_getOffersByStatus_appledOffers._();
+        Built<GGetOffersByStatusData_getOffersByStatus_appliedOffers,
+            GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder> {
+  GGetOffersByStatusData_getOffersByStatus_appliedOffers._();
 
-  factory GGetOffersByStatusData_getOffersByStatus_appledOffers(
+  factory GGetOffersByStatusData_getOffersByStatus_appliedOffers(
       [void Function(
-              GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder b)
-          updates]) = _$GGetOffersByStatusData_getOffersByStatus_appledOffers;
+              GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder b)
+          updates]) = _$GGetOffersByStatusData_getOffersByStatus_appliedOffers;
 
   static void _initializeBuilder(
-          GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder b) =>
+          GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder b) =>
       b..G__typename = 'OfferData';
 
   @BuiltValueField(wireName: '__typename')
@@ -1818,19 +1114,19 @@ abstract class GGetOffersByStatusData_getOffersByStatus_appledOffers
   String? get imageUrl;
   int get fee;
   String? get category;
-  static Serializer<GGetOffersByStatusData_getOffersByStatus_appledOffers>
+  static Serializer<GGetOffersByStatusData_getOffersByStatus_appliedOffers>
       get serializer =>
-          _$gGetOffersByStatusDataGetOffersByStatusAppledOffersSerializer;
+          _$gGetOffersByStatusDataGetOffersByStatusAppliedOffersSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetOffersByStatusData_getOffersByStatus_appledOffers.serializer,
+        GGetOffersByStatusData_getOffersByStatus_appliedOffers.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GGetOffersByStatusData_getOffersByStatus_appledOffers? fromJson(
+  static GGetOffersByStatusData_getOffersByStatus_appliedOffers? fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-        GGetOffersByStatusData_getOffersByStatus_appledOffers.serializer,
+        GGetOffersByStatusData_getOffersByStatus_appliedOffers.serializer,
         json,
       );
 }
@@ -1926,6 +1222,71 @@ abstract class GGetOffersData_getOffers_offerList
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetOffersData_getOffers_offerList.serializer,
+        json,
+      );
+}
+
+abstract class GGetAllOffersData
+    implements Built<GGetAllOffersData, GGetAllOffersDataBuilder> {
+  GGetAllOffersData._();
+
+  factory GGetAllOffersData(
+          [void Function(GGetAllOffersDataBuilder b) updates]) =
+      _$GGetAllOffersData;
+
+  static void _initializeBuilder(GGetAllOffersDataBuilder b) =>
+      b..G__typename = 'QueryRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  BuiltList<GGetAllOffersData_getAllOffers> get getAllOffers;
+  static Serializer<GGetAllOffersData> get serializer =>
+      _$gGetAllOffersDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetAllOffersData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetAllOffersData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetAllOffersData.serializer,
+        json,
+      );
+}
+
+abstract class GGetAllOffersData_getAllOffers
+    implements
+        Built<GGetAllOffersData_getAllOffers,
+            GGetAllOffersData_getAllOffersBuilder> {
+  GGetAllOffersData_getAllOffers._();
+
+  factory GGetAllOffersData_getAllOffers(
+          [void Function(GGetAllOffersData_getAllOffersBuilder b) updates]) =
+      _$GGetAllOffersData_getAllOffers;
+
+  static void _initializeBuilder(GGetAllOffersData_getAllOffersBuilder b) =>
+      b..G__typename = 'OfferData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  int get id;
+  String get title;
+  String get description;
+  String? get imageUrl;
+  int get fee;
+  String? get category;
+  static Serializer<GGetAllOffersData_getAllOffers> get serializer =>
+      _$gGetAllOffersDataGetAllOffersSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetAllOffersData_getAllOffers.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetAllOffersData_getAllOffers? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetAllOffersData_getAllOffers.serializer,
         json,
       );
 }
@@ -2034,6 +1395,109 @@ abstract class GGetOffersByCategoryData_getOffersByCategory_offerList
       );
 }
 
+abstract class GGetMessageRoomsData
+    implements Built<GGetMessageRoomsData, GGetMessageRoomsDataBuilder> {
+  GGetMessageRoomsData._();
+
+  factory GGetMessageRoomsData(
+          [void Function(GGetMessageRoomsDataBuilder b) updates]) =
+      _$GGetMessageRoomsData;
+
+  static void _initializeBuilder(GGetMessageRoomsDataBuilder b) =>
+      b..G__typename = 'QueryRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GGetMessageRoomsData_getMessageRooms get getMessageRooms;
+  static Serializer<GGetMessageRoomsData> get serializer =>
+      _$gGetMessageRoomsDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetMessageRoomsData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetMessageRoomsData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetMessageRoomsData.serializer,
+        json,
+      );
+}
+
+abstract class GGetMessageRoomsData_getMessageRooms
+    implements
+        Built<GGetMessageRoomsData_getMessageRooms,
+            GGetMessageRoomsData_getMessageRoomsBuilder> {
+  GGetMessageRoomsData_getMessageRooms._();
+
+  factory GGetMessageRoomsData_getMessageRooms(
+      [void Function(GGetMessageRoomsData_getMessageRoomsBuilder b)
+          updates]) = _$GGetMessageRoomsData_getMessageRooms;
+
+  static void _initializeBuilder(
+          GGetMessageRoomsData_getMessageRoomsBuilder b) =>
+      b..G__typename = 'MessageRoomsByUserData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  BuiltList<GGetMessageRoomsData_getMessageRooms_messageRoomList>
+      get messageRoomList;
+  int get countOfMessageRooms;
+  static Serializer<GGetMessageRoomsData_getMessageRooms> get serializer =>
+      _$gGetMessageRoomsDataGetMessageRoomsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetMessageRoomsData_getMessageRooms.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetMessageRoomsData_getMessageRooms? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetMessageRoomsData_getMessageRooms.serializer,
+        json,
+      );
+}
+
+abstract class GGetMessageRoomsData_getMessageRooms_messageRoomList
+    implements
+        Built<GGetMessageRoomsData_getMessageRooms_messageRoomList,
+            GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder> {
+  GGetMessageRoomsData_getMessageRooms_messageRoomList._();
+
+  factory GGetMessageRoomsData_getMessageRooms_messageRoomList(
+      [void Function(
+              GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder b)
+          updates]) = _$GGetMessageRoomsData_getMessageRooms_messageRoomList;
+
+  static void _initializeBuilder(
+          GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder b) =>
+      b..G__typename = 'MessageRoomData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String? get category;
+  String? get latestMessage;
+  String? get latestSentAt;
+  bool get isRead;
+  static Serializer<GGetMessageRoomsData_getMessageRooms_messageRoomList>
+      get serializer =>
+          _$gGetMessageRoomsDataGetMessageRoomsMessageRoomListSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetMessageRoomsData_getMessageRooms_messageRoomList.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetMessageRoomsData_getMessageRooms_messageRoomList? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetMessageRoomsData_getMessageRooms_messageRoomList.serializer,
+        json,
+      );
+}
+
 abstract class GGetMessagesInProgressData
     implements
         Built<GGetMessagesInProgressData, GGetMessagesInProgressDataBuilder> {
@@ -2121,10 +1585,8 @@ abstract class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  int? get countOfMessages;
   String? get category;
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage?
-      get latestMessage;
+  String? get latestMessage;
   String? get latestSentAt;
   bool get isRead;
   static Serializer<
@@ -2146,69 +1608,94 @@ abstract class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
           );
 }
 
-abstract class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
+abstract class GGetMessagesByMessageRoomIdData
     implements
-        Built<
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage,
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder> {
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage._();
+        Built<GGetMessagesByMessageRoomIdData,
+            GGetMessagesByMessageRoomIdDataBuilder> {
+  GGetMessagesByMessageRoomIdData._();
 
-  factory GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage(
-          [void Function(
-                  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder
-                      b)
-              updates]) =
-      _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage;
+  factory GGetMessagesByMessageRoomIdData(
+          [void Function(GGetMessagesByMessageRoomIdDataBuilder b) updates]) =
+      _$GGetMessagesByMessageRoomIdData;
+
+  static void _initializeBuilder(GGetMessagesByMessageRoomIdDataBuilder b) =>
+      b..G__typename = 'QueryRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
+      get getMessagesByMessageRoomId;
+  static Serializer<GGetMessagesByMessageRoomIdData> get serializer =>
+      _$gGetMessagesByMessageRoomIdDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetMessagesByMessageRoomIdData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetMessagesByMessageRoomIdData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetMessagesByMessageRoomIdData.serializer,
+        json,
+      );
+}
+
+abstract class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
+    implements
+        Built<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId,
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder> {
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId._();
+
+  factory GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId(
+      [void Function(
+              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
+                  b)
+          updates]) = _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId;
 
   static void _initializeBuilder(
-          GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
               b) =>
-      b..G__typename = 'MessageData';
+      b..G__typename = 'MessagesByRoomIdByUserData';
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-      get sendBy;
-  String get message;
-  String get createdAt;
-  BuiltList<String>? get attachedFile;
-  BuiltList<String>? get attachedImg;
-  static Serializer<
-          GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage>
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to get to;
+  BuiltList<
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
+      get messageList;
+  static Serializer<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId>
       get serializer =>
-          _$gGetMessagesInProgressDataGetMessagesInProgressMessageRoomListLatestMessageSerializer;
+          _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-            .serializer,
+        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage?
-      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-                .serializer,
-            json,
-          );
+  static GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId.serializer,
+        json,
+      );
 }
 
-abstract class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
+abstract class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
     implements
-        Built<
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy,
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder> {
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy._();
+        Built<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to,
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder> {
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to._();
 
-  factory GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy(
+  factory GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to(
           [void Function(
-                  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder
+                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
                       b)
               updates]) =
-      _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy;
+      _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to;
 
   static void _initializeBuilder(
-          GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
               b) =>
       b..G__typename = 'UserSimpleData';
 
@@ -2218,22 +1705,167 @@ abstract class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_
   String get name;
   String? get imageUrl;
   static Serializer<
-          GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy>
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to>
       get serializer =>
-          _$gGetMessagesInProgressDataGetMessagesInProgressMessageRoomListLatestMessageSendBySerializer;
+          _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdToSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
+        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
             .serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy?
+  static GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
                 .serializer,
             json,
           );
+}
+
+abstract class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+    implements
+        Built<
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList,
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder> {
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList._();
+
+  factory GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList(
+          [void Function(
+                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
+                      b)
+              updates]) =
+      _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList;
+
+  static void _initializeBuilder(
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
+              b) =>
+      b..G__typename = 'MessageTempData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get content;
+  String get sentAt;
+  static Serializer<
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
+      get serializer =>
+          _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdMessageListSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+            .serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList?
+      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+                .serializer,
+            json,
+          );
+}
+
+abstract class GGetNotificationsData
+    implements Built<GGetNotificationsData, GGetNotificationsDataBuilder> {
+  GGetNotificationsData._();
+
+  factory GGetNotificationsData(
+          [void Function(GGetNotificationsDataBuilder b) updates]) =
+      _$GGetNotificationsData;
+
+  static void _initializeBuilder(GGetNotificationsDataBuilder b) =>
+      b..G__typename = 'QueryRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GGetNotificationsData_getNotifications get getNotifications;
+  static Serializer<GGetNotificationsData> get serializer =>
+      _$gGetNotificationsDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetNotificationsData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetNotificationsData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetNotificationsData.serializer,
+        json,
+      );
+}
+
+abstract class GGetNotificationsData_getNotifications
+    implements
+        Built<GGetNotificationsData_getNotifications,
+            GGetNotificationsData_getNotificationsBuilder> {
+  GGetNotificationsData_getNotifications._();
+
+  factory GGetNotificationsData_getNotifications(
+      [void Function(GGetNotificationsData_getNotificationsBuilder b)
+          updates]) = _$GGetNotificationsData_getNotifications;
+
+  static void _initializeBuilder(
+          GGetNotificationsData_getNotificationsBuilder b) =>
+      b..G__typename = 'NotificationsData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  BuiltList<GGetNotificationsData_getNotifications_notifications>
+      get notifications;
+  static Serializer<GGetNotificationsData_getNotifications> get serializer =>
+      _$gGetNotificationsDataGetNotificationsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetNotificationsData_getNotifications.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetNotificationsData_getNotifications? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetNotificationsData_getNotifications.serializer,
+        json,
+      );
+}
+
+abstract class GGetNotificationsData_getNotifications_notifications
+    implements
+        Built<GGetNotificationsData_getNotifications_notifications,
+            GGetNotificationsData_getNotifications_notificationsBuilder> {
+  GGetNotificationsData_getNotifications_notifications._();
+
+  factory GGetNotificationsData_getNotifications_notifications(
+      [void Function(
+              GGetNotificationsData_getNotifications_notificationsBuilder b)
+          updates]) = _$GGetNotificationsData_getNotifications_notifications;
+
+  static void _initializeBuilder(
+          GGetNotificationsData_getNotifications_notificationsBuilder b) =>
+      b..G__typename = 'NotificationData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get title;
+  String get content;
+  String get createdAt;
+  String get updatedAt;
+  static Serializer<GGetNotificationsData_getNotifications_notifications>
+      get serializer =>
+          _$gGetNotificationsDataGetNotificationsNotificationsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetNotificationsData_getNotifications_notifications.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetNotificationsData_getNotifications_notifications? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetNotificationsData_getNotifications_notifications.serializer,
+        json,
+      );
 }
 
 abstract class GGetAllNotificationsData
@@ -2341,6 +1973,150 @@ abstract class GGetAllNotificationsData_getAllNotifications_notifications
       );
 }
 
+abstract class GGetUserDataData
+    implements Built<GGetUserDataData, GGetUserDataDataBuilder> {
+  GGetUserDataData._();
+
+  factory GGetUserDataData([void Function(GGetUserDataDataBuilder b) updates]) =
+      _$GGetUserDataData;
+
+  static void _initializeBuilder(GGetUserDataDataBuilder b) =>
+      b..G__typename = 'QueryRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GGetUserDataData_getUserData get getUserData;
+  static Serializer<GGetUserDataData> get serializer =>
+      _$gGetUserDataDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDataData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDataData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserDataData.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserDataData_getUserData
+    implements
+        Built<GGetUserDataData_getUserData,
+            GGetUserDataData_getUserDataBuilder> {
+  GGetUserDataData_getUserData._();
+
+  factory GGetUserDataData_getUserData(
+          [void Function(GGetUserDataData_getUserDataBuilder b) updates]) =
+      _$GGetUserDataData_getUserData;
+
+  static void _initializeBuilder(GGetUserDataData_getUserDataBuilder b) =>
+      b..G__typename = 'UserDetailData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get email;
+  String get name;
+  String? get imageUrl;
+  int get fspBalance;
+  int get credentialBalance;
+  String get role;
+  String get primaryRole;
+  BuiltList<GGetUserDataData_getUserData_belongsToArtists> get belongsToArtists;
+  GGetUserDataData_getUserData_primaryArtist? get primaryArtist;
+  static Serializer<GGetUserDataData_getUserData> get serializer =>
+      _$gGetUserDataDataGetUserDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDataData_getUserData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDataData_getUserData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserDataData_getUserData.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserDataData_getUserData_belongsToArtists
+    implements
+        Built<GGetUserDataData_getUserData_belongsToArtists,
+            GGetUserDataData_getUserData_belongsToArtistsBuilder> {
+  GGetUserDataData_getUserData_belongsToArtists._();
+
+  factory GGetUserDataData_getUserData_belongsToArtists(
+      [void Function(GGetUserDataData_getUserData_belongsToArtistsBuilder b)
+          updates]) = _$GGetUserDataData_getUserData_belongsToArtists;
+
+  static void _initializeBuilder(
+          GGetUserDataData_getUserData_belongsToArtistsBuilder b) =>
+      b..G__typename = 'ArtistByUserData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get name;
+  String? get imageUrl;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
+  static Serializer<GGetUserDataData_getUserData_belongsToArtists>
+      get serializer => _$gGetUserDataDataGetUserDataBelongsToArtistsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDataData_getUserData_belongsToArtists.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDataData_getUserData_belongsToArtists? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserDataData_getUserData_belongsToArtists.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserDataData_getUserData_primaryArtist
+    implements
+        Built<GGetUserDataData_getUserData_primaryArtist,
+            GGetUserDataData_getUserData_primaryArtistBuilder> {
+  GGetUserDataData_getUserData_primaryArtist._();
+
+  factory GGetUserDataData_getUserData_primaryArtist(
+      [void Function(GGetUserDataData_getUserData_primaryArtistBuilder b)
+          updates]) = _$GGetUserDataData_getUserData_primaryArtist;
+
+  static void _initializeBuilder(
+          GGetUserDataData_getUserData_primaryArtistBuilder b) =>
+      b..G__typename = 'ArtistByUserData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get name;
+  String? get imageUrl;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
+  static Serializer<GGetUserDataData_getUserData_primaryArtist>
+      get serializer => _$gGetUserDataDataGetUserDataPrimaryArtistSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDataData_getUserData_primaryArtist.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDataData_getUserData_primaryArtist? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserDataData_getUserData_primaryArtist.serializer,
+        json,
+      );
+}
+
 abstract class GGetBelongedArtistsData
     implements Built<GGetBelongedArtistsData, GGetBelongedArtistsDataBuilder> {
   GGetBelongedArtistsData._();
@@ -2424,7 +2200,9 @@ abstract class GGetBelongedArtistsData_getBelongedArtists_artistList
   String get id;
   String get name;
   String? get imageUrl;
-  bool get isAccepted;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
   static Serializer<GGetBelongedArtistsData_getBelongedArtists_artistList>
       get serializer =>
           _$gGetBelongedArtistsDataGetBelongedArtistsArtistListSerializer;
@@ -2438,6 +2216,170 @@ abstract class GGetBelongedArtistsData_getBelongedArtists_artistList
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetBelongedArtistsData_getBelongedArtists_artistList.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserDetailProfileData
+    implements
+        Built<GGetUserDetailProfileData, GGetUserDetailProfileDataBuilder> {
+  GGetUserDetailProfileData._();
+
+  factory GGetUserDetailProfileData(
+          [void Function(GGetUserDetailProfileDataBuilder b) updates]) =
+      _$GGetUserDetailProfileData;
+
+  static void _initializeBuilder(GGetUserDetailProfileDataBuilder b) =>
+      b..G__typename = 'QueryRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GGetUserDetailProfileData_getUserDetailProfile get getUserDetailProfile;
+  static Serializer<GGetUserDetailProfileData> get serializer =>
+      _$gGetUserDetailProfileDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDetailProfileData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDetailProfileData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserDetailProfileData.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserDetailProfileData_getUserDetailProfile
+    implements
+        Built<GGetUserDetailProfileData_getUserDetailProfile,
+            GGetUserDetailProfileData_getUserDetailProfileBuilder> {
+  GGetUserDetailProfileData_getUserDetailProfile._();
+
+  factory GGetUserDetailProfileData_getUserDetailProfile(
+      [void Function(GGetUserDetailProfileData_getUserDetailProfileBuilder b)
+          updates]) = _$GGetUserDetailProfileData_getUserDetailProfile;
+
+  static void _initializeBuilder(
+          GGetUserDetailProfileData_getUserDetailProfileBuilder b) =>
+      b..G__typename = 'UserDetailData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get email;
+  String get name;
+  String? get imageUrl;
+  int get fspBalance;
+  int get credentialBalance;
+  String get role;
+  String get primaryRole;
+  BuiltList<GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists>
+      get belongsToArtists;
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtist?
+      get primaryArtist;
+  static Serializer<GGetUserDetailProfileData_getUserDetailProfile>
+      get serializer =>
+          _$gGetUserDetailProfileDataGetUserDetailProfileSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDetailProfileData_getUserDetailProfile.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDetailProfileData_getUserDetailProfile? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserDetailProfileData_getUserDetailProfile.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists
+    implements
+        Built<GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists,
+            GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder> {
+  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists._();
+
+  factory GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists(
+          [void Function(
+                  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder
+                      b)
+              updates]) =
+      _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists;
+
+  static void _initializeBuilder(
+          GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder
+              b) =>
+      b..G__typename = 'ArtistByUserData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get name;
+  String? get imageUrl;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
+  static Serializer<
+          GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists>
+      get serializer =>
+          _$gGetUserDetailProfileDataGetUserDetailProfileBelongsToArtistsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists
+            .serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists?
+      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
+            GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists
+                .serializer,
+            json,
+          );
+}
+
+abstract class GGetUserDetailProfileData_getUserDetailProfile_primaryArtist
+    implements
+        Built<GGetUserDetailProfileData_getUserDetailProfile_primaryArtist,
+            GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder> {
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtist._();
+
+  factory GGetUserDetailProfileData_getUserDetailProfile_primaryArtist(
+          [void Function(
+                  GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder
+                      b)
+              updates]) =
+      _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtist;
+
+  static void _initializeBuilder(
+          GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder
+              b) =>
+      b..G__typename = 'ArtistByUserData';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get name;
+  String? get imageUrl;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
+  static Serializer<
+          GGetUserDetailProfileData_getUserDetailProfile_primaryArtist>
+      get serializer =>
+          _$gGetUserDetailProfileDataGetUserDetailProfilePrimaryArtistSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDetailProfileData_getUserDetailProfile_primaryArtist.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDetailProfileData_getUserDetailProfile_primaryArtist? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserDetailProfileData_getUserDetailProfile_primaryArtist.serializer,
         json,
       );
 }

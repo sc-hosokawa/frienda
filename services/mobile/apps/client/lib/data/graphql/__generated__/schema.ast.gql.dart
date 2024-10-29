@@ -68,7 +68,25 @@ const ArtistByUserData = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'isAccepted'),
+      name: _i1.NameNode(value: 'fsp'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'status'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'isAdmin'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
@@ -546,7 +564,28 @@ const CreateNewMessageRoomInput = _i1.InputObjectTypeDefinitionNode(
         isNonNull: true,
       ),
       defaultValue: null,
-    )
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'createdBy'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'userList'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
   ],
 );
 const CreateNewMessageRoomResponse = _i1.ObjectTypeDefinitionNode(
@@ -637,7 +676,7 @@ const CreateNewOfferInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'releaseDt'),
+      name: _i1.NameNode(value: 'deadline'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
@@ -699,10 +738,164 @@ const CreateNewOfferInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'place'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'attention'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'requiredSkill'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'targetRole'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'publicity'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'attachedImgs'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'attachedFiles'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
   ],
 );
 const CreateNewOfferResponse = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateNewOfferResponse'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    )
+  ],
+);
+const CreateNewPrizeInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateNewPrizeInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'name'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'point'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'description'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'representation'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'condition'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'imgUrl'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'publicity'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
+const CreateNewPrizeResponse = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'CreateNewPrizeResponse'),
   directives: [],
   interfaces: [],
   fields: [
@@ -765,11 +958,11 @@ const CreateNewTransactionResponse = _i1.ObjectTypeDefinitionNode(
   interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'newBalance'),
+      name: _i1.NameNode(value: 'txId'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
     )
@@ -779,6 +972,15 @@ const CreateNewUserDataInput = _i1.InputObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'CreateNewUserDataInput'),
   directives: [],
   fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
     _i1.InputValueDefinitionNode(
       name: _i1.NameNode(value: 'email'),
       directives: [],
@@ -931,6 +1133,64 @@ const DeleteOfferResponse = _i1.ObjectTypeDefinitionNode(
     )
   ],
 );
+const ExchangePrizeInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ExchangePrizeInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'userId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'prizeId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'amount'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
+const ExchangePrizeResponse = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'ExchangePrizeResponse'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'txId'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const HealthCheck = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'HealthCheck'),
   directives: [],
@@ -945,73 +1205,6 @@ const HealthCheck = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     )
-  ],
-);
-const MessageData = _i1.ObjectTypeDefinitionNode(
-  name: _i1.NameNode(value: 'MessageData'),
-  directives: [],
-  interfaces: [],
-  fields: [
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'sendBy'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UserSimpleData'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'message'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'createdAt'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'attachedFile'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'String'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'attachedImg'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'String'),
-          isNonNull: true,
-        ),
-        isNonNull: false,
-      ),
-    ),
   ],
 );
 const MessageRoomData = _i1.ObjectTypeDefinitionNode(
@@ -1029,15 +1222,6 @@ const MessageRoomData = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'countOfMessages'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: false,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'category'),
       directives: [],
       args: [],
@@ -1051,7 +1235,7 @@ const MessageRoomData = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'MessageData'),
+        name: _i1.NameNode(value: 'String'),
         isNonNull: false,
       ),
     ),
@@ -1103,6 +1287,40 @@ const MessageRoomsByUserData = _i1.ObjectTypeDefinitionNode(
     ),
   ],
 );
+const MessageTempData = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'MessageTempData'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'content'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'sentAt'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+  ],
+);
 const MessagesByRoomIdByUserData = _i1.ObjectTypeDefinitionNode(
   name: _i1.NameNode(value: 'MessagesByRoomIdByUserData'),
   directives: [],
@@ -1132,7 +1350,7 @@ const MessagesByRoomIdByUserData = _i1.ObjectTypeDefinitionNode(
       args: [],
       type: _i1.ListTypeNode(
         type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'MessageData'),
+          name: _i1.NameNode(value: 'MessageTempData'),
           isNonNull: true,
         ),
         isNonNull: true,
@@ -1355,7 +1573,7 @@ const MutationRoot = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'updateOffer'),
+      name: _i1.NameNode(value: 'updateOfferInfo'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
@@ -1370,6 +1588,25 @@ const MutationRoot = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'UpdateOfferResponse'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'updateOfferStatus'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'UpdateOfferStatusInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UpdateOfferStatusResponse'),
         isNonNull: true,
       ),
     ),
@@ -1408,6 +1645,66 @@ const MutationRoot = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'CreateNewTransactionResponse'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createBulkFspTx'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.ListTypeNode(
+            type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'CreateNewTransactionInput'),
+              isNonNull: true,
+            ),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CreateNewTransactionResponse'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'createPrize'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'CreateNewPrizeInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CreateNewPrizeResponse'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'exchangePrize'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'input'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'ExchangePrizeInput'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ExchangePrizeResponse'),
         isNonNull: true,
       ),
     ),
@@ -1521,7 +1818,7 @@ const OfferByStatusData = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'appledOffers'),
+      name: _i1.NameNode(value: 'appliedOffers'),
       directives: [],
       args: [],
       type: _i1.ListTypeNode(
@@ -1601,7 +1898,7 @@ const OfferStatsByUserData = _i1.ObjectTypeDefinitionNode(
   interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'inprogressOffers'),
+      name: _i1.NameNode(value: 'totalOffers'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
@@ -1610,7 +1907,16 @@ const OfferStatsByUserData = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'appledOffers'),
+      name: _i1.NameNode(value: 'ongoingOffers'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'appliedOffers'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
@@ -1620,24 +1926,6 @@ const OfferStatsByUserData = _i1.ObjectTypeDefinitionNode(
     ),
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'completedOffers'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'rejectedOffers'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'canceledOffers'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
@@ -2111,23 +2399,11 @@ const QueryRoot = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'getAllOffers'),
-      directives: [],
-      args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'OfferData'),
-          isNonNull: true,
-        ),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'getOffersByOwner'),
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'ownerId'),
+          name: _i1.NameNode(value: 'userId'),
           directives: [],
           type: _i1.NamedTypeNode(
             name: _i1.NameNode(value: 'String'),
@@ -2163,19 +2439,21 @@ const QueryRoot = _i1.ObjectTypeDefinitionNode(
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'getOffers'),
       directives: [],
-      args: [
-        _i1.InputValueDefinitionNode(
-          name: _i1.NameNode(value: 'count'),
-          directives: [],
-          type: _i1.NamedTypeNode(
-            name: _i1.NameNode(value: 'Int'),
-            isNonNull: true,
-          ),
-          defaultValue: null,
-        )
-      ],
+      args: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'OffersData'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'getAllOffers'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'OfferData'),
+          isNonNull: true,
+        ),
         isNonNull: true,
       ),
     ),
@@ -2201,7 +2479,17 @@ const QueryRoot = _i1.ObjectTypeDefinitionNode(
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'getMessageRooms'),
       directives: [],
-      args: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'userId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'MessageRoomsByUserData'),
         isNonNull: true,
@@ -2210,7 +2498,17 @@ const QueryRoot = _i1.ObjectTypeDefinitionNode(
     _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'getMessagesInProgress'),
       directives: [],
-      args: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'userId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'MessageRoomsByUserData'),
         isNonNull: true,
@@ -2221,6 +2519,15 @@ const QueryRoot = _i1.ObjectTypeDefinitionNode(
       directives: [],
       args: [
         _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'userId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        ),
+        _i1.InputValueDefinitionNode(
           name: _i1.NameNode(value: 'messageRoomId'),
           directives: [],
           type: _i1.NamedTypeNode(
@@ -2228,7 +2535,7 @@ const QueryRoot = _i1.ObjectTypeDefinitionNode(
             isNonNull: true,
           ),
           defaultValue: null,
-        )
+        ),
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'MessagesByRoomIdByUserData'),
@@ -2307,6 +2614,25 @@ const QueryRoot = _i1.ObjectTypeDefinitionNode(
       ],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'ArtistByUserDataList'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'getUserDetailProfile'),
+      directives: [],
+      args: [
+        _i1.InputValueDefinitionNode(
+          name: _i1.NameNode(value: 'userId'),
+          directives: [],
+          type: _i1.NamedTypeNode(
+            name: _i1.NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: null,
+        )
+      ],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UserDetailData'),
         isNonNull: true,
       ),
     ),
@@ -2509,7 +2835,49 @@ const SendMessageResponse = _i1.ObjectTypeDefinitionNode(
         name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
-    )
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'message'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'sentAt'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'attachedFile'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'attachedImg'),
+      directives: [],
+      args: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
+      ),
+    ),
   ],
 );
 const TotalOverviewData = _i1.ObjectTypeDefinitionNode(
@@ -2751,7 +3119,7 @@ const UpdateBelongsToArtistStatusInput = _i1.InputObjectTypeDefinitionNode(
   directives: [],
   fields: [
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'id'),
+      name: _i1.NameNode(value: 'userId'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
@@ -2764,15 +3132,24 @@ const UpdateBelongsToArtistStatusInput = _i1.InputObjectTypeDefinitionNode(
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'nextStatus'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
         isNonNull: false,
       ),
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'status'),
+      name: _i1.NameNode(value: 'nextStatusIsAdmin'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
+        name: _i1.NameNode(value: 'Boolean'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -2785,11 +3162,11 @@ const UpdateBelongsToArtistStatusResponse = _i1.ObjectTypeDefinitionNode(
   interfaces: [],
   fields: [
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'artistList'),
+      name: _i1.NameNode(value: 'updatedUserArtist'),
       directives: [],
       args: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'ArtistByUserDataList'),
+        name: _i1.NameNode(value: 'ArtistByUserData'),
         isNonNull: true,
       ),
     )
@@ -2852,7 +3229,7 @@ const UpdateOfferInput = _i1.InputObjectTypeDefinitionNode(
       name: _i1.NameNode(value: 'id'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
+        name: _i1.NameNode(value: 'Int'),
         isNonNull: true,
       ),
       defaultValue: null,
@@ -2894,19 +3271,67 @@ const UpdateOfferInput = _i1.InputObjectTypeDefinitionNode(
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'raidId'),
+      name: _i1.NameNode(value: 'category'),
       directives: [],
       type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
+        name: _i1.NameNode(value: 'String'),
         isNonNull: false,
       ),
       defaultValue: null,
     ),
     _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'category'),
+      name: _i1.NameNode(value: 'place'),
       directives: [],
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'attention'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'requiredSkill'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'targetRole'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'attachedMedia'),
+      directives: [],
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'String'),
+          isNonNull: true,
+        ),
+        isNonNull: false,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'publicity'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Boolean'),
         isNonNull: false,
       ),
       defaultValue: null,
@@ -2927,6 +3352,64 @@ const UpdateOfferResponse = _i1.ObjectTypeDefinitionNode(
         isNonNull: true,
       ),
     )
+  ],
+);
+const UpdateOfferStatusInput = _i1.InputObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdateOfferStatusInput'),
+  directives: [],
+  fields: [
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'userId'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+    _i1.InputValueDefinitionNode(
+      name: _i1.NameNode(value: 'status'),
+      directives: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: null,
+    ),
+  ],
+);
+const UpdateOfferStatusResponse = _i1.ObjectTypeDefinitionNode(
+  name: _i1.NameNode(value: 'UpdateOfferStatusResponse'),
+  directives: [],
+  interfaces: [],
+  fields: [
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'id'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
+    _i1.FieldDefinitionNode(
+      name: _i1.NameNode(value: 'offerId'),
+      directives: [],
+      args: [],
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+    ),
   ],
 );
 const UpdateUserDataInput = _i1.InputObjectTypeDefinitionNode(
@@ -2987,15 +3470,6 @@ const UpdateUserDataInput = _i1.InputObjectTypeDefinitionNode(
       ),
       defaultValue: null,
     ),
-    _i1.InputValueDefinitionNode(
-      name: _i1.NameNode(value: 'status'),
-      directives: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: false,
-      ),
-      defaultValue: null,
-    ),
   ],
 );
 const UpdateUserDataResponse = _i1.ObjectTypeDefinitionNode(
@@ -3047,14 +3521,11 @@ const UserBasicData = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'roles'),
+      name: _i1.NameNode(value: 'role'),
       directives: [],
       args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'String'),
-          isNonNull: true,
-        ),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
     ),
@@ -3129,15 +3600,6 @@ const UserDetailData = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'fspBalanceTemp'),
-      directives: [],
-      args: [],
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-    ),
-    _i1.FieldDefinitionNode(
       name: _i1.NameNode(value: 'credentialBalance'),
       directives: [],
       args: [],
@@ -3147,14 +3609,11 @@ const UserDetailData = _i1.ObjectTypeDefinitionNode(
       ),
     ),
     _i1.FieldDefinitionNode(
-      name: _i1.NameNode(value: 'roles'),
+      name: _i1.NameNode(value: 'role'),
       directives: [],
       args: [],
-      type: _i1.ListTypeNode(
-        type: _i1.NamedTypeNode(
-          name: _i1.NameNode(value: 'String'),
-          isNonNull: true,
-        ),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
         isNonNull: true,
       ),
     ),
@@ -3320,6 +3779,8 @@ const document = _i1.DocumentNode(definitions: [
   CreateNewNotificationResponse,
   CreateNewOfferInput,
   CreateNewOfferResponse,
+  CreateNewPrizeInput,
+  CreateNewPrizeResponse,
   CreateNewTransactionInput,
   CreateNewTransactionResponse,
   CreateNewUserDataInput,
@@ -3328,10 +3789,12 @@ const document = _i1.DocumentNode(definitions: [
   DeleteNotificationResponse,
   DeleteOfferInput,
   DeleteOfferResponse,
+  ExchangePrizeInput,
+  ExchangePrizeResponse,
   HealthCheck,
-  MessageData,
   MessageRoomData,
   MessageRoomsByUserData,
+  MessageTempData,
   MessagesByRoomIdByUserData,
   MutationRoot,
   NotificationData,
@@ -3361,6 +3824,8 @@ const document = _i1.DocumentNode(definitions: [
   UpdateNotificationResponse,
   UpdateOfferInput,
   UpdateOfferResponse,
+  UpdateOfferStatusInput,
+  UpdateOfferStatusResponse,
   UpdateUserDataInput,
   UpdateUserDataResponse,
   UserBasicData,

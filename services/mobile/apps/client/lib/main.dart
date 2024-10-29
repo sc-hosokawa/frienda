@@ -6,6 +6,7 @@ import 'package:client/presentation/screens/walkthrough/wt_2.dart';
 import 'package:client/presentation/screens/walkthrough/wt_3.dart';
 import 'package:client/presentation/screens/walkthrough/wt_4.dart';
 import 'package:client/presentation/screens/auth/login.dart';
+import 'package:client/presentation/screens/auth/signin.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:client/presentation/providers/client_provider.dart';
@@ -13,6 +14,7 @@ import 'package:ferry/ferry.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 final providerContainer = ProviderContainer();
 
@@ -20,6 +22,7 @@ void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  WebViewPlatform.instance = WebViewPlatform.instance;
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final client = await initClient();
 
@@ -116,6 +119,7 @@ class MyApp extends StatelessWidget {
         home: const HomePage(),
         routes: {
           '/login': (context) => const LoginPage(),
+          '/signup': (context) => const RegisterPage(),
         });
   }
 }
@@ -154,11 +158,11 @@ class _HomePageState extends State<HomePage> {
                 controller: _pageController,
                 count: pageCount,
                 effect: const JumpingDotEffect(
-                  dotHeight: 12,
-                  dotWidth: 12,
-                  jumpScale: .7,
-                  verticalOffset: 15,
-                ),
+                    dotHeight: 12,
+                    dotWidth: 12,
+                    jumpScale: .4,
+                    verticalOffset: 15,
+                    activeDotColor: Colors.white),
               ),
             ),
           ),

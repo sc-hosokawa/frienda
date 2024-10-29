@@ -27,753 +27,6 @@ const HealthCheck = _i1.OperationDefinitionNode(
     )
   ]),
 );
-const GetUserInfo = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetUserInfo'),
-  variableDefinitions: [],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'getUserInfo'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'userInfo'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'email'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'name'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'imageUrl'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'fspBalance'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'fspBalanceTemp'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'credentialBalance'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'roles'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'primaryRole'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'belongsToArtists'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'id'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'name'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'imageUrl'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'isAccepted'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'primaryArtist'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'id'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'name'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'imageUrl'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'isAccepted'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
-            ),
-          ]),
-        )
-      ]),
-    )
-  ]),
-);
-const GetAllOffers = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetAllOffers'),
-  variableDefinitions: [],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'getAllOffers'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'title'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'description'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'imageUrl'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'fee'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'category'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    )
-  ]),
-);
-const GetMessageRooms = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetMessageRooms'),
-  variableDefinitions: [],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'getMessageRooms'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'messageRoomList'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'countOfMessages'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'category'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'latestMessage'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'id'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'sendBy'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: _i1.SelectionSetNode(selections: [
-                    _i1.FieldNode(
-                      name: _i1.NameNode(value: 'id'),
-                      alias: null,
-                      arguments: [],
-                      directives: [],
-                      selectionSet: null,
-                    ),
-                    _i1.FieldNode(
-                      name: _i1.NameNode(value: 'name'),
-                      alias: null,
-                      arguments: [],
-                      directives: [],
-                      selectionSet: null,
-                    ),
-                    _i1.FieldNode(
-                      name: _i1.NameNode(value: 'imageUrl'),
-                      alias: null,
-                      arguments: [],
-                      directives: [],
-                      selectionSet: null,
-                    ),
-                  ]),
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'message'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'createdAt'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'attachedFile'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'attachedImg'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'latestSentAt'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'isRead'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'countOfMessageRooms'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    )
-  ]),
-);
-const GetMessagesByMessageRoomId = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetMessagesByMessageRoomId'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'messageRoomId')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'getMessagesByMessageRoomId'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'messageRoomId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'messageRoomId')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'to'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'name'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'imageUrl'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'messageList'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'sendBy'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'id'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'name'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'imageUrl'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'message'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'createdAt'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'attachedFile'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'attachedImg'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
-        ),
-      ]),
-    )
-  ]),
-);
-const GetNotifications = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetNotifications'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'count')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'offset')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    ),
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'getNotifications'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'count'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'count')),
-        ),
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'offset'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'offset')),
-        ),
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'notifications'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'title'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'content'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'createdAt'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'updatedAt'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
-        )
-      ]),
-    )
-  ]),
-);
-const GetUserData = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetUserData'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'String'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'getUserData'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'userId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'email'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'name'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'imageUrl'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'fspBalance'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'fspBalanceTemp'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'credentialBalance'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'roles'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'primaryRole'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'belongsToArtists'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'name'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'imageUrl'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'isAccepted'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'primaryArtist'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: _i1.SelectionSetNode(selections: [
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'name'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'imageUrl'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'isAccepted'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ]),
-        ),
-      ]),
-    )
-  ]),
-);
 const GetOverviewData = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
   name: _i1.NameNode(value: 'GetOverviewData'),
@@ -1212,7 +465,7 @@ const GetCommunities = _i1.OperationDefinitionNode(
                   selectionSet: null,
                 ),
                 _i1.FieldNode(
-                  name: _i1.NameNode(value: 'roles'),
+                  name: _i1.NameNode(value: 'role'),
                   alias: null,
                   arguments: [],
                   directives: [],
@@ -1253,7 +506,21 @@ const GetCommunities = _i1.OperationDefinitionNode(
                       selectionSet: null,
                     ),
                     _i1.FieldNode(
-                      name: _i1.NameNode(value: 'isAccepted'),
+                      name: _i1.NameNode(value: 'fsp'),
+                      alias: null,
+                      arguments: [],
+                      directives: [],
+                      selectionSet: null,
+                    ),
+                    _i1.FieldNode(
+                      name: _i1.NameNode(value: 'status'),
+                      alias: null,
+                      arguments: [],
+                      directives: [],
+                      selectionSet: null,
+                    ),
+                    _i1.FieldNode(
+                      name: _i1.NameNode(value: 'isAdmin'),
                       alias: null,
                       arguments: [],
                       directives: [],
@@ -1272,6 +539,186 @@ const GetCommunities = _i1.OperationDefinitionNode(
           directives: [],
           selectionSet: null,
         ),
+      ]),
+    )
+  ]),
+);
+const GetUserInfo = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'GetUserInfo'),
+  variableDefinitions: [],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'getUserInfo'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'userInfo'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'email'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'imageUrl'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'fspBalance'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'credentialBalance'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'role'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'primaryRole'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'belongsToArtists'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: _i1.SelectionSetNode(selections: [
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'id'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'name'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'imageUrl'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'fsp'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'status'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'isAdmin'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ]),
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'primaryArtist'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: _i1.SelectionSetNode(selections: [
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'id'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'name'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'imageUrl'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'fsp'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'status'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'isAdmin'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ]),
+            ),
+          ]),
+        )
       ]),
     )
   ]),
@@ -1304,14 +751,21 @@ const GetOfferStatsByUser = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'inprogressOffers'),
+          name: _i1.NameNode(value: 'totalOffers'),
           alias: null,
           arguments: [],
           directives: [],
           selectionSet: null,
         ),
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'appledOffers'),
+          name: _i1.NameNode(value: 'ongoingOffers'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'appliedOffers'),
           alias: null,
           arguments: [],
           directives: [],
@@ -1319,20 +773,6 @@ const GetOfferStatsByUser = _i1.OperationDefinitionNode(
         ),
         _i1.FieldNode(
           name: _i1.NameNode(value: 'completedOffers'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'rejectedOffers'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'canceledOffers'),
           alias: null,
           arguments: [],
           directives: [],
@@ -1354,7 +794,7 @@ const GetOffersByOwner = _i1.OperationDefinitionNode(
   name: _i1.NameNode(value: 'GetOffersByOwner'),
   variableDefinitions: [
     _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'ownerId')),
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
       type: _i1.NamedTypeNode(
         name: _i1.NameNode(value: 'String'),
         isNonNull: true,
@@ -1370,8 +810,8 @@ const GetOffersByOwner = _i1.OperationDefinitionNode(
       alias: null,
       arguments: [
         _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'ownerId'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'ownerId')),
+          name: _i1.NameNode(value: 'userId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
         )
       ],
       directives: [],
@@ -1508,7 +948,7 @@ const GetOffersByStatus = _i1.OperationDefinitionNode(
           ]),
         ),
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'appledOffers'),
+          name: _i1.NameNode(value: 'appliedOffers'),
           alias: null,
           arguments: [],
           directives: [],
@@ -1564,28 +1004,13 @@ const GetOffersByStatus = _i1.OperationDefinitionNode(
 const GetOffers = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
   name: _i1.NameNode(value: 'GetOffers'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'count')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'Int'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
+  variableDefinitions: [],
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
       name: _i1.NameNode(value: 'getOffers'),
       alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'count'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'count')),
-        )
-      ],
+      arguments: [],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FieldNode(
@@ -1638,6 +1063,64 @@ const GetOffers = _i1.OperationDefinitionNode(
             ),
           ]),
         )
+      ]),
+    )
+  ]),
+);
+const GetAllOffers = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'GetAllOffers'),
+  variableDefinitions: [],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'getAllOffers'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'title'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'description'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'imageUrl'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'fee'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'category'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
       ]),
     )
   ]),
@@ -1723,16 +1206,31 @@ const GetOffersByCategory = _i1.OperationDefinitionNode(
     )
   ]),
 );
-const GetMessagesInProgress = _i1.OperationDefinitionNode(
+const GetMessageRooms = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
-  name: _i1.NameNode(value: 'GetMessagesInProgress'),
-  variableDefinitions: [],
+  name: _i1.NameNode(value: 'GetMessageRooms'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
   directives: [],
   selectionSet: _i1.SelectionSetNode(selections: [
     _i1.FieldNode(
-      name: _i1.NameNode(value: 'getMessagesInProgress'),
+      name: _i1.NameNode(value: 'getMessageRooms'),
       alias: null,
-      arguments: [],
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'userId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+        )
+      ],
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FieldNode(
@@ -1743,13 +1241,6 @@ const GetMessagesInProgress = _i1.OperationDefinitionNode(
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FieldNode(
               name: _i1.NameNode(value: 'id'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
-              name: _i1.NameNode(value: 'countOfMessages'),
               alias: null,
               arguments: [],
               directives: [],
@@ -1767,72 +1258,7 @@ const GetMessagesInProgress = _i1.OperationDefinitionNode(
               alias: null,
               arguments: [],
               directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'id'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'sendBy'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: _i1.SelectionSetNode(selections: [
-                    _i1.FieldNode(
-                      name: _i1.NameNode(value: 'id'),
-                      alias: null,
-                      arguments: [],
-                      directives: [],
-                      selectionSet: null,
-                    ),
-                    _i1.FieldNode(
-                      name: _i1.NameNode(value: 'name'),
-                      alias: null,
-                      arguments: [],
-                      directives: [],
-                      selectionSet: null,
-                    ),
-                    _i1.FieldNode(
-                      name: _i1.NameNode(value: 'imageUrl'),
-                      alias: null,
-                      arguments: [],
-                      directives: [],
-                      selectionSet: null,
-                    ),
-                  ]),
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'message'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'createdAt'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'attachedFile'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'attachedImg'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
+              selectionSet: null,
             ),
             _i1.FieldNode(
               name: _i1.NameNode(value: 'latestSentAt'),
@@ -1857,6 +1283,283 @@ const GetMessagesInProgress = _i1.OperationDefinitionNode(
           directives: [],
           selectionSet: null,
         ),
+      ]),
+    )
+  ]),
+);
+const GetMessagesInProgress = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'GetMessagesInProgress'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'getMessagesInProgress'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'userId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'messageRoomList'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'category'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'latestMessage'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'latestSentAt'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isRead'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'countOfMessageRooms'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    )
+  ]),
+);
+const GetMessagesByMessageRoomId = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'GetMessagesByMessageRoomId'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'messageRoomId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'getMessagesByMessageRoomId'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'userId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'messageRoomId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'messageRoomId')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'to'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'imageUrl'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'messageList'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'content'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'sentAt'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+      ]),
+    )
+  ]),
+);
+const GetNotifications = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'GetNotifications'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'count')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'offset')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'Int'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    ),
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'getNotifications'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'count'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'count')),
+        ),
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'offset'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'offset')),
+        ),
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'notifications'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'title'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'content'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'createdAt'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'updatedAt'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        )
       ]),
     )
   ]),
@@ -1920,6 +1623,193 @@ const GetAllNotifications = _i1.OperationDefinitionNode(
     )
   ]),
 );
+const GetUserData = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'GetUserData'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'getUserData'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'userId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'email'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'name'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'imageUrl'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'fspBalance'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'credentialBalance'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'role'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'primaryRole'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'belongsToArtists'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'imageUrl'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'fsp'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'status'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isAdmin'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'primaryArtist'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'imageUrl'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'fsp'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'status'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isAdmin'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+      ]),
+    )
+  ]),
+);
 const GetBelongedArtists = _i1.OperationDefinitionNode(
   type: _i1.OperationType.query,
   name: _i1.NameNode(value: 'GetBelongedArtists'),
@@ -1975,7 +1865,21 @@ const GetBelongedArtists = _i1.OperationDefinitionNode(
               selectionSet: null,
             ),
             _i1.FieldNode(
-              name: _i1.NameNode(value: 'isAccepted'),
+              name: _i1.NameNode(value: 'fsp'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'status'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isAdmin'),
               alias: null,
               arguments: [],
               directives: [],
@@ -1983,6 +1887,193 @@ const GetBelongedArtists = _i1.OperationDefinitionNode(
             ),
           ]),
         )
+      ]),
+    )
+  ]),
+);
+const GetUserDetailProfile = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.query,
+  name: _i1.NameNode(value: 'GetUserDetailProfile'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'String'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'getUserDetailProfile'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'userId'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'userId')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'email'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'name'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'imageUrl'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'fspBalance'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'credentialBalance'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'role'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'primaryRole'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'belongsToArtists'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'imageUrl'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'fsp'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'status'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isAdmin'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'primaryArtist'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'id'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'imageUrl'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'fsp'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'status'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isAdmin'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ]),
+        ),
       ]),
     )
   ]),
@@ -2564,26 +2655,27 @@ const GetFspHistoryByUser = _i1.OperationDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   HealthCheck,
-  GetUserInfo,
-  GetAllOffers,
-  GetMessageRooms,
-  GetMessagesByMessageRoomId,
-  GetNotifications,
-  GetUserData,
   GetOverviewData,
   GetTrendingData,
   GetLineChartData,
   GetPlaybacksByGenderData,
   GetPlaybacksByGenerationData,
   GetCommunities,
+  GetUserInfo,
   GetOfferStatsByUser,
   GetOffersByOwner,
   GetOffersByStatus,
   GetOffers,
+  GetAllOffers,
   GetOffersByCategory,
+  GetMessageRooms,
   GetMessagesInProgress,
+  GetMessagesByMessageRoomId,
+  GetNotifications,
   GetAllNotifications,
+  GetUserData,
   GetBelongedArtists,
+  GetUserDetailProfile,
   GetAllArtists,
   GetArtistById,
   GetPopularPrizes,

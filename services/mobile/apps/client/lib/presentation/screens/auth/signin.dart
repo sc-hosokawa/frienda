@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:client/presentation/screens/main_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/auth_provider.dart';
+import 'package:client/presentation/screens/web_view_screen.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -16,6 +17,12 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
+
+  final _linkButtonStyle = TextButton.styleFrom(
+    padding: EdgeInsets.symmetric(vertical: 4),
+    foregroundColor: Colors.green,
+    textStyle: TextStyle(fontSize: 12),
+  );
 
   @override
   void dispose() {
@@ -69,10 +76,53 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                         onPressed: _register,
                         child: Text('登録'),
                       ),
+                SizedBox(height: 48),
+                Text(
+                  '登録をした方は以下の書類に同意したこととみなします',
+                  style: TextStyle(fontSize: 12),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextButton(
+                      style: _linkButtonStyle,
+                      onPressed: () => _openWebView(
+                          'プライバシーポリシー', 'https://example.com/privacy'),
+                      child: Text('プライバシーポリシー'),
+                    ),
+                    TextButton(
+                      style: _linkButtonStyle,
+                      onPressed: () =>
+                          _openWebView('利用規約', 'https://example.com/terms'),
+                      child: Text('利用規約'),
+                    ),
+                    TextButton(
+                      style: _linkButtonStyle,
+                      onPressed: () => _openWebView('特定商取引法',
+                          'https://example.com/specified-commercial-transactions'),
+                      child: Text('特定商取引法'),
+                    ),
+                    TextButton(
+                      style: _linkButtonStyle,
+                      onPressed: () => _openWebView(
+                          '資金決済法', 'https://example.com/fund-settlement'),
+                      child: Text('資金決済法'),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _openWebView(String title, String url) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WebViewScreen(title: title, url: url),
       ),
     );
   }

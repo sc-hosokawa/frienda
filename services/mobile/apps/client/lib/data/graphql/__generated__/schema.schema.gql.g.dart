@@ -47,6 +47,8 @@ Serializer<GCreateNewNotificationInput>
     new _$GCreateNewNotificationInputSerializer();
 Serializer<GCreateNewOfferInput> _$gCreateNewOfferInputSerializer =
     new _$GCreateNewOfferInputSerializer();
+Serializer<GCreateNewPrizeInput> _$gCreateNewPrizeInputSerializer =
+    new _$GCreateNewPrizeInputSerializer();
 Serializer<GCreateNewTransactionInput> _$gCreateNewTransactionInputSerializer =
     new _$GCreateNewTransactionInputSerializer();
 Serializer<GCreateNewUserDataInput> _$gCreateNewUserDataInputSerializer =
@@ -55,6 +57,8 @@ Serializer<GDeleteNotificationInput> _$gDeleteNotificationInputSerializer =
     new _$GDeleteNotificationInputSerializer();
 Serializer<GDeleteOfferInput> _$gDeleteOfferInputSerializer =
     new _$GDeleteOfferInputSerializer();
+Serializer<GExchangePrizeInput> _$gExchangePrizeInputSerializer =
+    new _$GExchangePrizeInputSerializer();
 Serializer<GSendMessageInput> _$gSendMessageInputSerializer =
     new _$GSendMessageInputSerializer();
 Serializer<GTransactionDirection> _$gTransactionDirectionSerializer =
@@ -66,6 +70,8 @@ Serializer<GUpdateNotificationInput> _$gUpdateNotificationInputSerializer =
     new _$GUpdateNotificationInputSerializer();
 Serializer<GUpdateOfferInput> _$gUpdateOfferInputSerializer =
     new _$GUpdateOfferInputSerializer();
+Serializer<GUpdateOfferStatusInput> _$gUpdateOfferStatusInputSerializer =
+    new _$GUpdateOfferStatusInputSerializer();
 Serializer<GUpdateUserDataInput> _$gUpdateUserDataInputSerializer =
     new _$GUpdateUserDataInputSerializer();
 
@@ -350,6 +356,13 @@ class _$GCreateNewMessageRoomInputSerializer
       'category',
       serializers.serialize(object.category,
           specifiedType: const FullType(String)),
+      'createdBy',
+      serializers.serialize(object.createdBy,
+          specifiedType: const FullType(String)),
+      'userList',
+      serializers.serialize(object.userList,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(String)])),
     ];
 
     return result;
@@ -370,6 +383,16 @@ class _$GCreateNewMessageRoomInputSerializer
         case 'category':
           result.category = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'createdBy':
+          result.createdBy = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'userList':
+          result.userList.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -471,8 +494,8 @@ class _$GCreateNewOfferInputSerializer
       'owner',
       serializers.serialize(object.owner,
           specifiedType: const FullType(String)),
-      'releaseDt',
-      serializers.serialize(object.releaseDt,
+      'deadline',
+      serializers.serialize(object.deadline,
           specifiedType: const FullType(String)),
       'title',
       serializers.serialize(object.title,
@@ -482,6 +505,9 @@ class _$GCreateNewOfferInputSerializer
           specifiedType: const FullType(String)),
       'fee',
       serializers.serialize(object.fee, specifiedType: const FullType(int)),
+      'place',
+      serializers.serialize(object.place,
+          specifiedType: const FullType(String)),
     ];
     Object? value;
     value = object.imageUrl;
@@ -504,6 +530,50 @@ class _$GCreateNewOfferInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.attention;
+    if (value != null) {
+      result
+        ..add('attention')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.requiredSkill;
+    if (value != null) {
+      result
+        ..add('requiredSkill')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.targetRole;
+    if (value != null) {
+      result
+        ..add('targetRole')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.publicity;
+    if (value != null) {
+      result
+        ..add('publicity')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.attachedImgs;
+    if (value != null) {
+      result
+        ..add('attachedImgs')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.attachedFiles;
+    if (value != null) {
+      result
+        ..add('attachedFiles')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     return result;
   }
 
@@ -523,8 +593,8 @@ class _$GCreateNewOfferInputSerializer
           result.owner = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'releaseDt':
-          result.releaseDt = serializers.deserialize(value,
+        case 'deadline':
+          result.deadline = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
         case 'title':
@@ -550,6 +620,136 @@ class _$GCreateNewOfferInputSerializer
         case 'category':
           result.category = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+        case 'place':
+          result.place = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'attention':
+          result.attention = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'requiredSkill':
+          result.requiredSkill = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'targetRole':
+          result.targetRole = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'publicity':
+          result.publicity = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'attachedImgs':
+          result.attachedImgs.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'attachedFiles':
+          result.attachedFiles.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateNewPrizeInputSerializer
+    implements StructuredSerializer<GCreateNewPrizeInput> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateNewPrizeInput,
+    _$GCreateNewPrizeInput
+  ];
+  @override
+  final String wireName = 'GCreateNewPrizeInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateNewPrizeInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'point',
+      serializers.serialize(object.point, specifiedType: const FullType(int)),
+      'description',
+      serializers.serialize(object.description,
+          specifiedType: const FullType(String)),
+      'representation',
+      serializers.serialize(object.representation,
+          specifiedType: const FullType(String)),
+    ];
+    Object? value;
+    value = object.condition;
+    if (value != null) {
+      result
+        ..add('condition')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.imgUrl;
+    if (value != null) {
+      result
+        ..add('imgUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.publicity;
+    if (value != null) {
+      result
+        ..add('publicity')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    return result;
+  }
+
+  @override
+  GCreateNewPrizeInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewPrizeInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'point':
+          result.point = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'description':
+          result.description = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'representation':
+          result.representation = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'condition':
+          result.condition = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'imgUrl':
+          result.imgUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'publicity':
+          result.publicity = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
       }
     }
@@ -646,6 +846,8 @@ class _$GCreateNewUserDataInputSerializer
       Serializers serializers, GCreateNewUserDataInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'email',
       serializers.serialize(object.email,
           specifiedType: const FullType(String)),
@@ -688,6 +890,10 @@ class _$GCreateNewUserDataInputSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
         case 'email':
           result.email = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
@@ -797,6 +1003,68 @@ class _$GDeleteOfferInputSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GExchangePrizeInputSerializer
+    implements StructuredSerializer<GExchangePrizeInput> {
+  @override
+  final Iterable<Type> types = const [
+    GExchangePrizeInput,
+    _$GExchangePrizeInput
+  ];
+  @override
+  final String wireName = 'GExchangePrizeInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GExchangePrizeInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'userId',
+      serializers.serialize(object.userId,
+          specifiedType: const FullType(String)),
+      'prizeId',
+      serializers.serialize(object.prizeId, specifiedType: const FullType(int)),
+    ];
+    Object? value;
+    value = object.amount;
+    if (value != null) {
+      result
+        ..add('amount')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    return result;
+  }
+
+  @override
+  GExchangePrizeInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GExchangePrizeInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'userId':
+          result.userId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'prizeId':
+          result.prizeId = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'amount':
+          result.amount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
           break;
       }
     }
@@ -930,23 +1198,27 @@ class _$GUpdateBelongsToArtistStatusInputSerializer
       Serializers serializers, GUpdateBelongsToArtistStatusInput object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'userId',
+      serializers.serialize(object.userId,
+          specifiedType: const FullType(String)),
+      'artistId',
+      serializers.serialize(object.artistId,
+          specifiedType: const FullType(String)),
     ];
     Object? value;
-    value = object.artistId;
+    value = object.nextStatus;
     if (value != null) {
       result
-        ..add('artistId')
+        ..add('nextStatus')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.status;
+    value = object.nextStatusIsAdmin;
     if (value != null) {
       result
-        ..add('status')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add('nextStatusIsAdmin')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -963,17 +1235,21 @@ class _$GUpdateBelongsToArtistStatusInputSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'id':
-          result.id = serializers.deserialize(value,
+        case 'userId':
+          result.userId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
         case 'artistId':
           result.artistId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'nextStatus':
+          result.nextStatus = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'status':
-          result.status = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+        case 'nextStatusIsAdmin':
+          result.nextStatusIsAdmin = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
       }
     }
@@ -1061,7 +1337,7 @@ class _$GUpdateOfferInputSerializer
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
     ];
     Object? value;
     value = object.title;
@@ -1091,18 +1367,55 @@ class _$GUpdateOfferInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.raidId;
-    if (value != null) {
-      result
-        ..add('raidId')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
     value = object.category;
     if (value != null) {
       result
         ..add('category')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
+    }
+    value = object.place;
+    if (value != null) {
+      result
+        ..add('place')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.attention;
+    if (value != null) {
+      result
+        ..add('attention')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.requiredSkill;
+    if (value != null) {
+      result
+        ..add('requiredSkill')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.targetRole;
+    if (value != null) {
+      result
+        ..add('targetRole')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.attachedMedia;
+    if (value != null) {
+      result
+        ..add('attachedMedia')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.publicity;
+    if (value != null) {
+      result
+        ..add('publicity')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
     }
     return result;
   }
@@ -1121,7 +1434,7 @@ class _$GUpdateOfferInputSerializer
       switch (key) {
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(int))! as int;
           break;
         case 'title':
           result.title = serializers.deserialize(value,
@@ -1139,13 +1452,94 @@ class _$GUpdateOfferInputSerializer
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'raidId':
-          result.raidId = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
-          break;
         case 'category':
           result.category = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+        case 'place':
+          result.place = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'attention':
+          result.attention = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'requiredSkill':
+          result.requiredSkill = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'targetRole':
+          result.targetRole = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'attachedMedia':
+          result.attachedMedia.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'publicity':
+          result.publicity = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateOfferStatusInputSerializer
+    implements StructuredSerializer<GUpdateOfferStatusInput> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateOfferStatusInput,
+    _$GUpdateOfferStatusInput
+  ];
+  @override
+  final String wireName = 'GUpdateOfferStatusInput';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateOfferStatusInput object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+      'userId',
+      serializers.serialize(object.userId,
+          specifiedType: const FullType(String)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateOfferStatusInput deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateOfferStatusInputBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'userId':
+          result.userId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -1208,13 +1602,6 @@ class _$GUpdateUserDataInputSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.status;
-    if (value != null) {
-      result
-        ..add('status')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     return result;
   }
 
@@ -1252,10 +1639,6 @@ class _$GUpdateUserDataInputSerializer
           break;
         case 'evmAddr':
           result.evmAddr = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'status':
-          result.status = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
       }
@@ -1704,14 +2087,24 @@ class GCreateNewArtistInputBuilder
 class _$GCreateNewMessageRoomInput extends GCreateNewMessageRoomInput {
   @override
   final String category;
+  @override
+  final String createdBy;
+  @override
+  final BuiltList<String> userList;
 
   factory _$GCreateNewMessageRoomInput(
           [void Function(GCreateNewMessageRoomInputBuilder)? updates]) =>
       (new GCreateNewMessageRoomInputBuilder()..update(updates))._build();
 
-  _$GCreateNewMessageRoomInput._({required this.category}) : super._() {
+  _$GCreateNewMessageRoomInput._(
+      {required this.category, required this.createdBy, required this.userList})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
         category, r'GCreateNewMessageRoomInput', 'category');
+    BuiltValueNullFieldError.checkNotNull(
+        createdBy, r'GCreateNewMessageRoomInput', 'createdBy');
+    BuiltValueNullFieldError.checkNotNull(
+        userList, r'GCreateNewMessageRoomInput', 'userList');
   }
 
   @override
@@ -1726,13 +2119,18 @@ class _$GCreateNewMessageRoomInput extends GCreateNewMessageRoomInput {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GCreateNewMessageRoomInput && category == other.category;
+    return other is GCreateNewMessageRoomInput &&
+        category == other.category &&
+        createdBy == other.createdBy &&
+        userList == other.userList;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, category.hashCode);
+    _$hash = $jc(_$hash, createdBy.hashCode);
+    _$hash = $jc(_$hash, userList.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1740,7 +2138,9 @@ class _$GCreateNewMessageRoomInput extends GCreateNewMessageRoomInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GCreateNewMessageRoomInput')
-          ..add('category', category))
+          ..add('category', category)
+          ..add('createdBy', createdBy)
+          ..add('userList', userList))
         .toString();
   }
 }
@@ -1754,12 +2154,23 @@ class GCreateNewMessageRoomInputBuilder
   String? get category => _$this._category;
   set category(String? category) => _$this._category = category;
 
+  String? _createdBy;
+  String? get createdBy => _$this._createdBy;
+  set createdBy(String? createdBy) => _$this._createdBy = createdBy;
+
+  ListBuilder<String>? _userList;
+  ListBuilder<String> get userList =>
+      _$this._userList ??= new ListBuilder<String>();
+  set userList(ListBuilder<String>? userList) => _$this._userList = userList;
+
   GCreateNewMessageRoomInputBuilder();
 
   GCreateNewMessageRoomInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _category = $v.category;
+      _createdBy = $v.createdBy;
+      _userList = $v.userList.toBuilder();
       _$v = null;
     }
     return this;
@@ -1780,10 +2191,26 @@ class GCreateNewMessageRoomInputBuilder
   GCreateNewMessageRoomInput build() => _build();
 
   _$GCreateNewMessageRoomInput _build() {
-    final _$result = _$v ??
-        new _$GCreateNewMessageRoomInput._(
-            category: BuiltValueNullFieldError.checkNotNull(
-                category, r'GCreateNewMessageRoomInput', 'category'));
+    _$GCreateNewMessageRoomInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateNewMessageRoomInput._(
+              category: BuiltValueNullFieldError.checkNotNull(
+                  category, r'GCreateNewMessageRoomInput', 'category'),
+              createdBy: BuiltValueNullFieldError.checkNotNull(
+                  createdBy, r'GCreateNewMessageRoomInput', 'createdBy'),
+              userList: userList.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'userList';
+        userList.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateNewMessageRoomInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -1921,7 +2348,7 @@ class _$GCreateNewOfferInput extends GCreateNewOfferInput {
   @override
   final String owner;
   @override
-  final String releaseDt;
+  final String deadline;
   @override
   final String title;
   @override
@@ -1934,6 +2361,20 @@ class _$GCreateNewOfferInput extends GCreateNewOfferInput {
   final int? raidId;
   @override
   final String? category;
+  @override
+  final String place;
+  @override
+  final String? attention;
+  @override
+  final String? requiredSkill;
+  @override
+  final String? targetRole;
+  @override
+  final bool? publicity;
+  @override
+  final BuiltList<String>? attachedImgs;
+  @override
+  final BuiltList<String>? attachedFiles;
 
   factory _$GCreateNewOfferInput(
           [void Function(GCreateNewOfferInputBuilder)? updates]) =>
@@ -1941,23 +2382,32 @@ class _$GCreateNewOfferInput extends GCreateNewOfferInput {
 
   _$GCreateNewOfferInput._(
       {required this.owner,
-      required this.releaseDt,
+      required this.deadline,
       required this.title,
       required this.description,
       required this.fee,
       this.imageUrl,
       this.raidId,
-      this.category})
+      this.category,
+      required this.place,
+      this.attention,
+      this.requiredSkill,
+      this.targetRole,
+      this.publicity,
+      this.attachedImgs,
+      this.attachedFiles})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         owner, r'GCreateNewOfferInput', 'owner');
     BuiltValueNullFieldError.checkNotNull(
-        releaseDt, r'GCreateNewOfferInput', 'releaseDt');
+        deadline, r'GCreateNewOfferInput', 'deadline');
     BuiltValueNullFieldError.checkNotNull(
         title, r'GCreateNewOfferInput', 'title');
     BuiltValueNullFieldError.checkNotNull(
         description, r'GCreateNewOfferInput', 'description');
     BuiltValueNullFieldError.checkNotNull(fee, r'GCreateNewOfferInput', 'fee');
+    BuiltValueNullFieldError.checkNotNull(
+        place, r'GCreateNewOfferInput', 'place');
   }
 
   @override
@@ -1974,26 +2424,40 @@ class _$GCreateNewOfferInput extends GCreateNewOfferInput {
     if (identical(other, this)) return true;
     return other is GCreateNewOfferInput &&
         owner == other.owner &&
-        releaseDt == other.releaseDt &&
+        deadline == other.deadline &&
         title == other.title &&
         description == other.description &&
         fee == other.fee &&
         imageUrl == other.imageUrl &&
         raidId == other.raidId &&
-        category == other.category;
+        category == other.category &&
+        place == other.place &&
+        attention == other.attention &&
+        requiredSkill == other.requiredSkill &&
+        targetRole == other.targetRole &&
+        publicity == other.publicity &&
+        attachedImgs == other.attachedImgs &&
+        attachedFiles == other.attachedFiles;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, owner.hashCode);
-    _$hash = $jc(_$hash, releaseDt.hashCode);
+    _$hash = $jc(_$hash, deadline.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, fee.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
     _$hash = $jc(_$hash, raidId.hashCode);
     _$hash = $jc(_$hash, category.hashCode);
+    _$hash = $jc(_$hash, place.hashCode);
+    _$hash = $jc(_$hash, attention.hashCode);
+    _$hash = $jc(_$hash, requiredSkill.hashCode);
+    _$hash = $jc(_$hash, targetRole.hashCode);
+    _$hash = $jc(_$hash, publicity.hashCode);
+    _$hash = $jc(_$hash, attachedImgs.hashCode);
+    _$hash = $jc(_$hash, attachedFiles.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -2002,13 +2466,20 @@ class _$GCreateNewOfferInput extends GCreateNewOfferInput {
   String toString() {
     return (newBuiltValueToStringHelper(r'GCreateNewOfferInput')
           ..add('owner', owner)
-          ..add('releaseDt', releaseDt)
+          ..add('deadline', deadline)
           ..add('title', title)
           ..add('description', description)
           ..add('fee', fee)
           ..add('imageUrl', imageUrl)
           ..add('raidId', raidId)
-          ..add('category', category))
+          ..add('category', category)
+          ..add('place', place)
+          ..add('attention', attention)
+          ..add('requiredSkill', requiredSkill)
+          ..add('targetRole', targetRole)
+          ..add('publicity', publicity)
+          ..add('attachedImgs', attachedImgs)
+          ..add('attachedFiles', attachedFiles))
         .toString();
   }
 }
@@ -2021,9 +2492,9 @@ class GCreateNewOfferInputBuilder
   String? get owner => _$this._owner;
   set owner(String? owner) => _$this._owner = owner;
 
-  String? _releaseDt;
-  String? get releaseDt => _$this._releaseDt;
-  set releaseDt(String? releaseDt) => _$this._releaseDt = releaseDt;
+  String? _deadline;
+  String? get deadline => _$this._deadline;
+  set deadline(String? deadline) => _$this._deadline = deadline;
 
   String? _title;
   String? get title => _$this._title;
@@ -2049,19 +2520,59 @@ class GCreateNewOfferInputBuilder
   String? get category => _$this._category;
   set category(String? category) => _$this._category = category;
 
+  String? _place;
+  String? get place => _$this._place;
+  set place(String? place) => _$this._place = place;
+
+  String? _attention;
+  String? get attention => _$this._attention;
+  set attention(String? attention) => _$this._attention = attention;
+
+  String? _requiredSkill;
+  String? get requiredSkill => _$this._requiredSkill;
+  set requiredSkill(String? requiredSkill) =>
+      _$this._requiredSkill = requiredSkill;
+
+  String? _targetRole;
+  String? get targetRole => _$this._targetRole;
+  set targetRole(String? targetRole) => _$this._targetRole = targetRole;
+
+  bool? _publicity;
+  bool? get publicity => _$this._publicity;
+  set publicity(bool? publicity) => _$this._publicity = publicity;
+
+  ListBuilder<String>? _attachedImgs;
+  ListBuilder<String> get attachedImgs =>
+      _$this._attachedImgs ??= new ListBuilder<String>();
+  set attachedImgs(ListBuilder<String>? attachedImgs) =>
+      _$this._attachedImgs = attachedImgs;
+
+  ListBuilder<String>? _attachedFiles;
+  ListBuilder<String> get attachedFiles =>
+      _$this._attachedFiles ??= new ListBuilder<String>();
+  set attachedFiles(ListBuilder<String>? attachedFiles) =>
+      _$this._attachedFiles = attachedFiles;
+
   GCreateNewOfferInputBuilder();
 
   GCreateNewOfferInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _owner = $v.owner;
-      _releaseDt = $v.releaseDt;
+      _deadline = $v.deadline;
       _title = $v.title;
       _description = $v.description;
       _fee = $v.fee;
       _imageUrl = $v.imageUrl;
       _raidId = $v.raidId;
       _category = $v.category;
+      _place = $v.place;
+      _attention = $v.attention;
+      _requiredSkill = $v.requiredSkill;
+      _targetRole = $v.targetRole;
+      _publicity = $v.publicity;
+      _attachedImgs = $v.attachedImgs?.toBuilder();
+      _attachedFiles = $v.attachedFiles?.toBuilder();
       _$v = null;
     }
     return this;
@@ -2082,21 +2593,216 @@ class GCreateNewOfferInputBuilder
   GCreateNewOfferInput build() => _build();
 
   _$GCreateNewOfferInput _build() {
+    _$GCreateNewOfferInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateNewOfferInput._(
+              owner: BuiltValueNullFieldError.checkNotNull(
+                  owner, r'GCreateNewOfferInput', 'owner'),
+              deadline: BuiltValueNullFieldError.checkNotNull(
+                  deadline, r'GCreateNewOfferInput', 'deadline'),
+              title: BuiltValueNullFieldError.checkNotNull(
+                  title, r'GCreateNewOfferInput', 'title'),
+              description: BuiltValueNullFieldError.checkNotNull(
+                  description, r'GCreateNewOfferInput', 'description'),
+              fee: BuiltValueNullFieldError.checkNotNull(
+                  fee, r'GCreateNewOfferInput', 'fee'),
+              imageUrl: imageUrl,
+              raidId: raidId,
+              category: category,
+              place: BuiltValueNullFieldError.checkNotNull(
+                  place, r'GCreateNewOfferInput', 'place'),
+              attention: attention,
+              requiredSkill: requiredSkill,
+              targetRole: targetRole,
+              publicity: publicity,
+              attachedImgs: _attachedImgs?.build(),
+              attachedFiles: _attachedFiles?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'attachedImgs';
+        _attachedImgs?.build();
+        _$failedField = 'attachedFiles';
+        _attachedFiles?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateNewOfferInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateNewPrizeInput extends GCreateNewPrizeInput {
+  @override
+  final String name;
+  @override
+  final int point;
+  @override
+  final String description;
+  @override
+  final String representation;
+  @override
+  final String? condition;
+  @override
+  final String? imgUrl;
+  @override
+  final bool? publicity;
+
+  factory _$GCreateNewPrizeInput(
+          [void Function(GCreateNewPrizeInputBuilder)? updates]) =>
+      (new GCreateNewPrizeInputBuilder()..update(updates))._build();
+
+  _$GCreateNewPrizeInput._(
+      {required this.name,
+      required this.point,
+      required this.description,
+      required this.representation,
+      this.condition,
+      this.imgUrl,
+      this.publicity})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        name, r'GCreateNewPrizeInput', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        point, r'GCreateNewPrizeInput', 'point');
+    BuiltValueNullFieldError.checkNotNull(
+        description, r'GCreateNewPrizeInput', 'description');
+    BuiltValueNullFieldError.checkNotNull(
+        representation, r'GCreateNewPrizeInput', 'representation');
+  }
+
+  @override
+  GCreateNewPrizeInput rebuild(
+          void Function(GCreateNewPrizeInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewPrizeInputBuilder toBuilder() =>
+      new GCreateNewPrizeInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateNewPrizeInput &&
+        name == other.name &&
+        point == other.point &&
+        description == other.description &&
+        representation == other.representation &&
+        condition == other.condition &&
+        imgUrl == other.imgUrl &&
+        publicity == other.publicity;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, point.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, representation.hashCode);
+    _$hash = $jc(_$hash, condition.hashCode);
+    _$hash = $jc(_$hash, imgUrl.hashCode);
+    _$hash = $jc(_$hash, publicity.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateNewPrizeInput')
+          ..add('name', name)
+          ..add('point', point)
+          ..add('description', description)
+          ..add('representation', representation)
+          ..add('condition', condition)
+          ..add('imgUrl', imgUrl)
+          ..add('publicity', publicity))
+        .toString();
+  }
+}
+
+class GCreateNewPrizeInputBuilder
+    implements Builder<GCreateNewPrizeInput, GCreateNewPrizeInputBuilder> {
+  _$GCreateNewPrizeInput? _$v;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  int? _point;
+  int? get point => _$this._point;
+  set point(int? point) => _$this._point = point;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
+  String? _representation;
+  String? get representation => _$this._representation;
+  set representation(String? representation) =>
+      _$this._representation = representation;
+
+  String? _condition;
+  String? get condition => _$this._condition;
+  set condition(String? condition) => _$this._condition = condition;
+
+  String? _imgUrl;
+  String? get imgUrl => _$this._imgUrl;
+  set imgUrl(String? imgUrl) => _$this._imgUrl = imgUrl;
+
+  bool? _publicity;
+  bool? get publicity => _$this._publicity;
+  set publicity(bool? publicity) => _$this._publicity = publicity;
+
+  GCreateNewPrizeInputBuilder();
+
+  GCreateNewPrizeInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _name = $v.name;
+      _point = $v.point;
+      _description = $v.description;
+      _representation = $v.representation;
+      _condition = $v.condition;
+      _imgUrl = $v.imgUrl;
+      _publicity = $v.publicity;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewPrizeInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewPrizeInput;
+  }
+
+  @override
+  void update(void Function(GCreateNewPrizeInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewPrizeInput build() => _build();
+
+  _$GCreateNewPrizeInput _build() {
     final _$result = _$v ??
-        new _$GCreateNewOfferInput._(
-            owner: BuiltValueNullFieldError.checkNotNull(
-                owner, r'GCreateNewOfferInput', 'owner'),
-            releaseDt: BuiltValueNullFieldError.checkNotNull(
-                releaseDt, r'GCreateNewOfferInput', 'releaseDt'),
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'GCreateNewOfferInput', 'title'),
+        new _$GCreateNewPrizeInput._(
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GCreateNewPrizeInput', 'name'),
+            point: BuiltValueNullFieldError.checkNotNull(
+                point, r'GCreateNewPrizeInput', 'point'),
             description: BuiltValueNullFieldError.checkNotNull(
-                description, r'GCreateNewOfferInput', 'description'),
-            fee: BuiltValueNullFieldError.checkNotNull(
-                fee, r'GCreateNewOfferInput', 'fee'),
-            imageUrl: imageUrl,
-            raidId: raidId,
-            category: category);
+                description, r'GCreateNewPrizeInput', 'description'),
+            representation: BuiltValueNullFieldError.checkNotNull(
+                representation, r'GCreateNewPrizeInput', 'representation'),
+            condition: condition,
+            imgUrl: imgUrl,
+            publicity: publicity);
     replace(_$result);
     return _$result;
   }
@@ -2231,6 +2937,8 @@ class GCreateNewTransactionInputBuilder
 
 class _$GCreateNewUserDataInput extends GCreateNewUserDataInput {
   @override
+  final String id;
+  @override
   final String email;
   @override
   final String name;
@@ -2248,13 +2956,15 @@ class _$GCreateNewUserDataInput extends GCreateNewUserDataInput {
       (new GCreateNewUserDataInputBuilder()..update(updates))._build();
 
   _$GCreateNewUserDataInput._(
-      {required this.email,
+      {required this.id,
+      required this.email,
       required this.name,
       this.imageUrl,
       this.invitedBy,
       required this.category,
       required this.primaryCategory})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'GCreateNewUserDataInput', 'id');
     BuiltValueNullFieldError.checkNotNull(
         email, r'GCreateNewUserDataInput', 'email');
     BuiltValueNullFieldError.checkNotNull(
@@ -2278,6 +2988,7 @@ class _$GCreateNewUserDataInput extends GCreateNewUserDataInput {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GCreateNewUserDataInput &&
+        id == other.id &&
         email == other.email &&
         name == other.name &&
         imageUrl == other.imageUrl &&
@@ -2289,6 +3000,7 @@ class _$GCreateNewUserDataInput extends GCreateNewUserDataInput {
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
@@ -2302,6 +3014,7 @@ class _$GCreateNewUserDataInput extends GCreateNewUserDataInput {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GCreateNewUserDataInput')
+          ..add('id', id)
           ..add('email', email)
           ..add('name', name)
           ..add('imageUrl', imageUrl)
@@ -2316,6 +3029,10 @@ class GCreateNewUserDataInputBuilder
     implements
         Builder<GCreateNewUserDataInput, GCreateNewUserDataInputBuilder> {
   _$GCreateNewUserDataInput? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
   String? _email;
   String? get email => _$this._email;
@@ -2347,6 +3064,7 @@ class GCreateNewUserDataInputBuilder
   GCreateNewUserDataInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
       _email = $v.email;
       _name = $v.name;
       _imageUrl = $v.imageUrl;
@@ -2375,6 +3093,8 @@ class GCreateNewUserDataInputBuilder
   _$GCreateNewUserDataInput _build() {
     final _$result = _$v ??
         new _$GCreateNewUserDataInput._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GCreateNewUserDataInput', 'id'),
             email: BuiltValueNullFieldError.checkNotNull(
                 email, r'GCreateNewUserDataInput', 'email'),
             name: BuiltValueNullFieldError.checkNotNull(
@@ -2564,6 +3284,121 @@ class GDeleteOfferInputBuilder
   }
 }
 
+class _$GExchangePrizeInput extends GExchangePrizeInput {
+  @override
+  final String userId;
+  @override
+  final int prizeId;
+  @override
+  final int? amount;
+
+  factory _$GExchangePrizeInput(
+          [void Function(GExchangePrizeInputBuilder)? updates]) =>
+      (new GExchangePrizeInputBuilder()..update(updates))._build();
+
+  _$GExchangePrizeInput._(
+      {required this.userId, required this.prizeId, this.amount})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        userId, r'GExchangePrizeInput', 'userId');
+    BuiltValueNullFieldError.checkNotNull(
+        prizeId, r'GExchangePrizeInput', 'prizeId');
+  }
+
+  @override
+  GExchangePrizeInput rebuild(
+          void Function(GExchangePrizeInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GExchangePrizeInputBuilder toBuilder() =>
+      new GExchangePrizeInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GExchangePrizeInput &&
+        userId == other.userId &&
+        prizeId == other.prizeId &&
+        amount == other.amount;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, userId.hashCode);
+    _$hash = $jc(_$hash, prizeId.hashCode);
+    _$hash = $jc(_$hash, amount.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GExchangePrizeInput')
+          ..add('userId', userId)
+          ..add('prizeId', prizeId)
+          ..add('amount', amount))
+        .toString();
+  }
+}
+
+class GExchangePrizeInputBuilder
+    implements Builder<GExchangePrizeInput, GExchangePrizeInputBuilder> {
+  _$GExchangePrizeInput? _$v;
+
+  String? _userId;
+  String? get userId => _$this._userId;
+  set userId(String? userId) => _$this._userId = userId;
+
+  int? _prizeId;
+  int? get prizeId => _$this._prizeId;
+  set prizeId(int? prizeId) => _$this._prizeId = prizeId;
+
+  int? _amount;
+  int? get amount => _$this._amount;
+  set amount(int? amount) => _$this._amount = amount;
+
+  GExchangePrizeInputBuilder();
+
+  GExchangePrizeInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _userId = $v.userId;
+      _prizeId = $v.prizeId;
+      _amount = $v.amount;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GExchangePrizeInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GExchangePrizeInput;
+  }
+
+  @override
+  void update(void Function(GExchangePrizeInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GExchangePrizeInput build() => _build();
+
+  _$GExchangePrizeInput _build() {
+    final _$result = _$v ??
+        new _$GExchangePrizeInput._(
+            userId: BuiltValueNullFieldError.checkNotNull(
+                userId, r'GExchangePrizeInput', 'userId'),
+            prizeId: BuiltValueNullFieldError.checkNotNull(
+                prizeId, r'GExchangePrizeInput', 'prizeId'),
+            amount: amount);
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GSendMessageInput extends GSendMessageInput {
   @override
   final String roomId;
@@ -2729,11 +3564,13 @@ class GSendMessageInputBuilder
 class _$GUpdateBelongsToArtistStatusInput
     extends GUpdateBelongsToArtistStatusInput {
   @override
-  final String id;
+  final String userId;
   @override
-  final String? artistId;
+  final String artistId;
   @override
-  final String? status;
+  final String? nextStatus;
+  @override
+  final bool? nextStatusIsAdmin;
 
   factory _$GUpdateBelongsToArtistStatusInput(
           [void Function(GUpdateBelongsToArtistStatusInputBuilder)? updates]) =>
@@ -2741,10 +3578,15 @@ class _$GUpdateBelongsToArtistStatusInput
           ._build();
 
   _$GUpdateBelongsToArtistStatusInput._(
-      {required this.id, this.artistId, this.status})
+      {required this.userId,
+      required this.artistId,
+      this.nextStatus,
+      this.nextStatusIsAdmin})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GUpdateBelongsToArtistStatusInput', 'id');
+        userId, r'GUpdateBelongsToArtistStatusInput', 'userId');
+    BuiltValueNullFieldError.checkNotNull(
+        artistId, r'GUpdateBelongsToArtistStatusInput', 'artistId');
   }
 
   @override
@@ -2760,17 +3602,19 @@ class _$GUpdateBelongsToArtistStatusInput
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GUpdateBelongsToArtistStatusInput &&
-        id == other.id &&
+        userId == other.userId &&
         artistId == other.artistId &&
-        status == other.status;
+        nextStatus == other.nextStatus &&
+        nextStatusIsAdmin == other.nextStatusIsAdmin;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, userId.hashCode);
     _$hash = $jc(_$hash, artistId.hashCode);
-    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, nextStatus.hashCode);
+    _$hash = $jc(_$hash, nextStatusIsAdmin.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -2778,9 +3622,10 @@ class _$GUpdateBelongsToArtistStatusInput
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GUpdateBelongsToArtistStatusInput')
-          ..add('id', id)
+          ..add('userId', userId)
           ..add('artistId', artistId)
-          ..add('status', status))
+          ..add('nextStatus', nextStatus)
+          ..add('nextStatusIsAdmin', nextStatusIsAdmin))
         .toString();
   }
 }
@@ -2791,26 +3636,32 @@ class GUpdateBelongsToArtistStatusInputBuilder
             GUpdateBelongsToArtistStatusInputBuilder> {
   _$GUpdateBelongsToArtistStatusInput? _$v;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
+  String? _userId;
+  String? get userId => _$this._userId;
+  set userId(String? userId) => _$this._userId = userId;
 
   String? _artistId;
   String? get artistId => _$this._artistId;
   set artistId(String? artistId) => _$this._artistId = artistId;
 
-  String? _status;
-  String? get status => _$this._status;
-  set status(String? status) => _$this._status = status;
+  String? _nextStatus;
+  String? get nextStatus => _$this._nextStatus;
+  set nextStatus(String? nextStatus) => _$this._nextStatus = nextStatus;
+
+  bool? _nextStatusIsAdmin;
+  bool? get nextStatusIsAdmin => _$this._nextStatusIsAdmin;
+  set nextStatusIsAdmin(bool? nextStatusIsAdmin) =>
+      _$this._nextStatusIsAdmin = nextStatusIsAdmin;
 
   GUpdateBelongsToArtistStatusInputBuilder();
 
   GUpdateBelongsToArtistStatusInputBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _id = $v.id;
+      _userId = $v.userId;
       _artistId = $v.artistId;
-      _status = $v.status;
+      _nextStatus = $v.nextStatus;
+      _nextStatusIsAdmin = $v.nextStatusIsAdmin;
       _$v = null;
     }
     return this;
@@ -2834,10 +3685,12 @@ class GUpdateBelongsToArtistStatusInputBuilder
   _$GUpdateBelongsToArtistStatusInput _build() {
     final _$result = _$v ??
         new _$GUpdateBelongsToArtistStatusInput._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GUpdateBelongsToArtistStatusInput', 'id'),
-            artistId: artistId,
-            status: status);
+            userId: BuiltValueNullFieldError.checkNotNull(
+                userId, r'GUpdateBelongsToArtistStatusInput', 'userId'),
+            artistId: BuiltValueNullFieldError.checkNotNull(
+                artistId, r'GUpdateBelongsToArtistStatusInput', 'artistId'),
+            nextStatus: nextStatus,
+            nextStatusIsAdmin: nextStatusIsAdmin);
     replace(_$result);
     return _$result;
   }
@@ -2957,7 +3810,7 @@ class GUpdateNotificationInputBuilder
 
 class _$GUpdateOfferInput extends GUpdateOfferInput {
   @override
-  final String id;
+  final int id;
   @override
   final String? title;
   @override
@@ -2967,9 +3820,19 @@ class _$GUpdateOfferInput extends GUpdateOfferInput {
   @override
   final String? imageUrl;
   @override
-  final int? raidId;
-  @override
   final String? category;
+  @override
+  final String? place;
+  @override
+  final String? attention;
+  @override
+  final String? requiredSkill;
+  @override
+  final String? targetRole;
+  @override
+  final BuiltList<String>? attachedMedia;
+  @override
+  final bool? publicity;
 
   factory _$GUpdateOfferInput(
           [void Function(GUpdateOfferInputBuilder)? updates]) =>
@@ -2981,8 +3844,13 @@ class _$GUpdateOfferInput extends GUpdateOfferInput {
       this.description,
       this.fee,
       this.imageUrl,
-      this.raidId,
-      this.category})
+      this.category,
+      this.place,
+      this.attention,
+      this.requiredSkill,
+      this.targetRole,
+      this.attachedMedia,
+      this.publicity})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'GUpdateOfferInput', 'id');
   }
@@ -3004,8 +3872,13 @@ class _$GUpdateOfferInput extends GUpdateOfferInput {
         description == other.description &&
         fee == other.fee &&
         imageUrl == other.imageUrl &&
-        raidId == other.raidId &&
-        category == other.category;
+        category == other.category &&
+        place == other.place &&
+        attention == other.attention &&
+        requiredSkill == other.requiredSkill &&
+        targetRole == other.targetRole &&
+        attachedMedia == other.attachedMedia &&
+        publicity == other.publicity;
   }
 
   @override
@@ -3016,8 +3889,13 @@ class _$GUpdateOfferInput extends GUpdateOfferInput {
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, fee.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, raidId.hashCode);
     _$hash = $jc(_$hash, category.hashCode);
+    _$hash = $jc(_$hash, place.hashCode);
+    _$hash = $jc(_$hash, attention.hashCode);
+    _$hash = $jc(_$hash, requiredSkill.hashCode);
+    _$hash = $jc(_$hash, targetRole.hashCode);
+    _$hash = $jc(_$hash, attachedMedia.hashCode);
+    _$hash = $jc(_$hash, publicity.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -3030,8 +3908,13 @@ class _$GUpdateOfferInput extends GUpdateOfferInput {
           ..add('description', description)
           ..add('fee', fee)
           ..add('imageUrl', imageUrl)
-          ..add('raidId', raidId)
-          ..add('category', category))
+          ..add('category', category)
+          ..add('place', place)
+          ..add('attention', attention)
+          ..add('requiredSkill', requiredSkill)
+          ..add('targetRole', targetRole)
+          ..add('attachedMedia', attachedMedia)
+          ..add('publicity', publicity))
         .toString();
   }
 }
@@ -3040,9 +3923,9 @@ class GUpdateOfferInputBuilder
     implements Builder<GUpdateOfferInput, GUpdateOfferInputBuilder> {
   _$GUpdateOfferInput? _$v;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
   String? _title;
   String? get title => _$this._title;
@@ -3060,13 +3943,36 @@ class GUpdateOfferInputBuilder
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  int? _raidId;
-  int? get raidId => _$this._raidId;
-  set raidId(int? raidId) => _$this._raidId = raidId;
-
   String? _category;
   String? get category => _$this._category;
   set category(String? category) => _$this._category = category;
+
+  String? _place;
+  String? get place => _$this._place;
+  set place(String? place) => _$this._place = place;
+
+  String? _attention;
+  String? get attention => _$this._attention;
+  set attention(String? attention) => _$this._attention = attention;
+
+  String? _requiredSkill;
+  String? get requiredSkill => _$this._requiredSkill;
+  set requiredSkill(String? requiredSkill) =>
+      _$this._requiredSkill = requiredSkill;
+
+  String? _targetRole;
+  String? get targetRole => _$this._targetRole;
+  set targetRole(String? targetRole) => _$this._targetRole = targetRole;
+
+  ListBuilder<String>? _attachedMedia;
+  ListBuilder<String> get attachedMedia =>
+      _$this._attachedMedia ??= new ListBuilder<String>();
+  set attachedMedia(ListBuilder<String>? attachedMedia) =>
+      _$this._attachedMedia = attachedMedia;
+
+  bool? _publicity;
+  bool? get publicity => _$this._publicity;
+  set publicity(bool? publicity) => _$this._publicity = publicity;
 
   GUpdateOfferInputBuilder();
 
@@ -3078,8 +3984,13 @@ class GUpdateOfferInputBuilder
       _description = $v.description;
       _fee = $v.fee;
       _imageUrl = $v.imageUrl;
-      _raidId = $v.raidId;
       _category = $v.category;
+      _place = $v.place;
+      _attention = $v.attention;
+      _requiredSkill = $v.requiredSkill;
+      _targetRole = $v.targetRole;
+      _attachedMedia = $v.attachedMedia?.toBuilder();
+      _publicity = $v.publicity;
       _$v = null;
     }
     return this;
@@ -3100,16 +4011,152 @@ class GUpdateOfferInputBuilder
   GUpdateOfferInput build() => _build();
 
   _$GUpdateOfferInput _build() {
+    _$GUpdateOfferInput _$result;
+    try {
+      _$result = _$v ??
+          new _$GUpdateOfferInput._(
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GUpdateOfferInput', 'id'),
+              title: title,
+              description: description,
+              fee: fee,
+              imageUrl: imageUrl,
+              category: category,
+              place: place,
+              attention: attention,
+              requiredSkill: requiredSkill,
+              targetRole: targetRole,
+              attachedMedia: _attachedMedia?.build(),
+              publicity: publicity);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'attachedMedia';
+        _attachedMedia?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateOfferInput', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateOfferStatusInput extends GUpdateOfferStatusInput {
+  @override
+  final int id;
+  @override
+  final String userId;
+  @override
+  final String status;
+
+  factory _$GUpdateOfferStatusInput(
+          [void Function(GUpdateOfferStatusInputBuilder)? updates]) =>
+      (new GUpdateOfferStatusInputBuilder()..update(updates))._build();
+
+  _$GUpdateOfferStatusInput._(
+      {required this.id, required this.userId, required this.status})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'GUpdateOfferStatusInput', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        userId, r'GUpdateOfferStatusInput', 'userId');
+    BuiltValueNullFieldError.checkNotNull(
+        status, r'GUpdateOfferStatusInput', 'status');
+  }
+
+  @override
+  GUpdateOfferStatusInput rebuild(
+          void Function(GUpdateOfferStatusInputBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateOfferStatusInputBuilder toBuilder() =>
+      new GUpdateOfferStatusInputBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateOfferStatusInput &&
+        id == other.id &&
+        userId == other.userId &&
+        status == other.status;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, userId.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateOfferStatusInput')
+          ..add('id', id)
+          ..add('userId', userId)
+          ..add('status', status))
+        .toString();
+  }
+}
+
+class GUpdateOfferStatusInputBuilder
+    implements
+        Builder<GUpdateOfferStatusInput, GUpdateOfferStatusInputBuilder> {
+  _$GUpdateOfferStatusInput? _$v;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  String? _userId;
+  String? get userId => _$this._userId;
+  set userId(String? userId) => _$this._userId = userId;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  GUpdateOfferStatusInputBuilder();
+
+  GUpdateOfferStatusInputBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _userId = $v.userId;
+      _status = $v.status;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateOfferStatusInput other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateOfferStatusInput;
+  }
+
+  @override
+  void update(void Function(GUpdateOfferStatusInputBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateOfferStatusInput build() => _build();
+
+  _$GUpdateOfferStatusInput _build() {
     final _$result = _$v ??
-        new _$GUpdateOfferInput._(
+        new _$GUpdateOfferStatusInput._(
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GUpdateOfferInput', 'id'),
-            title: title,
-            description: description,
-            fee: fee,
-            imageUrl: imageUrl,
-            raidId: raidId,
-            category: category);
+                id, r'GUpdateOfferStatusInput', 'id'),
+            userId: BuiltValueNullFieldError.checkNotNull(
+                userId, r'GUpdateOfferStatusInput', 'userId'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GUpdateOfferStatusInput', 'status'));
     replace(_$result);
     return _$result;
   }
@@ -3128,8 +4175,6 @@ class _$GUpdateUserDataInput extends GUpdateUserDataInput {
   final String? primaryCategory;
   @override
   final String? evmAddr;
-  @override
-  final String? status;
 
   factory _$GUpdateUserDataInput(
           [void Function(GUpdateUserDataInputBuilder)? updates]) =>
@@ -3141,8 +4186,7 @@ class _$GUpdateUserDataInput extends GUpdateUserDataInput {
       this.name,
       this.imageUrl,
       this.primaryCategory,
-      this.evmAddr,
-      this.status})
+      this.evmAddr})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'GUpdateUserDataInput', 'id');
   }
@@ -3165,8 +4209,7 @@ class _$GUpdateUserDataInput extends GUpdateUserDataInput {
         name == other.name &&
         imageUrl == other.imageUrl &&
         primaryCategory == other.primaryCategory &&
-        evmAddr == other.evmAddr &&
-        status == other.status;
+        evmAddr == other.evmAddr;
   }
 
   @override
@@ -3178,7 +4221,6 @@ class _$GUpdateUserDataInput extends GUpdateUserDataInput {
     _$hash = $jc(_$hash, imageUrl.hashCode);
     _$hash = $jc(_$hash, primaryCategory.hashCode);
     _$hash = $jc(_$hash, evmAddr.hashCode);
-    _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -3191,8 +4233,7 @@ class _$GUpdateUserDataInput extends GUpdateUserDataInput {
           ..add('name', name)
           ..add('imageUrl', imageUrl)
           ..add('primaryCategory', primaryCategory)
-          ..add('evmAddr', evmAddr)
-          ..add('status', status))
+          ..add('evmAddr', evmAddr))
         .toString();
   }
 }
@@ -3226,10 +4267,6 @@ class GUpdateUserDataInputBuilder
   String? get evmAddr => _$this._evmAddr;
   set evmAddr(String? evmAddr) => _$this._evmAddr = evmAddr;
 
-  String? _status;
-  String? get status => _$this._status;
-  set status(String? status) => _$this._status = status;
-
   GUpdateUserDataInputBuilder();
 
   GUpdateUserDataInputBuilder get _$this {
@@ -3241,7 +4278,6 @@ class GUpdateUserDataInputBuilder
       _imageUrl = $v.imageUrl;
       _primaryCategory = $v.primaryCategory;
       _evmAddr = $v.evmAddr;
-      _status = $v.status;
       _$v = null;
     }
     return this;
@@ -3270,8 +4306,7 @@ class GUpdateUserDataInputBuilder
             name: name,
             imageUrl: imageUrl,
             primaryCategory: primaryCategory,
-            evmAddr: evmAddr,
-            status: status);
+            evmAddr: evmAddr);
     replace(_$result);
     return _$result;
   }

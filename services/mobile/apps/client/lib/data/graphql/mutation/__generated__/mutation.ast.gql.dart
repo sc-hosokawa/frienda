@@ -42,196 +42,6 @@ const AddNewConnection = _i1.OperationDefinitionNode(
     )
   ]),
 );
-const CreateNewMessageRoom = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'CreateNewMessageRoom'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'CreateNewMessageRoomInput'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'createNewMessageRoom'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        )
-      ]),
-    )
-  ]),
-);
-const SendMessage = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'SendMessage'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'SendMessageInput'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'sendMessage'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        )
-      ]),
-    )
-  ]),
-);
-const CreateNewOffer = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'CreateNewOffer'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'CreateNewOfferInput'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'createNewOffer'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        )
-      ]),
-    )
-  ]),
-);
-const UpdateOffer = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'UpdateOffer'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'UpdateOfferInput'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'updateOffer'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        )
-      ]),
-    )
-  ]),
-);
-const DeleteOffer = _i1.OperationDefinitionNode(
-  type: _i1.OperationType.mutation,
-  name: _i1.NameNode(value: 'DeleteOffer'),
-  variableDefinitions: [
-    _i1.VariableDefinitionNode(
-      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-      type: _i1.NamedTypeNode(
-        name: _i1.NameNode(value: 'DeleteOfferInput'),
-        isNonNull: true,
-      ),
-      defaultValue: _i1.DefaultValueNode(value: null),
-      directives: [],
-    )
-  ],
-  directives: [],
-  selectionSet: _i1.SelectionSetNode(selections: [
-    _i1.FieldNode(
-      name: _i1.NameNode(value: 'deleteOffer'),
-      alias: null,
-      arguments: [
-        _i1.ArgumentNode(
-          name: _i1.NameNode(value: 'input'),
-          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
-        )
-      ],
-      directives: [],
-      selectionSet: _i1.SelectionSetNode(selections: [
-        _i1.FieldNode(
-          name: _i1.NameNode(value: 'id'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        )
-      ]),
-    )
-  ]),
-);
 const CreateNewUserData = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
   name: _i1.NameNode(value: 'CreateNewUserData'),
@@ -353,13 +163,6 @@ const UpdateUserData = _i1.OperationDefinitionNode(
               selectionSet: null,
             ),
             _i1.FieldNode(
-              name: _i1.NameNode(value: 'fspBalanceTemp'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-            _i1.FieldNode(
               name: _i1.NameNode(value: 'credentialBalance'),
               alias: null,
               arguments: [],
@@ -367,7 +170,7 @@ const UpdateUserData = _i1.OperationDefinitionNode(
               selectionSet: null,
             ),
             _i1.FieldNode(
-              name: _i1.NameNode(value: 'roles'),
+              name: _i1.NameNode(value: 'role'),
               alias: null,
               arguments: [],
               directives: [],
@@ -408,7 +211,21 @@ const UpdateUserData = _i1.OperationDefinitionNode(
                   selectionSet: null,
                 ),
                 _i1.FieldNode(
-                  name: _i1.NameNode(value: 'isAccepted'),
+                  name: _i1.NameNode(value: 'fsp'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'status'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'isAdmin'),
                   alias: null,
                   arguments: [],
                   directives: [],
@@ -444,7 +261,21 @@ const UpdateUserData = _i1.OperationDefinitionNode(
                   selectionSet: null,
                 ),
                 _i1.FieldNode(
-                  name: _i1.NameNode(value: 'isAccepted'),
+                  name: _i1.NameNode(value: 'fsp'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'status'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+                _i1.FieldNode(
+                  name: _i1.NameNode(value: 'isAdmin'),
                   alias: null,
                   arguments: [],
                   directives: [],
@@ -486,47 +317,53 @@ const UpdateBelongsToArtistStatus = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'artistList'),
+          name: _i1.NameNode(value: 'updatedUserArtist'),
           alias: null,
           arguments: [],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
             _i1.FieldNode(
-              name: _i1.NameNode(value: 'artistList'),
+              name: _i1.NameNode(value: 'id'),
               alias: null,
               arguments: [],
               directives: [],
-              selectionSet: _i1.SelectionSetNode(selections: [
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'id'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'name'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'imageUrl'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-                _i1.FieldNode(
-                  name: _i1.NameNode(value: 'isAccepted'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ]),
-            )
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'name'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'imageUrl'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'fsp'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'status'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+            _i1.FieldNode(
+              name: _i1.NameNode(value: 'isAdmin'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
           ]),
         )
       ]),
@@ -567,6 +404,110 @@ const ContactToAdmin = _i1.OperationDefinitionNode(
           directives: [],
           selectionSet: null,
         )
+      ]),
+    )
+  ]),
+);
+const CreateNewMessageRoom = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'CreateNewMessageRoom'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CreateNewMessageRoomInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'createNewMessageRoom'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        )
+      ]),
+    )
+  ]),
+);
+const SendMessage = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'SendMessage'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'SendMessageInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'sendMessage'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'message'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'sentAt'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'attachedFile'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'attachedImg'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
       ]),
     )
   ]),
@@ -685,6 +626,165 @@ const DeleteNotification = _i1.OperationDefinitionNode(
     )
   ]),
 );
+const CreateNewOffer = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'CreateNewOffer'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CreateNewOfferInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'createNewOffer'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        )
+      ]),
+    )
+  ]),
+);
+const UpdateOfferInfo = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'UpdateOfferInfo'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UpdateOfferInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'updateOfferInfo'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        )
+      ]),
+    )
+  ]),
+);
+const UpdateOfferStatus = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'UpdateOfferStatus'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'UpdateOfferStatusInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'updateOfferStatus'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'offerId'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    )
+  ]),
+);
+const DeleteOffer = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'DeleteOffer'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'DeleteOfferInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'deleteOffer'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        )
+      ]),
+    )
+  ]),
+);
 const CreateFspTx = _i1.OperationDefinitionNode(
   type: _i1.OperationType.mutation,
   name: _i1.NameNode(value: 'CreateFspTx'),
@@ -713,12 +813,136 @@ const CreateFspTx = _i1.OperationDefinitionNode(
       directives: [],
       selectionSet: _i1.SelectionSetNode(selections: [
         _i1.FieldNode(
-          name: _i1.NameNode(value: 'newBalance'),
+          name: _i1.NameNode(value: 'txId'),
           alias: null,
           arguments: [],
           directives: [],
           selectionSet: null,
         )
+      ]),
+    )
+  ]),
+);
+const CreateBulkFspTx = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'CreateBulkFspTx'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.ListTypeNode(
+        type: _i1.NamedTypeNode(
+          name: _i1.NameNode(value: 'CreateNewTransactionInput'),
+          isNonNull: true,
+        ),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'createBulkFspTx'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'txId'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        )
+      ]),
+    )
+  ]),
+);
+const CreatePrize = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'CreatePrize'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'CreateNewPrizeInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'createPrize'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        )
+      ]),
+    )
+  ]),
+);
+const ExchangePrize = _i1.OperationDefinitionNode(
+  type: _i1.OperationType.mutation,
+  name: _i1.NameNode(value: 'ExchangePrize'),
+  variableDefinitions: [
+    _i1.VariableDefinitionNode(
+      variable: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+      type: _i1.NamedTypeNode(
+        name: _i1.NameNode(value: 'ExchangePrizeInput'),
+        isNonNull: true,
+      ),
+      defaultValue: _i1.DefaultValueNode(value: null),
+      directives: [],
+    )
+  ],
+  directives: [],
+  selectionSet: _i1.SelectionSetNode(selections: [
+    _i1.FieldNode(
+      name: _i1.NameNode(value: 'exchangePrize'),
+      alias: null,
+      arguments: [
+        _i1.ArgumentNode(
+          name: _i1.NameNode(value: 'input'),
+          value: _i1.VariableNode(name: _i1.NameNode(value: 'input')),
+        )
+      ],
+      directives: [],
+      selectionSet: _i1.SelectionSetNode(selections: [
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'id'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+        _i1.FieldNode(
+          name: _i1.NameNode(value: 'txId'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
       ]),
     )
   ]),
@@ -770,18 +994,22 @@ const CreateNewArtist = _i1.OperationDefinitionNode(
 );
 const document = _i1.DocumentNode(definitions: [
   AddNewConnection,
-  CreateNewMessageRoom,
-  SendMessage,
-  CreateNewOffer,
-  UpdateOffer,
-  DeleteOffer,
   CreateNewUserData,
   UpdateUserData,
   UpdateBelongsToArtistStatus,
   ContactToAdmin,
+  CreateNewMessageRoom,
+  SendMessage,
   CreateNewNotification,
   UpdateNotification,
   DeleteNotification,
+  CreateNewOffer,
+  UpdateOfferInfo,
+  UpdateOfferStatus,
+  DeleteOffer,
   CreateFspTx,
+  CreateBulkFspTx,
+  CreatePrize,
+  ExchangePrize,
   CreateNewArtist,
 ]);

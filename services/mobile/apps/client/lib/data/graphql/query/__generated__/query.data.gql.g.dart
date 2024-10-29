@@ -11,76 +11,6 @@ Serializer<GHealthCheckData> _$gHealthCheckDataSerializer =
 Serializer<GHealthCheckData_healthCheck>
     _$gHealthCheckDataHealthCheckSerializer =
     new _$GHealthCheckData_healthCheckSerializer();
-Serializer<GGetUserInfoData> _$gGetUserInfoDataSerializer =
-    new _$GGetUserInfoDataSerializer();
-Serializer<GGetUserInfoData_getUserInfo>
-    _$gGetUserInfoDataGetUserInfoSerializer =
-    new _$GGetUserInfoData_getUserInfoSerializer();
-Serializer<GGetUserInfoData_getUserInfo_userInfo>
-    _$gGetUserInfoDataGetUserInfoUserInfoSerializer =
-    new _$GGetUserInfoData_getUserInfo_userInfoSerializer();
-Serializer<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
-    _$gGetUserInfoDataGetUserInfoUserInfoBelongsToArtistsSerializer =
-    new _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsSerializer();
-Serializer<GGetUserInfoData_getUserInfo_userInfo_primaryArtist>
-    _$gGetUserInfoDataGetUserInfoUserInfoPrimaryArtistSerializer =
-    new _$GGetUserInfoData_getUserInfo_userInfo_primaryArtistSerializer();
-Serializer<GGetAllOffersData> _$gGetAllOffersDataSerializer =
-    new _$GGetAllOffersDataSerializer();
-Serializer<GGetAllOffersData_getAllOffers>
-    _$gGetAllOffersDataGetAllOffersSerializer =
-    new _$GGetAllOffersData_getAllOffersSerializer();
-Serializer<GGetMessageRoomsData> _$gGetMessageRoomsDataSerializer =
-    new _$GGetMessageRoomsDataSerializer();
-Serializer<GGetMessageRoomsData_getMessageRooms>
-    _$gGetMessageRoomsDataGetMessageRoomsSerializer =
-    new _$GGetMessageRoomsData_getMessageRoomsSerializer();
-Serializer<GGetMessageRoomsData_getMessageRooms_messageRoomList>
-    _$gGetMessageRoomsDataGetMessageRoomsMessageRoomListSerializer =
-    new _$GGetMessageRoomsData_getMessageRooms_messageRoomListSerializer();
-Serializer<GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage>
-    _$gGetMessageRoomsDataGetMessageRoomsMessageRoomListLatestMessageSerializer =
-    new _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageSerializer();
-Serializer<
-        GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy>
-    _$gGetMessageRoomsDataGetMessageRoomsMessageRoomListLatestMessageSendBySerializer =
-    new _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBySerializer();
-Serializer<GGetMessagesByMessageRoomIdData>
-    _$gGetMessagesByMessageRoomIdDataSerializer =
-    new _$GGetMessagesByMessageRoomIdDataSerializer();
-Serializer<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId>
-    _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdSerializer =
-    new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdSerializer();
-Serializer<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to>
-    _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdToSerializer =
-    new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toSerializer();
-Serializer<
-        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
-    _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdMessageListSerializer =
-    new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListSerializer();
-Serializer<
-        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy>
-    _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdMessageListSendBySerializer =
-    new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBySerializer();
-Serializer<GGetNotificationsData> _$gGetNotificationsDataSerializer =
-    new _$GGetNotificationsDataSerializer();
-Serializer<GGetNotificationsData_getNotifications>
-    _$gGetNotificationsDataGetNotificationsSerializer =
-    new _$GGetNotificationsData_getNotificationsSerializer();
-Serializer<GGetNotificationsData_getNotifications_notifications>
-    _$gGetNotificationsDataGetNotificationsNotificationsSerializer =
-    new _$GGetNotificationsData_getNotifications_notificationsSerializer();
-Serializer<GGetUserDataData> _$gGetUserDataDataSerializer =
-    new _$GGetUserDataDataSerializer();
-Serializer<GGetUserDataData_getUserData>
-    _$gGetUserDataDataGetUserDataSerializer =
-    new _$GGetUserDataData_getUserDataSerializer();
-Serializer<GGetUserDataData_getUserData_belongsToArtists>
-    _$gGetUserDataDataGetUserDataBelongsToArtistsSerializer =
-    new _$GGetUserDataData_getUserData_belongsToArtistsSerializer();
-Serializer<GGetUserDataData_getUserData_primaryArtist>
-    _$gGetUserDataDataGetUserDataPrimaryArtistSerializer =
-    new _$GGetUserDataData_getUserData_primaryArtistSerializer();
 Serializer<GGetOverviewDataData> _$gGetOverviewDataDataSerializer =
     new _$GGetOverviewDataDataSerializer();
 Serializer<GGetOverviewDataData_getOverviewData>
@@ -126,6 +56,20 @@ Serializer<
         GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist>
     _$gGetCommunitiesDataGetCommunitiesConnectedUserListConnectedUserPrimaryArtistSerializer =
     new _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtistSerializer();
+Serializer<GGetUserInfoData> _$gGetUserInfoDataSerializer =
+    new _$GGetUserInfoDataSerializer();
+Serializer<GGetUserInfoData_getUserInfo>
+    _$gGetUserInfoDataGetUserInfoSerializer =
+    new _$GGetUserInfoData_getUserInfoSerializer();
+Serializer<GGetUserInfoData_getUserInfo_userInfo>
+    _$gGetUserInfoDataGetUserInfoUserInfoSerializer =
+    new _$GGetUserInfoData_getUserInfo_userInfoSerializer();
+Serializer<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
+    _$gGetUserInfoDataGetUserInfoUserInfoBelongsToArtistsSerializer =
+    new _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsSerializer();
+Serializer<GGetUserInfoData_getUserInfo_userInfo_primaryArtist>
+    _$gGetUserInfoDataGetUserInfoUserInfoPrimaryArtistSerializer =
+    new _$GGetUserInfoData_getUserInfo_userInfo_primaryArtistSerializer();
 Serializer<GGetOfferStatsByUserData> _$gGetOfferStatsByUserDataSerializer =
     new _$GGetOfferStatsByUserDataSerializer();
 Serializer<GGetOfferStatsByUserData_getOfferStatsByUser>
@@ -147,9 +91,9 @@ Serializer<GGetOffersByStatusData_getOffersByStatus>
 Serializer<GGetOffersByStatusData_getOffersByStatus_inprogressOffers>
     _$gGetOffersByStatusDataGetOffersByStatusInprogressOffersSerializer =
     new _$GGetOffersByStatusData_getOffersByStatus_inprogressOffersSerializer();
-Serializer<GGetOffersByStatusData_getOffersByStatus_appledOffers>
-    _$gGetOffersByStatusDataGetOffersByStatusAppledOffersSerializer =
-    new _$GGetOffersByStatusData_getOffersByStatus_appledOffersSerializer();
+Serializer<GGetOffersByStatusData_getOffersByStatus_appliedOffers>
+    _$gGetOffersByStatusDataGetOffersByStatusAppliedOffersSerializer =
+    new _$GGetOffersByStatusData_getOffersByStatus_appliedOffersSerializer();
 Serializer<GGetOffersData> _$gGetOffersDataSerializer =
     new _$GGetOffersDataSerializer();
 Serializer<GGetOffersData_getOffers> _$gGetOffersDataGetOffersSerializer =
@@ -157,6 +101,11 @@ Serializer<GGetOffersData_getOffers> _$gGetOffersDataGetOffersSerializer =
 Serializer<GGetOffersData_getOffers_offerList>
     _$gGetOffersDataGetOffersOfferListSerializer =
     new _$GGetOffersData_getOffers_offerListSerializer();
+Serializer<GGetAllOffersData> _$gGetAllOffersDataSerializer =
+    new _$GGetAllOffersDataSerializer();
+Serializer<GGetAllOffersData_getAllOffers>
+    _$gGetAllOffersDataGetAllOffersSerializer =
+    new _$GGetAllOffersData_getAllOffersSerializer();
 Serializer<GGetOffersByCategoryData> _$gGetOffersByCategoryDataSerializer =
     new _$GGetOffersByCategoryDataSerializer();
 Serializer<GGetOffersByCategoryData_getOffersByCategory>
@@ -165,6 +114,14 @@ Serializer<GGetOffersByCategoryData_getOffersByCategory>
 Serializer<GGetOffersByCategoryData_getOffersByCategory_offerList>
     _$gGetOffersByCategoryDataGetOffersByCategoryOfferListSerializer =
     new _$GGetOffersByCategoryData_getOffersByCategory_offerListSerializer();
+Serializer<GGetMessageRoomsData> _$gGetMessageRoomsDataSerializer =
+    new _$GGetMessageRoomsDataSerializer();
+Serializer<GGetMessageRoomsData_getMessageRooms>
+    _$gGetMessageRoomsDataGetMessageRoomsSerializer =
+    new _$GGetMessageRoomsData_getMessageRoomsSerializer();
+Serializer<GGetMessageRoomsData_getMessageRooms_messageRoomList>
+    _$gGetMessageRoomsDataGetMessageRoomsMessageRoomListSerializer =
+    new _$GGetMessageRoomsData_getMessageRooms_messageRoomListSerializer();
 Serializer<GGetMessagesInProgressData> _$gGetMessagesInProgressDataSerializer =
     new _$GGetMessagesInProgressDataSerializer();
 Serializer<GGetMessagesInProgressData_getMessagesInProgress>
@@ -173,14 +130,27 @@ Serializer<GGetMessagesInProgressData_getMessagesInProgress>
 Serializer<GGetMessagesInProgressData_getMessagesInProgress_messageRoomList>
     _$gGetMessagesInProgressDataGetMessagesInProgressMessageRoomListSerializer =
     new _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomListSerializer();
+Serializer<GGetMessagesByMessageRoomIdData>
+    _$gGetMessagesByMessageRoomIdDataSerializer =
+    new _$GGetMessagesByMessageRoomIdDataSerializer();
+Serializer<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId>
+    _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdSerializer =
+    new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdSerializer();
+Serializer<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to>
+    _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdToSerializer =
+    new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toSerializer();
 Serializer<
-        GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage>
-    _$gGetMessagesInProgressDataGetMessagesInProgressMessageRoomListLatestMessageSerializer =
-    new _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageSerializer();
-Serializer<
-        GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy>
-    _$gGetMessagesInProgressDataGetMessagesInProgressMessageRoomListLatestMessageSendBySerializer =
-    new _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBySerializer();
+        GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
+    _$gGetMessagesByMessageRoomIdDataGetMessagesByMessageRoomIdMessageListSerializer =
+    new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListSerializer();
+Serializer<GGetNotificationsData> _$gGetNotificationsDataSerializer =
+    new _$GGetNotificationsDataSerializer();
+Serializer<GGetNotificationsData_getNotifications>
+    _$gGetNotificationsDataGetNotificationsSerializer =
+    new _$GGetNotificationsData_getNotificationsSerializer();
+Serializer<GGetNotificationsData_getNotifications_notifications>
+    _$gGetNotificationsDataGetNotificationsNotificationsSerializer =
+    new _$GGetNotificationsData_getNotifications_notificationsSerializer();
 Serializer<GGetAllNotificationsData> _$gGetAllNotificationsDataSerializer =
     new _$GGetAllNotificationsDataSerializer();
 Serializer<GGetAllNotificationsData_getAllNotifications>
@@ -189,6 +159,17 @@ Serializer<GGetAllNotificationsData_getAllNotifications>
 Serializer<GGetAllNotificationsData_getAllNotifications_notifications>
     _$gGetAllNotificationsDataGetAllNotificationsNotificationsSerializer =
     new _$GGetAllNotificationsData_getAllNotifications_notificationsSerializer();
+Serializer<GGetUserDataData> _$gGetUserDataDataSerializer =
+    new _$GGetUserDataDataSerializer();
+Serializer<GGetUserDataData_getUserData>
+    _$gGetUserDataDataGetUserDataSerializer =
+    new _$GGetUserDataData_getUserDataSerializer();
+Serializer<GGetUserDataData_getUserData_belongsToArtists>
+    _$gGetUserDataDataGetUserDataBelongsToArtistsSerializer =
+    new _$GGetUserDataData_getUserData_belongsToArtistsSerializer();
+Serializer<GGetUserDataData_getUserData_primaryArtist>
+    _$gGetUserDataDataGetUserDataPrimaryArtistSerializer =
+    new _$GGetUserDataData_getUserData_primaryArtistSerializer();
 Serializer<GGetBelongedArtistsData> _$gGetBelongedArtistsDataSerializer =
     new _$GGetBelongedArtistsDataSerializer();
 Serializer<GGetBelongedArtistsData_getBelongedArtists>
@@ -197,6 +178,17 @@ Serializer<GGetBelongedArtistsData_getBelongedArtists>
 Serializer<GGetBelongedArtistsData_getBelongedArtists_artistList>
     _$gGetBelongedArtistsDataGetBelongedArtistsArtistListSerializer =
     new _$GGetBelongedArtistsData_getBelongedArtists_artistListSerializer();
+Serializer<GGetUserDetailProfileData> _$gGetUserDetailProfileDataSerializer =
+    new _$GGetUserDetailProfileDataSerializer();
+Serializer<GGetUserDetailProfileData_getUserDetailProfile>
+    _$gGetUserDetailProfileDataGetUserDetailProfileSerializer =
+    new _$GGetUserDetailProfileData_getUserDetailProfileSerializer();
+Serializer<GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists>
+    _$gGetUserDetailProfileDataGetUserDetailProfileBelongsToArtistsSerializer =
+    new _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsSerializer();
+Serializer<GGetUserDetailProfileData_getUserDetailProfile_primaryArtist>
+    _$gGetUserDetailProfileDataGetUserDetailProfilePrimaryArtistSerializer =
+    new _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtistSerializer();
 Serializer<GGetAllArtistsData> _$gGetAllArtistsDataSerializer =
     new _$GGetAllArtistsDataSerializer();
 Serializer<GGetAllArtistsData_getAllArtists>
@@ -347,1903 +339,6 @@ class _$GHealthCheckData_healthCheckSerializer
         case 'status':
           result.status = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetUserInfoDataSerializer
-    implements StructuredSerializer<GGetUserInfoData> {
-  @override
-  final Iterable<Type> types = const [GGetUserInfoData, _$GGetUserInfoData];
-  @override
-  final String wireName = 'GGetUserInfoData';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GGetUserInfoData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'getUserInfo',
-      serializers.serialize(object.getUserInfo,
-          specifiedType: const FullType(GGetUserInfoData_getUserInfo)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetUserInfoData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserInfoDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'getUserInfo':
-          result.getUserInfo.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GGetUserInfoData_getUserInfo))!
-              as GGetUserInfoData_getUserInfo);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetUserInfoData_getUserInfoSerializer
-    implements StructuredSerializer<GGetUserInfoData_getUserInfo> {
-  @override
-  final Iterable<Type> types = const [
-    GGetUserInfoData_getUserInfo,
-    _$GGetUserInfoData_getUserInfo
-  ];
-  @override
-  final String wireName = 'GGetUserInfoData_getUserInfo';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GGetUserInfoData_getUserInfo object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'userInfo',
-      serializers.serialize(object.userInfo,
-          specifiedType: const FullType(GGetUserInfoData_getUserInfo_userInfo)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserInfoData_getUserInfoBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'userInfo':
-          result.userInfo.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GGetUserInfoData_getUserInfo_userInfo))!
-              as GGetUserInfoData_getUserInfo_userInfo);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetUserInfoData_getUserInfo_userInfoSerializer
-    implements StructuredSerializer<GGetUserInfoData_getUserInfo_userInfo> {
-  @override
-  final Iterable<Type> types = const [
-    GGetUserInfoData_getUserInfo_userInfo,
-    _$GGetUserInfoData_getUserInfo_userInfo
-  ];
-  @override
-  final String wireName = 'GGetUserInfoData_getUserInfo_userInfo';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GGetUserInfoData_getUserInfo_userInfo object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'email',
-      serializers.serialize(object.email,
-          specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'fspBalance',
-      serializers.serialize(object.fspBalance,
-          specifiedType: const FullType(int)),
-      'fspBalanceTemp',
-      serializers.serialize(object.fspBalanceTemp,
-          specifiedType: const FullType(int)),
-      'credentialBalance',
-      serializers.serialize(object.credentialBalance,
-          specifiedType: const FullType(int)),
-      'roles',
-      serializers.serialize(object.roles,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(String)])),
-      'primaryRole',
-      serializers.serialize(object.primaryRole,
-          specifiedType: const FullType(String)),
-      'belongsToArtists',
-      serializers.serialize(object.belongsToArtists,
-          specifiedType: const FullType(BuiltList, const [
-            const FullType(
-                GGetUserInfoData_getUserInfo_userInfo_belongsToArtists)
-          ])),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.primaryArtist;
-    if (value != null) {
-      result
-        ..add('primaryArtist')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GGetUserInfoData_getUserInfo_userInfo_primaryArtist)));
-    }
-    return result;
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserInfoData_getUserInfo_userInfoBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'email':
-          result.email = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'fspBalance':
-          result.fspBalance = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'fspBalanceTemp':
-          result.fspBalanceTemp = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'credentialBalance':
-          result.credentialBalance = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'roles':
-          result.roles.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
-        case 'primaryRole':
-          result.primaryRole = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'belongsToArtists':
-          result.belongsToArtists.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    GGetUserInfoData_getUserInfo_userInfo_belongsToArtists)
-              ]))! as BuiltList<Object?>);
-          break;
-        case 'primaryArtist':
-          result.primaryArtist.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GGetUserInfoData_getUserInfo_userInfo_primaryArtist))!
-              as GGetUserInfoData_getUserInfo_userInfo_primaryArtist);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsSerializer
-    implements
-        StructuredSerializer<
-            GGetUserInfoData_getUserInfo_userInfo_belongsToArtists> {
-  @override
-  final Iterable<Type> types = const [
-    GGetUserInfoData_getUserInfo_userInfo_belongsToArtists,
-    _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists
-  ];
-  @override
-  final String wireName =
-      'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GGetUserInfoData_getUserInfo_userInfo_belongsToArtists object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'isAccepted',
-      serializers.serialize(object.isAccepted,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo_belongsToArtists deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'isAccepted':
-          result.isAccepted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetUserInfoData_getUserInfo_userInfo_primaryArtistSerializer
-    implements
-        StructuredSerializer<
-            GGetUserInfoData_getUserInfo_userInfo_primaryArtist> {
-  @override
-  final Iterable<Type> types = const [
-    GGetUserInfoData_getUserInfo_userInfo_primaryArtist,
-    _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist
-  ];
-  @override
-  final String wireName = 'GGetUserInfoData_getUserInfo_userInfo_primaryArtist';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GGetUserInfoData_getUserInfo_userInfo_primaryArtist object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'isAccepted',
-      serializers.serialize(object.isAccepted,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtist deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'isAccepted':
-          result.isAccepted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetAllOffersDataSerializer
-    implements StructuredSerializer<GGetAllOffersData> {
-  @override
-  final Iterable<Type> types = const [GGetAllOffersData, _$GGetAllOffersData];
-  @override
-  final String wireName = 'GGetAllOffersData';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GGetAllOffersData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'getAllOffers',
-      serializers.serialize(object.getAllOffers,
-          specifiedType: const FullType(BuiltList,
-              const [const FullType(GGetAllOffersData_getAllOffers)])),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetAllOffersData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetAllOffersDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'getAllOffers':
-          result.getAllOffers.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(GGetAllOffersData_getAllOffers)
-              ]))! as BuiltList<Object?>);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetAllOffersData_getAllOffersSerializer
-    implements StructuredSerializer<GGetAllOffersData_getAllOffers> {
-  @override
-  final Iterable<Type> types = const [
-    GGetAllOffersData_getAllOffers,
-    _$GGetAllOffersData_getAllOffers
-  ];
-  @override
-  final String wireName = 'GGetAllOffersData_getAllOffers';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GGetAllOffersData_getAllOffers object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(int)),
-      'title',
-      serializers.serialize(object.title,
-          specifiedType: const FullType(String)),
-      'description',
-      serializers.serialize(object.description,
-          specifiedType: const FullType(String)),
-      'fee',
-      serializers.serialize(object.fee, specifiedType: const FullType(int)),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.category;
-    if (value != null) {
-      result
-        ..add('category')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GGetAllOffersData_getAllOffers deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetAllOffersData_getAllOffersBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'title':
-          result.title = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'description':
-          result.description = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'fee':
-          result.fee = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'category':
-          result.category = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessageRoomsDataSerializer
-    implements StructuredSerializer<GGetMessageRoomsData> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessageRoomsData,
-    _$GGetMessageRoomsData
-  ];
-  @override
-  final String wireName = 'GGetMessageRoomsData';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GGetMessageRoomsData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'getMessageRooms',
-      serializers.serialize(object.getMessageRooms,
-          specifiedType: const FullType(GGetMessageRoomsData_getMessageRooms)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetMessageRoomsData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetMessageRoomsDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'getMessageRooms':
-          result.getMessageRooms.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GGetMessageRoomsData_getMessageRooms))!
-              as GGetMessageRoomsData_getMessageRooms);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessageRoomsData_getMessageRoomsSerializer
-    implements StructuredSerializer<GGetMessageRoomsData_getMessageRooms> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessageRoomsData_getMessageRooms,
-    _$GGetMessageRoomsData_getMessageRooms
-  ];
-  @override
-  final String wireName = 'GGetMessageRoomsData_getMessageRooms';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GGetMessageRoomsData_getMessageRooms object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'messageRoomList',
-      serializers.serialize(object.messageRoomList,
-          specifiedType: const FullType(BuiltList, const [
-            const FullType(GGetMessageRoomsData_getMessageRooms_messageRoomList)
-          ])),
-      'countOfMessageRooms',
-      serializers.serialize(object.countOfMessageRooms,
-          specifiedType: const FullType(int)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetMessageRoomsData_getMessageRoomsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'messageRoomList':
-          result.messageRoomList.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    GGetMessageRoomsData_getMessageRooms_messageRoomList)
-              ]))! as BuiltList<Object?>);
-          break;
-        case 'countOfMessageRooms':
-          result.countOfMessageRooms = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessageRoomsData_getMessageRooms_messageRoomListSerializer
-    implements
-        StructuredSerializer<
-            GGetMessageRoomsData_getMessageRooms_messageRoomList> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessageRoomsData_getMessageRooms_messageRoomList,
-    _$GGetMessageRoomsData_getMessageRooms_messageRoomList
-  ];
-  @override
-  final String wireName =
-      'GGetMessageRoomsData_getMessageRooms_messageRoomList';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GGetMessageRoomsData_getMessageRooms_messageRoomList object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'isRead',
-      serializers.serialize(object.isRead, specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.countOfMessages;
-    if (value != null) {
-      result
-        ..add('countOfMessages')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
-    value = object.category;
-    if (value != null) {
-      result
-        ..add('category')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.latestMessage;
-    if (value != null) {
-      result
-        ..add('latestMessage')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage)));
-    }
-    value = object.latestSentAt;
-    if (value != null) {
-      result
-        ..add('latestSentAt')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'countOfMessages':
-          result.countOfMessages = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
-          break;
-        case 'category':
-          result.category = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'latestMessage':
-          result.latestMessage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage))!
-              as GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage);
-          break;
-        case 'latestSentAt':
-          result.latestSentAt = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'isRead':
-          result.isRead = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageSerializer
-    implements
-        StructuredSerializer<
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage,
-    _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-  ];
-  @override
-  final String wireName =
-      'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'sendBy',
-      serializers.serialize(object.sendBy,
-          specifiedType: const FullType(
-              GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy)),
-      'message',
-      serializers.serialize(object.message,
-          specifiedType: const FullType(String)),
-      'createdAt',
-      serializers.serialize(object.createdAt,
-          specifiedType: const FullType(String)),
-    ];
-    Object? value;
-    value = object.attachedFile;
-    if (value != null) {
-      result
-        ..add('attachedFile')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
-    value = object.attachedImg;
-    if (value != null) {
-      result
-        ..add('attachedImg')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
-    return result;
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-      deserialize(Serializers serializers, Iterable<Object?> serialized,
-          {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'sendBy':
-          result.sendBy.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy))!
-              as GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy);
-          break;
-        case 'message':
-          result.message = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'createdAt':
-          result.createdAt = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'attachedFile':
-          result.attachedFile.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
-        case 'attachedImg':
-          result.attachedImg.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBySerializer
-    implements
-        StructuredSerializer<
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy,
-    _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-  ];
-  @override
-  final String wireName =
-      'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers,
-      GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-          object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-      deserialize(Serializers serializers, Iterable<Object?> serialized,
-          {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdDataSerializer
-    implements StructuredSerializer<GGetMessagesByMessageRoomIdData> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessagesByMessageRoomIdData,
-    _$GGetMessagesByMessageRoomIdData
-  ];
-  @override
-  final String wireName = 'GGetMessagesByMessageRoomIdData';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GGetMessagesByMessageRoomIdData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'getMessagesByMessageRoomId',
-      serializers.serialize(object.getMessagesByMessageRoomId,
-          specifiedType: const FullType(
-              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetMessagesByMessageRoomIdDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'getMessagesByMessageRoomId':
-          result.getMessagesByMessageRoomId.replace(serializers.deserialize(
-                  value,
-                  specifiedType: const FullType(
-                      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId))!
-              as GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdSerializer
-    implements
-        StructuredSerializer<
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId,
-    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
-  ];
-  @override
-  final String wireName =
-      'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'to',
-      serializers.serialize(object.to,
-          specifiedType: const FullType(
-              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to)),
-      'messageList',
-      serializers.serialize(object.messageList,
-          specifiedType: const FullType(BuiltList, const [
-            const FullType(
-                GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList)
-          ])),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'to':
-          result.to.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to))!
-              as GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to);
-          break;
-        case 'messageList':
-          result.messageList.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList)
-              ]))! as BuiltList<Object?>);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toSerializer
-    implements
-        StructuredSerializer<
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to,
-    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
-  ];
-  @override
-  final String wireName =
-      'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListSerializer
-    implements
-        StructuredSerializer<
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList,
-    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-  ];
-  @override
-  final String wireName =
-      'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers,
-      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-          object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'sendBy',
-      serializers.serialize(object.sendBy,
-          specifiedType: const FullType(
-              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy)),
-      'message',
-      serializers.serialize(object.message,
-          specifiedType: const FullType(String)),
-      'createdAt',
-      serializers.serialize(object.createdAt,
-          specifiedType: const FullType(String)),
-    ];
-    Object? value;
-    value = object.attachedFile;
-    if (value != null) {
-      result
-        ..add('attachedFile')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
-    value = object.attachedImg;
-    if (value != null) {
-      result
-        ..add('attachedImg')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
-    return result;
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-      deserialize(Serializers serializers, Iterable<Object?> serialized,
-          {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'sendBy':
-          result.sendBy.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy))!
-              as GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy);
-          break;
-        case 'message':
-          result.message = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'createdAt':
-          result.createdAt = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'attachedFile':
-          result.attachedFile.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
-        case 'attachedImg':
-          result.attachedImg.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBySerializer
-    implements
-        StructuredSerializer<
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy> {
-  @override
-  final Iterable<Type> types = const [
-    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy,
-    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-  ];
-  @override
-  final String wireName =
-      'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers,
-      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-          object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-      deserialize(Serializers serializers, Iterable<Object?> serialized,
-          {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetNotificationsDataSerializer
-    implements StructuredSerializer<GGetNotificationsData> {
-  @override
-  final Iterable<Type> types = const [
-    GGetNotificationsData,
-    _$GGetNotificationsData
-  ];
-  @override
-  final String wireName = 'GGetNotificationsData';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GGetNotificationsData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'getNotifications',
-      serializers.serialize(object.getNotifications,
-          specifiedType:
-              const FullType(GGetNotificationsData_getNotifications)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetNotificationsData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetNotificationsDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'getNotifications':
-          result.getNotifications.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GGetNotificationsData_getNotifications))!
-              as GGetNotificationsData_getNotifications);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetNotificationsData_getNotificationsSerializer
-    implements StructuredSerializer<GGetNotificationsData_getNotifications> {
-  @override
-  final Iterable<Type> types = const [
-    GGetNotificationsData_getNotifications,
-    _$GGetNotificationsData_getNotifications
-  ];
-  @override
-  final String wireName = 'GGetNotificationsData_getNotifications';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GGetNotificationsData_getNotifications object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'notifications',
-      serializers.serialize(object.notifications,
-          specifiedType: const FullType(BuiltList, const [
-            const FullType(GGetNotificationsData_getNotifications_notifications)
-          ])),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetNotificationsData_getNotifications deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetNotificationsData_getNotificationsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'notifications':
-          result.notifications.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    GGetNotificationsData_getNotifications_notifications)
-              ]))! as BuiltList<Object?>);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetNotificationsData_getNotifications_notificationsSerializer
-    implements
-        StructuredSerializer<
-            GGetNotificationsData_getNotifications_notifications> {
-  @override
-  final Iterable<Type> types = const [
-    GGetNotificationsData_getNotifications_notifications,
-    _$GGetNotificationsData_getNotifications_notifications
-  ];
-  @override
-  final String wireName =
-      'GGetNotificationsData_getNotifications_notifications';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GGetNotificationsData_getNotifications_notifications object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'title',
-      serializers.serialize(object.title,
-          specifiedType: const FullType(String)),
-      'content',
-      serializers.serialize(object.content,
-          specifiedType: const FullType(String)),
-      'createdAt',
-      serializers.serialize(object.createdAt,
-          specifiedType: const FullType(String)),
-      'updatedAt',
-      serializers.serialize(object.updatedAt,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetNotificationsData_getNotifications_notifications deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GGetNotificationsData_getNotifications_notificationsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'title':
-          result.title = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'content':
-          result.content = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'createdAt':
-          result.createdAt = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'updatedAt':
-          result.updatedAt = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetUserDataDataSerializer
-    implements StructuredSerializer<GGetUserDataData> {
-  @override
-  final Iterable<Type> types = const [GGetUserDataData, _$GGetUserDataData];
-  @override
-  final String wireName = 'GGetUserDataData';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GGetUserDataData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'getUserData',
-      serializers.serialize(object.getUserData,
-          specifiedType: const FullType(GGetUserDataData_getUserData)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetUserDataData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserDataDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'getUserData':
-          result.getUserData.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GGetUserDataData_getUserData))!
-              as GGetUserDataData_getUserData);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetUserDataData_getUserDataSerializer
-    implements StructuredSerializer<GGetUserDataData_getUserData> {
-  @override
-  final Iterable<Type> types = const [
-    GGetUserDataData_getUserData,
-    _$GGetUserDataData_getUserData
-  ];
-  @override
-  final String wireName = 'GGetUserDataData_getUserData';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GGetUserDataData_getUserData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'email',
-      serializers.serialize(object.email,
-          specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'fspBalance',
-      serializers.serialize(object.fspBalance,
-          specifiedType: const FullType(int)),
-      'fspBalanceTemp',
-      serializers.serialize(object.fspBalanceTemp,
-          specifiedType: const FullType(int)),
-      'credentialBalance',
-      serializers.serialize(object.credentialBalance,
-          specifiedType: const FullType(int)),
-      'roles',
-      serializers.serialize(object.roles,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(String)])),
-      'primaryRole',
-      serializers.serialize(object.primaryRole,
-          specifiedType: const FullType(String)),
-      'belongsToArtists',
-      serializers.serialize(object.belongsToArtists,
-          specifiedType: const FullType(BuiltList, const [
-            const FullType(GGetUserDataData_getUserData_belongsToArtists)
-          ])),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.primaryArtist;
-    if (value != null) {
-      result
-        ..add('primaryArtist')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(GGetUserDataData_getUserData_primaryArtist)));
-    }
-    return result;
-  }
-
-  @override
-  GGetUserDataData_getUserData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserDataData_getUserDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'email':
-          result.email = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'fspBalance':
-          result.fspBalance = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'fspBalanceTemp':
-          result.fspBalanceTemp = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'credentialBalance':
-          result.credentialBalance = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'roles':
-          result.roles.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
-        case 'primaryRole':
-          result.primaryRole = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'belongsToArtists':
-          result.belongsToArtists.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(GGetUserDataData_getUserData_belongsToArtists)
-              ]))! as BuiltList<Object?>);
-          break;
-        case 'primaryArtist':
-          result.primaryArtist.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GGetUserDataData_getUserData_primaryArtist))!
-              as GGetUserDataData_getUserData_primaryArtist);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetUserDataData_getUserData_belongsToArtistsSerializer
-    implements
-        StructuredSerializer<GGetUserDataData_getUserData_belongsToArtists> {
-  @override
-  final Iterable<Type> types = const [
-    GGetUserDataData_getUserData_belongsToArtists,
-    _$GGetUserDataData_getUserData_belongsToArtists
-  ];
-  @override
-  final String wireName = 'GGetUserDataData_getUserData_belongsToArtists';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GGetUserDataData_getUserData_belongsToArtists object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'isAccepted',
-      serializers.serialize(object.isAccepted,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GGetUserDataData_getUserData_belongsToArtists deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserDataData_getUserData_belongsToArtistsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'isAccepted':
-          result.isAccepted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetUserDataData_getUserData_primaryArtistSerializer
-    implements
-        StructuredSerializer<GGetUserDataData_getUserData_primaryArtist> {
-  @override
-  final Iterable<Type> types = const [
-    GGetUserDataData_getUserData_primaryArtist,
-    _$GGetUserDataData_getUserData_primaryArtist
-  ];
-  @override
-  final String wireName = 'GGetUserDataData_getUserData_primaryArtist';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GGetUserDataData_getUserData_primaryArtist object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'isAccepted',
-      serializers.serialize(object.isAccepted,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.imageUrl;
-    if (value != null) {
-      result
-        ..add('imageUrl')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    return result;
-  }
-
-  @override
-  GGetUserDataData_getUserData_primaryArtist deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserDataData_getUserData_primaryArtistBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'imageUrl':
-          result.imageUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'isAccepted':
-          result.isAccepted = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
           break;
       }
     }
@@ -3155,10 +1250,8 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUserSerial
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'roles',
-      serializers.serialize(object.roles,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(String)])),
+      'role',
+      serializers.serialize(object.role, specifiedType: const FullType(String)),
       'primaryRole',
       serializers.serialize(object.primaryRole,
           specifiedType: const FullType(String)),
@@ -3211,11 +1304,9 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUserSerial
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'roles':
-          result.roles.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
+        case 'role':
+          result.role = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'primaryRole':
           result.primaryRole = serializers.deserialize(value,
@@ -3261,8 +1352,13 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_prima
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'isAccepted',
-      serializers.serialize(object.isAccepted,
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
           specifiedType: const FullType(bool)),
     ];
     Object? value;
@@ -3305,8 +1401,436 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_prima
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'isAccepted':
-          result.isAccepted = serializers.deserialize(value,
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserInfoDataSerializer
+    implements StructuredSerializer<GGetUserInfoData> {
+  @override
+  final Iterable<Type> types = const [GGetUserInfoData, _$GGetUserInfoData];
+  @override
+  final String wireName = 'GGetUserInfoData';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GGetUserInfoData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'getUserInfo',
+      serializers.serialize(object.getUserInfo,
+          specifiedType: const FullType(GGetUserInfoData_getUserInfo)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetUserInfoData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetUserInfoDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'getUserInfo':
+          result.getUserInfo.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(GGetUserInfoData_getUserInfo))!
+              as GGetUserInfoData_getUserInfo);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserInfoData_getUserInfoSerializer
+    implements StructuredSerializer<GGetUserInfoData_getUserInfo> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserInfoData_getUserInfo,
+    _$GGetUserInfoData_getUserInfo
+  ];
+  @override
+  final String wireName = 'GGetUserInfoData_getUserInfo';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetUserInfoData_getUserInfo object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'userInfo',
+      serializers.serialize(object.userInfo,
+          specifiedType: const FullType(GGetUserInfoData_getUserInfo_userInfo)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetUserInfoData_getUserInfoBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'userInfo':
+          result.userInfo.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GGetUserInfoData_getUserInfo_userInfo))!
+              as GGetUserInfoData_getUserInfo_userInfo);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserInfoData_getUserInfo_userInfoSerializer
+    implements StructuredSerializer<GGetUserInfoData_getUserInfo_userInfo> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserInfoData_getUserInfo_userInfo,
+    _$GGetUserInfoData_getUserInfo_userInfo
+  ];
+  @override
+  final String wireName = 'GGetUserInfoData_getUserInfo_userInfo';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetUserInfoData_getUserInfo_userInfo object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'email',
+      serializers.serialize(object.email,
+          specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'fspBalance',
+      serializers.serialize(object.fspBalance,
+          specifiedType: const FullType(int)),
+      'credentialBalance',
+      serializers.serialize(object.credentialBalance,
+          specifiedType: const FullType(int)),
+      'role',
+      serializers.serialize(object.role, specifiedType: const FullType(String)),
+      'primaryRole',
+      serializers.serialize(object.primaryRole,
+          specifiedType: const FullType(String)),
+      'belongsToArtists',
+      serializers.serialize(object.belongsToArtists,
+          specifiedType: const FullType(BuiltList, const [
+            const FullType(
+                GGetUserInfoData_getUserInfo_userInfo_belongsToArtists)
+          ])),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.primaryArtist;
+    if (value != null) {
+      result
+        ..add('primaryArtist')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                GGetUserInfoData_getUserInfo_userInfo_primaryArtist)));
+    }
+    return result;
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetUserInfoData_getUserInfo_userInfoBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'email':
+          result.email = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fspBalance':
+          result.fspBalance = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'credentialBalance':
+          result.credentialBalance = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'role':
+          result.role = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'primaryRole':
+          result.primaryRole = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'belongsToArtists':
+          result.belongsToArtists.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    GGetUserInfoData_getUserInfo_userInfo_belongsToArtists)
+              ]))! as BuiltList<Object?>);
+          break;
+        case 'primaryArtist':
+          result.primaryArtist.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      GGetUserInfoData_getUserInfo_userInfo_primaryArtist))!
+              as GGetUserInfoData_getUserInfo_userInfo_primaryArtist);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsSerializer
+    implements
+        StructuredSerializer<
+            GGetUserInfoData_getUserInfo_userInfo_belongsToArtists> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserInfoData_getUserInfo_userInfo_belongsToArtists,
+    _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists
+  ];
+  @override
+  final String wireName =
+      'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetUserInfoData_getUserInfo_userInfo_belongsToArtists object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo_belongsToArtists deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result =
+        new GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserInfoData_getUserInfo_userInfo_primaryArtistSerializer
+    implements
+        StructuredSerializer<
+            GGetUserInfoData_getUserInfo_userInfo_primaryArtist> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserInfoData_getUserInfo_userInfo_primaryArtist,
+    _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist
+  ];
+  @override
+  final String wireName = 'GGetUserInfoData_getUserInfo_userInfo_primaryArtist';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetUserInfoData_getUserInfo_userInfo_primaryArtist object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtist deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result =
+        new GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
       }
@@ -3391,20 +1915,17 @@ class _$GGetOfferStatsByUserData_getOfferStatsByUserSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'inprogressOffers',
-      serializers.serialize(object.inprogressOffers,
+      'totalOffers',
+      serializers.serialize(object.totalOffers,
           specifiedType: const FullType(int)),
-      'appledOffers',
-      serializers.serialize(object.appledOffers,
+      'ongoingOffers',
+      serializers.serialize(object.ongoingOffers,
+          specifiedType: const FullType(int)),
+      'appliedOffers',
+      serializers.serialize(object.appliedOffers,
           specifiedType: const FullType(int)),
       'completedOffers',
       serializers.serialize(object.completedOffers,
-          specifiedType: const FullType(int)),
-      'rejectedOffers',
-      serializers.serialize(object.rejectedOffers,
-          specifiedType: const FullType(int)),
-      'canceledOffers',
-      serializers.serialize(object.canceledOffers,
           specifiedType: const FullType(int)),
       'totalEarnings',
       serializers.serialize(object.totalEarnings,
@@ -3430,24 +1951,20 @@ class _$GGetOfferStatsByUserData_getOfferStatsByUserSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'inprogressOffers':
-          result.inprogressOffers = serializers.deserialize(value,
+        case 'totalOffers':
+          result.totalOffers = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'appledOffers':
-          result.appledOffers = serializers.deserialize(value,
+        case 'ongoingOffers':
+          result.ongoingOffers = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'appliedOffers':
+          result.appliedOffers = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
         case 'completedOffers':
           result.completedOffers = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'rejectedOffers':
-          result.rejectedOffers = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-        case 'canceledOffers':
-          result.canceledOffers = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
         case 'totalEarnings':
@@ -3750,11 +2267,11 @@ class _$GGetOffersByStatusData_getOffersByStatusSerializer
             const FullType(
                 GGetOffersByStatusData_getOffersByStatus_inprogressOffers)
           ])),
-      'appledOffers',
-      serializers.serialize(object.appledOffers,
+      'appliedOffers',
+      serializers.serialize(object.appliedOffers,
           specifiedType: const FullType(BuiltList, const [
             const FullType(
-                GGetOffersByStatusData_getOffersByStatus_appledOffers)
+                GGetOffersByStatusData_getOffersByStatus_appliedOffers)
           ])),
     ];
 
@@ -3784,11 +2301,11 @@ class _$GGetOffersByStatusData_getOffersByStatusSerializer
                     GGetOffersByStatusData_getOffersByStatus_inprogressOffers)
               ]))! as BuiltList<Object?>);
           break;
-        case 'appledOffers':
-          result.appledOffers.replace(serializers.deserialize(value,
+        case 'appliedOffers':
+          result.appliedOffers.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
                 const FullType(
-                    GGetOffersByStatusData_getOffersByStatus_appledOffers)
+                    GGetOffersByStatusData_getOffersByStatus_appliedOffers)
               ]))! as BuiltList<Object?>);
           break;
       }
@@ -3896,22 +2413,22 @@ class _$GGetOffersByStatusData_getOffersByStatus_inprogressOffersSerializer
   }
 }
 
-class _$GGetOffersByStatusData_getOffersByStatus_appledOffersSerializer
+class _$GGetOffersByStatusData_getOffersByStatus_appliedOffersSerializer
     implements
         StructuredSerializer<
-            GGetOffersByStatusData_getOffersByStatus_appledOffers> {
+            GGetOffersByStatusData_getOffersByStatus_appliedOffers> {
   @override
   final Iterable<Type> types = const [
-    GGetOffersByStatusData_getOffersByStatus_appledOffers,
-    _$GGetOffersByStatusData_getOffersByStatus_appledOffers
+    GGetOffersByStatusData_getOffersByStatus_appliedOffers,
+    _$GGetOffersByStatusData_getOffersByStatus_appliedOffers
   ];
   @override
   final String wireName =
-      'GGetOffersByStatusData_getOffersByStatus_appledOffers';
+      'GGetOffersByStatusData_getOffersByStatus_appliedOffers';
 
   @override
   Iterable<Object?> serialize(Serializers serializers,
-      GGetOffersByStatusData_getOffersByStatus_appledOffers object,
+      GGetOffersByStatusData_getOffersByStatus_appliedOffers object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -3947,11 +2464,11 @@ class _$GGetOffersByStatusData_getOffersByStatus_appledOffersSerializer
   }
 
   @override
-  GGetOffersByStatusData_getOffersByStatus_appledOffers deserialize(
+  GGetOffersByStatusData_getOffersByStatus_appliedOffers deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder();
+        new GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -4152,6 +2669,152 @@ class _$GGetOffersData_getOffers_offerListSerializer
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new GGetOffersData_getOffers_offerListBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'description':
+          result.description = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fee':
+          result.fee = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'category':
+          result.category = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetAllOffersDataSerializer
+    implements StructuredSerializer<GGetAllOffersData> {
+  @override
+  final Iterable<Type> types = const [GGetAllOffersData, _$GGetAllOffersData];
+  @override
+  final String wireName = 'GGetAllOffersData';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GGetAllOffersData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'getAllOffers',
+      serializers.serialize(object.getAllOffers,
+          specifiedType: const FullType(BuiltList,
+              const [const FullType(GGetAllOffersData_getAllOffers)])),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetAllOffersData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetAllOffersDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'getAllOffers':
+          result.getAllOffers.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(GGetAllOffersData_getAllOffers)
+              ]))! as BuiltList<Object?>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetAllOffersData_getAllOffersSerializer
+    implements StructuredSerializer<GGetAllOffersData_getAllOffers> {
+  @override
+  final Iterable<Type> types = const [
+    GGetAllOffersData_getAllOffers,
+    _$GGetAllOffersData_getAllOffers
+  ];
+  @override
+  final String wireName = 'GGetAllOffersData_getAllOffers';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetAllOffersData_getAllOffers object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+      'title',
+      serializers.serialize(object.title,
+          specifiedType: const FullType(String)),
+      'description',
+      serializers.serialize(object.description,
+          specifiedType: const FullType(String)),
+      'fee',
+      serializers.serialize(object.fee, specifiedType: const FullType(int)),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.category;
+    if (value != null) {
+      result
+        ..add('category')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GGetAllOffersData_getAllOffers deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetAllOffersData_getAllOffersBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -4408,6 +3071,221 @@ class _$GGetOffersByCategoryData_getOffersByCategory_offerListSerializer
   }
 }
 
+class _$GGetMessageRoomsDataSerializer
+    implements StructuredSerializer<GGetMessageRoomsData> {
+  @override
+  final Iterable<Type> types = const [
+    GGetMessageRoomsData,
+    _$GGetMessageRoomsData
+  ];
+  @override
+  final String wireName = 'GGetMessageRoomsData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetMessageRoomsData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'getMessageRooms',
+      serializers.serialize(object.getMessageRooms,
+          specifiedType: const FullType(GGetMessageRoomsData_getMessageRooms)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetMessageRoomsData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetMessageRoomsDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'getMessageRooms':
+          result.getMessageRooms.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GGetMessageRoomsData_getMessageRooms))!
+              as GGetMessageRoomsData_getMessageRooms);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetMessageRoomsData_getMessageRoomsSerializer
+    implements StructuredSerializer<GGetMessageRoomsData_getMessageRooms> {
+  @override
+  final Iterable<Type> types = const [
+    GGetMessageRoomsData_getMessageRooms,
+    _$GGetMessageRoomsData_getMessageRooms
+  ];
+  @override
+  final String wireName = 'GGetMessageRoomsData_getMessageRooms';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetMessageRoomsData_getMessageRooms object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'messageRoomList',
+      serializers.serialize(object.messageRoomList,
+          specifiedType: const FullType(BuiltList, const [
+            const FullType(GGetMessageRoomsData_getMessageRooms_messageRoomList)
+          ])),
+      'countOfMessageRooms',
+      serializers.serialize(object.countOfMessageRooms,
+          specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetMessageRoomsData_getMessageRooms deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetMessageRoomsData_getMessageRoomsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'messageRoomList':
+          result.messageRoomList.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    GGetMessageRoomsData_getMessageRooms_messageRoomList)
+              ]))! as BuiltList<Object?>);
+          break;
+        case 'countOfMessageRooms':
+          result.countOfMessageRooms = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetMessageRoomsData_getMessageRooms_messageRoomListSerializer
+    implements
+        StructuredSerializer<
+            GGetMessageRoomsData_getMessageRooms_messageRoomList> {
+  @override
+  final Iterable<Type> types = const [
+    GGetMessageRoomsData_getMessageRooms_messageRoomList,
+    _$GGetMessageRoomsData_getMessageRooms_messageRoomList
+  ];
+  @override
+  final String wireName =
+      'GGetMessageRoomsData_getMessageRooms_messageRoomList';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetMessageRoomsData_getMessageRooms_messageRoomList object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'isRead',
+      serializers.serialize(object.isRead, specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.category;
+    if (value != null) {
+      result
+        ..add('category')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.latestMessage;
+    if (value != null) {
+      result
+        ..add('latestMessage')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.latestSentAt;
+    if (value != null) {
+      result
+        ..add('latestSentAt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GGetMessageRoomsData_getMessageRooms_messageRoomList deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result =
+        new GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'category':
+          result.category = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'latestMessage':
+          result.latestMessage = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'latestSentAt':
+          result.latestSentAt = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'isRead':
+          result.isRead = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GGetMessagesInProgressDataSerializer
     implements StructuredSerializer<GGetMessagesInProgressData> {
   @override
@@ -4559,12 +3437,6 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomListSerializ
       serializers.serialize(object.isRead, specifiedType: const FullType(bool)),
     ];
     Object? value;
-    value = object.countOfMessages;
-    if (value != null) {
-      result
-        ..add('countOfMessages')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
     value = object.category;
     if (value != null) {
       result
@@ -4577,8 +3449,7 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomListSerializ
       result
         ..add('latestMessage')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage)));
+            specifiedType: const FullType(String)));
     }
     value = object.latestSentAt;
     if (value != null) {
@@ -4611,19 +3482,13 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomListSerializ
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'countOfMessages':
-          result.countOfMessages = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
-          break;
         case 'category':
           result.category = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'latestMessage':
-          result.latestMessage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage))!
-              as GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage);
+          result.latestMessage = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'latestSentAt':
           result.latestSentAt = serializers.deserialize(value,
@@ -4640,24 +3505,79 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomListSerializ
   }
 }
 
-class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageSerializer
-    implements
-        StructuredSerializer<
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage> {
+class _$GGetMessagesByMessageRoomIdDataSerializer
+    implements StructuredSerializer<GGetMessagesByMessageRoomIdData> {
   @override
   final Iterable<Type> types = const [
-    GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage,
-    _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
+    GGetMessagesByMessageRoomIdData,
+    _$GGetMessagesByMessageRoomIdData
   ];
   @override
-  final String wireName =
-      'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage';
+  final String wireName = 'GGetMessagesByMessageRoomIdData';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers,
-      GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-          object,
+      Serializers serializers, GGetMessagesByMessageRoomIdData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'getMessagesByMessageRoomId',
+      serializers.serialize(object.getMessagesByMessageRoomId,
+          specifiedType: const FullType(
+              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetMessagesByMessageRoomIdData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetMessagesByMessageRoomIdDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'getMessagesByMessageRoomId':
+          result.getMessagesByMessageRoomId.replace(serializers.deserialize(
+                  value,
+                  specifiedType: const FullType(
+                      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId))!
+              as GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdSerializer
+    implements
+        StructuredSerializer<
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId> {
+  @override
+  final Iterable<Type> types = const [
+    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId,
+    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
+  ];
+  @override
+  final String wireName =
+      'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -4665,43 +3585,27 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'sendBy',
-      serializers.serialize(object.sendBy,
+      'to',
+      serializers.serialize(object.to,
           specifiedType: const FullType(
-              GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy)),
-      'message',
-      serializers.serialize(object.message,
-          specifiedType: const FullType(String)),
-      'createdAt',
-      serializers.serialize(object.createdAt,
-          specifiedType: const FullType(String)),
+              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to)),
+      'messageList',
+      serializers.serialize(object.messageList,
+          specifiedType: const FullType(BuiltList, const [
+            const FullType(
+                GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList)
+          ])),
     ];
-    Object? value;
-    value = object.attachedFile;
-    if (value != null) {
-      result
-        ..add('attachedFile')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
-    value = object.attachedImg;
-    if (value != null) {
-      result
-        ..add('attachedImg')
-        ..add(serializers.serialize(value,
-            specifiedType:
-                const FullType(BuiltList, const [const FullType(String)])));
-    }
+
     return result;
   }
 
   @override
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-      deserialize(Serializers serializers, Iterable<Object?> serialized,
-          {FullType specifiedType = FullType.unspecified}) {
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder();
+        new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -4717,31 +3621,18 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'sendBy':
-          result.sendBy.replace(serializers.deserialize(value,
+        case 'to':
+          result.to.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy))!
-              as GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy);
+                      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to))!
+              as GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to);
           break;
-        case 'message':
-          result.message = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'createdAt':
-          result.createdAt = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'attachedFile':
-          result.attachedFile.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
-          break;
-        case 'attachedImg':
-          result.attachedImg.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
+        case 'messageList':
+          result.messageList.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList)
+              ]))! as BuiltList<Object?>);
           break;
       }
     }
@@ -4750,24 +3641,22 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
   }
 }
 
-class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBySerializer
+class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toSerializer
     implements
         StructuredSerializer<
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy> {
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to> {
   @override
   final Iterable<Type> types = const [
-    GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy,
-    _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
+    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to,
+    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
   ];
   @override
   final String wireName =
-      'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy';
+      'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to';
 
   @override
-  Iterable<Object?> serialize(
-      Serializers serializers,
-      GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-          object,
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -4790,11 +3679,11 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
   }
 
   @override
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-      deserialize(Serializers serializers, Iterable<Object?> serialized,
-          {FullType specifiedType = FullType.unspecified}) {
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder();
+        new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -4817,6 +3706,276 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
         case 'imageUrl':
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListSerializer
+    implements
+        StructuredSerializer<
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList> {
+  @override
+  final Iterable<Type> types = const [
+    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList,
+    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+  ];
+  @override
+  final String wireName =
+      'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers,
+      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+          object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'content',
+      serializers.serialize(object.content,
+          specifiedType: const FullType(String)),
+      'sentAt',
+      serializers.serialize(object.sentAt,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+      deserialize(Serializers serializers, Iterable<Object?> serialized,
+          {FullType specifiedType = FullType.unspecified}) {
+    final result =
+        new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'content':
+          result.content = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'sentAt':
+          result.sentAt = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetNotificationsDataSerializer
+    implements StructuredSerializer<GGetNotificationsData> {
+  @override
+  final Iterable<Type> types = const [
+    GGetNotificationsData,
+    _$GGetNotificationsData
+  ];
+  @override
+  final String wireName = 'GGetNotificationsData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetNotificationsData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'getNotifications',
+      serializers.serialize(object.getNotifications,
+          specifiedType:
+              const FullType(GGetNotificationsData_getNotifications)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetNotificationsData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetNotificationsDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'getNotifications':
+          result.getNotifications.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GGetNotificationsData_getNotifications))!
+              as GGetNotificationsData_getNotifications);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetNotificationsData_getNotificationsSerializer
+    implements StructuredSerializer<GGetNotificationsData_getNotifications> {
+  @override
+  final Iterable<Type> types = const [
+    GGetNotificationsData_getNotifications,
+    _$GGetNotificationsData_getNotifications
+  ];
+  @override
+  final String wireName = 'GGetNotificationsData_getNotifications';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetNotificationsData_getNotifications object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'notifications',
+      serializers.serialize(object.notifications,
+          specifiedType: const FullType(BuiltList, const [
+            const FullType(GGetNotificationsData_getNotifications_notifications)
+          ])),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetNotificationsData_getNotifications deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetNotificationsData_getNotificationsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'notifications':
+          result.notifications.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    GGetNotificationsData_getNotifications_notifications)
+              ]))! as BuiltList<Object?>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetNotificationsData_getNotifications_notificationsSerializer
+    implements
+        StructuredSerializer<
+            GGetNotificationsData_getNotifications_notifications> {
+  @override
+  final Iterable<Type> types = const [
+    GGetNotificationsData_getNotifications_notifications,
+    _$GGetNotificationsData_getNotifications_notifications
+  ];
+  @override
+  final String wireName =
+      'GGetNotificationsData_getNotifications_notifications';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetNotificationsData_getNotifications_notifications object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'title',
+      serializers.serialize(object.title,
+          specifiedType: const FullType(String)),
+      'content',
+      serializers.serialize(object.content,
+          specifiedType: const FullType(String)),
+      'createdAt',
+      serializers.serialize(object.createdAt,
+          specifiedType: const FullType(String)),
+      'updatedAt',
+      serializers.serialize(object.updatedAt,
+          specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetNotificationsData_getNotifications_notifications deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result =
+        new GGetNotificationsData_getNotifications_notificationsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'title':
+          result.title = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'content':
+          result.content = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'updatedAt':
+          result.updatedAt = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -5025,6 +4184,364 @@ class _$GGetAllNotificationsData_getAllNotifications_notificationsSerializer
   }
 }
 
+class _$GGetUserDataDataSerializer
+    implements StructuredSerializer<GGetUserDataData> {
+  @override
+  final Iterable<Type> types = const [GGetUserDataData, _$GGetUserDataData];
+  @override
+  final String wireName = 'GGetUserDataData';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GGetUserDataData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'getUserData',
+      serializers.serialize(object.getUserData,
+          specifiedType: const FullType(GGetUserDataData_getUserData)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetUserDataData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetUserDataDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'getUserData':
+          result.getUserData.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(GGetUserDataData_getUserData))!
+              as GGetUserDataData_getUserData);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserDataData_getUserDataSerializer
+    implements StructuredSerializer<GGetUserDataData_getUserData> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserDataData_getUserData,
+    _$GGetUserDataData_getUserData
+  ];
+  @override
+  final String wireName = 'GGetUserDataData_getUserData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetUserDataData_getUserData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'email',
+      serializers.serialize(object.email,
+          specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'fspBalance',
+      serializers.serialize(object.fspBalance,
+          specifiedType: const FullType(int)),
+      'credentialBalance',
+      serializers.serialize(object.credentialBalance,
+          specifiedType: const FullType(int)),
+      'role',
+      serializers.serialize(object.role, specifiedType: const FullType(String)),
+      'primaryRole',
+      serializers.serialize(object.primaryRole,
+          specifiedType: const FullType(String)),
+      'belongsToArtists',
+      serializers.serialize(object.belongsToArtists,
+          specifiedType: const FullType(BuiltList, const [
+            const FullType(GGetUserDataData_getUserData_belongsToArtists)
+          ])),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.primaryArtist;
+    if (value != null) {
+      result
+        ..add('primaryArtist')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(GGetUserDataData_getUserData_primaryArtist)));
+    }
+    return result;
+  }
+
+  @override
+  GGetUserDataData_getUserData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetUserDataData_getUserDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'email':
+          result.email = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fspBalance':
+          result.fspBalance = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'credentialBalance':
+          result.credentialBalance = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'role':
+          result.role = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'primaryRole':
+          result.primaryRole = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'belongsToArtists':
+          result.belongsToArtists.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(GGetUserDataData_getUserData_belongsToArtists)
+              ]))! as BuiltList<Object?>);
+          break;
+        case 'primaryArtist':
+          result.primaryArtist.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      GGetUserDataData_getUserData_primaryArtist))!
+              as GGetUserDataData_getUserData_primaryArtist);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserDataData_getUserData_belongsToArtistsSerializer
+    implements
+        StructuredSerializer<GGetUserDataData_getUserData_belongsToArtists> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserDataData_getUserData_belongsToArtists,
+    _$GGetUserDataData_getUserData_belongsToArtists
+  ];
+  @override
+  final String wireName = 'GGetUserDataData_getUserData_belongsToArtists';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetUserDataData_getUserData_belongsToArtists object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GGetUserDataData_getUserData_belongsToArtists deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetUserDataData_getUserData_belongsToArtistsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserDataData_getUserData_primaryArtistSerializer
+    implements
+        StructuredSerializer<GGetUserDataData_getUserData_primaryArtist> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserDataData_getUserData_primaryArtist,
+    _$GGetUserDataData_getUserData_primaryArtist
+  ];
+  @override
+  final String wireName = 'GGetUserDataData_getUserData_primaryArtist';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetUserDataData_getUserData_primaryArtist object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GGetUserDataData_getUserData_primaryArtist deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetUserDataData_getUserData_primaryArtistBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GGetBelongedArtistsDataSerializer
     implements StructuredSerializer<GGetBelongedArtistsData> {
   @override
@@ -5166,8 +4683,13 @@ class _$GGetBelongedArtistsData_getBelongedArtists_artistListSerializer
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'isAccepted',
-      serializers.serialize(object.isAccepted,
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
           specifiedType: const FullType(bool)),
     ];
     Object? value;
@@ -5210,8 +4732,389 @@ class _$GGetBelongedArtistsData_getBelongedArtists_artistListSerializer
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'isAccepted':
-          result.isAccepted = serializers.deserialize(value,
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserDetailProfileDataSerializer
+    implements StructuredSerializer<GGetUserDetailProfileData> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserDetailProfileData,
+    _$GGetUserDetailProfileData
+  ];
+  @override
+  final String wireName = 'GGetUserDetailProfileData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetUserDetailProfileData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'getUserDetailProfile',
+      serializers.serialize(object.getUserDetailProfile,
+          specifiedType:
+              const FullType(GGetUserDetailProfileData_getUserDetailProfile)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetUserDetailProfileData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetUserDetailProfileDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'getUserDetailProfile':
+          result.getUserDetailProfile.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      GGetUserDetailProfileData_getUserDetailProfile))!
+              as GGetUserDetailProfileData_getUserDetailProfile);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserDetailProfileData_getUserDetailProfileSerializer
+    implements
+        StructuredSerializer<GGetUserDetailProfileData_getUserDetailProfile> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserDetailProfileData_getUserDetailProfile,
+    _$GGetUserDetailProfileData_getUserDetailProfile
+  ];
+  @override
+  final String wireName = 'GGetUserDetailProfileData_getUserDetailProfile';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetUserDetailProfileData_getUserDetailProfile object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'email',
+      serializers.serialize(object.email,
+          specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'fspBalance',
+      serializers.serialize(object.fspBalance,
+          specifiedType: const FullType(int)),
+      'credentialBalance',
+      serializers.serialize(object.credentialBalance,
+          specifiedType: const FullType(int)),
+      'role',
+      serializers.serialize(object.role, specifiedType: const FullType(String)),
+      'primaryRole',
+      serializers.serialize(object.primaryRole,
+          specifiedType: const FullType(String)),
+      'belongsToArtists',
+      serializers.serialize(object.belongsToArtists,
+          specifiedType: const FullType(BuiltList, const [
+            const FullType(
+                GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists)
+          ])),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.primaryArtist;
+    if (value != null) {
+      result
+        ..add('primaryArtist')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                GGetUserDetailProfileData_getUserDetailProfile_primaryArtist)));
+    }
+    return result;
+  }
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GGetUserDetailProfileData_getUserDetailProfileBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'email':
+          result.email = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fspBalance':
+          result.fspBalance = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'credentialBalance':
+          result.credentialBalance = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'role':
+          result.role = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'primaryRole':
+          result.primaryRole = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'belongsToArtists':
+          result.belongsToArtists.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists)
+              ]))! as BuiltList<Object?>);
+          break;
+        case 'primaryArtist':
+          result.primaryArtist.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      GGetUserDetailProfileData_getUserDetailProfile_primaryArtist))!
+              as GGetUserDetailProfileData_getUserDetailProfile_primaryArtist);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsSerializer
+    implements
+        StructuredSerializer<
+            GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists,
+    _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists
+  ];
+  @override
+  final String wireName =
+      'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result =
+        new GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtistSerializer
+    implements
+        StructuredSerializer<
+            GGetUserDetailProfileData_getUserDetailProfile_primaryArtist> {
+  @override
+  final Iterable<Type> types = const [
+    GGetUserDetailProfileData_getUserDetailProfile_primaryArtist,
+    _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtist
+  ];
+  @override
+  final String wireName =
+      'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetUserDetailProfileData_getUserDetailProfile_primaryArtist object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.imageUrl;
+    if (value != null) {
+      result
+        ..add('imageUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtist deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result =
+        new GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'imageUrl':
+          result.imageUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
       }
@@ -6880,4152 +6783,6 @@ class GHealthCheckData_healthCheckBuilder
                 G__typename, r'GHealthCheckData_healthCheck', 'G__typename'),
             status: BuiltValueNullFieldError.checkNotNull(
                 status, r'GHealthCheckData_healthCheck', 'status'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserInfoData extends GGetUserInfoData {
-  @override
-  final String G__typename;
-  @override
-  final GGetUserInfoData_getUserInfo getUserInfo;
-
-  factory _$GGetUserInfoData(
-          [void Function(GGetUserInfoDataBuilder)? updates]) =>
-      (new GGetUserInfoDataBuilder()..update(updates))._build();
-
-  _$GGetUserInfoData._({required this.G__typename, required this.getUserInfo})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetUserInfoData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        getUserInfo, r'GGetUserInfoData', 'getUserInfo');
-  }
-
-  @override
-  GGetUserInfoData rebuild(void Function(GGetUserInfoDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserInfoDataBuilder toBuilder() =>
-      new GGetUserInfoDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetUserInfoData &&
-        G__typename == other.G__typename &&
-        getUserInfo == other.getUserInfo;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, getUserInfo.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetUserInfoData')
-          ..add('G__typename', G__typename)
-          ..add('getUserInfo', getUserInfo))
-        .toString();
-  }
-}
-
-class GGetUserInfoDataBuilder
-    implements Builder<GGetUserInfoData, GGetUserInfoDataBuilder> {
-  _$GGetUserInfoData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GGetUserInfoData_getUserInfoBuilder? _getUserInfo;
-  GGetUserInfoData_getUserInfoBuilder get getUserInfo =>
-      _$this._getUserInfo ??= new GGetUserInfoData_getUserInfoBuilder();
-  set getUserInfo(GGetUserInfoData_getUserInfoBuilder? getUserInfo) =>
-      _$this._getUserInfo = getUserInfo;
-
-  GGetUserInfoDataBuilder() {
-    GGetUserInfoData._initializeBuilder(this);
-  }
-
-  GGetUserInfoDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _getUserInfo = $v.getUserInfo.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserInfoData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserInfoData;
-  }
-
-  @override
-  void update(void Function(GGetUserInfoDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserInfoData build() => _build();
-
-  _$GGetUserInfoData _build() {
-    _$GGetUserInfoData _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetUserInfoData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetUserInfoData', 'G__typename'),
-              getUserInfo: getUserInfo.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'getUserInfo';
-        getUserInfo.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetUserInfoData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserInfoData_getUserInfo extends GGetUserInfoData_getUserInfo {
-  @override
-  final String G__typename;
-  @override
-  final GGetUserInfoData_getUserInfo_userInfo userInfo;
-
-  factory _$GGetUserInfoData_getUserInfo(
-          [void Function(GGetUserInfoData_getUserInfoBuilder)? updates]) =>
-      (new GGetUserInfoData_getUserInfoBuilder()..update(updates))._build();
-
-  _$GGetUserInfoData_getUserInfo._(
-      {required this.G__typename, required this.userInfo})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetUserInfoData_getUserInfo', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        userInfo, r'GGetUserInfoData_getUserInfo', 'userInfo');
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo rebuild(
-          void Function(GGetUserInfoData_getUserInfoBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserInfoData_getUserInfoBuilder toBuilder() =>
-      new GGetUserInfoData_getUserInfoBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetUserInfoData_getUserInfo &&
-        G__typename == other.G__typename &&
-        userInfo == other.userInfo;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, userInfo.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetUserInfoData_getUserInfo')
-          ..add('G__typename', G__typename)
-          ..add('userInfo', userInfo))
-        .toString();
-  }
-}
-
-class GGetUserInfoData_getUserInfoBuilder
-    implements
-        Builder<GGetUserInfoData_getUserInfo,
-            GGetUserInfoData_getUserInfoBuilder> {
-  _$GGetUserInfoData_getUserInfo? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GGetUserInfoData_getUserInfo_userInfoBuilder? _userInfo;
-  GGetUserInfoData_getUserInfo_userInfoBuilder get userInfo =>
-      _$this._userInfo ??= new GGetUserInfoData_getUserInfo_userInfoBuilder();
-  set userInfo(GGetUserInfoData_getUserInfo_userInfoBuilder? userInfo) =>
-      _$this._userInfo = userInfo;
-
-  GGetUserInfoData_getUserInfoBuilder() {
-    GGetUserInfoData_getUserInfo._initializeBuilder(this);
-  }
-
-  GGetUserInfoData_getUserInfoBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _userInfo = $v.userInfo.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserInfoData_getUserInfo other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserInfoData_getUserInfo;
-  }
-
-  @override
-  void update(void Function(GGetUserInfoData_getUserInfoBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo build() => _build();
-
-  _$GGetUserInfoData_getUserInfo _build() {
-    _$GGetUserInfoData_getUserInfo _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetUserInfoData_getUserInfo._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetUserInfoData_getUserInfo', 'G__typename'),
-              userInfo: userInfo.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'userInfo';
-        userInfo.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetUserInfoData_getUserInfo', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserInfoData_getUserInfo_userInfo
-    extends GGetUserInfoData_getUserInfo_userInfo {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String email;
-  @override
-  final String name;
-  @override
-  final String? imageUrl;
-  @override
-  final int fspBalance;
-  @override
-  final int fspBalanceTemp;
-  @override
-  final int credentialBalance;
-  @override
-  final BuiltList<String> roles;
-  @override
-  final String primaryRole;
-  @override
-  final BuiltList<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
-      belongsToArtists;
-  @override
-  final GGetUserInfoData_getUserInfo_userInfo_primaryArtist? primaryArtist;
-
-  factory _$GGetUserInfoData_getUserInfo_userInfo(
-          [void Function(GGetUserInfoData_getUserInfo_userInfoBuilder)?
-              updates]) =>
-      (new GGetUserInfoData_getUserInfo_userInfoBuilder()..update(updates))
-          ._build();
-
-  _$GGetUserInfoData_getUserInfo_userInfo._(
-      {required this.G__typename,
-      required this.id,
-      required this.email,
-      required this.name,
-      this.imageUrl,
-      required this.fspBalance,
-      required this.fspBalanceTemp,
-      required this.credentialBalance,
-      required this.roles,
-      required this.primaryRole,
-      required this.belongsToArtists,
-      this.primaryArtist})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetUserInfoData_getUserInfo_userInfo', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetUserInfoData_getUserInfo_userInfo', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        email, r'GGetUserInfoData_getUserInfo_userInfo', 'email');
-    BuiltValueNullFieldError.checkNotNull(
-        name, r'GGetUserInfoData_getUserInfo_userInfo', 'name');
-    BuiltValueNullFieldError.checkNotNull(
-        fspBalance, r'GGetUserInfoData_getUserInfo_userInfo', 'fspBalance');
-    BuiltValueNullFieldError.checkNotNull(fspBalanceTemp,
-        r'GGetUserInfoData_getUserInfo_userInfo', 'fspBalanceTemp');
-    BuiltValueNullFieldError.checkNotNull(credentialBalance,
-        r'GGetUserInfoData_getUserInfo_userInfo', 'credentialBalance');
-    BuiltValueNullFieldError.checkNotNull(
-        roles, r'GGetUserInfoData_getUserInfo_userInfo', 'roles');
-    BuiltValueNullFieldError.checkNotNull(
-        primaryRole, r'GGetUserInfoData_getUserInfo_userInfo', 'primaryRole');
-    BuiltValueNullFieldError.checkNotNull(belongsToArtists,
-        r'GGetUserInfoData_getUserInfo_userInfo', 'belongsToArtists');
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo rebuild(
-          void Function(GGetUserInfoData_getUserInfo_userInfoBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfoBuilder toBuilder() =>
-      new GGetUserInfoData_getUserInfo_userInfoBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetUserInfoData_getUserInfo_userInfo &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        email == other.email &&
-        name == other.name &&
-        imageUrl == other.imageUrl &&
-        fspBalance == other.fspBalance &&
-        fspBalanceTemp == other.fspBalanceTemp &&
-        credentialBalance == other.credentialBalance &&
-        roles == other.roles &&
-        primaryRole == other.primaryRole &&
-        belongsToArtists == other.belongsToArtists &&
-        primaryArtist == other.primaryArtist;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, email.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, fspBalance.hashCode);
-    _$hash = $jc(_$hash, fspBalanceTemp.hashCode);
-    _$hash = $jc(_$hash, credentialBalance.hashCode);
-    _$hash = $jc(_$hash, roles.hashCode);
-    _$hash = $jc(_$hash, primaryRole.hashCode);
-    _$hash = $jc(_$hash, belongsToArtists.hashCode);
-    _$hash = $jc(_$hash, primaryArtist.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetUserInfoData_getUserInfo_userInfo')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('email', email)
-          ..add('name', name)
-          ..add('imageUrl', imageUrl)
-          ..add('fspBalance', fspBalance)
-          ..add('fspBalanceTemp', fspBalanceTemp)
-          ..add('credentialBalance', credentialBalance)
-          ..add('roles', roles)
-          ..add('primaryRole', primaryRole)
-          ..add('belongsToArtists', belongsToArtists)
-          ..add('primaryArtist', primaryArtist))
-        .toString();
-  }
-}
-
-class GGetUserInfoData_getUserInfo_userInfoBuilder
-    implements
-        Builder<GGetUserInfoData_getUserInfo_userInfo,
-            GGetUserInfoData_getUserInfo_userInfoBuilder> {
-  _$GGetUserInfoData_getUserInfo_userInfo? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _email;
-  String? get email => _$this._email;
-  set email(String? email) => _$this._email = email;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  int? _fspBalance;
-  int? get fspBalance => _$this._fspBalance;
-  set fspBalance(int? fspBalance) => _$this._fspBalance = fspBalance;
-
-  int? _fspBalanceTemp;
-  int? get fspBalanceTemp => _$this._fspBalanceTemp;
-  set fspBalanceTemp(int? fspBalanceTemp) =>
-      _$this._fspBalanceTemp = fspBalanceTemp;
-
-  int? _credentialBalance;
-  int? get credentialBalance => _$this._credentialBalance;
-  set credentialBalance(int? credentialBalance) =>
-      _$this._credentialBalance = credentialBalance;
-
-  ListBuilder<String>? _roles;
-  ListBuilder<String> get roles => _$this._roles ??= new ListBuilder<String>();
-  set roles(ListBuilder<String>? roles) => _$this._roles = roles;
-
-  String? _primaryRole;
-  String? get primaryRole => _$this._primaryRole;
-  set primaryRole(String? primaryRole) => _$this._primaryRole = primaryRole;
-
-  ListBuilder<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>?
-      _belongsToArtists;
-  ListBuilder<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
-      get belongsToArtists => _$this._belongsToArtists ??= new ListBuilder<
-          GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>();
-  set belongsToArtists(
-          ListBuilder<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>?
-              belongsToArtists) =>
-      _$this._belongsToArtists = belongsToArtists;
-
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder? _primaryArtist;
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder
-      get primaryArtist => _$this._primaryArtist ??=
-          new GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder();
-  set primaryArtist(
-          GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder?
-              primaryArtist) =>
-      _$this._primaryArtist = primaryArtist;
-
-  GGetUserInfoData_getUserInfo_userInfoBuilder() {
-    GGetUserInfoData_getUserInfo_userInfo._initializeBuilder(this);
-  }
-
-  GGetUserInfoData_getUserInfo_userInfoBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _email = $v.email;
-      _name = $v.name;
-      _imageUrl = $v.imageUrl;
-      _fspBalance = $v.fspBalance;
-      _fspBalanceTemp = $v.fspBalanceTemp;
-      _credentialBalance = $v.credentialBalance;
-      _roles = $v.roles.toBuilder();
-      _primaryRole = $v.primaryRole;
-      _belongsToArtists = $v.belongsToArtists.toBuilder();
-      _primaryArtist = $v.primaryArtist?.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserInfoData_getUserInfo_userInfo other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserInfoData_getUserInfo_userInfo;
-  }
-
-  @override
-  void update(
-      void Function(GGetUserInfoData_getUserInfo_userInfoBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo build() => _build();
-
-  _$GGetUserInfoData_getUserInfo_userInfo _build() {
-    _$GGetUserInfoData_getUserInfo_userInfo _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetUserInfoData_getUserInfo_userInfo._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetUserInfoData_getUserInfo_userInfo', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GGetUserInfoData_getUserInfo_userInfo', 'id'),
-              email: BuiltValueNullFieldError.checkNotNull(
-                  email, r'GGetUserInfoData_getUserInfo_userInfo', 'email'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GGetUserInfoData_getUserInfo_userInfo', 'name'),
-              imageUrl: imageUrl,
-              fspBalance: BuiltValueNullFieldError.checkNotNull(
-                  fspBalance, r'GGetUserInfoData_getUserInfo_userInfo', 'fspBalance'),
-              fspBalanceTemp: BuiltValueNullFieldError.checkNotNull(
-                  fspBalanceTemp, r'GGetUserInfoData_getUserInfo_userInfo', 'fspBalanceTemp'),
-              credentialBalance: BuiltValueNullFieldError.checkNotNull(
-                  credentialBalance,
-                  r'GGetUserInfoData_getUserInfo_userInfo',
-                  'credentialBalance'),
-              roles: roles.build(),
-              primaryRole: BuiltValueNullFieldError.checkNotNull(primaryRole, r'GGetUserInfoData_getUserInfo_userInfo', 'primaryRole'),
-              belongsToArtists: belongsToArtists.build(),
-              primaryArtist: _primaryArtist?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'roles';
-        roles.build();
-
-        _$failedField = 'belongsToArtists';
-        belongsToArtists.build();
-        _$failedField = 'primaryArtist';
-        _primaryArtist?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetUserInfoData_getUserInfo_userInfo',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists
-    extends GGetUserInfoData_getUserInfo_userInfo_belongsToArtists {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String? imageUrl;
-  @override
-  final bool isAccepted;
-
-  factory _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists(
-          [void Function(
-                  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder)?
-              updates]) =>
-      (new GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists._(
-      {required this.G__typename,
-      required this.id,
-      required this.name,
-      this.imageUrl,
-      required this.isAccepted})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'id');
-    BuiltValueNullFieldError.checkNotNull(name,
-        r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'name');
-    BuiltValueNullFieldError.checkNotNull(
-        isAccepted,
-        r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists',
-        'isAccepted');
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo_belongsToArtists rebuild(
-          void Function(
-                  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder toBuilder() =>
-      new GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetUserInfoData_getUserInfo_userInfo_belongsToArtists &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        name == other.name &&
-        imageUrl == other.imageUrl &&
-        isAccepted == other.isAccepted;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, isAccepted.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('name', name)
-          ..add('imageUrl', imageUrl)
-          ..add('isAccepted', isAccepted))
-        .toString();
-  }
-}
-
-class GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder
-    implements
-        Builder<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists,
-            GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder> {
-  _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  bool? _isAccepted;
-  bool? get isAccepted => _$this._isAccepted;
-  set isAccepted(bool? isAccepted) => _$this._isAccepted = isAccepted;
-
-  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder() {
-    GGetUserInfoData_getUserInfo_userInfo_belongsToArtists._initializeBuilder(
-        this);
-  }
-
-  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _name = $v.name;
-      _imageUrl = $v.imageUrl;
-      _isAccepted = $v.isAccepted;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserInfoData_getUserInfo_userInfo_belongsToArtists other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists;
-  }
-
-  @override
-  void update(
-      void Function(
-              GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo_belongsToArtists build() => _build();
-
-  _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists _build() {
-    final _$result = _$v ??
-        new _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id,
-                r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists',
-                'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists',
-                'name'),
-            imageUrl: imageUrl,
-            isAccepted: BuiltValueNullFieldError.checkNotNull(
-                isAccepted,
-                r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists',
-                'isAccepted'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist
-    extends GGetUserInfoData_getUserInfo_userInfo_primaryArtist {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String? imageUrl;
-  @override
-  final bool isAccepted;
-
-  factory _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist(
-          [void Function(
-                  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder)?
-              updates]) =>
-      (new GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist._(
-      {required this.G__typename,
-      required this.id,
-      required this.name,
-      this.imageUrl,
-      required this.isAccepted})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        name, r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'name');
-    BuiltValueNullFieldError.checkNotNull(isAccepted,
-        r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'isAccepted');
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtist rebuild(
-          void Function(
-                  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder toBuilder() =>
-      new GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetUserInfoData_getUserInfo_userInfo_primaryArtist &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        name == other.name &&
-        imageUrl == other.imageUrl &&
-        isAccepted == other.isAccepted;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, isAccepted.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('name', name)
-          ..add('imageUrl', imageUrl)
-          ..add('isAccepted', isAccepted))
-        .toString();
-  }
-}
-
-class GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder
-    implements
-        Builder<GGetUserInfoData_getUserInfo_userInfo_primaryArtist,
-            GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder> {
-  _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  bool? _isAccepted;
-  bool? get isAccepted => _$this._isAccepted;
-  set isAccepted(bool? isAccepted) => _$this._isAccepted = isAccepted;
-
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder() {
-    GGetUserInfoData_getUserInfo_userInfo_primaryArtist._initializeBuilder(
-        this);
-  }
-
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _name = $v.name;
-      _imageUrl = $v.imageUrl;
-      _isAccepted = $v.isAccepted;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserInfoData_getUserInfo_userInfo_primaryArtist other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist;
-  }
-
-  @override
-  void update(
-      void Function(GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserInfoData_getUserInfo_userInfo_primaryArtist build() => _build();
-
-  _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist _build() {
-    final _$result = _$v ??
-        new _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(name,
-                r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'name'),
-            imageUrl: imageUrl,
-            isAccepted: BuiltValueNullFieldError.checkNotNull(
-                isAccepted,
-                r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist',
-                'isAccepted'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetAllOffersData extends GGetAllOffersData {
-  @override
-  final String G__typename;
-  @override
-  final BuiltList<GGetAllOffersData_getAllOffers> getAllOffers;
-
-  factory _$GGetAllOffersData(
-          [void Function(GGetAllOffersDataBuilder)? updates]) =>
-      (new GGetAllOffersDataBuilder()..update(updates))._build();
-
-  _$GGetAllOffersData._({required this.G__typename, required this.getAllOffers})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetAllOffersData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        getAllOffers, r'GGetAllOffersData', 'getAllOffers');
-  }
-
-  @override
-  GGetAllOffersData rebuild(void Function(GGetAllOffersDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetAllOffersDataBuilder toBuilder() =>
-      new GGetAllOffersDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetAllOffersData &&
-        G__typename == other.G__typename &&
-        getAllOffers == other.getAllOffers;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, getAllOffers.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetAllOffersData')
-          ..add('G__typename', G__typename)
-          ..add('getAllOffers', getAllOffers))
-        .toString();
-  }
-}
-
-class GGetAllOffersDataBuilder
-    implements Builder<GGetAllOffersData, GGetAllOffersDataBuilder> {
-  _$GGetAllOffersData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  ListBuilder<GGetAllOffersData_getAllOffers>? _getAllOffers;
-  ListBuilder<GGetAllOffersData_getAllOffers> get getAllOffers =>
-      _$this._getAllOffers ??=
-          new ListBuilder<GGetAllOffersData_getAllOffers>();
-  set getAllOffers(ListBuilder<GGetAllOffersData_getAllOffers>? getAllOffers) =>
-      _$this._getAllOffers = getAllOffers;
-
-  GGetAllOffersDataBuilder() {
-    GGetAllOffersData._initializeBuilder(this);
-  }
-
-  GGetAllOffersDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _getAllOffers = $v.getAllOffers.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetAllOffersData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetAllOffersData;
-  }
-
-  @override
-  void update(void Function(GGetAllOffersDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetAllOffersData build() => _build();
-
-  _$GGetAllOffersData _build() {
-    _$GGetAllOffersData _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetAllOffersData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetAllOffersData', 'G__typename'),
-              getAllOffers: getAllOffers.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'getAllOffers';
-        getAllOffers.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetAllOffersData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetAllOffersData_getAllOffers extends GGetAllOffersData_getAllOffers {
-  @override
-  final String G__typename;
-  @override
-  final int id;
-  @override
-  final String title;
-  @override
-  final String description;
-  @override
-  final String? imageUrl;
-  @override
-  final int fee;
-  @override
-  final String? category;
-
-  factory _$GGetAllOffersData_getAllOffers(
-          [void Function(GGetAllOffersData_getAllOffersBuilder)? updates]) =>
-      (new GGetAllOffersData_getAllOffersBuilder()..update(updates))._build();
-
-  _$GGetAllOffersData_getAllOffers._(
-      {required this.G__typename,
-      required this.id,
-      required this.title,
-      required this.description,
-      this.imageUrl,
-      required this.fee,
-      this.category})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetAllOffersData_getAllOffers', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetAllOffersData_getAllOffers', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        title, r'GGetAllOffersData_getAllOffers', 'title');
-    BuiltValueNullFieldError.checkNotNull(
-        description, r'GGetAllOffersData_getAllOffers', 'description');
-    BuiltValueNullFieldError.checkNotNull(
-        fee, r'GGetAllOffersData_getAllOffers', 'fee');
-  }
-
-  @override
-  GGetAllOffersData_getAllOffers rebuild(
-          void Function(GGetAllOffersData_getAllOffersBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetAllOffersData_getAllOffersBuilder toBuilder() =>
-      new GGetAllOffersData_getAllOffersBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetAllOffersData_getAllOffers &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        title == other.title &&
-        description == other.description &&
-        imageUrl == other.imageUrl &&
-        fee == other.fee &&
-        category == other.category;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, title.hashCode);
-    _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, fee.hashCode);
-    _$hash = $jc(_$hash, category.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetAllOffersData_getAllOffers')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('title', title)
-          ..add('description', description)
-          ..add('imageUrl', imageUrl)
-          ..add('fee', fee)
-          ..add('category', category))
-        .toString();
-  }
-}
-
-class GGetAllOffersData_getAllOffersBuilder
-    implements
-        Builder<GGetAllOffersData_getAllOffers,
-            GGetAllOffersData_getAllOffersBuilder> {
-  _$GGetAllOffersData_getAllOffers? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  int? _id;
-  int? get id => _$this._id;
-  set id(int? id) => _$this._id = id;
-
-  String? _title;
-  String? get title => _$this._title;
-  set title(String? title) => _$this._title = title;
-
-  String? _description;
-  String? get description => _$this._description;
-  set description(String? description) => _$this._description = description;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  int? _fee;
-  int? get fee => _$this._fee;
-  set fee(int? fee) => _$this._fee = fee;
-
-  String? _category;
-  String? get category => _$this._category;
-  set category(String? category) => _$this._category = category;
-
-  GGetAllOffersData_getAllOffersBuilder() {
-    GGetAllOffersData_getAllOffers._initializeBuilder(this);
-  }
-
-  GGetAllOffersData_getAllOffersBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _title = $v.title;
-      _description = $v.description;
-      _imageUrl = $v.imageUrl;
-      _fee = $v.fee;
-      _category = $v.category;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetAllOffersData_getAllOffers other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetAllOffersData_getAllOffers;
-  }
-
-  @override
-  void update(void Function(GGetAllOffersData_getAllOffersBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetAllOffersData_getAllOffers build() => _build();
-
-  _$GGetAllOffersData_getAllOffers _build() {
-    final _$result = _$v ??
-        new _$GGetAllOffersData_getAllOffers._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GGetAllOffersData_getAllOffers', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GGetAllOffersData_getAllOffers', 'id'),
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'GGetAllOffersData_getAllOffers', 'title'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'GGetAllOffersData_getAllOffers', 'description'),
-            imageUrl: imageUrl,
-            fee: BuiltValueNullFieldError.checkNotNull(
-                fee, r'GGetAllOffersData_getAllOffers', 'fee'),
-            category: category);
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessageRoomsData extends GGetMessageRoomsData {
-  @override
-  final String G__typename;
-  @override
-  final GGetMessageRoomsData_getMessageRooms getMessageRooms;
-
-  factory _$GGetMessageRoomsData(
-          [void Function(GGetMessageRoomsDataBuilder)? updates]) =>
-      (new GGetMessageRoomsDataBuilder()..update(updates))._build();
-
-  _$GGetMessageRoomsData._(
-      {required this.G__typename, required this.getMessageRooms})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetMessageRoomsData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        getMessageRooms, r'GGetMessageRoomsData', 'getMessageRooms');
-  }
-
-  @override
-  GGetMessageRoomsData rebuild(
-          void Function(GGetMessageRoomsDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessageRoomsDataBuilder toBuilder() =>
-      new GGetMessageRoomsDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetMessageRoomsData &&
-        G__typename == other.G__typename &&
-        getMessageRooms == other.getMessageRooms;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, getMessageRooms.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetMessageRoomsData')
-          ..add('G__typename', G__typename)
-          ..add('getMessageRooms', getMessageRooms))
-        .toString();
-  }
-}
-
-class GGetMessageRoomsDataBuilder
-    implements Builder<GGetMessageRoomsData, GGetMessageRoomsDataBuilder> {
-  _$GGetMessageRoomsData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GGetMessageRoomsData_getMessageRoomsBuilder? _getMessageRooms;
-  GGetMessageRoomsData_getMessageRoomsBuilder get getMessageRooms =>
-      _$this._getMessageRooms ??=
-          new GGetMessageRoomsData_getMessageRoomsBuilder();
-  set getMessageRooms(
-          GGetMessageRoomsData_getMessageRoomsBuilder? getMessageRooms) =>
-      _$this._getMessageRooms = getMessageRooms;
-
-  GGetMessageRoomsDataBuilder() {
-    GGetMessageRoomsData._initializeBuilder(this);
-  }
-
-  GGetMessageRoomsDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _getMessageRooms = $v.getMessageRooms.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetMessageRoomsData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetMessageRoomsData;
-  }
-
-  @override
-  void update(void Function(GGetMessageRoomsDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessageRoomsData build() => _build();
-
-  _$GGetMessageRoomsData _build() {
-    _$GGetMessageRoomsData _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetMessageRoomsData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetMessageRoomsData', 'G__typename'),
-              getMessageRooms: getMessageRooms.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'getMessageRooms';
-        getMessageRooms.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetMessageRoomsData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessageRoomsData_getMessageRooms
-    extends GGetMessageRoomsData_getMessageRooms {
-  @override
-  final String G__typename;
-  @override
-  final BuiltList<GGetMessageRoomsData_getMessageRooms_messageRoomList>
-      messageRoomList;
-  @override
-  final int countOfMessageRooms;
-
-  factory _$GGetMessageRoomsData_getMessageRooms(
-          [void Function(GGetMessageRoomsData_getMessageRoomsBuilder)?
-              updates]) =>
-      (new GGetMessageRoomsData_getMessageRoomsBuilder()..update(updates))
-          ._build();
-
-  _$GGetMessageRoomsData_getMessageRooms._(
-      {required this.G__typename,
-      required this.messageRoomList,
-      required this.countOfMessageRooms})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetMessageRoomsData_getMessageRooms', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(messageRoomList,
-        r'GGetMessageRoomsData_getMessageRooms', 'messageRoomList');
-    BuiltValueNullFieldError.checkNotNull(countOfMessageRooms,
-        r'GGetMessageRoomsData_getMessageRooms', 'countOfMessageRooms');
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms rebuild(
-          void Function(GGetMessageRoomsData_getMessageRoomsBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessageRoomsData_getMessageRoomsBuilder toBuilder() =>
-      new GGetMessageRoomsData_getMessageRoomsBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetMessageRoomsData_getMessageRooms &&
-        G__typename == other.G__typename &&
-        messageRoomList == other.messageRoomList &&
-        countOfMessageRooms == other.countOfMessageRooms;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, messageRoomList.hashCode);
-    _$hash = $jc(_$hash, countOfMessageRooms.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetMessageRoomsData_getMessageRooms')
-          ..add('G__typename', G__typename)
-          ..add('messageRoomList', messageRoomList)
-          ..add('countOfMessageRooms', countOfMessageRooms))
-        .toString();
-  }
-}
-
-class GGetMessageRoomsData_getMessageRoomsBuilder
-    implements
-        Builder<GGetMessageRoomsData_getMessageRooms,
-            GGetMessageRoomsData_getMessageRoomsBuilder> {
-  _$GGetMessageRoomsData_getMessageRooms? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  ListBuilder<GGetMessageRoomsData_getMessageRooms_messageRoomList>?
-      _messageRoomList;
-  ListBuilder<GGetMessageRoomsData_getMessageRooms_messageRoomList>
-      get messageRoomList => _$this._messageRoomList ??= new ListBuilder<
-          GGetMessageRoomsData_getMessageRooms_messageRoomList>();
-  set messageRoomList(
-          ListBuilder<GGetMessageRoomsData_getMessageRooms_messageRoomList>?
-              messageRoomList) =>
-      _$this._messageRoomList = messageRoomList;
-
-  int? _countOfMessageRooms;
-  int? get countOfMessageRooms => _$this._countOfMessageRooms;
-  set countOfMessageRooms(int? countOfMessageRooms) =>
-      _$this._countOfMessageRooms = countOfMessageRooms;
-
-  GGetMessageRoomsData_getMessageRoomsBuilder() {
-    GGetMessageRoomsData_getMessageRooms._initializeBuilder(this);
-  }
-
-  GGetMessageRoomsData_getMessageRoomsBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _messageRoomList = $v.messageRoomList.toBuilder();
-      _countOfMessageRooms = $v.countOfMessageRooms;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetMessageRoomsData_getMessageRooms other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetMessageRoomsData_getMessageRooms;
-  }
-
-  @override
-  void update(
-      void Function(GGetMessageRoomsData_getMessageRoomsBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms build() => _build();
-
-  _$GGetMessageRoomsData_getMessageRooms _build() {
-    _$GGetMessageRoomsData_getMessageRooms _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetMessageRoomsData_getMessageRooms._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GGetMessageRoomsData_getMessageRooms', 'G__typename'),
-              messageRoomList: messageRoomList.build(),
-              countOfMessageRooms: BuiltValueNullFieldError.checkNotNull(
-                  countOfMessageRooms,
-                  r'GGetMessageRoomsData_getMessageRooms',
-                  'countOfMessageRooms'));
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'messageRoomList';
-        messageRoomList.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetMessageRoomsData_getMessageRooms',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessageRoomsData_getMessageRooms_messageRoomList
-    extends GGetMessageRoomsData_getMessageRooms_messageRoomList {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final int? countOfMessages;
-  @override
-  final String? category;
-  @override
-  final GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage?
-      latestMessage;
-  @override
-  final String? latestSentAt;
-  @override
-  final bool isRead;
-
-  factory _$GGetMessageRoomsData_getMessageRooms_messageRoomList(
-          [void Function(
-                  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder)?
-              updates]) =>
-      (new GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetMessageRoomsData_getMessageRooms_messageRoomList._(
-      {required this.G__typename,
-      required this.id,
-      this.countOfMessages,
-      this.category,
-      this.latestMessage,
-      this.latestSentAt,
-      required this.isRead})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetMessageRoomsData_getMessageRooms_messageRoomList', 'id');
-    BuiltValueNullFieldError.checkNotNull(isRead,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList', 'isRead');
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList rebuild(
-          void Function(
-                  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder toBuilder() =>
-      new GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetMessageRoomsData_getMessageRooms_messageRoomList &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        countOfMessages == other.countOfMessages &&
-        category == other.category &&
-        latestMessage == other.latestMessage &&
-        latestSentAt == other.latestSentAt &&
-        isRead == other.isRead;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, countOfMessages.hashCode);
-    _$hash = $jc(_$hash, category.hashCode);
-    _$hash = $jc(_$hash, latestMessage.hashCode);
-    _$hash = $jc(_$hash, latestSentAt.hashCode);
-    _$hash = $jc(_$hash, isRead.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetMessageRoomsData_getMessageRooms_messageRoomList')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('countOfMessages', countOfMessages)
-          ..add('category', category)
-          ..add('latestMessage', latestMessage)
-          ..add('latestSentAt', latestSentAt)
-          ..add('isRead', isRead))
-        .toString();
-  }
-}
-
-class GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder
-    implements
-        Builder<GGetMessageRoomsData_getMessageRooms_messageRoomList,
-            GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder> {
-  _$GGetMessageRoomsData_getMessageRooms_messageRoomList? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  int? _countOfMessages;
-  int? get countOfMessages => _$this._countOfMessages;
-  set countOfMessages(int? countOfMessages) =>
-      _$this._countOfMessages = countOfMessages;
-
-  String? _category;
-  String? get category => _$this._category;
-  set category(String? category) => _$this._category = category;
-
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder?
-      _latestMessage;
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder
-      get latestMessage => _$this._latestMessage ??=
-          new GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder();
-  set latestMessage(
-          GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder?
-              latestMessage) =>
-      _$this._latestMessage = latestMessage;
-
-  String? _latestSentAt;
-  String? get latestSentAt => _$this._latestSentAt;
-  set latestSentAt(String? latestSentAt) => _$this._latestSentAt = latestSentAt;
-
-  bool? _isRead;
-  bool? get isRead => _$this._isRead;
-  set isRead(bool? isRead) => _$this._isRead = isRead;
-
-  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder() {
-    GGetMessageRoomsData_getMessageRooms_messageRoomList._initializeBuilder(
-        this);
-  }
-
-  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _countOfMessages = $v.countOfMessages;
-      _category = $v.category;
-      _latestMessage = $v.latestMessage?.toBuilder();
-      _latestSentAt = $v.latestSentAt;
-      _isRead = $v.isRead;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetMessageRoomsData_getMessageRooms_messageRoomList other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetMessageRoomsData_getMessageRooms_messageRoomList;
-  }
-
-  @override
-  void update(
-      void Function(
-              GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList build() => _build();
-
-  _$GGetMessageRoomsData_getMessageRooms_messageRoomList _build() {
-    _$GGetMessageRoomsData_getMessageRooms_messageRoomList _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetMessageRoomsData_getMessageRooms_messageRoomList._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GGetMessageRoomsData_getMessageRooms_messageRoomList',
-                  'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id,
-                  r'GGetMessageRoomsData_getMessageRooms_messageRoomList',
-                  'id'),
-              countOfMessages: countOfMessages,
-              category: category,
-              latestMessage: _latestMessage?.build(),
-              latestSentAt: latestSentAt,
-              isRead: BuiltValueNullFieldError.checkNotNull(
-                  isRead,
-                  r'GGetMessageRoomsData_getMessageRooms_messageRoomList',
-                  'isRead'));
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'latestMessage';
-        _latestMessage?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetMessageRoomsData_getMessageRooms_messageRoomList',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-    extends GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-      sendBy;
-  @override
-  final String message;
-  @override
-  final String createdAt;
-  @override
-  final BuiltList<String>? attachedFile;
-  @override
-  final BuiltList<String>? attachedImg;
-
-  factory _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage(
-          [void Function(
-                  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder)?
-              updates]) =>
-      (new GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage._(
-      {required this.G__typename,
-      required this.id,
-      required this.sendBy,
-      required this.message,
-      required this.createdAt,
-      this.attachedFile,
-      this.attachedImg})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-        'id');
-    BuiltValueNullFieldError.checkNotNull(
-        sendBy,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-        'sendBy');
-    BuiltValueNullFieldError.checkNotNull(
-        message,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-        'message');
-    BuiltValueNullFieldError.checkNotNull(
-        createdAt,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-        'createdAt');
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage rebuild(
-          void Function(
-                  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder
-      toBuilder() =>
-          new GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder()
-            ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other
-            is GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        sendBy == other.sendBy &&
-        message == other.message &&
-        createdAt == other.createdAt &&
-        attachedFile == other.attachedFile &&
-        attachedImg == other.attachedImg;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, sendBy.hashCode);
-    _$hash = $jc(_$hash, message.hashCode);
-    _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, attachedFile.hashCode);
-    _$hash = $jc(_$hash, attachedImg.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('sendBy', sendBy)
-          ..add('message', message)
-          ..add('createdAt', createdAt)
-          ..add('attachedFile', attachedFile)
-          ..add('attachedImg', attachedImg))
-        .toString();
-  }
-}
-
-class GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder
-    implements
-        Builder<
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage,
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder> {
-  _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder?
-      _sendBy;
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder
-      get sendBy => _$this._sendBy ??=
-          new GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder();
-  set sendBy(
-          GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder?
-              sendBy) =>
-      _$this._sendBy = sendBy;
-
-  String? _message;
-  String? get message => _$this._message;
-  set message(String? message) => _$this._message = message;
-
-  String? _createdAt;
-  String? get createdAt => _$this._createdAt;
-  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
-
-  ListBuilder<String>? _attachedFile;
-  ListBuilder<String> get attachedFile =>
-      _$this._attachedFile ??= new ListBuilder<String>();
-  set attachedFile(ListBuilder<String>? attachedFile) =>
-      _$this._attachedFile = attachedFile;
-
-  ListBuilder<String>? _attachedImg;
-  ListBuilder<String> get attachedImg =>
-      _$this._attachedImg ??= new ListBuilder<String>();
-  set attachedImg(ListBuilder<String>? attachedImg) =>
-      _$this._attachedImg = attachedImg;
-
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder() {
-    GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-        ._initializeBuilder(this);
-  }
-
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder
-      get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _sendBy = $v.sendBy.toBuilder();
-      _message = $v.message;
-      _createdAt = $v.createdAt;
-      _attachedFile = $v.attachedFile?.toBuilder();
-      _attachedImg = $v.attachedImg?.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(
-      GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-          other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other
-        as _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage;
-  }
-
-  @override
-  void update(
-      void Function(
-              GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessageBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage build() =>
-      _build();
-
-  _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-      _build() {
-    _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-        _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-                  'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id,
-                  r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-                  'id'),
-              sendBy: sendBy.build(),
-              message: BuiltValueNullFieldError.checkNotNull(
-                  message,
-                  r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-                  'message'),
-              createdAt: BuiltValueNullFieldError.checkNotNull(
-                  createdAt,
-                  r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-                  'createdAt'),
-              attachedFile: _attachedFile?.build(),
-              attachedImg: _attachedImg?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'sendBy';
-        sendBy.build();
-
-        _$failedField = 'attachedFile';
-        _attachedFile?.build();
-        _$failedField = 'attachedImg';
-        _attachedImg?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-    extends GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String? imageUrl;
-
-  factory _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy(
-          [void Function(
-                  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder)?
-              updates]) =>
-      (new GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy._(
-      {required this.G__typename,
-      required this.id,
-      required this.name,
-      this.imageUrl})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy',
-        'id');
-    BuiltValueNullFieldError.checkNotNull(
-        name,
-        r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy',
-        'name');
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy rebuild(
-          void Function(
-                  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder
-      toBuilder() =>
-          new GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder()
-            ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other
-            is GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        name == other.name &&
-        imageUrl == other.imageUrl;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('name', name)
-          ..add('imageUrl', imageUrl))
-        .toString();
-  }
-}
-
-class GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder
-    implements
-        Builder<
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy,
-            GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder> {
-  _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy?
-      _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder() {
-    GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-        ._initializeBuilder(this);
-  }
-
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder
-      get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _name = $v.name;
-      _imageUrl = $v.imageUrl;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(
-      GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-          other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other
-        as _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy;
-  }
-
-  @override
-  void update(
-      void Function(
-              GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendByBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-      build() => _build();
-
-  _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-      _build() {
-    final _$result = _$v ??
-        new _$GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy',
-                'name'),
-            imageUrl: imageUrl);
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdData
-    extends GGetMessagesByMessageRoomIdData {
-  @override
-  final String G__typename;
-  @override
-  final GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
-      getMessagesByMessageRoomId;
-
-  factory _$GGetMessagesByMessageRoomIdData(
-          [void Function(GGetMessagesByMessageRoomIdDataBuilder)? updates]) =>
-      (new GGetMessagesByMessageRoomIdDataBuilder()..update(updates))._build();
-
-  _$GGetMessagesByMessageRoomIdData._(
-      {required this.G__typename, required this.getMessagesByMessageRoomId})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetMessagesByMessageRoomIdData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(getMessagesByMessageRoomId,
-        r'GGetMessagesByMessageRoomIdData', 'getMessagesByMessageRoomId');
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData rebuild(
-          void Function(GGetMessagesByMessageRoomIdDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessagesByMessageRoomIdDataBuilder toBuilder() =>
-      new GGetMessagesByMessageRoomIdDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetMessagesByMessageRoomIdData &&
-        G__typename == other.G__typename &&
-        getMessagesByMessageRoomId == other.getMessagesByMessageRoomId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, getMessagesByMessageRoomId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetMessagesByMessageRoomIdData')
-          ..add('G__typename', G__typename)
-          ..add('getMessagesByMessageRoomId', getMessagesByMessageRoomId))
-        .toString();
-  }
-}
-
-class GGetMessagesByMessageRoomIdDataBuilder
-    implements
-        Builder<GGetMessagesByMessageRoomIdData,
-            GGetMessagesByMessageRoomIdDataBuilder> {
-  _$GGetMessagesByMessageRoomIdData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder?
-      _getMessagesByMessageRoomId;
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
-      get getMessagesByMessageRoomId => _$this._getMessagesByMessageRoomId ??=
-          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder();
-  set getMessagesByMessageRoomId(
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder?
-              getMessagesByMessageRoomId) =>
-      _$this._getMessagesByMessageRoomId = getMessagesByMessageRoomId;
-
-  GGetMessagesByMessageRoomIdDataBuilder() {
-    GGetMessagesByMessageRoomIdData._initializeBuilder(this);
-  }
-
-  GGetMessagesByMessageRoomIdDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _getMessagesByMessageRoomId = $v.getMessagesByMessageRoomId.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetMessagesByMessageRoomIdData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetMessagesByMessageRoomIdData;
-  }
-
-  @override
-  void update(void Function(GGetMessagesByMessageRoomIdDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData build() => _build();
-
-  _$GGetMessagesByMessageRoomIdData _build() {
-    _$GGetMessagesByMessageRoomIdData _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetMessagesByMessageRoomIdData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GGetMessagesByMessageRoomIdData', 'G__typename'),
-              getMessagesByMessageRoomId: getMessagesByMessageRoomId.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'getMessagesByMessageRoomId';
-        getMessagesByMessageRoomId.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetMessagesByMessageRoomIdData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
-    extends GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to to;
-  @override
-  final BuiltList<
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
-      messageList;
-
-  factory _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId(
-          [void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder)?
-              updates]) =>
-      (new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId._(
-      {required this.G__typename,
-      required this.id,
-      required this.to,
-      required this.messageList})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId', 'id');
-    BuiltValueNullFieldError.checkNotNull(to,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId', 'to');
-    BuiltValueNullFieldError.checkNotNull(
-        messageList,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
-        'messageList');
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId rebuild(
-          void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
-      toBuilder() =>
-          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder()
-            ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other
-            is GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        to == other.to &&
-        messageList == other.messageList;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, to.hashCode);
-    _$hash = $jc(_$hash, messageList.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('to', to)
-          ..add('messageList', messageList))
-        .toString();
-  }
-}
-
-class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
-    implements
-        Builder<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId,
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder> {
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder? _to;
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder get to =>
-      _$this._to ??=
-          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder();
-  set to(
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder?
-              to) =>
-      _$this._to = to;
-
-  ListBuilder<
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>?
-      _messageList;
-  ListBuilder<
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
-      get messageList => _$this._messageList ??= new ListBuilder<
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>();
-  set messageList(
-          ListBuilder<
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>?
-              messageList) =>
-      _$this._messageList = messageList;
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder() {
-    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
-        ._initializeBuilder(this);
-  }
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _to = $v.to.toBuilder();
-      _messageList = $v.messageList.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(
-      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId;
-  }
-
-  @override
-  void update(
-      void Function(
-              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId build() =>
-      _build();
-
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId _build() {
-    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
-                  'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id,
-                  r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
-                  'id'),
-              to: to.build(),
-              messageList: messageList.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'to';
-        to.build();
-        _$failedField = 'messageList';
-        messageList.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
-    extends GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String? imageUrl;
-
-  factory _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to(
-          [void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder)?
-              updates]) =>
-      (new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to._(
-      {required this.G__typename,
-      required this.id,
-      required this.name,
-      this.imageUrl})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        name,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to',
-        'name');
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to rebuild(
-          void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
-      toBuilder() =>
-          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder()
-            ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other
-            is GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        name == other.name &&
-        imageUrl == other.imageUrl;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('name', name)
-          ..add('imageUrl', imageUrl))
-        .toString();
-  }
-}
-
-class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
-    implements
-        Builder<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to,
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder> {
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder() {
-    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
-        ._initializeBuilder(this);
-  }
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
-      get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _name = $v.name;
-      _imageUrl = $v.imageUrl;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(
-      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other
-        as _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to;
-  }
-
-  @override
-  void update(
-      void Function(
-              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to build() =>
-      _build();
-
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to _build() {
-    final _$result = _$v ??
-        new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to',
-                'name'),
-            imageUrl: imageUrl);
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-    extends GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-      sendBy;
-  @override
-  final String message;
-  @override
-  final String createdAt;
-  @override
-  final BuiltList<String>? attachedFile;
-  @override
-  final BuiltList<String>? attachedImg;
-
-  factory _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList(
-          [void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder)?
-              updates]) =>
-      (new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList._(
-      {required this.G__typename,
-      required this.id,
-      required this.sendBy,
-      required this.message,
-      required this.createdAt,
-      this.attachedFile,
-      this.attachedImg})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-        'id');
-    BuiltValueNullFieldError.checkNotNull(
-        sendBy,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-        'sendBy');
-    BuiltValueNullFieldError.checkNotNull(
-        message,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-        'message');
-    BuiltValueNullFieldError.checkNotNull(
-        createdAt,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-        'createdAt');
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList rebuild(
-          void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
-      toBuilder() =>
-          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder()
-            ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other
-            is GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        sendBy == other.sendBy &&
-        message == other.message &&
-        createdAt == other.createdAt &&
-        attachedFile == other.attachedFile &&
-        attachedImg == other.attachedImg;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, sendBy.hashCode);
-    _$hash = $jc(_$hash, message.hashCode);
-    _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, attachedFile.hashCode);
-    _$hash = $jc(_$hash, attachedImg.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('sendBy', sendBy)
-          ..add('message', message)
-          ..add('createdAt', createdAt)
-          ..add('attachedFile', attachedFile)
-          ..add('attachedImg', attachedImg))
-        .toString();
-  }
-}
-
-class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
-    implements
-        Builder<
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList,
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder> {
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder?
-      _sendBy;
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder
-      get sendBy => _$this._sendBy ??=
-          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder();
-  set sendBy(
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder?
-              sendBy) =>
-      _$this._sendBy = sendBy;
-
-  String? _message;
-  String? get message => _$this._message;
-  set message(String? message) => _$this._message = message;
-
-  String? _createdAt;
-  String? get createdAt => _$this._createdAt;
-  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
-
-  ListBuilder<String>? _attachedFile;
-  ListBuilder<String> get attachedFile =>
-      _$this._attachedFile ??= new ListBuilder<String>();
-  set attachedFile(ListBuilder<String>? attachedFile) =>
-      _$this._attachedFile = attachedFile;
-
-  ListBuilder<String>? _attachedImg;
-  ListBuilder<String> get attachedImg =>
-      _$this._attachedImg ??= new ListBuilder<String>();
-  set attachedImg(ListBuilder<String>? attachedImg) =>
-      _$this._attachedImg = attachedImg;
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder() {
-    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-        ._initializeBuilder(this);
-  }
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
-      get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _sendBy = $v.sendBy.toBuilder();
-      _message = $v.message;
-      _createdAt = $v.createdAt;
-      _attachedFile = $v.attachedFile?.toBuilder();
-      _attachedImg = $v.attachedImg?.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(
-      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-          other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other
-        as _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList;
-  }
-
-  @override
-  void update(
-      void Function(
-              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-      build() => _build();
-
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-      _build() {
-    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-        _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-                  'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id,
-                  r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-                  'id'),
-              sendBy: sendBy.build(),
-              message: BuiltValueNullFieldError.checkNotNull(
-                  message,
-                  r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-                  'message'),
-              createdAt: BuiltValueNullFieldError.checkNotNull(
-                  createdAt,
-                  r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-                  'createdAt'),
-              attachedFile: _attachedFile?.build(),
-              attachedImg: _attachedImg?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'sendBy';
-        sendBy.build();
-
-        _$failedField = 'attachedFile';
-        _attachedFile?.build();
-        _$failedField = 'attachedImg';
-        _attachedImg?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-    extends GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String? imageUrl;
-
-  factory _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy(
-          [void Function(
-                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder)?
-              updates]) =>
-      (new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy._(
-      {required this.G__typename,
-      required this.id,
-      required this.name,
-      this.imageUrl})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy',
-        'id');
-    BuiltValueNullFieldError.checkNotNull(
-        name,
-        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy',
-        'name');
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-      rebuild(
-              void Function(
-                      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder)
-                  updates) =>
-          (toBuilder()..update(updates)).build();
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder
-      toBuilder() =>
-          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder()
-            ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other
-            is GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        name == other.name &&
-        imageUrl == other.imageUrl;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('name', name)
-          ..add('imageUrl', imageUrl))
-        .toString();
-  }
-}
-
-class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder
-    implements
-        Builder<
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy,
-            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder> {
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy?
-      _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder() {
-    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-        ._initializeBuilder(this);
-  }
-
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder
-      get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _name = $v.name;
-      _imageUrl = $v.imageUrl;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(
-      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-          other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other
-        as _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy;
-  }
-
-  @override
-  void update(
-      void Function(
-              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendByBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-      build() => _build();
-
-  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
-      _build() {
-    final _$result = _$v ??
-        new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy',
-                'name'),
-            imageUrl: imageUrl);
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetNotificationsData extends GGetNotificationsData {
-  @override
-  final String G__typename;
-  @override
-  final GGetNotificationsData_getNotifications getNotifications;
-
-  factory _$GGetNotificationsData(
-          [void Function(GGetNotificationsDataBuilder)? updates]) =>
-      (new GGetNotificationsDataBuilder()..update(updates))._build();
-
-  _$GGetNotificationsData._(
-      {required this.G__typename, required this.getNotifications})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetNotificationsData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        getNotifications, r'GGetNotificationsData', 'getNotifications');
-  }
-
-  @override
-  GGetNotificationsData rebuild(
-          void Function(GGetNotificationsDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetNotificationsDataBuilder toBuilder() =>
-      new GGetNotificationsDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetNotificationsData &&
-        G__typename == other.G__typename &&
-        getNotifications == other.getNotifications;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, getNotifications.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetNotificationsData')
-          ..add('G__typename', G__typename)
-          ..add('getNotifications', getNotifications))
-        .toString();
-  }
-}
-
-class GGetNotificationsDataBuilder
-    implements Builder<GGetNotificationsData, GGetNotificationsDataBuilder> {
-  _$GGetNotificationsData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GGetNotificationsData_getNotificationsBuilder? _getNotifications;
-  GGetNotificationsData_getNotificationsBuilder get getNotifications =>
-      _$this._getNotifications ??=
-          new GGetNotificationsData_getNotificationsBuilder();
-  set getNotifications(
-          GGetNotificationsData_getNotificationsBuilder? getNotifications) =>
-      _$this._getNotifications = getNotifications;
-
-  GGetNotificationsDataBuilder() {
-    GGetNotificationsData._initializeBuilder(this);
-  }
-
-  GGetNotificationsDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _getNotifications = $v.getNotifications.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetNotificationsData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetNotificationsData;
-  }
-
-  @override
-  void update(void Function(GGetNotificationsDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetNotificationsData build() => _build();
-
-  _$GGetNotificationsData _build() {
-    _$GGetNotificationsData _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetNotificationsData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetNotificationsData', 'G__typename'),
-              getNotifications: getNotifications.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'getNotifications';
-        getNotifications.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetNotificationsData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetNotificationsData_getNotifications
-    extends GGetNotificationsData_getNotifications {
-  @override
-  final String G__typename;
-  @override
-  final BuiltList<GGetNotificationsData_getNotifications_notifications>
-      notifications;
-
-  factory _$GGetNotificationsData_getNotifications(
-          [void Function(GGetNotificationsData_getNotificationsBuilder)?
-              updates]) =>
-      (new GGetNotificationsData_getNotificationsBuilder()..update(updates))
-          ._build();
-
-  _$GGetNotificationsData_getNotifications._(
-      {required this.G__typename, required this.notifications})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetNotificationsData_getNotifications', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(notifications,
-        r'GGetNotificationsData_getNotifications', 'notifications');
-  }
-
-  @override
-  GGetNotificationsData_getNotifications rebuild(
-          void Function(GGetNotificationsData_getNotificationsBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetNotificationsData_getNotificationsBuilder toBuilder() =>
-      new GGetNotificationsData_getNotificationsBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetNotificationsData_getNotifications &&
-        G__typename == other.G__typename &&
-        notifications == other.notifications;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, notifications.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetNotificationsData_getNotifications')
-          ..add('G__typename', G__typename)
-          ..add('notifications', notifications))
-        .toString();
-  }
-}
-
-class GGetNotificationsData_getNotificationsBuilder
-    implements
-        Builder<GGetNotificationsData_getNotifications,
-            GGetNotificationsData_getNotificationsBuilder> {
-  _$GGetNotificationsData_getNotifications? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  ListBuilder<GGetNotificationsData_getNotifications_notifications>?
-      _notifications;
-  ListBuilder<GGetNotificationsData_getNotifications_notifications>
-      get notifications => _$this._notifications ??= new ListBuilder<
-          GGetNotificationsData_getNotifications_notifications>();
-  set notifications(
-          ListBuilder<GGetNotificationsData_getNotifications_notifications>?
-              notifications) =>
-      _$this._notifications = notifications;
-
-  GGetNotificationsData_getNotificationsBuilder() {
-    GGetNotificationsData_getNotifications._initializeBuilder(this);
-  }
-
-  GGetNotificationsData_getNotificationsBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _notifications = $v.notifications.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetNotificationsData_getNotifications other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetNotificationsData_getNotifications;
-  }
-
-  @override
-  void update(
-      void Function(GGetNotificationsData_getNotificationsBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetNotificationsData_getNotifications build() => _build();
-
-  _$GGetNotificationsData_getNotifications _build() {
-    _$GGetNotificationsData_getNotifications _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetNotificationsData_getNotifications._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  r'GGetNotificationsData_getNotifications', 'G__typename'),
-              notifications: notifications.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'notifications';
-        notifications.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetNotificationsData_getNotifications',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetNotificationsData_getNotifications_notifications
-    extends GGetNotificationsData_getNotifications_notifications {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String title;
-  @override
-  final String content;
-  @override
-  final String createdAt;
-  @override
-  final String updatedAt;
-
-  factory _$GGetNotificationsData_getNotifications_notifications(
-          [void Function(
-                  GGetNotificationsData_getNotifications_notificationsBuilder)?
-              updates]) =>
-      (new GGetNotificationsData_getNotifications_notificationsBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetNotificationsData_getNotifications_notifications._(
-      {required this.G__typename,
-      required this.id,
-      required this.title,
-      required this.content,
-      required this.createdAt,
-      required this.updatedAt})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GGetNotificationsData_getNotifications_notifications', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetNotificationsData_getNotifications_notifications', 'id');
-    BuiltValueNullFieldError.checkNotNull(title,
-        r'GGetNotificationsData_getNotifications_notifications', 'title');
-    BuiltValueNullFieldError.checkNotNull(content,
-        r'GGetNotificationsData_getNotifications_notifications', 'content');
-    BuiltValueNullFieldError.checkNotNull(createdAt,
-        r'GGetNotificationsData_getNotifications_notifications', 'createdAt');
-    BuiltValueNullFieldError.checkNotNull(updatedAt,
-        r'GGetNotificationsData_getNotifications_notifications', 'updatedAt');
-  }
-
-  @override
-  GGetNotificationsData_getNotifications_notifications rebuild(
-          void Function(
-                  GGetNotificationsData_getNotifications_notificationsBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetNotificationsData_getNotifications_notificationsBuilder toBuilder() =>
-      new GGetNotificationsData_getNotifications_notificationsBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetNotificationsData_getNotifications_notifications &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        title == other.title &&
-        content == other.content &&
-        createdAt == other.createdAt &&
-        updatedAt == other.updatedAt;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, title.hashCode);
-    _$hash = $jc(_$hash, content.hashCode);
-    _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, updatedAt.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetNotificationsData_getNotifications_notifications')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('title', title)
-          ..add('content', content)
-          ..add('createdAt', createdAt)
-          ..add('updatedAt', updatedAt))
-        .toString();
-  }
-}
-
-class GGetNotificationsData_getNotifications_notificationsBuilder
-    implements
-        Builder<GGetNotificationsData_getNotifications_notifications,
-            GGetNotificationsData_getNotifications_notificationsBuilder> {
-  _$GGetNotificationsData_getNotifications_notifications? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _title;
-  String? get title => _$this._title;
-  set title(String? title) => _$this._title = title;
-
-  String? _content;
-  String? get content => _$this._content;
-  set content(String? content) => _$this._content = content;
-
-  String? _createdAt;
-  String? get createdAt => _$this._createdAt;
-  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
-
-  String? _updatedAt;
-  String? get updatedAt => _$this._updatedAt;
-  set updatedAt(String? updatedAt) => _$this._updatedAt = updatedAt;
-
-  GGetNotificationsData_getNotifications_notificationsBuilder() {
-    GGetNotificationsData_getNotifications_notifications._initializeBuilder(
-        this);
-  }
-
-  GGetNotificationsData_getNotifications_notificationsBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _title = $v.title;
-      _content = $v.content;
-      _createdAt = $v.createdAt;
-      _updatedAt = $v.updatedAt;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetNotificationsData_getNotifications_notifications other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetNotificationsData_getNotifications_notifications;
-  }
-
-  @override
-  void update(
-      void Function(
-              GGetNotificationsData_getNotifications_notificationsBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetNotificationsData_getNotifications_notifications build() => _build();
-
-  _$GGetNotificationsData_getNotifications_notifications _build() {
-    final _$result = _$v ??
-        new _$GGetNotificationsData_getNotifications_notifications._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GGetNotificationsData_getNotifications_notifications',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GGetNotificationsData_getNotifications_notifications', 'id'),
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'GGetNotificationsData_getNotifications_notifications', 'title'),
-            content: BuiltValueNullFieldError.checkNotNull(
-                content, r'GGetNotificationsData_getNotifications_notifications', 'content'),
-            createdAt: BuiltValueNullFieldError.checkNotNull(
-                createdAt, r'GGetNotificationsData_getNotifications_notifications', 'createdAt'),
-            updatedAt: BuiltValueNullFieldError.checkNotNull(
-                updatedAt,
-                r'GGetNotificationsData_getNotifications_notifications',
-                'updatedAt'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserDataData extends GGetUserDataData {
-  @override
-  final String G__typename;
-  @override
-  final GGetUserDataData_getUserData getUserData;
-
-  factory _$GGetUserDataData(
-          [void Function(GGetUserDataDataBuilder)? updates]) =>
-      (new GGetUserDataDataBuilder()..update(updates))._build();
-
-  _$GGetUserDataData._({required this.G__typename, required this.getUserData})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetUserDataData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        getUserData, r'GGetUserDataData', 'getUserData');
-  }
-
-  @override
-  GGetUserDataData rebuild(void Function(GGetUserDataDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserDataDataBuilder toBuilder() =>
-      new GGetUserDataDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetUserDataData &&
-        G__typename == other.G__typename &&
-        getUserData == other.getUserData;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, getUserData.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetUserDataData')
-          ..add('G__typename', G__typename)
-          ..add('getUserData', getUserData))
-        .toString();
-  }
-}
-
-class GGetUserDataDataBuilder
-    implements Builder<GGetUserDataData, GGetUserDataDataBuilder> {
-  _$GGetUserDataData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GGetUserDataData_getUserDataBuilder? _getUserData;
-  GGetUserDataData_getUserDataBuilder get getUserData =>
-      _$this._getUserData ??= new GGetUserDataData_getUserDataBuilder();
-  set getUserData(GGetUserDataData_getUserDataBuilder? getUserData) =>
-      _$this._getUserData = getUserData;
-
-  GGetUserDataDataBuilder() {
-    GGetUserDataData._initializeBuilder(this);
-  }
-
-  GGetUserDataDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _getUserData = $v.getUserData.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserDataData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserDataData;
-  }
-
-  @override
-  void update(void Function(GGetUserDataDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserDataData build() => _build();
-
-  _$GGetUserDataData _build() {
-    _$GGetUserDataData _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetUserDataData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetUserDataData', 'G__typename'),
-              getUserData: getUserData.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'getUserData';
-        getUserData.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetUserDataData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserDataData_getUserData extends GGetUserDataData_getUserData {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String email;
-  @override
-  final String name;
-  @override
-  final String? imageUrl;
-  @override
-  final int fspBalance;
-  @override
-  final int fspBalanceTemp;
-  @override
-  final int credentialBalance;
-  @override
-  final BuiltList<String> roles;
-  @override
-  final String primaryRole;
-  @override
-  final BuiltList<GGetUserDataData_getUserData_belongsToArtists>
-      belongsToArtists;
-  @override
-  final GGetUserDataData_getUserData_primaryArtist? primaryArtist;
-
-  factory _$GGetUserDataData_getUserData(
-          [void Function(GGetUserDataData_getUserDataBuilder)? updates]) =>
-      (new GGetUserDataData_getUserDataBuilder()..update(updates))._build();
-
-  _$GGetUserDataData_getUserData._(
-      {required this.G__typename,
-      required this.id,
-      required this.email,
-      required this.name,
-      this.imageUrl,
-      required this.fspBalance,
-      required this.fspBalanceTemp,
-      required this.credentialBalance,
-      required this.roles,
-      required this.primaryRole,
-      required this.belongsToArtists,
-      this.primaryArtist})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GGetUserDataData_getUserData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetUserDataData_getUserData', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        email, r'GGetUserDataData_getUserData', 'email');
-    BuiltValueNullFieldError.checkNotNull(
-        name, r'GGetUserDataData_getUserData', 'name');
-    BuiltValueNullFieldError.checkNotNull(
-        fspBalance, r'GGetUserDataData_getUserData', 'fspBalance');
-    BuiltValueNullFieldError.checkNotNull(
-        fspBalanceTemp, r'GGetUserDataData_getUserData', 'fspBalanceTemp');
-    BuiltValueNullFieldError.checkNotNull(credentialBalance,
-        r'GGetUserDataData_getUserData', 'credentialBalance');
-    BuiltValueNullFieldError.checkNotNull(
-        roles, r'GGetUserDataData_getUserData', 'roles');
-    BuiltValueNullFieldError.checkNotNull(
-        primaryRole, r'GGetUserDataData_getUserData', 'primaryRole');
-    BuiltValueNullFieldError.checkNotNull(
-        belongsToArtists, r'GGetUserDataData_getUserData', 'belongsToArtists');
-  }
-
-  @override
-  GGetUserDataData_getUserData rebuild(
-          void Function(GGetUserDataData_getUserDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserDataData_getUserDataBuilder toBuilder() =>
-      new GGetUserDataData_getUserDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetUserDataData_getUserData &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        email == other.email &&
-        name == other.name &&
-        imageUrl == other.imageUrl &&
-        fspBalance == other.fspBalance &&
-        fspBalanceTemp == other.fspBalanceTemp &&
-        credentialBalance == other.credentialBalance &&
-        roles == other.roles &&
-        primaryRole == other.primaryRole &&
-        belongsToArtists == other.belongsToArtists &&
-        primaryArtist == other.primaryArtist;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, email.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, fspBalance.hashCode);
-    _$hash = $jc(_$hash, fspBalanceTemp.hashCode);
-    _$hash = $jc(_$hash, credentialBalance.hashCode);
-    _$hash = $jc(_$hash, roles.hashCode);
-    _$hash = $jc(_$hash, primaryRole.hashCode);
-    _$hash = $jc(_$hash, belongsToArtists.hashCode);
-    _$hash = $jc(_$hash, primaryArtist.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetUserDataData_getUserData')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('email', email)
-          ..add('name', name)
-          ..add('imageUrl', imageUrl)
-          ..add('fspBalance', fspBalance)
-          ..add('fspBalanceTemp', fspBalanceTemp)
-          ..add('credentialBalance', credentialBalance)
-          ..add('roles', roles)
-          ..add('primaryRole', primaryRole)
-          ..add('belongsToArtists', belongsToArtists)
-          ..add('primaryArtist', primaryArtist))
-        .toString();
-  }
-}
-
-class GGetUserDataData_getUserDataBuilder
-    implements
-        Builder<GGetUserDataData_getUserData,
-            GGetUserDataData_getUserDataBuilder> {
-  _$GGetUserDataData_getUserData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _email;
-  String? get email => _$this._email;
-  set email(String? email) => _$this._email = email;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  int? _fspBalance;
-  int? get fspBalance => _$this._fspBalance;
-  set fspBalance(int? fspBalance) => _$this._fspBalance = fspBalance;
-
-  int? _fspBalanceTemp;
-  int? get fspBalanceTemp => _$this._fspBalanceTemp;
-  set fspBalanceTemp(int? fspBalanceTemp) =>
-      _$this._fspBalanceTemp = fspBalanceTemp;
-
-  int? _credentialBalance;
-  int? get credentialBalance => _$this._credentialBalance;
-  set credentialBalance(int? credentialBalance) =>
-      _$this._credentialBalance = credentialBalance;
-
-  ListBuilder<String>? _roles;
-  ListBuilder<String> get roles => _$this._roles ??= new ListBuilder<String>();
-  set roles(ListBuilder<String>? roles) => _$this._roles = roles;
-
-  String? _primaryRole;
-  String? get primaryRole => _$this._primaryRole;
-  set primaryRole(String? primaryRole) => _$this._primaryRole = primaryRole;
-
-  ListBuilder<GGetUserDataData_getUserData_belongsToArtists>? _belongsToArtists;
-  ListBuilder<GGetUserDataData_getUserData_belongsToArtists>
-      get belongsToArtists => _$this._belongsToArtists ??=
-          new ListBuilder<GGetUserDataData_getUserData_belongsToArtists>();
-  set belongsToArtists(
-          ListBuilder<GGetUserDataData_getUserData_belongsToArtists>?
-              belongsToArtists) =>
-      _$this._belongsToArtists = belongsToArtists;
-
-  GGetUserDataData_getUserData_primaryArtistBuilder? _primaryArtist;
-  GGetUserDataData_getUserData_primaryArtistBuilder get primaryArtist =>
-      _$this._primaryArtist ??=
-          new GGetUserDataData_getUserData_primaryArtistBuilder();
-  set primaryArtist(
-          GGetUserDataData_getUserData_primaryArtistBuilder? primaryArtist) =>
-      _$this._primaryArtist = primaryArtist;
-
-  GGetUserDataData_getUserDataBuilder() {
-    GGetUserDataData_getUserData._initializeBuilder(this);
-  }
-
-  GGetUserDataData_getUserDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _email = $v.email;
-      _name = $v.name;
-      _imageUrl = $v.imageUrl;
-      _fspBalance = $v.fspBalance;
-      _fspBalanceTemp = $v.fspBalanceTemp;
-      _credentialBalance = $v.credentialBalance;
-      _roles = $v.roles.toBuilder();
-      _primaryRole = $v.primaryRole;
-      _belongsToArtists = $v.belongsToArtists.toBuilder();
-      _primaryArtist = $v.primaryArtist?.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserDataData_getUserData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserDataData_getUserData;
-  }
-
-  @override
-  void update(void Function(GGetUserDataData_getUserDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserDataData_getUserData build() => _build();
-
-  _$GGetUserDataData_getUserData _build() {
-    _$GGetUserDataData_getUserData _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetUserDataData_getUserData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GGetUserDataData_getUserData', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'GGetUserDataData_getUserData', 'id'),
-              email: BuiltValueNullFieldError.checkNotNull(
-                  email, r'GGetUserDataData_getUserData', 'email'),
-              name: BuiltValueNullFieldError.checkNotNull(
-                  name, r'GGetUserDataData_getUserData', 'name'),
-              imageUrl: imageUrl,
-              fspBalance: BuiltValueNullFieldError.checkNotNull(
-                  fspBalance, r'GGetUserDataData_getUserData', 'fspBalance'),
-              fspBalanceTemp: BuiltValueNullFieldError.checkNotNull(
-                  fspBalanceTemp, r'GGetUserDataData_getUserData', 'fspBalanceTemp'),
-              credentialBalance: BuiltValueNullFieldError.checkNotNull(
-                  credentialBalance, r'GGetUserDataData_getUserData', 'credentialBalance'),
-              roles: roles.build(),
-              primaryRole: BuiltValueNullFieldError.checkNotNull(
-                  primaryRole, r'GGetUserDataData_getUserData', 'primaryRole'),
-              belongsToArtists: belongsToArtists.build(),
-              primaryArtist: _primaryArtist?.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'roles';
-        roles.build();
-
-        _$failedField = 'belongsToArtists';
-        belongsToArtists.build();
-        _$failedField = 'primaryArtist';
-        _primaryArtist?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetUserDataData_getUserData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserDataData_getUserData_belongsToArtists
-    extends GGetUserDataData_getUserData_belongsToArtists {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String? imageUrl;
-  @override
-  final bool isAccepted;
-
-  factory _$GGetUserDataData_getUserData_belongsToArtists(
-          [void Function(GGetUserDataData_getUserData_belongsToArtistsBuilder)?
-              updates]) =>
-      (new GGetUserDataData_getUserData_belongsToArtistsBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GGetUserDataData_getUserData_belongsToArtists._(
-      {required this.G__typename,
-      required this.id,
-      required this.name,
-      this.imageUrl,
-      required this.isAccepted})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GGetUserDataData_getUserData_belongsToArtists', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetUserDataData_getUserData_belongsToArtists', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        name, r'GGetUserDataData_getUserData_belongsToArtists', 'name');
-    BuiltValueNullFieldError.checkNotNull(isAccepted,
-        r'GGetUserDataData_getUserData_belongsToArtists', 'isAccepted');
-  }
-
-  @override
-  GGetUserDataData_getUserData_belongsToArtists rebuild(
-          void Function(GGetUserDataData_getUserData_belongsToArtistsBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserDataData_getUserData_belongsToArtistsBuilder toBuilder() =>
-      new GGetUserDataData_getUserData_belongsToArtistsBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetUserDataData_getUserData_belongsToArtists &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        name == other.name &&
-        imageUrl == other.imageUrl &&
-        isAccepted == other.isAccepted;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, isAccepted.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetUserDataData_getUserData_belongsToArtists')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('name', name)
-          ..add('imageUrl', imageUrl)
-          ..add('isAccepted', isAccepted))
-        .toString();
-  }
-}
-
-class GGetUserDataData_getUserData_belongsToArtistsBuilder
-    implements
-        Builder<GGetUserDataData_getUserData_belongsToArtists,
-            GGetUserDataData_getUserData_belongsToArtistsBuilder> {
-  _$GGetUserDataData_getUserData_belongsToArtists? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  bool? _isAccepted;
-  bool? get isAccepted => _$this._isAccepted;
-  set isAccepted(bool? isAccepted) => _$this._isAccepted = isAccepted;
-
-  GGetUserDataData_getUserData_belongsToArtistsBuilder() {
-    GGetUserDataData_getUserData_belongsToArtists._initializeBuilder(this);
-  }
-
-  GGetUserDataData_getUserData_belongsToArtistsBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _name = $v.name;
-      _imageUrl = $v.imageUrl;
-      _isAccepted = $v.isAccepted;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserDataData_getUserData_belongsToArtists other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserDataData_getUserData_belongsToArtists;
-  }
-
-  @override
-  void update(
-      void Function(GGetUserDataData_getUserData_belongsToArtistsBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserDataData_getUserData_belongsToArtists build() => _build();
-
-  _$GGetUserDataData_getUserData_belongsToArtists _build() {
-    final _$result = _$v ??
-        new _$GGetUserDataData_getUserData_belongsToArtists._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GGetUserDataData_getUserData_belongsToArtists',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GGetUserDataData_getUserData_belongsToArtists', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GGetUserDataData_getUserData_belongsToArtists', 'name'),
-            imageUrl: imageUrl,
-            isAccepted: BuiltValueNullFieldError.checkNotNull(
-                isAccepted,
-                r'GGetUserDataData_getUserData_belongsToArtists',
-                'isAccepted'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserDataData_getUserData_primaryArtist
-    extends GGetUserDataData_getUserData_primaryArtist {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String? imageUrl;
-  @override
-  final bool isAccepted;
-
-  factory _$GGetUserDataData_getUserData_primaryArtist(
-          [void Function(GGetUserDataData_getUserData_primaryArtistBuilder)?
-              updates]) =>
-      (new GGetUserDataData_getUserData_primaryArtistBuilder()..update(updates))
-          ._build();
-
-  _$GGetUserDataData_getUserData_primaryArtist._(
-      {required this.G__typename,
-      required this.id,
-      required this.name,
-      this.imageUrl,
-      required this.isAccepted})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GGetUserDataData_getUserData_primaryArtist', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetUserDataData_getUserData_primaryArtist', 'id');
-    BuiltValueNullFieldError.checkNotNull(
-        name, r'GGetUserDataData_getUserData_primaryArtist', 'name');
-    BuiltValueNullFieldError.checkNotNull(isAccepted,
-        r'GGetUserDataData_getUserData_primaryArtist', 'isAccepted');
-  }
-
-  @override
-  GGetUserDataData_getUserData_primaryArtist rebuild(
-          void Function(GGetUserDataData_getUserData_primaryArtistBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserDataData_getUserData_primaryArtistBuilder toBuilder() =>
-      new GGetUserDataData_getUserData_primaryArtistBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GGetUserDataData_getUserData_primaryArtist &&
-        G__typename == other.G__typename &&
-        id == other.id &&
-        name == other.name &&
-        imageUrl == other.imageUrl &&
-        isAccepted == other.isAccepted;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, name.hashCode);
-    _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, isAccepted.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GGetUserDataData_getUserData_primaryArtist')
-          ..add('G__typename', G__typename)
-          ..add('id', id)
-          ..add('name', name)
-          ..add('imageUrl', imageUrl)
-          ..add('isAccepted', isAccepted))
-        .toString();
-  }
-}
-
-class GGetUserDataData_getUserData_primaryArtistBuilder
-    implements
-        Builder<GGetUserDataData_getUserData_primaryArtist,
-            GGetUserDataData_getUserData_primaryArtistBuilder> {
-  _$GGetUserDataData_getUserData_primaryArtist? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  String? _name;
-  String? get name => _$this._name;
-  set name(String? name) => _$this._name = name;
-
-  String? _imageUrl;
-  String? get imageUrl => _$this._imageUrl;
-  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  bool? _isAccepted;
-  bool? get isAccepted => _$this._isAccepted;
-  set isAccepted(bool? isAccepted) => _$this._isAccepted = isAccepted;
-
-  GGetUserDataData_getUserData_primaryArtistBuilder() {
-    GGetUserDataData_getUserData_primaryArtist._initializeBuilder(this);
-  }
-
-  GGetUserDataData_getUserData_primaryArtistBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _name = $v.name;
-      _imageUrl = $v.imageUrl;
-      _isAccepted = $v.isAccepted;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserDataData_getUserData_primaryArtist other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserDataData_getUserData_primaryArtist;
-  }
-
-  @override
-  void update(
-      void Function(GGetUserDataData_getUserData_primaryArtistBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserDataData_getUserData_primaryArtist build() => _build();
-
-  _$GGetUserDataData_getUserData_primaryArtist _build() {
-    final _$result = _$v ??
-        new _$GGetUserDataData_getUserData_primaryArtist._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GGetUserDataData_getUserData_primaryArtist', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GGetUserDataData_getUserData_primaryArtist', 'id'),
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'GGetUserDataData_getUserData_primaryArtist', 'name'),
-            imageUrl: imageUrl,
-            isAccepted: BuiltValueNullFieldError.checkNotNull(isAccepted,
-                r'GGetUserDataData_getUserData_primaryArtist', 'isAccepted'));
     replace(_$result);
     return _$result;
   }
@@ -13043,7 +8800,7 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser
   @override
   final String? imageUrl;
   @override
-  final BuiltList<String> roles;
+  final String role;
   @override
   final String primaryRole;
   @override
@@ -13063,7 +8820,7 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser
       required this.id,
       required this.name,
       this.imageUrl,
-      required this.roles,
+      required this.role,
       required this.primaryRole,
       this.primaryArtist})
       : super._() {
@@ -13080,9 +8837,9 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser
         r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser',
         'name');
     BuiltValueNullFieldError.checkNotNull(
-        roles,
+        role,
         r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser',
-        'roles');
+        'role');
     BuiltValueNullFieldError.checkNotNull(
         primaryRole,
         r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser',
@@ -13111,7 +8868,7 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser
         id == other.id &&
         name == other.name &&
         imageUrl == other.imageUrl &&
-        roles == other.roles &&
+        role == other.role &&
         primaryRole == other.primaryRole &&
         primaryArtist == other.primaryArtist;
   }
@@ -13123,7 +8880,7 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, roles.hashCode);
+    _$hash = $jc(_$hash, role.hashCode);
     _$hash = $jc(_$hash, primaryRole.hashCode);
     _$hash = $jc(_$hash, primaryArtist.hashCode);
     _$hash = $jf(_$hash);
@@ -13138,7 +8895,7 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser
           ..add('id', id)
           ..add('name', name)
           ..add('imageUrl', imageUrl)
-          ..add('roles', roles)
+          ..add('role', role)
           ..add('primaryRole', primaryRole)
           ..add('primaryArtist', primaryArtist))
         .toString();
@@ -13168,9 +8925,9 @@ class GGetCommunitiesData_getCommunities_connectedUserList_connectedUserBuilder
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  ListBuilder<String>? _roles;
-  ListBuilder<String> get roles => _$this._roles ??= new ListBuilder<String>();
-  set roles(ListBuilder<String>? roles) => _$this._roles = roles;
+  String? _role;
+  String? get role => _$this._role;
+  set role(String? role) => _$this._role = role;
 
   String? _primaryRole;
   String? get primaryRole => _$this._primaryRole;
@@ -13199,7 +8956,7 @@ class GGetCommunitiesData_getCommunities_connectedUserList_connectedUserBuilder
       _id = $v.id;
       _name = $v.name;
       _imageUrl = $v.imageUrl;
-      _roles = $v.roles.toBuilder();
+      _role = $v.role;
       _primaryRole = $v.primaryRole;
       _primaryArtist = $v.primaryArtist?.toBuilder();
       _$v = null;
@@ -13239,14 +8996,17 @@ class GGetCommunitiesData_getCommunities_connectedUserList_connectedUserBuilder
                   G__typename,
                   r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser',
                   'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(id,
-                  r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser', 'id'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser', 'id'),
               name: BuiltValueNullFieldError.checkNotNull(
                   name,
                   r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser',
                   'name'),
               imageUrl: imageUrl,
-              roles: roles.build(),
+              role: BuiltValueNullFieldError.checkNotNull(
+                  role,
+                  r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser',
+                  'role'),
               primaryRole: BuiltValueNullFieldError.checkNotNull(
                   primaryRole,
                   r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser',
@@ -13255,9 +9015,6 @@ class GGetCommunitiesData_getCommunities_connectedUserList_connectedUserBuilder
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'roles';
-        roles.build();
-
         _$failedField = 'primaryArtist';
         _primaryArtist?.build();
       } catch (e) {
@@ -13284,7 +9041,11 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_prima
   @override
   final String? imageUrl;
   @override
-  final bool isAccepted;
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
 
   factory _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist(
           [void Function(
@@ -13299,7 +9060,9 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_prima
       required this.id,
       required this.name,
       this.imageUrl,
-      required this.isAccepted})
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -13314,9 +9077,17 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_prima
         r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist',
         'name');
     BuiltValueNullFieldError.checkNotNull(
-        isAccepted,
+        fsp,
         r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist',
-        'isAccepted');
+        'fsp');
+    BuiltValueNullFieldError.checkNotNull(
+        status,
+        r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist',
+        'status');
+    BuiltValueNullFieldError.checkNotNull(
+        isAdmin,
+        r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist',
+        'isAdmin');
   }
 
   @override
@@ -13342,7 +9113,9 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_prima
         id == other.id &&
         name == other.name &&
         imageUrl == other.imageUrl &&
-        isAccepted == other.isAccepted;
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
   }
 
   @override
@@ -13352,7 +9125,9 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_prima
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, isAccepted.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -13365,7 +9140,9 @@ class _$GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_prima
           ..add('id', id)
           ..add('name', name)
           ..add('imageUrl', imageUrl)
-          ..add('isAccepted', isAccepted))
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
         .toString();
   }
 }
@@ -13394,9 +9171,17 @@ class GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primary
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  bool? _isAccepted;
-  bool? get isAccepted => _$this._isAccepted;
-  set isAccepted(bool? isAccepted) => _$this._isAccepted = isAccepted;
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
 
   GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtistBuilder() {
     GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist
@@ -13411,7 +9196,9 @@ class GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primary
       _id = $v.id;
       _name = $v.name;
       _imageUrl = $v.imageUrl;
-      _isAccepted = $v.isAccepted;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
       _$v = null;
     }
     return this;
@@ -13446,17 +9233,930 @@ class GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primary
                 G__typename,
                 r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist',
                 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist', 'id'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist',
-                'name'),
+                name, r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist', 'name'),
             imageUrl: imageUrl,
-            isAccepted: BuiltValueNullFieldError.checkNotNull(
-                isAccepted,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin,
                 r'GGetCommunitiesData_getCommunities_connectedUserList_connectedUser_primaryArtist',
-                'isAccepted'));
+                'isAdmin'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserInfoData extends GGetUserInfoData {
+  @override
+  final String G__typename;
+  @override
+  final GGetUserInfoData_getUserInfo getUserInfo;
+
+  factory _$GGetUserInfoData(
+          [void Function(GGetUserInfoDataBuilder)? updates]) =>
+      (new GGetUserInfoDataBuilder()..update(updates))._build();
+
+  _$GGetUserInfoData._({required this.G__typename, required this.getUserInfo})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetUserInfoData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        getUserInfo, r'GGetUserInfoData', 'getUserInfo');
+  }
+
+  @override
+  GGetUserInfoData rebuild(void Function(GGetUserInfoDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserInfoDataBuilder toBuilder() =>
+      new GGetUserInfoDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserInfoData &&
+        G__typename == other.G__typename &&
+        getUserInfo == other.getUserInfo;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, getUserInfo.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetUserInfoData')
+          ..add('G__typename', G__typename)
+          ..add('getUserInfo', getUserInfo))
+        .toString();
+  }
+}
+
+class GGetUserInfoDataBuilder
+    implements Builder<GGetUserInfoData, GGetUserInfoDataBuilder> {
+  _$GGetUserInfoData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GGetUserInfoData_getUserInfoBuilder? _getUserInfo;
+  GGetUserInfoData_getUserInfoBuilder get getUserInfo =>
+      _$this._getUserInfo ??= new GGetUserInfoData_getUserInfoBuilder();
+  set getUserInfo(GGetUserInfoData_getUserInfoBuilder? getUserInfo) =>
+      _$this._getUserInfo = getUserInfo;
+
+  GGetUserInfoDataBuilder() {
+    GGetUserInfoData._initializeBuilder(this);
+  }
+
+  GGetUserInfoDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _getUserInfo = $v.getUserInfo.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserInfoData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserInfoData;
+  }
+
+  @override
+  void update(void Function(GGetUserInfoDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserInfoData build() => _build();
+
+  _$GGetUserInfoData _build() {
+    _$GGetUserInfoData _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetUserInfoData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GGetUserInfoData', 'G__typename'),
+              getUserInfo: getUserInfo.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'getUserInfo';
+        getUserInfo.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetUserInfoData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserInfoData_getUserInfo extends GGetUserInfoData_getUserInfo {
+  @override
+  final String G__typename;
+  @override
+  final GGetUserInfoData_getUserInfo_userInfo userInfo;
+
+  factory _$GGetUserInfoData_getUserInfo(
+          [void Function(GGetUserInfoData_getUserInfoBuilder)? updates]) =>
+      (new GGetUserInfoData_getUserInfoBuilder()..update(updates))._build();
+
+  _$GGetUserInfoData_getUserInfo._(
+      {required this.G__typename, required this.userInfo})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetUserInfoData_getUserInfo', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        userInfo, r'GGetUserInfoData_getUserInfo', 'userInfo');
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo rebuild(
+          void Function(GGetUserInfoData_getUserInfoBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserInfoData_getUserInfoBuilder toBuilder() =>
+      new GGetUserInfoData_getUserInfoBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserInfoData_getUserInfo &&
+        G__typename == other.G__typename &&
+        userInfo == other.userInfo;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, userInfo.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetUserInfoData_getUserInfo')
+          ..add('G__typename', G__typename)
+          ..add('userInfo', userInfo))
+        .toString();
+  }
+}
+
+class GGetUserInfoData_getUserInfoBuilder
+    implements
+        Builder<GGetUserInfoData_getUserInfo,
+            GGetUserInfoData_getUserInfoBuilder> {
+  _$GGetUserInfoData_getUserInfo? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GGetUserInfoData_getUserInfo_userInfoBuilder? _userInfo;
+  GGetUserInfoData_getUserInfo_userInfoBuilder get userInfo =>
+      _$this._userInfo ??= new GGetUserInfoData_getUserInfo_userInfoBuilder();
+  set userInfo(GGetUserInfoData_getUserInfo_userInfoBuilder? userInfo) =>
+      _$this._userInfo = userInfo;
+
+  GGetUserInfoData_getUserInfoBuilder() {
+    GGetUserInfoData_getUserInfo._initializeBuilder(this);
+  }
+
+  GGetUserInfoData_getUserInfoBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _userInfo = $v.userInfo.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserInfoData_getUserInfo other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserInfoData_getUserInfo;
+  }
+
+  @override
+  void update(void Function(GGetUserInfoData_getUserInfoBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo build() => _build();
+
+  _$GGetUserInfoData_getUserInfo _build() {
+    _$GGetUserInfoData_getUserInfo _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetUserInfoData_getUserInfo._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GGetUserInfoData_getUserInfo', 'G__typename'),
+              userInfo: userInfo.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'userInfo';
+        userInfo.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetUserInfoData_getUserInfo', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserInfoData_getUserInfo_userInfo
+    extends GGetUserInfoData_getUserInfo_userInfo {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String email;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final int fspBalance;
+  @override
+  final int credentialBalance;
+  @override
+  final String role;
+  @override
+  final String primaryRole;
+  @override
+  final BuiltList<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
+      belongsToArtists;
+  @override
+  final GGetUserInfoData_getUserInfo_userInfo_primaryArtist? primaryArtist;
+
+  factory _$GGetUserInfoData_getUserInfo_userInfo(
+          [void Function(GGetUserInfoData_getUserInfo_userInfoBuilder)?
+              updates]) =>
+      (new GGetUserInfoData_getUserInfo_userInfoBuilder()..update(updates))
+          ._build();
+
+  _$GGetUserInfoData_getUserInfo_userInfo._(
+      {required this.G__typename,
+      required this.id,
+      required this.email,
+      required this.name,
+      this.imageUrl,
+      required this.fspBalance,
+      required this.credentialBalance,
+      required this.role,
+      required this.primaryRole,
+      required this.belongsToArtists,
+      this.primaryArtist})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetUserInfoData_getUserInfo_userInfo', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetUserInfoData_getUserInfo_userInfo', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        email, r'GGetUserInfoData_getUserInfo_userInfo', 'email');
+    BuiltValueNullFieldError.checkNotNull(
+        name, r'GGetUserInfoData_getUserInfo_userInfo', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        fspBalance, r'GGetUserInfoData_getUserInfo_userInfo', 'fspBalance');
+    BuiltValueNullFieldError.checkNotNull(credentialBalance,
+        r'GGetUserInfoData_getUserInfo_userInfo', 'credentialBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        role, r'GGetUserInfoData_getUserInfo_userInfo', 'role');
+    BuiltValueNullFieldError.checkNotNull(
+        primaryRole, r'GGetUserInfoData_getUserInfo_userInfo', 'primaryRole');
+    BuiltValueNullFieldError.checkNotNull(belongsToArtists,
+        r'GGetUserInfoData_getUserInfo_userInfo', 'belongsToArtists');
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo rebuild(
+          void Function(GGetUserInfoData_getUserInfo_userInfoBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfoBuilder toBuilder() =>
+      new GGetUserInfoData_getUserInfo_userInfoBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserInfoData_getUserInfo_userInfo &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        email == other.email &&
+        name == other.name &&
+        imageUrl == other.imageUrl &&
+        fspBalance == other.fspBalance &&
+        credentialBalance == other.credentialBalance &&
+        role == other.role &&
+        primaryRole == other.primaryRole &&
+        belongsToArtists == other.belongsToArtists &&
+        primaryArtist == other.primaryArtist;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fspBalance.hashCode);
+    _$hash = $jc(_$hash, credentialBalance.hashCode);
+    _$hash = $jc(_$hash, role.hashCode);
+    _$hash = $jc(_$hash, primaryRole.hashCode);
+    _$hash = $jc(_$hash, belongsToArtists.hashCode);
+    _$hash = $jc(_$hash, primaryArtist.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetUserInfoData_getUserInfo_userInfo')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('email', email)
+          ..add('name', name)
+          ..add('imageUrl', imageUrl)
+          ..add('fspBalance', fspBalance)
+          ..add('credentialBalance', credentialBalance)
+          ..add('role', role)
+          ..add('primaryRole', primaryRole)
+          ..add('belongsToArtists', belongsToArtists)
+          ..add('primaryArtist', primaryArtist))
+        .toString();
+  }
+}
+
+class GGetUserInfoData_getUserInfo_userInfoBuilder
+    implements
+        Builder<GGetUserInfoData_getUserInfo_userInfo,
+            GGetUserInfoData_getUserInfo_userInfoBuilder> {
+  _$GGetUserInfoData_getUserInfo_userInfo? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fspBalance;
+  int? get fspBalance => _$this._fspBalance;
+  set fspBalance(int? fspBalance) => _$this._fspBalance = fspBalance;
+
+  int? _credentialBalance;
+  int? get credentialBalance => _$this._credentialBalance;
+  set credentialBalance(int? credentialBalance) =>
+      _$this._credentialBalance = credentialBalance;
+
+  String? _role;
+  String? get role => _$this._role;
+  set role(String? role) => _$this._role = role;
+
+  String? _primaryRole;
+  String? get primaryRole => _$this._primaryRole;
+  set primaryRole(String? primaryRole) => _$this._primaryRole = primaryRole;
+
+  ListBuilder<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>?
+      _belongsToArtists;
+  ListBuilder<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>
+      get belongsToArtists => _$this._belongsToArtists ??= new ListBuilder<
+          GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>();
+  set belongsToArtists(
+          ListBuilder<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>?
+              belongsToArtists) =>
+      _$this._belongsToArtists = belongsToArtists;
+
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder? _primaryArtist;
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder
+      get primaryArtist => _$this._primaryArtist ??=
+          new GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder();
+  set primaryArtist(
+          GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder?
+              primaryArtist) =>
+      _$this._primaryArtist = primaryArtist;
+
+  GGetUserInfoData_getUserInfo_userInfoBuilder() {
+    GGetUserInfoData_getUserInfo_userInfo._initializeBuilder(this);
+  }
+
+  GGetUserInfoData_getUserInfo_userInfoBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _email = $v.email;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _fspBalance = $v.fspBalance;
+      _credentialBalance = $v.credentialBalance;
+      _role = $v.role;
+      _primaryRole = $v.primaryRole;
+      _belongsToArtists = $v.belongsToArtists.toBuilder();
+      _primaryArtist = $v.primaryArtist?.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserInfoData_getUserInfo_userInfo other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserInfoData_getUserInfo_userInfo;
+  }
+
+  @override
+  void update(
+      void Function(GGetUserInfoData_getUserInfo_userInfoBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo build() => _build();
+
+  _$GGetUserInfoData_getUserInfo_userInfo _build() {
+    _$GGetUserInfoData_getUserInfo_userInfo _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetUserInfoData_getUserInfo_userInfo._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GGetUserInfoData_getUserInfo_userInfo', 'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GGetUserInfoData_getUserInfo_userInfo', 'id'),
+              email: BuiltValueNullFieldError.checkNotNull(
+                  email, r'GGetUserInfoData_getUserInfo_userInfo', 'email'),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, r'GGetUserInfoData_getUserInfo_userInfo', 'name'),
+              imageUrl: imageUrl,
+              fspBalance: BuiltValueNullFieldError.checkNotNull(
+                  fspBalance, r'GGetUserInfoData_getUserInfo_userInfo', 'fspBalance'),
+              credentialBalance: BuiltValueNullFieldError.checkNotNull(
+                  credentialBalance,
+                  r'GGetUserInfoData_getUserInfo_userInfo',
+                  'credentialBalance'),
+              role: BuiltValueNullFieldError.checkNotNull(
+                  role, r'GGetUserInfoData_getUserInfo_userInfo', 'role'),
+              primaryRole: BuiltValueNullFieldError.checkNotNull(primaryRole, r'GGetUserInfoData_getUserInfo_userInfo', 'primaryRole'),
+              belongsToArtists: belongsToArtists.build(),
+              primaryArtist: _primaryArtist?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'belongsToArtists';
+        belongsToArtists.build();
+        _$failedField = 'primaryArtist';
+        _primaryArtist?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetUserInfoData_getUserInfo_userInfo',
+            _$failedField,
+            e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists
+    extends GGetUserInfoData_getUserInfo_userInfo_belongsToArtists {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
+
+  factory _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists(
+          [void Function(
+                  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder)?
+              updates]) =>
+      (new GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists._(
+      {required this.G__typename,
+      required this.id,
+      required this.name,
+      this.imageUrl,
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename,
+        r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists',
+        'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'id');
+    BuiltValueNullFieldError.checkNotNull(name,
+        r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        fsp, r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'fsp');
+    BuiltValueNullFieldError.checkNotNull(status,
+        r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'status');
+    BuiltValueNullFieldError.checkNotNull(isAdmin,
+        r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'isAdmin');
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo_belongsToArtists rebuild(
+          void Function(
+                  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder toBuilder() =>
+      new GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder()
+        ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserInfoData_getUserInfo_userInfo_belongsToArtists &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        name == other.name &&
+        imageUrl == other.imageUrl &&
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('name', name)
+          ..add('imageUrl', imageUrl)
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
+        .toString();
+  }
+}
+
+class GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder
+    implements
+        Builder<GGetUserInfoData_getUserInfo_userInfo_belongsToArtists,
+            GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder> {
+  _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
+
+  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder() {
+    GGetUserInfoData_getUserInfo_userInfo_belongsToArtists._initializeBuilder(
+        this);
+  }
+
+  GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserInfoData_getUserInfo_userInfo_belongsToArtists other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists;
+  }
+
+  @override
+  void update(
+      void Function(
+              GGetUserInfoData_getUserInfo_userInfo_belongsToArtistsBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo_belongsToArtists build() => _build();
+
+  _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists _build() {
+    final _$result = _$v ??
+        new _$GGetUserInfoData_getUserInfo_userInfo_belongsToArtists._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'name'),
+            imageUrl: imageUrl,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin,
+                r'GGetUserInfoData_getUserInfo_userInfo_belongsToArtists',
+                'isAdmin'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist
+    extends GGetUserInfoData_getUserInfo_userInfo_primaryArtist {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
+
+  factory _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist(
+          [void Function(
+                  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder)?
+              updates]) =>
+      (new GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist._(
+      {required this.G__typename,
+      required this.id,
+      required this.name,
+      this.imageUrl,
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        name, r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        fsp, r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'fsp');
+    BuiltValueNullFieldError.checkNotNull(status,
+        r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'status');
+    BuiltValueNullFieldError.checkNotNull(isAdmin,
+        r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'isAdmin');
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtist rebuild(
+          void Function(
+                  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder toBuilder() =>
+      new GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder()
+        ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserInfoData_getUserInfo_userInfo_primaryArtist &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        name == other.name &&
+        imageUrl == other.imageUrl &&
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('name', name)
+          ..add('imageUrl', imageUrl)
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
+        .toString();
+  }
+}
+
+class GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder
+    implements
+        Builder<GGetUserInfoData_getUserInfo_userInfo_primaryArtist,
+            GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder> {
+  _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
+
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder() {
+    GGetUserInfoData_getUserInfo_userInfo_primaryArtist._initializeBuilder(
+        this);
+  }
+
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserInfoData_getUserInfo_userInfo_primaryArtist other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist;
+  }
+
+  @override
+  void update(
+      void Function(GGetUserInfoData_getUserInfo_userInfo_primaryArtistBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserInfoData_getUserInfo_userInfo_primaryArtist build() => _build();
+
+  _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist _build() {
+    final _$result = _$v ??
+        new _$GGetUserInfoData_getUserInfo_userInfo_primaryArtist._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'name'),
+            imageUrl: imageUrl,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin,
+                r'GGetUserInfoData_getUserInfo_userInfo_primaryArtist',
+                'isAdmin'));
     replace(_$result);
     return _$result;
   }
@@ -13591,15 +10291,13 @@ class _$GGetOfferStatsByUserData_getOfferStatsByUser
   @override
   final String G__typename;
   @override
-  final int inprogressOffers;
+  final int totalOffers;
   @override
-  final int appledOffers;
+  final int ongoingOffers;
+  @override
+  final int appliedOffers;
   @override
   final int completedOffers;
-  @override
-  final int rejectedOffers;
-  @override
-  final int canceledOffers;
   @override
   final int totalEarnings;
 
@@ -13612,25 +10310,22 @@ class _$GGetOfferStatsByUserData_getOfferStatsByUser
 
   _$GGetOfferStatsByUserData_getOfferStatsByUser._(
       {required this.G__typename,
-      required this.inprogressOffers,
-      required this.appledOffers,
+      required this.totalOffers,
+      required this.ongoingOffers,
+      required this.appliedOffers,
       required this.completedOffers,
-      required this.rejectedOffers,
-      required this.canceledOffers,
       required this.totalEarnings})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GGetOfferStatsByUserData_getOfferStatsByUser', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(inprogressOffers,
-        r'GGetOfferStatsByUserData_getOfferStatsByUser', 'inprogressOffers');
-    BuiltValueNullFieldError.checkNotNull(appledOffers,
-        r'GGetOfferStatsByUserData_getOfferStatsByUser', 'appledOffers');
+    BuiltValueNullFieldError.checkNotNull(totalOffers,
+        r'GGetOfferStatsByUserData_getOfferStatsByUser', 'totalOffers');
+    BuiltValueNullFieldError.checkNotNull(ongoingOffers,
+        r'GGetOfferStatsByUserData_getOfferStatsByUser', 'ongoingOffers');
+    BuiltValueNullFieldError.checkNotNull(appliedOffers,
+        r'GGetOfferStatsByUserData_getOfferStatsByUser', 'appliedOffers');
     BuiltValueNullFieldError.checkNotNull(completedOffers,
         r'GGetOfferStatsByUserData_getOfferStatsByUser', 'completedOffers');
-    BuiltValueNullFieldError.checkNotNull(rejectedOffers,
-        r'GGetOfferStatsByUserData_getOfferStatsByUser', 'rejectedOffers');
-    BuiltValueNullFieldError.checkNotNull(canceledOffers,
-        r'GGetOfferStatsByUserData_getOfferStatsByUser', 'canceledOffers');
     BuiltValueNullFieldError.checkNotNull(totalEarnings,
         r'GGetOfferStatsByUserData_getOfferStatsByUser', 'totalEarnings');
   }
@@ -13650,11 +10345,10 @@ class _$GGetOfferStatsByUserData_getOfferStatsByUser
     if (identical(other, this)) return true;
     return other is GGetOfferStatsByUserData_getOfferStatsByUser &&
         G__typename == other.G__typename &&
-        inprogressOffers == other.inprogressOffers &&
-        appledOffers == other.appledOffers &&
+        totalOffers == other.totalOffers &&
+        ongoingOffers == other.ongoingOffers &&
+        appliedOffers == other.appliedOffers &&
         completedOffers == other.completedOffers &&
-        rejectedOffers == other.rejectedOffers &&
-        canceledOffers == other.canceledOffers &&
         totalEarnings == other.totalEarnings;
   }
 
@@ -13662,11 +10356,10 @@ class _$GGetOfferStatsByUserData_getOfferStatsByUser
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, inprogressOffers.hashCode);
-    _$hash = $jc(_$hash, appledOffers.hashCode);
+    _$hash = $jc(_$hash, totalOffers.hashCode);
+    _$hash = $jc(_$hash, ongoingOffers.hashCode);
+    _$hash = $jc(_$hash, appliedOffers.hashCode);
     _$hash = $jc(_$hash, completedOffers.hashCode);
-    _$hash = $jc(_$hash, rejectedOffers.hashCode);
-    _$hash = $jc(_$hash, canceledOffers.hashCode);
     _$hash = $jc(_$hash, totalEarnings.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -13677,11 +10370,10 @@ class _$GGetOfferStatsByUserData_getOfferStatsByUser
     return (newBuiltValueToStringHelper(
             r'GGetOfferStatsByUserData_getOfferStatsByUser')
           ..add('G__typename', G__typename)
-          ..add('inprogressOffers', inprogressOffers)
-          ..add('appledOffers', appledOffers)
+          ..add('totalOffers', totalOffers)
+          ..add('ongoingOffers', ongoingOffers)
+          ..add('appliedOffers', appliedOffers)
           ..add('completedOffers', completedOffers)
-          ..add('rejectedOffers', rejectedOffers)
-          ..add('canceledOffers', canceledOffers)
           ..add('totalEarnings', totalEarnings))
         .toString();
   }
@@ -13697,29 +10389,24 @@ class GGetOfferStatsByUserData_getOfferStatsByUserBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  int? _inprogressOffers;
-  int? get inprogressOffers => _$this._inprogressOffers;
-  set inprogressOffers(int? inprogressOffers) =>
-      _$this._inprogressOffers = inprogressOffers;
+  int? _totalOffers;
+  int? get totalOffers => _$this._totalOffers;
+  set totalOffers(int? totalOffers) => _$this._totalOffers = totalOffers;
 
-  int? _appledOffers;
-  int? get appledOffers => _$this._appledOffers;
-  set appledOffers(int? appledOffers) => _$this._appledOffers = appledOffers;
+  int? _ongoingOffers;
+  int? get ongoingOffers => _$this._ongoingOffers;
+  set ongoingOffers(int? ongoingOffers) =>
+      _$this._ongoingOffers = ongoingOffers;
+
+  int? _appliedOffers;
+  int? get appliedOffers => _$this._appliedOffers;
+  set appliedOffers(int? appliedOffers) =>
+      _$this._appliedOffers = appliedOffers;
 
   int? _completedOffers;
   int? get completedOffers => _$this._completedOffers;
   set completedOffers(int? completedOffers) =>
       _$this._completedOffers = completedOffers;
-
-  int? _rejectedOffers;
-  int? get rejectedOffers => _$this._rejectedOffers;
-  set rejectedOffers(int? rejectedOffers) =>
-      _$this._rejectedOffers = rejectedOffers;
-
-  int? _canceledOffers;
-  int? get canceledOffers => _$this._canceledOffers;
-  set canceledOffers(int? canceledOffers) =>
-      _$this._canceledOffers = canceledOffers;
 
   int? _totalEarnings;
   int? get totalEarnings => _$this._totalEarnings;
@@ -13734,11 +10421,10 @@ class GGetOfferStatsByUserData_getOfferStatsByUserBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _inprogressOffers = $v.inprogressOffers;
-      _appledOffers = $v.appledOffers;
+      _totalOffers = $v.totalOffers;
+      _ongoingOffers = $v.ongoingOffers;
+      _appliedOffers = $v.appliedOffers;
       _completedOffers = $v.completedOffers;
-      _rejectedOffers = $v.rejectedOffers;
-      _canceledOffers = $v.canceledOffers;
       _totalEarnings = $v.totalEarnings;
       _$v = null;
     }
@@ -13766,18 +10452,20 @@ class GGetOfferStatsByUserData_getOfferStatsByUserBuilder
         new _$GGetOfferStatsByUserData_getOfferStatsByUser._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'G__typename'),
-            inprogressOffers: BuiltValueNullFieldError.checkNotNull(
-                inprogressOffers, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'inprogressOffers'),
-            appledOffers: BuiltValueNullFieldError.checkNotNull(
-                appledOffers, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'appledOffers'),
+            totalOffers: BuiltValueNullFieldError.checkNotNull(
+                totalOffers, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'totalOffers'),
+            ongoingOffers: BuiltValueNullFieldError.checkNotNull(
+                ongoingOffers, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'ongoingOffers'),
+            appliedOffers: BuiltValueNullFieldError.checkNotNull(
+                appliedOffers, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'appliedOffers'),
             completedOffers: BuiltValueNullFieldError.checkNotNull(
-                completedOffers, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'completedOffers'),
-            rejectedOffers: BuiltValueNullFieldError.checkNotNull(
-                rejectedOffers, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'rejectedOffers'),
-            canceledOffers: BuiltValueNullFieldError.checkNotNull(
-                canceledOffers, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'canceledOffers'),
+                completedOffers,
+                r'GGetOfferStatsByUserData_getOfferStatsByUser',
+                'completedOffers'),
             totalEarnings: BuiltValueNullFieldError.checkNotNull(
-                totalEarnings, r'GGetOfferStatsByUserData_getOfferStatsByUser', 'totalEarnings'));
+                totalEarnings,
+                r'GGetOfferStatsByUserData_getOfferStatsByUser',
+                'totalEarnings'));
     replace(_$result);
     return _$result;
   }
@@ -14361,8 +11049,8 @@ class _$GGetOffersByStatusData_getOffersByStatus
   final BuiltList<GGetOffersByStatusData_getOffersByStatus_inprogressOffers>
       inprogressOffers;
   @override
-  final BuiltList<GGetOffersByStatusData_getOffersByStatus_appledOffers>
-      appledOffers;
+  final BuiltList<GGetOffersByStatusData_getOffersByStatus_appliedOffers>
+      appliedOffers;
 
   factory _$GGetOffersByStatusData_getOffersByStatus(
           [void Function(GGetOffersByStatusData_getOffersByStatusBuilder)?
@@ -14373,14 +11061,14 @@ class _$GGetOffersByStatusData_getOffersByStatus
   _$GGetOffersByStatusData_getOffersByStatus._(
       {required this.G__typename,
       required this.inprogressOffers,
-      required this.appledOffers})
+      required this.appliedOffers})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         r'GGetOffersByStatusData_getOffersByStatus', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(inprogressOffers,
         r'GGetOffersByStatusData_getOffersByStatus', 'inprogressOffers');
-    BuiltValueNullFieldError.checkNotNull(appledOffers,
-        r'GGetOffersByStatusData_getOffersByStatus', 'appledOffers');
+    BuiltValueNullFieldError.checkNotNull(appliedOffers,
+        r'GGetOffersByStatusData_getOffersByStatus', 'appliedOffers');
   }
 
   @override
@@ -14399,7 +11087,7 @@ class _$GGetOffersByStatusData_getOffersByStatus
     return other is GGetOffersByStatusData_getOffersByStatus &&
         G__typename == other.G__typename &&
         inprogressOffers == other.inprogressOffers &&
-        appledOffers == other.appledOffers;
+        appliedOffers == other.appliedOffers;
   }
 
   @override
@@ -14407,7 +11095,7 @@ class _$GGetOffersByStatusData_getOffersByStatus
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, inprogressOffers.hashCode);
-    _$hash = $jc(_$hash, appledOffers.hashCode);
+    _$hash = $jc(_$hash, appliedOffers.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -14418,7 +11106,7 @@ class _$GGetOffersByStatusData_getOffersByStatus
             r'GGetOffersByStatusData_getOffersByStatus')
           ..add('G__typename', G__typename)
           ..add('inprogressOffers', inprogressOffers)
-          ..add('appledOffers', appledOffers))
+          ..add('appliedOffers', appliedOffers))
         .toString();
   }
 }
@@ -14444,15 +11132,15 @@ class GGetOffersByStatusData_getOffersByStatusBuilder
               inprogressOffers) =>
       _$this._inprogressOffers = inprogressOffers;
 
-  ListBuilder<GGetOffersByStatusData_getOffersByStatus_appledOffers>?
-      _appledOffers;
-  ListBuilder<GGetOffersByStatusData_getOffersByStatus_appledOffers>
-      get appledOffers => _$this._appledOffers ??= new ListBuilder<
-          GGetOffersByStatusData_getOffersByStatus_appledOffers>();
-  set appledOffers(
-          ListBuilder<GGetOffersByStatusData_getOffersByStatus_appledOffers>?
-              appledOffers) =>
-      _$this._appledOffers = appledOffers;
+  ListBuilder<GGetOffersByStatusData_getOffersByStatus_appliedOffers>?
+      _appliedOffers;
+  ListBuilder<GGetOffersByStatusData_getOffersByStatus_appliedOffers>
+      get appliedOffers => _$this._appliedOffers ??= new ListBuilder<
+          GGetOffersByStatusData_getOffersByStatus_appliedOffers>();
+  set appliedOffers(
+          ListBuilder<GGetOffersByStatusData_getOffersByStatus_appliedOffers>?
+              appliedOffers) =>
+      _$this._appliedOffers = appliedOffers;
 
   GGetOffersByStatusData_getOffersByStatusBuilder() {
     GGetOffersByStatusData_getOffersByStatus._initializeBuilder(this);
@@ -14463,7 +11151,7 @@ class GGetOffersByStatusData_getOffersByStatusBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _inprogressOffers = $v.inprogressOffers.toBuilder();
-      _appledOffers = $v.appledOffers.toBuilder();
+      _appliedOffers = $v.appliedOffers.toBuilder();
       _$v = null;
     }
     return this;
@@ -14492,14 +11180,14 @@ class GGetOffersByStatusData_getOffersByStatusBuilder
               G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
                   r'GGetOffersByStatusData_getOffersByStatus', 'G__typename'),
               inprogressOffers: inprogressOffers.build(),
-              appledOffers: appledOffers.build());
+              appliedOffers: appliedOffers.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'inprogressOffers';
         inprogressOffers.build();
-        _$failedField = 'appledOffers';
-        appledOffers.build();
+        _$failedField = 'appliedOffers';
+        appliedOffers.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GGetOffersByStatusData_getOffersByStatus',
@@ -14718,8 +11406,8 @@ class GGetOffersByStatusData_getOffersByStatus_inprogressOffersBuilder
   }
 }
 
-class _$GGetOffersByStatusData_getOffersByStatus_appledOffers
-    extends GGetOffersByStatusData_getOffersByStatus_appledOffers {
+class _$GGetOffersByStatusData_getOffersByStatus_appliedOffers
+    extends GGetOffersByStatusData_getOffersByStatus_appliedOffers {
   @override
   final String G__typename;
   @override
@@ -14735,15 +11423,15 @@ class _$GGetOffersByStatusData_getOffersByStatus_appledOffers
   @override
   final String? category;
 
-  factory _$GGetOffersByStatusData_getOffersByStatus_appledOffers(
+  factory _$GGetOffersByStatusData_getOffersByStatus_appliedOffers(
           [void Function(
-                  GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder)?
+                  GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder)?
               updates]) =>
-      (new GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder()
+      (new GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder()
             ..update(updates))
           ._build();
 
-  _$GGetOffersByStatusData_getOffersByStatus_appledOffers._(
+  _$GGetOffersByStatusData_getOffersByStatus_appliedOffers._(
       {required this.G__typename,
       required this.id,
       required this.title,
@@ -14754,36 +11442,36 @@ class _$GGetOffersByStatusData_getOffersByStatus_appledOffers
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GGetOffersByStatusData_getOffersByStatus_appledOffers',
+        r'GGetOffersByStatusData_getOffersByStatus_appliedOffers',
         'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GGetOffersByStatusData_getOffersByStatus_appledOffers', 'id');
+        id, r'GGetOffersByStatusData_getOffersByStatus_appliedOffers', 'id');
     BuiltValueNullFieldError.checkNotNull(title,
-        r'GGetOffersByStatusData_getOffersByStatus_appledOffers', 'title');
+        r'GGetOffersByStatusData_getOffersByStatus_appliedOffers', 'title');
     BuiltValueNullFieldError.checkNotNull(
         description,
-        r'GGetOffersByStatusData_getOffersByStatus_appledOffers',
+        r'GGetOffersByStatusData_getOffersByStatus_appliedOffers',
         'description');
     BuiltValueNullFieldError.checkNotNull(
-        fee, r'GGetOffersByStatusData_getOffersByStatus_appledOffers', 'fee');
+        fee, r'GGetOffersByStatusData_getOffersByStatus_appliedOffers', 'fee');
   }
 
   @override
-  GGetOffersByStatusData_getOffersByStatus_appledOffers rebuild(
+  GGetOffersByStatusData_getOffersByStatus_appliedOffers rebuild(
           void Function(
-                  GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder)
+                  GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder toBuilder() =>
-      new GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder()
+  GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder toBuilder() =>
+      new GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder()
         ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GGetOffersByStatusData_getOffersByStatus_appledOffers &&
+    return other is GGetOffersByStatusData_getOffersByStatus_appliedOffers &&
         G__typename == other.G__typename &&
         id == other.id &&
         title == other.title &&
@@ -14810,7 +11498,7 @@ class _$GGetOffersByStatusData_getOffersByStatus_appledOffers
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GGetOffersByStatusData_getOffersByStatus_appledOffers')
+            r'GGetOffersByStatusData_getOffersByStatus_appliedOffers')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('title', title)
@@ -14822,11 +11510,11 @@ class _$GGetOffersByStatusData_getOffersByStatus_appledOffers
   }
 }
 
-class GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder
+class GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder
     implements
-        Builder<GGetOffersByStatusData_getOffersByStatus_appledOffers,
-            GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder> {
-  _$GGetOffersByStatusData_getOffersByStatus_appledOffers? _$v;
+        Builder<GGetOffersByStatusData_getOffersByStatus_appliedOffers,
+            GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder> {
+  _$GGetOffersByStatusData_getOffersByStatus_appliedOffers? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -14856,12 +11544,12 @@ class GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder
   String? get category => _$this._category;
   set category(String? category) => _$this._category = category;
 
-  GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder() {
-    GGetOffersByStatusData_getOffersByStatus_appledOffers._initializeBuilder(
+  GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder() {
+    GGetOffersByStatusData_getOffersByStatus_appliedOffers._initializeBuilder(
         this);
   }
 
-  GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder get _$this {
+  GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -14877,43 +11565,43 @@ class GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder
   }
 
   @override
-  void replace(GGetOffersByStatusData_getOffersByStatus_appledOffers other) {
+  void replace(GGetOffersByStatusData_getOffersByStatus_appliedOffers other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetOffersByStatusData_getOffersByStatus_appledOffers;
+    _$v = other as _$GGetOffersByStatusData_getOffersByStatus_appliedOffers;
   }
 
   @override
   void update(
       void Function(
-              GGetOffersByStatusData_getOffersByStatus_appledOffersBuilder)?
+              GGetOffersByStatusData_getOffersByStatus_appliedOffersBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GGetOffersByStatusData_getOffersByStatus_appledOffers build() => _build();
+  GGetOffersByStatusData_getOffersByStatus_appliedOffers build() => _build();
 
-  _$GGetOffersByStatusData_getOffersByStatus_appledOffers _build() {
+  _$GGetOffersByStatusData_getOffersByStatus_appliedOffers _build() {
     final _$result = _$v ??
-        new _$GGetOffersByStatusData_getOffersByStatus_appledOffers._(
+        new _$GGetOffersByStatusData_getOffersByStatus_appliedOffers._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                r'GGetOffersByStatusData_getOffersByStatus_appledOffers',
+                r'GGetOffersByStatusData_getOffersByStatus_appliedOffers',
                 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GGetOffersByStatusData_getOffersByStatus_appledOffers', 'id'),
+                id, r'GGetOffersByStatusData_getOffersByStatus_appliedOffers', 'id'),
             title: BuiltValueNullFieldError.checkNotNull(
                 title,
-                r'GGetOffersByStatusData_getOffersByStatus_appledOffers',
+                r'GGetOffersByStatusData_getOffersByStatus_appliedOffers',
                 'title'),
             description: BuiltValueNullFieldError.checkNotNull(
                 description,
-                r'GGetOffersByStatusData_getOffersByStatus_appledOffers',
+                r'GGetOffersByStatusData_getOffersByStatus_appliedOffers',
                 'description'),
             imageUrl: imageUrl,
             fee: BuiltValueNullFieldError.checkNotNull(
                 fee,
-                r'GGetOffersByStatusData_getOffersByStatus_appledOffers',
+                r'GGetOffersByStatusData_getOffersByStatus_appliedOffers',
                 'fee'),
             category: category);
     replace(_$result);
@@ -15336,6 +12024,303 @@ class GGetOffersData_getOffers_offerListBuilder
             imageUrl: imageUrl,
             fee: BuiltValueNullFieldError.checkNotNull(
                 fee, r'GGetOffersData_getOffers_offerList', 'fee'),
+            category: category);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetAllOffersData extends GGetAllOffersData {
+  @override
+  final String G__typename;
+  @override
+  final BuiltList<GGetAllOffersData_getAllOffers> getAllOffers;
+
+  factory _$GGetAllOffersData(
+          [void Function(GGetAllOffersDataBuilder)? updates]) =>
+      (new GGetAllOffersDataBuilder()..update(updates))._build();
+
+  _$GGetAllOffersData._({required this.G__typename, required this.getAllOffers})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetAllOffersData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        getAllOffers, r'GGetAllOffersData', 'getAllOffers');
+  }
+
+  @override
+  GGetAllOffersData rebuild(void Function(GGetAllOffersDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetAllOffersDataBuilder toBuilder() =>
+      new GGetAllOffersDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetAllOffersData &&
+        G__typename == other.G__typename &&
+        getAllOffers == other.getAllOffers;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, getAllOffers.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetAllOffersData')
+          ..add('G__typename', G__typename)
+          ..add('getAllOffers', getAllOffers))
+        .toString();
+  }
+}
+
+class GGetAllOffersDataBuilder
+    implements Builder<GGetAllOffersData, GGetAllOffersDataBuilder> {
+  _$GGetAllOffersData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  ListBuilder<GGetAllOffersData_getAllOffers>? _getAllOffers;
+  ListBuilder<GGetAllOffersData_getAllOffers> get getAllOffers =>
+      _$this._getAllOffers ??=
+          new ListBuilder<GGetAllOffersData_getAllOffers>();
+  set getAllOffers(ListBuilder<GGetAllOffersData_getAllOffers>? getAllOffers) =>
+      _$this._getAllOffers = getAllOffers;
+
+  GGetAllOffersDataBuilder() {
+    GGetAllOffersData._initializeBuilder(this);
+  }
+
+  GGetAllOffersDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _getAllOffers = $v.getAllOffers.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetAllOffersData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetAllOffersData;
+  }
+
+  @override
+  void update(void Function(GGetAllOffersDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetAllOffersData build() => _build();
+
+  _$GGetAllOffersData _build() {
+    _$GGetAllOffersData _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetAllOffersData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GGetAllOffersData', 'G__typename'),
+              getAllOffers: getAllOffers.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'getAllOffers';
+        getAllOffers.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetAllOffersData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetAllOffersData_getAllOffers extends GGetAllOffersData_getAllOffers {
+  @override
+  final String G__typename;
+  @override
+  final int id;
+  @override
+  final String title;
+  @override
+  final String description;
+  @override
+  final String? imageUrl;
+  @override
+  final int fee;
+  @override
+  final String? category;
+
+  factory _$GGetAllOffersData_getAllOffers(
+          [void Function(GGetAllOffersData_getAllOffersBuilder)? updates]) =>
+      (new GGetAllOffersData_getAllOffersBuilder()..update(updates))._build();
+
+  _$GGetAllOffersData_getAllOffers._(
+      {required this.G__typename,
+      required this.id,
+      required this.title,
+      required this.description,
+      this.imageUrl,
+      required this.fee,
+      this.category})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetAllOffersData_getAllOffers', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetAllOffersData_getAllOffers', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        title, r'GGetAllOffersData_getAllOffers', 'title');
+    BuiltValueNullFieldError.checkNotNull(
+        description, r'GGetAllOffersData_getAllOffers', 'description');
+    BuiltValueNullFieldError.checkNotNull(
+        fee, r'GGetAllOffersData_getAllOffers', 'fee');
+  }
+
+  @override
+  GGetAllOffersData_getAllOffers rebuild(
+          void Function(GGetAllOffersData_getAllOffersBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetAllOffersData_getAllOffersBuilder toBuilder() =>
+      new GGetAllOffersData_getAllOffersBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetAllOffersData_getAllOffers &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        title == other.title &&
+        description == other.description &&
+        imageUrl == other.imageUrl &&
+        fee == other.fee &&
+        category == other.category;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fee.hashCode);
+    _$hash = $jc(_$hash, category.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetAllOffersData_getAllOffers')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('title', title)
+          ..add('description', description)
+          ..add('imageUrl', imageUrl)
+          ..add('fee', fee)
+          ..add('category', category))
+        .toString();
+  }
+}
+
+class GGetAllOffersData_getAllOffersBuilder
+    implements
+        Builder<GGetAllOffersData_getAllOffers,
+            GGetAllOffersData_getAllOffersBuilder> {
+  _$GGetAllOffersData_getAllOffers? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fee;
+  int? get fee => _$this._fee;
+  set fee(int? fee) => _$this._fee = fee;
+
+  String? _category;
+  String? get category => _$this._category;
+  set category(String? category) => _$this._category = category;
+
+  GGetAllOffersData_getAllOffersBuilder() {
+    GGetAllOffersData_getAllOffers._initializeBuilder(this);
+  }
+
+  GGetAllOffersData_getAllOffersBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _title = $v.title;
+      _description = $v.description;
+      _imageUrl = $v.imageUrl;
+      _fee = $v.fee;
+      _category = $v.category;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetAllOffersData_getAllOffers other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetAllOffersData_getAllOffers;
+  }
+
+  @override
+  void update(void Function(GGetAllOffersData_getAllOffersBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetAllOffersData_getAllOffers build() => _build();
+
+  _$GGetAllOffersData_getAllOffers _build() {
+    final _$result = _$v ??
+        new _$GGetAllOffersData_getAllOffers._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GGetAllOffersData_getAllOffers', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetAllOffersData_getAllOffers', 'id'),
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GGetAllOffersData_getAllOffers', 'title'),
+            description: BuiltValueNullFieldError.checkNotNull(
+                description, r'GGetAllOffersData_getAllOffers', 'description'),
+            imageUrl: imageUrl,
+            fee: BuiltValueNullFieldError.checkNotNull(
+                fee, r'GGetAllOffersData_getAllOffers', 'fee'),
             category: category);
     replace(_$result);
     return _$result;
@@ -15808,6 +12793,458 @@ class GGetOffersByCategoryData_getOffersByCategory_offerListBuilder
   }
 }
 
+class _$GGetMessageRoomsData extends GGetMessageRoomsData {
+  @override
+  final String G__typename;
+  @override
+  final GGetMessageRoomsData_getMessageRooms getMessageRooms;
+
+  factory _$GGetMessageRoomsData(
+          [void Function(GGetMessageRoomsDataBuilder)? updates]) =>
+      (new GGetMessageRoomsDataBuilder()..update(updates))._build();
+
+  _$GGetMessageRoomsData._(
+      {required this.G__typename, required this.getMessageRooms})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetMessageRoomsData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        getMessageRooms, r'GGetMessageRoomsData', 'getMessageRooms');
+  }
+
+  @override
+  GGetMessageRoomsData rebuild(
+          void Function(GGetMessageRoomsDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetMessageRoomsDataBuilder toBuilder() =>
+      new GGetMessageRoomsDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetMessageRoomsData &&
+        G__typename == other.G__typename &&
+        getMessageRooms == other.getMessageRooms;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, getMessageRooms.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetMessageRoomsData')
+          ..add('G__typename', G__typename)
+          ..add('getMessageRooms', getMessageRooms))
+        .toString();
+  }
+}
+
+class GGetMessageRoomsDataBuilder
+    implements Builder<GGetMessageRoomsData, GGetMessageRoomsDataBuilder> {
+  _$GGetMessageRoomsData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GGetMessageRoomsData_getMessageRoomsBuilder? _getMessageRooms;
+  GGetMessageRoomsData_getMessageRoomsBuilder get getMessageRooms =>
+      _$this._getMessageRooms ??=
+          new GGetMessageRoomsData_getMessageRoomsBuilder();
+  set getMessageRooms(
+          GGetMessageRoomsData_getMessageRoomsBuilder? getMessageRooms) =>
+      _$this._getMessageRooms = getMessageRooms;
+
+  GGetMessageRoomsDataBuilder() {
+    GGetMessageRoomsData._initializeBuilder(this);
+  }
+
+  GGetMessageRoomsDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _getMessageRooms = $v.getMessageRooms.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetMessageRoomsData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetMessageRoomsData;
+  }
+
+  @override
+  void update(void Function(GGetMessageRoomsDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetMessageRoomsData build() => _build();
+
+  _$GGetMessageRoomsData _build() {
+    _$GGetMessageRoomsData _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetMessageRoomsData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GGetMessageRoomsData', 'G__typename'),
+              getMessageRooms: getMessageRooms.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'getMessageRooms';
+        getMessageRooms.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetMessageRoomsData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetMessageRoomsData_getMessageRooms
+    extends GGetMessageRoomsData_getMessageRooms {
+  @override
+  final String G__typename;
+  @override
+  final BuiltList<GGetMessageRoomsData_getMessageRooms_messageRoomList>
+      messageRoomList;
+  @override
+  final int countOfMessageRooms;
+
+  factory _$GGetMessageRoomsData_getMessageRooms(
+          [void Function(GGetMessageRoomsData_getMessageRoomsBuilder)?
+              updates]) =>
+      (new GGetMessageRoomsData_getMessageRoomsBuilder()..update(updates))
+          ._build();
+
+  _$GGetMessageRoomsData_getMessageRooms._(
+      {required this.G__typename,
+      required this.messageRoomList,
+      required this.countOfMessageRooms})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetMessageRoomsData_getMessageRooms', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(messageRoomList,
+        r'GGetMessageRoomsData_getMessageRooms', 'messageRoomList');
+    BuiltValueNullFieldError.checkNotNull(countOfMessageRooms,
+        r'GGetMessageRoomsData_getMessageRooms', 'countOfMessageRooms');
+  }
+
+  @override
+  GGetMessageRoomsData_getMessageRooms rebuild(
+          void Function(GGetMessageRoomsData_getMessageRoomsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetMessageRoomsData_getMessageRoomsBuilder toBuilder() =>
+      new GGetMessageRoomsData_getMessageRoomsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetMessageRoomsData_getMessageRooms &&
+        G__typename == other.G__typename &&
+        messageRoomList == other.messageRoomList &&
+        countOfMessageRooms == other.countOfMessageRooms;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, messageRoomList.hashCode);
+    _$hash = $jc(_$hash, countOfMessageRooms.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetMessageRoomsData_getMessageRooms')
+          ..add('G__typename', G__typename)
+          ..add('messageRoomList', messageRoomList)
+          ..add('countOfMessageRooms', countOfMessageRooms))
+        .toString();
+  }
+}
+
+class GGetMessageRoomsData_getMessageRoomsBuilder
+    implements
+        Builder<GGetMessageRoomsData_getMessageRooms,
+            GGetMessageRoomsData_getMessageRoomsBuilder> {
+  _$GGetMessageRoomsData_getMessageRooms? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  ListBuilder<GGetMessageRoomsData_getMessageRooms_messageRoomList>?
+      _messageRoomList;
+  ListBuilder<GGetMessageRoomsData_getMessageRooms_messageRoomList>
+      get messageRoomList => _$this._messageRoomList ??= new ListBuilder<
+          GGetMessageRoomsData_getMessageRooms_messageRoomList>();
+  set messageRoomList(
+          ListBuilder<GGetMessageRoomsData_getMessageRooms_messageRoomList>?
+              messageRoomList) =>
+      _$this._messageRoomList = messageRoomList;
+
+  int? _countOfMessageRooms;
+  int? get countOfMessageRooms => _$this._countOfMessageRooms;
+  set countOfMessageRooms(int? countOfMessageRooms) =>
+      _$this._countOfMessageRooms = countOfMessageRooms;
+
+  GGetMessageRoomsData_getMessageRoomsBuilder() {
+    GGetMessageRoomsData_getMessageRooms._initializeBuilder(this);
+  }
+
+  GGetMessageRoomsData_getMessageRoomsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _messageRoomList = $v.messageRoomList.toBuilder();
+      _countOfMessageRooms = $v.countOfMessageRooms;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetMessageRoomsData_getMessageRooms other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetMessageRoomsData_getMessageRooms;
+  }
+
+  @override
+  void update(
+      void Function(GGetMessageRoomsData_getMessageRoomsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetMessageRoomsData_getMessageRooms build() => _build();
+
+  _$GGetMessageRoomsData_getMessageRooms _build() {
+    _$GGetMessageRoomsData_getMessageRooms _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetMessageRoomsData_getMessageRooms._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                  r'GGetMessageRoomsData_getMessageRooms', 'G__typename'),
+              messageRoomList: messageRoomList.build(),
+              countOfMessageRooms: BuiltValueNullFieldError.checkNotNull(
+                  countOfMessageRooms,
+                  r'GGetMessageRoomsData_getMessageRooms',
+                  'countOfMessageRooms'));
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'messageRoomList';
+        messageRoomList.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetMessageRoomsData_getMessageRooms',
+            _$failedField,
+            e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetMessageRoomsData_getMessageRooms_messageRoomList
+    extends GGetMessageRoomsData_getMessageRooms_messageRoomList {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String? category;
+  @override
+  final String? latestMessage;
+  @override
+  final String? latestSentAt;
+  @override
+  final bool isRead;
+
+  factory _$GGetMessageRoomsData_getMessageRooms_messageRoomList(
+          [void Function(
+                  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder)?
+              updates]) =>
+      (new GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GGetMessageRoomsData_getMessageRooms_messageRoomList._(
+      {required this.G__typename,
+      required this.id,
+      this.category,
+      this.latestMessage,
+      this.latestSentAt,
+      required this.isRead})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GGetMessageRoomsData_getMessageRooms_messageRoomList', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetMessageRoomsData_getMessageRooms_messageRoomList', 'id');
+    BuiltValueNullFieldError.checkNotNull(isRead,
+        r'GGetMessageRoomsData_getMessageRooms_messageRoomList', 'isRead');
+  }
+
+  @override
+  GGetMessageRoomsData_getMessageRooms_messageRoomList rebuild(
+          void Function(
+                  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder toBuilder() =>
+      new GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder()
+        ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetMessageRoomsData_getMessageRooms_messageRoomList &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        category == other.category &&
+        latestMessage == other.latestMessage &&
+        latestSentAt == other.latestSentAt &&
+        isRead == other.isRead;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, category.hashCode);
+    _$hash = $jc(_$hash, latestMessage.hashCode);
+    _$hash = $jc(_$hash, latestSentAt.hashCode);
+    _$hash = $jc(_$hash, isRead.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetMessageRoomsData_getMessageRooms_messageRoomList')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('category', category)
+          ..add('latestMessage', latestMessage)
+          ..add('latestSentAt', latestSentAt)
+          ..add('isRead', isRead))
+        .toString();
+  }
+}
+
+class GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder
+    implements
+        Builder<GGetMessageRoomsData_getMessageRooms_messageRoomList,
+            GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder> {
+  _$GGetMessageRoomsData_getMessageRooms_messageRoomList? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _category;
+  String? get category => _$this._category;
+  set category(String? category) => _$this._category = category;
+
+  String? _latestMessage;
+  String? get latestMessage => _$this._latestMessage;
+  set latestMessage(String? latestMessage) =>
+      _$this._latestMessage = latestMessage;
+
+  String? _latestSentAt;
+  String? get latestSentAt => _$this._latestSentAt;
+  set latestSentAt(String? latestSentAt) => _$this._latestSentAt = latestSentAt;
+
+  bool? _isRead;
+  bool? get isRead => _$this._isRead;
+  set isRead(bool? isRead) => _$this._isRead = isRead;
+
+  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder() {
+    GGetMessageRoomsData_getMessageRooms_messageRoomList._initializeBuilder(
+        this);
+  }
+
+  GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _category = $v.category;
+      _latestMessage = $v.latestMessage;
+      _latestSentAt = $v.latestSentAt;
+      _isRead = $v.isRead;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetMessageRoomsData_getMessageRooms_messageRoomList other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetMessageRoomsData_getMessageRooms_messageRoomList;
+  }
+
+  @override
+  void update(
+      void Function(
+              GGetMessageRoomsData_getMessageRooms_messageRoomListBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetMessageRoomsData_getMessageRooms_messageRoomList build() => _build();
+
+  _$GGetMessageRoomsData_getMessageRooms_messageRoomList _build() {
+    final _$result = _$v ??
+        new _$GGetMessageRoomsData_getMessageRooms_messageRoomList._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GGetMessageRoomsData_getMessageRooms_messageRoomList',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(id,
+                r'GGetMessageRoomsData_getMessageRooms_messageRoomList', 'id'),
+            category: category,
+            latestMessage: latestMessage,
+            latestSentAt: latestSentAt,
+            isRead: BuiltValueNullFieldError.checkNotNull(
+                isRead,
+                r'GGetMessageRoomsData_getMessageRooms_messageRoomList',
+                'isRead'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GGetMessagesInProgressData extends GGetMessagesInProgressData {
   @override
   final String G__typename;
@@ -16104,12 +13541,9 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
   @override
   final String id;
   @override
-  final int? countOfMessages;
-  @override
   final String? category;
   @override
-  final GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage?
-      latestMessage;
+  final String? latestMessage;
   @override
   final String? latestSentAt;
   @override
@@ -16126,7 +13560,6 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
   _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList._(
       {required this.G__typename,
       required this.id,
-      this.countOfMessages,
       this.category,
       this.latestMessage,
       this.latestSentAt,
@@ -16166,7 +13599,6 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
             is GGetMessagesInProgressData_getMessagesInProgress_messageRoomList &&
         G__typename == other.G__typename &&
         id == other.id &&
-        countOfMessages == other.countOfMessages &&
         category == other.category &&
         latestMessage == other.latestMessage &&
         latestSentAt == other.latestSentAt &&
@@ -16178,7 +13610,6 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, countOfMessages.hashCode);
     _$hash = $jc(_$hash, category.hashCode);
     _$hash = $jc(_$hash, latestMessage.hashCode);
     _$hash = $jc(_$hash, latestSentAt.hashCode);
@@ -16193,7 +13624,6 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
             r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('countOfMessages', countOfMessages)
           ..add('category', category)
           ..add('latestMessage', latestMessage)
           ..add('latestSentAt', latestSentAt)
@@ -16217,23 +13647,13 @@ class GGetMessagesInProgressData_getMessagesInProgress_messageRoomListBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  int? _countOfMessages;
-  int? get countOfMessages => _$this._countOfMessages;
-  set countOfMessages(int? countOfMessages) =>
-      _$this._countOfMessages = countOfMessages;
-
   String? _category;
   String? get category => _$this._category;
   set category(String? category) => _$this._category = category;
 
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder?
-      _latestMessage;
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder
-      get latestMessage => _$this._latestMessage ??=
-          new GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder();
-  set latestMessage(
-          GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder?
-              latestMessage) =>
+  String? _latestMessage;
+  String? get latestMessage => _$this._latestMessage;
+  set latestMessage(String? latestMessage) =>
       _$this._latestMessage = latestMessage;
 
   String? _latestSentAt;
@@ -16255,9 +13675,8 @@ class GGetMessagesInProgressData_getMessagesInProgress_messageRoomListBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _countOfMessages = $v.countOfMessages;
       _category = $v.category;
-      _latestMessage = $v.latestMessage?.toBuilder();
+      _latestMessage = $v.latestMessage;
       _latestSentAt = $v.latestSentAt;
       _isRead = $v.isRead;
       _$v = null;
@@ -16286,37 +13705,149 @@ class GGetMessagesInProgressData_getMessagesInProgress_messageRoomListBuilder
       _build();
 
   _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList _build() {
-    _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList _$result;
+    final _$result = _$v ??
+        new _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
+            ._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id,
+                r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList',
+                'id'),
+            category: category,
+            latestMessage: latestMessage,
+            latestSentAt: latestSentAt,
+            isRead: BuiltValueNullFieldError.checkNotNull(
+                isRead,
+                r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList',
+                'isRead'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetMessagesByMessageRoomIdData
+    extends GGetMessagesByMessageRoomIdData {
+  @override
+  final String G__typename;
+  @override
+  final GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
+      getMessagesByMessageRoomId;
+
+  factory _$GGetMessagesByMessageRoomIdData(
+          [void Function(GGetMessagesByMessageRoomIdDataBuilder)? updates]) =>
+      (new GGetMessagesByMessageRoomIdDataBuilder()..update(updates))._build();
+
+  _$GGetMessagesByMessageRoomIdData._(
+      {required this.G__typename, required this.getMessagesByMessageRoomId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetMessagesByMessageRoomIdData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(getMessagesByMessageRoomId,
+        r'GGetMessagesByMessageRoomIdData', 'getMessagesByMessageRoomId');
+  }
+
+  @override
+  GGetMessagesByMessageRoomIdData rebuild(
+          void Function(GGetMessagesByMessageRoomIdDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetMessagesByMessageRoomIdDataBuilder toBuilder() =>
+      new GGetMessagesByMessageRoomIdDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetMessagesByMessageRoomIdData &&
+        G__typename == other.G__typename &&
+        getMessagesByMessageRoomId == other.getMessagesByMessageRoomId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, getMessagesByMessageRoomId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetMessagesByMessageRoomIdData')
+          ..add('G__typename', G__typename)
+          ..add('getMessagesByMessageRoomId', getMessagesByMessageRoomId))
+        .toString();
+  }
+}
+
+class GGetMessagesByMessageRoomIdDataBuilder
+    implements
+        Builder<GGetMessagesByMessageRoomIdData,
+            GGetMessagesByMessageRoomIdDataBuilder> {
+  _$GGetMessagesByMessageRoomIdData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder?
+      _getMessagesByMessageRoomId;
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
+      get getMessagesByMessageRoomId => _$this._getMessagesByMessageRoomId ??=
+          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder();
+  set getMessagesByMessageRoomId(
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder?
+              getMessagesByMessageRoomId) =>
+      _$this._getMessagesByMessageRoomId = getMessagesByMessageRoomId;
+
+  GGetMessagesByMessageRoomIdDataBuilder() {
+    GGetMessagesByMessageRoomIdData._initializeBuilder(this);
+  }
+
+  GGetMessagesByMessageRoomIdDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _getMessagesByMessageRoomId = $v.getMessagesByMessageRoomId.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetMessagesByMessageRoomIdData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetMessagesByMessageRoomIdData;
+  }
+
+  @override
+  void update(void Function(GGetMessagesByMessageRoomIdDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetMessagesByMessageRoomIdData build() => _build();
+
+  _$GGetMessagesByMessageRoomIdData _build() {
+    _$GGetMessagesByMessageRoomIdData _$result;
     try {
       _$result = _$v ??
-          new _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
-              ._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList',
-                  'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id,
-                  r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList',
-                  'id'),
-              countOfMessages: countOfMessages,
-              category: category,
-              latestMessage: _latestMessage?.build(),
-              latestSentAt: latestSentAt,
-              isRead: BuiltValueNullFieldError.checkNotNull(
-                  isRead,
-                  r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList',
-                  'isRead'));
+          new _$GGetMessagesByMessageRoomIdData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                  r'GGetMessagesByMessageRoomIdData', 'G__typename'),
+              getMessagesByMessageRoomId: getMessagesByMessageRoomId.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'latestMessage';
-        _latestMessage?.build();
+        _$failedField = 'getMessagesByMessageRoomId';
+        getMessagesByMessageRoomId.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList',
-            _$failedField,
-            e.toString());
+            r'GGetMessagesByMessageRoomIdData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -16325,89 +13856,69 @@ class GGetMessagesInProgressData_getMessagesInProgress_messageRoomListBuilder
   }
 }
 
-class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-    extends GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage {
+class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
+    extends GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId {
   @override
   final String G__typename;
   @override
   final String id;
   @override
-  final GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-      sendBy;
+  final GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to to;
   @override
-  final String message;
-  @override
-  final String createdAt;
-  @override
-  final BuiltList<String>? attachedFile;
-  @override
-  final BuiltList<String>? attachedImg;
+  final BuiltList<
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
+      messageList;
 
-  factory _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage(
+  factory _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId(
           [void Function(
-                  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder)?
+                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder)?
               updates]) =>
-      (new GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder()
+      (new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder()
             ..update(updates))
           ._build();
 
-  _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage._(
+  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId._(
       {required this.G__typename,
       required this.id,
-      required this.sendBy,
-      required this.message,
-      required this.createdAt,
-      this.attachedFile,
-      this.attachedImg})
+      required this.to,
+      required this.messageList})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
         'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id,
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId', 'id');
+    BuiltValueNullFieldError.checkNotNull(to,
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId', 'to');
     BuiltValueNullFieldError.checkNotNull(
-        id,
-        r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
-        'id');
-    BuiltValueNullFieldError.checkNotNull(
-        sendBy,
-        r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
-        'sendBy');
-    BuiltValueNullFieldError.checkNotNull(
-        message,
-        r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
-        'message');
-    BuiltValueNullFieldError.checkNotNull(
-        createdAt,
-        r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
-        'createdAt');
+        messageList,
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
+        'messageList');
   }
 
   @override
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-      rebuild(
-              void Function(
-                      GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder)
-                  updates) =>
-          (toBuilder()..update(updates)).build();
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId rebuild(
+          void Function(
+                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
       toBuilder() =>
-          new GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder()
+          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder()
             ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other
-            is GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage &&
+            is GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId &&
         G__typename == other.G__typename &&
         id == other.id &&
-        sendBy == other.sendBy &&
-        message == other.message &&
-        createdAt == other.createdAt &&
-        attachedFile == other.attachedFile &&
-        attachedImg == other.attachedImg;
+        to == other.to &&
+        messageList == other.messageList;
   }
 
   @override
@@ -16415,11 +13926,8 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, sendBy.hashCode);
-    _$hash = $jc(_$hash, message.hashCode);
-    _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, attachedFile.hashCode);
-    _$hash = $jc(_$hash, attachedImg.hashCode);
+    _$hash = $jc(_$hash, to.hashCode);
+    _$hash = $jc(_$hash, messageList.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -16427,25 +13935,20 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage')
+            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('sendBy', sendBy)
-          ..add('message', message)
-          ..add('createdAt', createdAt)
-          ..add('attachedFile', attachedFile)
-          ..add('attachedImg', attachedImg))
+          ..add('to', to)
+          ..add('messageList', messageList))
         .toString();
   }
 }
 
-class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder
+class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder
     implements
-        Builder<
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage,
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder> {
-  _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage?
-      _$v;
+        Builder<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId,
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder> {
+  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -16455,52 +13958,40 @@ class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMes
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder?
-      _sendBy;
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder
-      get sendBy => _$this._sendBy ??=
-          new GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder();
-  set sendBy(
-          GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder?
-              sendBy) =>
-      _$this._sendBy = sendBy;
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder? _to;
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder get to =>
+      _$this._to ??=
+          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder();
+  set to(
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder?
+              to) =>
+      _$this._to = to;
 
-  String? _message;
-  String? get message => _$this._message;
-  set message(String? message) => _$this._message = message;
+  ListBuilder<
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>?
+      _messageList;
+  ListBuilder<
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>
+      get messageList => _$this._messageList ??= new ListBuilder<
+          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>();
+  set messageList(
+          ListBuilder<
+                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList>?
+              messageList) =>
+      _$this._messageList = messageList;
 
-  String? _createdAt;
-  String? get createdAt => _$this._createdAt;
-  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
-
-  ListBuilder<String>? _attachedFile;
-  ListBuilder<String> get attachedFile =>
-      _$this._attachedFile ??= new ListBuilder<String>();
-  set attachedFile(ListBuilder<String>? attachedFile) =>
-      _$this._attachedFile = attachedFile;
-
-  ListBuilder<String>? _attachedImg;
-  ListBuilder<String> get attachedImg =>
-      _$this._attachedImg ??= new ListBuilder<String>();
-  set attachedImg(ListBuilder<String>? attachedImg) =>
-      _$this._attachedImg = attachedImg;
-
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder() {
-    GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder() {
+    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId
         ._initializeBuilder(this);
   }
 
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder
-      get _$this {
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _sendBy = $v.sendBy.toBuilder();
-      _message = $v.message;
-      _createdAt = $v.createdAt;
-      _attachedFile = $v.attachedFile?.toBuilder();
-      _attachedImg = $v.attachedImg?.toBuilder();
+      _to = $v.to.toBuilder();
+      _messageList = $v.messageList.toBuilder();
       _$v = null;
     }
     return this;
@@ -16508,64 +13999,48 @@ class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMes
 
   @override
   void replace(
-      GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-          other) {
+      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other
-        as _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage;
+    _$v = other as _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId;
   }
 
   @override
   void update(
       void Function(
-              GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessageBuilder)?
+              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomIdBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-      build() => _build();
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId build() =>
+      _build();
 
-  _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-      _build() {
-    _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-        _$result;
+  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId _build() {
+    _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId _$result;
     try {
       _$result = _$v ??
-          new _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage._(
+          new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
                   G__typename,
-                  r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
+                  r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
                   'G__typename'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id,
-                  r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
+                  r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
                   'id'),
-              sendBy: sendBy.build(),
-              message: BuiltValueNullFieldError.checkNotNull(
-                  message,
-                  r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
-                  'message'),
-              createdAt: BuiltValueNullFieldError.checkNotNull(
-                  createdAt,
-                  r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
-                  'createdAt'),
-              attachedFile: _attachedFile?.build(),
-              attachedImg: _attachedImg?.build());
+              to: to.build(),
+              messageList: messageList.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'sendBy';
-        sendBy.build();
-
-        _$failedField = 'attachedFile';
-        _attachedFile?.build();
-        _$failedField = 'attachedImg';
-        _attachedImg?.build();
+        _$failedField = 'to';
+        to.build();
+        _$failedField = 'messageList';
+        messageList.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage',
+            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId',
             _$failedField,
             e.toString());
       }
@@ -16576,8 +14051,8 @@ class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMes
   }
 }
 
-class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-    extends GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy {
+class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
+    extends GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to {
   @override
   final String G__typename;
   @override
@@ -16587,15 +14062,15 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
   @override
   final String? imageUrl;
 
-  factory _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy(
+  factory _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to(
           [void Function(
-                  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder)?
+                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder)?
               updates]) =>
-      (new GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder()
+      (new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder()
             ..update(updates))
           ._build();
 
-  _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy._(
+  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to._(
       {required this.G__typename,
       required this.id,
       required this.name,
@@ -16603,37 +14078,34 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy',
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to',
         'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id,
-        r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy',
-        'id');
+    BuiltValueNullFieldError.checkNotNull(id,
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to', 'id');
     BuiltValueNullFieldError.checkNotNull(
         name,
-        r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy',
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to',
         'name');
   }
 
   @override
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-      rebuild(
-              void Function(
-                      GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder)
-                  updates) =>
-          (toBuilder()..update(updates)).build();
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to rebuild(
+          void Function(
+                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
       toBuilder() =>
-          new GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder()
+          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder()
             ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other
-            is GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy &&
+            is GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to &&
         G__typename == other.G__typename &&
         id == other.id &&
         name == other.name &&
@@ -16654,7 +14126,7 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy')
+            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
@@ -16663,13 +14135,11 @@ class _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestM
   }
 }
 
-class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder
+class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
     implements
-        Builder<
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy,
-            GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder> {
-  _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy?
-      _$v;
+        Builder<GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to,
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder> {
+  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -16687,12 +14157,12 @@ class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMes
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder() {
-    GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder() {
+    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
         ._initializeBuilder(this);
   }
 
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder
       get _$this {
     final $v = _$v;
     if ($v != null) {
@@ -16707,40 +14177,658 @@ class GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMes
 
   @override
   void replace(
-      GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-          other) {
+      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to other) {
     ArgumentError.checkNotNull(other, 'other');
     _$v = other
-        as _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy;
+        as _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to;
   }
 
   @override
   void update(
       void Function(
-              GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendByBuilder)?
+              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_toBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-      build() => _build();
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to build() =>
+      _build();
 
-  _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-      _build() {
+  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to _build() {
     final _$result = _$v ??
-        new _$GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy._(
+        new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy',
+                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to',
                 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy', 'id'),
+                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
                 name,
-                r'GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy',
+                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to',
                 'name'),
             imageUrl: imageUrl);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+    extends GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String content;
+  @override
+  final String sentAt;
+
+  factory _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList(
+          [void Function(
+                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder)?
+              updates]) =>
+      (new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList._(
+      {required this.G__typename,
+      required this.id,
+      required this.content,
+      required this.sentAt})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename,
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
+        'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id,
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
+        'id');
+    BuiltValueNullFieldError.checkNotNull(
+        content,
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
+        'content');
+    BuiltValueNullFieldError.checkNotNull(
+        sentAt,
+        r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
+        'sentAt');
+  }
+
+  @override
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList rebuild(
+          void Function(
+                  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
+      toBuilder() =>
+          new GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder()
+            ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other
+            is GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        content == other.content &&
+        sentAt == other.sentAt;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, content.hashCode);
+    _$hash = $jc(_$hash, sentAt.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('content', content)
+          ..add('sentAt', sentAt))
+        .toString();
+  }
+}
+
+class GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
+    implements
+        Builder<
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList,
+            GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder> {
+  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _content;
+  String? get content => _$this._content;
+  set content(String? content) => _$this._content = content;
+
+  String? _sentAt;
+  String? get sentAt => _$this._sentAt;
+  set sentAt(String? sentAt) => _$this._sentAt = sentAt;
+
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder() {
+    GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+        ._initializeBuilder(this);
+  }
+
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder
+      get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _content = $v.content;
+      _sentAt = $v.sentAt;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(
+      GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+          other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other
+        as _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList;
+  }
+
+  @override
+  void update(
+      void Function(
+              GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageListBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+      build() => _build();
+
+  _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
+      _build() {
+    final _$result = _$v ??
+        new _$GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id,
+                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
+                'id'),
+            content: BuiltValueNullFieldError.checkNotNull(
+                content,
+                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
+                'content'),
+            sentAt: BuiltValueNullFieldError.checkNotNull(
+                sentAt,
+                r'GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList',
+                'sentAt'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetNotificationsData extends GGetNotificationsData {
+  @override
+  final String G__typename;
+  @override
+  final GGetNotificationsData_getNotifications getNotifications;
+
+  factory _$GGetNotificationsData(
+          [void Function(GGetNotificationsDataBuilder)? updates]) =>
+      (new GGetNotificationsDataBuilder()..update(updates))._build();
+
+  _$GGetNotificationsData._(
+      {required this.G__typename, required this.getNotifications})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetNotificationsData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        getNotifications, r'GGetNotificationsData', 'getNotifications');
+  }
+
+  @override
+  GGetNotificationsData rebuild(
+          void Function(GGetNotificationsDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetNotificationsDataBuilder toBuilder() =>
+      new GGetNotificationsDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetNotificationsData &&
+        G__typename == other.G__typename &&
+        getNotifications == other.getNotifications;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, getNotifications.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetNotificationsData')
+          ..add('G__typename', G__typename)
+          ..add('getNotifications', getNotifications))
+        .toString();
+  }
+}
+
+class GGetNotificationsDataBuilder
+    implements Builder<GGetNotificationsData, GGetNotificationsDataBuilder> {
+  _$GGetNotificationsData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GGetNotificationsData_getNotificationsBuilder? _getNotifications;
+  GGetNotificationsData_getNotificationsBuilder get getNotifications =>
+      _$this._getNotifications ??=
+          new GGetNotificationsData_getNotificationsBuilder();
+  set getNotifications(
+          GGetNotificationsData_getNotificationsBuilder? getNotifications) =>
+      _$this._getNotifications = getNotifications;
+
+  GGetNotificationsDataBuilder() {
+    GGetNotificationsData._initializeBuilder(this);
+  }
+
+  GGetNotificationsDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _getNotifications = $v.getNotifications.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetNotificationsData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetNotificationsData;
+  }
+
+  @override
+  void update(void Function(GGetNotificationsDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetNotificationsData build() => _build();
+
+  _$GGetNotificationsData _build() {
+    _$GGetNotificationsData _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetNotificationsData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GGetNotificationsData', 'G__typename'),
+              getNotifications: getNotifications.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'getNotifications';
+        getNotifications.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetNotificationsData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetNotificationsData_getNotifications
+    extends GGetNotificationsData_getNotifications {
+  @override
+  final String G__typename;
+  @override
+  final BuiltList<GGetNotificationsData_getNotifications_notifications>
+      notifications;
+
+  factory _$GGetNotificationsData_getNotifications(
+          [void Function(GGetNotificationsData_getNotificationsBuilder)?
+              updates]) =>
+      (new GGetNotificationsData_getNotificationsBuilder()..update(updates))
+          ._build();
+
+  _$GGetNotificationsData_getNotifications._(
+      {required this.G__typename, required this.notifications})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetNotificationsData_getNotifications', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(notifications,
+        r'GGetNotificationsData_getNotifications', 'notifications');
+  }
+
+  @override
+  GGetNotificationsData_getNotifications rebuild(
+          void Function(GGetNotificationsData_getNotificationsBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetNotificationsData_getNotificationsBuilder toBuilder() =>
+      new GGetNotificationsData_getNotificationsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetNotificationsData_getNotifications &&
+        G__typename == other.G__typename &&
+        notifications == other.notifications;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, notifications.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetNotificationsData_getNotifications')
+          ..add('G__typename', G__typename)
+          ..add('notifications', notifications))
+        .toString();
+  }
+}
+
+class GGetNotificationsData_getNotificationsBuilder
+    implements
+        Builder<GGetNotificationsData_getNotifications,
+            GGetNotificationsData_getNotificationsBuilder> {
+  _$GGetNotificationsData_getNotifications? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  ListBuilder<GGetNotificationsData_getNotifications_notifications>?
+      _notifications;
+  ListBuilder<GGetNotificationsData_getNotifications_notifications>
+      get notifications => _$this._notifications ??= new ListBuilder<
+          GGetNotificationsData_getNotifications_notifications>();
+  set notifications(
+          ListBuilder<GGetNotificationsData_getNotifications_notifications>?
+              notifications) =>
+      _$this._notifications = notifications;
+
+  GGetNotificationsData_getNotificationsBuilder() {
+    GGetNotificationsData_getNotifications._initializeBuilder(this);
+  }
+
+  GGetNotificationsData_getNotificationsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _notifications = $v.notifications.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetNotificationsData_getNotifications other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetNotificationsData_getNotifications;
+  }
+
+  @override
+  void update(
+      void Function(GGetNotificationsData_getNotificationsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetNotificationsData_getNotifications build() => _build();
+
+  _$GGetNotificationsData_getNotifications _build() {
+    _$GGetNotificationsData_getNotifications _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetNotificationsData_getNotifications._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                  r'GGetNotificationsData_getNotifications', 'G__typename'),
+              notifications: notifications.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'notifications';
+        notifications.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetNotificationsData_getNotifications',
+            _$failedField,
+            e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetNotificationsData_getNotifications_notifications
+    extends GGetNotificationsData_getNotifications_notifications {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String title;
+  @override
+  final String content;
+  @override
+  final String createdAt;
+  @override
+  final String updatedAt;
+
+  factory _$GGetNotificationsData_getNotifications_notifications(
+          [void Function(
+                  GGetNotificationsData_getNotifications_notificationsBuilder)?
+              updates]) =>
+      (new GGetNotificationsData_getNotifications_notificationsBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GGetNotificationsData_getNotifications_notifications._(
+      {required this.G__typename,
+      required this.id,
+      required this.title,
+      required this.content,
+      required this.createdAt,
+      required this.updatedAt})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GGetNotificationsData_getNotifications_notifications', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetNotificationsData_getNotifications_notifications', 'id');
+    BuiltValueNullFieldError.checkNotNull(title,
+        r'GGetNotificationsData_getNotifications_notifications', 'title');
+    BuiltValueNullFieldError.checkNotNull(content,
+        r'GGetNotificationsData_getNotifications_notifications', 'content');
+    BuiltValueNullFieldError.checkNotNull(createdAt,
+        r'GGetNotificationsData_getNotifications_notifications', 'createdAt');
+    BuiltValueNullFieldError.checkNotNull(updatedAt,
+        r'GGetNotificationsData_getNotifications_notifications', 'updatedAt');
+  }
+
+  @override
+  GGetNotificationsData_getNotifications_notifications rebuild(
+          void Function(
+                  GGetNotificationsData_getNotifications_notificationsBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetNotificationsData_getNotifications_notificationsBuilder toBuilder() =>
+      new GGetNotificationsData_getNotifications_notificationsBuilder()
+        ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetNotificationsData_getNotifications_notifications &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        title == other.title &&
+        content == other.content &&
+        createdAt == other.createdAt &&
+        updatedAt == other.updatedAt;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, content.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
+    _$hash = $jc(_$hash, updatedAt.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetNotificationsData_getNotifications_notifications')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('title', title)
+          ..add('content', content)
+          ..add('createdAt', createdAt)
+          ..add('updatedAt', updatedAt))
+        .toString();
+  }
+}
+
+class GGetNotificationsData_getNotifications_notificationsBuilder
+    implements
+        Builder<GGetNotificationsData_getNotifications_notifications,
+            GGetNotificationsData_getNotifications_notificationsBuilder> {
+  _$GGetNotificationsData_getNotifications_notifications? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  String? _content;
+  String? get content => _$this._content;
+  set content(String? content) => _$this._content = content;
+
+  String? _createdAt;
+  String? get createdAt => _$this._createdAt;
+  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
+
+  String? _updatedAt;
+  String? get updatedAt => _$this._updatedAt;
+  set updatedAt(String? updatedAt) => _$this._updatedAt = updatedAt;
+
+  GGetNotificationsData_getNotifications_notificationsBuilder() {
+    GGetNotificationsData_getNotifications_notifications._initializeBuilder(
+        this);
+  }
+
+  GGetNotificationsData_getNotifications_notificationsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _title = $v.title;
+      _content = $v.content;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetNotificationsData_getNotifications_notifications other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetNotificationsData_getNotifications_notifications;
+  }
+
+  @override
+  void update(
+      void Function(
+              GGetNotificationsData_getNotifications_notificationsBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetNotificationsData_getNotifications_notifications build() => _build();
+
+  _$GGetNotificationsData_getNotifications_notifications _build() {
+    final _$result = _$v ??
+        new _$GGetNotificationsData_getNotifications_notifications._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GGetNotificationsData_getNotifications_notifications',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetNotificationsData_getNotifications_notifications', 'id'),
+            title: BuiltValueNullFieldError.checkNotNull(
+                title, r'GGetNotificationsData_getNotifications_notifications', 'title'),
+            content: BuiltValueNullFieldError.checkNotNull(
+                content, r'GGetNotificationsData_getNotifications_notifications', 'content'),
+            createdAt: BuiltValueNullFieldError.checkNotNull(
+                createdAt, r'GGetNotificationsData_getNotifications_notifications', 'createdAt'),
+            updatedAt: BuiltValueNullFieldError.checkNotNull(
+                updatedAt,
+                r'GGetNotificationsData_getNotifications_notifications',
+                'updatedAt'));
     replace(_$result);
     return _$result;
   }
@@ -17208,6 +15296,766 @@ class GGetAllNotificationsData_getAllNotifications_notificationsBuilder
   }
 }
 
+class _$GGetUserDataData extends GGetUserDataData {
+  @override
+  final String G__typename;
+  @override
+  final GGetUserDataData_getUserData getUserData;
+
+  factory _$GGetUserDataData(
+          [void Function(GGetUserDataDataBuilder)? updates]) =>
+      (new GGetUserDataDataBuilder()..update(updates))._build();
+
+  _$GGetUserDataData._({required this.G__typename, required this.getUserData})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetUserDataData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        getUserData, r'GGetUserDataData', 'getUserData');
+  }
+
+  @override
+  GGetUserDataData rebuild(void Function(GGetUserDataDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserDataDataBuilder toBuilder() =>
+      new GGetUserDataDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserDataData &&
+        G__typename == other.G__typename &&
+        getUserData == other.getUserData;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, getUserData.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetUserDataData')
+          ..add('G__typename', G__typename)
+          ..add('getUserData', getUserData))
+        .toString();
+  }
+}
+
+class GGetUserDataDataBuilder
+    implements Builder<GGetUserDataData, GGetUserDataDataBuilder> {
+  _$GGetUserDataData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GGetUserDataData_getUserDataBuilder? _getUserData;
+  GGetUserDataData_getUserDataBuilder get getUserData =>
+      _$this._getUserData ??= new GGetUserDataData_getUserDataBuilder();
+  set getUserData(GGetUserDataData_getUserDataBuilder? getUserData) =>
+      _$this._getUserData = getUserData;
+
+  GGetUserDataDataBuilder() {
+    GGetUserDataData._initializeBuilder(this);
+  }
+
+  GGetUserDataDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _getUserData = $v.getUserData.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserDataData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserDataData;
+  }
+
+  @override
+  void update(void Function(GGetUserDataDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserDataData build() => _build();
+
+  _$GGetUserDataData _build() {
+    _$GGetUserDataData _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetUserDataData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GGetUserDataData', 'G__typename'),
+              getUserData: getUserData.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'getUserData';
+        getUserData.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetUserDataData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserDataData_getUserData extends GGetUserDataData_getUserData {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String email;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final int fspBalance;
+  @override
+  final int credentialBalance;
+  @override
+  final String role;
+  @override
+  final String primaryRole;
+  @override
+  final BuiltList<GGetUserDataData_getUserData_belongsToArtists>
+      belongsToArtists;
+  @override
+  final GGetUserDataData_getUserData_primaryArtist? primaryArtist;
+
+  factory _$GGetUserDataData_getUserData(
+          [void Function(GGetUserDataData_getUserDataBuilder)? updates]) =>
+      (new GGetUserDataData_getUserDataBuilder()..update(updates))._build();
+
+  _$GGetUserDataData_getUserData._(
+      {required this.G__typename,
+      required this.id,
+      required this.email,
+      required this.name,
+      this.imageUrl,
+      required this.fspBalance,
+      required this.credentialBalance,
+      required this.role,
+      required this.primaryRole,
+      required this.belongsToArtists,
+      this.primaryArtist})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetUserDataData_getUserData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetUserDataData_getUserData', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        email, r'GGetUserDataData_getUserData', 'email');
+    BuiltValueNullFieldError.checkNotNull(
+        name, r'GGetUserDataData_getUserData', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        fspBalance, r'GGetUserDataData_getUserData', 'fspBalance');
+    BuiltValueNullFieldError.checkNotNull(credentialBalance,
+        r'GGetUserDataData_getUserData', 'credentialBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        role, r'GGetUserDataData_getUserData', 'role');
+    BuiltValueNullFieldError.checkNotNull(
+        primaryRole, r'GGetUserDataData_getUserData', 'primaryRole');
+    BuiltValueNullFieldError.checkNotNull(
+        belongsToArtists, r'GGetUserDataData_getUserData', 'belongsToArtists');
+  }
+
+  @override
+  GGetUserDataData_getUserData rebuild(
+          void Function(GGetUserDataData_getUserDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserDataData_getUserDataBuilder toBuilder() =>
+      new GGetUserDataData_getUserDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserDataData_getUserData &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        email == other.email &&
+        name == other.name &&
+        imageUrl == other.imageUrl &&
+        fspBalance == other.fspBalance &&
+        credentialBalance == other.credentialBalance &&
+        role == other.role &&
+        primaryRole == other.primaryRole &&
+        belongsToArtists == other.belongsToArtists &&
+        primaryArtist == other.primaryArtist;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fspBalance.hashCode);
+    _$hash = $jc(_$hash, credentialBalance.hashCode);
+    _$hash = $jc(_$hash, role.hashCode);
+    _$hash = $jc(_$hash, primaryRole.hashCode);
+    _$hash = $jc(_$hash, belongsToArtists.hashCode);
+    _$hash = $jc(_$hash, primaryArtist.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetUserDataData_getUserData')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('email', email)
+          ..add('name', name)
+          ..add('imageUrl', imageUrl)
+          ..add('fspBalance', fspBalance)
+          ..add('credentialBalance', credentialBalance)
+          ..add('role', role)
+          ..add('primaryRole', primaryRole)
+          ..add('belongsToArtists', belongsToArtists)
+          ..add('primaryArtist', primaryArtist))
+        .toString();
+  }
+}
+
+class GGetUserDataData_getUserDataBuilder
+    implements
+        Builder<GGetUserDataData_getUserData,
+            GGetUserDataData_getUserDataBuilder> {
+  _$GGetUserDataData_getUserData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fspBalance;
+  int? get fspBalance => _$this._fspBalance;
+  set fspBalance(int? fspBalance) => _$this._fspBalance = fspBalance;
+
+  int? _credentialBalance;
+  int? get credentialBalance => _$this._credentialBalance;
+  set credentialBalance(int? credentialBalance) =>
+      _$this._credentialBalance = credentialBalance;
+
+  String? _role;
+  String? get role => _$this._role;
+  set role(String? role) => _$this._role = role;
+
+  String? _primaryRole;
+  String? get primaryRole => _$this._primaryRole;
+  set primaryRole(String? primaryRole) => _$this._primaryRole = primaryRole;
+
+  ListBuilder<GGetUserDataData_getUserData_belongsToArtists>? _belongsToArtists;
+  ListBuilder<GGetUserDataData_getUserData_belongsToArtists>
+      get belongsToArtists => _$this._belongsToArtists ??=
+          new ListBuilder<GGetUserDataData_getUserData_belongsToArtists>();
+  set belongsToArtists(
+          ListBuilder<GGetUserDataData_getUserData_belongsToArtists>?
+              belongsToArtists) =>
+      _$this._belongsToArtists = belongsToArtists;
+
+  GGetUserDataData_getUserData_primaryArtistBuilder? _primaryArtist;
+  GGetUserDataData_getUserData_primaryArtistBuilder get primaryArtist =>
+      _$this._primaryArtist ??=
+          new GGetUserDataData_getUserData_primaryArtistBuilder();
+  set primaryArtist(
+          GGetUserDataData_getUserData_primaryArtistBuilder? primaryArtist) =>
+      _$this._primaryArtist = primaryArtist;
+
+  GGetUserDataData_getUserDataBuilder() {
+    GGetUserDataData_getUserData._initializeBuilder(this);
+  }
+
+  GGetUserDataData_getUserDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _email = $v.email;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _fspBalance = $v.fspBalance;
+      _credentialBalance = $v.credentialBalance;
+      _role = $v.role;
+      _primaryRole = $v.primaryRole;
+      _belongsToArtists = $v.belongsToArtists.toBuilder();
+      _primaryArtist = $v.primaryArtist?.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserDataData_getUserData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserDataData_getUserData;
+  }
+
+  @override
+  void update(void Function(GGetUserDataData_getUserDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserDataData_getUserData build() => _build();
+
+  _$GGetUserDataData_getUserData _build() {
+    _$GGetUserDataData_getUserData _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetUserDataData_getUserData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GGetUserDataData_getUserData', 'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GGetUserDataData_getUserData', 'id'),
+              email: BuiltValueNullFieldError.checkNotNull(
+                  email, r'GGetUserDataData_getUserData', 'email'),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, r'GGetUserDataData_getUserData', 'name'),
+              imageUrl: imageUrl,
+              fspBalance: BuiltValueNullFieldError.checkNotNull(
+                  fspBalance, r'GGetUserDataData_getUserData', 'fspBalance'),
+              credentialBalance: BuiltValueNullFieldError.checkNotNull(
+                  credentialBalance, r'GGetUserDataData_getUserData', 'credentialBalance'),
+              role: BuiltValueNullFieldError.checkNotNull(
+                  role, r'GGetUserDataData_getUserData', 'role'),
+              primaryRole: BuiltValueNullFieldError.checkNotNull(
+                  primaryRole, r'GGetUserDataData_getUserData', 'primaryRole'),
+              belongsToArtists: belongsToArtists.build(),
+              primaryArtist: _primaryArtist?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'belongsToArtists';
+        belongsToArtists.build();
+        _$failedField = 'primaryArtist';
+        _primaryArtist?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetUserDataData_getUserData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserDataData_getUserData_belongsToArtists
+    extends GGetUserDataData_getUserData_belongsToArtists {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
+
+  factory _$GGetUserDataData_getUserData_belongsToArtists(
+          [void Function(GGetUserDataData_getUserData_belongsToArtistsBuilder)?
+              updates]) =>
+      (new GGetUserDataData_getUserData_belongsToArtistsBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GGetUserDataData_getUserData_belongsToArtists._(
+      {required this.G__typename,
+      required this.id,
+      required this.name,
+      this.imageUrl,
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GGetUserDataData_getUserData_belongsToArtists', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetUserDataData_getUserData_belongsToArtists', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        name, r'GGetUserDataData_getUserData_belongsToArtists', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        fsp, r'GGetUserDataData_getUserData_belongsToArtists', 'fsp');
+    BuiltValueNullFieldError.checkNotNull(
+        status, r'GGetUserDataData_getUserData_belongsToArtists', 'status');
+    BuiltValueNullFieldError.checkNotNull(
+        isAdmin, r'GGetUserDataData_getUserData_belongsToArtists', 'isAdmin');
+  }
+
+  @override
+  GGetUserDataData_getUserData_belongsToArtists rebuild(
+          void Function(GGetUserDataData_getUserData_belongsToArtistsBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserDataData_getUserData_belongsToArtistsBuilder toBuilder() =>
+      new GGetUserDataData_getUserData_belongsToArtistsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserDataData_getUserData_belongsToArtists &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        name == other.name &&
+        imageUrl == other.imageUrl &&
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetUserDataData_getUserData_belongsToArtists')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('name', name)
+          ..add('imageUrl', imageUrl)
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
+        .toString();
+  }
+}
+
+class GGetUserDataData_getUserData_belongsToArtistsBuilder
+    implements
+        Builder<GGetUserDataData_getUserData_belongsToArtists,
+            GGetUserDataData_getUserData_belongsToArtistsBuilder> {
+  _$GGetUserDataData_getUserData_belongsToArtists? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
+
+  GGetUserDataData_getUserData_belongsToArtistsBuilder() {
+    GGetUserDataData_getUserData_belongsToArtists._initializeBuilder(this);
+  }
+
+  GGetUserDataData_getUserData_belongsToArtistsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserDataData_getUserData_belongsToArtists other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserDataData_getUserData_belongsToArtists;
+  }
+
+  @override
+  void update(
+      void Function(GGetUserDataData_getUserData_belongsToArtistsBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserDataData_getUserData_belongsToArtists build() => _build();
+
+  _$GGetUserDataData_getUserData_belongsToArtists _build() {
+    final _$result = _$v ??
+        new _$GGetUserDataData_getUserData_belongsToArtists._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GGetUserDataData_getUserData_belongsToArtists',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetUserDataData_getUserData_belongsToArtists', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GGetUserDataData_getUserData_belongsToArtists', 'name'),
+            imageUrl: imageUrl,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GGetUserDataData_getUserData_belongsToArtists', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GGetUserDataData_getUserData_belongsToArtists', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(isAdmin,
+                r'GGetUserDataData_getUserData_belongsToArtists', 'isAdmin'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserDataData_getUserData_primaryArtist
+    extends GGetUserDataData_getUserData_primaryArtist {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
+
+  factory _$GGetUserDataData_getUserData_primaryArtist(
+          [void Function(GGetUserDataData_getUserData_primaryArtistBuilder)?
+              updates]) =>
+      (new GGetUserDataData_getUserData_primaryArtistBuilder()..update(updates))
+          ._build();
+
+  _$GGetUserDataData_getUserData_primaryArtist._(
+      {required this.G__typename,
+      required this.id,
+      required this.name,
+      this.imageUrl,
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GGetUserDataData_getUserData_primaryArtist', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetUserDataData_getUserData_primaryArtist', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        name, r'GGetUserDataData_getUserData_primaryArtist', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        fsp, r'GGetUserDataData_getUserData_primaryArtist', 'fsp');
+    BuiltValueNullFieldError.checkNotNull(
+        status, r'GGetUserDataData_getUserData_primaryArtist', 'status');
+    BuiltValueNullFieldError.checkNotNull(
+        isAdmin, r'GGetUserDataData_getUserData_primaryArtist', 'isAdmin');
+  }
+
+  @override
+  GGetUserDataData_getUserData_primaryArtist rebuild(
+          void Function(GGetUserDataData_getUserData_primaryArtistBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserDataData_getUserData_primaryArtistBuilder toBuilder() =>
+      new GGetUserDataData_getUserData_primaryArtistBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserDataData_getUserData_primaryArtist &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        name == other.name &&
+        imageUrl == other.imageUrl &&
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetUserDataData_getUserData_primaryArtist')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('name', name)
+          ..add('imageUrl', imageUrl)
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
+        .toString();
+  }
+}
+
+class GGetUserDataData_getUserData_primaryArtistBuilder
+    implements
+        Builder<GGetUserDataData_getUserData_primaryArtist,
+            GGetUserDataData_getUserData_primaryArtistBuilder> {
+  _$GGetUserDataData_getUserData_primaryArtist? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
+
+  GGetUserDataData_getUserData_primaryArtistBuilder() {
+    GGetUserDataData_getUserData_primaryArtist._initializeBuilder(this);
+  }
+
+  GGetUserDataData_getUserData_primaryArtistBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserDataData_getUserData_primaryArtist other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserDataData_getUserData_primaryArtist;
+  }
+
+  @override
+  void update(
+      void Function(GGetUserDataData_getUserData_primaryArtistBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserDataData_getUserData_primaryArtist build() => _build();
+
+  _$GGetUserDataData_getUserData_primaryArtist _build() {
+    final _$result = _$v ??
+        new _$GGetUserDataData_getUserData_primaryArtist._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GGetUserDataData_getUserData_primaryArtist', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetUserDataData_getUserData_primaryArtist', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GGetUserDataData_getUserData_primaryArtist', 'name'),
+            imageUrl: imageUrl,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GGetUserDataData_getUserData_primaryArtist', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(status,
+                r'GGetUserDataData_getUserData_primaryArtist', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(isAdmin,
+                r'GGetUserDataData_getUserData_primaryArtist', 'isAdmin'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GGetBelongedArtistsData extends GGetBelongedArtistsData {
   @override
   final String G__typename;
@@ -17479,7 +16327,11 @@ class _$GGetBelongedArtistsData_getBelongedArtists_artistList
   @override
   final String? imageUrl;
   @override
-  final bool isAccepted;
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
 
   factory _$GGetBelongedArtistsData_getBelongedArtists_artistList(
           [void Function(
@@ -17494,7 +16346,9 @@ class _$GGetBelongedArtistsData_getBelongedArtists_artistList
       required this.id,
       required this.name,
       this.imageUrl,
-      required this.isAccepted})
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -17504,8 +16358,12 @@ class _$GGetBelongedArtistsData_getBelongedArtists_artistList
         id, r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'id');
     BuiltValueNullFieldError.checkNotNull(
         name, r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'name');
-    BuiltValueNullFieldError.checkNotNull(isAccepted,
-        r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'isAccepted');
+    BuiltValueNullFieldError.checkNotNull(
+        fsp, r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'fsp');
+    BuiltValueNullFieldError.checkNotNull(status,
+        r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'status');
+    BuiltValueNullFieldError.checkNotNull(isAdmin,
+        r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'isAdmin');
   }
 
   @override
@@ -17528,7 +16386,9 @@ class _$GGetBelongedArtistsData_getBelongedArtists_artistList
         id == other.id &&
         name == other.name &&
         imageUrl == other.imageUrl &&
-        isAccepted == other.isAccepted;
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
   }
 
   @override
@@ -17538,7 +16398,9 @@ class _$GGetBelongedArtistsData_getBelongedArtists_artistList
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, isAccepted.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -17551,7 +16413,9 @@ class _$GGetBelongedArtistsData_getBelongedArtists_artistList
           ..add('id', id)
           ..add('name', name)
           ..add('imageUrl', imageUrl)
-          ..add('isAccepted', isAccepted))
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
         .toString();
   }
 }
@@ -17578,9 +16442,17 @@ class GGetBelongedArtistsData_getBelongedArtists_artistListBuilder
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  bool? _isAccepted;
-  bool? get isAccepted => _$this._isAccepted;
-  set isAccepted(bool? isAccepted) => _$this._isAccepted = isAccepted;
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
 
   GGetBelongedArtistsData_getBelongedArtists_artistListBuilder() {
     GGetBelongedArtistsData_getBelongedArtists_artistList._initializeBuilder(
@@ -17594,7 +16466,9 @@ class GGetBelongedArtistsData_getBelongedArtists_artistListBuilder
       _id = $v.id;
       _name = $v.name;
       _imageUrl = $v.imageUrl;
-      _isAccepted = $v.isAccepted;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
       _$v = null;
     }
     return this;
@@ -17624,17 +16498,853 @@ class GGetBelongedArtistsData_getBelongedArtists_artistListBuilder
                 G__typename,
                 r'GGetBelongedArtistsData_getBelongedArtists_artistList',
                 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'id'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GGetBelongedArtistsData_getBelongedArtists_artistList',
-                'name'),
+                name, r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'name'),
             imageUrl: imageUrl,
-            isAccepted: BuiltValueNullFieldError.checkNotNull(
-                isAccepted,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GGetBelongedArtistsData_getBelongedArtists_artistList', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin,
                 r'GGetBelongedArtistsData_getBelongedArtists_artistList',
-                'isAccepted'));
+                'isAdmin'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserDetailProfileData extends GGetUserDetailProfileData {
+  @override
+  final String G__typename;
+  @override
+  final GGetUserDetailProfileData_getUserDetailProfile getUserDetailProfile;
+
+  factory _$GGetUserDetailProfileData(
+          [void Function(GGetUserDetailProfileDataBuilder)? updates]) =>
+      (new GGetUserDetailProfileDataBuilder()..update(updates))._build();
+
+  _$GGetUserDetailProfileData._(
+      {required this.G__typename, required this.getUserDetailProfile})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GGetUserDetailProfileData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(getUserDetailProfile,
+        r'GGetUserDetailProfileData', 'getUserDetailProfile');
+  }
+
+  @override
+  GGetUserDetailProfileData rebuild(
+          void Function(GGetUserDetailProfileDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserDetailProfileDataBuilder toBuilder() =>
+      new GGetUserDetailProfileDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserDetailProfileData &&
+        G__typename == other.G__typename &&
+        getUserDetailProfile == other.getUserDetailProfile;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, getUserDetailProfile.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GGetUserDetailProfileData')
+          ..add('G__typename', G__typename)
+          ..add('getUserDetailProfile', getUserDetailProfile))
+        .toString();
+  }
+}
+
+class GGetUserDetailProfileDataBuilder
+    implements
+        Builder<GGetUserDetailProfileData, GGetUserDetailProfileDataBuilder> {
+  _$GGetUserDetailProfileData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GGetUserDetailProfileData_getUserDetailProfileBuilder? _getUserDetailProfile;
+  GGetUserDetailProfileData_getUserDetailProfileBuilder
+      get getUserDetailProfile => _$this._getUserDetailProfile ??=
+          new GGetUserDetailProfileData_getUserDetailProfileBuilder();
+  set getUserDetailProfile(
+          GGetUserDetailProfileData_getUserDetailProfileBuilder?
+              getUserDetailProfile) =>
+      _$this._getUserDetailProfile = getUserDetailProfile;
+
+  GGetUserDetailProfileDataBuilder() {
+    GGetUserDetailProfileData._initializeBuilder(this);
+  }
+
+  GGetUserDetailProfileDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _getUserDetailProfile = $v.getUserDetailProfile.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserDetailProfileData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserDetailProfileData;
+  }
+
+  @override
+  void update(void Function(GGetUserDetailProfileDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserDetailProfileData build() => _build();
+
+  _$GGetUserDetailProfileData _build() {
+    _$GGetUserDetailProfileData _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetUserDetailProfileData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GGetUserDetailProfileData', 'G__typename'),
+              getUserDetailProfile: getUserDetailProfile.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'getUserDetailProfile';
+        getUserDetailProfile.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetUserDetailProfileData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserDetailProfileData_getUserDetailProfile
+    extends GGetUserDetailProfileData_getUserDetailProfile {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String email;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final int fspBalance;
+  @override
+  final int credentialBalance;
+  @override
+  final String role;
+  @override
+  final String primaryRole;
+  @override
+  final BuiltList<
+          GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists>
+      belongsToArtists;
+  @override
+  final GGetUserDetailProfileData_getUserDetailProfile_primaryArtist?
+      primaryArtist;
+
+  factory _$GGetUserDetailProfileData_getUserDetailProfile(
+          [void Function(GGetUserDetailProfileData_getUserDetailProfileBuilder)?
+              updates]) =>
+      (new GGetUserDetailProfileData_getUserDetailProfileBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GGetUserDetailProfileData_getUserDetailProfile._(
+      {required this.G__typename,
+      required this.id,
+      required this.email,
+      required this.name,
+      this.imageUrl,
+      required this.fspBalance,
+      required this.credentialBalance,
+      required this.role,
+      required this.primaryRole,
+      required this.belongsToArtists,
+      this.primaryArtist})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GGetUserDetailProfileData_getUserDetailProfile', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GGetUserDetailProfileData_getUserDetailProfile', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        email, r'GGetUserDetailProfileData_getUserDetailProfile', 'email');
+    BuiltValueNullFieldError.checkNotNull(
+        name, r'GGetUserDetailProfileData_getUserDetailProfile', 'name');
+    BuiltValueNullFieldError.checkNotNull(fspBalance,
+        r'GGetUserDetailProfileData_getUserDetailProfile', 'fspBalance');
+    BuiltValueNullFieldError.checkNotNull(credentialBalance,
+        r'GGetUserDetailProfileData_getUserDetailProfile', 'credentialBalance');
+    BuiltValueNullFieldError.checkNotNull(
+        role, r'GGetUserDetailProfileData_getUserDetailProfile', 'role');
+    BuiltValueNullFieldError.checkNotNull(primaryRole,
+        r'GGetUserDetailProfileData_getUserDetailProfile', 'primaryRole');
+    BuiltValueNullFieldError.checkNotNull(belongsToArtists,
+        r'GGetUserDetailProfileData_getUserDetailProfile', 'belongsToArtists');
+  }
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile rebuild(
+          void Function(GGetUserDetailProfileData_getUserDetailProfileBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfileBuilder toBuilder() =>
+      new GGetUserDetailProfileData_getUserDetailProfileBuilder()
+        ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserDetailProfileData_getUserDetailProfile &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        email == other.email &&
+        name == other.name &&
+        imageUrl == other.imageUrl &&
+        fspBalance == other.fspBalance &&
+        credentialBalance == other.credentialBalance &&
+        role == other.role &&
+        primaryRole == other.primaryRole &&
+        belongsToArtists == other.belongsToArtists &&
+        primaryArtist == other.primaryArtist;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fspBalance.hashCode);
+    _$hash = $jc(_$hash, credentialBalance.hashCode);
+    _$hash = $jc(_$hash, role.hashCode);
+    _$hash = $jc(_$hash, primaryRole.hashCode);
+    _$hash = $jc(_$hash, belongsToArtists.hashCode);
+    _$hash = $jc(_$hash, primaryArtist.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetUserDetailProfileData_getUserDetailProfile')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('email', email)
+          ..add('name', name)
+          ..add('imageUrl', imageUrl)
+          ..add('fspBalance', fspBalance)
+          ..add('credentialBalance', credentialBalance)
+          ..add('role', role)
+          ..add('primaryRole', primaryRole)
+          ..add('belongsToArtists', belongsToArtists)
+          ..add('primaryArtist', primaryArtist))
+        .toString();
+  }
+}
+
+class GGetUserDetailProfileData_getUserDetailProfileBuilder
+    implements
+        Builder<GGetUserDetailProfileData_getUserDetailProfile,
+            GGetUserDetailProfileData_getUserDetailProfileBuilder> {
+  _$GGetUserDetailProfileData_getUserDetailProfile? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fspBalance;
+  int? get fspBalance => _$this._fspBalance;
+  set fspBalance(int? fspBalance) => _$this._fspBalance = fspBalance;
+
+  int? _credentialBalance;
+  int? get credentialBalance => _$this._credentialBalance;
+  set credentialBalance(int? credentialBalance) =>
+      _$this._credentialBalance = credentialBalance;
+
+  String? _role;
+  String? get role => _$this._role;
+  set role(String? role) => _$this._role = role;
+
+  String? _primaryRole;
+  String? get primaryRole => _$this._primaryRole;
+  set primaryRole(String? primaryRole) => _$this._primaryRole = primaryRole;
+
+  ListBuilder<GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists>?
+      _belongsToArtists;
+  ListBuilder<GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists>
+      get belongsToArtists => _$this._belongsToArtists ??= new ListBuilder<
+          GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists>();
+  set belongsToArtists(
+          ListBuilder<
+                  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists>?
+              belongsToArtists) =>
+      _$this._belongsToArtists = belongsToArtists;
+
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder?
+      _primaryArtist;
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder
+      get primaryArtist => _$this._primaryArtist ??=
+          new GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder();
+  set primaryArtist(
+          GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder?
+              primaryArtist) =>
+      _$this._primaryArtist = primaryArtist;
+
+  GGetUserDetailProfileData_getUserDetailProfileBuilder() {
+    GGetUserDetailProfileData_getUserDetailProfile._initializeBuilder(this);
+  }
+
+  GGetUserDetailProfileData_getUserDetailProfileBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _email = $v.email;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _fspBalance = $v.fspBalance;
+      _credentialBalance = $v.credentialBalance;
+      _role = $v.role;
+      _primaryRole = $v.primaryRole;
+      _belongsToArtists = $v.belongsToArtists.toBuilder();
+      _primaryArtist = $v.primaryArtist?.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetUserDetailProfileData_getUserDetailProfile other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserDetailProfileData_getUserDetailProfile;
+  }
+
+  @override
+  void update(
+      void Function(GGetUserDetailProfileData_getUserDetailProfileBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile build() => _build();
+
+  _$GGetUserDetailProfileData_getUserDetailProfile _build() {
+    _$GGetUserDetailProfileData_getUserDetailProfile _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetUserDetailProfileData_getUserDetailProfile._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename,
+                  r'GGetUserDetailProfileData_getUserDetailProfile',
+                  'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GGetUserDetailProfileData_getUserDetailProfile', 'id'),
+              email: BuiltValueNullFieldError.checkNotNull(
+                  email, r'GGetUserDetailProfileData_getUserDetailProfile', 'email'),
+              name: BuiltValueNullFieldError.checkNotNull(
+                  name, r'GGetUserDetailProfileData_getUserDetailProfile', 'name'),
+              imageUrl: imageUrl,
+              fspBalance: BuiltValueNullFieldError.checkNotNull(
+                  fspBalance, r'GGetUserDetailProfileData_getUserDetailProfile', 'fspBalance'),
+              credentialBalance: BuiltValueNullFieldError.checkNotNull(
+                  credentialBalance,
+                  r'GGetUserDetailProfileData_getUserDetailProfile',
+                  'credentialBalance'),
+              role: BuiltValueNullFieldError.checkNotNull(role, r'GGetUserDetailProfileData_getUserDetailProfile', 'role'),
+              primaryRole: BuiltValueNullFieldError.checkNotNull(primaryRole, r'GGetUserDetailProfileData_getUserDetailProfile', 'primaryRole'),
+              belongsToArtists: belongsToArtists.build(),
+              primaryArtist: _primaryArtist?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'belongsToArtists';
+        belongsToArtists.build();
+        _$failedField = 'primaryArtist';
+        _primaryArtist?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GGetUserDetailProfileData_getUserDetailProfile',
+            _$failedField,
+            e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists
+    extends GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
+
+  factory _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists(
+          [void Function(
+                  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder)?
+              updates]) =>
+      (new GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists._(
+      {required this.G__typename,
+      required this.id,
+      required this.name,
+      this.imageUrl,
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename,
+        r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists',
+        'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id,
+        r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists',
+        'id');
+    BuiltValueNullFieldError.checkNotNull(
+        name,
+        r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists',
+        'name');
+    BuiltValueNullFieldError.checkNotNull(
+        fsp,
+        r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists',
+        'fsp');
+    BuiltValueNullFieldError.checkNotNull(
+        status,
+        r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists',
+        'status');
+    BuiltValueNullFieldError.checkNotNull(
+        isAdmin,
+        r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists',
+        'isAdmin');
+  }
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists rebuild(
+          void Function(
+                  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder
+      toBuilder() =>
+          new GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder()
+            ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other
+            is GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        name == other.name &&
+        imageUrl == other.imageUrl &&
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('name', name)
+          ..add('imageUrl', imageUrl)
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
+        .toString();
+  }
+}
+
+class GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder
+    implements
+        Builder<GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists,
+            GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder> {
+  _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
+
+  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder() {
+    GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists
+        ._initializeBuilder(this);
+  }
+
+  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder
+      get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(
+      GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other
+        as _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists;
+  }
+
+  @override
+  void update(
+      void Function(
+              GGetUserDetailProfileData_getUserDetailProfile_belongsToArtistsBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists build() =>
+      _build();
+
+  _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists _build() {
+    final _$result = _$v ??
+        new _$GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists', 'name'),
+            imageUrl: imageUrl,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin,
+                r'GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists',
+                'isAdmin'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtist
+    extends GGetUserDetailProfileData_getUserDetailProfile_primaryArtist {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
+
+  factory _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtist(
+          [void Function(
+                  GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder)?
+              updates]) =>
+      (new GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtist._(
+      {required this.G__typename,
+      required this.id,
+      required this.name,
+      this.imageUrl,
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename,
+        r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist',
+        'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id,
+        r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        name,
+        r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist',
+        'name');
+    BuiltValueNullFieldError.checkNotNull(fsp,
+        r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist', 'fsp');
+    BuiltValueNullFieldError.checkNotNull(
+        status,
+        r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist',
+        'status');
+    BuiltValueNullFieldError.checkNotNull(
+        isAdmin,
+        r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist',
+        'isAdmin');
+  }
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtist rebuild(
+          void Function(
+                  GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder
+      toBuilder() =>
+          new GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder()
+            ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other
+            is GGetUserDetailProfileData_getUserDetailProfile_primaryArtist &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        name == other.name &&
+        imageUrl == other.imageUrl &&
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, imageUrl.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('name', name)
+          ..add('imageUrl', imageUrl)
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
+        .toString();
+  }
+}
+
+class GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder
+    implements
+        Builder<GGetUserDetailProfileData_getUserDetailProfile_primaryArtist,
+            GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder> {
+  _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtist? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  String? _imageUrl;
+  String? get imageUrl => _$this._imageUrl;
+  set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
+
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
+
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder() {
+    GGetUserDetailProfileData_getUserDetailProfile_primaryArtist
+        ._initializeBuilder(this);
+  }
+
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder
+      get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _name = $v.name;
+      _imageUrl = $v.imageUrl;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(
+      GGetUserDetailProfileData_getUserDetailProfile_primaryArtist other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v =
+        other as _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtist;
+  }
+
+  @override
+  void update(
+      void Function(
+              GGetUserDetailProfileData_getUserDetailProfile_primaryArtistBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserDetailProfileData_getUserDetailProfile_primaryArtist build() =>
+      _build();
+
+  _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtist _build() {
+    final _$result = _$v ??
+        new _$GGetUserDetailProfileData_getUserDetailProfile_primaryArtist._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist', 'name'),
+            imageUrl: imageUrl,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin,
+                r'GGetUserDetailProfileData_getUserDetailProfile_primaryArtist',
+                'isAdmin'));
     replace(_$result);
     return _$result;
   }

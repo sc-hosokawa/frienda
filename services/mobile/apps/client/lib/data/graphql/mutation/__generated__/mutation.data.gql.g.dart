@@ -11,31 +11,6 @@ Serializer<GAddNewConnectionData> _$gAddNewConnectionDataSerializer =
 Serializer<GAddNewConnectionData_addNewConnection>
     _$gAddNewConnectionDataAddNewConnectionSerializer =
     new _$GAddNewConnectionData_addNewConnectionSerializer();
-Serializer<GCreateNewMessageRoomData> _$gCreateNewMessageRoomDataSerializer =
-    new _$GCreateNewMessageRoomDataSerializer();
-Serializer<GCreateNewMessageRoomData_createNewMessageRoom>
-    _$gCreateNewMessageRoomDataCreateNewMessageRoomSerializer =
-    new _$GCreateNewMessageRoomData_createNewMessageRoomSerializer();
-Serializer<GSendMessageData> _$gSendMessageDataSerializer =
-    new _$GSendMessageDataSerializer();
-Serializer<GSendMessageData_sendMessage>
-    _$gSendMessageDataSendMessageSerializer =
-    new _$GSendMessageData_sendMessageSerializer();
-Serializer<GCreateNewOfferData> _$gCreateNewOfferDataSerializer =
-    new _$GCreateNewOfferDataSerializer();
-Serializer<GCreateNewOfferData_createNewOffer>
-    _$gCreateNewOfferDataCreateNewOfferSerializer =
-    new _$GCreateNewOfferData_createNewOfferSerializer();
-Serializer<GUpdateOfferData> _$gUpdateOfferDataSerializer =
-    new _$GUpdateOfferDataSerializer();
-Serializer<GUpdateOfferData_updateOffer>
-    _$gUpdateOfferDataUpdateOfferSerializer =
-    new _$GUpdateOfferData_updateOfferSerializer();
-Serializer<GDeleteOfferData> _$gDeleteOfferDataSerializer =
-    new _$GDeleteOfferDataSerializer();
-Serializer<GDeleteOfferData_deleteOffer>
-    _$gDeleteOfferDataDeleteOfferSerializer =
-    new _$GDeleteOfferData_deleteOfferSerializer();
 Serializer<GCreateNewUserDataData> _$gCreateNewUserDataDataSerializer =
     new _$GCreateNewUserDataDataSerializer();
 Serializer<GCreateNewUserDataData_createNewUserData>
@@ -62,18 +37,24 @@ Serializer<GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus>
     _$gUpdateBelongsToArtistStatusDataUpdateBelongsToArtistStatusSerializer =
     new _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatusSerializer();
 Serializer<
-        GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList>
-    _$gUpdateBelongsToArtistStatusDataUpdateBelongsToArtistStatusArtistListSerializer =
-    new _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListSerializer();
-Serializer<
-        GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList>
-    _$gUpdateBelongsToArtistStatusDataUpdateBelongsToArtistStatusArtistListArtistListSerializer =
-    new _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListSerializer();
+        GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist>
+    _$gUpdateBelongsToArtistStatusDataUpdateBelongsToArtistStatusUpdatedUserArtistSerializer =
+    new _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistSerializer();
 Serializer<GContactToAdminData> _$gContactToAdminDataSerializer =
     new _$GContactToAdminDataSerializer();
 Serializer<GContactToAdminData_contactToAdmin>
     _$gContactToAdminDataContactToAdminSerializer =
     new _$GContactToAdminData_contactToAdminSerializer();
+Serializer<GCreateNewMessageRoomData> _$gCreateNewMessageRoomDataSerializer =
+    new _$GCreateNewMessageRoomDataSerializer();
+Serializer<GCreateNewMessageRoomData_createNewMessageRoom>
+    _$gCreateNewMessageRoomDataCreateNewMessageRoomSerializer =
+    new _$GCreateNewMessageRoomData_createNewMessageRoomSerializer();
+Serializer<GSendMessageData> _$gSendMessageDataSerializer =
+    new _$GSendMessageDataSerializer();
+Serializer<GSendMessageData_sendMessage>
+    _$gSendMessageDataSendMessageSerializer =
+    new _$GSendMessageData_sendMessageSerializer();
 Serializer<GCreateNewNotificationData> _$gCreateNewNotificationDataSerializer =
     new _$GCreateNewNotificationDataSerializer();
 Serializer<GCreateNewNotificationData_createNewNotification>
@@ -89,11 +70,46 @@ Serializer<GDeleteNotificationData> _$gDeleteNotificationDataSerializer =
 Serializer<GDeleteNotificationData_deleteNotification>
     _$gDeleteNotificationDataDeleteNotificationSerializer =
     new _$GDeleteNotificationData_deleteNotificationSerializer();
+Serializer<GCreateNewOfferData> _$gCreateNewOfferDataSerializer =
+    new _$GCreateNewOfferDataSerializer();
+Serializer<GCreateNewOfferData_createNewOffer>
+    _$gCreateNewOfferDataCreateNewOfferSerializer =
+    new _$GCreateNewOfferData_createNewOfferSerializer();
+Serializer<GUpdateOfferInfoData> _$gUpdateOfferInfoDataSerializer =
+    new _$GUpdateOfferInfoDataSerializer();
+Serializer<GUpdateOfferInfoData_updateOfferInfo>
+    _$gUpdateOfferInfoDataUpdateOfferInfoSerializer =
+    new _$GUpdateOfferInfoData_updateOfferInfoSerializer();
+Serializer<GUpdateOfferStatusData> _$gUpdateOfferStatusDataSerializer =
+    new _$GUpdateOfferStatusDataSerializer();
+Serializer<GUpdateOfferStatusData_updateOfferStatus>
+    _$gUpdateOfferStatusDataUpdateOfferStatusSerializer =
+    new _$GUpdateOfferStatusData_updateOfferStatusSerializer();
+Serializer<GDeleteOfferData> _$gDeleteOfferDataSerializer =
+    new _$GDeleteOfferDataSerializer();
+Serializer<GDeleteOfferData_deleteOffer>
+    _$gDeleteOfferDataDeleteOfferSerializer =
+    new _$GDeleteOfferData_deleteOfferSerializer();
 Serializer<GCreateFspTxData> _$gCreateFspTxDataSerializer =
     new _$GCreateFspTxDataSerializer();
 Serializer<GCreateFspTxData_createFspTx>
     _$gCreateFspTxDataCreateFspTxSerializer =
     new _$GCreateFspTxData_createFspTxSerializer();
+Serializer<GCreateBulkFspTxData> _$gCreateBulkFspTxDataSerializer =
+    new _$GCreateBulkFspTxDataSerializer();
+Serializer<GCreateBulkFspTxData_createBulkFspTx>
+    _$gCreateBulkFspTxDataCreateBulkFspTxSerializer =
+    new _$GCreateBulkFspTxData_createBulkFspTxSerializer();
+Serializer<GCreatePrizeData> _$gCreatePrizeDataSerializer =
+    new _$GCreatePrizeDataSerializer();
+Serializer<GCreatePrizeData_createPrize>
+    _$gCreatePrizeDataCreatePrizeSerializer =
+    new _$GCreatePrizeData_createPrizeSerializer();
+Serializer<GExchangePrizeData> _$gExchangePrizeDataSerializer =
+    new _$GExchangePrizeDataSerializer();
+Serializer<GExchangePrizeData_exchangePrize>
+    _$gExchangePrizeDataExchangePrizeSerializer =
+    new _$GExchangePrizeData_exchangePrizeSerializer();
 Serializer<GCreateNewArtistData> _$gCreateNewArtistDataSerializer =
     new _$GCreateNewArtistDataSerializer();
 Serializer<GCreateNewArtistData_createNewArtist>
@@ -201,528 +217,6 @@ class _$GAddNewConnectionData_addNewConnectionSerializer
         case 'mapId':
           result.mapId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreateNewMessageRoomDataSerializer
-    implements StructuredSerializer<GCreateNewMessageRoomData> {
-  @override
-  final Iterable<Type> types = const [
-    GCreateNewMessageRoomData,
-    _$GCreateNewMessageRoomData
-  ];
-  @override
-  final String wireName = 'GCreateNewMessageRoomData';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreateNewMessageRoomData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'createNewMessageRoom',
-      serializers.serialize(object.createNewMessageRoom,
-          specifiedType:
-              const FullType(GCreateNewMessageRoomData_createNewMessageRoom)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreateNewMessageRoomData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateNewMessageRoomDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'createNewMessageRoom':
-          result.createNewMessageRoom.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      GCreateNewMessageRoomData_createNewMessageRoom))!
-              as GCreateNewMessageRoomData_createNewMessageRoom);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreateNewMessageRoomData_createNewMessageRoomSerializer
-    implements
-        StructuredSerializer<GCreateNewMessageRoomData_createNewMessageRoom> {
-  @override
-  final Iterable<Type> types = const [
-    GCreateNewMessageRoomData_createNewMessageRoom,
-    _$GCreateNewMessageRoomData_createNewMessageRoom
-  ];
-  @override
-  final String wireName = 'GCreateNewMessageRoomData_createNewMessageRoom';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers,
-      GCreateNewMessageRoomData_createNewMessageRoom object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreateNewMessageRoomData_createNewMessageRoom deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateNewMessageRoomData_createNewMessageRoomBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GSendMessageDataSerializer
-    implements StructuredSerializer<GSendMessageData> {
-  @override
-  final Iterable<Type> types = const [GSendMessageData, _$GSendMessageData];
-  @override
-  final String wireName = 'GSendMessageData';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GSendMessageData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'sendMessage',
-      serializers.serialize(object.sendMessage,
-          specifiedType: const FullType(GSendMessageData_sendMessage)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GSendMessageData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GSendMessageDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'sendMessage':
-          result.sendMessage.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GSendMessageData_sendMessage))!
-              as GSendMessageData_sendMessage);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GSendMessageData_sendMessageSerializer
-    implements StructuredSerializer<GSendMessageData_sendMessage> {
-  @override
-  final Iterable<Type> types = const [
-    GSendMessageData_sendMessage,
-    _$GSendMessageData_sendMessage
-  ];
-  @override
-  final String wireName = 'GSendMessageData_sendMessage';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GSendMessageData_sendMessage object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GSendMessageData_sendMessage deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GSendMessageData_sendMessageBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreateNewOfferDataSerializer
-    implements StructuredSerializer<GCreateNewOfferData> {
-  @override
-  final Iterable<Type> types = const [
-    GCreateNewOfferData,
-    _$GCreateNewOfferData
-  ];
-  @override
-  final String wireName = 'GCreateNewOfferData';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreateNewOfferData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'createNewOffer',
-      serializers.serialize(object.createNewOffer,
-          specifiedType: const FullType(GCreateNewOfferData_createNewOffer)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreateNewOfferData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateNewOfferDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'createNewOffer':
-          result.createNewOffer.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GCreateNewOfferData_createNewOffer))!
-              as GCreateNewOfferData_createNewOffer);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GCreateNewOfferData_createNewOfferSerializer
-    implements StructuredSerializer<GCreateNewOfferData_createNewOffer> {
-  @override
-  final Iterable<Type> types = const [
-    GCreateNewOfferData_createNewOffer,
-    _$GCreateNewOfferData_createNewOffer
-  ];
-  @override
-  final String wireName = 'GCreateNewOfferData_createNewOffer';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GCreateNewOfferData_createNewOffer object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(int)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GCreateNewOfferData_createNewOffer deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GCreateNewOfferData_createNewOfferBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GUpdateOfferDataSerializer
-    implements StructuredSerializer<GUpdateOfferData> {
-  @override
-  final Iterable<Type> types = const [GUpdateOfferData, _$GUpdateOfferData];
-  @override
-  final String wireName = 'GUpdateOfferData';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GUpdateOfferData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'updateOffer',
-      serializers.serialize(object.updateOffer,
-          specifiedType: const FullType(GUpdateOfferData_updateOffer)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GUpdateOfferData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateOfferDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'updateOffer':
-          result.updateOffer.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GUpdateOfferData_updateOffer))!
-              as GUpdateOfferData_updateOffer);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GUpdateOfferData_updateOfferSerializer
-    implements StructuredSerializer<GUpdateOfferData_updateOffer> {
-  @override
-  final Iterable<Type> types = const [
-    GUpdateOfferData_updateOffer,
-    _$GUpdateOfferData_updateOffer
-  ];
-  @override
-  final String wireName = 'GUpdateOfferData_updateOffer';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GUpdateOfferData_updateOffer object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(int)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GUpdateOfferData_updateOffer deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateOfferData_updateOfferBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GDeleteOfferDataSerializer
-    implements StructuredSerializer<GDeleteOfferData> {
-  @override
-  final Iterable<Type> types = const [GDeleteOfferData, _$GDeleteOfferData];
-  @override
-  final String wireName = 'GDeleteOfferData';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GDeleteOfferData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'deleteOffer',
-      serializers.serialize(object.deleteOffer,
-          specifiedType: const FullType(GDeleteOfferData_deleteOffer)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GDeleteOfferData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDeleteOfferDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'deleteOffer':
-          result.deleteOffer.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GDeleteOfferData_deleteOffer))!
-              as GDeleteOfferData_deleteOffer);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GDeleteOfferData_deleteOfferSerializer
-    implements StructuredSerializer<GDeleteOfferData_deleteOffer> {
-  @override
-  final Iterable<Type> types = const [
-    GDeleteOfferData_deleteOffer,
-    _$GDeleteOfferData_deleteOffer
-  ];
-  @override
-  final String wireName = 'GDeleteOfferData_deleteOffer';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GDeleteOfferData_deleteOffer object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(int)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GDeleteOfferData_deleteOffer deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GDeleteOfferData_deleteOfferBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
           break;
       }
     }
@@ -997,16 +491,11 @@ class _$GUpdateUserDataData_updateUserData_userInfoSerializer
       'fspBalance',
       serializers.serialize(object.fspBalance,
           specifiedType: const FullType(int)),
-      'fspBalanceTemp',
-      serializers.serialize(object.fspBalanceTemp,
-          specifiedType: const FullType(int)),
       'credentialBalance',
       serializers.serialize(object.credentialBalance,
           specifiedType: const FullType(int)),
-      'roles',
-      serializers.serialize(object.roles,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(String)])),
+      'role',
+      serializers.serialize(object.role, specifiedType: const FullType(String)),
       'primaryRole',
       serializers.serialize(object.primaryRole,
           specifiedType: const FullType(String)),
@@ -1072,19 +561,13 @@ class _$GUpdateUserDataData_updateUserData_userInfoSerializer
           result.fspBalance = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'fspBalanceTemp':
-          result.fspBalanceTemp = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
-          break;
         case 'credentialBalance':
           result.credentialBalance = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
-        case 'roles':
-          result.roles.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object?>);
+        case 'role':
+          result.role = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
         case 'primaryRole':
           result.primaryRole = serializers.deserialize(value,
@@ -1135,8 +618,13 @@ class _$GUpdateUserDataData_updateUserData_userInfo_belongsToArtistsSerializer
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'isAccepted',
-      serializers.serialize(object.isAccepted,
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
           specifiedType: const FullType(bool)),
     ];
     Object? value;
@@ -1179,8 +667,16 @@ class _$GUpdateUserDataData_updateUserData_userInfo_belongsToArtistsSerializer
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'isAccepted':
-          result.isAccepted = serializers.deserialize(value,
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
       }
@@ -1215,8 +711,13 @@ class _$GUpdateUserDataData_updateUserData_userInfo_primaryArtistSerializer
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'isAccepted',
-      serializers.serialize(object.isAccepted,
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
           specifiedType: const FullType(bool)),
     ];
     Object? value;
@@ -1259,8 +760,16 @@ class _$GUpdateUserDataData_updateUserData_userInfo_primaryArtistSerializer
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'isAccepted':
-          result.isAccepted = serializers.deserialize(value,
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
       }
@@ -1348,10 +857,10 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatusSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'artistList',
-      serializers.serialize(object.artistList,
+      'updatedUserArtist',
+      serializers.serialize(object.updatedUserArtist,
           specifiedType: const FullType(
-              GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList)),
+              GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist)),
     ];
 
     return result;
@@ -1374,11 +883,11 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatusSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'artistList':
-          result.artistList.replace(serializers.deserialize(value,
+        case 'updatedUserArtist':
+          result.updatedUserArtist.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
-                      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList))!
-              as GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList);
+                      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist))!
+              as GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist);
           break;
       }
     }
@@ -1387,88 +896,23 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatusSerializer
   }
 }
 
-class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListSerializer
+class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistSerializer
     implements
         StructuredSerializer<
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList> {
+            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist> {
   @override
   final Iterable<Type> types = const [
-    GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList,
-    _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
+    GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist,
+    _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
   ];
   @override
   final String wireName =
-      'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList';
+      'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist';
 
   @override
   Iterable<Object?> serialize(
       Serializers serializers,
-      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-          object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'artistList',
-      serializers.serialize(object.artistList,
-          specifiedType: const FullType(BuiltList, const [
-            const FullType(
-                GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList)
-          ])),
-    ];
-
-    return result;
-  }
-
-  @override
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-      deserialize(Serializers serializers, Iterable<Object?> serialized,
-          {FullType specifiedType = FullType.unspecified}) {
-    final result =
-        new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'artistList':
-          result.artistList.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList)
-              ]))! as BuiltList<Object?>);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListSerializer
-    implements
-        StructuredSerializer<
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList> {
-  @override
-  final Iterable<Type> types = const [
-    GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList,
-    _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
-  ];
-  @override
-  final String wireName =
-      'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers,
-      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
           object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
@@ -1479,8 +923,13 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'isAccepted',
-      serializers.serialize(object.isAccepted,
+      'fsp',
+      serializers.serialize(object.fsp, specifiedType: const FullType(int)),
+      'status',
+      serializers.serialize(object.status,
+          specifiedType: const FullType(String)),
+      'isAdmin',
+      serializers.serialize(object.isAdmin,
           specifiedType: const FullType(bool)),
     ];
     Object? value;
@@ -1495,11 +944,11 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_
   }
 
   @override
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
       deserialize(Serializers serializers, Iterable<Object?> serialized,
           {FullType specifiedType = FullType.unspecified}) {
     final result =
-        new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder();
+        new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -1523,8 +972,16 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_
           result.imageUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'isAccepted':
-          result.isAccepted = serializers.deserialize(value,
+        case 'fsp':
+          result.fsp = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'status':
+          result.status = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'isAdmin':
+          result.isAdmin = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
           break;
       }
@@ -1633,6 +1090,259 @@ class _$GContactToAdminData_contactToAdminSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateNewMessageRoomDataSerializer
+    implements StructuredSerializer<GCreateNewMessageRoomData> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateNewMessageRoomData,
+    _$GCreateNewMessageRoomData
+  ];
+  @override
+  final String wireName = 'GCreateNewMessageRoomData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateNewMessageRoomData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'createNewMessageRoom',
+      serializers.serialize(object.createNewMessageRoom,
+          specifiedType:
+              const FullType(GCreateNewMessageRoomData_createNewMessageRoom)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateNewMessageRoomData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewMessageRoomDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'createNewMessageRoom':
+          result.createNewMessageRoom.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      GCreateNewMessageRoomData_createNewMessageRoom))!
+              as GCreateNewMessageRoomData_createNewMessageRoom);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateNewMessageRoomData_createNewMessageRoomSerializer
+    implements
+        StructuredSerializer<GCreateNewMessageRoomData_createNewMessageRoom> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateNewMessageRoomData_createNewMessageRoom,
+    _$GCreateNewMessageRoomData_createNewMessageRoom
+  ];
+  @override
+  final String wireName = 'GCreateNewMessageRoomData_createNewMessageRoom';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GCreateNewMessageRoomData_createNewMessageRoom object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateNewMessageRoomData_createNewMessageRoom deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewMessageRoomData_createNewMessageRoomBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GSendMessageDataSerializer
+    implements StructuredSerializer<GSendMessageData> {
+  @override
+  final Iterable<Type> types = const [GSendMessageData, _$GSendMessageData];
+  @override
+  final String wireName = 'GSendMessageData';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GSendMessageData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'sendMessage',
+      serializers.serialize(object.sendMessage,
+          specifiedType: const FullType(GSendMessageData_sendMessage)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GSendMessageData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GSendMessageDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'sendMessage':
+          result.sendMessage.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(GSendMessageData_sendMessage))!
+              as GSendMessageData_sendMessage);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GSendMessageData_sendMessageSerializer
+    implements StructuredSerializer<GSendMessageData_sendMessage> {
+  @override
+  final Iterable<Type> types = const [
+    GSendMessageData_sendMessage,
+    _$GSendMessageData_sendMessage
+  ];
+  @override
+  final String wireName = 'GSendMessageData_sendMessage';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GSendMessageData_sendMessage object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'message',
+      serializers.serialize(object.message,
+          specifiedType: const FullType(String)),
+      'sentAt',
+      serializers.serialize(object.sentAt,
+          specifiedType: const FullType(String)),
+    ];
+    Object? value;
+    value = object.attachedFile;
+    if (value != null) {
+      result
+        ..add('attachedFile')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.attachedImg;
+    if (value != null) {
+      result
+        ..add('attachedImg')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    return result;
+  }
+
+  @override
+  GSendMessageData_sendMessage deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GSendMessageData_sendMessageBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'message':
+          result.message = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'sentAt':
+          result.sentAt = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'attachedFile':
+          result.attachedFile.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'attachedImg':
+          result.attachedImg.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -1969,6 +1679,436 @@ class _$GDeleteNotificationData_deleteNotificationSerializer
   }
 }
 
+class _$GCreateNewOfferDataSerializer
+    implements StructuredSerializer<GCreateNewOfferData> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateNewOfferData,
+    _$GCreateNewOfferData
+  ];
+  @override
+  final String wireName = 'GCreateNewOfferData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateNewOfferData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'createNewOffer',
+      serializers.serialize(object.createNewOffer,
+          specifiedType: const FullType(GCreateNewOfferData_createNewOffer)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateNewOfferData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewOfferDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'createNewOffer':
+          result.createNewOffer.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GCreateNewOfferData_createNewOffer))!
+              as GCreateNewOfferData_createNewOffer);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateNewOfferData_createNewOfferSerializer
+    implements StructuredSerializer<GCreateNewOfferData_createNewOffer> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateNewOfferData_createNewOffer,
+    _$GCreateNewOfferData_createNewOffer
+  ];
+  @override
+  final String wireName = 'GCreateNewOfferData_createNewOffer';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateNewOfferData_createNewOffer object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateNewOfferData_createNewOffer deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateNewOfferData_createNewOfferBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateOfferInfoDataSerializer
+    implements StructuredSerializer<GUpdateOfferInfoData> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateOfferInfoData,
+    _$GUpdateOfferInfoData
+  ];
+  @override
+  final String wireName = 'GUpdateOfferInfoData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateOfferInfoData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'updateOfferInfo',
+      serializers.serialize(object.updateOfferInfo,
+          specifiedType: const FullType(GUpdateOfferInfoData_updateOfferInfo)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateOfferInfoData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateOfferInfoDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'updateOfferInfo':
+          result.updateOfferInfo.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GUpdateOfferInfoData_updateOfferInfo))!
+              as GUpdateOfferInfoData_updateOfferInfo);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateOfferInfoData_updateOfferInfoSerializer
+    implements StructuredSerializer<GUpdateOfferInfoData_updateOfferInfo> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateOfferInfoData_updateOfferInfo,
+    _$GUpdateOfferInfoData_updateOfferInfo
+  ];
+  @override
+  final String wireName = 'GUpdateOfferInfoData_updateOfferInfo';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateOfferInfoData_updateOfferInfo object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateOfferInfoData_updateOfferInfo deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateOfferInfoData_updateOfferInfoBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateOfferStatusDataSerializer
+    implements StructuredSerializer<GUpdateOfferStatusData> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateOfferStatusData,
+    _$GUpdateOfferStatusData
+  ];
+  @override
+  final String wireName = 'GUpdateOfferStatusData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateOfferStatusData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'updateOfferStatus',
+      serializers.serialize(object.updateOfferStatus,
+          specifiedType:
+              const FullType(GUpdateOfferStatusData_updateOfferStatus)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateOfferStatusData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateOfferStatusDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'updateOfferStatus':
+          result.updateOfferStatus.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GUpdateOfferStatusData_updateOfferStatus))!
+              as GUpdateOfferStatusData_updateOfferStatus);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateOfferStatusData_updateOfferStatusSerializer
+    implements StructuredSerializer<GUpdateOfferStatusData_updateOfferStatus> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateOfferStatusData_updateOfferStatus,
+    _$GUpdateOfferStatusData_updateOfferStatus
+  ];
+  @override
+  final String wireName = 'GUpdateOfferStatusData_updateOfferStatus';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateOfferStatusData_updateOfferStatus object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+      'offerId',
+      serializers.serialize(object.offerId, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateOfferStatusData_updateOfferStatus deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateOfferStatusData_updateOfferStatusBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'offerId':
+          result.offerId = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteOfferDataSerializer
+    implements StructuredSerializer<GDeleteOfferData> {
+  @override
+  final Iterable<Type> types = const [GDeleteOfferData, _$GDeleteOfferData];
+  @override
+  final String wireName = 'GDeleteOfferData';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GDeleteOfferData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'deleteOffer',
+      serializers.serialize(object.deleteOffer,
+          specifiedType: const FullType(GDeleteOfferData_deleteOffer)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteOfferData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteOfferDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'deleteOffer':
+          result.deleteOffer.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(GDeleteOfferData_deleteOffer))!
+              as GDeleteOfferData_deleteOffer);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteOfferData_deleteOfferSerializer
+    implements StructuredSerializer<GDeleteOfferData_deleteOffer> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteOfferData_deleteOffer,
+    _$GDeleteOfferData_deleteOffer
+  ];
+  @override
+  final String wireName = 'GDeleteOfferData_deleteOffer';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GDeleteOfferData_deleteOffer object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteOfferData_deleteOffer deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteOfferData_deleteOfferBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
 class _$GCreateFspTxDataSerializer
     implements StructuredSerializer<GCreateFspTxData> {
   @override
@@ -2037,9 +2177,8 @@ class _$GCreateFspTxData_createFspTxSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'newBalance',
-      serializers.serialize(object.newBalance,
-          specifiedType: const FullType(int)),
+      'txId',
+      serializers.serialize(object.txId, specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -2061,9 +2200,328 @@ class _$GCreateFspTxData_createFspTxSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'newBalance':
-          result.newBalance = serializers.deserialize(value,
+        case 'txId':
+          result.txId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateBulkFspTxDataSerializer
+    implements StructuredSerializer<GCreateBulkFspTxData> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateBulkFspTxData,
+    _$GCreateBulkFspTxData
+  ];
+  @override
+  final String wireName = 'GCreateBulkFspTxData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateBulkFspTxData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'createBulkFspTx',
+      serializers.serialize(object.createBulkFspTx,
+          specifiedType: const FullType(GCreateBulkFspTxData_createBulkFspTx)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateBulkFspTxData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateBulkFspTxDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'createBulkFspTx':
+          result.createBulkFspTx.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GCreateBulkFspTxData_createBulkFspTx))!
+              as GCreateBulkFspTxData_createBulkFspTx);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreateBulkFspTxData_createBulkFspTxSerializer
+    implements StructuredSerializer<GCreateBulkFspTxData_createBulkFspTx> {
+  @override
+  final Iterable<Type> types = const [
+    GCreateBulkFspTxData_createBulkFspTx,
+    _$GCreateBulkFspTxData_createBulkFspTx
+  ];
+  @override
+  final String wireName = 'GCreateBulkFspTxData_createBulkFspTx';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreateBulkFspTxData_createBulkFspTx object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'txId',
+      serializers.serialize(object.txId, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreateBulkFspTxData_createBulkFspTx deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreateBulkFspTxData_createBulkFspTxBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'txId':
+          result.txId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreatePrizeDataSerializer
+    implements StructuredSerializer<GCreatePrizeData> {
+  @override
+  final Iterable<Type> types = const [GCreatePrizeData, _$GCreatePrizeData];
+  @override
+  final String wireName = 'GCreatePrizeData';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GCreatePrizeData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'createPrize',
+      serializers.serialize(object.createPrize,
+          specifiedType: const FullType(GCreatePrizeData_createPrize)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreatePrizeData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreatePrizeDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'createPrize':
+          result.createPrize.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(GCreatePrizeData_createPrize))!
+              as GCreatePrizeData_createPrize);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GCreatePrizeData_createPrizeSerializer
+    implements StructuredSerializer<GCreatePrizeData_createPrize> {
+  @override
+  final Iterable<Type> types = const [
+    GCreatePrizeData_createPrize,
+    _$GCreatePrizeData_createPrize
+  ];
+  @override
+  final String wireName = 'GCreatePrizeData_createPrize';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GCreatePrizeData_createPrize object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GCreatePrizeData_createPrize deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GCreatePrizeData_createPrizeBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GExchangePrizeDataSerializer
+    implements StructuredSerializer<GExchangePrizeData> {
+  @override
+  final Iterable<Type> types = const [GExchangePrizeData, _$GExchangePrizeData];
+  @override
+  final String wireName = 'GExchangePrizeData';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GExchangePrizeData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'exchangePrize',
+      serializers.serialize(object.exchangePrize,
+          specifiedType: const FullType(GExchangePrizeData_exchangePrize)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GExchangePrizeData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GExchangePrizeDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'exchangePrize':
+          result.exchangePrize.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GExchangePrizeData_exchangePrize))!
+              as GExchangePrizeData_exchangePrize);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GExchangePrizeData_exchangePrizeSerializer
+    implements StructuredSerializer<GExchangePrizeData_exchangePrize> {
+  @override
+  final Iterable<Type> types = const [
+    GExchangePrizeData_exchangePrize,
+    _$GExchangePrizeData_exchangePrize
+  ];
+  @override
+  final String wireName = 'GExchangePrizeData_exchangePrize';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GExchangePrizeData_exchangePrize object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+      'txId',
+      serializers.serialize(object.txId, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GExchangePrizeData_exchangePrize deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GExchangePrizeData_exchangePrizeBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'txId':
+          result.txId = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -2416,1161 +2874,6 @@ class GAddNewConnectionData_addNewConnectionBuilder
                 r'GAddNewConnectionData_addNewConnection', 'G__typename'),
             mapId: BuiltValueNullFieldError.checkNotNull(
                 mapId, r'GAddNewConnectionData_addNewConnection', 'mapId'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreateNewMessageRoomData extends GCreateNewMessageRoomData {
-  @override
-  final String G__typename;
-  @override
-  final GCreateNewMessageRoomData_createNewMessageRoom createNewMessageRoom;
-
-  factory _$GCreateNewMessageRoomData(
-          [void Function(GCreateNewMessageRoomDataBuilder)? updates]) =>
-      (new GCreateNewMessageRoomDataBuilder()..update(updates))._build();
-
-  _$GCreateNewMessageRoomData._(
-      {required this.G__typename, required this.createNewMessageRoom})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GCreateNewMessageRoomData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(createNewMessageRoom,
-        r'GCreateNewMessageRoomData', 'createNewMessageRoom');
-  }
-
-  @override
-  GCreateNewMessageRoomData rebuild(
-          void Function(GCreateNewMessageRoomDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreateNewMessageRoomDataBuilder toBuilder() =>
-      new GCreateNewMessageRoomDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreateNewMessageRoomData &&
-        G__typename == other.G__typename &&
-        createNewMessageRoom == other.createNewMessageRoom;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, createNewMessageRoom.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreateNewMessageRoomData')
-          ..add('G__typename', G__typename)
-          ..add('createNewMessageRoom', createNewMessageRoom))
-        .toString();
-  }
-}
-
-class GCreateNewMessageRoomDataBuilder
-    implements
-        Builder<GCreateNewMessageRoomData, GCreateNewMessageRoomDataBuilder> {
-  _$GCreateNewMessageRoomData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GCreateNewMessageRoomData_createNewMessageRoomBuilder? _createNewMessageRoom;
-  GCreateNewMessageRoomData_createNewMessageRoomBuilder
-      get createNewMessageRoom => _$this._createNewMessageRoom ??=
-          new GCreateNewMessageRoomData_createNewMessageRoomBuilder();
-  set createNewMessageRoom(
-          GCreateNewMessageRoomData_createNewMessageRoomBuilder?
-              createNewMessageRoom) =>
-      _$this._createNewMessageRoom = createNewMessageRoom;
-
-  GCreateNewMessageRoomDataBuilder() {
-    GCreateNewMessageRoomData._initializeBuilder(this);
-  }
-
-  GCreateNewMessageRoomDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _createNewMessageRoom = $v.createNewMessageRoom.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreateNewMessageRoomData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateNewMessageRoomData;
-  }
-
-  @override
-  void update(void Function(GCreateNewMessageRoomDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreateNewMessageRoomData build() => _build();
-
-  _$GCreateNewMessageRoomData _build() {
-    _$GCreateNewMessageRoomData _$result;
-    try {
-      _$result = _$v ??
-          new _$GCreateNewMessageRoomData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GCreateNewMessageRoomData', 'G__typename'),
-              createNewMessageRoom: createNewMessageRoom.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'createNewMessageRoom';
-        createNewMessageRoom.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GCreateNewMessageRoomData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreateNewMessageRoomData_createNewMessageRoom
-    extends GCreateNewMessageRoomData_createNewMessageRoom {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-
-  factory _$GCreateNewMessageRoomData_createNewMessageRoom(
-          [void Function(GCreateNewMessageRoomData_createNewMessageRoomBuilder)?
-              updates]) =>
-      (new GCreateNewMessageRoomData_createNewMessageRoomBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GCreateNewMessageRoomData_createNewMessageRoom._(
-      {required this.G__typename, required this.id})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(G__typename,
-        r'GCreateNewMessageRoomData_createNewMessageRoom', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GCreateNewMessageRoomData_createNewMessageRoom', 'id');
-  }
-
-  @override
-  GCreateNewMessageRoomData_createNewMessageRoom rebuild(
-          void Function(GCreateNewMessageRoomData_createNewMessageRoomBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreateNewMessageRoomData_createNewMessageRoomBuilder toBuilder() =>
-      new GCreateNewMessageRoomData_createNewMessageRoomBuilder()
-        ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreateNewMessageRoomData_createNewMessageRoom &&
-        G__typename == other.G__typename &&
-        id == other.id;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GCreateNewMessageRoomData_createNewMessageRoom')
-          ..add('G__typename', G__typename)
-          ..add('id', id))
-        .toString();
-  }
-}
-
-class GCreateNewMessageRoomData_createNewMessageRoomBuilder
-    implements
-        Builder<GCreateNewMessageRoomData_createNewMessageRoom,
-            GCreateNewMessageRoomData_createNewMessageRoomBuilder> {
-  _$GCreateNewMessageRoomData_createNewMessageRoom? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  GCreateNewMessageRoomData_createNewMessageRoomBuilder() {
-    GCreateNewMessageRoomData_createNewMessageRoom._initializeBuilder(this);
-  }
-
-  GCreateNewMessageRoomData_createNewMessageRoomBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreateNewMessageRoomData_createNewMessageRoom other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateNewMessageRoomData_createNewMessageRoom;
-  }
-
-  @override
-  void update(
-      void Function(GCreateNewMessageRoomData_createNewMessageRoomBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreateNewMessageRoomData_createNewMessageRoom build() => _build();
-
-  _$GCreateNewMessageRoomData_createNewMessageRoom _build() {
-    final _$result = _$v ??
-        new _$GCreateNewMessageRoomData_createNewMessageRoom._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename,
-                r'GCreateNewMessageRoomData_createNewMessageRoom',
-                'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GCreateNewMessageRoomData_createNewMessageRoom', 'id'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GSendMessageData extends GSendMessageData {
-  @override
-  final String G__typename;
-  @override
-  final GSendMessageData_sendMessage sendMessage;
-
-  factory _$GSendMessageData(
-          [void Function(GSendMessageDataBuilder)? updates]) =>
-      (new GSendMessageDataBuilder()..update(updates))._build();
-
-  _$GSendMessageData._({required this.G__typename, required this.sendMessage})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GSendMessageData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        sendMessage, r'GSendMessageData', 'sendMessage');
-  }
-
-  @override
-  GSendMessageData rebuild(void Function(GSendMessageDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GSendMessageDataBuilder toBuilder() =>
-      new GSendMessageDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GSendMessageData &&
-        G__typename == other.G__typename &&
-        sendMessage == other.sendMessage;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, sendMessage.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GSendMessageData')
-          ..add('G__typename', G__typename)
-          ..add('sendMessage', sendMessage))
-        .toString();
-  }
-}
-
-class GSendMessageDataBuilder
-    implements Builder<GSendMessageData, GSendMessageDataBuilder> {
-  _$GSendMessageData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GSendMessageData_sendMessageBuilder? _sendMessage;
-  GSendMessageData_sendMessageBuilder get sendMessage =>
-      _$this._sendMessage ??= new GSendMessageData_sendMessageBuilder();
-  set sendMessage(GSendMessageData_sendMessageBuilder? sendMessage) =>
-      _$this._sendMessage = sendMessage;
-
-  GSendMessageDataBuilder() {
-    GSendMessageData._initializeBuilder(this);
-  }
-
-  GSendMessageDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _sendMessage = $v.sendMessage.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GSendMessageData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GSendMessageData;
-  }
-
-  @override
-  void update(void Function(GSendMessageDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GSendMessageData build() => _build();
-
-  _$GSendMessageData _build() {
-    _$GSendMessageData _$result;
-    try {
-      _$result = _$v ??
-          new _$GSendMessageData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GSendMessageData', 'G__typename'),
-              sendMessage: sendMessage.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'sendMessage';
-        sendMessage.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GSendMessageData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GSendMessageData_sendMessage extends GSendMessageData_sendMessage {
-  @override
-  final String G__typename;
-  @override
-  final String id;
-
-  factory _$GSendMessageData_sendMessage(
-          [void Function(GSendMessageData_sendMessageBuilder)? updates]) =>
-      (new GSendMessageData_sendMessageBuilder()..update(updates))._build();
-
-  _$GSendMessageData_sendMessage._(
-      {required this.G__typename, required this.id})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GSendMessageData_sendMessage', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GSendMessageData_sendMessage', 'id');
-  }
-
-  @override
-  GSendMessageData_sendMessage rebuild(
-          void Function(GSendMessageData_sendMessageBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GSendMessageData_sendMessageBuilder toBuilder() =>
-      new GSendMessageData_sendMessageBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GSendMessageData_sendMessage &&
-        G__typename == other.G__typename &&
-        id == other.id;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GSendMessageData_sendMessage')
-          ..add('G__typename', G__typename)
-          ..add('id', id))
-        .toString();
-  }
-}
-
-class GSendMessageData_sendMessageBuilder
-    implements
-        Builder<GSendMessageData_sendMessage,
-            GSendMessageData_sendMessageBuilder> {
-  _$GSendMessageData_sendMessage? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
-
-  GSendMessageData_sendMessageBuilder() {
-    GSendMessageData_sendMessage._initializeBuilder(this);
-  }
-
-  GSendMessageData_sendMessageBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GSendMessageData_sendMessage other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GSendMessageData_sendMessage;
-  }
-
-  @override
-  void update(void Function(GSendMessageData_sendMessageBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GSendMessageData_sendMessage build() => _build();
-
-  _$GSendMessageData_sendMessage _build() {
-    final _$result = _$v ??
-        new _$GSendMessageData_sendMessage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GSendMessageData_sendMessage', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GSendMessageData_sendMessage', 'id'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreateNewOfferData extends GCreateNewOfferData {
-  @override
-  final String G__typename;
-  @override
-  final GCreateNewOfferData_createNewOffer createNewOffer;
-
-  factory _$GCreateNewOfferData(
-          [void Function(GCreateNewOfferDataBuilder)? updates]) =>
-      (new GCreateNewOfferDataBuilder()..update(updates))._build();
-
-  _$GCreateNewOfferData._(
-      {required this.G__typename, required this.createNewOffer})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GCreateNewOfferData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        createNewOffer, r'GCreateNewOfferData', 'createNewOffer');
-  }
-
-  @override
-  GCreateNewOfferData rebuild(
-          void Function(GCreateNewOfferDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreateNewOfferDataBuilder toBuilder() =>
-      new GCreateNewOfferDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreateNewOfferData &&
-        G__typename == other.G__typename &&
-        createNewOffer == other.createNewOffer;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, createNewOffer.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreateNewOfferData')
-          ..add('G__typename', G__typename)
-          ..add('createNewOffer', createNewOffer))
-        .toString();
-  }
-}
-
-class GCreateNewOfferDataBuilder
-    implements Builder<GCreateNewOfferData, GCreateNewOfferDataBuilder> {
-  _$GCreateNewOfferData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GCreateNewOfferData_createNewOfferBuilder? _createNewOffer;
-  GCreateNewOfferData_createNewOfferBuilder get createNewOffer =>
-      _$this._createNewOffer ??=
-          new GCreateNewOfferData_createNewOfferBuilder();
-  set createNewOffer(
-          GCreateNewOfferData_createNewOfferBuilder? createNewOffer) =>
-      _$this._createNewOffer = createNewOffer;
-
-  GCreateNewOfferDataBuilder() {
-    GCreateNewOfferData._initializeBuilder(this);
-  }
-
-  GCreateNewOfferDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _createNewOffer = $v.createNewOffer.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreateNewOfferData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateNewOfferData;
-  }
-
-  @override
-  void update(void Function(GCreateNewOfferDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreateNewOfferData build() => _build();
-
-  _$GCreateNewOfferData _build() {
-    _$GCreateNewOfferData _$result;
-    try {
-      _$result = _$v ??
-          new _$GCreateNewOfferData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GCreateNewOfferData', 'G__typename'),
-              createNewOffer: createNewOffer.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'createNewOffer';
-        createNewOffer.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GCreateNewOfferData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GCreateNewOfferData_createNewOffer
-    extends GCreateNewOfferData_createNewOffer {
-  @override
-  final String G__typename;
-  @override
-  final int id;
-
-  factory _$GCreateNewOfferData_createNewOffer(
-          [void Function(GCreateNewOfferData_createNewOfferBuilder)?
-              updates]) =>
-      (new GCreateNewOfferData_createNewOfferBuilder()..update(updates))
-          ._build();
-
-  _$GCreateNewOfferData_createNewOffer._(
-      {required this.G__typename, required this.id})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GCreateNewOfferData_createNewOffer', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GCreateNewOfferData_createNewOffer', 'id');
-  }
-
-  @override
-  GCreateNewOfferData_createNewOffer rebuild(
-          void Function(GCreateNewOfferData_createNewOfferBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GCreateNewOfferData_createNewOfferBuilder toBuilder() =>
-      new GCreateNewOfferData_createNewOfferBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GCreateNewOfferData_createNewOffer &&
-        G__typename == other.G__typename &&
-        id == other.id;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GCreateNewOfferData_createNewOffer')
-          ..add('G__typename', G__typename)
-          ..add('id', id))
-        .toString();
-  }
-}
-
-class GCreateNewOfferData_createNewOfferBuilder
-    implements
-        Builder<GCreateNewOfferData_createNewOffer,
-            GCreateNewOfferData_createNewOfferBuilder> {
-  _$GCreateNewOfferData_createNewOffer? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  int? _id;
-  int? get id => _$this._id;
-  set id(int? id) => _$this._id = id;
-
-  GCreateNewOfferData_createNewOfferBuilder() {
-    GCreateNewOfferData_createNewOffer._initializeBuilder(this);
-  }
-
-  GCreateNewOfferData_createNewOfferBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GCreateNewOfferData_createNewOffer other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GCreateNewOfferData_createNewOffer;
-  }
-
-  @override
-  void update(
-      void Function(GCreateNewOfferData_createNewOfferBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GCreateNewOfferData_createNewOffer build() => _build();
-
-  _$GCreateNewOfferData_createNewOffer _build() {
-    final _$result = _$v ??
-        new _$GCreateNewOfferData_createNewOffer._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GCreateNewOfferData_createNewOffer', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GCreateNewOfferData_createNewOffer', 'id'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GUpdateOfferData extends GUpdateOfferData {
-  @override
-  final String G__typename;
-  @override
-  final GUpdateOfferData_updateOffer updateOffer;
-
-  factory _$GUpdateOfferData(
-          [void Function(GUpdateOfferDataBuilder)? updates]) =>
-      (new GUpdateOfferDataBuilder()..update(updates))._build();
-
-  _$GUpdateOfferData._({required this.G__typename, required this.updateOffer})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GUpdateOfferData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        updateOffer, r'GUpdateOfferData', 'updateOffer');
-  }
-
-  @override
-  GUpdateOfferData rebuild(void Function(GUpdateOfferDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GUpdateOfferDataBuilder toBuilder() =>
-      new GUpdateOfferDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GUpdateOfferData &&
-        G__typename == other.G__typename &&
-        updateOffer == other.updateOffer;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, updateOffer.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateOfferData')
-          ..add('G__typename', G__typename)
-          ..add('updateOffer', updateOffer))
-        .toString();
-  }
-}
-
-class GUpdateOfferDataBuilder
-    implements Builder<GUpdateOfferData, GUpdateOfferDataBuilder> {
-  _$GUpdateOfferData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GUpdateOfferData_updateOfferBuilder? _updateOffer;
-  GUpdateOfferData_updateOfferBuilder get updateOffer =>
-      _$this._updateOffer ??= new GUpdateOfferData_updateOfferBuilder();
-  set updateOffer(GUpdateOfferData_updateOfferBuilder? updateOffer) =>
-      _$this._updateOffer = updateOffer;
-
-  GUpdateOfferDataBuilder() {
-    GUpdateOfferData._initializeBuilder(this);
-  }
-
-  GUpdateOfferDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _updateOffer = $v.updateOffer.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GUpdateOfferData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateOfferData;
-  }
-
-  @override
-  void update(void Function(GUpdateOfferDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GUpdateOfferData build() => _build();
-
-  _$GUpdateOfferData _build() {
-    _$GUpdateOfferData _$result;
-    try {
-      _$result = _$v ??
-          new _$GUpdateOfferData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GUpdateOfferData', 'G__typename'),
-              updateOffer: updateOffer.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'updateOffer';
-        updateOffer.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GUpdateOfferData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GUpdateOfferData_updateOffer extends GUpdateOfferData_updateOffer {
-  @override
-  final String G__typename;
-  @override
-  final int id;
-
-  factory _$GUpdateOfferData_updateOffer(
-          [void Function(GUpdateOfferData_updateOfferBuilder)? updates]) =>
-      (new GUpdateOfferData_updateOfferBuilder()..update(updates))._build();
-
-  _$GUpdateOfferData_updateOffer._(
-      {required this.G__typename, required this.id})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GUpdateOfferData_updateOffer', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GUpdateOfferData_updateOffer', 'id');
-  }
-
-  @override
-  GUpdateOfferData_updateOffer rebuild(
-          void Function(GUpdateOfferData_updateOfferBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GUpdateOfferData_updateOfferBuilder toBuilder() =>
-      new GUpdateOfferData_updateOfferBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GUpdateOfferData_updateOffer &&
-        G__typename == other.G__typename &&
-        id == other.id;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateOfferData_updateOffer')
-          ..add('G__typename', G__typename)
-          ..add('id', id))
-        .toString();
-  }
-}
-
-class GUpdateOfferData_updateOfferBuilder
-    implements
-        Builder<GUpdateOfferData_updateOffer,
-            GUpdateOfferData_updateOfferBuilder> {
-  _$GUpdateOfferData_updateOffer? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  int? _id;
-  int? get id => _$this._id;
-  set id(int? id) => _$this._id = id;
-
-  GUpdateOfferData_updateOfferBuilder() {
-    GUpdateOfferData_updateOffer._initializeBuilder(this);
-  }
-
-  GUpdateOfferData_updateOfferBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GUpdateOfferData_updateOffer other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateOfferData_updateOffer;
-  }
-
-  @override
-  void update(void Function(GUpdateOfferData_updateOfferBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GUpdateOfferData_updateOffer build() => _build();
-
-  _$GUpdateOfferData_updateOffer _build() {
-    final _$result = _$v ??
-        new _$GUpdateOfferData_updateOffer._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GUpdateOfferData_updateOffer', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GUpdateOfferData_updateOffer', 'id'));
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GDeleteOfferData extends GDeleteOfferData {
-  @override
-  final String G__typename;
-  @override
-  final GDeleteOfferData_deleteOffer deleteOffer;
-
-  factory _$GDeleteOfferData(
-          [void Function(GDeleteOfferDataBuilder)? updates]) =>
-      (new GDeleteOfferDataBuilder()..update(updates))._build();
-
-  _$GDeleteOfferData._({required this.G__typename, required this.deleteOffer})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GDeleteOfferData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        deleteOffer, r'GDeleteOfferData', 'deleteOffer');
-  }
-
-  @override
-  GDeleteOfferData rebuild(void Function(GDeleteOfferDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GDeleteOfferDataBuilder toBuilder() =>
-      new GDeleteOfferDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GDeleteOfferData &&
-        G__typename == other.G__typename &&
-        deleteOffer == other.deleteOffer;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, deleteOffer.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GDeleteOfferData')
-          ..add('G__typename', G__typename)
-          ..add('deleteOffer', deleteOffer))
-        .toString();
-  }
-}
-
-class GDeleteOfferDataBuilder
-    implements Builder<GDeleteOfferData, GDeleteOfferDataBuilder> {
-  _$GDeleteOfferData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GDeleteOfferData_deleteOfferBuilder? _deleteOffer;
-  GDeleteOfferData_deleteOfferBuilder get deleteOffer =>
-      _$this._deleteOffer ??= new GDeleteOfferData_deleteOfferBuilder();
-  set deleteOffer(GDeleteOfferData_deleteOfferBuilder? deleteOffer) =>
-      _$this._deleteOffer = deleteOffer;
-
-  GDeleteOfferDataBuilder() {
-    GDeleteOfferData._initializeBuilder(this);
-  }
-
-  GDeleteOfferDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _deleteOffer = $v.deleteOffer.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GDeleteOfferData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDeleteOfferData;
-  }
-
-  @override
-  void update(void Function(GDeleteOfferDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GDeleteOfferData build() => _build();
-
-  _$GDeleteOfferData _build() {
-    _$GDeleteOfferData _$result;
-    try {
-      _$result = _$v ??
-          new _$GDeleteOfferData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GDeleteOfferData', 'G__typename'),
-              deleteOffer: deleteOffer.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'deleteOffer';
-        deleteOffer.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GDeleteOfferData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GDeleteOfferData_deleteOffer extends GDeleteOfferData_deleteOffer {
-  @override
-  final String G__typename;
-  @override
-  final int id;
-
-  factory _$GDeleteOfferData_deleteOffer(
-          [void Function(GDeleteOfferData_deleteOfferBuilder)? updates]) =>
-      (new GDeleteOfferData_deleteOfferBuilder()..update(updates))._build();
-
-  _$GDeleteOfferData_deleteOffer._(
-      {required this.G__typename, required this.id})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GDeleteOfferData_deleteOffer', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        id, r'GDeleteOfferData_deleteOffer', 'id');
-  }
-
-  @override
-  GDeleteOfferData_deleteOffer rebuild(
-          void Function(GDeleteOfferData_deleteOfferBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GDeleteOfferData_deleteOfferBuilder toBuilder() =>
-      new GDeleteOfferData_deleteOfferBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GDeleteOfferData_deleteOffer &&
-        G__typename == other.G__typename &&
-        id == other.id;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GDeleteOfferData_deleteOffer')
-          ..add('G__typename', G__typename)
-          ..add('id', id))
-        .toString();
-  }
-}
-
-class GDeleteOfferData_deleteOfferBuilder
-    implements
-        Builder<GDeleteOfferData_deleteOffer,
-            GDeleteOfferData_deleteOfferBuilder> {
-  _$GDeleteOfferData_deleteOffer? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  int? _id;
-  int? get id => _$this._id;
-  set id(int? id) => _$this._id = id;
-
-  GDeleteOfferData_deleteOfferBuilder() {
-    GDeleteOfferData_deleteOffer._initializeBuilder(this);
-  }
-
-  GDeleteOfferData_deleteOfferBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _id = $v.id;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GDeleteOfferData_deleteOffer other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GDeleteOfferData_deleteOffer;
-  }
-
-  @override
-  void update(void Function(GDeleteOfferData_deleteOfferBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GDeleteOfferData_deleteOffer build() => _build();
-
-  _$GDeleteOfferData_deleteOffer _build() {
-    final _$result = _$v ??
-        new _$GDeleteOfferData_deleteOffer._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GDeleteOfferData_deleteOffer', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GDeleteOfferData_deleteOffer', 'id'));
     replace(_$result);
     return _$result;
   }
@@ -4104,11 +3407,9 @@ class _$GUpdateUserDataData_updateUserData_userInfo
   @override
   final int fspBalance;
   @override
-  final int fspBalanceTemp;
-  @override
   final int credentialBalance;
   @override
-  final BuiltList<String> roles;
+  final String role;
   @override
   final String primaryRole;
   @override
@@ -4132,9 +3433,8 @@ class _$GUpdateUserDataData_updateUserData_userInfo
       required this.name,
       this.imageUrl,
       required this.fspBalance,
-      required this.fspBalanceTemp,
       required this.credentialBalance,
-      required this.roles,
+      required this.role,
       required this.primaryRole,
       required this.belongsToArtists,
       this.primaryArtist})
@@ -4149,12 +3449,10 @@ class _$GUpdateUserDataData_updateUserData_userInfo
         name, r'GUpdateUserDataData_updateUserData_userInfo', 'name');
     BuiltValueNullFieldError.checkNotNull(fspBalance,
         r'GUpdateUserDataData_updateUserData_userInfo', 'fspBalance');
-    BuiltValueNullFieldError.checkNotNull(fspBalanceTemp,
-        r'GUpdateUserDataData_updateUserData_userInfo', 'fspBalanceTemp');
     BuiltValueNullFieldError.checkNotNull(credentialBalance,
         r'GUpdateUserDataData_updateUserData_userInfo', 'credentialBalance');
     BuiltValueNullFieldError.checkNotNull(
-        roles, r'GUpdateUserDataData_updateUserData_userInfo', 'roles');
+        role, r'GUpdateUserDataData_updateUserData_userInfo', 'role');
     BuiltValueNullFieldError.checkNotNull(primaryRole,
         r'GUpdateUserDataData_updateUserData_userInfo', 'primaryRole');
     BuiltValueNullFieldError.checkNotNull(belongsToArtists,
@@ -4181,9 +3479,8 @@ class _$GUpdateUserDataData_updateUserData_userInfo
         name == other.name &&
         imageUrl == other.imageUrl &&
         fspBalance == other.fspBalance &&
-        fspBalanceTemp == other.fspBalanceTemp &&
         credentialBalance == other.credentialBalance &&
-        roles == other.roles &&
+        role == other.role &&
         primaryRole == other.primaryRole &&
         belongsToArtists == other.belongsToArtists &&
         primaryArtist == other.primaryArtist;
@@ -4198,9 +3495,8 @@ class _$GUpdateUserDataData_updateUserData_userInfo
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
     _$hash = $jc(_$hash, fspBalance.hashCode);
-    _$hash = $jc(_$hash, fspBalanceTemp.hashCode);
     _$hash = $jc(_$hash, credentialBalance.hashCode);
-    _$hash = $jc(_$hash, roles.hashCode);
+    _$hash = $jc(_$hash, role.hashCode);
     _$hash = $jc(_$hash, primaryRole.hashCode);
     _$hash = $jc(_$hash, belongsToArtists.hashCode);
     _$hash = $jc(_$hash, primaryArtist.hashCode);
@@ -4218,9 +3514,8 @@ class _$GUpdateUserDataData_updateUserData_userInfo
           ..add('name', name)
           ..add('imageUrl', imageUrl)
           ..add('fspBalance', fspBalance)
-          ..add('fspBalanceTemp', fspBalanceTemp)
           ..add('credentialBalance', credentialBalance)
-          ..add('roles', roles)
+          ..add('role', role)
           ..add('primaryRole', primaryRole)
           ..add('belongsToArtists', belongsToArtists)
           ..add('primaryArtist', primaryArtist))
@@ -4258,19 +3553,14 @@ class GUpdateUserDataData_updateUserData_userInfoBuilder
   int? get fspBalance => _$this._fspBalance;
   set fspBalance(int? fspBalance) => _$this._fspBalance = fspBalance;
 
-  int? _fspBalanceTemp;
-  int? get fspBalanceTemp => _$this._fspBalanceTemp;
-  set fspBalanceTemp(int? fspBalanceTemp) =>
-      _$this._fspBalanceTemp = fspBalanceTemp;
-
   int? _credentialBalance;
   int? get credentialBalance => _$this._credentialBalance;
   set credentialBalance(int? credentialBalance) =>
       _$this._credentialBalance = credentialBalance;
 
-  ListBuilder<String>? _roles;
-  ListBuilder<String> get roles => _$this._roles ??= new ListBuilder<String>();
-  set roles(ListBuilder<String>? roles) => _$this._roles = roles;
+  String? _role;
+  String? get role => _$this._role;
+  set role(String? role) => _$this._role = role;
 
   String? _primaryRole;
   String? get primaryRole => _$this._primaryRole;
@@ -4310,9 +3600,8 @@ class GUpdateUserDataData_updateUserData_userInfoBuilder
       _name = $v.name;
       _imageUrl = $v.imageUrl;
       _fspBalance = $v.fspBalance;
-      _fspBalanceTemp = $v.fspBalanceTemp;
       _credentialBalance = $v.credentialBalance;
-      _roles = $v.roles.toBuilder();
+      _role = $v.role;
       _primaryRole = $v.primaryRole;
       _belongsToArtists = $v.belongsToArtists.toBuilder();
       _primaryArtist = $v.primaryArtist?.toBuilder();
@@ -4353,20 +3642,16 @@ class GUpdateUserDataData_updateUserData_userInfoBuilder
               imageUrl: imageUrl,
               fspBalance: BuiltValueNullFieldError.checkNotNull(
                   fspBalance, r'GUpdateUserDataData_updateUserData_userInfo', 'fspBalance'),
-              fspBalanceTemp: BuiltValueNullFieldError.checkNotNull(
-                  fspBalanceTemp, r'GUpdateUserDataData_updateUserData_userInfo', 'fspBalanceTemp'),
               credentialBalance: BuiltValueNullFieldError.checkNotNull(
                   credentialBalance, r'GUpdateUserDataData_updateUserData_userInfo', 'credentialBalance'),
-              roles: roles.build(),
+              role: BuiltValueNullFieldError.checkNotNull(
+                  role, r'GUpdateUserDataData_updateUserData_userInfo', 'role'),
               primaryRole: BuiltValueNullFieldError.checkNotNull(primaryRole, r'GUpdateUserDataData_updateUserData_userInfo', 'primaryRole'),
               belongsToArtists: belongsToArtists.build(),
               primaryArtist: _primaryArtist?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'roles';
-        roles.build();
-
         _$failedField = 'belongsToArtists';
         belongsToArtists.build();
         _$failedField = 'primaryArtist';
@@ -4395,7 +3680,11 @@ class _$GUpdateUserDataData_updateUserData_userInfo_belongsToArtists
   @override
   final String? imageUrl;
   @override
-  final bool isAccepted;
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
 
   factory _$GUpdateUserDataData_updateUserData_userInfo_belongsToArtists(
           [void Function(
@@ -4410,7 +3699,9 @@ class _$GUpdateUserDataData_updateUserData_userInfo_belongsToArtists
       required this.id,
       required this.name,
       this.imageUrl,
-      required this.isAccepted})
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -4422,10 +3713,16 @@ class _$GUpdateUserDataData_updateUserData_userInfo_belongsToArtists
         name,
         r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists',
         'name');
+    BuiltValueNullFieldError.checkNotNull(fsp,
+        r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists', 'fsp');
     BuiltValueNullFieldError.checkNotNull(
-        isAccepted,
+        status,
         r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists',
-        'isAccepted');
+        'status');
+    BuiltValueNullFieldError.checkNotNull(
+        isAdmin,
+        r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists',
+        'isAdmin');
   }
 
   @override
@@ -4450,7 +3747,9 @@ class _$GUpdateUserDataData_updateUserData_userInfo_belongsToArtists
         id == other.id &&
         name == other.name &&
         imageUrl == other.imageUrl &&
-        isAccepted == other.isAccepted;
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
   }
 
   @override
@@ -4460,7 +3759,9 @@ class _$GUpdateUserDataData_updateUserData_userInfo_belongsToArtists
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, isAccepted.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -4473,7 +3774,9 @@ class _$GUpdateUserDataData_updateUserData_userInfo_belongsToArtists
           ..add('id', id)
           ..add('name', name)
           ..add('imageUrl', imageUrl)
-          ..add('isAccepted', isAccepted))
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
         .toString();
   }
 }
@@ -4500,9 +3803,17 @@ class GUpdateUserDataData_updateUserData_userInfo_belongsToArtistsBuilder
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  bool? _isAccepted;
-  bool? get isAccepted => _$this._isAccepted;
-  set isAccepted(bool? isAccepted) => _$this._isAccepted = isAccepted;
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
 
   GUpdateUserDataData_updateUserData_userInfo_belongsToArtistsBuilder() {
     GUpdateUserDataData_updateUserData_userInfo_belongsToArtists
@@ -4517,7 +3828,9 @@ class GUpdateUserDataData_updateUserData_userInfo_belongsToArtistsBuilder
       _id = $v.id;
       _name = $v.name;
       _imageUrl = $v.imageUrl;
-      _isAccepted = $v.isAccepted;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
       _$v = null;
     }
     return this;
@@ -4550,17 +3863,19 @@ class GUpdateUserDataData_updateUserData_userInfo_belongsToArtistsBuilder
                 G__typename,
                 r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists',
                 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists', 'id'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists',
-                'name'),
+                name, r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists', 'name'),
             imageUrl: imageUrl,
-            isAccepted: BuiltValueNullFieldError.checkNotNull(
-                isAccepted,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin,
                 r'GUpdateUserDataData_updateUserData_userInfo_belongsToArtists',
-                'isAccepted'));
+                'isAdmin'));
     replace(_$result);
     return _$result;
   }
@@ -4577,7 +3892,11 @@ class _$GUpdateUserDataData_updateUserData_userInfo_primaryArtist
   @override
   final String? imageUrl;
   @override
-  final bool isAccepted;
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
 
   factory _$GUpdateUserDataData_updateUserData_userInfo_primaryArtist(
           [void Function(
@@ -4592,7 +3911,9 @@ class _$GUpdateUserDataData_updateUserData_userInfo_primaryArtist
       required this.id,
       required this.name,
       this.imageUrl,
-      required this.isAccepted})
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
@@ -4602,10 +3923,14 @@ class _$GUpdateUserDataData_updateUserData_userInfo_primaryArtist
         id, r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist', 'id');
     BuiltValueNullFieldError.checkNotNull(name,
         r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist', 'name');
+    BuiltValueNullFieldError.checkNotNull(fsp,
+        r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist', 'fsp');
+    BuiltValueNullFieldError.checkNotNull(status,
+        r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist', 'status');
     BuiltValueNullFieldError.checkNotNull(
-        isAccepted,
+        isAdmin,
         r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist',
-        'isAccepted');
+        'isAdmin');
   }
 
   @override
@@ -4629,7 +3954,9 @@ class _$GUpdateUserDataData_updateUserData_userInfo_primaryArtist
         id == other.id &&
         name == other.name &&
         imageUrl == other.imageUrl &&
-        isAccepted == other.isAccepted;
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
   }
 
   @override
@@ -4639,7 +3966,9 @@ class _$GUpdateUserDataData_updateUserData_userInfo_primaryArtist
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, isAccepted.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -4652,7 +3981,9 @@ class _$GUpdateUserDataData_updateUserData_userInfo_primaryArtist
           ..add('id', id)
           ..add('name', name)
           ..add('imageUrl', imageUrl)
-          ..add('isAccepted', isAccepted))
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
         .toString();
   }
 }
@@ -4679,9 +4010,17 @@ class GUpdateUserDataData_updateUserData_userInfo_primaryArtistBuilder
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  bool? _isAccepted;
-  bool? get isAccepted => _$this._isAccepted;
-  set isAccepted(bool? isAccepted) => _$this._isAccepted = isAccepted;
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
+
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
 
   GUpdateUserDataData_updateUserData_userInfo_primaryArtistBuilder() {
     GUpdateUserDataData_updateUserData_userInfo_primaryArtist
@@ -4695,7 +4034,9 @@ class GUpdateUserDataData_updateUserData_userInfo_primaryArtistBuilder
       _id = $v.id;
       _name = $v.name;
       _imageUrl = $v.imageUrl;
-      _isAccepted = $v.isAccepted;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
       _$v = null;
     }
     return this;
@@ -4727,18 +4068,18 @@ class GUpdateUserDataData_updateUserData_userInfo_primaryArtistBuilder
                 r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist',
                 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id,
-                r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist',
-                'id'),
+                id, r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist',
-                'name'),
+                name, r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist', 'name'),
             imageUrl: imageUrl,
-            isAccepted: BuiltValueNullFieldError.checkNotNull(
-                isAccepted,
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin,
                 r'GUpdateUserDataData_updateUserData_userInfo_primaryArtist',
-                'isAccepted'));
+                'isAdmin'));
     replace(_$result);
     return _$result;
   }
@@ -4877,8 +4218,8 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus
   @override
   final String G__typename;
   @override
-  final GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-      artistList;
+  final GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
+      updatedUserArtist;
 
   factory _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus(
           [void Function(
@@ -4889,16 +4230,16 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus
           ._build();
 
   _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus._(
-      {required this.G__typename, required this.artistList})
+      {required this.G__typename, required this.updatedUserArtist})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
         r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus',
         'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        artistList,
+        updatedUserArtist,
         r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus',
-        'artistList');
+        'updatedUserArtist');
   }
 
   @override
@@ -4920,14 +4261,14 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus
     return other
             is GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus &&
         G__typename == other.G__typename &&
-        artistList == other.artistList;
+        updatedUserArtist == other.updatedUserArtist;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, artistList.hashCode);
+    _$hash = $jc(_$hash, updatedUserArtist.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -4937,7 +4278,7 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus
     return (newBuiltValueToStringHelper(
             r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus')
           ..add('G__typename', G__typename)
-          ..add('artistList', artistList))
+          ..add('updatedUserArtist', updatedUserArtist))
         .toString();
   }
 }
@@ -4952,15 +4293,15 @@ class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatusBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder?
-      _artistList;
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder
-      get artistList => _$this._artistList ??=
-          new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder();
-  set artistList(
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder?
-              artistList) =>
-      _$this._artistList = artistList;
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder?
+      _updatedUserArtist;
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder
+      get updatedUserArtist => _$this._updatedUserArtist ??=
+          new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder();
+  set updatedUserArtist(
+          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder?
+              updatedUserArtist) =>
+      _$this._updatedUserArtist = updatedUserArtist;
 
   GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatusBuilder() {
     GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus
@@ -4972,7 +4313,7 @@ class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatusBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _artistList = $v.artistList.toBuilder();
+      _updatedUserArtist = $v.updatedUserArtist.toBuilder();
       _$v = null;
     }
     return this;
@@ -5007,12 +4348,12 @@ class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatusBuilder
                   G__typename,
                   r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus',
                   'G__typename'),
-              artistList: artistList.build());
+              updatedUserArtist: updatedUserArtist.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'artistList';
-        artistList.build();
+        _$failedField = 'updatedUserArtist';
+        updatedUserArtist.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus',
@@ -5026,172 +4367,8 @@ class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatusBuilder
   }
 }
 
-class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-    extends GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList {
-  @override
-  final String G__typename;
-  @override
-  final BuiltList<
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList>
-      artistList;
-
-  factory _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList(
-          [void Function(
-                  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder)?
-              updates]) =>
-      (new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder()
-            ..update(updates))
-          ._build();
-
-  _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList._(
-      {required this.G__typename, required this.artistList})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename,
-        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList',
-        'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        artistList,
-        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList',
-        'artistList');
-  }
-
-  @override
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList rebuild(
-          void Function(
-                  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder
-      toBuilder() =>
-          new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder()
-            ..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other
-            is GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList &&
-        G__typename == other.G__typename &&
-        artistList == other.artistList;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, artistList.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList')
-          ..add('G__typename', G__typename)
-          ..add('artistList', artistList))
-        .toString();
-  }
-}
-
-class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder
-    implements
-        Builder<
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList,
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder> {
-  _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList?
-      _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  ListBuilder<
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList>?
-      _artistList;
-  ListBuilder<
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList>
-      get artistList => _$this._artistList ??= new ListBuilder<
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList>();
-  set artistList(
-          ListBuilder<
-                  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList>?
-              artistList) =>
-      _$this._artistList = artistList;
-
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder() {
-    GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-        ._initializeBuilder(this);
-  }
-
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder
-      get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _artistList = $v.artistList.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(
-      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-          other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other
-        as _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList;
-  }
-
-  @override
-  void update(
-      void Function(
-              GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder)?
-          updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-      build() => _build();
-
-  _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-      _build() {
-    _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-        _$result;
-    try {
-      _$result = _$v ??
-          new _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-              ._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename,
-                  r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList',
-                  'G__typename'),
-              artistList: artistList.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'artistList';
-        artistList.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList',
-            _$failedField,
-            e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
-    extends GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList {
+class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
+    extends GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist {
   @override
   final String G__typename;
   @override
@@ -5201,65 +4378,81 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_
   @override
   final String? imageUrl;
   @override
-  final bool isAccepted;
+  final int fsp;
+  @override
+  final String status;
+  @override
+  final bool isAdmin;
 
-  factory _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList(
+  factory _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist(
           [void Function(
-                  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder)?
+                  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder)?
               updates]) =>
-      (new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder()
+      (new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder()
             ..update(updates))
           ._build();
 
-  _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList._(
+  _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist._(
       {required this.G__typename,
       required this.id,
       required this.name,
       this.imageUrl,
-      required this.isAccepted})
+      required this.fsp,
+      required this.status,
+      required this.isAdmin})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename,
-        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList',
+        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist',
         'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id,
-        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList',
+        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist',
         'id');
     BuiltValueNullFieldError.checkNotNull(
         name,
-        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList',
+        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist',
         'name');
     BuiltValueNullFieldError.checkNotNull(
-        isAccepted,
-        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList',
-        'isAccepted');
+        fsp,
+        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist',
+        'fsp');
+    BuiltValueNullFieldError.checkNotNull(
+        status,
+        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist',
+        'status');
+    BuiltValueNullFieldError.checkNotNull(
+        isAdmin,
+        r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist',
+        'isAdmin');
   }
 
   @override
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
       rebuild(
               void Function(
-                      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder)
+                      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder)
                   updates) =>
           (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder
       toBuilder() =>
-          new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder()
+          new GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder()
             ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other
-            is GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList &&
+            is GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist &&
         G__typename == other.G__typename &&
         id == other.id &&
         name == other.name &&
         imageUrl == other.imageUrl &&
-        isAccepted == other.isAccepted;
+        fsp == other.fsp &&
+        status == other.status &&
+        isAdmin == other.isAdmin;
   }
 
   @override
@@ -5269,7 +4462,9 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, isAccepted.hashCode);
+    _$hash = $jc(_$hash, fsp.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, isAdmin.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -5277,22 +4472,24 @@ class _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList')
+            r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist')
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('name', name)
           ..add('imageUrl', imageUrl)
-          ..add('isAccepted', isAccepted))
+          ..add('fsp', fsp)
+          ..add('status', status)
+          ..add('isAdmin', isAdmin))
         .toString();
   }
 }
 
-class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder
+class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder
     implements
         Builder<
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList,
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder> {
-  _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList?
+            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist,
+            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder> {
+  _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist?
       _$v;
 
   String? _G__typename;
@@ -5311,16 +4508,24 @@ class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_ar
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
 
-  bool? _isAccepted;
-  bool? get isAccepted => _$this._isAccepted;
-  set isAccepted(bool? isAccepted) => _$this._isAccepted = isAccepted;
+  int? _fsp;
+  int? get fsp => _$this._fsp;
+  set fsp(int? fsp) => _$this._fsp = fsp;
 
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder() {
-    GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
+
+  bool? _isAdmin;
+  bool? get isAdmin => _$this._isAdmin;
+  set isAdmin(bool? isAdmin) => _$this._isAdmin = isAdmin;
+
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder() {
+    GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
         ._initializeBuilder(this);
   }
 
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder
       get _$this {
     final $v = _$v;
     if ($v != null) {
@@ -5328,7 +4533,9 @@ class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_ar
       _id = $v.id;
       _name = $v.name;
       _imageUrl = $v.imageUrl;
-      _isAccepted = $v.isAccepted;
+      _fsp = $v.fsp;
+      _status = $v.status;
+      _isAdmin = $v.isAdmin;
       _$v = null;
     }
     return this;
@@ -5336,44 +4543,46 @@ class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_ar
 
   @override
   void replace(
-      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+      GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
           other) {
     ArgumentError.checkNotNull(other, 'other');
     _$v = other
-        as _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList;
+        as _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist;
   }
 
   @override
   void update(
       void Function(
-              GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder)?
+              GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
       build() => _build();
 
-  _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+  _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
       _build() {
     final _$result = _$v ??
-        new _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList._(
+        new _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename,
-                r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList',
+                r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist',
                 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(id,
-                r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList', 'id'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist', 'id'),
             name: BuiltValueNullFieldError.checkNotNull(
-                name,
-                r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList',
-                'name'),
+                name, r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist', 'name'),
             imageUrl: imageUrl,
-            isAccepted: BuiltValueNullFieldError.checkNotNull(
-                isAccepted,
-                r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList',
-                'isAccepted'));
+            fsp: BuiltValueNullFieldError.checkNotNull(
+                fsp, r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist', 'fsp'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist', 'status'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin,
+                r'GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist',
+                'isAdmin'));
     replace(_$result);
     return _$result;
   }
@@ -5608,6 +4817,549 @@ class GContactToAdminData_contactToAdminBuilder
                 r'GContactToAdminData_contactToAdmin', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
                 id, r'GContactToAdminData_contactToAdmin', 'id'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateNewMessageRoomData extends GCreateNewMessageRoomData {
+  @override
+  final String G__typename;
+  @override
+  final GCreateNewMessageRoomData_createNewMessageRoom createNewMessageRoom;
+
+  factory _$GCreateNewMessageRoomData(
+          [void Function(GCreateNewMessageRoomDataBuilder)? updates]) =>
+      (new GCreateNewMessageRoomDataBuilder()..update(updates))._build();
+
+  _$GCreateNewMessageRoomData._(
+      {required this.G__typename, required this.createNewMessageRoom})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GCreateNewMessageRoomData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(createNewMessageRoom,
+        r'GCreateNewMessageRoomData', 'createNewMessageRoom');
+  }
+
+  @override
+  GCreateNewMessageRoomData rebuild(
+          void Function(GCreateNewMessageRoomDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewMessageRoomDataBuilder toBuilder() =>
+      new GCreateNewMessageRoomDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateNewMessageRoomData &&
+        G__typename == other.G__typename &&
+        createNewMessageRoom == other.createNewMessageRoom;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, createNewMessageRoom.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateNewMessageRoomData')
+          ..add('G__typename', G__typename)
+          ..add('createNewMessageRoom', createNewMessageRoom))
+        .toString();
+  }
+}
+
+class GCreateNewMessageRoomDataBuilder
+    implements
+        Builder<GCreateNewMessageRoomData, GCreateNewMessageRoomDataBuilder> {
+  _$GCreateNewMessageRoomData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GCreateNewMessageRoomData_createNewMessageRoomBuilder? _createNewMessageRoom;
+  GCreateNewMessageRoomData_createNewMessageRoomBuilder
+      get createNewMessageRoom => _$this._createNewMessageRoom ??=
+          new GCreateNewMessageRoomData_createNewMessageRoomBuilder();
+  set createNewMessageRoom(
+          GCreateNewMessageRoomData_createNewMessageRoomBuilder?
+              createNewMessageRoom) =>
+      _$this._createNewMessageRoom = createNewMessageRoom;
+
+  GCreateNewMessageRoomDataBuilder() {
+    GCreateNewMessageRoomData._initializeBuilder(this);
+  }
+
+  GCreateNewMessageRoomDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _createNewMessageRoom = $v.createNewMessageRoom.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewMessageRoomData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewMessageRoomData;
+  }
+
+  @override
+  void update(void Function(GCreateNewMessageRoomDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewMessageRoomData build() => _build();
+
+  _$GCreateNewMessageRoomData _build() {
+    _$GCreateNewMessageRoomData _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateNewMessageRoomData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GCreateNewMessageRoomData', 'G__typename'),
+              createNewMessageRoom: createNewMessageRoom.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'createNewMessageRoom';
+        createNewMessageRoom.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateNewMessageRoomData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateNewMessageRoomData_createNewMessageRoom
+    extends GCreateNewMessageRoomData_createNewMessageRoom {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+
+  factory _$GCreateNewMessageRoomData_createNewMessageRoom(
+          [void Function(GCreateNewMessageRoomData_createNewMessageRoomBuilder)?
+              updates]) =>
+      (new GCreateNewMessageRoomData_createNewMessageRoomBuilder()
+            ..update(updates))
+          ._build();
+
+  _$GCreateNewMessageRoomData_createNewMessageRoom._(
+      {required this.G__typename, required this.id})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GCreateNewMessageRoomData_createNewMessageRoom', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GCreateNewMessageRoomData_createNewMessageRoom', 'id');
+  }
+
+  @override
+  GCreateNewMessageRoomData_createNewMessageRoom rebuild(
+          void Function(GCreateNewMessageRoomData_createNewMessageRoomBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewMessageRoomData_createNewMessageRoomBuilder toBuilder() =>
+      new GCreateNewMessageRoomData_createNewMessageRoomBuilder()
+        ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateNewMessageRoomData_createNewMessageRoom &&
+        G__typename == other.G__typename &&
+        id == other.id;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GCreateNewMessageRoomData_createNewMessageRoom')
+          ..add('G__typename', G__typename)
+          ..add('id', id))
+        .toString();
+  }
+}
+
+class GCreateNewMessageRoomData_createNewMessageRoomBuilder
+    implements
+        Builder<GCreateNewMessageRoomData_createNewMessageRoom,
+            GCreateNewMessageRoomData_createNewMessageRoomBuilder> {
+  _$GCreateNewMessageRoomData_createNewMessageRoom? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  GCreateNewMessageRoomData_createNewMessageRoomBuilder() {
+    GCreateNewMessageRoomData_createNewMessageRoom._initializeBuilder(this);
+  }
+
+  GCreateNewMessageRoomData_createNewMessageRoomBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewMessageRoomData_createNewMessageRoom other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewMessageRoomData_createNewMessageRoom;
+  }
+
+  @override
+  void update(
+      void Function(GCreateNewMessageRoomData_createNewMessageRoomBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewMessageRoomData_createNewMessageRoom build() => _build();
+
+  _$GCreateNewMessageRoomData_createNewMessageRoom _build() {
+    final _$result = _$v ??
+        new _$GCreateNewMessageRoomData_createNewMessageRoom._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                r'GCreateNewMessageRoomData_createNewMessageRoom',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GCreateNewMessageRoomData_createNewMessageRoom', 'id'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GSendMessageData extends GSendMessageData {
+  @override
+  final String G__typename;
+  @override
+  final GSendMessageData_sendMessage sendMessage;
+
+  factory _$GSendMessageData(
+          [void Function(GSendMessageDataBuilder)? updates]) =>
+      (new GSendMessageDataBuilder()..update(updates))._build();
+
+  _$GSendMessageData._({required this.G__typename, required this.sendMessage})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GSendMessageData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        sendMessage, r'GSendMessageData', 'sendMessage');
+  }
+
+  @override
+  GSendMessageData rebuild(void Function(GSendMessageDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GSendMessageDataBuilder toBuilder() =>
+      new GSendMessageDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GSendMessageData &&
+        G__typename == other.G__typename &&
+        sendMessage == other.sendMessage;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, sendMessage.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GSendMessageData')
+          ..add('G__typename', G__typename)
+          ..add('sendMessage', sendMessage))
+        .toString();
+  }
+}
+
+class GSendMessageDataBuilder
+    implements Builder<GSendMessageData, GSendMessageDataBuilder> {
+  _$GSendMessageData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GSendMessageData_sendMessageBuilder? _sendMessage;
+  GSendMessageData_sendMessageBuilder get sendMessage =>
+      _$this._sendMessage ??= new GSendMessageData_sendMessageBuilder();
+  set sendMessage(GSendMessageData_sendMessageBuilder? sendMessage) =>
+      _$this._sendMessage = sendMessage;
+
+  GSendMessageDataBuilder() {
+    GSendMessageData._initializeBuilder(this);
+  }
+
+  GSendMessageDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _sendMessage = $v.sendMessage.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GSendMessageData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GSendMessageData;
+  }
+
+  @override
+  void update(void Function(GSendMessageDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GSendMessageData build() => _build();
+
+  _$GSendMessageData _build() {
+    _$GSendMessageData _$result;
+    try {
+      _$result = _$v ??
+          new _$GSendMessageData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GSendMessageData', 'G__typename'),
+              sendMessage: sendMessage.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'sendMessage';
+        sendMessage.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GSendMessageData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GSendMessageData_sendMessage extends GSendMessageData_sendMessage {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String message;
+  @override
+  final String sentAt;
+  @override
+  final BuiltList<String>? attachedFile;
+  @override
+  final BuiltList<String>? attachedImg;
+
+  factory _$GSendMessageData_sendMessage(
+          [void Function(GSendMessageData_sendMessageBuilder)? updates]) =>
+      (new GSendMessageData_sendMessageBuilder()..update(updates))._build();
+
+  _$GSendMessageData_sendMessage._(
+      {required this.G__typename,
+      required this.id,
+      required this.message,
+      required this.sentAt,
+      this.attachedFile,
+      this.attachedImg})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GSendMessageData_sendMessage', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GSendMessageData_sendMessage', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        message, r'GSendMessageData_sendMessage', 'message');
+    BuiltValueNullFieldError.checkNotNull(
+        sentAt, r'GSendMessageData_sendMessage', 'sentAt');
+  }
+
+  @override
+  GSendMessageData_sendMessage rebuild(
+          void Function(GSendMessageData_sendMessageBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GSendMessageData_sendMessageBuilder toBuilder() =>
+      new GSendMessageData_sendMessageBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GSendMessageData_sendMessage &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        message == other.message &&
+        sentAt == other.sentAt &&
+        attachedFile == other.attachedFile &&
+        attachedImg == other.attachedImg;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, message.hashCode);
+    _$hash = $jc(_$hash, sentAt.hashCode);
+    _$hash = $jc(_$hash, attachedFile.hashCode);
+    _$hash = $jc(_$hash, attachedImg.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GSendMessageData_sendMessage')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('message', message)
+          ..add('sentAt', sentAt)
+          ..add('attachedFile', attachedFile)
+          ..add('attachedImg', attachedImg))
+        .toString();
+  }
+}
+
+class GSendMessageData_sendMessageBuilder
+    implements
+        Builder<GSendMessageData_sendMessage,
+            GSendMessageData_sendMessageBuilder> {
+  _$GSendMessageData_sendMessage? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _message;
+  String? get message => _$this._message;
+  set message(String? message) => _$this._message = message;
+
+  String? _sentAt;
+  String? get sentAt => _$this._sentAt;
+  set sentAt(String? sentAt) => _$this._sentAt = sentAt;
+
+  ListBuilder<String>? _attachedFile;
+  ListBuilder<String> get attachedFile =>
+      _$this._attachedFile ??= new ListBuilder<String>();
+  set attachedFile(ListBuilder<String>? attachedFile) =>
+      _$this._attachedFile = attachedFile;
+
+  ListBuilder<String>? _attachedImg;
+  ListBuilder<String> get attachedImg =>
+      _$this._attachedImg ??= new ListBuilder<String>();
+  set attachedImg(ListBuilder<String>? attachedImg) =>
+      _$this._attachedImg = attachedImg;
+
+  GSendMessageData_sendMessageBuilder() {
+    GSendMessageData_sendMessage._initializeBuilder(this);
+  }
+
+  GSendMessageData_sendMessageBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _message = $v.message;
+      _sentAt = $v.sentAt;
+      _attachedFile = $v.attachedFile?.toBuilder();
+      _attachedImg = $v.attachedImg?.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GSendMessageData_sendMessage other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GSendMessageData_sendMessage;
+  }
+
+  @override
+  void update(void Function(GSendMessageData_sendMessageBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GSendMessageData_sendMessage build() => _build();
+
+  _$GSendMessageData_sendMessage _build() {
+    _$GSendMessageData_sendMessage _$result;
+    try {
+      _$result = _$v ??
+          new _$GSendMessageData_sendMessage._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GSendMessageData_sendMessage', 'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GSendMessageData_sendMessage', 'id'),
+              message: BuiltValueNullFieldError.checkNotNull(
+                  message, r'GSendMessageData_sendMessage', 'message'),
+              sentAt: BuiltValueNullFieldError.checkNotNull(
+                  sentAt, r'GSendMessageData_sendMessage', 'sentAt'),
+              attachedFile: _attachedFile?.build(),
+              attachedImg: _attachedImg?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'attachedFile';
+        _attachedFile?.build();
+        _$failedField = 'attachedImg';
+        _attachedImg?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GSendMessageData_sendMessage', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -6336,6 +6088,950 @@ class GDeleteNotificationData_deleteNotificationBuilder
   }
 }
 
+class _$GCreateNewOfferData extends GCreateNewOfferData {
+  @override
+  final String G__typename;
+  @override
+  final GCreateNewOfferData_createNewOffer createNewOffer;
+
+  factory _$GCreateNewOfferData(
+          [void Function(GCreateNewOfferDataBuilder)? updates]) =>
+      (new GCreateNewOfferDataBuilder()..update(updates))._build();
+
+  _$GCreateNewOfferData._(
+      {required this.G__typename, required this.createNewOffer})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GCreateNewOfferData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        createNewOffer, r'GCreateNewOfferData', 'createNewOffer');
+  }
+
+  @override
+  GCreateNewOfferData rebuild(
+          void Function(GCreateNewOfferDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewOfferDataBuilder toBuilder() =>
+      new GCreateNewOfferDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateNewOfferData &&
+        G__typename == other.G__typename &&
+        createNewOffer == other.createNewOffer;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, createNewOffer.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateNewOfferData')
+          ..add('G__typename', G__typename)
+          ..add('createNewOffer', createNewOffer))
+        .toString();
+  }
+}
+
+class GCreateNewOfferDataBuilder
+    implements Builder<GCreateNewOfferData, GCreateNewOfferDataBuilder> {
+  _$GCreateNewOfferData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GCreateNewOfferData_createNewOfferBuilder? _createNewOffer;
+  GCreateNewOfferData_createNewOfferBuilder get createNewOffer =>
+      _$this._createNewOffer ??=
+          new GCreateNewOfferData_createNewOfferBuilder();
+  set createNewOffer(
+          GCreateNewOfferData_createNewOfferBuilder? createNewOffer) =>
+      _$this._createNewOffer = createNewOffer;
+
+  GCreateNewOfferDataBuilder() {
+    GCreateNewOfferData._initializeBuilder(this);
+  }
+
+  GCreateNewOfferDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _createNewOffer = $v.createNewOffer.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewOfferData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewOfferData;
+  }
+
+  @override
+  void update(void Function(GCreateNewOfferDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewOfferData build() => _build();
+
+  _$GCreateNewOfferData _build() {
+    _$GCreateNewOfferData _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateNewOfferData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GCreateNewOfferData', 'G__typename'),
+              createNewOffer: createNewOffer.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'createNewOffer';
+        createNewOffer.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateNewOfferData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateNewOfferData_createNewOffer
+    extends GCreateNewOfferData_createNewOffer {
+  @override
+  final String G__typename;
+  @override
+  final int id;
+
+  factory _$GCreateNewOfferData_createNewOffer(
+          [void Function(GCreateNewOfferData_createNewOfferBuilder)?
+              updates]) =>
+      (new GCreateNewOfferData_createNewOfferBuilder()..update(updates))
+          ._build();
+
+  _$GCreateNewOfferData_createNewOffer._(
+      {required this.G__typename, required this.id})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GCreateNewOfferData_createNewOffer', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GCreateNewOfferData_createNewOffer', 'id');
+  }
+
+  @override
+  GCreateNewOfferData_createNewOffer rebuild(
+          void Function(GCreateNewOfferData_createNewOfferBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateNewOfferData_createNewOfferBuilder toBuilder() =>
+      new GCreateNewOfferData_createNewOfferBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateNewOfferData_createNewOffer &&
+        G__typename == other.G__typename &&
+        id == other.id;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateNewOfferData_createNewOffer')
+          ..add('G__typename', G__typename)
+          ..add('id', id))
+        .toString();
+  }
+}
+
+class GCreateNewOfferData_createNewOfferBuilder
+    implements
+        Builder<GCreateNewOfferData_createNewOffer,
+            GCreateNewOfferData_createNewOfferBuilder> {
+  _$GCreateNewOfferData_createNewOffer? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  GCreateNewOfferData_createNewOfferBuilder() {
+    GCreateNewOfferData_createNewOffer._initializeBuilder(this);
+  }
+
+  GCreateNewOfferData_createNewOfferBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateNewOfferData_createNewOffer other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateNewOfferData_createNewOffer;
+  }
+
+  @override
+  void update(
+      void Function(GCreateNewOfferData_createNewOfferBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateNewOfferData_createNewOffer build() => _build();
+
+  _$GCreateNewOfferData_createNewOffer _build() {
+    final _$result = _$v ??
+        new _$GCreateNewOfferData_createNewOffer._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GCreateNewOfferData_createNewOffer', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GCreateNewOfferData_createNewOffer', 'id'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateOfferInfoData extends GUpdateOfferInfoData {
+  @override
+  final String G__typename;
+  @override
+  final GUpdateOfferInfoData_updateOfferInfo updateOfferInfo;
+
+  factory _$GUpdateOfferInfoData(
+          [void Function(GUpdateOfferInfoDataBuilder)? updates]) =>
+      (new GUpdateOfferInfoDataBuilder()..update(updates))._build();
+
+  _$GUpdateOfferInfoData._(
+      {required this.G__typename, required this.updateOfferInfo})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GUpdateOfferInfoData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        updateOfferInfo, r'GUpdateOfferInfoData', 'updateOfferInfo');
+  }
+
+  @override
+  GUpdateOfferInfoData rebuild(
+          void Function(GUpdateOfferInfoDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateOfferInfoDataBuilder toBuilder() =>
+      new GUpdateOfferInfoDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateOfferInfoData &&
+        G__typename == other.G__typename &&
+        updateOfferInfo == other.updateOfferInfo;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, updateOfferInfo.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateOfferInfoData')
+          ..add('G__typename', G__typename)
+          ..add('updateOfferInfo', updateOfferInfo))
+        .toString();
+  }
+}
+
+class GUpdateOfferInfoDataBuilder
+    implements Builder<GUpdateOfferInfoData, GUpdateOfferInfoDataBuilder> {
+  _$GUpdateOfferInfoData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GUpdateOfferInfoData_updateOfferInfoBuilder? _updateOfferInfo;
+  GUpdateOfferInfoData_updateOfferInfoBuilder get updateOfferInfo =>
+      _$this._updateOfferInfo ??=
+          new GUpdateOfferInfoData_updateOfferInfoBuilder();
+  set updateOfferInfo(
+          GUpdateOfferInfoData_updateOfferInfoBuilder? updateOfferInfo) =>
+      _$this._updateOfferInfo = updateOfferInfo;
+
+  GUpdateOfferInfoDataBuilder() {
+    GUpdateOfferInfoData._initializeBuilder(this);
+  }
+
+  GUpdateOfferInfoDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _updateOfferInfo = $v.updateOfferInfo.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateOfferInfoData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateOfferInfoData;
+  }
+
+  @override
+  void update(void Function(GUpdateOfferInfoDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateOfferInfoData build() => _build();
+
+  _$GUpdateOfferInfoData _build() {
+    _$GUpdateOfferInfoData _$result;
+    try {
+      _$result = _$v ??
+          new _$GUpdateOfferInfoData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GUpdateOfferInfoData', 'G__typename'),
+              updateOfferInfo: updateOfferInfo.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'updateOfferInfo';
+        updateOfferInfo.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateOfferInfoData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateOfferInfoData_updateOfferInfo
+    extends GUpdateOfferInfoData_updateOfferInfo {
+  @override
+  final String G__typename;
+  @override
+  final int id;
+
+  factory _$GUpdateOfferInfoData_updateOfferInfo(
+          [void Function(GUpdateOfferInfoData_updateOfferInfoBuilder)?
+              updates]) =>
+      (new GUpdateOfferInfoData_updateOfferInfoBuilder()..update(updates))
+          ._build();
+
+  _$GUpdateOfferInfoData_updateOfferInfo._(
+      {required this.G__typename, required this.id})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GUpdateOfferInfoData_updateOfferInfo', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GUpdateOfferInfoData_updateOfferInfo', 'id');
+  }
+
+  @override
+  GUpdateOfferInfoData_updateOfferInfo rebuild(
+          void Function(GUpdateOfferInfoData_updateOfferInfoBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateOfferInfoData_updateOfferInfoBuilder toBuilder() =>
+      new GUpdateOfferInfoData_updateOfferInfoBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateOfferInfoData_updateOfferInfo &&
+        G__typename == other.G__typename &&
+        id == other.id;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateOfferInfoData_updateOfferInfo')
+          ..add('G__typename', G__typename)
+          ..add('id', id))
+        .toString();
+  }
+}
+
+class GUpdateOfferInfoData_updateOfferInfoBuilder
+    implements
+        Builder<GUpdateOfferInfoData_updateOfferInfo,
+            GUpdateOfferInfoData_updateOfferInfoBuilder> {
+  _$GUpdateOfferInfoData_updateOfferInfo? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  GUpdateOfferInfoData_updateOfferInfoBuilder() {
+    GUpdateOfferInfoData_updateOfferInfo._initializeBuilder(this);
+  }
+
+  GUpdateOfferInfoData_updateOfferInfoBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateOfferInfoData_updateOfferInfo other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateOfferInfoData_updateOfferInfo;
+  }
+
+  @override
+  void update(
+      void Function(GUpdateOfferInfoData_updateOfferInfoBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateOfferInfoData_updateOfferInfo build() => _build();
+
+  _$GUpdateOfferInfoData_updateOfferInfo _build() {
+    final _$result = _$v ??
+        new _$GUpdateOfferInfoData_updateOfferInfo._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GUpdateOfferInfoData_updateOfferInfo', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GUpdateOfferInfoData_updateOfferInfo', 'id'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateOfferStatusData extends GUpdateOfferStatusData {
+  @override
+  final String G__typename;
+  @override
+  final GUpdateOfferStatusData_updateOfferStatus updateOfferStatus;
+
+  factory _$GUpdateOfferStatusData(
+          [void Function(GUpdateOfferStatusDataBuilder)? updates]) =>
+      (new GUpdateOfferStatusDataBuilder()..update(updates))._build();
+
+  _$GUpdateOfferStatusData._(
+      {required this.G__typename, required this.updateOfferStatus})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GUpdateOfferStatusData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        updateOfferStatus, r'GUpdateOfferStatusData', 'updateOfferStatus');
+  }
+
+  @override
+  GUpdateOfferStatusData rebuild(
+          void Function(GUpdateOfferStatusDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateOfferStatusDataBuilder toBuilder() =>
+      new GUpdateOfferStatusDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateOfferStatusData &&
+        G__typename == other.G__typename &&
+        updateOfferStatus == other.updateOfferStatus;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, updateOfferStatus.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GUpdateOfferStatusData')
+          ..add('G__typename', G__typename)
+          ..add('updateOfferStatus', updateOfferStatus))
+        .toString();
+  }
+}
+
+class GUpdateOfferStatusDataBuilder
+    implements Builder<GUpdateOfferStatusData, GUpdateOfferStatusDataBuilder> {
+  _$GUpdateOfferStatusData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GUpdateOfferStatusData_updateOfferStatusBuilder? _updateOfferStatus;
+  GUpdateOfferStatusData_updateOfferStatusBuilder get updateOfferStatus =>
+      _$this._updateOfferStatus ??=
+          new GUpdateOfferStatusData_updateOfferStatusBuilder();
+  set updateOfferStatus(
+          GUpdateOfferStatusData_updateOfferStatusBuilder? updateOfferStatus) =>
+      _$this._updateOfferStatus = updateOfferStatus;
+
+  GUpdateOfferStatusDataBuilder() {
+    GUpdateOfferStatusData._initializeBuilder(this);
+  }
+
+  GUpdateOfferStatusDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _updateOfferStatus = $v.updateOfferStatus.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateOfferStatusData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateOfferStatusData;
+  }
+
+  @override
+  void update(void Function(GUpdateOfferStatusDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateOfferStatusData build() => _build();
+
+  _$GUpdateOfferStatusData _build() {
+    _$GUpdateOfferStatusData _$result;
+    try {
+      _$result = _$v ??
+          new _$GUpdateOfferStatusData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GUpdateOfferStatusData', 'G__typename'),
+              updateOfferStatus: updateOfferStatus.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'updateOfferStatus';
+        updateOfferStatus.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GUpdateOfferStatusData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateOfferStatusData_updateOfferStatus
+    extends GUpdateOfferStatusData_updateOfferStatus {
+  @override
+  final String G__typename;
+  @override
+  final int id;
+  @override
+  final int offerId;
+
+  factory _$GUpdateOfferStatusData_updateOfferStatus(
+          [void Function(GUpdateOfferStatusData_updateOfferStatusBuilder)?
+              updates]) =>
+      (new GUpdateOfferStatusData_updateOfferStatusBuilder()..update(updates))
+          ._build();
+
+  _$GUpdateOfferStatusData_updateOfferStatus._(
+      {required this.G__typename, required this.id, required this.offerId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        r'GUpdateOfferStatusData_updateOfferStatus', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GUpdateOfferStatusData_updateOfferStatus', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        offerId, r'GUpdateOfferStatusData_updateOfferStatus', 'offerId');
+  }
+
+  @override
+  GUpdateOfferStatusData_updateOfferStatus rebuild(
+          void Function(GUpdateOfferStatusData_updateOfferStatusBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateOfferStatusData_updateOfferStatusBuilder toBuilder() =>
+      new GUpdateOfferStatusData_updateOfferStatusBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateOfferStatusData_updateOfferStatus &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        offerId == other.offerId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, offerId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            r'GUpdateOfferStatusData_updateOfferStatus')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('offerId', offerId))
+        .toString();
+  }
+}
+
+class GUpdateOfferStatusData_updateOfferStatusBuilder
+    implements
+        Builder<GUpdateOfferStatusData_updateOfferStatus,
+            GUpdateOfferStatusData_updateOfferStatusBuilder> {
+  _$GUpdateOfferStatusData_updateOfferStatus? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  int? _offerId;
+  int? get offerId => _$this._offerId;
+  set offerId(int? offerId) => _$this._offerId = offerId;
+
+  GUpdateOfferStatusData_updateOfferStatusBuilder() {
+    GUpdateOfferStatusData_updateOfferStatus._initializeBuilder(this);
+  }
+
+  GUpdateOfferStatusData_updateOfferStatusBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _offerId = $v.offerId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateOfferStatusData_updateOfferStatus other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GUpdateOfferStatusData_updateOfferStatus;
+  }
+
+  @override
+  void update(
+      void Function(GUpdateOfferStatusData_updateOfferStatusBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GUpdateOfferStatusData_updateOfferStatus build() => _build();
+
+  _$GUpdateOfferStatusData_updateOfferStatus _build() {
+    final _$result = _$v ??
+        new _$GUpdateOfferStatusData_updateOfferStatus._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GUpdateOfferStatusData_updateOfferStatus', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GUpdateOfferStatusData_updateOfferStatus', 'id'),
+            offerId: BuiltValueNullFieldError.checkNotNull(offerId,
+                r'GUpdateOfferStatusData_updateOfferStatus', 'offerId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteOfferData extends GDeleteOfferData {
+  @override
+  final String G__typename;
+  @override
+  final GDeleteOfferData_deleteOffer deleteOffer;
+
+  factory _$GDeleteOfferData(
+          [void Function(GDeleteOfferDataBuilder)? updates]) =>
+      (new GDeleteOfferDataBuilder()..update(updates))._build();
+
+  _$GDeleteOfferData._({required this.G__typename, required this.deleteOffer})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GDeleteOfferData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        deleteOffer, r'GDeleteOfferData', 'deleteOffer');
+  }
+
+  @override
+  GDeleteOfferData rebuild(void Function(GDeleteOfferDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteOfferDataBuilder toBuilder() =>
+      new GDeleteOfferDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteOfferData &&
+        G__typename == other.G__typename &&
+        deleteOffer == other.deleteOffer;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, deleteOffer.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteOfferData')
+          ..add('G__typename', G__typename)
+          ..add('deleteOffer', deleteOffer))
+        .toString();
+  }
+}
+
+class GDeleteOfferDataBuilder
+    implements Builder<GDeleteOfferData, GDeleteOfferDataBuilder> {
+  _$GDeleteOfferData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GDeleteOfferData_deleteOfferBuilder? _deleteOffer;
+  GDeleteOfferData_deleteOfferBuilder get deleteOffer =>
+      _$this._deleteOffer ??= new GDeleteOfferData_deleteOfferBuilder();
+  set deleteOffer(GDeleteOfferData_deleteOfferBuilder? deleteOffer) =>
+      _$this._deleteOffer = deleteOffer;
+
+  GDeleteOfferDataBuilder() {
+    GDeleteOfferData._initializeBuilder(this);
+  }
+
+  GDeleteOfferDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _deleteOffer = $v.deleteOffer.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteOfferData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteOfferData;
+  }
+
+  @override
+  void update(void Function(GDeleteOfferDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteOfferData build() => _build();
+
+  _$GDeleteOfferData _build() {
+    _$GDeleteOfferData _$result;
+    try {
+      _$result = _$v ??
+          new _$GDeleteOfferData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GDeleteOfferData', 'G__typename'),
+              deleteOffer: deleteOffer.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'deleteOffer';
+        deleteOffer.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GDeleteOfferData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteOfferData_deleteOffer extends GDeleteOfferData_deleteOffer {
+  @override
+  final String G__typename;
+  @override
+  final int id;
+
+  factory _$GDeleteOfferData_deleteOffer(
+          [void Function(GDeleteOfferData_deleteOfferBuilder)? updates]) =>
+      (new GDeleteOfferData_deleteOfferBuilder()..update(updates))._build();
+
+  _$GDeleteOfferData_deleteOffer._(
+      {required this.G__typename, required this.id})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GDeleteOfferData_deleteOffer', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GDeleteOfferData_deleteOffer', 'id');
+  }
+
+  @override
+  GDeleteOfferData_deleteOffer rebuild(
+          void Function(GDeleteOfferData_deleteOfferBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteOfferData_deleteOfferBuilder toBuilder() =>
+      new GDeleteOfferData_deleteOfferBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteOfferData_deleteOffer &&
+        G__typename == other.G__typename &&
+        id == other.id;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GDeleteOfferData_deleteOffer')
+          ..add('G__typename', G__typename)
+          ..add('id', id))
+        .toString();
+  }
+}
+
+class GDeleteOfferData_deleteOfferBuilder
+    implements
+        Builder<GDeleteOfferData_deleteOffer,
+            GDeleteOfferData_deleteOfferBuilder> {
+  _$GDeleteOfferData_deleteOffer? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  GDeleteOfferData_deleteOfferBuilder() {
+    GDeleteOfferData_deleteOffer._initializeBuilder(this);
+  }
+
+  GDeleteOfferData_deleteOfferBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteOfferData_deleteOffer other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GDeleteOfferData_deleteOffer;
+  }
+
+  @override
+  void update(void Function(GDeleteOfferData_deleteOfferBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GDeleteOfferData_deleteOffer build() => _build();
+
+  _$GDeleteOfferData_deleteOffer _build() {
+    final _$result = _$v ??
+        new _$GDeleteOfferData_deleteOffer._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GDeleteOfferData_deleteOffer', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GDeleteOfferData_deleteOffer', 'id'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreateFspTxData extends GCreateFspTxData {
   @override
   final String G__typename;
@@ -6458,19 +7154,19 @@ class _$GCreateFspTxData_createFspTx extends GCreateFspTxData_createFspTx {
   @override
   final String G__typename;
   @override
-  final int newBalance;
+  final String txId;
 
   factory _$GCreateFspTxData_createFspTx(
           [void Function(GCreateFspTxData_createFspTxBuilder)? updates]) =>
       (new GCreateFspTxData_createFspTxBuilder()..update(updates))._build();
 
   _$GCreateFspTxData_createFspTx._(
-      {required this.G__typename, required this.newBalance})
+      {required this.G__typename, required this.txId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GCreateFspTxData_createFspTx', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        newBalance, r'GCreateFspTxData_createFspTx', 'newBalance');
+        txId, r'GCreateFspTxData_createFspTx', 'txId');
   }
 
   @override
@@ -6487,14 +7183,14 @@ class _$GCreateFspTxData_createFspTx extends GCreateFspTxData_createFspTx {
     if (identical(other, this)) return true;
     return other is GCreateFspTxData_createFspTx &&
         G__typename == other.G__typename &&
-        newBalance == other.newBalance;
+        txId == other.txId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, newBalance.hashCode);
+    _$hash = $jc(_$hash, txId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -6503,7 +7199,7 @@ class _$GCreateFspTxData_createFspTx extends GCreateFspTxData_createFspTx {
   String toString() {
     return (newBuiltValueToStringHelper(r'GCreateFspTxData_createFspTx')
           ..add('G__typename', G__typename)
-          ..add('newBalance', newBalance))
+          ..add('txId', txId))
         .toString();
   }
 }
@@ -6518,9 +7214,9 @@ class GCreateFspTxData_createFspTxBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  int? _newBalance;
-  int? get newBalance => _$this._newBalance;
-  set newBalance(int? newBalance) => _$this._newBalance = newBalance;
+  String? _txId;
+  String? get txId => _$this._txId;
+  set txId(String? txId) => _$this._txId = txId;
 
   GCreateFspTxData_createFspTxBuilder() {
     GCreateFspTxData_createFspTx._initializeBuilder(this);
@@ -6530,7 +7226,7 @@ class GCreateFspTxData_createFspTxBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _newBalance = $v.newBalance;
+      _txId = $v.txId;
       _$v = null;
     }
     return this;
@@ -6555,8 +7251,711 @@ class GCreateFspTxData_createFspTxBuilder
         new _$GCreateFspTxData_createFspTx._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
                 G__typename, r'GCreateFspTxData_createFspTx', 'G__typename'),
-            newBalance: BuiltValueNullFieldError.checkNotNull(
-                newBalance, r'GCreateFspTxData_createFspTx', 'newBalance'));
+            txId: BuiltValueNullFieldError.checkNotNull(
+                txId, r'GCreateFspTxData_createFspTx', 'txId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateBulkFspTxData extends GCreateBulkFspTxData {
+  @override
+  final String G__typename;
+  @override
+  final GCreateBulkFspTxData_createBulkFspTx createBulkFspTx;
+
+  factory _$GCreateBulkFspTxData(
+          [void Function(GCreateBulkFspTxDataBuilder)? updates]) =>
+      (new GCreateBulkFspTxDataBuilder()..update(updates))._build();
+
+  _$GCreateBulkFspTxData._(
+      {required this.G__typename, required this.createBulkFspTx})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GCreateBulkFspTxData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        createBulkFspTx, r'GCreateBulkFspTxData', 'createBulkFspTx');
+  }
+
+  @override
+  GCreateBulkFspTxData rebuild(
+          void Function(GCreateBulkFspTxDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateBulkFspTxDataBuilder toBuilder() =>
+      new GCreateBulkFspTxDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateBulkFspTxData &&
+        G__typename == other.G__typename &&
+        createBulkFspTx == other.createBulkFspTx;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, createBulkFspTx.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateBulkFspTxData')
+          ..add('G__typename', G__typename)
+          ..add('createBulkFspTx', createBulkFspTx))
+        .toString();
+  }
+}
+
+class GCreateBulkFspTxDataBuilder
+    implements Builder<GCreateBulkFspTxData, GCreateBulkFspTxDataBuilder> {
+  _$GCreateBulkFspTxData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GCreateBulkFspTxData_createBulkFspTxBuilder? _createBulkFspTx;
+  GCreateBulkFspTxData_createBulkFspTxBuilder get createBulkFspTx =>
+      _$this._createBulkFspTx ??=
+          new GCreateBulkFspTxData_createBulkFspTxBuilder();
+  set createBulkFspTx(
+          GCreateBulkFspTxData_createBulkFspTxBuilder? createBulkFspTx) =>
+      _$this._createBulkFspTx = createBulkFspTx;
+
+  GCreateBulkFspTxDataBuilder() {
+    GCreateBulkFspTxData._initializeBuilder(this);
+  }
+
+  GCreateBulkFspTxDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _createBulkFspTx = $v.createBulkFspTx.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateBulkFspTxData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateBulkFspTxData;
+  }
+
+  @override
+  void update(void Function(GCreateBulkFspTxDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateBulkFspTxData build() => _build();
+
+  _$GCreateBulkFspTxData _build() {
+    _$GCreateBulkFspTxData _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreateBulkFspTxData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GCreateBulkFspTxData', 'G__typename'),
+              createBulkFspTx: createBulkFspTx.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'createBulkFspTx';
+        createBulkFspTx.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreateBulkFspTxData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreateBulkFspTxData_createBulkFspTx
+    extends GCreateBulkFspTxData_createBulkFspTx {
+  @override
+  final String G__typename;
+  @override
+  final String txId;
+
+  factory _$GCreateBulkFspTxData_createBulkFspTx(
+          [void Function(GCreateBulkFspTxData_createBulkFspTxBuilder)?
+              updates]) =>
+      (new GCreateBulkFspTxData_createBulkFspTxBuilder()..update(updates))
+          ._build();
+
+  _$GCreateBulkFspTxData_createBulkFspTx._(
+      {required this.G__typename, required this.txId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GCreateBulkFspTxData_createBulkFspTx', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        txId, r'GCreateBulkFspTxData_createBulkFspTx', 'txId');
+  }
+
+  @override
+  GCreateBulkFspTxData_createBulkFspTx rebuild(
+          void Function(GCreateBulkFspTxData_createBulkFspTxBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreateBulkFspTxData_createBulkFspTxBuilder toBuilder() =>
+      new GCreateBulkFspTxData_createBulkFspTxBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreateBulkFspTxData_createBulkFspTx &&
+        G__typename == other.G__typename &&
+        txId == other.txId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, txId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreateBulkFspTxData_createBulkFspTx')
+          ..add('G__typename', G__typename)
+          ..add('txId', txId))
+        .toString();
+  }
+}
+
+class GCreateBulkFspTxData_createBulkFspTxBuilder
+    implements
+        Builder<GCreateBulkFspTxData_createBulkFspTx,
+            GCreateBulkFspTxData_createBulkFspTxBuilder> {
+  _$GCreateBulkFspTxData_createBulkFspTx? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _txId;
+  String? get txId => _$this._txId;
+  set txId(String? txId) => _$this._txId = txId;
+
+  GCreateBulkFspTxData_createBulkFspTxBuilder() {
+    GCreateBulkFspTxData_createBulkFspTx._initializeBuilder(this);
+  }
+
+  GCreateBulkFspTxData_createBulkFspTxBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _txId = $v.txId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreateBulkFspTxData_createBulkFspTx other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreateBulkFspTxData_createBulkFspTx;
+  }
+
+  @override
+  void update(
+      void Function(GCreateBulkFspTxData_createBulkFspTxBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreateBulkFspTxData_createBulkFspTx build() => _build();
+
+  _$GCreateBulkFspTxData_createBulkFspTx _build() {
+    final _$result = _$v ??
+        new _$GCreateBulkFspTxData_createBulkFspTx._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GCreateBulkFspTxData_createBulkFspTx', 'G__typename'),
+            txId: BuiltValueNullFieldError.checkNotNull(
+                txId, r'GCreateBulkFspTxData_createBulkFspTx', 'txId'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreatePrizeData extends GCreatePrizeData {
+  @override
+  final String G__typename;
+  @override
+  final GCreatePrizeData_createPrize createPrize;
+
+  factory _$GCreatePrizeData(
+          [void Function(GCreatePrizeDataBuilder)? updates]) =>
+      (new GCreatePrizeDataBuilder()..update(updates))._build();
+
+  _$GCreatePrizeData._({required this.G__typename, required this.createPrize})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GCreatePrizeData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        createPrize, r'GCreatePrizeData', 'createPrize');
+  }
+
+  @override
+  GCreatePrizeData rebuild(void Function(GCreatePrizeDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreatePrizeDataBuilder toBuilder() =>
+      new GCreatePrizeDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreatePrizeData &&
+        G__typename == other.G__typename &&
+        createPrize == other.createPrize;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, createPrize.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreatePrizeData')
+          ..add('G__typename', G__typename)
+          ..add('createPrize', createPrize))
+        .toString();
+  }
+}
+
+class GCreatePrizeDataBuilder
+    implements Builder<GCreatePrizeData, GCreatePrizeDataBuilder> {
+  _$GCreatePrizeData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GCreatePrizeData_createPrizeBuilder? _createPrize;
+  GCreatePrizeData_createPrizeBuilder get createPrize =>
+      _$this._createPrize ??= new GCreatePrizeData_createPrizeBuilder();
+  set createPrize(GCreatePrizeData_createPrizeBuilder? createPrize) =>
+      _$this._createPrize = createPrize;
+
+  GCreatePrizeDataBuilder() {
+    GCreatePrizeData._initializeBuilder(this);
+  }
+
+  GCreatePrizeDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _createPrize = $v.createPrize.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreatePrizeData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreatePrizeData;
+  }
+
+  @override
+  void update(void Function(GCreatePrizeDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreatePrizeData build() => _build();
+
+  _$GCreatePrizeData _build() {
+    _$GCreatePrizeData _$result;
+    try {
+      _$result = _$v ??
+          new _$GCreatePrizeData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GCreatePrizeData', 'G__typename'),
+              createPrize: createPrize.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'createPrize';
+        createPrize.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GCreatePrizeData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GCreatePrizeData_createPrize extends GCreatePrizeData_createPrize {
+  @override
+  final String G__typename;
+  @override
+  final int id;
+
+  factory _$GCreatePrizeData_createPrize(
+          [void Function(GCreatePrizeData_createPrizeBuilder)? updates]) =>
+      (new GCreatePrizeData_createPrizeBuilder()..update(updates))._build();
+
+  _$GCreatePrizeData_createPrize._(
+      {required this.G__typename, required this.id})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GCreatePrizeData_createPrize', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GCreatePrizeData_createPrize', 'id');
+  }
+
+  @override
+  GCreatePrizeData_createPrize rebuild(
+          void Function(GCreatePrizeData_createPrizeBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GCreatePrizeData_createPrizeBuilder toBuilder() =>
+      new GCreatePrizeData_createPrizeBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GCreatePrizeData_createPrize &&
+        G__typename == other.G__typename &&
+        id == other.id;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GCreatePrizeData_createPrize')
+          ..add('G__typename', G__typename)
+          ..add('id', id))
+        .toString();
+  }
+}
+
+class GCreatePrizeData_createPrizeBuilder
+    implements
+        Builder<GCreatePrizeData_createPrize,
+            GCreatePrizeData_createPrizeBuilder> {
+  _$GCreatePrizeData_createPrize? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  GCreatePrizeData_createPrizeBuilder() {
+    GCreatePrizeData_createPrize._initializeBuilder(this);
+  }
+
+  GCreatePrizeData_createPrizeBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GCreatePrizeData_createPrize other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GCreatePrizeData_createPrize;
+  }
+
+  @override
+  void update(void Function(GCreatePrizeData_createPrizeBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GCreatePrizeData_createPrize build() => _build();
+
+  _$GCreatePrizeData_createPrize _build() {
+    final _$result = _$v ??
+        new _$GCreatePrizeData_createPrize._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename, r'GCreatePrizeData_createPrize', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GCreatePrizeData_createPrize', 'id'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GExchangePrizeData extends GExchangePrizeData {
+  @override
+  final String G__typename;
+  @override
+  final GExchangePrizeData_exchangePrize exchangePrize;
+
+  factory _$GExchangePrizeData(
+          [void Function(GExchangePrizeDataBuilder)? updates]) =>
+      (new GExchangePrizeDataBuilder()..update(updates))._build();
+
+  _$GExchangePrizeData._(
+      {required this.G__typename, required this.exchangePrize})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GExchangePrizeData', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        exchangePrize, r'GExchangePrizeData', 'exchangePrize');
+  }
+
+  @override
+  GExchangePrizeData rebuild(
+          void Function(GExchangePrizeDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GExchangePrizeDataBuilder toBuilder() =>
+      new GExchangePrizeDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GExchangePrizeData &&
+        G__typename == other.G__typename &&
+        exchangePrize == other.exchangePrize;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, exchangePrize.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GExchangePrizeData')
+          ..add('G__typename', G__typename)
+          ..add('exchangePrize', exchangePrize))
+        .toString();
+  }
+}
+
+class GExchangePrizeDataBuilder
+    implements Builder<GExchangePrizeData, GExchangePrizeDataBuilder> {
+  _$GExchangePrizeData? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  GExchangePrizeData_exchangePrizeBuilder? _exchangePrize;
+  GExchangePrizeData_exchangePrizeBuilder get exchangePrize =>
+      _$this._exchangePrize ??= new GExchangePrizeData_exchangePrizeBuilder();
+  set exchangePrize(GExchangePrizeData_exchangePrizeBuilder? exchangePrize) =>
+      _$this._exchangePrize = exchangePrize;
+
+  GExchangePrizeDataBuilder() {
+    GExchangePrizeData._initializeBuilder(this);
+  }
+
+  GExchangePrizeDataBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _exchangePrize = $v.exchangePrize.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GExchangePrizeData other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GExchangePrizeData;
+  }
+
+  @override
+  void update(void Function(GExchangePrizeDataBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GExchangePrizeData build() => _build();
+
+  _$GExchangePrizeData _build() {
+    _$GExchangePrizeData _$result;
+    try {
+      _$result = _$v ??
+          new _$GExchangePrizeData._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GExchangePrizeData', 'G__typename'),
+              exchangePrize: exchangePrize.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'exchangePrize';
+        exchangePrize.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GExchangePrizeData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GExchangePrizeData_exchangePrize
+    extends GExchangePrizeData_exchangePrize {
+  @override
+  final String G__typename;
+  @override
+  final int id;
+  @override
+  final String txId;
+
+  factory _$GExchangePrizeData_exchangePrize(
+          [void Function(GExchangePrizeData_exchangePrizeBuilder)? updates]) =>
+      (new GExchangePrizeData_exchangePrizeBuilder()..update(updates))._build();
+
+  _$GExchangePrizeData_exchangePrize._(
+      {required this.G__typename, required this.id, required this.txId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        G__typename, r'GExchangePrizeData_exchangePrize', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, r'GExchangePrizeData_exchangePrize', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        txId, r'GExchangePrizeData_exchangePrize', 'txId');
+  }
+
+  @override
+  GExchangePrizeData_exchangePrize rebuild(
+          void Function(GExchangePrizeData_exchangePrizeBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GExchangePrizeData_exchangePrizeBuilder toBuilder() =>
+      new GExchangePrizeData_exchangePrizeBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GExchangePrizeData_exchangePrize &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        txId == other.txId;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, G__typename.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, txId.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GExchangePrizeData_exchangePrize')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('txId', txId))
+        .toString();
+  }
+}
+
+class GExchangePrizeData_exchangePrizeBuilder
+    implements
+        Builder<GExchangePrizeData_exchangePrize,
+            GExchangePrizeData_exchangePrizeBuilder> {
+  _$GExchangePrizeData_exchangePrize? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  String? _txId;
+  String? get txId => _$this._txId;
+  set txId(String? txId) => _$this._txId = txId;
+
+  GExchangePrizeData_exchangePrizeBuilder() {
+    GExchangePrizeData_exchangePrize._initializeBuilder(this);
+  }
+
+  GExchangePrizeData_exchangePrizeBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _txId = $v.txId;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GExchangePrizeData_exchangePrize other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GExchangePrizeData_exchangePrize;
+  }
+
+  @override
+  void update(void Function(GExchangePrizeData_exchangePrizeBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GExchangePrizeData_exchangePrize build() => _build();
+
+  _$GExchangePrizeData_exchangePrize _build() {
+    final _$result = _$v ??
+        new _$GExchangePrizeData_exchangePrize._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GExchangePrizeData_exchangePrize', 'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'GExchangePrizeData_exchangePrize', 'id'),
+            txId: BuiltValueNullFieldError.checkNotNull(
+                txId, r'GExchangePrizeData_exchangePrize', 'txId'));
     replace(_$result);
     return _$result;
   }
