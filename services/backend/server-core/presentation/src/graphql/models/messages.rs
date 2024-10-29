@@ -1,8 +1,10 @@
 use crate::graphql::models::users::*;
 use anyhow::Error;
-use application::usecases::messaging::send_message_usecase;
+use application::usecases::messaging::{create_message_room_usecase, send_message_usecase};
 use async_graphql::{InputObject, SimpleObject};
 use uuid::Uuid;
+
+use domain::entities::sea_orm_active_enums::MessageRoomType;
 
 // ===== for Query =====
 #[derive(SimpleObject)]
@@ -15,21 +17,27 @@ pub struct MessageData {
     pub attached_img: Option<Vec<String>>,  // 画像のURL
 }
 
+#[derive(SimpleObject)]
+pub struct MessageTempData {
+    pub id: String,
+    pub content: String,
+    pub sent_at: String,
+}
+
 // メッセージルーム本体データ
 #[derive(SimpleObject)]
 pub struct MessagesByRoomIdByUserData {
     pub id: String,
     pub to: UserSimpleData, // メッセージルームの相手ユーザー
-    pub message_list: Vec<MessageData>,
+    pub message_list: Vec<MessageTempData>,
 }
 
 // メッセージルームのメッセージ一覧データ
 #[derive(SimpleObject)]
 pub struct MessageRoomData {
     pub id: String, // uuid
-    pub count_of_messages: Option<i32>,
     pub category: Option<String>,
-    pub latest_message: Option<MessageData>,
+    pub latest_message: Option<String>,
     pub latest_sent_at: Option<String>, // datetime
     pub is_read: bool,                  // falseの場合は未読
 }
@@ -45,6 +53,8 @@ pub struct MessageRoomsByUserData {
 #[derive(InputObject)]
 pub struct CreateNewMessageRoomInput {
     pub category: String,
+    pub created_by: String,     // varchar(28)
+    pub user_list: Vec<String>, // varchar(28)[]
 }
 
 #[derive(SimpleObject)]
@@ -79,13 +89,71 @@ impl SendMessageInput {
     }
 }
 
+impl CreateNewMessageRoomInput {
+    pub fn into_usecase_input(
+        self,
+    ) -> Result<create_message_room_usecase::CreateMessageRoomInput, Error> {
+        Ok(create_message_room_usecase::CreateMessageRoomInput {
+            category: from_string_to_message_room_type(&self.category).map_err(Error::msg)?,
+            created_by: self.created_by,
+            user_list: self.user_list,
+        })
+    }
+}
+
+pub fn from_string_to_message_room_type(s: &str) -> Result<MessageRoomType, String> {
+    match s {
+        "dm" => Ok(MessageRoomType::Dm),
+        "group" => Ok(MessageRoomType::Group),
+        _ => Err(format!("Invalid MessageRoomType: {}", s)),
+    }
+}
+
 // ===== Convert from usecase output =====
-/*
-impl SendMessageResponse {
-    pub fn from_usecase_output(output: send_message_usecase::SendMessageOutput) -> Self {
-        Self {
-            id: output.id.to_string(),
+impl From<application::usecases::messaging::get_room_list_usecase::RoomData> for MessageRoomData {
+    fn from(room: application::usecases::messaging::get_room_list_usecase::RoomData) -> Self {
+        MessageRoomData {
+            id: room.id,
+            category: room.category.map(|c| match c {
+                MessageRoomType::Dm => "dm".to_string(),
+                MessageRoomType::Group => "group".to_string(),
+            }),
+            latest_message: room.latest_message,
+            latest_sent_at: room.latest_sent_at.map(|dt| dt.to_rfc3339()),
+            is_read: room.is_read,
         }
     }
 }
-*/
+
+impl From<application::usecases::messaging::get_messages_usecase::GetMessagesOutput>
+    for MessagesByRoomIdByUserData
+{
+    fn from(
+        message: application::usecases::messaging::get_messages_usecase::GetMessagesOutput,
+    ) -> Self {
+        MessagesByRoomIdByUserData {
+            id: message.id,
+            to: message.user.into(),
+            message_list: message.message_list.into_iter().map(|m| m.into()).collect(),
+        }
+    }
+}
+impl From<application::usecases::messaging::get_messages_usecase::SimpleUser> for UserSimpleData {
+    fn from(user: application::usecases::messaging::get_messages_usecase::SimpleUser) -> Self {
+        UserSimpleData {
+            id: user.id,
+            name: user.name,
+            image_url: user.image_url,
+        }
+    }
+}
+
+impl From<application::usecases::messaging::get_messages_usecase::MessageData> for MessageTempData {
+    fn from(message: application::usecases::messaging::get_messages_usecase::MessageData) -> Self {
+        MessageTempData {
+            id: message.id,
+            content: message.content,
+            sent_at: message.sent_at.to_rfc3339(),
+        }
+    }
+}

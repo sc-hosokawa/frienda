@@ -12,6 +12,7 @@ pub struct Model {
     pub created_at: DateTime,
     pub latest_sent_at: Option<DateTime>,
     pub latest_message_id: Option<Uuid>,
+    pub latest_message: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -37,15 +38,6 @@ impl Related<super::messages::Entity> for Entity {
 impl Related<super::room_user::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::RoomUser.def()
-    }
-}
-
-impl Related<super::users::Entity> for Entity {
-    fn to() -> RelationDef {
-        super::room_user::Relation::Users.def()
-    }
-    fn via() -> Option<RelationDef> {
-        Some(super::room_user::Relation::Rooms.def().rev())
     }
 }
 

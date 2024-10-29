@@ -13,6 +13,7 @@ pub struct Model {
     pub description: String,
     pub representation: String,
     pub condition: Option<String>,
+    pub publicity: bool,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

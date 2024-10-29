@@ -1,5 +1,5 @@
 use chrono::Utc;
-use domain::entities::sea_orm_active_enums::{UserCategory, UserStatus};
+use domain::entities::sea_orm_active_enums::{OfferCategory, UserCategory, UserStatus};
 use domain::entities::users::Model as User;
 use uuid::Uuid;
 
@@ -15,6 +15,14 @@ fn test_user_entity() {
     let now = Utc::now().naive_utc();
     let img_url = Some("https://example.com/image.jpg".to_string());
     let primary_category = UserCategory::Musician;
+    let greeting = Some("Hello, world!".to_string());
+    let skill = Some("Singing".to_string());
+    let x_handle = Some("x_handle".to_string());
+    let instagram_handle = Some("instagram_handle".to_string());
+    let fb_handle = Some("fb_handle".to_string());
+    let interest_offer = Some(OfferCategory::Creation);
+    let email = "test@example.com".to_string();
+    let id_token = Some("id_token".to_string());
 
     // ユーザーの作成
     let user = User {
@@ -30,6 +38,14 @@ fn test_user_entity() {
         updated_at: now,
         img_url: img_url.clone(),
         primary_category: primary_category.clone(),
+        greeting,
+        skill,
+        x_handle,
+        instagram_handle,
+        fb_handle,
+        interest_offer,
+        email: email.clone(),
+        id_token: id_token.clone(),
     };
 
     // 全ての属性の確認
@@ -45,6 +61,8 @@ fn test_user_entity() {
     assert_eq!(user.updated_at, now);
     assert_eq!(user.img_url, img_url);
     assert_eq!(user.primary_category, primary_category);
+    assert_eq!(user.email, email);
+    assert_eq!(user.id_token, id_token);
 
     // ステータス変更のテスト
     let mut updated_user = user.clone();
@@ -84,6 +102,14 @@ fn test_user_entity() {
         updated_at: now,
         img_url: None,
         primary_category: UserCategory::Musician,
+        greeting: None,
+        skill: None,
+        x_handle: None,
+        instagram_handle: None,
+        fb_handle: None,
+        interest_offer: None,
+        email: "".to_string(),
+        id_token: None,
     };
 
     assert_eq!(user_without_optionals.evm_addr, None);

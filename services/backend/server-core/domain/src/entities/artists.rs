@@ -33,13 +33,4 @@ impl Related<super::user_artist::Entity> for Entity {
     }
 }
 
-impl Related<super::users::Entity> for Entity {
-    fn to() -> RelationDef {
-        super::user_artist::Relation::Users.def()
-    }
-    fn via() -> Option<RelationDef> {
-        Some(super::user_artist::Relation::Artists.def().rev())
-    }
-}
-
 impl ActiveModelBehavior for ActiveModel {}

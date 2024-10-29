@@ -1,11 +1,11 @@
 pub mod add_user_to_group_conversation_usecase;
 pub mod archive_conversation_usecase;
-pub mod attach_file_to_message_usecase;
 pub mod block_user_usecase;
-pub mod create_group_conversation_usecase;
+pub mod create_group_room_usecase;
+pub mod create_message_room_usecase;
 pub mod delete_message_usecase;
-pub mod get_conversation_list_usecase;
-pub mod get_conversation_messages_usecase;
+pub mod get_messages_usecase;
+pub mod get_room_list_usecase;
 pub mod mark_message_as_read_usecase;
 pub mod pin_conversation_usecase;
 pub mod remove_user_from_group_conversation_usecase;

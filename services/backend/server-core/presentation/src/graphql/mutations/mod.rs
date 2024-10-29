@@ -5,6 +5,7 @@ mod message;
 mod notification;
 mod offer;
 mod points_tx;
+mod prize;
 
 use async_graphql::MergedObject;
 
@@ -16,5 +17,6 @@ pub struct MutationRoot(
     notification::NotificationMutation,
     offer::OfferMutation,
     points_tx::PointsTxMutation,
+    prize::PrizeMutation,
     artist::ArtistMutation,
 );

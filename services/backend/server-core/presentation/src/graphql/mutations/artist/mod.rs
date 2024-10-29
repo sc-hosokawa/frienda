@@ -12,6 +12,7 @@ impl ArtistMutation {
         ctx: &Context<'_>,
         input: models::artists::CreateNewArtistInput,
     ) -> Result<models::artists::CreateNewArtistResponse> {
+        let usecase = ctx.data_unchecked::<Usecases>();
         todo!()
     }
 }

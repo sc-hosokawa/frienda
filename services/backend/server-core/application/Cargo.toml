@@ -12,3 +12,5 @@ anyhow = { workspace = true }
 async-trait = { workspace = true }
 uuid = { workspace = true }
 sea-orm = { workspace = true }
+chrono = { workspace = true }
+tokio = { workspace = true }

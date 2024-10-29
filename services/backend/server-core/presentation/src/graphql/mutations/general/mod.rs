@@ -1,6 +1,7 @@
 use crate::graphql::models;
 use async_graphql::{Context, Object, Result};
 use registry::Usecases;
+use std::sync::Arc;
 
 #[derive(Default)]
 pub struct GeneralMutation;
@@ -12,7 +13,30 @@ impl GeneralMutation {
         ctx: &Context<'_>,
         input: models::users::CreateNewUserDataInput,
     ) -> Result<models::users::CreateNewUserDataResponse> {
-        todo!()
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        usecases
+            .create_user
+            .create(
+                application::usecases::basic::create_user_usecase::CreateUserInput {
+                    id: input.id.clone(),
+                    email: input.email.clone(),
+                    name: input.name.clone(),
+                    image_url: input.image_url.clone(),
+                    invited_by: input.invited_by,
+                    category: models::users::from_string_to_user_category(&input.category).unwrap(),
+                    primary_category: models::users::from_string_to_user_category(
+                        &input.primary_category,
+                    )
+                    .unwrap(),
+                },
+            )
+            .await?;
+
+        Ok(models::users::CreateNewUserDataResponse {
+            user_id: input.id,
+            name: input.name,
+            image_url: input.image_url,
+        })
     }
 
     async fn update_user_data(
@@ -20,7 +44,49 @@ impl GeneralMutation {
         ctx: &Context<'_>,
         input: models::users::UpdateUserDataInput,
     ) -> Result<models::users::UpdateUserDataResponse> {
-        todo!()
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .update_user_profile
+            .update(
+                application::usecases::basic::update_user_profile_usecase::UpdateUserProfileInput {
+                    id: input.id,
+                    name: input.name,
+                    image_url: input.image_url,
+                    email: input.email,
+                    // TODO
+                    primary_category: input.primary_category.as_deref().map(|category| {
+                        models::users::from_string_to_user_category(category).unwrap()
+                    }),
+                    evm_addr: input.evm_addr,
+                },
+            )
+            .await?;
+
+        Ok(models::users::UpdateUserDataResponse {
+            user_info: models::users::UserDetailData {
+                id: res.updated_user.id,
+                email: res.updated_user.email,
+                name: res.updated_user.username,
+                image_url: res.updated_user.img_url,
+                fsp_balance: res.updated_user.fsp,
+                // fsp_balance_temp: res.updated_user.,
+                credential_balance: res.updated_user.credential,
+                role: models::users::from_user_category_to_string(&res.updated_user.category),
+                primary_role: models::users::from_user_category_to_string(
+                    &res.updated_user.primary_category,
+                ),
+                belongs_to_artists: res
+                    .artists
+                    .belongs_to_artists
+                    .into_iter()
+                    .map(|artist| models::artists::ArtistByUserData::from_domain(artist).unwrap())
+                    .collect(),
+                primary_artist: res
+                    .artists
+                    .primary_artist
+                    .map(|artist| models::artists::ArtistByUserData::from_domain(artist).unwrap()),
+            },
+        })
     }
 
     async fn update_belongs_to_artist_status(
@@ -28,7 +94,26 @@ impl GeneralMutation {
         ctx: &Context<'_>,
         input: models::users::UpdateBelongsToArtistStatusInput,
     ) -> Result<models::users::UpdateBelongsToArtistStatusResponse> {
-        todo!()
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .update_user_profile
+            .update_belongs_to_artist_status(
+                application::usecases::basic::update_user_profile_usecase::UpdateBelongsToArtistStatusInput {
+                    user_id: input.user_id,
+                    artist_id: input.artist_id,
+                    next_status_is_admin: input.next_status_is_admin,
+                    next_status: input.next_status.as_deref().map(|status| {
+                        models::users::from_string_to_user_artist_status(status).unwrap()
+                    }),
+                },
+            )
+            .await?;
+        Ok(models::users::UpdateBelongsToArtistStatusResponse {
+            updated_user_artist: models::artists::ArtistByUserData::from_domain(
+                res.updated_user_artist,
+            )
+            .unwrap(),
+        })
     }
 
     async fn contact_to_admin(

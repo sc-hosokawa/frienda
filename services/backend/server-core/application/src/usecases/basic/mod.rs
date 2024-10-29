@@ -5,6 +5,7 @@ pub mod delete_user_usecase;
 pub mod download_file_usecase;
 pub mod follow_user_usecase;
 pub mod get_settings_usecase;
+pub mod get_user_basic_info_usecase;
 pub mod get_user_profile_usecase;
 pub mod grant_role_usecase;
 pub mod login_usecase;

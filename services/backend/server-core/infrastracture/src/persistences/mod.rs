@@ -1,1 +1,14 @@
+pub mod artists_repo_impl;
+pub mod exchange_prize_history_repo_impl;
 pub mod health_check_repo_impl;
+pub mod message_attach_repo_impl;
+pub mod messages_repo_impl;
+pub mod offer_attach_repo_impl;
+pub mod offer_user_repo_impl;
+pub mod offers_repo_impl;
+pub mod prizes_repo_impl;
+pub mod room_user_repo_impl;
+pub mod rooms_repo_impl;
+pub mod txs_fsp_repo_impl;
+pub mod user_artist_repo_impl;
+pub mod users_repo_impl;

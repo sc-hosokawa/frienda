@@ -59,6 +59,16 @@ pub enum PurchaseStatus {
     Success,
 }
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_artist_status")]
+pub enum UserArtistStatus {
+    #[sea_orm(string_value = "accept")]
+    Accept,
+    #[sea_orm(string_value = "check")]
+    Check,
+    #[sea_orm(string_value = "reject")]
+    Reject,
+}
+#[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_category")]
 pub enum UserCategory {
     #[sea_orm(string_value = "creater")]

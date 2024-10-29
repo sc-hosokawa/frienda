@@ -49,3 +49,42 @@ pub struct CreateNewTransactionInput {
 pub struct CreateNewTransactionResponse {
     pub new_balance: i32,
 }
+
+// ===== Convert =====
+impl From<application::usecases::point::get_point_transaction_history_usecase::TransactionData>
+    for TransactionByUserData
+{
+    fn from(
+        tx: application::usecases::point::get_point_transaction_history_usecase::TransactionData,
+    ) -> Self {
+        TransactionByUserData {
+            id: tx.id.to_string(),
+            direction: tx.direction.into(),
+            counter_party: tx.counter_party.into(),
+            amount: tx.amount,
+            tx_at: tx.tx_at.to_string(),
+        }
+    }
+}
+impl From<application::usecases::point::get_point_transaction_history_usecase::UserSimpleData>
+    for UserSimpleData
+{
+    fn from(
+        user: application::usecases::point::get_point_transaction_history_usecase::UserSimpleData,
+    ) -> Self {
+        UserSimpleData {
+            id: user.id,
+            name: user.name,
+            image_url: user.img_url,
+        }
+    }
+}
+impl From<String> for TransactionDirection {
+    fn from(direction: String) -> Self {
+        match direction.as_str() {
+            "In" => TransactionDirection::In,
+            "Out" => TransactionDirection::Out,
+            _ => unreachable!(),
+        }
+    }
+}

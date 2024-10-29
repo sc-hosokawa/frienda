@@ -8,6 +8,7 @@ pub mod indicators;
 pub mod messages;
 pub mod notifications;
 pub mod offers;
+pub mod points;
 pub mod prizes;
 pub mod track;
 pub mod transactions;

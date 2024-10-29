@@ -45,7 +45,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
         MutationRoot::default(),
         EmptySubscription,
     )
-    .data(usecases)
+    .data(std::sync::Arc::new(usecases))
     .data(db.clone())
     .finish();
 

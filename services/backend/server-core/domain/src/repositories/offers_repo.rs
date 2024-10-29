@@ -3,9 +3,9 @@ use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
 #[async_trait]
-pub trait OffersRepository {
-    async fn create(&self, offer: &OfferActiveModel) -> Result<Offer, DomainError>;
-    async fn update(&self, offer: &OfferActiveModel) -> Result<Offer, DomainError>;
+pub trait OffersRepository: Send + Sync {
+    async fn create(&self, offer: OfferActiveModel) -> Result<Offer, DomainError>;
+    async fn update(&self, offer: OfferActiveModel) -> Result<Offer, DomainError>;
 
     async fn get_by_id(&self, id: i32) -> Result<Option<Offer>, DomainError>;
     async fn delete(&self, id: i32) -> Result<(), DomainError>;

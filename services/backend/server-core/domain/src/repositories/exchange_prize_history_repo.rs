@@ -5,14 +5,14 @@ use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
 #[async_trait]
-pub trait ExchangePrizeHistoryRepository {
+pub trait ExchangePrizeHistoryRepository: Send + Sync {
     async fn create(
         &self,
-        history: &ExchangePrizeHistoryActiveModel,
+        history: ExchangePrizeHistoryActiveModel,
     ) -> Result<ExchangePrizeHistory, DomainError>;
     async fn update(
         &self,
-        history: &ExchangePrizeHistoryActiveModel,
+        history: ExchangePrizeHistoryActiveModel,
     ) -> Result<ExchangePrizeHistory, DomainError>;
 
     async fn delete(&self, id: i32) -> Result<(), DomainError>;

@@ -78,10 +78,7 @@ impl Related<super::raids::Entity> for Entity {
 
 impl Related<super::users::Entity> for Entity {
     fn to() -> RelationDef {
-        super::offer_user::Relation::Users.def()
-    }
-    fn via() -> Option<RelationDef> {
-        Some(super::offer_user::Relation::Offers.def().rev())
+        Relation::Users.def()
     }
 }
 

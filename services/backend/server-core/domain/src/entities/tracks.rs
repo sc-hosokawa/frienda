@@ -47,13 +47,4 @@ impl Related<super::product_track::Entity> for Entity {
     }
 }
 
-impl Related<super::products::Entity> for Entity {
-    fn to() -> RelationDef {
-        super::product_track::Relation::Products.def()
-    }
-    fn via() -> Option<RelationDef> {
-        Some(super::product_track::Relation::Tracks.def().rev())
-    }
-}
-
 impl ActiveModelBehavior for ActiveModel {}

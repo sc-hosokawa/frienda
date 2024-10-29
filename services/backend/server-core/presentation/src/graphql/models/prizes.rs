@@ -36,6 +36,7 @@ pub struct CreateNewPrizeInput {
     pub representation: String,
     pub condition: Option<String>,
     pub img_url: Option<String>,
+    pub publicity: Option<bool>,
 }
 
 #[derive(SimpleObject)]
@@ -62,9 +63,36 @@ pub struct UpdatePrizeInput {
     pub representation: Option<String>,
     pub condition: Option<String>,
     pub img_url: Option<String>,
+    pub publicity: Option<bool>,
 }
 
 #[derive(SimpleObject)]
 pub struct UpdatePrizeResponse {
     pub id: i32,
+}
+
+// ===== convert =====
+impl From<domain::entities::prizes::Model> for PrizeData {
+    fn from(prize: domain::entities::prizes::Model) -> Self {
+        PrizeData {
+            id: prize.id,
+            img_url: prize.img_url,
+            name: prize.name,
+            point: prize.point,
+        }
+    }
+}
+
+impl From<domain::entities::prizes::Model> for PrizeDetailData {
+    fn from(prize: domain::entities::prizes::Model) -> Self {
+        PrizeDetailData {
+            id: prize.id,
+            img_url: prize.img_url,
+            name: prize.name,
+            point: prize.point,
+            description: prize.description,
+            representation: prize.representation,
+            condition: prize.condition,
+        }
+    }
 }

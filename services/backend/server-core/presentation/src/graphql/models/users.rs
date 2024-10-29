@@ -1,5 +1,8 @@
 use crate::graphql::models::artists::*;
+use anyhow::Error;
+use application::usecases::basic::create_user_usecase;
 use async_graphql::{InputObject, SimpleObject};
+use domain::entities::sea_orm_active_enums::{UserArtistStatus, UserCategory};
 
 // ===== Query ====
 
@@ -15,7 +18,7 @@ pub struct UserBasicData {
     pub id: String,
     pub name: String,
     pub image_url: Option<String>,
-    pub roles: Vec<String>,
+    pub role: String,
     pub primary_role: String,
     pub primary_artist: Option<ArtistByUserData>,
 }
@@ -27,9 +30,9 @@ pub struct UserDetailData {
     pub name: String,
     pub image_url: Option<String>,
     pub fsp_balance: i32,
-    pub fsp_balance_temp: i32,
+    //    pub fsp_balance_temp: i32,
     pub credential_balance: i32,
-    pub roles: Vec<String>,
+    pub role: String,
     pub primary_role: String,
     pub belongs_to_artists: Vec<ArtistByUserData>,
     pub primary_artist: Option<ArtistByUserData>,
@@ -74,6 +77,7 @@ pub struct UsersInput {
 
 #[derive(InputObject)]
 pub struct CreateNewUserDataInput {
+    pub id: String,
     pub email: String,
     pub name: String,
     pub image_url: Option<String>,
@@ -97,7 +101,6 @@ pub struct UpdateUserDataInput {
     pub image_url: Option<String>,
     pub primary_category: Option<String>,
     pub evm_addr: Option<String>,
-    pub status: Option<String>,
 }
 
 #[derive(SimpleObject)]
@@ -107,12 +110,91 @@ pub struct UpdateUserDataResponse {
 
 #[derive(InputObject)]
 pub struct UpdateBelongsToArtistStatusInput {
-    pub id: String,
-    pub artist_id: Option<String>,
-    pub status: Option<String>,
+    pub user_id: String,
+    pub artist_id: String,
+    pub next_status: Option<String>,
+    pub next_status_is_admin: Option<bool>,
 }
 
 #[derive(SimpleObject)]
 pub struct UpdateBelongsToArtistStatusResponse {
-    pub artist_list: ArtistByUserDataList,
+    pub updated_user_artist: ArtistByUserData,
+}
+
+// ===== Convert to usecase input =====
+impl CreateNewUserDataInput {
+    pub fn into_usecase_input(self) -> Result<create_user_usecase::CreateUserInput, Error> {
+        Ok(create_user_usecase::CreateUserInput {
+            id: self.id,
+            email: self.email,
+            name: self.name,
+            image_url: self.image_url,
+            invited_by: self.invited_by,
+            category: from_string_to_user_category(&self.category).map_err(Error::msg)?,
+            primary_category: from_string_to_user_category(&self.primary_category)
+                .map_err(Error::msg)?,
+        })
+    }
+}
+
+pub fn from_string_to_user_category(s: &str) -> Result<UserCategory, String> {
+    match s {
+        "Musician" => Ok(UserCategory::Musician),
+        "Creater" => Ok(UserCategory::Creater),
+        "Curator" => Ok(UserCategory::Curator),
+        "Supporter" => Ok(UserCategory::Supporter),
+        _ => Err(format!("Invalid UserCategory: {}", s)),
+    }
+}
+
+pub fn from_user_category_to_string(category: &UserCategory) -> String {
+    match category {
+        UserCategory::Musician => "Musician".to_string(),
+        UserCategory::Creater => "Creater".to_string(),
+        UserCategory::Curator => "Curator".to_string(),
+        UserCategory::Supporter => "Supporter".to_string(),
+    }
+}
+
+pub fn from_string_to_user_artist_status(s: &str) -> Result<UserArtistStatus, String> {
+    match s {
+        "Check" => Ok(UserArtistStatus::Check),
+        "Accept" => Ok(UserArtistStatus::Accept),
+        "Reject" => Ok(UserArtistStatus::Reject),
+        _ => Err(format!("Invalid UserArtistStatus: {}", s)),
+    }
+}
+
+impl UserDetailData {
+    pub fn from_domain(
+        domain: application::usecases::basic::get_user_basic_info_usecase::GetUserBasicInfoOutput,
+    ) -> Result<Self, anyhow::Error> {
+        Ok(Self {
+            id: domain.user.id,
+            email: domain.user.email,
+            name: domain.user.username,
+            image_url: domain.user.img_url,
+            fsp_balance: domain.user.fsp,
+            // fsp_balance_temp: domain.user.fsp,
+            credential_balance: domain.user.credential,
+            role: match domain.user.category {
+                UserCategory::Musician => "Musician".to_string(),
+                UserCategory::Creater => "Creater".to_string(),
+                UserCategory::Curator => "Curator".to_string(),
+                UserCategory::Supporter => "Supporter".to_string(),
+            },
+            primary_role: match domain.user.primary_category {
+                UserCategory::Musician => "Musician".to_string(),
+                UserCategory::Creater => "Creater".to_string(),
+                UserCategory::Curator => "Curator".to_string(),
+                UserCategory::Supporter => "Supporter".to_string(),
+            },
+            belongs_to_artists: domain
+                .belongs_to_artists
+                .into_iter()
+                .map(|a| ArtistByUserData::from_domain(a).unwrap())
+                .collect(),
+            primary_artist: None,
+        })
+    }
 }
