@@ -4,36 +4,6 @@ mutation AddNewConnection($input: AddNewConnectionByUserInput!) {
   }
 }
 
-mutation CreateNewMessageRoom($input: CreateNewMessageRoomInput!) {
-  createNewMessageRoom(input: $input) {
-    id
-  }
-}
-
-mutation SendMessage($input: SendMessageInput!) {
-  sendMessage(input: $input) {
-    id
-  }
-}
-
-mutation CreateNewOffer($input: CreateNewOfferInput!) {
-  createNewOffer(input: $input) {
-    id
-  }
-}
-
-mutation UpdateOffer($input: UpdateOfferInput!) {
-  updateOffer(input: $input) {
-    id
-  }
-}
-
-mutation DeleteOffer($input: DeleteOfferInput!) {
-  deleteOffer(input: $input) {
-    id
-  }
-}
-
 mutation CreateNewUserData($input: CreateNewUserDataInput!) {
   createNewUserData(input: $input) {
     userId
@@ -50,21 +20,24 @@ mutation UpdateUserData($input: UpdateUserDataInput!) {
       name
       imageUrl
       fspBalance
-      fspBalanceTemp
       credentialBalance
-      roles
+      role
       primaryRole
       belongsToArtists {
         id
         name
         imageUrl
-        isAccepted
+        fsp
+        status
+        isAdmin
       }
       primaryArtist {
         id
         name
         imageUrl
-        isAccepted
+        fsp
+        status
+        isAdmin
       }
     }
   }
@@ -72,13 +45,13 @@ mutation UpdateUserData($input: UpdateUserDataInput!) {
 
 mutation UpdateBelongsToArtistStatus($input: UpdateBelongsToArtistStatusInput!) {
   updateBelongsToArtistStatus(input: $input) {
-    artistList {
-      artistList {
-        id
-        name
-        imageUrl
-        isAccepted
-      }
+    updatedUserArtist {
+      id
+      name
+      imageUrl
+      fsp
+      status
+      isAdmin
     }
   }
 }
@@ -86,6 +59,22 @@ mutation UpdateBelongsToArtistStatus($input: UpdateBelongsToArtistStatusInput!) 
 mutation ContactToAdmin($input: ContactToAdminInput!) {
   contactToAdmin(input: $input) {
     id
+  }
+}
+
+mutation CreateNewMessageRoom($input: CreateNewMessageRoomInput!) {
+  createNewMessageRoom(input: $input) {
+    id
+  }
+}
+
+mutation SendMessage($input: SendMessageInput!) {
+  sendMessage(input: $input) {
+    id
+    message
+    sentAt
+    attachedFile
+    attachedImg
   }
 }
 
@@ -107,9 +96,53 @@ mutation DeleteNotification($input: DeleteNotificationInput!) {
   }
 }
 
+mutation CreateNewOffer($input: CreateNewOfferInput!) {
+  createNewOffer(input: $input) {
+    id
+  }
+}
+
+mutation UpdateOfferInfo($input: UpdateOfferInput!) {
+  updateOfferInfo(input: $input) {
+    id
+  }
+}
+
+mutation UpdateOfferStatus($input: UpdateOfferStatusInput!) {
+  updateOfferStatus(input: $input) {
+    id
+    offerId
+  }
+}
+
+mutation DeleteOffer($input: DeleteOfferInput!) {
+  deleteOffer(input: $input) {
+    id
+  }
+}
+
 mutation CreateFspTx($input: CreateNewTransactionInput!) {
   createFspTx(input: $input) {
-    newBalance
+    txId
+  }
+}
+
+mutation CreateBulkFspTx($input: [CreateNewTransactionInput!]!) {
+  createBulkFspTx(input: $input) {
+    txId
+  }
+}
+
+mutation CreatePrize($input: CreateNewPrizeInput!) {
+  createPrize(input: $input) {
+    id
+  }
+}
+
+mutation ExchangePrize($input: ExchangePrizeInput!) {
+  exchangePrize(input: $input) {
+    id
+    txId
   }
 }
 

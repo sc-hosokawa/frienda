@@ -30,148 +30,6 @@ abstract class GHealthCheckVars
       );
 }
 
-abstract class GGetUserInfoVars
-    implements Built<GGetUserInfoVars, GGetUserInfoVarsBuilder> {
-  GGetUserInfoVars._();
-
-  factory GGetUserInfoVars([void Function(GGetUserInfoVarsBuilder b) updates]) =
-      _$GGetUserInfoVars;
-
-  static Serializer<GGetUserInfoVars> get serializer =>
-      _$gGetUserInfoVarsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserInfoVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserInfoVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserInfoVars.serializer,
-        json,
-      );
-}
-
-abstract class GGetAllOffersVars
-    implements Built<GGetAllOffersVars, GGetAllOffersVarsBuilder> {
-  GGetAllOffersVars._();
-
-  factory GGetAllOffersVars(
-          [void Function(GGetAllOffersVarsBuilder b) updates]) =
-      _$GGetAllOffersVars;
-
-  static Serializer<GGetAllOffersVars> get serializer =>
-      _$gGetAllOffersVarsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetAllOffersVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetAllOffersVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetAllOffersVars.serializer,
-        json,
-      );
-}
-
-abstract class GGetMessageRoomsVars
-    implements Built<GGetMessageRoomsVars, GGetMessageRoomsVarsBuilder> {
-  GGetMessageRoomsVars._();
-
-  factory GGetMessageRoomsVars(
-          [void Function(GGetMessageRoomsVarsBuilder b) updates]) =
-      _$GGetMessageRoomsVars;
-
-  static Serializer<GGetMessageRoomsVars> get serializer =>
-      _$gGetMessageRoomsVarsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessageRoomsVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessageRoomsVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetMessageRoomsVars.serializer,
-        json,
-      );
-}
-
-abstract class GGetMessagesByMessageRoomIdVars
-    implements
-        Built<GGetMessagesByMessageRoomIdVars,
-            GGetMessagesByMessageRoomIdVarsBuilder> {
-  GGetMessagesByMessageRoomIdVars._();
-
-  factory GGetMessagesByMessageRoomIdVars(
-          [void Function(GGetMessagesByMessageRoomIdVarsBuilder b) updates]) =
-      _$GGetMessagesByMessageRoomIdVars;
-
-  String get messageRoomId;
-  static Serializer<GGetMessagesByMessageRoomIdVars> get serializer =>
-      _$gGetMessagesByMessageRoomIdVarsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetMessagesByMessageRoomIdVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetMessagesByMessageRoomIdVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetMessagesByMessageRoomIdVars.serializer,
-        json,
-      );
-}
-
-abstract class GGetNotificationsVars
-    implements Built<GGetNotificationsVars, GGetNotificationsVarsBuilder> {
-  GGetNotificationsVars._();
-
-  factory GGetNotificationsVars(
-          [void Function(GGetNotificationsVarsBuilder b) updates]) =
-      _$GGetNotificationsVars;
-
-  int get count;
-  int get offset;
-  static Serializer<GGetNotificationsVars> get serializer =>
-      _$gGetNotificationsVarsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetNotificationsVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetNotificationsVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetNotificationsVars.serializer,
-        json,
-      );
-}
-
-abstract class GGetUserDataVars
-    implements Built<GGetUserDataVars, GGetUserDataVarsBuilder> {
-  GGetUserDataVars._();
-
-  factory GGetUserDataVars([void Function(GGetUserDataVarsBuilder b) updates]) =
-      _$GGetUserDataVars;
-
-  String get userId;
-  static Serializer<GGetUserDataVars> get serializer =>
-      _$gGetUserDataVarsSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GGetUserDataVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GGetUserDataVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GGetUserDataVars.serializer,
-        json,
-      );
-}
-
 abstract class GGetOverviewDataVars
     implements Built<GGetOverviewDataVars, GGetOverviewDataVarsBuilder> {
   GGetOverviewDataVars._();
@@ -329,6 +187,28 @@ abstract class GGetCommunitiesVars
       );
 }
 
+abstract class GGetUserInfoVars
+    implements Built<GGetUserInfoVars, GGetUserInfoVarsBuilder> {
+  GGetUserInfoVars._();
+
+  factory GGetUserInfoVars([void Function(GGetUserInfoVarsBuilder b) updates]) =
+      _$GGetUserInfoVars;
+
+  static Serializer<GGetUserInfoVars> get serializer =>
+      _$gGetUserInfoVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserInfoVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserInfoVars? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserInfoVars.serializer,
+        json,
+      );
+}
+
 abstract class GGetOfferStatsByUserVars
     implements
         Built<GGetOfferStatsByUserVars, GGetOfferStatsByUserVarsBuilder> {
@@ -362,7 +242,7 @@ abstract class GGetOffersByOwnerVars
           [void Function(GGetOffersByOwnerVarsBuilder b) updates]) =
       _$GGetOffersByOwnerVars;
 
-  String get ownerId;
+  String get userId;
   static Serializer<GGetOffersByOwnerVars> get serializer =>
       _$gGetOffersByOwnerVarsSerializer;
 
@@ -409,7 +289,6 @@ abstract class GGetOffersVars
   factory GGetOffersVars([void Function(GGetOffersVarsBuilder b) updates]) =
       _$GGetOffersVars;
 
-  int get count;
   static Serializer<GGetOffersVars> get serializer =>
       _$gGetOffersVarsSerializer;
 
@@ -421,6 +300,29 @@ abstract class GGetOffersVars
   static GGetOffersVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetOffersVars.serializer,
+        json,
+      );
+}
+
+abstract class GGetAllOffersVars
+    implements Built<GGetAllOffersVars, GGetAllOffersVarsBuilder> {
+  GGetAllOffersVars._();
+
+  factory GGetAllOffersVars(
+          [void Function(GGetAllOffersVarsBuilder b) updates]) =
+      _$GGetAllOffersVars;
+
+  static Serializer<GGetAllOffersVars> get serializer =>
+      _$gGetAllOffersVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetAllOffersVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetAllOffersVars? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetAllOffersVars.serializer,
         json,
       );
 }
@@ -450,6 +352,30 @@ abstract class GGetOffersByCategoryVars
       );
 }
 
+abstract class GGetMessageRoomsVars
+    implements Built<GGetMessageRoomsVars, GGetMessageRoomsVarsBuilder> {
+  GGetMessageRoomsVars._();
+
+  factory GGetMessageRoomsVars(
+          [void Function(GGetMessageRoomsVarsBuilder b) updates]) =
+      _$GGetMessageRoomsVars;
+
+  String get userId;
+  static Serializer<GGetMessageRoomsVars> get serializer =>
+      _$gGetMessageRoomsVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetMessageRoomsVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetMessageRoomsVars? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetMessageRoomsVars.serializer,
+        json,
+      );
+}
+
 abstract class GGetMessagesInProgressVars
     implements
         Built<GGetMessagesInProgressVars, GGetMessagesInProgressVarsBuilder> {
@@ -459,6 +385,7 @@ abstract class GGetMessagesInProgressVars
           [void Function(GGetMessagesInProgressVarsBuilder b) updates]) =
       _$GGetMessagesInProgressVars;
 
+  String get userId;
   static Serializer<GGetMessagesInProgressVars> get serializer =>
       _$gGetMessagesInProgressVarsSerializer;
 
@@ -470,6 +397,58 @@ abstract class GGetMessagesInProgressVars
   static GGetMessagesInProgressVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetMessagesInProgressVars.serializer,
+        json,
+      );
+}
+
+abstract class GGetMessagesByMessageRoomIdVars
+    implements
+        Built<GGetMessagesByMessageRoomIdVars,
+            GGetMessagesByMessageRoomIdVarsBuilder> {
+  GGetMessagesByMessageRoomIdVars._();
+
+  factory GGetMessagesByMessageRoomIdVars(
+          [void Function(GGetMessagesByMessageRoomIdVarsBuilder b) updates]) =
+      _$GGetMessagesByMessageRoomIdVars;
+
+  String get userId;
+  String get messageRoomId;
+  static Serializer<GGetMessagesByMessageRoomIdVars> get serializer =>
+      _$gGetMessagesByMessageRoomIdVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetMessagesByMessageRoomIdVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetMessagesByMessageRoomIdVars? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetMessagesByMessageRoomIdVars.serializer,
+        json,
+      );
+}
+
+abstract class GGetNotificationsVars
+    implements Built<GGetNotificationsVars, GGetNotificationsVarsBuilder> {
+  GGetNotificationsVars._();
+
+  factory GGetNotificationsVars(
+          [void Function(GGetNotificationsVarsBuilder b) updates]) =
+      _$GGetNotificationsVars;
+
+  int get count;
+  int get offset;
+  static Serializer<GGetNotificationsVars> get serializer =>
+      _$gGetNotificationsVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetNotificationsVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetNotificationsVars? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetNotificationsVars.serializer,
         json,
       );
 }
@@ -498,6 +477,29 @@ abstract class GGetAllNotificationsVars
       );
 }
 
+abstract class GGetUserDataVars
+    implements Built<GGetUserDataVars, GGetUserDataVarsBuilder> {
+  GGetUserDataVars._();
+
+  factory GGetUserDataVars([void Function(GGetUserDataVarsBuilder b) updates]) =
+      _$GGetUserDataVars;
+
+  String get userId;
+  static Serializer<GGetUserDataVars> get serializer =>
+      _$gGetUserDataVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDataVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDataVars? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserDataVars.serializer,
+        json,
+      );
+}
+
 abstract class GGetBelongedArtistsVars
     implements Built<GGetBelongedArtistsVars, GGetBelongedArtistsVarsBuilder> {
   GGetBelongedArtistsVars._();
@@ -518,6 +520,31 @@ abstract class GGetBelongedArtistsVars
   static GGetBelongedArtistsVars? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GGetBelongedArtistsVars.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserDetailProfileVars
+    implements
+        Built<GGetUserDetailProfileVars, GGetUserDetailProfileVarsBuilder> {
+  GGetUserDetailProfileVars._();
+
+  factory GGetUserDetailProfileVars(
+          [void Function(GGetUserDetailProfileVarsBuilder b) updates]) =
+      _$GGetUserDetailProfileVars;
+
+  String get userId;
+  static Serializer<GGetUserDetailProfileVars> get serializer =>
+      _$gGetUserDetailProfileVarsSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GGetUserDetailProfileVars.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDetailProfileVars? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GGetUserDetailProfileVars.serializer,
         json,
       );
 }

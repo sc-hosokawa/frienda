@@ -25,6 +25,15 @@ class WalkthroughPage4 extends StatelessWidget {
           },
           child: const Text('ログイン'),
         ),
+        TextButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/signup');
+          },
+          child: const Text(
+            '新規登録',
+            style: TextStyle(fontSize: 14, color: Colors.green),
+          ),
+        ),
       ],
     );
   }

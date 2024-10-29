@@ -18,6 +18,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GContactToAdminInput.serializer)
       ..add(GContactToAdminReq.serializer)
       ..add(GContactToAdminVars.serializer)
+      ..add(GCreateBulkFspTxData.serializer)
+      ..add(GCreateBulkFspTxData_createBulkFspTx.serializer)
+      ..add(GCreateBulkFspTxReq.serializer)
+      ..add(GCreateBulkFspTxVars.serializer)
       ..add(GCreateFspTxData.serializer)
       ..add(GCreateFspTxData_createFspTx.serializer)
       ..add(GCreateFspTxReq.serializer)
@@ -42,12 +46,17 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GCreateNewOfferInput.serializer)
       ..add(GCreateNewOfferReq.serializer)
       ..add(GCreateNewOfferVars.serializer)
+      ..add(GCreateNewPrizeInput.serializer)
       ..add(GCreateNewTransactionInput.serializer)
       ..add(GCreateNewUserDataData.serializer)
       ..add(GCreateNewUserDataData_createNewUserData.serializer)
       ..add(GCreateNewUserDataInput.serializer)
       ..add(GCreateNewUserDataReq.serializer)
       ..add(GCreateNewUserDataVars.serializer)
+      ..add(GCreatePrizeData.serializer)
+      ..add(GCreatePrizeData_createPrize.serializer)
+      ..add(GCreatePrizeReq.serializer)
+      ..add(GCreatePrizeVars.serializer)
       ..add(GDeleteNotificationData.serializer)
       ..add(GDeleteNotificationData_deleteNotification.serializer)
       ..add(GDeleteNotificationInput.serializer)
@@ -58,6 +67,11 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GDeleteOfferInput.serializer)
       ..add(GDeleteOfferReq.serializer)
       ..add(GDeleteOfferVars.serializer)
+      ..add(GExchangePrizeData.serializer)
+      ..add(GExchangePrizeData_exchangePrize.serializer)
+      ..add(GExchangePrizeInput.serializer)
+      ..add(GExchangePrizeReq.serializer)
+      ..add(GExchangePrizeVars.serializer)
       ..add(GGetAllArtistsData.serializer)
       ..add(GGetAllArtistsData_getAllArtists.serializer)
       ..add(GGetAllArtistsData_getAllArtists_artistList.serializer)
@@ -119,11 +133,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GGetMessageRoomsData.serializer)
       ..add(GGetMessageRoomsData_getMessageRooms.serializer)
       ..add(GGetMessageRoomsData_getMessageRooms_messageRoomList.serializer)
-      ..add(GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage
-          .serializer)
-      ..add(
-          GGetMessageRoomsData_getMessageRooms_messageRoomList_latestMessage_sendBy
-              .serializer)
       ..add(GGetMessageRoomsReq.serializer)
       ..add(GGetMessageRoomsVars.serializer)
       ..add(GGetMessagesByMessageRoomIdData.serializer)
@@ -131,9 +140,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
           GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId.serializer)
       ..add(
           GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList
-              .serializer)
-      ..add(
-          GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_messageList_sendBy
               .serializer)
       ..add(GGetMessagesByMessageRoomIdData_getMessagesByMessageRoomId_to
           .serializer)
@@ -143,12 +149,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GGetMessagesInProgressData_getMessagesInProgress.serializer)
       ..add(GGetMessagesInProgressData_getMessagesInProgress_messageRoomList
           .serializer)
-      ..add(
-          GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage
-              .serializer)
-      ..add(
-          GGetMessagesInProgressData_getMessagesInProgress_messageRoomList_latestMessage_sendBy
-              .serializer)
       ..add(GGetMessagesInProgressReq.serializer)
       ..add(GGetMessagesInProgressVars.serializer)
       ..add(GGetNotificationsData.serializer)
@@ -172,7 +172,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GGetOffersByOwnerVars.serializer)
       ..add(GGetOffersByStatusData.serializer)
       ..add(GGetOffersByStatusData_getOffersByStatus.serializer)
-      ..add(GGetOffersByStatusData_getOffersByStatus_appledOffers.serializer)
+      ..add(GGetOffersByStatusData_getOffersByStatus_appliedOffers.serializer)
       ..add(
           GGetOffersByStatusData_getOffersByStatus_inprogressOffers.serializer)
       ..add(GGetOffersByStatusReq.serializer)
@@ -214,6 +214,14 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GGetUserDataData_getUserData_primaryArtist.serializer)
       ..add(GGetUserDataReq.serializer)
       ..add(GGetUserDataVars.serializer)
+      ..add(GGetUserDetailProfileData.serializer)
+      ..add(GGetUserDetailProfileData_getUserDetailProfile.serializer)
+      ..add(GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists
+          .serializer)
+      ..add(GGetUserDetailProfileData_getUserDetailProfile_primaryArtist
+          .serializer)
+      ..add(GGetUserDetailProfileReq.serializer)
+      ..add(GGetUserDetailProfileVars.serializer)
       ..add(GGetUserInfoData.serializer)
       ..add(GGetUserInfoData_getUserInfo.serializer)
       ..add(GGetUserInfoData_getUserInfo_userInfo.serializer)
@@ -235,10 +243,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus
           .serializer)
       ..add(
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-              .serializer)
-      ..add(
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
               .serializer)
       ..add(GUpdateBelongsToArtistStatusInput.serializer)
       ..add(GUpdateBelongsToArtistStatusReq.serializer)
@@ -248,11 +253,16 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUpdateNotificationInput.serializer)
       ..add(GUpdateNotificationReq.serializer)
       ..add(GUpdateNotificationVars.serializer)
-      ..add(GUpdateOfferData.serializer)
-      ..add(GUpdateOfferData_updateOffer.serializer)
+      ..add(GUpdateOfferInfoData.serializer)
+      ..add(GUpdateOfferInfoData_updateOfferInfo.serializer)
+      ..add(GUpdateOfferInfoReq.serializer)
+      ..add(GUpdateOfferInfoVars.serializer)
       ..add(GUpdateOfferInput.serializer)
-      ..add(GUpdateOfferReq.serializer)
-      ..add(GUpdateOfferVars.serializer)
+      ..add(GUpdateOfferStatusData.serializer)
+      ..add(GUpdateOfferStatusData_updateOfferStatus.serializer)
+      ..add(GUpdateOfferStatusInput.serializer)
+      ..add(GUpdateOfferStatusReq.serializer)
+      ..add(GUpdateOfferStatusVars.serializer)
       ..add(GUpdateUserDataData.serializer)
       ..add(GUpdateUserDataData_updateUserData.serializer)
       ..add(GUpdateUserDataData_updateUserData_userInfo.serializer)
@@ -263,6 +273,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GUpdateUserDataInput.serializer)
       ..add(GUpdateUserDataReq.serializer)
       ..add(GUpdateUserDataVars.serializer)
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GCreateNewTransactionInput)]),
+          () => new ListBuilder<GCreateNewTransactionInput>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(GGetAllArtistsData_getAllArtists_artistList)
@@ -358,10 +372,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(
-                GGetOffersByStatusData_getOffersByStatus_appledOffers)
+                GGetOffersByStatusData_getOffersByStatus_appliedOffers)
           ]),
           () => new ListBuilder<
-              GGetOffersByStatusData_getOffersByStatus_appledOffers>())
+              GGetOffersByStatusData_getOffersByStatus_appliedOffers>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GGetOffersData_getOffers_offerList)]),
@@ -378,26 +392,17 @@ Serializers _$serializers = (new Serializers().toBuilder()
               GGetTrendingDataData_getTrendingData_trendingTracks>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
-            const FullType(
-                GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList)
-          ]),
-          () => new ListBuilder<
-              GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [
             const FullType(GGetUserDataData_getUserData_belongsToArtists)
           ]),
           () =>
               new ListBuilder<GGetUserDataData_getUserData_belongsToArtists>())
       ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          const FullType(BuiltList, const [
+            const FullType(
+                GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists)
+          ]),
+          () => new ListBuilder<
+              GGetUserDetailProfileData_getUserDetailProfile_belongsToArtists>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(
@@ -405,9 +410,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
           ]),
           () => new ListBuilder<
               GGetUserInfoData_getUserInfo_userInfo_belongsToArtists>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(

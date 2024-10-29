@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:client/presentation/screens/main_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/auth_provider.dart';
+import 'package:client/presentation/screens/web_view_screen.dart';
+import 'package:client/presentation/screens/auth/profile_setup.dart';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -16,6 +18,12 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
+
+  final _linkButtonStyle = TextButton.styleFrom(
+    padding: EdgeInsets.symmetric(vertical: 4),
+    foregroundColor: Colors.green,
+    textStyle: TextStyle(fontSize: 12),
+  );
 
   @override
   void dispose() {
@@ -69,10 +77,53 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                         onPressed: _register,
                         child: Text('登録'),
                       ),
+                SizedBox(height: 48),
+                Text(
+                  '登録をした方は以下の書類に同意したこととみなします',
+                  style: TextStyle(fontSize: 12),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextButton(
+                      style: _linkButtonStyle,
+                      onPressed: () => _openWebView(
+                          'プライバシーポリシー', 'https://example.com/privacy'),
+                      child: Text('プライバシーポリシー'),
+                    ),
+                    TextButton(
+                      style: _linkButtonStyle,
+                      onPressed: () =>
+                          _openWebView('利用規約', 'https://example.com/terms'),
+                      child: Text('利用規約'),
+                    ),
+                    TextButton(
+                      style: _linkButtonStyle,
+                      onPressed: () => _openWebView('特定商取引法',
+                          'https://example.com/specified-commercial-transactions'),
+                      child: Text('特定商取引法'),
+                    ),
+                    TextButton(
+                      style: _linkButtonStyle,
+                      onPressed: () => _openWebView(
+                          '資金決済法', 'https://example.com/fund-settlement'),
+                      child: Text('資金決済法'),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _openWebView(String title, String url) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WebViewScreen(title: title, url: url),
       ),
     );
   }
@@ -89,10 +140,28 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           password: _passwordController.text,
         );
 
-        await ref.read(authProvider.notifier).setAuthInfo(userCredential.user!);
+        final User user = userCredential.user!;
+
+        final String? idToken = await user.getIdToken();
+        if (idToken == null) {
+          throw Exception('IDトークンの取得に失敗しました');
+        }
+
+        await ref.read(authProvider.notifier).setAuthInfo(user);
 
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => MainScreen()));
+          context,
+          MaterialPageRoute(
+            builder: (_) => ProfileSetupScreen(
+              user: user,
+              initialData: {
+                'uid': user.uid,
+                'email': user.email ?? '',
+                'idToken': idToken,
+              },
+            ),
+          ),
+        );
       } on FirebaseAuthException catch (e) {
         String message;
         if (e.code == 'weak-password') {
@@ -105,10 +174,12 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(message)),
         );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('エラーが発生しました: ${e.toString()}')),
+        );
       } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() => _isLoading = false);
       }
     }
   }

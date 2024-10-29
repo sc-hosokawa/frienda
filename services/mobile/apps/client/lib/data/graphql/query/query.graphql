@@ -4,134 +4,6 @@ query HealthCheck {
   }
 }
 
-# Login時に取得するユーザー情報
-query GetUserInfo {
-  getUserInfo {
-    userInfo {
-      id
-      email
-      name
-      imageUrl
-      fspBalance
-      fspBalanceTemp
-      credentialBalance
-      roles
-      primaryRole
-      belongsToArtists {
-        id
-        name
-        imageUrl
-        isAccepted
-      }
-      primaryArtist {
-        id
-        name
-        imageUrl
-        isAccepted
-      }
-    }
-  }
-}
-
-query GetAllOffers {
-  getAllOffers {
-    id
-    title
-    description
-    imageUrl
-    fee
-    category
-  }
-}
-
-query GetMessageRooms {
-  getMessageRooms {
-    messageRoomList {
-      id
-      countOfMessages
-      category
-      latestMessage {
-        id
-        sendBy {
-          id
-          name
-          imageUrl
-        }
-        message
-        createdAt
-        attachedFile
-        attachedImg
-      }
-      latestSentAt
-      isRead
-    }
-    countOfMessageRooms
-  }
-}
-
-query GetMessagesByMessageRoomId($messageRoomId: String!) {
-  getMessagesByMessageRoomId(messageRoomId: $messageRoomId) {
-    id
-    to {
-      id
-      name
-      imageUrl
-    }
-    messageList {
-      id
-      sendBy {
-        id
-        name
-        imageUrl
-      }
-      message
-      createdAt
-      attachedFile
-      attachedImg
-    }
-  }
-}
-
-query GetNotifications($count: Int!, $offset: Int!) {
-  getNotifications(count: $count, offset: $offset) {
-    notifications {
-      id
-      title
-      content
-      createdAt
-      updatedAt
-    }
-  }
-}
-
-query GetUserData($userId: String!) {
-  getUserData(userId: $userId) {
-    id
-    email
-    name
-    imageUrl
-    fspBalance
-    fspBalanceTemp
-    credentialBalance
-    roles
-    primaryRole
-    belongsToArtists {
-      id
-      name
-      imageUrl
-      isAccepted
-    }
-    primaryArtist {
-      id
-      name
-      imageUrl
-      isAccepted
-    }
-  }
-}
-
-# 新しいクエリを追加
-
 query GetOverviewData($artistId: String) {
   getOverviewData(artistId: $artistId) {
     totalPlaybacks
@@ -182,13 +54,15 @@ query GetCommunities {
         id
         name
         imageUrl
-        roles
+        role
         primaryRole
         primaryArtist {
           id
           name
           imageUrl
-          isAccepted
+          fsp
+          status
+          isAdmin
         }
       }
     }
@@ -196,19 +70,49 @@ query GetCommunities {
   }
 }
 
+query GetUserInfo {
+  getUserInfo {
+    userInfo {
+      id
+      email
+      name
+      imageUrl
+      fspBalance
+      credentialBalance
+      role
+      primaryRole
+      belongsToArtists {
+        id
+        name
+        imageUrl
+        fsp
+        status
+        isAdmin
+      }
+      primaryArtist {
+        id
+        name
+        imageUrl
+        fsp
+        status
+        isAdmin
+      }
+    }
+  }
+}
+
 query GetOfferStatsByUser($userId: String!) {
   getOfferStatsByUser(userId: $userId) {
-    inprogressOffers
-    appledOffers
+    totalOffers
+    ongoingOffers
+    appliedOffers
     completedOffers
-    rejectedOffers
-    canceledOffers
     totalEarnings
   }
 }
 
-query GetOffersByOwner($ownerId: String!) {
-  getOffersByOwner(ownerId: $ownerId) {
+query GetOffersByOwner($userId: String!) {
+  getOffersByOwner(userId: $userId) {
     offerList {
       id
       title
@@ -230,7 +134,7 @@ query GetOffersByStatus($userId: String!) {
       fee
       category
     }
-    appledOffers {
+    appliedOffers {
       id
       title
       description
@@ -241,8 +145,8 @@ query GetOffersByStatus($userId: String!) {
   }
 }
 
-query GetOffers($count: Int!) {
-  getOffers(count: $count) {
+query GetOffers {
+  getOffers {
     offerList {
       id
       title
@@ -251,6 +155,17 @@ query GetOffers($count: Int!) {
       fee
       category
     }
+  }
+}
+
+query GetAllOffers {
+  getAllOffers {
+    id
+    title
+    description
+    imageUrl
+    fee
+    category
   }
 }
 
@@ -267,28 +182,57 @@ query GetOffersByCategory($category: String!) {
   }
 }
 
-query GetMessagesInProgress {
-  getMessagesInProgress {
+query GetMessageRooms($userId: String!) {
+  getMessageRooms(userId: $userId) {
     messageRoomList {
       id
-      countOfMessages
       category
-      latestMessage {
-        id
-        sendBy {
-          id
-          name
-          imageUrl
-        }
-        message
-        createdAt
-        attachedFile
-        attachedImg
-      }
+      latestMessage
       latestSentAt
       isRead
     }
     countOfMessageRooms
+  }
+}
+
+query GetMessagesInProgress($userId: String!) {
+  getMessagesInProgress(userId: $userId) {
+    messageRoomList {
+      id
+      category
+      latestMessage
+      latestSentAt
+      isRead
+    }
+    countOfMessageRooms
+  }
+}
+
+query GetMessagesByMessageRoomId($userId: String!, $messageRoomId: String!) {
+  getMessagesByMessageRoomId(userId: $userId, messageRoomId: $messageRoomId) {
+    id
+    to {
+      id
+      name
+      imageUrl
+    }
+    messageList {
+      id
+      content
+      sentAt
+    }
+  }
+}
+
+query GetNotifications($count: Int!, $offset: Int!) {
+  getNotifications(count: $count, offset: $offset) {
+    notifications {
+      id
+      title
+      content
+      createdAt
+      updatedAt
+    }
   }
 }
 
@@ -304,13 +248,73 @@ query GetAllNotifications {
   }
 }
 
+query GetUserData($userId: String!) {
+  getUserData(userId: $userId) {
+    id
+    email
+    name
+    imageUrl
+    fspBalance
+    credentialBalance
+    role
+    primaryRole
+    belongsToArtists {
+      id
+      name
+      imageUrl
+      fsp
+      status
+      isAdmin
+    }
+    primaryArtist {
+      id
+      name
+      imageUrl
+      fsp
+      status
+      isAdmin
+    }
+  }
+}
+
 query GetBelongedArtists($userId: String!) {
   getBelongedArtists(userId: $userId) {
     artistList {
       id
       name
       imageUrl
-      isAccepted
+      fsp
+      status
+      isAdmin
+    }
+  }
+}
+
+query GetUserDetailProfile($userId: String!) {
+  getUserDetailProfile(userId: $userId) {
+    id
+    email
+    name
+    imageUrl
+    fspBalance
+    credentialBalance
+    role
+    primaryRole
+    belongsToArtists {
+      id
+      name
+      imageUrl
+      fsp
+      status
+      isAdmin
+    }
+    primaryArtist {
+      id
+      name
+      imageUrl
+      fsp
+      status
+      isAdmin
     }
   }
 }

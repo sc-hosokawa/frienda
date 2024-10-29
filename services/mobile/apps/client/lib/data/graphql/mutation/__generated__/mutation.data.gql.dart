@@ -71,308 +71,6 @@ abstract class GAddNewConnectionData_addNewConnection
       );
 }
 
-abstract class GCreateNewMessageRoomData
-    implements
-        Built<GCreateNewMessageRoomData, GCreateNewMessageRoomDataBuilder> {
-  GCreateNewMessageRoomData._();
-
-  factory GCreateNewMessageRoomData(
-          [void Function(GCreateNewMessageRoomDataBuilder b) updates]) =
-      _$GCreateNewMessageRoomData;
-
-  static void _initializeBuilder(GCreateNewMessageRoomDataBuilder b) =>
-      b..G__typename = 'MutationRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GCreateNewMessageRoomData_createNewMessageRoom get createNewMessageRoom;
-  static Serializer<GCreateNewMessageRoomData> get serializer =>
-      _$gCreateNewMessageRoomDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateNewMessageRoomData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreateNewMessageRoomData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreateNewMessageRoomData.serializer,
-        json,
-      );
-}
-
-abstract class GCreateNewMessageRoomData_createNewMessageRoom
-    implements
-        Built<GCreateNewMessageRoomData_createNewMessageRoom,
-            GCreateNewMessageRoomData_createNewMessageRoomBuilder> {
-  GCreateNewMessageRoomData_createNewMessageRoom._();
-
-  factory GCreateNewMessageRoomData_createNewMessageRoom(
-      [void Function(GCreateNewMessageRoomData_createNewMessageRoomBuilder b)
-          updates]) = _$GCreateNewMessageRoomData_createNewMessageRoom;
-
-  static void _initializeBuilder(
-          GCreateNewMessageRoomData_createNewMessageRoomBuilder b) =>
-      b..G__typename = 'CreateNewMessageRoomResponse';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  static Serializer<GCreateNewMessageRoomData_createNewMessageRoom>
-      get serializer =>
-          _$gCreateNewMessageRoomDataCreateNewMessageRoomSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateNewMessageRoomData_createNewMessageRoom.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreateNewMessageRoomData_createNewMessageRoom? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreateNewMessageRoomData_createNewMessageRoom.serializer,
-        json,
-      );
-}
-
-abstract class GSendMessageData
-    implements Built<GSendMessageData, GSendMessageDataBuilder> {
-  GSendMessageData._();
-
-  factory GSendMessageData([void Function(GSendMessageDataBuilder b) updates]) =
-      _$GSendMessageData;
-
-  static void _initializeBuilder(GSendMessageDataBuilder b) =>
-      b..G__typename = 'MutationRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GSendMessageData_sendMessage get sendMessage;
-  static Serializer<GSendMessageData> get serializer =>
-      _$gSendMessageDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GSendMessageData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GSendMessageData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GSendMessageData.serializer,
-        json,
-      );
-}
-
-abstract class GSendMessageData_sendMessage
-    implements
-        Built<GSendMessageData_sendMessage,
-            GSendMessageData_sendMessageBuilder> {
-  GSendMessageData_sendMessage._();
-
-  factory GSendMessageData_sendMessage(
-          [void Function(GSendMessageData_sendMessageBuilder b) updates]) =
-      _$GSendMessageData_sendMessage;
-
-  static void _initializeBuilder(GSendMessageData_sendMessageBuilder b) =>
-      b..G__typename = 'SendMessageResponse';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  String get id;
-  static Serializer<GSendMessageData_sendMessage> get serializer =>
-      _$gSendMessageDataSendMessageSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GSendMessageData_sendMessage.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GSendMessageData_sendMessage? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GSendMessageData_sendMessage.serializer,
-        json,
-      );
-}
-
-abstract class GCreateNewOfferData
-    implements Built<GCreateNewOfferData, GCreateNewOfferDataBuilder> {
-  GCreateNewOfferData._();
-
-  factory GCreateNewOfferData(
-          [void Function(GCreateNewOfferDataBuilder b) updates]) =
-      _$GCreateNewOfferData;
-
-  static void _initializeBuilder(GCreateNewOfferDataBuilder b) =>
-      b..G__typename = 'MutationRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GCreateNewOfferData_createNewOffer get createNewOffer;
-  static Serializer<GCreateNewOfferData> get serializer =>
-      _$gCreateNewOfferDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateNewOfferData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreateNewOfferData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreateNewOfferData.serializer,
-        json,
-      );
-}
-
-abstract class GCreateNewOfferData_createNewOffer
-    implements
-        Built<GCreateNewOfferData_createNewOffer,
-            GCreateNewOfferData_createNewOfferBuilder> {
-  GCreateNewOfferData_createNewOffer._();
-
-  factory GCreateNewOfferData_createNewOffer(
-      [void Function(GCreateNewOfferData_createNewOfferBuilder b)
-          updates]) = _$GCreateNewOfferData_createNewOffer;
-
-  static void _initializeBuilder(GCreateNewOfferData_createNewOfferBuilder b) =>
-      b..G__typename = 'CreateNewOfferResponse';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  int get id;
-  static Serializer<GCreateNewOfferData_createNewOffer> get serializer =>
-      _$gCreateNewOfferDataCreateNewOfferSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GCreateNewOfferData_createNewOffer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GCreateNewOfferData_createNewOffer? fromJson(
-          Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GCreateNewOfferData_createNewOffer.serializer,
-        json,
-      );
-}
-
-abstract class GUpdateOfferData
-    implements Built<GUpdateOfferData, GUpdateOfferDataBuilder> {
-  GUpdateOfferData._();
-
-  factory GUpdateOfferData([void Function(GUpdateOfferDataBuilder b) updates]) =
-      _$GUpdateOfferData;
-
-  static void _initializeBuilder(GUpdateOfferDataBuilder b) =>
-      b..G__typename = 'MutationRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GUpdateOfferData_updateOffer get updateOffer;
-  static Serializer<GUpdateOfferData> get serializer =>
-      _$gUpdateOfferDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateOfferData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GUpdateOfferData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GUpdateOfferData.serializer,
-        json,
-      );
-}
-
-abstract class GUpdateOfferData_updateOffer
-    implements
-        Built<GUpdateOfferData_updateOffer,
-            GUpdateOfferData_updateOfferBuilder> {
-  GUpdateOfferData_updateOffer._();
-
-  factory GUpdateOfferData_updateOffer(
-          [void Function(GUpdateOfferData_updateOfferBuilder b) updates]) =
-      _$GUpdateOfferData_updateOffer;
-
-  static void _initializeBuilder(GUpdateOfferData_updateOfferBuilder b) =>
-      b..G__typename = 'UpdateOfferResponse';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  int get id;
-  static Serializer<GUpdateOfferData_updateOffer> get serializer =>
-      _$gUpdateOfferDataUpdateOfferSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateOfferData_updateOffer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GUpdateOfferData_updateOffer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GUpdateOfferData_updateOffer.serializer,
-        json,
-      );
-}
-
-abstract class GDeleteOfferData
-    implements Built<GDeleteOfferData, GDeleteOfferDataBuilder> {
-  GDeleteOfferData._();
-
-  factory GDeleteOfferData([void Function(GDeleteOfferDataBuilder b) updates]) =
-      _$GDeleteOfferData;
-
-  static void _initializeBuilder(GDeleteOfferDataBuilder b) =>
-      b..G__typename = 'MutationRoot';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  GDeleteOfferData_deleteOffer get deleteOffer;
-  static Serializer<GDeleteOfferData> get serializer =>
-      _$gDeleteOfferDataSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDeleteOfferData.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GDeleteOfferData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GDeleteOfferData.serializer,
-        json,
-      );
-}
-
-abstract class GDeleteOfferData_deleteOffer
-    implements
-        Built<GDeleteOfferData_deleteOffer,
-            GDeleteOfferData_deleteOfferBuilder> {
-  GDeleteOfferData_deleteOffer._();
-
-  factory GDeleteOfferData_deleteOffer(
-          [void Function(GDeleteOfferData_deleteOfferBuilder b) updates]) =
-      _$GDeleteOfferData_deleteOffer;
-
-  static void _initializeBuilder(GDeleteOfferData_deleteOfferBuilder b) =>
-      b..G__typename = 'DeleteOfferResponse';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  int get id;
-  static Serializer<GDeleteOfferData_deleteOffer> get serializer =>
-      _$gDeleteOfferDataDeleteOfferSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GDeleteOfferData_deleteOffer.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GDeleteOfferData_deleteOffer? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(
-        GDeleteOfferData_deleteOffer.serializer,
-        json,
-      );
-}
-
 abstract class GCreateNewUserDataData
     implements Built<GCreateNewUserDataData, GCreateNewUserDataDataBuilder> {
   GCreateNewUserDataData._();
@@ -519,9 +217,8 @@ abstract class GUpdateUserDataData_updateUserData_userInfo
   String get name;
   String? get imageUrl;
   int get fspBalance;
-  int get fspBalanceTemp;
   int get credentialBalance;
-  BuiltList<String> get roles;
+  String get role;
   String get primaryRole;
   BuiltList<GUpdateUserDataData_updateUserData_userInfo_belongsToArtists>
       get belongsToArtists;
@@ -565,7 +262,9 @@ abstract class GUpdateUserDataData_updateUserData_userInfo_belongsToArtists
   String get id;
   String get name;
   String? get imageUrl;
-  bool get isAccepted;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
   static Serializer<
           GUpdateUserDataData_updateUserData_userInfo_belongsToArtists>
       get serializer =>
@@ -605,7 +304,9 @@ abstract class GUpdateUserDataData_updateUserData_userInfo_primaryArtist
   String get id;
   String get name;
   String? get imageUrl;
-  bool get isAccepted;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
   static Serializer<GUpdateUserDataData_updateUserData_userInfo_primaryArtist>
       get serializer =>
           _$gUpdateUserDataDataUpdateUserDataUserInfoPrimaryArtistSerializer;
@@ -676,8 +377,8 @@ abstract class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-      get artistList;
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
+      get updatedUserArtist;
   static Serializer<
           GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus>
       get serializer =>
@@ -696,65 +397,22 @@ abstract class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus
       );
 }
 
-abstract class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
+abstract class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
     implements
         Built<
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList,
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder> {
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList._();
+            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist,
+            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder> {
+  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist._();
 
-  factory GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList(
+  factory GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist(
           [void Function(
-                  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder
+                  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder
                       b)
               updates]) =
-      _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList;
+      _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist;
 
   static void _initializeBuilder(
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistListBuilder
-              b) =>
-      b..G__typename = 'ArtistByUserDataList';
-
-  @BuiltValueField(wireName: '__typename')
-  String get G__typename;
-  BuiltList<
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList>
-      get artistList;
-  static Serializer<
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList>
-      get serializer =>
-          _$gUpdateBelongsToArtistStatusDataUpdateBelongsToArtistStatusArtistListSerializer;
-
-  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-            .serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList?
-      fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList
-                .serializer,
-            json,
-          );
-}
-
-abstract class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
-    implements
-        Built<
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList,
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder> {
-  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList._();
-
-  factory GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList(
-          [void Function(
-                  GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder
-                      b)
-              updates]) =
-      _$GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList;
-
-  static void _initializeBuilder(
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistListBuilder
+          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtistBuilder
               b) =>
       b..G__typename = 'ArtistByUserData';
 
@@ -763,21 +421,23 @@ abstract class GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_arti
   String get id;
   String get name;
   String? get imageUrl;
-  bool get isAccepted;
+  int get fsp;
+  String get status;
+  bool get isAdmin;
   static Serializer<
-          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList>
+          GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist>
       get serializer =>
-          _$gUpdateBelongsToArtistStatusDataUpdateBelongsToArtistStatusArtistListArtistListSerializer;
+          _$gUpdateBelongsToArtistStatusDataUpdateBelongsToArtistStatusUpdatedUserArtistSerializer;
 
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
-        GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+        GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
             .serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList?
+  static GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist?
       fromJson(Map<String, dynamic> json) => _i1.serializers.deserializeWith(
-            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_artistList_artistList
+            GUpdateBelongsToArtistStatusData_updateBelongsToArtistStatus_updatedUserArtist
                 .serializer,
             json,
           );
@@ -840,6 +500,133 @@ abstract class GContactToAdminData_contactToAdmin
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GContactToAdminData_contactToAdmin.serializer,
+        json,
+      );
+}
+
+abstract class GCreateNewMessageRoomData
+    implements
+        Built<GCreateNewMessageRoomData, GCreateNewMessageRoomDataBuilder> {
+  GCreateNewMessageRoomData._();
+
+  factory GCreateNewMessageRoomData(
+          [void Function(GCreateNewMessageRoomDataBuilder b) updates]) =
+      _$GCreateNewMessageRoomData;
+
+  static void _initializeBuilder(GCreateNewMessageRoomDataBuilder b) =>
+      b..G__typename = 'MutationRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GCreateNewMessageRoomData_createNewMessageRoom get createNewMessageRoom;
+  static Serializer<GCreateNewMessageRoomData> get serializer =>
+      _$gCreateNewMessageRoomDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateNewMessageRoomData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewMessageRoomData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateNewMessageRoomData.serializer,
+        json,
+      );
+}
+
+abstract class GCreateNewMessageRoomData_createNewMessageRoom
+    implements
+        Built<GCreateNewMessageRoomData_createNewMessageRoom,
+            GCreateNewMessageRoomData_createNewMessageRoomBuilder> {
+  GCreateNewMessageRoomData_createNewMessageRoom._();
+
+  factory GCreateNewMessageRoomData_createNewMessageRoom(
+      [void Function(GCreateNewMessageRoomData_createNewMessageRoomBuilder b)
+          updates]) = _$GCreateNewMessageRoomData_createNewMessageRoom;
+
+  static void _initializeBuilder(
+          GCreateNewMessageRoomData_createNewMessageRoomBuilder b) =>
+      b..G__typename = 'CreateNewMessageRoomResponse';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  static Serializer<GCreateNewMessageRoomData_createNewMessageRoom>
+      get serializer =>
+          _$gCreateNewMessageRoomDataCreateNewMessageRoomSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateNewMessageRoomData_createNewMessageRoom.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewMessageRoomData_createNewMessageRoom? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateNewMessageRoomData_createNewMessageRoom.serializer,
+        json,
+      );
+}
+
+abstract class GSendMessageData
+    implements Built<GSendMessageData, GSendMessageDataBuilder> {
+  GSendMessageData._();
+
+  factory GSendMessageData([void Function(GSendMessageDataBuilder b) updates]) =
+      _$GSendMessageData;
+
+  static void _initializeBuilder(GSendMessageDataBuilder b) =>
+      b..G__typename = 'MutationRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GSendMessageData_sendMessage get sendMessage;
+  static Serializer<GSendMessageData> get serializer =>
+      _$gSendMessageDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GSendMessageData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GSendMessageData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GSendMessageData.serializer,
+        json,
+      );
+}
+
+abstract class GSendMessageData_sendMessage
+    implements
+        Built<GSendMessageData_sendMessage,
+            GSendMessageData_sendMessageBuilder> {
+  GSendMessageData_sendMessage._();
+
+  factory GSendMessageData_sendMessage(
+          [void Function(GSendMessageData_sendMessageBuilder b) updates]) =
+      _$GSendMessageData_sendMessage;
+
+  static void _initializeBuilder(GSendMessageData_sendMessageBuilder b) =>
+      b..G__typename = 'SendMessageResponse';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get message;
+  String get sentAt;
+  BuiltList<String>? get attachedFile;
+  BuiltList<String>? get attachedImg;
+  static Serializer<GSendMessageData_sendMessage> get serializer =>
+      _$gSendMessageDataSendMessageSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GSendMessageData_sendMessage.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GSendMessageData_sendMessage? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GSendMessageData_sendMessage.serializer,
         json,
       );
 }
@@ -1032,6 +819,251 @@ abstract class GDeleteNotificationData_deleteNotification
       );
 }
 
+abstract class GCreateNewOfferData
+    implements Built<GCreateNewOfferData, GCreateNewOfferDataBuilder> {
+  GCreateNewOfferData._();
+
+  factory GCreateNewOfferData(
+          [void Function(GCreateNewOfferDataBuilder b) updates]) =
+      _$GCreateNewOfferData;
+
+  static void _initializeBuilder(GCreateNewOfferDataBuilder b) =>
+      b..G__typename = 'MutationRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GCreateNewOfferData_createNewOffer get createNewOffer;
+  static Serializer<GCreateNewOfferData> get serializer =>
+      _$gCreateNewOfferDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateNewOfferData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewOfferData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateNewOfferData.serializer,
+        json,
+      );
+}
+
+abstract class GCreateNewOfferData_createNewOffer
+    implements
+        Built<GCreateNewOfferData_createNewOffer,
+            GCreateNewOfferData_createNewOfferBuilder> {
+  GCreateNewOfferData_createNewOffer._();
+
+  factory GCreateNewOfferData_createNewOffer(
+      [void Function(GCreateNewOfferData_createNewOfferBuilder b)
+          updates]) = _$GCreateNewOfferData_createNewOffer;
+
+  static void _initializeBuilder(GCreateNewOfferData_createNewOfferBuilder b) =>
+      b..G__typename = 'CreateNewOfferResponse';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  int get id;
+  static Serializer<GCreateNewOfferData_createNewOffer> get serializer =>
+      _$gCreateNewOfferDataCreateNewOfferSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateNewOfferData_createNewOffer.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewOfferData_createNewOffer? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateNewOfferData_createNewOffer.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateOfferInfoData
+    implements Built<GUpdateOfferInfoData, GUpdateOfferInfoDataBuilder> {
+  GUpdateOfferInfoData._();
+
+  factory GUpdateOfferInfoData(
+          [void Function(GUpdateOfferInfoDataBuilder b) updates]) =
+      _$GUpdateOfferInfoData;
+
+  static void _initializeBuilder(GUpdateOfferInfoDataBuilder b) =>
+      b..G__typename = 'MutationRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GUpdateOfferInfoData_updateOfferInfo get updateOfferInfo;
+  static Serializer<GUpdateOfferInfoData> get serializer =>
+      _$gUpdateOfferInfoDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateOfferInfoData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateOfferInfoData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateOfferInfoData.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateOfferInfoData_updateOfferInfo
+    implements
+        Built<GUpdateOfferInfoData_updateOfferInfo,
+            GUpdateOfferInfoData_updateOfferInfoBuilder> {
+  GUpdateOfferInfoData_updateOfferInfo._();
+
+  factory GUpdateOfferInfoData_updateOfferInfo(
+      [void Function(GUpdateOfferInfoData_updateOfferInfoBuilder b)
+          updates]) = _$GUpdateOfferInfoData_updateOfferInfo;
+
+  static void _initializeBuilder(
+          GUpdateOfferInfoData_updateOfferInfoBuilder b) =>
+      b..G__typename = 'UpdateOfferResponse';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  int get id;
+  static Serializer<GUpdateOfferInfoData_updateOfferInfo> get serializer =>
+      _$gUpdateOfferInfoDataUpdateOfferInfoSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateOfferInfoData_updateOfferInfo.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateOfferInfoData_updateOfferInfo? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateOfferInfoData_updateOfferInfo.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateOfferStatusData
+    implements Built<GUpdateOfferStatusData, GUpdateOfferStatusDataBuilder> {
+  GUpdateOfferStatusData._();
+
+  factory GUpdateOfferStatusData(
+          [void Function(GUpdateOfferStatusDataBuilder b) updates]) =
+      _$GUpdateOfferStatusData;
+
+  static void _initializeBuilder(GUpdateOfferStatusDataBuilder b) =>
+      b..G__typename = 'MutationRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GUpdateOfferStatusData_updateOfferStatus get updateOfferStatus;
+  static Serializer<GUpdateOfferStatusData> get serializer =>
+      _$gUpdateOfferStatusDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateOfferStatusData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateOfferStatusData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateOfferStatusData.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateOfferStatusData_updateOfferStatus
+    implements
+        Built<GUpdateOfferStatusData_updateOfferStatus,
+            GUpdateOfferStatusData_updateOfferStatusBuilder> {
+  GUpdateOfferStatusData_updateOfferStatus._();
+
+  factory GUpdateOfferStatusData_updateOfferStatus(
+      [void Function(GUpdateOfferStatusData_updateOfferStatusBuilder b)
+          updates]) = _$GUpdateOfferStatusData_updateOfferStatus;
+
+  static void _initializeBuilder(
+          GUpdateOfferStatusData_updateOfferStatusBuilder b) =>
+      b..G__typename = 'UpdateOfferStatusResponse';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  int get id;
+  int get offerId;
+  static Serializer<GUpdateOfferStatusData_updateOfferStatus> get serializer =>
+      _$gUpdateOfferStatusDataUpdateOfferStatusSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateOfferStatusData_updateOfferStatus.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateOfferStatusData_updateOfferStatus? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateOfferStatusData_updateOfferStatus.serializer,
+        json,
+      );
+}
+
+abstract class GDeleteOfferData
+    implements Built<GDeleteOfferData, GDeleteOfferDataBuilder> {
+  GDeleteOfferData._();
+
+  factory GDeleteOfferData([void Function(GDeleteOfferDataBuilder b) updates]) =
+      _$GDeleteOfferData;
+
+  static void _initializeBuilder(GDeleteOfferDataBuilder b) =>
+      b..G__typename = 'MutationRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GDeleteOfferData_deleteOffer get deleteOffer;
+  static Serializer<GDeleteOfferData> get serializer =>
+      _$gDeleteOfferDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GDeleteOfferData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GDeleteOfferData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GDeleteOfferData.serializer,
+        json,
+      );
+}
+
+abstract class GDeleteOfferData_deleteOffer
+    implements
+        Built<GDeleteOfferData_deleteOffer,
+            GDeleteOfferData_deleteOfferBuilder> {
+  GDeleteOfferData_deleteOffer._();
+
+  factory GDeleteOfferData_deleteOffer(
+          [void Function(GDeleteOfferData_deleteOfferBuilder b) updates]) =
+      _$GDeleteOfferData_deleteOffer;
+
+  static void _initializeBuilder(GDeleteOfferData_deleteOfferBuilder b) =>
+      b..G__typename = 'DeleteOfferResponse';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  int get id;
+  static Serializer<GDeleteOfferData_deleteOffer> get serializer =>
+      _$gDeleteOfferDataDeleteOfferSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GDeleteOfferData_deleteOffer.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GDeleteOfferData_deleteOffer? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GDeleteOfferData_deleteOffer.serializer,
+        json,
+      );
+}
+
 abstract class GCreateFspTxData
     implements Built<GCreateFspTxData, GCreateFspTxDataBuilder> {
   GCreateFspTxData._();
@@ -1075,7 +1107,7 @@ abstract class GCreateFspTxData_createFspTx
 
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  int get newBalance;
+  String get txId;
   static Serializer<GCreateFspTxData_createFspTx> get serializer =>
       _$gCreateFspTxDataCreateFspTxSerializer;
 
@@ -1087,6 +1119,189 @@ abstract class GCreateFspTxData_createFspTx
   static GCreateFspTxData_createFspTx? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateFspTxData_createFspTx.serializer,
+        json,
+      );
+}
+
+abstract class GCreateBulkFspTxData
+    implements Built<GCreateBulkFspTxData, GCreateBulkFspTxDataBuilder> {
+  GCreateBulkFspTxData._();
+
+  factory GCreateBulkFspTxData(
+          [void Function(GCreateBulkFspTxDataBuilder b) updates]) =
+      _$GCreateBulkFspTxData;
+
+  static void _initializeBuilder(GCreateBulkFspTxDataBuilder b) =>
+      b..G__typename = 'MutationRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GCreateBulkFspTxData_createBulkFspTx get createBulkFspTx;
+  static Serializer<GCreateBulkFspTxData> get serializer =>
+      _$gCreateBulkFspTxDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateBulkFspTxData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateBulkFspTxData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateBulkFspTxData.serializer,
+        json,
+      );
+}
+
+abstract class GCreateBulkFspTxData_createBulkFspTx
+    implements
+        Built<GCreateBulkFspTxData_createBulkFspTx,
+            GCreateBulkFspTxData_createBulkFspTxBuilder> {
+  GCreateBulkFspTxData_createBulkFspTx._();
+
+  factory GCreateBulkFspTxData_createBulkFspTx(
+      [void Function(GCreateBulkFspTxData_createBulkFspTxBuilder b)
+          updates]) = _$GCreateBulkFspTxData_createBulkFspTx;
+
+  static void _initializeBuilder(
+          GCreateBulkFspTxData_createBulkFspTxBuilder b) =>
+      b..G__typename = 'CreateNewTransactionResponse';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get txId;
+  static Serializer<GCreateBulkFspTxData_createBulkFspTx> get serializer =>
+      _$gCreateBulkFspTxDataCreateBulkFspTxSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateBulkFspTxData_createBulkFspTx.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateBulkFspTxData_createBulkFspTx? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateBulkFspTxData_createBulkFspTx.serializer,
+        json,
+      );
+}
+
+abstract class GCreatePrizeData
+    implements Built<GCreatePrizeData, GCreatePrizeDataBuilder> {
+  GCreatePrizeData._();
+
+  factory GCreatePrizeData([void Function(GCreatePrizeDataBuilder b) updates]) =
+      _$GCreatePrizeData;
+
+  static void _initializeBuilder(GCreatePrizeDataBuilder b) =>
+      b..G__typename = 'MutationRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GCreatePrizeData_createPrize get createPrize;
+  static Serializer<GCreatePrizeData> get serializer =>
+      _$gCreatePrizeDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreatePrizeData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreatePrizeData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreatePrizeData.serializer,
+        json,
+      );
+}
+
+abstract class GCreatePrizeData_createPrize
+    implements
+        Built<GCreatePrizeData_createPrize,
+            GCreatePrizeData_createPrizeBuilder> {
+  GCreatePrizeData_createPrize._();
+
+  factory GCreatePrizeData_createPrize(
+          [void Function(GCreatePrizeData_createPrizeBuilder b) updates]) =
+      _$GCreatePrizeData_createPrize;
+
+  static void _initializeBuilder(GCreatePrizeData_createPrizeBuilder b) =>
+      b..G__typename = 'CreateNewPrizeResponse';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  int get id;
+  static Serializer<GCreatePrizeData_createPrize> get serializer =>
+      _$gCreatePrizeDataCreatePrizeSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreatePrizeData_createPrize.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreatePrizeData_createPrize? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreatePrizeData_createPrize.serializer,
+        json,
+      );
+}
+
+abstract class GExchangePrizeData
+    implements Built<GExchangePrizeData, GExchangePrizeDataBuilder> {
+  GExchangePrizeData._();
+
+  factory GExchangePrizeData(
+          [void Function(GExchangePrizeDataBuilder b) updates]) =
+      _$GExchangePrizeData;
+
+  static void _initializeBuilder(GExchangePrizeDataBuilder b) =>
+      b..G__typename = 'MutationRoot';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GExchangePrizeData_exchangePrize get exchangePrize;
+  static Serializer<GExchangePrizeData> get serializer =>
+      _$gExchangePrizeDataSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GExchangePrizeData.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GExchangePrizeData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GExchangePrizeData.serializer,
+        json,
+      );
+}
+
+abstract class GExchangePrizeData_exchangePrize
+    implements
+        Built<GExchangePrizeData_exchangePrize,
+            GExchangePrizeData_exchangePrizeBuilder> {
+  GExchangePrizeData_exchangePrize._();
+
+  factory GExchangePrizeData_exchangePrize(
+          [void Function(GExchangePrizeData_exchangePrizeBuilder b) updates]) =
+      _$GExchangePrizeData_exchangePrize;
+
+  static void _initializeBuilder(GExchangePrizeData_exchangePrizeBuilder b) =>
+      b..G__typename = 'ExchangePrizeResponse';
+
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  int get id;
+  String get txId;
+  static Serializer<GExchangePrizeData_exchangePrize> get serializer =>
+      _$gExchangePrizeDataExchangePrizeSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GExchangePrizeData_exchangePrize.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GExchangePrizeData_exchangePrize? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GExchangePrizeData_exchangePrize.serializer,
         json,
       );
 }

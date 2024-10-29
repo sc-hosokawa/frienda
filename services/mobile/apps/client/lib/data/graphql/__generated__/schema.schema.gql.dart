@@ -106,6 +106,8 @@ abstract class GCreateNewMessageRoomInput
       _$GCreateNewMessageRoomInput;
 
   String get category;
+  String get createdBy;
+  BuiltList<String> get userList;
   static Serializer<GCreateNewMessageRoomInput> get serializer =>
       _$gCreateNewMessageRoomInputSerializer;
 
@@ -158,13 +160,20 @@ abstract class GCreateNewOfferInput
       _$GCreateNewOfferInput;
 
   String get owner;
-  String get releaseDt;
+  String get deadline;
   String get title;
   String get description;
   int get fee;
   String? get imageUrl;
   int? get raidId;
   String? get category;
+  String get place;
+  String? get attention;
+  String? get requiredSkill;
+  String? get targetRole;
+  bool? get publicity;
+  BuiltList<String>? get attachedImgs;
+  BuiltList<String>? get attachedFiles;
   static Serializer<GCreateNewOfferInput> get serializer =>
       _$gCreateNewOfferInputSerializer;
 
@@ -176,6 +185,36 @@ abstract class GCreateNewOfferInput
   static GCreateNewOfferInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GCreateNewOfferInput.serializer,
+        json,
+      );
+}
+
+abstract class GCreateNewPrizeInput
+    implements Built<GCreateNewPrizeInput, GCreateNewPrizeInputBuilder> {
+  GCreateNewPrizeInput._();
+
+  factory GCreateNewPrizeInput(
+          [void Function(GCreateNewPrizeInputBuilder b) updates]) =
+      _$GCreateNewPrizeInput;
+
+  String get name;
+  int get point;
+  String get description;
+  String get representation;
+  String? get condition;
+  String? get imgUrl;
+  bool? get publicity;
+  static Serializer<GCreateNewPrizeInput> get serializer =>
+      _$gCreateNewPrizeInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GCreateNewPrizeInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GCreateNewPrizeInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GCreateNewPrizeInput.serializer,
         json,
       );
 }
@@ -216,6 +255,7 @@ abstract class GCreateNewUserDataInput
           [void Function(GCreateNewUserDataInputBuilder b) updates]) =
       _$GCreateNewUserDataInput;
 
+  String get id;
   String get email;
   String get name;
   String? get imageUrl;
@@ -286,6 +326,32 @@ abstract class GDeleteOfferInput
       );
 }
 
+abstract class GExchangePrizeInput
+    implements Built<GExchangePrizeInput, GExchangePrizeInputBuilder> {
+  GExchangePrizeInput._();
+
+  factory GExchangePrizeInput(
+          [void Function(GExchangePrizeInputBuilder b) updates]) =
+      _$GExchangePrizeInput;
+
+  String get userId;
+  int get prizeId;
+  int? get amount;
+  static Serializer<GExchangePrizeInput> get serializer =>
+      _$gExchangePrizeInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GExchangePrizeInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GExchangePrizeInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GExchangePrizeInput.serializer,
+        json,
+      );
+}
+
 abstract class GSendMessageInput
     implements Built<GSendMessageInput, GSendMessageInputBuilder> {
   GSendMessageInput._();
@@ -348,9 +414,10 @@ abstract class GUpdateBelongsToArtistStatusInput
           [void Function(GUpdateBelongsToArtistStatusInputBuilder b) updates]) =
       _$GUpdateBelongsToArtistStatusInput;
 
-  String get id;
-  String? get artistId;
-  String? get status;
+  String get userId;
+  String get artistId;
+  String? get nextStatus;
+  bool? get nextStatusIsAdmin;
   static Serializer<GUpdateBelongsToArtistStatusInput> get serializer =>
       _$gUpdateBelongsToArtistStatusInputSerializer;
 
@@ -402,13 +469,18 @@ abstract class GUpdateOfferInput
           [void Function(GUpdateOfferInputBuilder b) updates]) =
       _$GUpdateOfferInput;
 
-  String get id;
+  int get id;
   String? get title;
   String? get description;
   int? get fee;
   String? get imageUrl;
-  int? get raidId;
   String? get category;
+  String? get place;
+  String? get attention;
+  String? get requiredSkill;
+  String? get targetRole;
+  BuiltList<String>? get attachedMedia;
+  bool? get publicity;
   static Serializer<GUpdateOfferInput> get serializer =>
       _$gUpdateOfferInputSerializer;
 
@@ -420,6 +492,32 @@ abstract class GUpdateOfferInput
   static GUpdateOfferInput? fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
         GUpdateOfferInput.serializer,
+        json,
+      );
+}
+
+abstract class GUpdateOfferStatusInput
+    implements Built<GUpdateOfferStatusInput, GUpdateOfferStatusInputBuilder> {
+  GUpdateOfferStatusInput._();
+
+  factory GUpdateOfferStatusInput(
+          [void Function(GUpdateOfferStatusInputBuilder b) updates]) =
+      _$GUpdateOfferStatusInput;
+
+  int get id;
+  String get userId;
+  String get status;
+  static Serializer<GUpdateOfferStatusInput> get serializer =>
+      _$gUpdateOfferStatusInputSerializer;
+
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+        GUpdateOfferStatusInput.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GUpdateOfferStatusInput? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+        GUpdateOfferStatusInput.serializer,
         json,
       );
 }
@@ -438,7 +536,6 @@ abstract class GUpdateUserDataInput
   String? get imageUrl;
   String? get primaryCategory;
   String? get evmAddr;
-  String? get status;
   static Serializer<GUpdateUserDataInput> get serializer =>
       _$gUpdateUserDataInputSerializer;
 
