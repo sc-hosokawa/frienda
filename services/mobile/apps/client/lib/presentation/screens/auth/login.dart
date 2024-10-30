@@ -4,6 +4,9 @@ import 'package:client/presentation/screens/main_screen.dart';
 import 'package:client/presentation/screens/auth/signin.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/auth_provider.dart';
+import 'package:client/presentation/providers/client_provider.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -99,7 +102,50 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           password: _passwordController.text,
         );
 
+        final userData = await ref.read(graphQLClientProvider).query(
+              QueryOptions(
+                document: gql('''
+              query GetUserData(\$userId: String!) {
+                getUserData(userId: \$userId) {
+                  id
+                  email
+                  name
+                  imageUrl
+                  fspBalance
+                  credentialBalance
+                  role
+                  primaryRole
+                  belongsToArtists {
+                    id
+                    name
+                    imageUrl
+                    fsp
+                    status
+                    isAdmin
+                  }
+                  primaryArtist {
+                    id
+                    name
+                    imageUrl
+                    fsp
+                    status
+                    isAdmin
+                  }
+                }
+              }
+            '''),
+                variables: {
+                  'userId': userCredential.user!.uid,
+                },
+              ),
+            );
+
         await ref.read(authProvider.notifier).setAuthInfo(userCredential.user!);
+
+        ref.read(userProvider.notifier).updateUser(
+              UserData.fromJson(
+                  userData.data?['getUserData'] as Map<String, dynamic>),
+            );
 
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => const MainScreen()));
@@ -114,6 +160,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(message)),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('エラーが発生しました: $e')),
         );
       } finally {
         setState(() {

@@ -14,28 +14,6 @@ _$ArtistImpl _$$ArtistImplFromJson(Map<String, dynamic> json) => _$ArtistImpl(
       isPremium: json['isPremium'] as bool? ?? false,
     );
 
-const _$$ArtistImplFieldMap = <String, String>{
-  'id': 'id',
-  'name': 'name',
-  'email': 'email',
-  'phone': 'phone',
-  'isPremium': 'isPremium',
-};
-
-// ignore: unused_element
-abstract class _$$ArtistImplPerFieldToJson {
-  // ignore: unused_element
-  static Object? id(int instance) => instance;
-  // ignore: unused_element
-  static Object? name(String instance) => instance;
-  // ignore: unused_element
-  static Object? email(String instance) => instance;
-  // ignore: unused_element
-  static Object? phone(String instance) => instance;
-  // ignore: unused_element
-  static Object? isPremium(bool instance) => instance;
-}
-
 Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) =>
     <String, dynamic>{
       'id': instance.id,

@@ -94,8 +94,7 @@ class _MainScreenState extends State<MainScreen> {
       child: Scaffold(
         appBar: CustomAppBar(
           title: _sectionTitles[safeIndex],
-          points: 1000,
-          profileImagePath: 'assets/logo_visualonly.jpg',
+          defaultProfileImagePath: 'assets/logo_visualonly.jpg',
         ),
         body: IndexedStack(
           index: _selectedIndex,

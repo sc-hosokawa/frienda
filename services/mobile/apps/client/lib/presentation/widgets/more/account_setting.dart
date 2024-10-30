@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:client/presentation/screens/auth/login.dart';
+import 'package:client/presentation/widgets/more/update_user_profile.dart';
 
 class AccountSettings extends StatelessWidget {
   const AccountSettings({super.key});
 
   final List<Map<String, dynamic>> _accountSettingsItems = const [
     {
+      'icon': Icons.person,
+      'title': 'ユーザー情報の変更',
+      'description': 'アカウントのユーザー情報を変更します',
+    },
+    {
       'icon': Icons.lock,
       'title': 'パスワードの変更',
       'description': 'アカウントのパスワードを変更します',
     },
-    /*
-    {
-      'icon': Icons.person,
-      'title': '表示名の変更',
-      'description': 'アプリ内での表示名を変更します',
-    },
-    */
     {
       'icon': Icons.delete_forever,
       'title': 'アカウントの削除（退会）',
@@ -53,8 +52,11 @@ class AccountSettings extends StatelessWidget {
       case 'パスワードの変更':
         await _changePassword(context);
         break;
-      case '表示名の変更':
-        // TODO: Implement display name change
+      case 'ユーザー情報の変更':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const UpdateUserProfile()),
+        );
         break;
       case 'アカウントの削除（退会）':
         await _deleteAccount(context);

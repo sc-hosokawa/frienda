@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/client_provider.dart';
 
-class PrizeDetail extends StatelessWidget {
+class PrizeDetail extends ConsumerWidget {
   final String itemName;
   final String itemPrice;
   final String itemImage;
+  final String prizeId;
 
   const PrizeDetail({
     super.key,
     required this.itemName,
     required this.itemPrice,
     required this.itemImage,
+    required this.prizeId,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         SafeArea(
@@ -37,9 +42,18 @@ class PrizeDetail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        itemName,
-                        style: Theme.of(context).textTheme.titleMedium,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            itemName,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          ElevatedButton(
+                            onPressed: () => _exchangePrize(context, ref),
+                            child: const Text('交換する'),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 8),
                       Text(
@@ -52,18 +66,6 @@ class PrizeDetail extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       const SizedBox(height: 24),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // TODO: 交換処理を実装
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('$itemNameを交換しました')),
-                            );
-                          },
-                          child: const Text('交換する'),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -73,5 +75,44 @@ class PrizeDetail extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<void> _exchangePrize(BuildContext context, WidgetRef ref) async {
+    try {
+      final client = ref.read(graphQLClientProvider);
+      final result = await client.mutate(
+        MutationOptions(
+          document: gql('''
+            mutation ExchangePrize(\$input: ExchangePrizeInput!) {
+              exchangePrize(input: \$input) {
+                id
+                txId
+              }
+            }
+          '''),
+          variables: {
+            'input': {
+              'prizeId': prizeId,
+            },
+          },
+        ),
+      );
+
+      if (result.hasException) {
+        throw result.exception!;
+      }
+
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('$itemNameを交換しました')),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('交換に失敗しました')),
+      );
+    }
   }
 }

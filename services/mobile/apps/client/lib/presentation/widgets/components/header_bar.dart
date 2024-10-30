@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/widgets/more.dart';
+import 'package:client/presentation/providers/user_provider.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
-  final int points;
-  final String profileImagePath;
+  final String defaultProfileImagePath;
 
   const CustomAppBar({
     super.key,
     required this.title,
-    required this.points,
-    required this.profileImagePath,
+    required this.defaultProfileImagePath,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userData = ref.watch(userProvider);
+    final points = userData?.fspBalance ?? 0;
+    final profileImage = userData?.imageUrl;
+
     return AppBar(
       automaticallyImplyLeading: false,
       title: Text(title),
@@ -37,7 +41,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 },
                 child: CircleAvatar(
                   radius: 16,
-                  backgroundImage: AssetImage(profileImagePath),
+                  backgroundImage: profileImage != null
+                      ? NetworkImage(profileImage) as ImageProvider
+                      : AssetImage(defaultProfileImagePath),
                 ),
               ),
             ],

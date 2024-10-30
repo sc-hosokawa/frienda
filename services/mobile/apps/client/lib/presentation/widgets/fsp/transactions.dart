@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // 日付フォーマット用
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 class Transactions extends StatelessWidget {
   const Transactions({super.key});
@@ -16,38 +17,81 @@ class Transactions extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: ListView.builder(
-            itemCount: 30,
-            itemBuilder: (context, index) {
-              final isIncoming = index % 2 == 0;
-              final date = DateTime.now().subtract(Duration(days: index));
-              final formattedDate = DateFormat('yyyy/MM/dd HH:mm').format(date);
-              final points = (index + 1) * 100;
+          child: Query(
+            options: QueryOptions(
+              document: gql('''
+                query GetFspHistory(\$userId: String!, \$count: Int!) {
+                  getFspHistoryByUser(userId: \$userId, count: \$count) {
+                    transactionList {
+                      id
+                      amount
+                      direction
+                      counterParty {
+                        name
+                      }
+                      txAt
+                    }
+                  }
+                }
+              '''),
+              variables: {
+                'userId': 'current-user-id', // ユーザーIDを適切に設定
+                'count': 50,
+              },
+            ),
+            builder: (result, {fetchMore, refetch}) {
+              if (result.hasException) {
+                return Center(child: Text('エラーが発生しました'));
+              }
 
-              return ListTile(
-                leading: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      isIncoming ? Icons.arrow_downward : Icons.arrow_upward,
-                      color: isIncoming ? Colors.green : Colors.red,
-                      size: 20,
+              if (result.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final transactions = result.data?['getFspHistoryByUser']
+                  ['transactionList'] as List<dynamic>?;
+
+              if (transactions == null || transactions.isEmpty) {
+                return const Center(child: Text('取引履歴がありません'));
+              }
+
+              return ListView.builder(
+                itemCount: transactions.length,
+                itemBuilder: (context, index) {
+                  final transaction = transactions[index];
+                  final isIncoming = transaction['direction'] == 'IN';
+                  final date = DateTime.parse(transaction['txAt']);
+                  final formattedDate =
+                      DateFormat('yyyy/MM/dd HH:mm').format(date);
+
+                  return ListTile(
+                    leading: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          isIncoming
+                              ? Icons.arrow_downward
+                              : Icons.arrow_upward,
+                          color: isIncoming ? Colors.green : Colors.red,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        const CircleAvatar(
+                          child: Icon(Icons.person),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 8),
-                    CircleAvatar(
-                      child: Text('${index + 1}'),
+                    title: Text(transaction['counterParty']['name']),
+                    subtitle: Text(formattedDate),
+                    trailing: Text(
+                      '${isIncoming ? "+" : "-"}${transaction['amount']} ポイント',
+                      style: TextStyle(
+                        color: isIncoming ? Colors.green : Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ],
-                ),
-                title: Text('取引相手 ${index + 1}'),
-                subtitle: Text(formattedDate),
-                trailing: Text(
-                  '${isIncoming ? "+" : "-"}$points ポイント',
-                  style: TextStyle(
-                    color: isIncoming ? Colors.green : Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                  );
+                },
               );
             },
           ),

@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:convert';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/user_provider.dart';
 
-class Receive extends StatefulWidget {
+class Receive extends ConsumerStatefulWidget {
   const Receive({super.key});
 
   @override
-  State<Receive> createState() => _ReceiveState();
+  ConsumerState<Receive> createState() => _ReceiveState();
 }
 
-class _ReceiveState extends State<Receive> {
+class _ReceiveState extends ConsumerState<Receive> {
   final TextEditingController _pointsController = TextEditingController();
   String _qrData = '';
 
   String _generateQRData() {
+    final user = ref.read(userProvider);
     final data = {
-      'username': 'example_user',
+      'username': user?.name ?? '',
       'points': _pointsController.text,
     };
     return jsonEncode(data);
@@ -24,6 +27,8 @@ class _ReceiveState extends State<Receive> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(userProvider);
+
     return Column(
       children: [
         SafeArea(
@@ -39,8 +44,8 @@ class _ReceiveState extends State<Receive> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildUserInfo('ユーザー名', 'example_user'),
-                _buildUserInfo('メールアドレス', 'user@example.com'),
+                _buildUserInfo('ユーザー名', user?.name ?? ''),
+                _buildUserInfo('メールアドレス', user?.email ?? ''),
                 const SizedBox(height: 20),
                 Row(
                   children: [

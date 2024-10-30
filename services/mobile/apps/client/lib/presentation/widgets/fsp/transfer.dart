@@ -1,22 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:convert';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'package:client/data/graphql/mutation.graphql.dart';
+import 'package:client/data/graphql/schema.graphql.dart';
+import 'package:client/presentation/providers/client_provider.dart';
 
-class Transfer extends StatefulWidget {
+class Transfer extends ConsumerStatefulWidget {
   const Transfer({super.key});
 
   @override
-  State<Transfer> createState() => _TransferState();
+  ConsumerState<Transfer> createState() => _TransferState();
 }
 
-class _TransferState extends State<Transfer> {
+class _TransferState extends ConsumerState<Transfer> {
   final TextEditingController _recipientController = TextEditingController();
   final TextEditingController _pointsController = TextEditingController();
   bool _isLongPressed = true;
-  int _availablePoints = 1000; // 仮の初期値
 
   // フォームのキーを追加
   final _formKey = GlobalKey<FormState>();
+
+  Future<void> _executeFspTransfer(String recipientId, int amount) async {
+    try {
+      final input = Input$CreateNewTransactionInput(
+        to: recipientId,
+        amount: amount,
+      );
+
+      final result = await ref.read(graphQLClientProvider).mutate$CreateFspTx(
+            Options$Mutation$CreateFspTx(
+              variables: Variables$Mutation$CreateFspTx(input: input),
+            ),
+          );
+
+      if (result.hasException) {
+        throw Exception(result.exception.toString());
+      }
+    } catch (e) {
+      // エラーハンドリング
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('送金に失敗しました: ${e.toString()}')),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -58,6 +86,10 @@ class _TransferState extends State<Transfer> {
 
   @override
   Widget build(BuildContext context) {
+    // ユーザー情報を取得
+    final userInfo = ref.watch(userProvider);
+    final availablePoints = userInfo?.fspBalance ?? 0;
+
     return Column(
       children: [
         SafeArea(
@@ -103,8 +135,9 @@ class _TransferState extends State<Transfer> {
   }
 
   void _showConfirmationDialog(BuildContext context) {
+    final userInfo = ref.read(userProvider);
     final int pointsToSend = int.tryParse(_pointsController.text) ?? 0;
-    final int remainingPoints = _availablePoints - pointsToSend;
+    final int remainingPoints = (userInfo?.fspBalance ?? 0) - pointsToSend;
 
     showDialog(
       context: context,
@@ -128,13 +161,17 @@ class _TransferState extends State<Transfer> {
               child: LongPressDraggable<String>(
                 data: 'transfer',
                 delay: const Duration(seconds: 1),
-                onDragStarted: () {
-                  // TODO: ポイント送付の処理を追加
+                onDragStarted: () async {
+                  // 送金処理を実行
+                  await _executeFspTransfer(
+                    _recipientController.text,
+                    int.parse(_pointsController.text),
+                  );
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('ポイントを送付しました')),
                   );
-                  _clearForm(); // フォームをクリア
+                  _clearForm();
                 },
                 feedback: Container(),
                 child: ElevatedButton(
@@ -170,14 +207,17 @@ class _TransferState extends State<Transfer> {
   }
 }
 
-class _AvailablePointsAndQRScanner extends StatelessWidget {
+class _AvailablePointsAndQRScanner extends ConsumerWidget {
   final VoidCallback onQRScanTap;
 
   const _AvailablePointsAndQRScanner({required this.onQRScanTap});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+    final userInfo = ref.watch(userProvider);
+    final availablePoints = userInfo?.fspBalance ?? 0;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -185,7 +225,7 @@ class _AvailablePointsAndQRScanner extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('利用可能ポイント', style: textTheme.bodySmall),
-            Text('1,000 ポイント', style: textTheme.titleMedium),
+            Text('$availablePoints ポイント', style: textTheme.titleMedium),
           ],
         ),
         ElevatedButton(

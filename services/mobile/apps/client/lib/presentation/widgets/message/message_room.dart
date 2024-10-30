@@ -4,16 +4,26 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+//import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/user_provider.dart';
+import '../../providers/auth_provider.dart';
 
-class MessageRoom extends StatefulWidget {
-  const MessageRoom({super.key});
+class MessageRoom extends ConsumerStatefulWidget {
+  const MessageRoom({super.key, required this.roomId});
+
+  final String roomId;
 
   @override
-  State<MessageRoom> createState() => _MessageRoomState();
+  ConsumerState<MessageRoom> createState() => _MessageRoomState();
 }
 
-class _MessageRoomState extends State<MessageRoom> {
+class _MessageRoomState extends ConsumerState<MessageRoom> {
   final TextEditingController _messageController = TextEditingController();
+
+  // Refetch型として定義
+  Refetch? _refetchMessages;
 
   @override
   void dispose() {
@@ -23,76 +33,116 @@ class _MessageRoomState extends State<MessageRoom> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Column(
-        children: [
-          SafeArea(
-            child: AppBar(
-              title: const Text('メッセージ'),
-              titleTextStyle: Theme.of(context).textTheme.titleMedium,
-              centerTitle: true,
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              reverse: true,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                final isMyMessage = index % 2 == 0;
-                return MessageBubble(
-                  message: _getLongMessage(9 - index),
-                  isMyMessage: isMyMessage,
-                  timestamp: DateTime.now()
-                      .subtract(Duration(minutes: (9 - index) * 5)),
-                );
-              },
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: Offset(0, -1),
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: _attachFile,
-                ),
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      hintText: 'メッセージを入力...',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      filled: true,
-                      fillColor: Theme.of(context).cardColor,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8),
-                IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: _sendMessage,
-                ),
-              ],
-            ),
-          ),
-        ],
+    final userId = ref.watch(authProvider).uid;
+
+    return Query(
+      options: QueryOptions(
+        document: gql('''
+          query GetMessages(\$userId: String!, \$messageRoomId: String!) {
+            getMessagesByMessageRoomId(userId: \$userId, messageRoomId: \$messageRoomId) {
+              messageList {
+                id
+                content
+                sentAt
+              }
+              to {
+                id
+                name
+                imageUrl
+              }
+            }
+          }
+        '''),
+        variables: {
+          'userId': userId,
+          'messageRoomId': widget.roomId,
+        },
       ),
+      builder: (QueryResult result, {Refetch? refetch, FetchMore? fetchMore}) {
+        // refetch関数を保存
+        _refetchMessages = refetch;
+
+        // ... error and loading handling ...
+
+        final messages =
+            result.data?['getMessagesByMessageRoomId']['messageList'] ?? [];
+        print(result);
+
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Column(
+            children: [
+              SafeArea(
+                child: AppBar(
+                  title: const Text('メッセージ'),
+                  titleTextStyle: Theme.of(context).textTheme.titleMedium,
+                  centerTitle: true,
+                ),
+              ),
+              Expanded(
+                child: messages.isEmpty
+                    ? const Center(child: Text('メッセージがありません'))
+                    : ListView.builder(
+                        reverse: true,
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          final message = messages[index];
+                          final toUser =
+                              result.data?['getMessagesByMessageRoomId']['to'];
+                          return MessageBubble(
+                            message: message['content'],
+                            isMyMessage: toUser['id'] != userId,
+                            timestamp: DateTime.parse(message['sentAt']),
+                          );
+                        },
+                      ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, -1),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: _attachFile,
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: _messageController,
+                        decoration: InputDecoration(
+                          hintText: 'メッセージを入力...',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          filled: true,
+                          fillColor: Theme.of(context).cardColor,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: _sendMessage,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -206,27 +256,42 @@ class _MessageRoomState extends State<MessageRoom> {
   }
 
   void _sendMessage() {
-    if (_messageController.text.isNotEmpty) {
-      // TODO: Implement message sending logic
-      print('送信されたメッセージ: ${_messageController.text}');
-      _messageController.clear();
-    }
-  }
+    if (_messageController.text.isEmpty) return;
 
-  String _getLongMessage(int index) {
-    List<String> messages = [
-      'こんにちは！今日はとても良い天気ですね。外を散歩するのにぴったりの日和です。',
-      'そうですね。私も先ほど少し外に出てきました。春の陽気を感じられて気分が良いです。',
-      '週末に友達と公園でピクニックをする予定なんです。お弁当を作ろうと思っているのですが、何かおすすめのレシピはありますか？',
-      'いいですね！春のピクニックは最高です。簡単でおいしいサンドイッチはいかがでしょうか？野菜たっぷりで健康的ですよ。',
-      'サンドイッチ、いいアイデアですね。具材に何を入れるか考えるのが楽しみです。デザートも何か作ろうかな。',
-      'フルーツサラダはどうでしょう？季節のフルーツを使えば、さわやかで見た目も綺麗ですよ。',
-      '素敵なアイデアをありがとうございます。きっと楽しいピクニックになりそうです。あなたも機会があればぜひ春のピクニックを楽しんでくださいね。',
-      'ありがとうございます。私も近々友人たちと計画を立てようと思います。楽しい時間を過ごせますように！',
-      'そうそう、ピクニックの後で近くの美術館に行く予定もあるんです。最近、新しい展示が始まったらしくて。',
-      '美術館もいいですね。芸術に触れると心が豊かになりますよ。素敵な1日になりそうです。楽しんできてくださいね。',
-    ];
-    return messages[index % messages.length];
+    final userId = ref.read(authProvider).uid;
+    if (userId == null) return;
+
+    GraphQLClient client = GraphQLProvider.of(context).value;
+    client.mutate(
+      MutationOptions(
+        document: gql('''
+          mutation SendMessage(\$input: SendMessageInput!) {
+            sendMessage(input: \$input) {
+              id
+              message
+              sentAt
+            }
+          }
+        '''),
+        variables: {
+          'input': {
+            'roomId': widget.roomId,
+            'sentBy': userId,
+            'message': _messageController.text,
+          },
+        },
+        onCompleted: (dynamic resultData) {
+          _messageController.clear();
+          // refetch関数を呼び出し
+          _refetchMessages?.call();
+        },
+        onError: (error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('メッセージの送信に失敗しました')),
+          );
+        },
+      ),
+    );
   }
 }
 
@@ -269,7 +334,7 @@ class MessageBubble extends StatelessWidget {
             ),
             SizedBox(height: 4),
             Text(
-              DateFormat('yyyy/MM/dd HH:mm').format(timestamp),
+              DateFormat('yyyy/MM/dd HH:mm').format(timestamp.toLocal()),
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 12,

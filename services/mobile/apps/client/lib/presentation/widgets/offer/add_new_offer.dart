@@ -1,41 +1,163 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'dart:async'; // TimeoutExceptionのために必要
 
-class AddNewOffer extends StatefulWidget {
+class AddNewOffer extends ConsumerStatefulWidget {
   const AddNewOffer({super.key});
 
   @override
-  _AddNewOfferState createState() => _AddNewOfferState();
+  ConsumerState<AddNewOffer> createState() => _AddNewOfferState();
 }
 
-class _AddNewOfferState extends State<AddNewOffer> {
+class _AddNewOfferState extends ConsumerState<AddNewOffer> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _feeController = TextEditingController();
+  final _deadlineController = TextEditingController();
+  final _placeController = TextEditingController();
+  final _categoryController = TextEditingController();
+  final _attentionController = TextEditingController();
+  final _requiredSkillController = TextEditingController();
+  final _targetRoleController = TextEditingController();
+  bool _isPublic = true;
 
   @override
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
+    _feeController.dispose();
+    _deadlineController.dispose();
+    _placeController.dispose();
+    _categoryController.dispose();
+    _attentionController.dispose();
+    _requiredSkillController.dispose();
+    _targetRoleController.dispose();
     super.dispose();
   }
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      // TODO: Implement offer submission logic
-      print('Offer submitted: ${_titleController.text}');
+      try {
+        // Riverpodを使用してユーザーIDを取得
+        final userId = ref.read(userProvider)?.id;
 
-      // Clear the form
-      _titleController.clear();
-      _descriptionController.clear();
+        if (userId == null) {
+          throw Exception('ユーザーIDが取得できません');
+        }
 
-      // Show a success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('投稿が完了しました')),
-      );
+        final GraphQLClient client = GraphQLProvider.of(context).value;
 
-      // Return to the Offer page
-      Navigator.of(context)
-          .pop(true); // Pass true to indicate successful submission
+        final MutationOptions options = MutationOptions(
+          document: gql('''
+            mutation CreateNewOffer(
+              \$title: String!
+              \$description: String!
+              \$fee: Int!
+              \$deadline: String!
+              \$place: String!
+              \$category: String
+              \$attention: String
+              \$requiredSkill: String
+              \$targetRole: String
+              \$publicity: Boolean
+              \$owner: String!
+            ) {
+              createNewOffer(input: {
+                title: \$title
+                description: \$description
+                fee: \$fee
+                deadline: \$deadline
+                place: \$place
+                category: \$category
+                attention: \$attention
+                requiredSkill: \$requiredSkill
+                targetRole: \$targetRole
+                publicity: \$publicity
+                owner: \$owner
+              }) {
+                id
+              }
+            }
+          '''),
+          variables: {
+            'title': _titleController.text,
+            'description': _descriptionController.text,
+            'fee': int.parse(_feeController.text),
+            'deadline': _deadlineController.text,
+            'place': _placeController.text,
+            'category': _categoryController.text.isEmpty
+                ? null
+                : _categoryController.text,
+            'attention': _attentionController.text.isEmpty
+                ? null
+                : _attentionController.text,
+            'requiredSkill': _requiredSkillController.text.isEmpty
+                ? null
+                : _requiredSkillController.text,
+            'targetRole': _targetRoleController.text.isEmpty
+                ? null
+                : _targetRoleController.text,
+            'publicity': _isPublic,
+            'owner': userId,
+          },
+          fetchPolicy: FetchPolicy.noCache,
+          errorPolicy: ErrorPolicy.all,
+        );
+
+        final QueryResult result = await client.mutate(options).timeout(
+          const Duration(seconds: 30),
+          onTimeout: () {
+            throw TimeoutException('リクエストがタイムアウトしました');
+          },
+        );
+
+        print('GraphQL Response: ${result.data}');
+
+        if (result.hasException) {
+          throw Exception(result.exception.toString());
+        }
+
+        // Clear the form
+        _titleController.clear();
+        _descriptionController.clear();
+        _feeController.clear();
+        _deadlineController.clear();
+        _placeController.clear();
+        _categoryController.clear();
+        _attentionController.clear();
+        _requiredSkillController.clear();
+        _targetRoleController.clear();
+
+        // Show success message
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('投稿が完了しました')),
+        );
+
+        // Return to the previous screen
+        Navigator.of(context).pop(true);
+      } on TimeoutException catch (e) {
+        // タイムアウトの処理
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('リクエストがタイムアウトしました。もう一度お試しください。'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      } catch (e) {
+        // Show error message
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('エラーが発生しました: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -46,7 +168,12 @@ class _AddNewOfferState extends State<AddNewOffer> {
       child: Column(
         children: [
           AppBar(
-            title: const Text('新規Offer追加'),
+            title: const Text(
+              '新規Offer追加',
+              style: TextStyle(
+                fontSize: 16.0, // サイズを小さく設定
+              ),
+            ),
           ),
           Expanded(
             child: Form(
@@ -80,6 +207,104 @@ class _AddNewOfferState extends State<AddNewOffer> {
                           return '説明を入力してください';
                         }
                         return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _feeController,
+                      decoration: const InputDecoration(
+                        labelText: '報酬 (FSP)',
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return '報酬を入力してください';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _deadlineController,
+                      decoration: const InputDecoration(
+                        labelText: '締切日',
+                        border: OutlineInputBorder(),
+                      ),
+                      onTap: () async {
+                        final date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 365)),
+                        );
+                        if (date != null) {
+                          _deadlineController.text = date.toIso8601String();
+                        }
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return '締切日を選択してください';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _placeController,
+                      decoration: const InputDecoration(
+                        labelText: '場所',
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return '場所を入力してください';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _categoryController,
+                      decoration: const InputDecoration(
+                        labelText: 'カテゴリー',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _attentionController,
+                      decoration: const InputDecoration(
+                        labelText: '注意事項',
+                        border: OutlineInputBorder(),
+                      ),
+                      maxLines: 3,
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _requiredSkillController,
+                      decoration: const InputDecoration(
+                        labelText: '必要なスキル',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _targetRoleController,
+                      decoration: const InputDecoration(
+                        labelText: '対象ロール',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SwitchListTile(
+                      title: const Text('公開設定'),
+                      value: _isPublic,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _isPublic = value;
+                        });
                       },
                     ),
                     const SizedBox(height: 24),

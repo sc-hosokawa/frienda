@@ -54,7 +54,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
 
     HttpServer::new(move || {
         // TODO: Middlewareに追加すること！
-        let auth = HttpAuthentication::bearer(validator);
+        // let auth = HttpAuthentication::bearer(validator);
         let cors = Cors::default()
             .allow_any_origin()
             .allow_any_method()

@@ -1,52 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/user_provider.dart';
 
-class Allocation extends StatelessWidget {
+class Allocation extends ConsumerWidget {
   const Allocation({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // ダミーデータを作成（実際のアプリケーションではデータソースから取得します）
-    final artists = [
-      {
-        'name': 'アーティスト1',
-        'image': 'assets/logo_visualonly.jpg',
-        'points': 1000
-      },
-      {
-        'name': 'アーティスト2',
-        'image': 'assets/logo_visualonly.jpg',
-        'points': 1500
-      },
-      {'name': 'アーティスト3', 'image': 'assets/logo_visualonly.jpg', 'points': 800},
-    ];
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userData = ref.watch(userProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('アーティスト選択'),
         titleTextStyle: Theme.of(context).textTheme.titleMedium,
       ),
-      body: ListView.builder(
-        itemCount: artists.length,
-        itemBuilder: (context, index) {
-          final artist = artists[index];
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: AssetImage(artist['image'] as String),
+      body: userData == null || userData.belongsToArtists.isEmpty
+          ? const Center(child: Text('No data'))
+          : ListView.builder(
+              itemCount: userData.belongsToArtists.length,
+              itemBuilder: (context, index) {
+                final artist = userData.belongsToArtists[index];
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(artist.imageUrl ?? ''),
+                  ),
+                  title: Text(artist.name),
+                  trailing: Text('${artist.fsp} ポイント'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            MemberAllocation(artistName: artist.name),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
-            title: Text(artist['name'] as String),
-            trailing: Text('${artist['points']} ポイント'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      MemberAllocation(artistName: artist['name'] as String),
-                ),
-              );
-            },
-          );
-        },
-      ),
     );
   }
 }

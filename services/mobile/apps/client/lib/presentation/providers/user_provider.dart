@@ -1,68 +1,100 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:client/data/graphql/__generated__/schema.schema.gql.dart';
 
-class UserState {
-  final String? id;
-  final String? email;
-  final String? name;
+// ユーザーの状態を表すクラス
+class UserData {
+  final String id;
+  final String email;
+  final String name;
   final String? imageUrl;
-  final String? category;
-  final String? primaryCategory;
+  final int fspBalance;
+  final int credentialBalance;
+  final String role;
+  final String primaryRole;
+  final List<ArtistByUser> belongsToArtists;
+  final ArtistByUser? primaryArtist;
 
-  const UserState({
-    this.id,
-    this.email,
-    this.name,
+  UserData({
+    required this.id,
+    required this.email,
+    required this.name,
     this.imageUrl,
-    this.category,
-    this.primaryCategory,
+    required this.fspBalance,
+    required this.credentialBalance,
+    required this.role,
+    required this.primaryRole,
+    required this.belongsToArtists,
+    this.primaryArtist,
   });
 
-  UserState copyWith({
-    String? id,
-    String? email,
-    String? name,
-    String? imageUrl,
-    String? category,
-    String? primaryCategory,
-  }) {
-    return UserState(
-      id: id ?? this.id,
-      email: email ?? this.email,
-      name: name ?? this.name,
-      imageUrl: imageUrl ?? this.imageUrl,
-      category: category ?? this.category,
-      primaryCategory: primaryCategory ?? this.primaryCategory,
+  // JSONからインスタンスを生成するファクトリメソッド
+  factory UserData.fromJson(Map<String, dynamic> json) {
+    return UserData(
+      id: json['id'] as String,
+      email: json['email'] as String,
+      name: json['name'] as String,
+      imageUrl: json['imageUrl'] as String?,
+      fspBalance: json['fspBalance'] as int,
+      credentialBalance: json['credentialBalance'] as int,
+      role: json['role'] as String,
+      primaryRole: json['primaryRole'] as String,
+      belongsToArtists: (json['belongsToArtists'] as List)
+          .map((e) => ArtistByUser.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      primaryArtist: json['primaryArtist'] != null
+          ? ArtistByUser.fromJson(json['primaryArtist'] as Map<String, dynamic>)
+          : null,
     );
   }
 }
 
-class UserNotifier extends StateNotifier<UserState> {
-  UserNotifier() : super(const UserState());
+// アーティスト情報を表すクラス
+class ArtistByUser {
+  final String id;
+  final String name;
+  final String? imageUrl;
+  final int fsp;
+  final String status;
+  final bool isAdmin;
 
-  void updateUser({
-    String? id,
-    String? email,
-    String? name,
-    String? imageUrl,
-    String? category,
-    String? primaryCategory,
-  }) {
-    state = state.copyWith(
-      id: id,
-      email: email,
-      name: name,
-      imageUrl: imageUrl,
-      category: category,
-      primaryCategory: primaryCategory,
+  ArtistByUser({
+    required this.id,
+    required this.name,
+    this.imageUrl,
+    required this.fsp,
+    required this.status,
+    required this.isAdmin,
+  });
+
+  factory ArtistByUser.fromJson(Map<String, dynamic> json) {
+    return ArtistByUser(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      imageUrl: json['imageUrl'] as String?,
+      fsp: json['fsp'] as int,
+      status: json['status'] as String,
+      isAdmin: json['isAdmin'] as bool,
     );
-  }
-
-  void clearUser() {
-    state = const UserState();
   }
 }
 
-final userProvider = StateNotifierProvider<UserNotifier, UserState>((ref) {
+// ユーザー状態を管理するNotifierProvider
+final userProvider = NotifierProvider<UserNotifier, UserData?>(() {
   return UserNotifier();
 });
+
+class UserNotifier extends Notifier<UserData?> {
+  @override
+  UserData? build() {
+    return null; // 初期状態はnull
+  }
+
+  // ユーザー情報を更新するメソッド
+  void updateUser(UserData user) {
+    state = user;
+  }
+
+  // ログアウト時にユーザー情報をクリアするメソッド
+  void clearUser() {
+    state = null;
+  }
+}

@@ -67,4 +67,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:x.x.x')
+    implementation 'com.google.firebase:firebase-storage'
+}

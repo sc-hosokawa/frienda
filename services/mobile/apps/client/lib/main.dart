@@ -10,29 +10,34 @@ import 'package:client/presentation/screens/auth/signin.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:client/presentation/providers/client_provider.dart';
-import 'package:ferry/ferry.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 final providerContainer = ProviderContainer();
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await initHiveForFlutter();
   WebViewPlatform.instance = WebViewPlatform.instance;
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  final client = await initClient();
   FlutterNativeSplash.remove();
 
-  providerContainer.read(clientProvider.notifier).state = client;
-
   runApp(
-    UncontrolledProviderScope(
-      container: providerContainer,
-      child: MyApp(),
+    ProviderScope(
+      child: Consumer(
+        builder: (context, ref, child) {
+          final client = ref.watch(graphQLClientProvider);
+
+          return GraphQLProvider(
+            client: ValueNotifier(client),
+            child: MyApp(),
+          );
+        },
+      ),
     ),
   );
 }

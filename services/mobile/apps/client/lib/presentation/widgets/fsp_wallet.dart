@@ -8,12 +8,22 @@ import 'package:client/routing/navigation.dart';
 import 'package:client/presentation/widgets/fsp/allocation.dart';
 import 'package:client/presentation/widgets/fsp/prize_detail.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'package:graphql/client.dart';
+import 'package:client/data/graphql/schema.graphql.dart';
+import 'package:client/data/graphql/query.graphql.dart';
+import 'package:client/data/graphql/mutation.graphql.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:client/presentation/providers/client_provider.dart';
 
-class Fsp extends StatelessWidget {
+class Fsp extends ConsumerWidget {
   const Fsp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -32,20 +42,20 @@ class Fsp extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      '1,000 fsp',
+                      '${user?.fspBalance ?? 0} fsp',
                       style: Theme.of(context).textTheme.headlineLarge,
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 4),
                     const Divider(),
                     Text(
-                      '期間限定 100 fsp',
+                      '期間限定 0 fsp',
                       style: Theme.of(context).textTheme.bodyMedium,
                       textAlign: TextAlign.right,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'クレデンシャル 15 cred',
+                      'クレデンシャル ${user?.credentialBalance ?? 0} cred',
                       style: Theme.of(context).textTheme.bodyMedium,
                       textAlign: TextAlign.right,
                     ),
@@ -87,60 +97,82 @@ class Fsp extends StatelessWidget {
           ),
           SizedBox(
             height: 200,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      navigateWithFadeTransition(
-                        context,
-                        PrizeDetail(
-                          itemName: 'アイテム ${index + 1}',
-                          itemPrice: '${(index + 1) * 100} FSP',
-                          itemImage: 'https://placehold.jp/150x150.png',
-                        ),
-                      );
-                    },
-                    child: SizedBox(
-                      width: 150,
-                      child: Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Center(
-                                child: Image.network(
-                                  'https://placehold.jp/150x150.png',
-                                  fit: BoxFit.cover,
+            child: Consumer(
+              builder: (context, ref, child) {
+                final prizesAsync = ref.watch(popularPrizesProvider);
+
+                return prizesAsync.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (err, stack) =>
+                      Center(child: Text('エラーが発生しました: $err')),
+                  data: (prizes) => prizes.isEmpty
+                      ? const Center(child: Text('No Data'))
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: prizes.length,
+                          itemBuilder: (context, index) {
+                            final prize = prizes[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  navigateWithFadeTransition(
+                                    context,
+                                    PrizeDetail(
+                                      prizeId: prize.id.toString(),
+                                      itemName: prize.name,
+                                      itemPrice: '${prize.point} FSP',
+                                      itemImage: prize.imgUrl ??
+                                          'https://placehold.jp/150x150.png',
+                                    ),
+                                  );
+                                },
+                                child: SizedBox(
+                                  width: 150,
+                                  child: Card(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Center(
+                                            child: Image.network(
+                                              prize.imgUrl ??
+                                                  'https://placehold.jp/150x150.png',
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                prize.name,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall,
+                                              ),
+                                              Text(
+                                                '${prize.point} FSP',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'アイテム ${index + 1}',
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall,
-                                  ),
-                                  Text(
-                                    '${(index + 1) * 100} FSP',
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                            );
+                          },
                         ),
-                      ),
-                    ),
-                  ),
                 );
               },
             ),
@@ -168,39 +200,64 @@ class Fsp extends StatelessWidget {
           const SizedBox(height: 4),
           SizedBox(
             height: 360,
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                final isIncoming = index % 2 == 0;
-                final date = DateTime.now().subtract(Duration(days: index));
-                final formattedDate =
-                    DateFormat('yyyy/MM/dd HH:mm').format(date);
-                final points = (index + 1) * 1000;
+            child: Consumer(
+              builder: (context, ref, child) {
+                final transactionsAsync = ref.watch(transactionsProvider);
 
-                return ListTile(
-                  leading: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        isIncoming ? Icons.arrow_downward : Icons.arrow_upward,
-                        color: isIncoming ? Colors.green : Colors.red,
-                        size: 20,
-                      ),
-                      SizedBox(width: 8),
-                      CircleAvatar(
-                        child: Text('${index + 1}'),
-                      ),
-                    ],
-                  ),
-                  title: Text('取引相手 ${index + 1}'),
-                  subtitle: Text(formattedDate),
-                  trailing: Text(
-                    '${isIncoming ? "+" : "-"}$points fsp',
-                    style: TextStyle(
-                      color: isIncoming ? Colors.green : Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                return transactionsAsync.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (err, stack) =>
+                      Center(child: Text('エラーが発生しました: $err')),
+                  data: (transactions) => transactions.isEmpty
+                      ? const Center(child: Text('No Data'))
+                      : ListView.builder(
+                          itemCount: transactions.length,
+                          itemBuilder: (context, index) {
+                            final transaction = transactions[index];
+                            final isIncoming = transaction.direction ==
+                                Enum$TransactionDirection.IN;
+
+                            return ListTile(
+                              leading: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    isIncoming
+                                        ? Icons.arrow_downward
+                                        : Icons.arrow_upward,
+                                    color:
+                                        isIncoming ? Colors.green : Colors.red,
+                                    size: 20,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  CircleAvatar(
+                                    backgroundImage: transaction
+                                                .counterParty.imageUrl !=
+                                            null
+                                        ? NetworkImage(
+                                            transaction.counterParty.imageUrl!)
+                                        : null,
+                                    child: transaction.counterParty.imageUrl ==
+                                            null
+                                        ? Text(transaction.counterParty.name[0])
+                                        : null,
+                                  ),
+                                ],
+                              ),
+                              title: Text(transaction.counterParty.name),
+                              subtitle: Text(DateFormat('yyyy/MM/dd HH:mm')
+                                  .format(DateTime.parse(transaction.txAt))),
+                              trailing: Text(
+                                '${isIncoming ? "+" : "-"}${transaction.amount} fsp',
+                                style: TextStyle(
+                                  color: isIncoming ? Colors.green : Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                 );
               },
             ),
@@ -231,7 +288,7 @@ class Fsp extends StatelessWidget {
               destinationWidget = const Exchange();
               break;
             case '分配':
-              destinationWidget = const Allocation(); // 追加
+              destinationWidget = const Allocation();
               break;
           }
           if (destinationWidget != null) {
@@ -256,3 +313,68 @@ class Fsp extends StatelessWidget {
     );
   }
 }
+
+final transactionsProvider = FutureProvider.autoDispose<
+        List<Query$GetFspHistoryByUser$getFspHistoryByUser$transactionList>>(
+    (ref) async {
+  final user = ref.watch(userProvider);
+  if (user == null) return [];
+
+  final result = await ref.read(graphQLClientProvider).query(
+        QueryOptions(
+          document: gql('''
+        query GetFspHistoryByUser(\$userId: String!, \$count: Int!) {
+          getFspHistoryByUser(userId: \$userId, count: \$count) {
+            transactionList {
+              id
+              amount
+              direction
+              counterParty {
+                id
+                name
+                imageUrl
+              }
+              txAt
+            }
+          }
+        }
+      '''),
+          variables: {
+            'userId': user.id,
+            'count': 5,
+          },
+        ),
+      );
+
+  final transactions = (result.data!['getFspHistoryByUser']['transactionList']
+          as List)
+      .map((tx) => Query$GetFspHistoryByUser$getFspHistoryByUser$transactionList
+          .fromJson(tx as Map<String, dynamic>))
+      .toList();
+  return transactions;
+});
+
+final popularPrizesProvider =
+    FutureProvider.autoDispose<List<Query$GetPopularPrizes$getPopularPrizes>>(
+        (ref) async {
+  final result = await ref.read(graphQLClientProvider).query(
+        QueryOptions(
+          document: gql('''
+        query GetPopularPrizes {
+          getPopularPrizes {
+            id
+            name
+            point
+            imgUrl
+          }
+        }
+      '''),
+        ),
+      );
+
+  final prizes = (result.data!['getPopularPrizes'] as List)
+      .map((prize) => Query$GetPopularPrizes$getPopularPrizes.fromJson(
+          prize as Map<String, dynamic>))
+      .toList();
+  return prizes;
+});

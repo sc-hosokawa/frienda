@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ferry/ferry.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:client/presentation/widgets/message/message_list.dart';
 import 'package:client/presentation/widgets/message/message_room.dart';
 import 'package:client/presentation/providers/auth_provider.dart';
+import 'package:client/data/graphql/schema.graphql.dart';
+import 'package:client/data/graphql/query.graphql.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'package:graphql/client.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -27,12 +29,13 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
     return SingleChildScrollView(
+      key: PageStorageKey('home_page'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildActionsSection(),
           // _buildNewsSection(),
-          _buildMessagesSection(),
+          _buildMessagesSection(key: UniqueKey()),
           _buildTrendingSection(),
           SizedBox(height: 16),
         ],
@@ -76,7 +79,10 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   // TODO: Unreadを最大5件表示、5件ない場合は最新のメッセを全体で5件になるまで取得。なお未読のメッセはハイライトする。
-  Widget _buildMessagesSection() {
+  Widget _buildMessagesSection({Key? key}) {
+    final client = ref.watch(graphQLClientProvider);
+    final userState = ref.watch(userProvider);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -98,58 +104,107 @@ class _HomePageState extends ConsumerState<HomePage> {
             ],
           ),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            bool isUnread = _isMessageUnread(index);
-            return Container(
-              color: isUnread ? Colors.grey[800] : null,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MessageRoom()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 16.0),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        child: Text('U${index + 1}'),
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'User ${index + 1}',
-                              style: TextStyle(
-                                fontWeight: isUnread
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                              ),
-                            ),
-                            Text(
-                              'Latest message from User ${index + 1}',
-                              style: TextStyle(
-                                fontWeight: isUnread
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text('${index + 1}m ago'),
-                    ],
-                  ),
-                ),
+        FutureBuilder<QueryResult<Query$GetMessagesInProgress>>(
+          future: client.query$GetMessagesInProgress(
+            Options$Query$GetMessagesInProgress(
+              variables: Variables$Query$GetMessagesInProgress(
+                userId: userState?.id ?? '',
               ),
+            ),
+          ),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text('Error loading messages'));
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+
+            final data = snapshot.data?.data;
+            if (data == null) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Text('No messages yet'),
+                ),
+              );
+            }
+
+            final messageRooms = (data['getMessagesInProgress']
+                as Map<String, dynamic>)['messageRoomList'] as List<dynamic>?;
+
+            if (messageRooms == null || messageRooms.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Text('No messages yet'),
+                ),
+              );
+            }
+
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: messageRooms.length,
+              itemBuilder: (context, index) {
+                final room = messageRooms[index] as Map<String, dynamic>;
+                return Container(
+                  color: room['isRead'] == true ? null : Colors.grey[800],
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MessageRoom(
+                            roomId: room['id'] as String,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 16.0,
+                        horizontal: 16.0,
+                      ),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            child: Text('M'),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  room['category'] as String? ?? 'No category',
+                                  style: TextStyle(
+                                    fontWeight: room['isRead'] == true
+                                        ? FontWeight.normal
+                                        : FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  room['latestMessage'] as String? ??
+                                      'No message',
+                                  style: TextStyle(
+                                    fontWeight: room['isRead'] == true
+                                        ? FontWeight.normal
+                                        : FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          if (room['latestSentAt'] != null)
+                            Text(room['latestSentAt'] as String),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
           },
         ),
