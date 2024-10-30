@@ -6,6 +6,10 @@ type AddNewConnectionResponse {
 	mapId: String!
 }
 
+type AllUsersData {
+	users: [UserSimpleData!]!
+}
+
 type ArtistByUserData {
 	id: String!
 	name: String!
@@ -214,6 +218,7 @@ type MessageRoomData {
 	latestMessage: String
 	latestSentAt: String
 	isRead: Boolean!
+	users: [UserSimpleData!]!
 }
 
 type MessageRoomsByUserData {
@@ -345,6 +350,7 @@ type QueryRoot {
 	getMessagesByMessageRoomId(userId: String!, messageRoomId: String!): MessagesByRoomIdByUserData!
 	getNotifications(count: Int!, offset: Int!): NotificationsData!
 	getAllNotifications: NotificationsData!
+	getAllUsers: AllUsersData!
 	getUserData(userId: String!): UserDetailData!
 	getBelongedArtists(userId: String!): ArtistByUserDataList!
 	getUserDetailProfile(userId: String!): UserDetailData!

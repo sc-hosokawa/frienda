@@ -147,6 +147,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
         get_room_list: Arc::new(GetRoomListUsecase::new(
             repos.room_user.clone(),
             repos.rooms.clone(),
+            repos.users.clone(),
         )),
         get_messages: Arc::new(GetMessagesUsecase::new(
             repos.messages.clone(),

@@ -40,6 +40,7 @@ pub struct MessageRoomData {
     pub latest_message: Option<String>,
     pub latest_sent_at: Option<String>, // datetime
     pub is_read: bool,                  // falseの場合は未読
+    pub users: Vec<UserSimpleData>,
 }
 
 // ユーザーが参加しているメッセージルーム一覧データ
@@ -125,6 +126,7 @@ impl From<application::usecases::messaging::get_room_list_usecase::RoomData> for
             latest_message: room.latest_message,
             latest_sent_at: room.latest_sent_at.map(|dt| dt.to_rfc3339()),
             is_read: room.is_read,
+            users: room.users.into_iter().map(|u| u.into()).collect(),
         }
     }
 }
@@ -144,6 +146,16 @@ impl From<application::usecases::messaging::get_messages_usecase::GetMessagesOut
 }
 impl From<application::usecases::messaging::get_messages_usecase::SimpleUser> for UserSimpleData {
     fn from(user: application::usecases::messaging::get_messages_usecase::SimpleUser) -> Self {
+        UserSimpleData {
+            id: user.id,
+            name: user.name,
+            image_url: user.image_url,
+        }
+    }
+}
+
+impl From<application::usecases::messaging::get_room_list_usecase::SimpleUser> for UserSimpleData {
+    fn from(user: application::usecases::messaging::get_room_list_usecase::SimpleUser) -> Self {
         UserSimpleData {
             id: user.id,
             name: user.name,
