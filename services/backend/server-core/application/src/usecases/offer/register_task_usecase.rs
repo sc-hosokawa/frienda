@@ -21,7 +21,7 @@ pub struct RegisterTaskInput {
     pub required_skill: Option<String>,
     pub target_role: Option<UserCategory>,
     pub fee: i32,
-    pub deadline: DateTime<Utc>,
+    pub deadline: Option<String>,
     pub image_url: Option<String>,
     pub attached_imgs: Option<Vec<String>>,
     pub attached_files: Option<Vec<String>>,
@@ -66,7 +66,7 @@ impl RegisterTaskUsecaseTrait for RegisterTaskUsecase {
     async fn register_task(&self, input: RegisterTaskInput) -> Result<i32, anyhow::Error> {
         let offer: OfferActiveModel = OfferActiveModel {
             owner: ActiveValue::Set(input.owner),
-            deadline: ActiveValue::Set(input.deadline.naive_utc()),
+            deadline: ActiveValue::Set(input.deadline),
             title: ActiveValue::Set(input.title),
             description: ActiveValue::Set(input.description),
             fee: ActiveValue::Set(input.fee),

@@ -145,7 +145,7 @@ impl CreateNewUserDataInput {
 pub fn from_string_to_user_category(s: &str) -> Result<UserCategory, String> {
     match s {
         "Musician" => Ok(UserCategory::Musician),
-        "Creater" => Ok(UserCategory::Creater),
+        "Creator" => Ok(UserCategory::Creator),
         "Curator" => Ok(UserCategory::Curator),
         "Supporter" => Ok(UserCategory::Supporter),
         _ => Err(format!("Invalid UserCategory: {}", s)),
@@ -155,7 +155,7 @@ pub fn from_string_to_user_category(s: &str) -> Result<UserCategory, String> {
 pub fn from_user_category_to_string(category: &UserCategory) -> String {
     match category {
         UserCategory::Musician => "Musician".to_string(),
-        UserCategory::Creater => "Creater".to_string(),
+        UserCategory::Creator => "Creator".to_string(),
         UserCategory::Curator => "Curator".to_string(),
         UserCategory::Supporter => "Supporter".to_string(),
     }
@@ -184,13 +184,13 @@ impl UserDetailData {
             credential_balance: domain.user.credential,
             role: match domain.user.category {
                 UserCategory::Musician => "Musician".to_string(),
-                UserCategory::Creater => "Creater".to_string(),
+                UserCategory::Creator => "Creator".to_string(),
                 UserCategory::Curator => "Curator".to_string(),
                 UserCategory::Supporter => "Supporter".to_string(),
             },
             primary_role: match domain.user.primary_category {
                 UserCategory::Musician => "Musician".to_string(),
-                UserCategory::Creater => "Creater".to_string(),
+                UserCategory::Creator => "Creator".to_string(),
                 UserCategory::Curator => "Curator".to_string(),
                 UserCategory::Supporter => "Supporter".to_string(),
             },

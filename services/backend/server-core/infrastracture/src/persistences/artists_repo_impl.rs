@@ -48,7 +48,7 @@ impl ArtistsRepository for ArtistsRepoImpl {
 
     async fn find_by_name(&self, name: &str) -> Result<Vec<Artist>, DomainError> {
         let artists = ArtistEntity::find()
-            .filter(Column::Name.like(name))
+            .filter(Column::DisplayNameJp.like(name))
             .order_by_asc(Column::Id)
             .all(&self.db)
             .await?;

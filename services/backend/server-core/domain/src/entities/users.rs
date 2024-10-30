@@ -22,6 +22,7 @@ pub struct Model {
     pub credential: i32,
     pub category: UserCategory,
     pub primary_category: UserCategory,
+    pub publicity: bool,
     pub greeting: Option<String>,
     pub skill: Option<String>,
     pub x_handle: Option<String>,

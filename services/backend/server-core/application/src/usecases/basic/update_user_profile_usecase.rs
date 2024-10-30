@@ -134,7 +134,7 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
 
                 crate::usecases::basic::get_user_basic_info_usecase::ArtistSimpleInfo {
                     id: artist.id,
-                    name: artist.name,
+                    name: artist.display_name_jp,
                     img_url: artist.img_url,
                     fsp: artist.fsp,
                     is_admin: user_artist.is_admin,
@@ -181,7 +181,7 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
             .ok_or_else(|| anyhow::anyhow!("Artist not found"))?;
         let artist_info = crate::usecases::basic::get_user_basic_info_usecase::ArtistSimpleInfo {
             id: artist.id,
-            name: artist.name,
+            name: artist.display_name_jp,
             img_url: artist.img_url,
             fsp: artist.fsp,
             is_admin: updated_user_artist.is_admin,

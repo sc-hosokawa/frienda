@@ -13,7 +13,7 @@ pub struct Model {
     pub owner: String,
     pub title: String,
     pub description: String,
-    pub deadline: DateTime,
+    pub deadline: Option<String>,
     pub place: String,
     pub attention: Option<String>,
     pub required_skill: Option<String>,

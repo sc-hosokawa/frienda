@@ -124,7 +124,7 @@ impl ArtistData {
     pub fn from_domain(domain: domain::entities::artists::Model) -> Result<Self, anyhow::Error> {
         Ok(Self {
             id: domain.id.to_string(),
-            name: domain.name,
+            name: domain.display_name_jp,
             fsp: domain.fsp,
             image_url: domain.img_url,
         })
@@ -135,7 +135,7 @@ impl ArtistFullData {
     pub fn from_domain(domain: domain::entities::artists::Model) -> Result<Self, anyhow::Error> {
         Ok(Self {
             id: domain.id.to_string(),
-            name: domain.name,
+            name: domain.display_name_jp,
             img_url: domain.img_url,
             fsp: domain.fsp,
             status: match domain.status {

@@ -50,7 +50,7 @@ pub struct OfferByStatusData {
 #[derive(InputObject)]
 pub struct CreateNewOfferInput {
     pub owner: String,
-    pub deadline: String,
+    pub deadline: Option<String>,
     pub title: String,
     pub description: String,
     pub fee: i32,
@@ -123,7 +123,7 @@ impl CreateNewOfferInput {
             title: self.title,
             description: self.description,
             fee: self.fee,
-            deadline: self.deadline.parse::<DateTime<Utc>>().unwrap(),
+            deadline: self.deadline,
             image_url: self.image_url,
             attached_imgs: self.attached_imgs,
             attached_files: self.attached_files,
@@ -147,7 +147,7 @@ impl CreateNewOfferInput {
 pub fn from_string_to_user_category(s: &str) -> Result<UserCategory, String> {
     match s {
         "Musician" => Ok(UserCategory::Musician),
-        "Creater" => Ok(UserCategory::Creater),
+        "Creator" => Ok(UserCategory::Creator),
         "Curator" => Ok(UserCategory::Curator),
         "Supporter" => Ok(UserCategory::Supporter),
         _ => Err(format!("Invalid UserCategory: {}", s)),

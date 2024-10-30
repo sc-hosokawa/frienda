@@ -48,6 +48,7 @@ fn test_user_entity() {
         interest_offer,
         email: email.clone(),
         id_token: id_token.clone(),
+        publicity: true,
     };
 
     // 全ての属性の確認
@@ -113,6 +114,7 @@ fn test_user_entity() {
         interest_offer: None,
         email: "".to_string(),
         id_token: None,
+        publicity: true,
     };
 
     assert_eq!(user_without_optionals.evm_addr, None);

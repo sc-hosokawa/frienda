@@ -1,5 +1,4 @@
 use async_trait::async_trait;
-use chrono::{DateTime, Utc};
 use sea_orm::ActiveValue;
 use std::sync::Arc;
 
@@ -25,7 +24,7 @@ pub struct UpdateTaskInput {
     pub required_skill: Option<String>,
     pub target_role: Option<UserCategory>,
     pub publicity: Option<bool>,
-    pub deadline: Option<DateTime<Utc>>,
+    pub deadline: Option<String>,
     pub attached_imgs: Option<Vec<String>>,
     pub attached_files: Option<Vec<String>>,
 }
@@ -109,7 +108,7 @@ impl UpdateTaskUsecaseTrait for UpdateTaskUsecase {
             updated_offer.publicity = ActiveValue::Set(publicity);
         }
         if let Some(deadline) = input.deadline {
-            updated_offer.deadline = ActiveValue::Set(deadline.naive_utc());
+            updated_offer.deadline = ActiveValue::Set(Some(deadline));
         }
 
         let new_offer = self.offers_repo.update(updated_offer).await?;

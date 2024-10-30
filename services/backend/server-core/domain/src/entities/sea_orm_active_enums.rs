@@ -71,8 +71,8 @@ pub enum UserArtistStatus {
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_category")]
 pub enum UserCategory {
-    #[sea_orm(string_value = "creater")]
-    Creater,
+    #[sea_orm(string_value = "creator")]
+    Creator,
     #[sea_orm(string_value = "curator")]
     Curator,
     #[sea_orm(string_value = "musician")]

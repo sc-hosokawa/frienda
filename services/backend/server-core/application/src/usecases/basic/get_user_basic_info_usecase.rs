@@ -103,7 +103,7 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
 
                 ArtistSimpleInfo {
                     id: artist.id,
-                    name: artist.name,
+                    name: artist.display_name_jp,
                     img_url: artist.img_url,
                     fsp: artist.fsp,
                     status: user_artist.status.clone(),
@@ -140,7 +140,7 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
 
                 ArtistSimpleInfo {
                     id: artist.id,
-                    name: artist.name,
+                    name: artist.display_name_jp,
                     img_url: artist.img_url,
                     fsp: artist.fsp,
                     status: user_artist.status.clone(),
