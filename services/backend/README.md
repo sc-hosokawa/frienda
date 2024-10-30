@@ -1,1 +1,3 @@
 # Frienda server
+
+## Health Check
