@@ -6,9 +6,9 @@ use application::health_check::*;
 use application::usecases::artist::get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait};
 use application::usecases::basic::{
     create_user_usecase::{CreateUserUsecase, CreateUserUsecaseTrait},
+    get_all_users_usecase::{GetAllUsersUsecase, GetAllUsersUsecaseTrait},
     get_user_basic_info_usecase::{GetUserBasicInfoUsecase, GetUserBasicInfoUsecaseTrait},
     update_user_profile_usecase::{UpdateUserProfileUsecase, UpdateUserProfileUsecaseTrait},
-    get_all_users_usecase::{GetAllUsersUsecase, GetAllUsersUsecaseTrait},
 };
 use application::usecases::messaging::{
     create_message_room_usecase::{CreateMessageRoomUsecase, CreateMessageRoomUsecaseTrait},

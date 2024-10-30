@@ -29,8 +29,8 @@ impl OfferMutation {
                         .target_role
                         .map(|s| models::users::from_string_to_user_category(&s).unwrap()),
                     fee: input.fee,
-                    deadline: DateTime::parse_from_rfc3339(&input.deadline)
-                        .unwrap()
+                    deadline: DateTime::parse_from_str(&input.deadline, "%Y-%m-%dT%H:%M:%S%.3fZ")
+                        .map_err(|e| async_graphql::Error::new(format!("Invalid deadline format: {}", e)))?
                         .into(),
                     image_url: input.image_url,
                     attached_imgs: input.attached_imgs,
