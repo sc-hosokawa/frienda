@@ -9,7 +9,19 @@ pub struct GeneralQuery;
 #[Object]
 impl GeneralQuery {
     async fn get_all_users(&self, ctx: &Context<'_>) -> Result<models::users::AllUsersData> {
-        todo!()
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.get_all_users.execute().await?;
+        Ok(models::users::AllUsersData {
+            users: result
+                .users
+                .into_iter()
+                .map(|user| models::users::UserSimpleData {
+                    id: user.id,
+                    name: user.name,
+                    image_url: user.image_url,
+                })
+                .collect::<Vec<_>>(),
+        })
     }
 
     async fn get_user_data(

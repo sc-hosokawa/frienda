@@ -8,6 +8,7 @@ use application::usecases::basic::{
     create_user_usecase::{CreateUserUsecase, CreateUserUsecaseTrait},
     get_user_basic_info_usecase::{GetUserBasicInfoUsecase, GetUserBasicInfoUsecaseTrait},
     update_user_profile_usecase::{UpdateUserProfileUsecase, UpdateUserProfileUsecaseTrait},
+    get_all_users_usecase::{GetAllUsersUsecase, GetAllUsersUsecaseTrait},
 };
 use application::usecases::messaging::{
     create_message_room_usecase::{CreateMessageRoomUsecase, CreateMessageRoomUsecaseTrait},
@@ -97,6 +98,7 @@ pub struct Usecases {
     pub get_user_point_balance: Arc<dyn GetUserPointBalanceUsecaseTrait>,
     pub transfer_point_between_accounts: Arc<dyn TransferPointBetweenAccountsUsecaseTrait>,
     pub get_artist: Arc<dyn GetArtistUsecaseTrait>,
+    pub get_all_users: Arc<dyn GetAllUsersUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -125,6 +127,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
         create_user: Arc::new(CreateUserUsecase::new(repos.users.clone())),
         get_artist: Arc::new(GetArtistUsecase::new(repos.artists.clone())),
+        get_all_users: Arc::new(GetAllUsersUsecase::new(repos.users.clone())),
         get_user_basic_info: Arc::new(GetUserBasicInfoUsecase::new(
             repos.users.clone(),
             repos.user_artist.clone(),
