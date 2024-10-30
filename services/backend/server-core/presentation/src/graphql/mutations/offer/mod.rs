@@ -33,7 +33,7 @@ impl OfferMutation {
                         .map_err(|e| {
                             async_graphql::Error::new(format!("Invalid deadline format: {}", e))
                         })?
-                        .into(),
+                        .with_timezone(&chrono::Utc),
                     image_url: input.image_url,
                     attached_imgs: input.attached_imgs,
                     attached_files: input.attached_files,
