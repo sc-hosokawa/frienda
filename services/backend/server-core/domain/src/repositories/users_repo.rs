@@ -18,6 +18,7 @@ pub trait UsersRepository: Send + Sync {
     async fn find_by_email(&self, email: &str) -> Result<Option<User>, DomainError>;
     async fn delete(&self, id: &str) -> Result<(), DomainError>;
     async fn list(&self, limit: usize, offset: usize) -> Result<Vec<User>, DomainError>;
+    async fn get_all_users(&self) -> Result<Vec<User>, DomainError>;
     async fn find_by_username(&self, username: &str) -> Result<Option<User>, DomainError>;
     async fn find_by_evm_addr(&self, evm_addr: &str) -> Result<Option<User>, DomainError>;
     async fn find_by_invited_by(&self, invited_by: &str) -> Result<Vec<User>, DomainError>;

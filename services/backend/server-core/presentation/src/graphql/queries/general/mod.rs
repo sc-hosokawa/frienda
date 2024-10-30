@@ -8,6 +8,10 @@ pub struct GeneralQuery;
 
 #[Object]
 impl GeneralQuery {
+    async fn get_all_users(&self, ctx: &Context<'_>) -> Result<models::users::AllUsersData> {
+        todo!()
+    }
+
     async fn get_user_data(
         &self,
         ctx: &Context<'_>,

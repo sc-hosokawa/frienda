@@ -14,6 +14,11 @@ pub struct UserSimpleData {
 }
 
 #[derive(SimpleObject)]
+pub struct AllUsersData {
+    pub users: Vec<UserSimpleData>,
+}
+
+#[derive(SimpleObject)]
 pub struct UserBasicData {
     pub id: String,
     pub name: String,

@@ -102,6 +102,11 @@ impl UsersRepository for UsersRepoImpl {
         Ok(users)
     }
 
+    async fn get_all_users(&self) -> Result<Vec<User>, DomainError> {
+        let users = UserEntity::find().all(&self.db).await?;
+        Ok(users)
+    }
+
     async fn find_by_username(&self, username: &str) -> Result<Option<User>, DomainError> {
         let user = UserEntity::find()
             .filter(Column::Username.eq(username))
