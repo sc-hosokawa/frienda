@@ -21,6 +21,7 @@ pub struct GetMessagesOutput {
 pub struct MessageData {
     pub id: String,
     pub content: String,
+    pub sent_by: String,
     pub sent_at: chrono::DateTime<chrono::Utc>,
 }
 pub struct SimpleUser {
@@ -84,6 +85,7 @@ impl GetMessagesUsecaseTrait for GetMessagesUsecase {
             .map(|msg| MessageData {
                 id: msg.id.to_string(),
                 content: msg.message,
+                sent_by: msg.send_by,
                 sent_at: msg.created_at.and_utc(),
             })
             .collect();

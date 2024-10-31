@@ -21,6 +21,7 @@ pub struct MessageData {
 pub struct MessageTempData {
     pub id: String,
     pub content: String,
+    pub sent_by: String,
     pub sent_at: String,
 }
 
@@ -169,6 +170,7 @@ impl From<application::usecases::messaging::get_messages_usecase::MessageData> f
         MessageTempData {
             id: message.id,
             content: message.content,
+            sent_by: message.sent_by,
             sent_at: message.sent_at.to_rfc3339(),
         }
     }
