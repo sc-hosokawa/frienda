@@ -34,84 +34,87 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('新規登録')),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(labelText: 'メールアドレス'),
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'メールアドレスを入力してください';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(labelText: 'パスワード'),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'パスワードを入力してください';
-                    }
-                    if (value.length < 6) {
-                      return 'パスワードは6文字以上で入力してください';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 24),
-                _isLoading
-                    ? CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: _register,
-                        child: Text('登録'),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(title: Text('新規登録')),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(labelText: 'メールアドレス'),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'メールアドレスを入力してください';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 16),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(labelText: 'パスワード'),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'パスワードを入力してください';
+                      }
+                      if (value.length < 6) {
+                        return 'パスワードは6文字以上で入力してください';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 24),
+                  _isLoading
+                      ? CircularProgressIndicator()
+                      : ElevatedButton(
+                          onPressed: _register,
+                          child: Text('登録'),
+                        ),
+                  SizedBox(height: 48),
+                  Text(
+                    '登録をした方は以下の書類に同意したこととみなします',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextButton(
+                        style: _linkButtonStyle,
+                        onPressed: () => _openWebView(
+                            'プライバシーポリシー', 'https://example.com/privacy'),
+                        child: Text('プライバシーポリシー'),
                       ),
-                SizedBox(height: 48),
-                Text(
-                  '登録をした方は以下の書類に同意したこととみなします',
-                  style: TextStyle(fontSize: 12),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextButton(
-                      style: _linkButtonStyle,
-                      onPressed: () => _openWebView(
-                          'プライバシーポリシー', 'https://example.com/privacy'),
-                      child: Text('プライバシーポリシー'),
-                    ),
-                    TextButton(
-                      style: _linkButtonStyle,
-                      onPressed: () =>
-                          _openWebView('利用規約', 'https://example.com/terms'),
-                      child: Text('利用規約'),
-                    ),
-                    TextButton(
-                      style: _linkButtonStyle,
-                      onPressed: () => _openWebView('特定商取引法',
-                          'https://example.com/specified-commercial-transactions'),
-                      child: Text('特定商取引法'),
-                    ),
-                    TextButton(
-                      style: _linkButtonStyle,
-                      onPressed: () => _openWebView(
-                          '資金決済法', 'https://example.com/fund-settlement'),
-                      child: Text('資金決済法'),
-                    ),
-                  ],
-                ),
-              ],
+                      TextButton(
+                        style: _linkButtonStyle,
+                        onPressed: () =>
+                            _openWebView('利用規約', 'https://example.com/terms'),
+                        child: Text('利用規約'),
+                      ),
+                      TextButton(
+                        style: _linkButtonStyle,
+                        onPressed: () => _openWebView('特定商取引法',
+                            'https://example.com/specified-commercial-transactions'),
+                        child: Text('特定商取引法'),
+                      ),
+                      TextButton(
+                        style: _linkButtonStyle,
+                        onPressed: () => _openWebView(
+                            '資金決済法', 'https://example.com/fund-settlement'),
+                        child: Text('資金決済法'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -36,7 +36,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   final List<Map<String, String>> _categories = [
     {'id': 'Musician', 'name': 'ミュージシャン'},
     {'id': 'Curator', 'name': 'キュレーター'},
-    {'id': 'Creater', 'name': 'クリエイター'},
+    {'id': 'Creator', 'name': 'クリエイター'},
     {'id': 'Supporter', 'name': 'サポーター'},
   ];
 

@@ -15,6 +15,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final providerContainer = ProviderContainer();
 
@@ -148,6 +149,31 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const int pageCount = 4;
   final PageController _pageController = PageController(keepPage: true);
+  bool _isFirstLaunch = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkFirstLaunch();
+  }
+
+  Future<void> _checkFirstLaunch() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
+
+    if (!isFirstLaunch && mounted) {
+      final currentUser = FirebaseAuth.instance.currentUser;
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) =>
+              currentUser != null ? const MainScreen() : const LoginPage(),
+        ),
+      );
+    } else {
+      await prefs.setBool('isFirstLaunch', false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
