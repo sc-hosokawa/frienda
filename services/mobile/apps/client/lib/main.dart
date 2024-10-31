@@ -84,6 +84,10 @@ class MyApp extends StatelessWidget {
             cursorColor: Colors.green,
             selectionHandleColor: Colors.green,
           ),
+          colorScheme: ColorScheme.light(
+            primary: Colors.green,
+            secondary: Colors.lightGreen,
+          ),
         ),
         darkTheme: ThemeData(
           fontFamily: 'Jost',
@@ -119,6 +123,10 @@ class MyApp extends StatelessWidget {
             selectionColor: Colors.green.withOpacity(0.3),
             cursorColor: Colors.green,
             selectionHandleColor: Colors.green,
+          ),
+          colorScheme: ColorScheme.dark(
+            primary: Colors.green,
+            secondary: Colors.lightGreen,
           ),
         ),
         themeMode: ThemeMode.dark,

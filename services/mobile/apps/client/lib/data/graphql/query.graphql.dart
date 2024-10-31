@@ -1859,6 +1859,665 @@ class _CopyWithStubImpl$Query$GetTrendingData$getTrendingData$trendingTracks<
       _res;
 }
 
+class Query$GetAllUsers {
+  Query$GetAllUsers({
+    required this.getAllUsers,
+    this.$__typename = 'QueryRoot',
+  });
+
+  factory Query$GetAllUsers.fromJson(Map<String, dynamic> json) {
+    final l$getAllUsers = json['getAllUsers'];
+    final l$$__typename = json['__typename'];
+    return Query$GetAllUsers(
+      getAllUsers: Query$GetAllUsers$getAllUsers.fromJson(
+          (l$getAllUsers as Map<String, dynamic>)),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final Query$GetAllUsers$getAllUsers getAllUsers;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$getAllUsers = getAllUsers;
+    _resultData['getAllUsers'] = l$getAllUsers.toJson();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$getAllUsers = getAllUsers;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$getAllUsers,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$GetAllUsers) || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$getAllUsers = getAllUsers;
+    final lOther$getAllUsers = other.getAllUsers;
+    if (l$getAllUsers != lOther$getAllUsers) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$GetAllUsers on Query$GetAllUsers {
+  CopyWith$Query$GetAllUsers<Query$GetAllUsers> get copyWith =>
+      CopyWith$Query$GetAllUsers(
+        this,
+        (i) => i,
+      );
+}
+
+abstract class CopyWith$Query$GetAllUsers<TRes> {
+  factory CopyWith$Query$GetAllUsers(
+    Query$GetAllUsers instance,
+    TRes Function(Query$GetAllUsers) then,
+  ) = _CopyWithImpl$Query$GetAllUsers;
+
+  factory CopyWith$Query$GetAllUsers.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetAllUsers;
+
+  TRes call({
+    Query$GetAllUsers$getAllUsers? getAllUsers,
+    String? $__typename,
+  });
+  CopyWith$Query$GetAllUsers$getAllUsers<TRes> get getAllUsers;
+}
+
+class _CopyWithImpl$Query$GetAllUsers<TRes>
+    implements CopyWith$Query$GetAllUsers<TRes> {
+  _CopyWithImpl$Query$GetAllUsers(
+    this._instance,
+    this._then,
+  );
+
+  final Query$GetAllUsers _instance;
+
+  final TRes Function(Query$GetAllUsers) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? getAllUsers = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$GetAllUsers(
+        getAllUsers: getAllUsers == _undefined || getAllUsers == null
+            ? _instance.getAllUsers
+            : (getAllUsers as Query$GetAllUsers$getAllUsers),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  CopyWith$Query$GetAllUsers$getAllUsers<TRes> get getAllUsers {
+    final local$getAllUsers = _instance.getAllUsers;
+    return CopyWith$Query$GetAllUsers$getAllUsers(
+        local$getAllUsers, (e) => call(getAllUsers: e));
+  }
+}
+
+class _CopyWithStubImpl$Query$GetAllUsers<TRes>
+    implements CopyWith$Query$GetAllUsers<TRes> {
+  _CopyWithStubImpl$Query$GetAllUsers(this._res);
+
+  TRes _res;
+
+  call({
+    Query$GetAllUsers$getAllUsers? getAllUsers,
+    String? $__typename,
+  }) =>
+      _res;
+
+  CopyWith$Query$GetAllUsers$getAllUsers<TRes> get getAllUsers =>
+      CopyWith$Query$GetAllUsers$getAllUsers.stub(_res);
+}
+
+const documentNodeQueryGetAllUsers = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.query,
+    name: NameNode(value: 'GetAllUsers'),
+    variableDefinitions: [],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'getAllUsers'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+            name: NameNode(value: 'users'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: SelectionSetNode(selections: [
+              FieldNode(
+                name: NameNode(value: 'id'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: 'name'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: 'imageUrl'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+              FieldNode(
+                name: NameNode(value: '__typename'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null,
+              ),
+            ]),
+          ),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
+        ]),
+      ),
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ]),
+  ),
+]);
+Query$GetAllUsers _parserFn$Query$GetAllUsers(Map<String, dynamic> data) =>
+    Query$GetAllUsers.fromJson(data);
+typedef OnQueryComplete$Query$GetAllUsers = FutureOr<void> Function(
+  Map<String, dynamic>?,
+  Query$GetAllUsers?,
+);
+
+class Options$Query$GetAllUsers
+    extends graphql.QueryOptions<Query$GetAllUsers> {
+  Options$Query$GetAllUsers({
+    String? operationName,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Query$GetAllUsers? typedOptimisticResult,
+    Duration? pollInterval,
+    graphql.Context? context,
+    OnQueryComplete$Query$GetAllUsers? onComplete,
+    graphql.OnQueryError? onError,
+  })  : onCompleteWithParsed = onComplete,
+        super(
+          operationName: operationName,
+          fetchPolicy: fetchPolicy,
+          errorPolicy: errorPolicy,
+          cacheRereadPolicy: cacheRereadPolicy,
+          optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+          pollInterval: pollInterval,
+          context: context,
+          onComplete: onComplete == null
+              ? null
+              : (data) => onComplete(
+                    data,
+                    data == null ? null : _parserFn$Query$GetAllUsers(data),
+                  ),
+          onError: onError,
+          document: documentNodeQueryGetAllUsers,
+          parserFn: _parserFn$Query$GetAllUsers,
+        );
+
+  final OnQueryComplete$Query$GetAllUsers? onCompleteWithParsed;
+
+  @override
+  List<Object?> get properties => [
+        ...super.onComplete == null
+            ? super.properties
+            : super.properties.where((property) => property != onComplete),
+        onCompleteWithParsed,
+      ];
+}
+
+class WatchOptions$Query$GetAllUsers
+    extends graphql.WatchQueryOptions<Query$GetAllUsers> {
+  WatchOptions$Query$GetAllUsers({
+    String? operationName,
+    graphql.FetchPolicy? fetchPolicy,
+    graphql.ErrorPolicy? errorPolicy,
+    graphql.CacheRereadPolicy? cacheRereadPolicy,
+    Object? optimisticResult,
+    Query$GetAllUsers? typedOptimisticResult,
+    graphql.Context? context,
+    Duration? pollInterval,
+    bool? eagerlyFetchResults,
+    bool carryForwardDataOnException = true,
+    bool fetchResults = false,
+  }) : super(
+          operationName: operationName,
+          fetchPolicy: fetchPolicy,
+          errorPolicy: errorPolicy,
+          cacheRereadPolicy: cacheRereadPolicy,
+          optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
+          context: context,
+          document: documentNodeQueryGetAllUsers,
+          pollInterval: pollInterval,
+          eagerlyFetchResults: eagerlyFetchResults,
+          carryForwardDataOnException: carryForwardDataOnException,
+          fetchResults: fetchResults,
+          parserFn: _parserFn$Query$GetAllUsers,
+        );
+}
+
+class FetchMoreOptions$Query$GetAllUsers extends graphql.FetchMoreOptions {
+  FetchMoreOptions$Query$GetAllUsers({required graphql.UpdateQuery updateQuery})
+      : super(
+          updateQuery: updateQuery,
+          document: documentNodeQueryGetAllUsers,
+        );
+}
+
+extension ClientExtension$Query$GetAllUsers on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Query$GetAllUsers>> query$GetAllUsers(
+          [Options$Query$GetAllUsers? options]) async =>
+      await this.query(options ?? Options$Query$GetAllUsers());
+  graphql.ObservableQuery<Query$GetAllUsers> watchQuery$GetAllUsers(
+          [WatchOptions$Query$GetAllUsers? options]) =>
+      this.watchQuery(options ?? WatchOptions$Query$GetAllUsers());
+  void writeQuery$GetAllUsers({
+    required Query$GetAllUsers data,
+    bool broadcast = true,
+  }) =>
+      this.writeQuery(
+        graphql.Request(
+            operation:
+                graphql.Operation(document: documentNodeQueryGetAllUsers)),
+        data: data.toJson(),
+        broadcast: broadcast,
+      );
+  Query$GetAllUsers? readQuery$GetAllUsers({bool optimistic = true}) {
+    final result = this.readQuery(
+      graphql.Request(
+          operation: graphql.Operation(document: documentNodeQueryGetAllUsers)),
+      optimistic: optimistic,
+    );
+    return result == null ? null : Query$GetAllUsers.fromJson(result);
+  }
+}
+
+graphql_flutter.QueryHookResult<Query$GetAllUsers> useQuery$GetAllUsers(
+        [Options$Query$GetAllUsers? options]) =>
+    graphql_flutter.useQuery(options ?? Options$Query$GetAllUsers());
+graphql.ObservableQuery<Query$GetAllUsers> useWatchQuery$GetAllUsers(
+        [WatchOptions$Query$GetAllUsers? options]) =>
+    graphql_flutter.useWatchQuery(options ?? WatchOptions$Query$GetAllUsers());
+
+class Query$GetAllUsers$Widget
+    extends graphql_flutter.Query<Query$GetAllUsers> {
+  Query$GetAllUsers$Widget({
+    widgets.Key? key,
+    Options$Query$GetAllUsers? options,
+    required graphql_flutter.QueryBuilder<Query$GetAllUsers> builder,
+  }) : super(
+          key: key,
+          options: options ?? Options$Query$GetAllUsers(),
+          builder: builder,
+        );
+}
+
+class Query$GetAllUsers$getAllUsers {
+  Query$GetAllUsers$getAllUsers({
+    required this.users,
+    this.$__typename = 'AllUsersData',
+  });
+
+  factory Query$GetAllUsers$getAllUsers.fromJson(Map<String, dynamic> json) {
+    final l$users = json['users'];
+    final l$$__typename = json['__typename'];
+    return Query$GetAllUsers$getAllUsers(
+      users: (l$users as List<dynamic>)
+          .map((e) => Query$GetAllUsers$getAllUsers$users.fromJson(
+              (e as Map<String, dynamic>)))
+          .toList(),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final List<Query$GetAllUsers$getAllUsers$users> users;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$users = users;
+    _resultData['users'] = l$users.map((e) => e.toJson()).toList();
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$users = users;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      Object.hashAll(l$users.map((v) => v)),
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$GetAllUsers$getAllUsers) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$users = users;
+    final lOther$users = other.users;
+    if (l$users.length != lOther$users.length) {
+      return false;
+    }
+    for (int i = 0; i < l$users.length; i++) {
+      final l$users$entry = l$users[i];
+      final lOther$users$entry = lOther$users[i];
+      if (l$users$entry != lOther$users$entry) {
+        return false;
+      }
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$GetAllUsers$getAllUsers
+    on Query$GetAllUsers$getAllUsers {
+  CopyWith$Query$GetAllUsers$getAllUsers<Query$GetAllUsers$getAllUsers>
+      get copyWith => CopyWith$Query$GetAllUsers$getAllUsers(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$GetAllUsers$getAllUsers<TRes> {
+  factory CopyWith$Query$GetAllUsers$getAllUsers(
+    Query$GetAllUsers$getAllUsers instance,
+    TRes Function(Query$GetAllUsers$getAllUsers) then,
+  ) = _CopyWithImpl$Query$GetAllUsers$getAllUsers;
+
+  factory CopyWith$Query$GetAllUsers$getAllUsers.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetAllUsers$getAllUsers;
+
+  TRes call({
+    List<Query$GetAllUsers$getAllUsers$users>? users,
+    String? $__typename,
+  });
+  TRes users(
+      Iterable<Query$GetAllUsers$getAllUsers$users> Function(
+              Iterable<
+                  CopyWith$Query$GetAllUsers$getAllUsers$users<
+                      Query$GetAllUsers$getAllUsers$users>>)
+          _fn);
+}
+
+class _CopyWithImpl$Query$GetAllUsers$getAllUsers<TRes>
+    implements CopyWith$Query$GetAllUsers$getAllUsers<TRes> {
+  _CopyWithImpl$Query$GetAllUsers$getAllUsers(
+    this._instance,
+    this._then,
+  );
+
+  final Query$GetAllUsers$getAllUsers _instance;
+
+  final TRes Function(Query$GetAllUsers$getAllUsers) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? users = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$GetAllUsers$getAllUsers(
+        users: users == _undefined || users == null
+            ? _instance.users
+            : (users as List<Query$GetAllUsers$getAllUsers$users>),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+
+  TRes users(
+          Iterable<Query$GetAllUsers$getAllUsers$users> Function(
+                  Iterable<
+                      CopyWith$Query$GetAllUsers$getAllUsers$users<
+                          Query$GetAllUsers$getAllUsers$users>>)
+              _fn) =>
+      call(
+          users: _fn(_instance.users
+              .map((e) => CopyWith$Query$GetAllUsers$getAllUsers$users(
+                    e,
+                    (i) => i,
+                  ))).toList());
+}
+
+class _CopyWithStubImpl$Query$GetAllUsers$getAllUsers<TRes>
+    implements CopyWith$Query$GetAllUsers$getAllUsers<TRes> {
+  _CopyWithStubImpl$Query$GetAllUsers$getAllUsers(this._res);
+
+  TRes _res;
+
+  call({
+    List<Query$GetAllUsers$getAllUsers$users>? users,
+    String? $__typename,
+  }) =>
+      _res;
+
+  users(_fn) => _res;
+}
+
+class Query$GetAllUsers$getAllUsers$users {
+  Query$GetAllUsers$getAllUsers$users({
+    required this.id,
+    required this.name,
+    this.imageUrl,
+    this.$__typename = 'UserSimpleData',
+  });
+
+  factory Query$GetAllUsers$getAllUsers$users.fromJson(
+      Map<String, dynamic> json) {
+    final l$id = json['id'];
+    final l$name = json['name'];
+    final l$imageUrl = json['imageUrl'];
+    final l$$__typename = json['__typename'];
+    return Query$GetAllUsers$getAllUsers$users(
+      id: (l$id as String),
+      name: (l$name as String),
+      imageUrl: (l$imageUrl as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String id;
+
+  final String name;
+
+  final String? imageUrl;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$id = id;
+    _resultData['id'] = l$id;
+    final l$name = name;
+    _resultData['name'] = l$name;
+    final l$imageUrl = imageUrl;
+    _resultData['imageUrl'] = l$imageUrl;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$name = name;
+    final l$imageUrl = imageUrl;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$id,
+      l$name,
+      l$imageUrl,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Query$GetAllUsers$getAllUsers$users) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$imageUrl = imageUrl;
+    final lOther$imageUrl = other.imageUrl;
+    if (l$imageUrl != lOther$imageUrl) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$GetAllUsers$getAllUsers$users
+    on Query$GetAllUsers$getAllUsers$users {
+  CopyWith$Query$GetAllUsers$getAllUsers$users<
+          Query$GetAllUsers$getAllUsers$users>
+      get copyWith => CopyWith$Query$GetAllUsers$getAllUsers$users(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$GetAllUsers$getAllUsers$users<TRes> {
+  factory CopyWith$Query$GetAllUsers$getAllUsers$users(
+    Query$GetAllUsers$getAllUsers$users instance,
+    TRes Function(Query$GetAllUsers$getAllUsers$users) then,
+  ) = _CopyWithImpl$Query$GetAllUsers$getAllUsers$users;
+
+  factory CopyWith$Query$GetAllUsers$getAllUsers$users.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetAllUsers$getAllUsers$users;
+
+  TRes call({
+    String? id,
+    String? name,
+    String? imageUrl,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$GetAllUsers$getAllUsers$users<TRes>
+    implements CopyWith$Query$GetAllUsers$getAllUsers$users<TRes> {
+  _CopyWithImpl$Query$GetAllUsers$getAllUsers$users(
+    this._instance,
+    this._then,
+  );
+
+  final Query$GetAllUsers$getAllUsers$users _instance;
+
+  final TRes Function(Query$GetAllUsers$getAllUsers$users) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? name = _undefined,
+    Object? imageUrl = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$GetAllUsers$getAllUsers$users(
+        id: id == _undefined || id == null ? _instance.id : (id as String),
+        name: name == _undefined || name == null
+            ? _instance.name
+            : (name as String),
+        imageUrl:
+            imageUrl == _undefined ? _instance.imageUrl : (imageUrl as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$GetAllUsers$getAllUsers$users<TRes>
+    implements CopyWith$Query$GetAllUsers$getAllUsers$users<TRes> {
+  _CopyWithStubImpl$Query$GetAllUsers$getAllUsers$users(this._res);
+
+  TRes _res;
+
+  call({
+    String? id,
+    String? name,
+    String? imageUrl,
+    String? $__typename,
+  }) =>
+      _res;
+}
+
 class Variables$Query$GetLineChartData {
   factory Variables$Query$GetLineChartData({
     String? artistId,
@@ -12359,6 +13018,42 @@ const documentNodeQueryGetMessageRooms = DocumentNode(definitions: [
                 selectionSet: null,
               ),
               FieldNode(
+                name: NameNode(value: 'users'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: SelectionSetNode(selections: [
+                  FieldNode(
+                    name: NameNode(value: 'id'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'name'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
+                    name: NameNode(value: 'imageUrl'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                  FieldNode(
+                    name: NameNode(value: '__typename'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null,
+                  ),
+                ]),
+              ),
+              FieldNode(
                 name: NameNode(value: '__typename'),
                 alias: null,
                 arguments: [],
@@ -12740,6 +13435,7 @@ class Query$GetMessageRooms$getMessageRooms$messageRoomList {
     this.latestMessage,
     this.latestSentAt,
     required this.isRead,
+    required this.users,
     this.$__typename = 'MessageRoomData',
   });
 
@@ -12750,6 +13446,7 @@ class Query$GetMessageRooms$getMessageRooms$messageRoomList {
     final l$latestMessage = json['latestMessage'];
     final l$latestSentAt = json['latestSentAt'];
     final l$isRead = json['isRead'];
+    final l$users = json['users'];
     final l$$__typename = json['__typename'];
     return Query$GetMessageRooms$getMessageRooms$messageRoomList(
       id: (l$id as String),
@@ -12757,6 +13454,11 @@ class Query$GetMessageRooms$getMessageRooms$messageRoomList {
       latestMessage: (l$latestMessage as String?),
       latestSentAt: (l$latestSentAt as String?),
       isRead: (l$isRead as bool),
+      users: (l$users as List<dynamic>)
+          .map((e) =>
+              Query$GetMessageRooms$getMessageRooms$messageRoomList$users
+                  .fromJson((e as Map<String, dynamic>)))
+          .toList(),
       $__typename: (l$$__typename as String),
     );
   }
@@ -12770,6 +13472,8 @@ class Query$GetMessageRooms$getMessageRooms$messageRoomList {
   final String? latestSentAt;
 
   final bool isRead;
+
+  final List<Query$GetMessageRooms$getMessageRooms$messageRoomList$users> users;
 
   final String $__typename;
 
@@ -12785,6 +13489,8 @@ class Query$GetMessageRooms$getMessageRooms$messageRoomList {
     _resultData['latestSentAt'] = l$latestSentAt;
     final l$isRead = isRead;
     _resultData['isRead'] = l$isRead;
+    final l$users = users;
+    _resultData['users'] = l$users.map((e) => e.toJson()).toList();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -12797,6 +13503,7 @@ class Query$GetMessageRooms$getMessageRooms$messageRoomList {
     final l$latestMessage = latestMessage;
     final l$latestSentAt = latestSentAt;
     final l$isRead = isRead;
+    final l$users = users;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$id,
@@ -12804,6 +13511,7 @@ class Query$GetMessageRooms$getMessageRooms$messageRoomList {
       l$latestMessage,
       l$latestSentAt,
       l$isRead,
+      Object.hashAll(l$users.map((v) => v)),
       l$$__typename,
     ]);
   }
@@ -12842,6 +13550,18 @@ class Query$GetMessageRooms$getMessageRooms$messageRoomList {
     if (l$isRead != lOther$isRead) {
       return false;
     }
+    final l$users = users;
+    final lOther$users = other.users;
+    if (l$users.length != lOther$users.length) {
+      return false;
+    }
+    for (int i = 0; i < l$users.length; i++) {
+      final l$users$entry = l$users[i];
+      final lOther$users$entry = lOther$users[i];
+      if (l$users$entry != lOther$users$entry) {
+        return false;
+      }
+    }
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
     if (l$$__typename != lOther$$__typename) {
@@ -12879,8 +13599,15 @@ abstract class CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList<
     String? latestMessage,
     String? latestSentAt,
     bool? isRead,
+    List<Query$GetMessageRooms$getMessageRooms$messageRoomList$users>? users,
     String? $__typename,
   });
+  TRes users(
+      Iterable<Query$GetMessageRooms$getMessageRooms$messageRoomList$users> Function(
+              Iterable<
+                  CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users<
+                      Query$GetMessageRooms$getMessageRooms$messageRoomList$users>>)
+          _fn);
 }
 
 class _CopyWithImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList<TRes>
@@ -12904,6 +13631,7 @@ class _CopyWithImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList<TRes>
     Object? latestMessage = _undefined,
     Object? latestSentAt = _undefined,
     Object? isRead = _undefined,
+    Object? users = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Query$GetMessageRooms$getMessageRooms$messageRoomList(
@@ -12919,10 +13647,27 @@ class _CopyWithImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList<TRes>
         isRead: isRead == _undefined || isRead == null
             ? _instance.isRead
             : (isRead as bool),
+        users: users == _undefined || users == null
+            ? _instance.users
+            : (users as List<
+                Query$GetMessageRooms$getMessageRooms$messageRoomList$users>),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ));
+
+  TRes users(
+          Iterable<Query$GetMessageRooms$getMessageRooms$messageRoomList$users> Function(
+                  Iterable<
+                      CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users<
+                          Query$GetMessageRooms$getMessageRooms$messageRoomList$users>>)
+              _fn) =>
+      call(
+          users: _fn(_instance.users.map((e) =>
+              CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users(
+                e,
+                (i) => i,
+              ))).toList());
 }
 
 class _CopyWithStubImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList<
@@ -12940,6 +13685,186 @@ class _CopyWithStubImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList<
     String? latestMessage,
     String? latestSentAt,
     bool? isRead,
+    List<Query$GetMessageRooms$getMessageRooms$messageRoomList$users>? users,
+    String? $__typename,
+  }) =>
+      _res;
+
+  users(_fn) => _res;
+}
+
+class Query$GetMessageRooms$getMessageRooms$messageRoomList$users {
+  Query$GetMessageRooms$getMessageRooms$messageRoomList$users({
+    required this.id,
+    required this.name,
+    this.imageUrl,
+    this.$__typename = 'UserSimpleData',
+  });
+
+  factory Query$GetMessageRooms$getMessageRooms$messageRoomList$users.fromJson(
+      Map<String, dynamic> json) {
+    final l$id = json['id'];
+    final l$name = json['name'];
+    final l$imageUrl = json['imageUrl'];
+    final l$$__typename = json['__typename'];
+    return Query$GetMessageRooms$getMessageRooms$messageRoomList$users(
+      id: (l$id as String),
+      name: (l$name as String),
+      imageUrl: (l$imageUrl as String?),
+      $__typename: (l$$__typename as String),
+    );
+  }
+
+  final String id;
+
+  final String name;
+
+  final String? imageUrl;
+
+  final String $__typename;
+
+  Map<String, dynamic> toJson() {
+    final _resultData = <String, dynamic>{};
+    final l$id = id;
+    _resultData['id'] = l$id;
+    final l$name = name;
+    _resultData['name'] = l$name;
+    final l$imageUrl = imageUrl;
+    _resultData['imageUrl'] = l$imageUrl;
+    final l$$__typename = $__typename;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
+  }
+
+  @override
+  int get hashCode {
+    final l$id = id;
+    final l$name = name;
+    final l$imageUrl = imageUrl;
+    final l$$__typename = $__typename;
+    return Object.hashAll([
+      l$id,
+      l$name,
+      l$imageUrl,
+      l$$__typename,
+    ]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other
+            is Query$GetMessageRooms$getMessageRooms$messageRoomList$users) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$id = id;
+    final lOther$id = other.id;
+    if (l$id != lOther$id) {
+      return false;
+    }
+    final l$name = name;
+    final lOther$name = other.name;
+    if (l$name != lOther$name) {
+      return false;
+    }
+    final l$imageUrl = imageUrl;
+    final lOther$imageUrl = other.imageUrl;
+    if (l$imageUrl != lOther$imageUrl) {
+      return false;
+    }
+    final l$$__typename = $__typename;
+    final lOther$$__typename = other.$__typename;
+    if (l$$__typename != lOther$$__typename) {
+      return false;
+    }
+    return true;
+  }
+}
+
+extension UtilityExtension$Query$GetMessageRooms$getMessageRooms$messageRoomList$users
+    on Query$GetMessageRooms$getMessageRooms$messageRoomList$users {
+  CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users<
+          Query$GetMessageRooms$getMessageRooms$messageRoomList$users>
+      get copyWith =>
+          CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users(
+            this,
+            (i) => i,
+          );
+}
+
+abstract class CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users<
+    TRes> {
+  factory CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users(
+    Query$GetMessageRooms$getMessageRooms$messageRoomList$users instance,
+    TRes Function(Query$GetMessageRooms$getMessageRooms$messageRoomList$users)
+        then,
+  ) = _CopyWithImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList$users;
+
+  factory CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList$users;
+
+  TRes call({
+    String? id,
+    String? name,
+    String? imageUrl,
+    String? $__typename,
+  });
+}
+
+class _CopyWithImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList$users<
+        TRes>
+    implements
+        CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users<
+            TRes> {
+  _CopyWithImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList$users(
+    this._instance,
+    this._then,
+  );
+
+  final Query$GetMessageRooms$getMessageRooms$messageRoomList$users _instance;
+
+  final TRes Function(
+      Query$GetMessageRooms$getMessageRooms$messageRoomList$users) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? id = _undefined,
+    Object? name = _undefined,
+    Object? imageUrl = _undefined,
+    Object? $__typename = _undefined,
+  }) =>
+      _then(Query$GetMessageRooms$getMessageRooms$messageRoomList$users(
+        id: id == _undefined || id == null ? _instance.id : (id as String),
+        name: name == _undefined || name == null
+            ? _instance.name
+            : (name as String),
+        imageUrl:
+            imageUrl == _undefined ? _instance.imageUrl : (imageUrl as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
+}
+
+class _CopyWithStubImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList$users<
+        TRes>
+    implements
+        CopyWith$Query$GetMessageRooms$getMessageRooms$messageRoomList$users<
+            TRes> {
+  _CopyWithStubImpl$Query$GetMessageRooms$getMessageRooms$messageRoomList$users(
+      this._res);
+
+  TRes _res;
+
+  call({
+    String? id,
+    String? name,
+    String? imageUrl,
     String? $__typename,
   }) =>
       _res;

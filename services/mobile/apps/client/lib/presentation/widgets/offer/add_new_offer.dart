@@ -230,19 +230,8 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                       decoration: const InputDecoration(
                         labelText: '締切日',
                         border: OutlineInputBorder(),
+                        hintText: '例: 2024/12/31 23:59', // 入力形式のヒントを追加
                       ),
-                      onTap: () async {
-                        final date = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 365)),
-                        );
-                        if (date != null) {
-                          _deadlineController.text = date.toIso8601String();
-                        }
-                      },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return '締切日を選択してください';
@@ -265,12 +254,27 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                       },
                     ),
                     const SizedBox(height: 16),
-                    TextFormField(
-                      controller: _categoryController,
+                    DropdownButtonFormField<String>(
+                      value: _categoryController.text.isEmpty
+                          ? null
+                          : _categoryController.text,
                       decoration: const InputDecoration(
                         labelText: 'カテゴリー',
                         border: OutlineInputBorder(),
                       ),
+                      items: const [
+                        DropdownMenuItem(
+                            value: 'Creation', child: Text('Creation')),
+                        DropdownMenuItem(value: 'Event', child: Text('Event')),
+                        DropdownMenuItem(
+                            value: 'Promotion', child: Text('Promotion')),
+                        DropdownMenuItem(value: 'Other', child: Text('Other')),
+                      ],
+                      onChanged: (value) {
+                        if (value != null) {
+                          _categoryController.text = value;
+                        }
+                      },
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
@@ -290,12 +294,29 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    TextFormField(
-                      controller: _targetRoleController,
+                    DropdownButtonFormField<String>(
+                      value: _targetRoleController.text.isEmpty
+                          ? null
+                          : _targetRoleController.text,
                       decoration: const InputDecoration(
-                        labelText: '対象ロール',
+                        labelText: '対象ユーザー',
                         border: OutlineInputBorder(),
                       ),
+                      items: const [
+                        DropdownMenuItem(
+                            value: 'Musician', child: Text('Musician')),
+                        DropdownMenuItem(
+                            value: 'Creator', child: Text('Creator')),
+                        DropdownMenuItem(
+                            value: 'Curator', child: Text('Curator')),
+                        DropdownMenuItem(
+                            value: 'Supporter', child: Text('Supporter')),
+                      ],
+                      onChanged: (value) {
+                        if (value != null) {
+                          _targetRoleController.text = value;
+                        }
+                      },
                     ),
                     const SizedBox(height: 16),
                     SwitchListTile(

@@ -22,7 +22,7 @@ CREATE TYPE "user_status" AS ENUM (
 CREATE TYPE "user_category" AS ENUM (
   'musician',
   'curator',
-  'creater',
+  'creator',
   'supporter'
 );
 
@@ -69,6 +69,7 @@ CREATE TABLE "users" (
   "credential" int NOT NULL DEFAULT 0,
   "category" user_category NOT NULL,
   "primary_category" user_category NOT NULL,
+  "publicity" bool NOT NULL DEFAULT 'true',
   "greeting" varchar,
   "skill" varchar,
   "x_handle" varchar,
@@ -153,7 +154,7 @@ CREATE TABLE "offers" (
   "owner" varchar(28) NOT NULL,
   "title" varchar NOT NULL,
   "description" varchar NOT NULL,
-  "deadline" timestamp NOT NULL,
+  "deadline" varchar,
   "place" varchar NOT NULL,
   "attention" varchar,
   "required_skill" varchar,
@@ -238,7 +239,9 @@ CREATE TABLE "short_notes" (
 
 CREATE TABLE "artists" (
   "id" uuid PRIMARY KEY NOT NULL DEFAULT (gen_random_uuid()),
-  "name" varchar NOT NULL,
+  "display_name_jp" varchar NOT NULL,
+  "display_name_en" varchar NOT NULL,
+  "display_name_kana" varchar,
   "img_url" varchar,
   "fsp" int NOT NULL DEFAULT 0,
   "status" artist_status NOT NULL,

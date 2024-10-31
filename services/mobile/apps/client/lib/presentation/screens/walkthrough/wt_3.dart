@@ -8,15 +8,22 @@ class WalkthroughPage3 extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/friendshipdao_loop.gif',
-          height: 200,
-          fit: BoxFit.contain,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.asset(
+            'assets/tutorial-community.gif',
+            height: 350,
+            fit: BoxFit.contain,
+          ),
         ),
-        const SizedBox(height: 240),
-        const Text(
-          'Describe 2',
-          style: TextStyle(fontSize: 20),
+        const SizedBox(height: 120),
+        SizedBox(
+          width: 350,
+          child: const Text(
+            'そうしてさまざまな人と繋がり、蓄積した信頼がさらにあなたの力になります',
+            style: TextStyle(fontSize: 14),
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

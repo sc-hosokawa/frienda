@@ -8,6 +8,8 @@ import 'package:client/data/graphql/schema.graphql.dart';
 import 'package:client/data/graphql/query.graphql.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:graphql/client.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -78,7 +80,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // TODO: Unreadを最大5件表示、5件ない場合は最新のメッセを全体で5件になるまで取得。なお未読のメッセはハイライトする。
+  // TODO: Unreadを最大5件表示、5ない場合は最新のメッセを全体で5件になるまで取得。なお未読のメッセはハイライトする。
   Widget _buildMessagesSection({Key? key}) {
     final client = ref.watch(graphQLClientProvider);
     final userState = ref.watch(userProvider);
@@ -91,7 +93,18 @@ class _HomePageState extends ConsumerState<HomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Messages', style: Theme.of(context).textTheme.titleMedium),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/message.svg',
+                    width: 20,
+                    height: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  Text('Messages',
+                      style: Theme.of(context).textTheme.titleMedium),
+                ],
+              ),
               TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -104,40 +117,47 @@ class _HomePageState extends ConsumerState<HomePage> {
             ],
           ),
         ),
-        FutureBuilder<QueryResult<Query$GetMessagesInProgress>>(
-          future: client.query$GetMessagesInProgress(
-            Options$Query$GetMessagesInProgress(
-              variables: Variables$Query$GetMessagesInProgress(
-                userId: userState?.id ?? '',
-              ),
+        Query$GetMessageRooms$Widget(
+          options: Options$Query$GetMessageRooms(
+            variables: Variables$Query$GetMessageRooms(
+              userId: userState?.id ?? '',
             ),
           ),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
+          builder: (result, {refetch, fetchMore}) {
+            if (result.hasException) {
               return Center(child: Text('Error loading messages'));
             }
 
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+            if (result.isLoading) {
+              return const Center(child: CircularProgressIndicator());
             }
 
-            final data = snapshot.data?.data;
-            if (data == null) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Text('No messages yet'),
-                ),
-              );
-            }
+            final messageRooms = result.data?['getMessageRooms']
+                    ['messageRoomList'] as List<dynamic>? ??
+                [];
 
-            final messageRooms = (data['getMessagesInProgress']
-                as Map<String, dynamic>)['messageRoomList'] as List<dynamic>?;
+            // Sort messages by latestSentAt in descending order (newest first)
+            messageRooms.sort((a, b) {
+              try {
+                final aTime = a['latestSentAt'] != null
+                    ? DateTime.parse(a['latestSentAt'])
+                    : DateTime(1900); // デフォルト値
+                final bTime = b['latestSentAt'] != null
+                    ? DateTime.parse(b['latestSentAt'])
+                    : DateTime(1900); // デフォルト値
+                return bTime.compareTo(aTime);
+              } catch (e) {
+                print('Date parsing error: ${e.toString()}');
+                print(
+                    'latestSentAt values: ${a['latestSentAt']}, ${b['latestSentAt']}');
+                return 0; // エラーの場合は順序を変更しない
+              }
+            });
 
-            if (messageRooms == null || messageRooms.isEmpty) {
-              return Center(
+            if (messageRooms.isEmpty) {
+              return const Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: EdgeInsets.all(32.0),
                   child: Text('No messages yet'),
                 ),
               );
@@ -148,61 +168,49 @@ class _HomePageState extends ConsumerState<HomePage> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: messageRooms.length,
               itemBuilder: (context, index) {
-                final room = messageRooms[index] as Map<String, dynamic>;
-                return Container(
-                  color: room['isRead'] == true ? null : Colors.grey[800],
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MessageRoom(
-                            roomId: room['id'] as String,
-                          ),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16.0,
-                        horizontal: 16.0,
-                      ),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            child: Text('M'),
-                          ),
-                          SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  room['category'] as String? ?? 'No category',
-                                  style: TextStyle(
-                                    fontWeight: room['isRead'] == true
-                                        ? FontWeight.normal
-                                        : FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  room['latestMessage'] as String? ??
-                                      'No message',
-                                  style: TextStyle(
-                                    fontWeight: room['isRead'] == true
-                                        ? FontWeight.normal
-                                        : FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          if (room['latestSentAt'] != null)
-                            Text(room['latestSentAt'] as String),
-                        ],
-                      ),
+                final room = messageRooms[index];
+                final isUnread = room['isRead'] != true;
+
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: room['users']?[0]['imageUrl'] != null
+                        ? NetworkImage(room['users'][0]['imageUrl'] as String)
+                        : null,
+                    child: room['users']?[0]['imageUrl'] == null
+                        ? const Icon(Icons.person)
+                        : null,
+                  ),
+                  title: Text(
+                    room['users']?[0]['name'] as String? ?? 'Unknown User',
+                    style: TextStyle(
+                      fontWeight:
+                          isUnread ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
+                  subtitle: Text(
+                    room['latestMessage'] as String? ?? 'No messages',
+                    style: TextStyle(
+                      fontWeight:
+                          isUnread ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                  trailing: Text(
+                    _formatDateTime(room['latestSentAt'] as String?),
+                    style: TextStyle(
+                      fontWeight:
+                          isUnread ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MessageRoom(
+                          roomId: room['id'] as String,
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             );
@@ -248,8 +256,17 @@ class _HomePageState extends ConsumerState<HomePage> {
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child:
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                'assets/dashboard.svg',
+                width: 20,
+                height: 20,
+              ),
+              const SizedBox(width: 8),
               Text('Trending', style: Theme.of(context).textTheme.titleMedium),
+            ],
+          ),
         ),
         ListView.builder(
           shrinkWrap: true,
@@ -328,5 +345,31 @@ class _HomePageState extends ConsumerState<HomePage> {
   bool _isMessageUnread(int index) {
     // TODO: Implement actual logic to check if the message is unread
     return index % 2 == 0; // For demonstration, every other message is unread
+  }
+
+  String _formatDateTime(String? dateTimeStr) {
+    if (dateTimeStr == null || dateTimeStr.isEmpty) return '';
+
+    try {
+      final dateTime = DateTime.parse(dateTimeStr).toLocal();
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final messageDate = DateTime(dateTime.year, dateTime.month, dateTime.day);
+
+      // 今日の場合は時刻のみ
+      if (messageDate == today) {
+        return DateFormat('HH:mm').format(dateTime);
+      }
+      // 今年の場合は月日と時刻
+      else if (dateTime.year == now.year) {
+        return DateFormat('M/d HH:mm').format(dateTime);
+      }
+      // それ以外は年月日と時刻
+      return DateFormat('yyyy/M/d HH:mm').format(dateTime);
+    } catch (e) {
+      print('Date formatting error: ${e.toString()}');
+      print('Input dateTimeStr: $dateTimeStr');
+      return dateTimeStr; // エラーの場合は元の文字列を返す
+    }
   }
 }

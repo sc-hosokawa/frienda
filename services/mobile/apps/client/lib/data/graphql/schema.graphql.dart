@@ -971,7 +971,7 @@ class _CopyWithStubImpl$Input$CreateNewNotificationInput<TRes>
 class Input$CreateNewOfferInput {
   factory Input$CreateNewOfferInput({
     required String owner,
-    required String deadline,
+    String? deadline,
     required String title,
     required String description,
     required int fee,
@@ -988,7 +988,7 @@ class Input$CreateNewOfferInput {
   }) =>
       Input$CreateNewOfferInput._({
         r'owner': owner,
-        r'deadline': deadline,
+        if (deadline != null) r'deadline': deadline,
         r'title': title,
         r'description': description,
         r'fee': fee,
@@ -1010,8 +1010,10 @@ class Input$CreateNewOfferInput {
     final result$data = <String, dynamic>{};
     final l$owner = data['owner'];
     result$data['owner'] = (l$owner as String);
-    final l$deadline = data['deadline'];
-    result$data['deadline'] = (l$deadline as String);
+    if (data.containsKey('deadline')) {
+      final l$deadline = data['deadline'];
+      result$data['deadline'] = (l$deadline as String?);
+    }
     final l$title = data['title'];
     result$data['title'] = (l$title as String);
     final l$description = data['description'];
@@ -1067,7 +1069,7 @@ class Input$CreateNewOfferInput {
 
   String get owner => (_$data['owner'] as String);
 
-  String get deadline => (_$data['deadline'] as String);
+  String? get deadline => (_$data['deadline'] as String?);
 
   String get title => (_$data['title'] as String);
 
@@ -1099,8 +1101,10 @@ class Input$CreateNewOfferInput {
     final result$data = <String, dynamic>{};
     final l$owner = owner;
     result$data['owner'] = l$owner;
-    final l$deadline = deadline;
-    result$data['deadline'] = l$deadline;
+    if (_$data.containsKey('deadline')) {
+      final l$deadline = deadline;
+      result$data['deadline'] = l$deadline;
+    }
     final l$title = title;
     result$data['title'] = l$title;
     final l$description = description;
@@ -1170,6 +1174,10 @@ class Input$CreateNewOfferInput {
     }
     final l$deadline = deadline;
     final lOther$deadline = other.deadline;
+    if (_$data.containsKey('deadline') !=
+        other._$data.containsKey('deadline')) {
+      return false;
+    }
     if (l$deadline != lOther$deadline) {
       return false;
     }
@@ -1317,7 +1325,7 @@ class Input$CreateNewOfferInput {
     final l$attachedFiles = attachedFiles;
     return Object.hashAll([
       l$owner,
-      l$deadline,
+      _$data.containsKey('deadline') ? l$deadline : const {},
       l$title,
       l$description,
       l$fee,
@@ -1404,8 +1412,7 @@ class _CopyWithImpl$Input$CreateNewOfferInput<TRes>
       _then(Input$CreateNewOfferInput._({
         ..._instance._$data,
         if (owner != _undefined && owner != null) 'owner': (owner as String),
-        if (deadline != _undefined && deadline != null)
-          'deadline': (deadline as String),
+        if (deadline != _undefined) 'deadline': (deadline as String?),
         if (title != _undefined && title != null) 'title': (title as String),
         if (description != _undefined && description != null)
           'description': (description as String),

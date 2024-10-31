@@ -8,14 +8,8 @@ class WalkthroughPage4 extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/friendshipdao_loop.gif',
-          height: 200,
-          fit: BoxFit.contain,
-        ),
-        const SizedBox(height: 240),
         const Text(
-          'Describe 3',
+          'Welcome to FRIENDSHIP. DAO!',
           style: TextStyle(fontSize: 20),
         ),
         const SizedBox(height: 20),

@@ -45,6 +45,33 @@ class UserData {
           : null,
     );
   }
+
+  // copyWithメソッドを追加
+  UserData copyWith({
+    String? id,
+    String? email,
+    String? name,
+    String? imageUrl,
+    int? fspBalance,
+    int? credentialBalance,
+    String? role,
+    String? primaryRole,
+    List<ArtistByUser>? belongsToArtists,
+    ArtistByUser? primaryArtist,
+  }) {
+    return UserData(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
+      fspBalance: fspBalance ?? this.fspBalance,
+      credentialBalance: credentialBalance ?? this.credentialBalance,
+      role: role ?? this.role,
+      primaryRole: primaryRole ?? this.primaryRole,
+      belongsToArtists: belongsToArtists ?? this.belongsToArtists,
+      primaryArtist: primaryArtist ?? this.primaryArtist,
+    );
+  }
 }
 
 // アーティスト情報を表すクラス
@@ -85,15 +112,20 @@ final userProvider = NotifierProvider<UserNotifier, UserData?>(() {
 class UserNotifier extends Notifier<UserData?> {
   @override
   UserData? build() {
-    return null; // 初期状態はnull
+    return null;
   }
 
-  // ユーザー情報を更新するメソッド
+  // FSP残高を更新するメソッドを追加
+  void updateBalance(int newBalance) {
+    if (state != null) {
+      state = state!.copyWith(fspBalance: newBalance);
+    }
+  }
+
   void updateUser(UserData user) {
     state = user;
   }
 
-  // ログアウト時にユーザー情報をクリアするメソッド
   void clearUser() {
     state = null;
   }

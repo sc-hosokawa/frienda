@@ -13,7 +13,8 @@ class Community extends StatefulWidget {
 }
 
 class _CommunityState extends State<Community> {
-  String _selectedView = 'List View'; // ここを 'List View' に変更
+  String _selectedView = 'List View';
+  bool is_view = false;
 
   void saveVertex(Vertex v) {
     vertexStorage[v.id as String] = v;
@@ -106,7 +107,7 @@ class _CommunityState extends State<Community> {
         // ドロップダウンメニュー
         DropdownButton<String>(
           value: _selectedView,
-          items: ['List View', 'Map View']
+          items: ['List View', '(beta) Map View']
               .map((String value) => DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -124,43 +125,53 @@ class _CommunityState extends State<Community> {
         Expanded(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: _selectedView == 'Map View'
-                ? FlutterGraphWidget(
-                    data: data,
-                    algorithm: RandomAlgorithm(
-                      decorators: [
-                        PersistenceDecorator(saveVertex, loadVertex),
-                        CoulombDecorator(k: 1000), // 反発力を調整
-                        HookeDecorator(length: 1000, k: 0.01), // バネの強さを調整
-                        HookeCenterDecorator(
-                            length: 1000, k: 0.01), // 中心への引力を調整
-                      ],
+            child: is_view
+                ? (_selectedView == 'Map View'
+                    ? FlutterGraphWidget(
+                        data: data,
+                        algorithm: RandomAlgorithm(
+                          decorators: [
+                            PersistenceDecorator(saveVertex, loadVertex),
+                            CoulombDecorator(k: 1000), // 反発力を調整
+                            HookeDecorator(length: 1000, k: 0.01), // バネの強さを調整
+                            HookeCenterDecorator(
+                                length: 1000, k: 0.01), // 中心への引力を調整
+                          ],
+                        ),
+                        convertor: MapConvertor(),
+                        options: Options()
+                          ..enableHit = false
+                          ..panelDelay = const Duration(milliseconds: 500)
+                          ..graphStyle = (GraphStyle()
+                            ..tagColor = {'tag8': Colors.orangeAccent.shade200}
+                            ..tagColorByIndex = [
+                              Colors.red.shade200,
+                              Colors.orange.shade200,
+                              Colors.yellow.shade200,
+                              Colors.green.shade200,
+                              Colors.blue.shade200,
+                              Colors.blueAccent.shade200,
+                              Colors.purple.shade200,
+                              Colors.pink.shade200,
+                              Colors.blueGrey.shade200,
+                              Colors.deepOrange.shade200,
+                            ])
+                          ..useLegend = false
+                          ..edgePanelBuilder = edgePanelBuilder
+                          ..vertexPanelBuilder = vertexPanelBuilder
+                          ..edgeShape = EdgeLineShape()
+                          ..vertexShape = VertexCircleShape(),
+                      )
+                    : _buildListView(vertexes.toList()))
+                : Center(
+                    child: Text(
+                      'No connection yet',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey[600],
+                      ),
                     ),
-                    convertor: MapConvertor(),
-                    options: Options()
-                      ..enableHit = false
-                      ..panelDelay = const Duration(milliseconds: 500)
-                      ..graphStyle = (GraphStyle()
-                        ..tagColor = {'tag8': Colors.orangeAccent.shade200}
-                        ..tagColorByIndex = [
-                          Colors.red.shade200,
-                          Colors.orange.shade200,
-                          Colors.yellow.shade200,
-                          Colors.green.shade200,
-                          Colors.blue.shade200,
-                          Colors.blueAccent.shade200,
-                          Colors.purple.shade200,
-                          Colors.pink.shade200,
-                          Colors.blueGrey.shade200,
-                          Colors.deepOrange.shade200,
-                        ])
-                      ..useLegend = false
-                      ..edgePanelBuilder = edgePanelBuilder
-                      ..vertexPanelBuilder = vertexPanelBuilder
-                      ..edgeShape = EdgeLineShape()
-                      ..vertexShape = VertexCircleShape(),
-                  )
-                : _buildListView(vertexes.toList()),
+                  ),
           ),
         ),
         Padding(

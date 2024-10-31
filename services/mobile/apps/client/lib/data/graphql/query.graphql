@@ -21,6 +21,16 @@ query GetTrendingData($artistId: String) {
   }
 }
 
+query GetAllUsers {
+  getAllUsers {
+    users {
+      id
+      name
+      imageUrl
+    }
+  }
+}
+
 query GetLineChartData($artistId: String, $isrc: String, $dsp: String, $period: String) {
   getLineChartData(artistId: $artistId, isrc: $isrc, dsp: $dsp, period: $period) {
     lineChartData
@@ -190,6 +200,11 @@ query GetMessageRooms($userId: String!) {
       latestMessage
       latestSentAt
       isRead
+      users {
+        id
+        name
+        imageUrl
+      }
     }
     countOfMessageRooms
   }

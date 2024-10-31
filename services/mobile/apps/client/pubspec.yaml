@@ -2,7 +2,7 @@ name: client
 description: "A FRIENDSHIP. App"
 publish_to: 'none'
 
-version: 1.0.1+8
+version: 1.0.1+10
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
@@ -38,6 +38,7 @@ dependencies:
   webview_flutter: ^4.10.0
   graphql_codegen: ^1.0.1
   graphql_flutter: ^5.2.0-beta.7
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +55,15 @@ flutter:
     - assets/logo_visualonly.jpg
     - assets/friendship_logo_white.png
     - assets/logo_visualonly_dark.jpg
+    - assets/tutorial-offer.gif
+    - assets/tutorial-community.gif
+    - assets/notification.svg
+    - assets/news.svg
+    - assets/message.svg
+    - assets/home.svg
+    - assets/design.svg
+    - assets/dashboard.svg
+    - assets/community.svg
   fonts:
     - family: Noto Sans JP
       fonts:

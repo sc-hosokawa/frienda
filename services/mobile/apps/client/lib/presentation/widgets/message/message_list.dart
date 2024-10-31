@@ -27,24 +27,58 @@ class _MessageListState extends ConsumerState<MessageList> {
     super.dispose();
   }
 
-  void _showCreateRoomDialog() {
+  void _showUserListDialog() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('新規メッセージ'),
-        content: Form(
-          key: _formKey,
-          child: TextFormField(
-            controller: _recipientController,
-            decoration: const InputDecoration(
-              labelText: 'ユーザー名またはメールアドレス',
-              hintText: 'ユーザー名またはメールアドレスを入力',
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return '入力は必須です';
+        title: const Text('ユーザーを選択'),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: Query$GetAllUsers$Widget(
+            builder: (result, {refetch, fetchMore}) {
+              if (result.hasException) {
+                return Center(child: Text(result.exception.toString()));
               }
-              return null;
+
+              if (result.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final users = result.data?['getAllUsers']['users'];
+              if (users == null || users.isEmpty) {
+                return const Center(child: Text('ユーザーデータを取得できませんでした'));
+              }
+
+              print('GraphQL Response:Users: ${users[0]['id']}');
+
+              final currentUserId = ref.read(userProvider)?.id;
+
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: users.length,
+                itemBuilder: (context, index) {
+                  final user = users[index];
+                  // Skip current user
+                  if (user['id'] == currentUserId)
+                    return const SizedBox.shrink();
+
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: user['imageUrl'] != null
+                          ? NetworkImage(user['imageUrl']!)
+                          : null,
+                      child: user['imageUrl'] == null
+                          ? const Icon(Icons.person)
+                          : null,
+                    ),
+                    title: Text(user['name'] as String),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _createRoom(user['id'] as String);
+                    },
+                  );
+                },
+              );
             },
           ),
         ),
@@ -53,51 +87,51 @@ class _MessageListState extends ConsumerState<MessageList> {
             onPressed: () => Navigator.pop(context),
             child: const Text('キャンセル'),
           ),
-          TextButton(
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                final variables = Variables$Mutation$CreateNewMessageRoom(
-                  input: Input$CreateNewMessageRoomInput(
-                    createdBy: ref.read(userProvider)?.id ?? '',
-                    userList: [
-                      ref.read(userProvider)?.id ?? '',
-                      _recipientController.text
-                    ],
-                    category: 'dm',
-                  ),
-                );
-
-                final result = await ref
-                    .read(graphQLClientProvider)
-                    .mutate$CreateNewMessageRoom(
-                      Options$Mutation$CreateNewMessageRoom(
-                        variables: variables,
-                      ),
-                    );
-
-                print('GraphQL Response: ${result.data}');
-
-                if (result.hasException) {
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(result.exception.toString())),
-                    );
-                  }
-                  return;
-                }
-
-                if (context.mounted) {
-                  Navigator.pop(context);
-                  _recipientController.clear();
-                  _refetch?.call();
-                }
-              }
-            },
-            child: const Text('メッセージする'),
-          ),
         ],
       ),
     );
+  }
+
+  Future<void> _createRoom(String recipientId) async {
+    final variables = Variables$Mutation$CreateNewMessageRoom(
+      input: Input$CreateNewMessageRoomInput(
+        createdBy: ref.read(userProvider)?.id ?? '',
+        userList: [ref.read(userProvider)?.id ?? '', recipientId],
+        category: 'dm',
+      ),
+    );
+
+    final result =
+        await ref.read(graphQLClientProvider).mutate$CreateNewMessageRoom(
+              Options$Mutation$CreateNewMessageRoom(
+                variables: variables,
+              ),
+            );
+
+    if (result.hasException) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result.exception.toString())),
+        );
+      }
+      return;
+    }
+
+    if (context.mounted) {
+      Navigator.pop(context);
+      _refetch?.call();
+
+      final roomId =
+          result.data?['createNewMessageRoom']['messageRoom']['id'] as String?;
+      if (roomId != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MessageRoom(roomId: roomId),
+          ),
+        );
+      }
+    }
   }
 
   String _formatDateTime(String? dateTimeStr) {
@@ -125,7 +159,7 @@ class _MessageListState extends ConsumerState<MessageList> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: _showCreateRoomDialog,
+            onPressed: _showUserListDialog,
           ),
         ],
       ),
@@ -145,6 +179,8 @@ class _MessageListState extends ConsumerState<MessageList> {
             return const Center(child: CircularProgressIndicator());
           }
 
+          print('GraphQL Response:Rooms: ${result.data}');
+
           final messageRooms = result.data?['getMessageRooms']
                   ['messageRoomList'] as List<dynamic>? ??
               [];
@@ -159,14 +195,24 @@ class _MessageListState extends ConsumerState<MessageList> {
             itemCount: messageRooms.length,
             itemBuilder: (context, index) {
               final room = messageRooms[index];
+              final otherUsers = (room['users'] as List<dynamic>?)
+                      ?.where((user) => user['id'] != userId)
+                      .toList() ??
+                  [];
+              final otherUser = otherUsers.isNotEmpty ? otherUsers.first : null;
               final isUnread = room['isRead'] != true;
 
               return ListTile(
-                leading: const CircleAvatar(
-                  child: Icon(Icons.person),
+                leading: CircleAvatar(
+                  backgroundImage: otherUser?['imageUrl'] != null
+                      ? NetworkImage(otherUser!['imageUrl'] as String)
+                      : null,
+                  child: otherUser?['imageUrl'] == null
+                      ? const Icon(Icons.person)
+                      : null,
                 ),
                 title: Text(
-                  room['category'] as String? ?? 'No Category',
+                  otherUser?['name'] as String? ?? 'Unknown User',
                   style: TextStyle(
                     fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
                   ),

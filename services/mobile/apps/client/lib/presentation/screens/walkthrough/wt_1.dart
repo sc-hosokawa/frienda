@@ -8,10 +8,13 @@ class WalkthroughPage1 extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/friendshipdao_loop.gif',
-          height: 200,
-          fit: BoxFit.contain,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.asset(
+            'assets/friendshipdao_loop.gif',
+            height: 200,
+            fit: BoxFit.contain,
+          ),
         ),
         const SizedBox(height: 240),
         const Text(

@@ -159,6 +159,7 @@ class _OfferState extends ConsumerState<Offer> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _navigateToAddNewOffer(context),
+        shape: const CircleBorder(),
         child: const Icon(Icons.add),
       ),
     );
