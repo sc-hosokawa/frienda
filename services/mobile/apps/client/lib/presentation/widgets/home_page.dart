@@ -35,9 +35,18 @@ class _HomePageState extends ConsumerState<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildActionsSection(),
+          // _buildActionsSection(),
+          // const Divider(height: 1, thickness: 1, color: Colors.black12),
           // _buildNewsSection(),
           _buildMessagesSection(key: UniqueKey()),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: const Divider(
+              height: 1,
+              thickness: 1,
+              color: Color.fromARGB(255, 50, 50, 50),
+            ),
+          ),
           _buildTrendingSection(),
           SizedBox(height: 16),
         ],

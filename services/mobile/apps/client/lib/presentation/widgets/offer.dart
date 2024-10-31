@@ -5,6 +5,7 @@ import 'package:client/presentation/widgets/offer/add_new_offer.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/user_provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Offer extends ConsumerStatefulWidget {
   const Offer({super.key});
@@ -206,6 +207,8 @@ class _OfferState extends ConsumerState<Offer> {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Card(
+            color: const Color(0x10101010),
+            elevation: 4,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
@@ -256,16 +259,48 @@ class _OfferState extends ConsumerState<Offer> {
   }
 
   Widget _buildOverviewItem(String label, int value, Color color) {
+    SvgPicture getIconForLabel() {
+      switch (label) {
+        case 'Total':
+          return SvgPicture.asset(
+            'assets/total.svg',
+            width: 20,
+            height: 20,
+          );
+        case 'Current':
+          return SvgPicture.asset(
+            'assets/current.svg',
+            width: 20,
+            height: 20,
+          );
+        case 'Applying':
+          return SvgPicture.asset(
+            'assets/apply.svg',
+            width: 20,
+            height: 20,
+          );
+        case 'Completed':
+          return SvgPicture.asset(
+            'assets/complete.svg',
+            width: 20,
+            height: 20,
+          );
+        default:
+          return SvgPicture.asset(
+            'assets/complete.svg',
+            width: 20,
+            height: 20,
+          );
+      }
+    }
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: 4,
+        SizedBox(
+          width: 40,
           height: 40,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(2),
-          ),
+          child: getIconForLabel(),
         ),
         const SizedBox(width: 8),
         Column(
@@ -273,7 +308,7 @@ class _OfferState extends ConsumerState<Offer> {
           children: [
             Text(
               label,
-              style: const TextStyle(color: Colors.white, fontSize: 16),
+              style: const TextStyle(color: Colors.white, fontSize: 12),
             ),
             Text(
               value.toString(),
@@ -291,13 +326,10 @@ class _OfferState extends ConsumerState<Offer> {
   Widget _buildTotalPointEarned(dynamic totalEarnings) {
     return Row(
       children: [
-        Container(
-          width: 4,
+        SizedBox(
+          width: 40,
           height: 40,
-          decoration: BoxDecoration(
-            color: Colors.orange,
-            borderRadius: BorderRadius.circular(2),
-          ),
+          child: SvgPicture.asset('assets/total_point_earn.svg'),
         ),
         const SizedBox(width: 8),
         Column(
@@ -305,7 +337,7 @@ class _OfferState extends ConsumerState<Offer> {
           children: [
             const Text(
               'Total Point Earned',
-              style: TextStyle(color: Colors.white, fontSize: 16),
+              style: TextStyle(color: Colors.white, fontSize: 12),
             ),
             Text(
               totalEarnings.toString(),
