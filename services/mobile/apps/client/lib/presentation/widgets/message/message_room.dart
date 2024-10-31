@@ -43,6 +43,7 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                 id
                 content
                 sentAt
+                sentBy
               }
               to {
                 id
@@ -56,6 +57,7 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
           'userId': userId,
           'messageRoomId': widget.roomId,
         },
+        pollInterval: const Duration(seconds: 3),
       ),
       builder: (QueryResult result, {Refetch? refetch, FetchMore? fetchMore}) {
         // refetch関数を保存
@@ -65,7 +67,7 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
 
         final messages =
             result.data?['getMessagesByMessageRoomId']['messageList'] ?? [];
-        print(result);
+        print('msg list result: $result');
 
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -112,11 +114,9 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                         itemCount: messages.length,
                         itemBuilder: (context, index) {
                           final message = messages[index];
-                          final toUser =
-                              result.data?['getMessagesByMessageRoomId']['to'];
                           return MessageBubble(
                             message: message['content'],
-                            isMyMessage: toUser['id'] != userId,
+                            isMyMessage: message['sentBy'] == userId,
                             timestamp: DateTime.parse(message['sentAt']),
                           );
                         },

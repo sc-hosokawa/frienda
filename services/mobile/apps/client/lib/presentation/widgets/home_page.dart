@@ -29,7 +29,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authProvider);
     return SingleChildScrollView(
       key: PageStorageKey('home_page'),
       child: Column(
@@ -39,6 +38,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           // const Divider(height: 1, thickness: 1, color: Colors.black12),
           // _buildNewsSection(),
           _buildMessagesSection(key: UniqueKey()),
+          const SizedBox(height: 4),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: const Divider(
@@ -47,8 +47,9 @@ class _HomePageState extends ConsumerState<HomePage> {
               color: Color.fromARGB(255, 50, 50, 50),
             ),
           ),
+          const SizedBox(height: 4),
           _buildTrendingSection(),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -91,7 +92,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   // TODO: Unreadを最大5件表示、5ない場合は最新のメッセを全体で5件になるまで取得。なお未読のメッセはハイライトする。
   Widget _buildMessagesSection({Key? key}) {
-    final client = ref.watch(graphQLClientProvider);
     final userState = ref.watch(userProvider);
 
     return Column(
@@ -110,7 +110,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     height: 20,
                   ),
                   const SizedBox(width: 8),
-                  Text('Messages',
+                  Text('Active Message Rooms',
                       style: Theme.of(context).textTheme.titleMedium),
                 ],
               ),
@@ -131,6 +131,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             variables: Variables$Query$GetMessageRooms(
               userId: userState?.id ?? '',
             ),
+            fetchPolicy: FetchPolicy.networkOnly,
           ),
           builder: (result, {refetch, fetchMore}) {
             if (result.hasException) {
@@ -141,6 +142,8 @@ class _HomePageState extends ConsumerState<HomePage> {
               return const Center(child: CircularProgressIndicator());
             }
 
+            print('GraphQL Response:Rooms: ${result.data}');
+
             final messageRooms = result.data?['getMessageRooms']
                     ['messageRoomList'] as List<dynamic>? ??
                 [];
@@ -150,20 +153,21 @@ class _HomePageState extends ConsumerState<HomePage> {
               try {
                 final aTime = a['latestSentAt'] != null
                     ? DateTime.parse(a['latestSentAt'])
-                    : DateTime(1900); // デフォルト値
+                    : DateTime(1900);
                 final bTime = b['latestSentAt'] != null
                     ? DateTime.parse(b['latestSentAt'])
-                    : DateTime(1900); // デフォルト値
+                    : DateTime(1900);
                 return bTime.compareTo(aTime);
               } catch (e) {
                 print('Date parsing error: ${e.toString()}');
-                print(
-                    'latestSentAt values: ${a['latestSentAt']}, ${b['latestSentAt']}');
-                return 0; // エラーの場合は順序を変更しない
+                return 0;
               }
             });
 
-            if (messageRooms.isEmpty) {
+            // Take only the first 5 messages
+            final displayMessages = messageRooms.take(5).toList();
+
+            if (displayMessages.isEmpty) {
               return const Center(
                 child: Padding(
                   padding: EdgeInsets.all(32.0),
@@ -175,9 +179,9 @@ class _HomePageState extends ConsumerState<HomePage> {
             return ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: messageRooms.length,
+              itemCount: displayMessages.length,
               itemBuilder: (context, index) {
-                final room = messageRooms[index];
+                final room = displayMessages[index];
                 final isUnread = room['isRead'] != true;
 
                 return ListTile(

@@ -162,12 +162,12 @@ class _HomePageState extends State<HomePage> {
     final isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
 
     if (!isFirstLaunch && mounted) {
-      final currentUser = FirebaseAuth.instance.currentUser;
+      // TODO: check if user is logged in and fetch user data
+      // final currentUser = FirebaseAuth.instance.currentUser;
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) =>
-              currentUser != null ? const MainScreen() : const LoginPage(),
+          builder: (context) => const LoginPage(),
         ),
       );
     } else {

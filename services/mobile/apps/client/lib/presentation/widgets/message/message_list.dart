@@ -185,6 +185,15 @@ class _MessageListState extends ConsumerState<MessageList> {
                   ['messageRoomList'] as List<dynamic>? ??
               [];
 
+          // メッセージルームを最新のメッセージ順にソート
+          messageRooms.sort((a, b) {
+            final aTime = a['latestSentAt'] as String?;
+            final bTime = b['latestSentAt'] as String?;
+            if (aTime == null) return 1;
+            if (bTime == null) return -1;
+            return DateTime.parse(bTime).compareTo(DateTime.parse(aTime));
+          });
+
           if (messageRooms.isEmpty) {
             return const Center(
               child: Text('No message yet'),
