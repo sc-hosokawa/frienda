@@ -19,6 +19,13 @@ pub struct TransferPointBetweenAccountsInput {
     pub notes: Option<String>, // abstract
 }
 
+pub struct TransferPointBetweenAccountsByUsernameOrEmailInput {
+    pub from: Option<String>,
+    pub to: String,
+    pub amount: i32,
+    pub notes: Option<String>, // abstract
+}
+
 //
 // Define the interface for the usecase
 //
@@ -31,6 +38,10 @@ pub trait TransferPointBetweenAccountsUsecaseTrait: Send + Sync {
     async fn bulk_transfer(
         &self,
         input: Vec<TransferPointBetweenAccountsInput>,
+    ) -> Result<Uuid, anyhow::Error>;
+    async fn transfer_by_username_or_email(
+        &self,
+        input: TransferPointBetweenAccountsInput,
     ) -> Result<Uuid, anyhow::Error>;
 }
 
@@ -102,6 +113,48 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
         let res = self.txs_fsp_repo.create(tx_fsp).await?;
 
         Ok(res.id)
+    }
+
+    async fn transfer_by_username_or_email(
+        &self,
+        input: TransferPointBetweenAccountsInput,
+    ) -> Result<Uuid, anyhow::Error> {
+        let to_user = self
+            .users_repo
+            .find_by_username_or_email(&input.to)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("User not found"))?;
+        let to_user_info: User = self
+            .users_repo
+            .update_fsp(&to_user.id, input.amount)
+            .await?;
+        info!("to_user_info: {:?}", to_user_info.id);
+
+        if let Some(from) = &input.from {
+            if from != "u_00000000000000000000000000" {
+                let from_user = self
+                    .users_repo
+                    .find_by_id(from)
+                    .await?
+                    .ok_or_else(|| anyhow::anyhow!("User not found"))?;
+                if from_user.fsp < input.amount {
+                    return Err(anyhow::anyhow!("Insufficient balance"));
+                }
+                let from_user_info: User = self
+                    .users_repo
+                    .update_fsp(&from_user.id, -input.amount)
+                    .await?;
+                info!("from_user_info: {:?}", from_user_info.id);
+            }
+        }
+
+        self.transfer(TransferPointBetweenAccountsInput {
+            from: input.from,
+            to: to_user.id,
+            amount: input.amount,
+            notes: input.notes,
+        })
+        .await
     }
 
     async fn bulk_transfer(

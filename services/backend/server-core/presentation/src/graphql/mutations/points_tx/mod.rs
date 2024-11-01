@@ -16,7 +16,7 @@ impl PointsTxMutation {
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let result = usecases
             .transfer_point_between_accounts
-            .transfer(application::usecases::point::transfer_point_between_accounts_usecase::TransferPointBetweenAccountsInput {
+            .transfer_by_username_or_email(application::usecases::point::transfer_point_between_accounts_usecase::TransferPointBetweenAccountsInput {
                 from: input.from,
                 to: input.to,
                 amount: input.amount,
