@@ -2,7 +2,7 @@ use crate::graphql::models::artists::*;
 use anyhow::Error;
 use application::usecases::basic::create_user_usecase;
 use async_graphql::{InputObject, SimpleObject};
-use domain::entities::sea_orm_active_enums::{UserArtistStatus, UserCategory};
+use domain::entities::sea_orm_active_enums::{OfferCategory, UserArtistStatus, UserCategory};
 
 // ===== Query ====
 
@@ -31,7 +31,6 @@ pub struct UserBasicData {
 #[derive(SimpleObject)]
 pub struct UserDetailData {
     pub id: String,
-    pub email: String,
     pub name: String,
     pub image_url: Option<String>,
     pub fsp_balance: i32,
@@ -39,14 +38,17 @@ pub struct UserDetailData {
     pub credential_balance: i32,
     pub role: String,
     pub primary_role: String,
+    pub greeting: Option<String>,
+    pub skill: Option<String>,
+    pub x_handle: Option<String>,
+    pub instagram_handle: Option<String>,
+    pub fb_handle: Option<String>,
+    pub interest_offer: Option<String>,
+    pub created_at: String,
     pub belongs_to_artists: Vec<ArtistByUserData>,
     pub primary_artist: Option<ArtistByUserData>,
 }
 
-#[derive(SimpleObject)]
-pub struct UserFullData {
-    pub user_info: UserDetailData,
-}
 // TODO: ユーザーの紹介ページで利用するデータ
 
 #[derive(SimpleObject)]
@@ -126,6 +128,26 @@ pub struct UpdateBelongsToArtistStatusResponse {
     pub updated_user_artist: ArtistByUserData,
 }
 
+#[derive(InputObject)]
+pub struct UpdateUserDetailProfileInput {
+    pub id: String,
+    pub name: Option<String>,
+    pub image_url: Option<String>,
+    pub role: Option<String>,
+    pub primary_role: Option<String>,
+    pub greeting: Option<String>,
+    pub skill: Option<String>,
+    pub x_handle: Option<String>,
+    pub instagram_handle: Option<String>,
+    pub fb_handle: Option<String>,
+    pub interest_offer: Option<Vec<String>>,
+}
+
+#[derive(SimpleObject)]
+pub struct UpdateUserDetailProfileResponse {
+    pub user_info: UserDetailData,
+}
+
 // ===== Convert to usecase input =====
 impl CreateNewUserDataInput {
     pub fn into_usecase_input(self) -> Result<create_user_usecase::CreateUserInput, Error> {
@@ -170,18 +192,46 @@ pub fn from_string_to_user_artist_status(s: &str) -> Result<UserArtistStatus, St
     }
 }
 
+pub fn from_offer_category_to_string(category: &OfferCategory) -> String {
+    match category {
+        OfferCategory::Promotion => "Promotion".to_string(),
+        OfferCategory::Event => "Event".to_string(),
+        OfferCategory::Other => "Other".to_string(),
+        OfferCategory::Creation => "Creation".to_string(),
+    }
+}
+
+pub fn from_string_to_offer_category(s: &str) -> Result<OfferCategory, String> {
+    match s {
+        "Promotion" => Ok(OfferCategory::Promotion),
+        "Event" => Ok(OfferCategory::Event),
+        "Other" => Ok(OfferCategory::Other),
+        "Creation" => Ok(OfferCategory::Creation),
+        _ => Err(format!("Invalid OfferCategory: {}", s)),
+    }
+}
+
 impl UserDetailData {
     pub fn from_domain(
         domain: application::usecases::basic::get_user_basic_info_usecase::GetUserBasicInfoOutput,
     ) -> Result<Self, anyhow::Error> {
         Ok(Self {
             id: domain.user.id,
-            email: domain.user.email,
             name: domain.user.username,
             image_url: domain.user.img_url,
             fsp_balance: domain.user.fsp,
             // fsp_balance_temp: domain.user.fsp,
             credential_balance: domain.user.credential,
+            greeting: domain.user.greeting,
+            skill: domain.user.skill,
+            x_handle: domain.user.x_handle,
+            instagram_handle: domain.user.instagram_handle,
+            fb_handle: domain.user.fb_handle,
+            interest_offer: domain
+                .user
+                .interest_offer
+                .map(|offer| from_offer_category_to_string(&offer)),
+            created_at: domain.user.created_at.to_string(),
             role: match domain.user.category {
                 UserCategory::Musician => "Musician".to_string(),
                 UserCategory::Creator => "Creator".to_string(),

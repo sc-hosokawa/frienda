@@ -52,7 +52,41 @@ impl CreateMessageRoomUsecase {
 #[async_trait]
 impl CreateMessageRoomUsecaseTrait for CreateMessageRoomUsecase {
     async fn create(&self, input: CreateMessageRoomInput) -> Result<Uuid, anyhow::Error> {
-        // Create the room
+        // Filter out creator from user_list and sort for consistent comparison
+        let mut all_participants: Vec<String> = std::iter::once(input.created_by.clone())
+            .chain(input.user_list.clone())
+            .collect();
+        all_participants.sort();
+        all_participants.dedup();
+
+        // Check for existing room with same participants
+        let existing_room_user_mapping = self
+            .room_user_repo
+            .find_by_user_ids(&all_participants)
+            .await?;
+
+        // Check if there's an existing room with the exact same participants
+        let room_participants: std::collections::HashMap<Uuid, Vec<String>> =
+            existing_room_user_mapping.iter().fold(
+                std::collections::HashMap::new(),
+                |mut acc, mapping| {
+                    acc.entry(mapping.room_id)
+                        .or_default()
+                        .push(mapping.user_id.clone());
+                    acc
+                },
+            );
+
+        // If we find a room with exactly the same participants, return its ID
+        for (room_id, participants) in room_participants {
+            let mut room_participants = participants;
+            room_participants.sort();
+            if room_participants == all_participants {
+                return Ok(room_id);
+            }
+        }
+
+        // Create new room if no existing room found
         let room = RoomActiveModel {
             r#type: ActiveValue::Set(input.category),
             ..Default::default()

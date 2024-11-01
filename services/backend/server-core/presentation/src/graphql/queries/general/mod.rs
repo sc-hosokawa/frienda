@@ -10,7 +10,30 @@ pub struct GeneralQuery;
 impl GeneralQuery {
     async fn get_all_users(&self, ctx: &Context<'_>) -> Result<models::users::AllUsersData> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        let result = usecases.get_all_users.execute().await?;
+        let result = usecases.get_all_users.get_all_users().await?;
+        Ok(models::users::AllUsersData {
+            users: result
+                .users
+                .into_iter()
+                .map(|user| models::users::UserSimpleData {
+                    id: user.id,
+                    name: user.name,
+                    image_url: user.image_url,
+                })
+                .collect::<Vec<_>>(),
+        })
+    }
+
+    async fn get_all_users_except_me(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<models::users::AllUsersData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_all_users
+            .get_all_users_except_me(user_id)
+            .await?;
         Ok(models::users::AllUsersData {
             users: result
                 .users
@@ -64,6 +87,15 @@ impl GeneralQuery {
         ctx: &Context<'_>,
         user_id: String,
     ) -> Result<models::users::UserDetailData> {
-        todo!()
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_user_basic_info
+            .get_user_basic_info(
+                application::usecases::basic::get_user_basic_info_usecase::GetUserBasicInfoInput {
+                    user_id,
+                },
+            )
+            .await?;
+        Ok(models::users::UserDetailData::from_domain(result).unwrap())
     }
 }

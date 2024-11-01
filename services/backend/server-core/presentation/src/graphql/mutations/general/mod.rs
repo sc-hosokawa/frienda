@@ -65,13 +65,21 @@ impl GeneralMutation {
         Ok(models::users::UpdateUserDataResponse {
             user_info: models::users::UserDetailData {
                 id: res.updated_user.id,
-                email: res.updated_user.email,
                 name: res.updated_user.username,
                 image_url: res.updated_user.img_url,
                 fsp_balance: res.updated_user.fsp,
-                // fsp_balance_temp: res.updated_user.,
                 credential_balance: res.updated_user.credential,
                 role: models::users::from_user_category_to_string(&res.updated_user.category),
+                created_at: res.updated_user.created_at.to_string(),
+                greeting: res.updated_user.greeting,
+                skill: res.updated_user.skill,
+                x_handle: res.updated_user.x_handle,
+                instagram_handle: res.updated_user.instagram_handle,
+                fb_handle: res.updated_user.fb_handle,
+                interest_offer: res
+                    .updated_user
+                    .interest_offer
+                    .map(|offer| models::users::from_offer_category_to_string(&offer)),
                 primary_role: models::users::from_user_category_to_string(
                     &res.updated_user.primary_category,
                 ),
@@ -121,6 +129,14 @@ impl GeneralMutation {
         ctx: &Context<'_>,
         input: models::contact_us::ContactToAdminInput,
     ) -> Result<models::contact_us::ContactToAdminResponse> {
+        todo!()
+    }
+
+    async fn update_user_detail_profile(
+        &self,
+        ctx: &Context<'_>,
+        input: models::users::UpdateUserDetailProfileInput,
+    ) -> Result<models::users::UpdateUserDetailProfileResponse> {
         todo!()
     }
 }

@@ -63,4 +63,25 @@ impl RoomUserRepository for RoomUserRepoImpl {
 
         Ok(room_users)
     }
+
+    async fn get_by_room_id_and_user_id(
+        &self,
+        room_id: Uuid,
+        user_id: &str,
+    ) -> Result<Option<RoomUser>, DomainError> {
+        let room_user = RoomUserEntity::find()
+            .filter(Column::RoomId.eq(room_id))
+            .filter(Column::UserId.eq(user_id))
+            .one(&self.db)
+            .await?;
+        Ok(room_user)
+    }
+
+    async fn find_by_user_ids(&self, user_ids: &[String]) -> Result<Vec<RoomUser>, DomainError> {
+        let room_users = RoomUserEntity::find()
+            .filter(Column::UserId.is_in(user_ids))
+            .all(&self.db)
+            .await?;
+        Ok(room_users)
+    }
 }

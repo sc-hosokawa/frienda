@@ -14,6 +14,7 @@ use application::usecases::messaging::{
     create_message_room_usecase::{CreateMessageRoomUsecase, CreateMessageRoomUsecaseTrait},
     get_messages_usecase::{GetMessagesUsecase, GetMessagesUsecaseTrait},
     get_room_list_usecase::{GetRoomListUsecase, GetRoomListUsecaseTrait},
+    mark_as_read_usecase::{MarkAsReadUsecase, MarkAsReadUsecaseTrait},
     send_message_usecase::{SendMessageUsecase, SendMessageUsecaseTrait},
 };
 use application::usecases::offer::{
@@ -99,6 +100,7 @@ pub struct Usecases {
     pub transfer_point_between_accounts: Arc<dyn TransferPointBetweenAccountsUsecaseTrait>,
     pub get_artist: Arc<dyn GetArtistUsecaseTrait>,
     pub get_all_users: Arc<dyn GetAllUsersUsecaseTrait>,
+    pub mark_as_read: Arc<dyn MarkAsReadUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -202,5 +204,6 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
             repos.txs_fsp.clone(),
             repos.users.clone(),
         )),
+        mark_as_read: Arc::new(MarkAsReadUsecase::new(repos.room_user.clone())),
     }
 }

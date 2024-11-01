@@ -82,6 +82,18 @@ pub struct SendMessageResponse {
     pub attached_img: Option<Vec<String>>,
 }
 
+#[derive(InputObject)]
+pub struct MarkAsReadInput {
+    pub room_id: String,    // uuid
+    pub user_id: String,    // varchar(28)
+    pub message_id: String, // uuid
+}
+
+#[derive(SimpleObject)]
+pub struct MarkAsReadResponse {
+    pub is_success: bool,
+}
+
 // ===== Convert to usecase input =====
 impl SendMessageInput {
     pub fn into_usecase_input(self) -> Result<send_message_usecase::SendMessageInput, Error> {

@@ -18,7 +18,9 @@ pub struct UserSimpleData {
 
 #[async_trait]
 pub trait GetAllUsersUsecaseTrait: Send + Sync {
-    async fn execute(&self) -> Result<AllUsersData, anyhow::Error>;
+    async fn get_all_users(&self) -> Result<AllUsersData, anyhow::Error>;
+    async fn get_all_users_except_me(&self, user_id: String)
+        -> Result<AllUsersData, anyhow::Error>;
 }
 
 pub struct GetAllUsersUsecase {
@@ -32,10 +34,29 @@ impl GetAllUsersUsecase {
 
 #[async_trait]
 impl GetAllUsersUsecaseTrait for GetAllUsersUsecase {
-    async fn execute(&self) -> Result<AllUsersData, anyhow::Error> {
+    async fn get_all_users(&self) -> Result<AllUsersData, anyhow::Error> {
         let users: Vec<User> = self.users_repo.get_all_users().await?;
         let users_simple_data: Vec<UserSimpleData> = users
             .iter()
+            .map(|user| UserSimpleData {
+                id: user.id.clone(),
+                name: user.username.clone(),
+                image_url: user.img_url.clone(),
+            })
+            .collect();
+        Ok(AllUsersData {
+            users: users_simple_data,
+        })
+    }
+
+    async fn get_all_users_except_me(
+        &self,
+        user_id: String,
+    ) -> Result<AllUsersData, anyhow::Error> {
+        let users: Vec<User> = self.users_repo.get_all_users().await?;
+        let users_simple_data: Vec<UserSimpleData> = users
+            .iter()
+            .filter(|user| user.id != user_id)
             .map(|user| UserSimpleData {
                 id: user.id.clone(),
                 name: user.username.clone(),

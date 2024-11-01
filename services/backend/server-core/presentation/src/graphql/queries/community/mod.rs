@@ -13,8 +13,4 @@ impl CommunityQuery {
     ) -> Result<models::communities::ConnectedUsersData> {
         todo!()
     }
-
-    async fn get_user_info(&self, ctx: &Context<'_>) -> Result<models::users::UserFullData> {
-        todo!()
-    }
 }

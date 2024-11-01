@@ -12,4 +12,10 @@ pub trait RoomUserRepository: Send + Sync {
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
     async fn get_by_room_id(&self, room_id: Uuid) -> Result<Vec<RoomUser>, DomainError>;
     async fn get_by_user_id(&self, user_id: &str) -> Result<Vec<RoomUser>, DomainError>;
+    async fn get_by_room_id_and_user_id(
+        &self,
+        room_id: Uuid,
+        user_id: &str,
+    ) -> Result<Option<RoomUser>, DomainError>;
+    async fn find_by_user_ids(&self, user_ids: &[String]) -> Result<Vec<RoomUser>, DomainError>;
 }

@@ -56,4 +56,23 @@ impl MessageMutation {
             attached_img: res.attached_imgs,
         })
     }
+
+    async fn mark_as_read(
+        &self,
+        ctx: &Context<'_>,
+        input: models::messages::MarkAsReadInput,
+    ) -> Result<models::messages::MarkAsReadResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        usecases
+            .mark_as_read
+            .mark_as_read(
+                application::usecases::messaging::mark_as_read_usecase::MarkAsReadInput {
+                    message_room_id: Uuid::parse_str(&input.room_id).unwrap(),
+                    user_id: input.user_id.clone(),
+                    message_id: Uuid::parse_str(&input.message_id).unwrap(),
+                },
+            )
+            .await?;
+        Ok(models::messages::MarkAsReadResponse { is_success: true })
+    }
 }
