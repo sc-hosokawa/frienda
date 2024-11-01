@@ -1,10 +1,9 @@
 use async_trait::async_trait;
-use chrono::{DateTime, Utc};
 use sea_orm::ActiveValue;
 use std::sync::Arc;
 
 use domain::entities::offer_attach::ActiveModel as OfferAttachActiveModel;
-use domain::entities::offers::ActiveModel as OfferActiveModel;
+use domain::entities::offers::{ActiveModel as OfferActiveModel, Model as Offer};
 use domain::entities::sea_orm_active_enums::{OfferCategory, UserCategory};
 use domain::repositories::offer_attach_repo::OfferAttachRepository;
 use domain::repositories::offers_repo::OffersRepository;
@@ -80,17 +79,30 @@ impl RegisterTaskUsecaseTrait for RegisterTaskUsecase {
             category: ActiveValue::Set(input.category),
             ..Default::default()
         };
-        let offer = self.offers_repo.create(offer).await?;
+        let offer: Offer = self.offers_repo.create(offer).await?;
 
-        if input.attached_imgs.is_some() || input.attached_files.is_some() {
-            let attached_media: Vec<String> = input
-                .attached_imgs
-                .unwrap_or_default()
+        if input.attached_imgs.is_some() {
+            tracing::debug!("Attached imgs: {:?}", input.attached_imgs);
+            let attached_imgs: Vec<String> = input.attached_imgs.clone().unwrap_or_default();
+            let offer_img_attaches: Vec<OfferAttachActiveModel> = attached_imgs
                 .into_iter()
-                .chain(input.attached_files.unwrap_or_default().into_iter())
+                .map(|media_url| OfferAttachActiveModel {
+                    offer_id: ActiveValue::Set(offer.id),
+                    file_uri: ActiveValue::Set(None),
+                    image_uri: ActiveValue::Set(Some(media_url)),
+                    ..Default::default()
+                })
                 .collect();
 
-            let offer_attaches: Vec<OfferAttachActiveModel> = attached_media
+            self.offer_attach_repo
+                .create_many(offer_img_attaches)
+                .await?;
+        }
+
+        if input.attached_files.is_some() {
+            tracing::debug!("Attached files: {:?}", input.attached_files);
+            let attached_files: Vec<String> = input.attached_files.clone().unwrap_or_default();
+            let offer_file_attaches: Vec<OfferAttachActiveModel> = attached_files
                 .into_iter()
                 .map(|media_url| OfferAttachActiveModel {
                     offer_id: ActiveValue::Set(offer.id),
@@ -100,7 +112,9 @@ impl RegisterTaskUsecaseTrait for RegisterTaskUsecase {
                 })
                 .collect();
 
-            self.offer_attach_repo.create_many(offer_attaches).await?;
+            self.offer_attach_repo
+                .create_many(offer_file_attaches)
+                .await?;
         }
 
         Ok(offer.id)
