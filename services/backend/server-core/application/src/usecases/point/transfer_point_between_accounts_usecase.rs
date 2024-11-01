@@ -148,13 +148,16 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
             }
         }
 
-        self.transfer(TransferPointBetweenAccountsInput {
-            from: input.from,
-            to: to_user.id,
-            amount: input.amount,
-            notes: input.notes,
-        })
-        .await
+        let tx_fsp: TxsFspActiveModel = TxsFspActiveModel {
+            from: ActiveValue::Set(input.from),
+            to: ActiveValue::Set(to_user.id),
+            amount: ActiveValue::Set(input.amount),
+            notes: ActiveValue::Set(input.notes),
+            ..Default::default()
+        };
+        let res = self.txs_fsp_repo.create(tx_fsp).await?;
+
+        Ok(res.id)
     }
 
     async fn bulk_transfer(

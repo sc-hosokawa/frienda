@@ -98,4 +98,25 @@ impl GeneralQuery {
             .await?;
         Ok(models::users::UserDetailData::from_domain(result).unwrap())
     }
+
+    async fn get_user_point_balance(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<models::points::UserPointBalanceData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_user_point_balance
+            .get_user_point_balance(
+                application::usecases::point::get_user_point_balance_usecase::GetUserPointBalanceInput {
+                    user_id,
+                },
+            )
+            .await?;
+        Ok(models::points::UserPointBalanceData {
+            fsp_balance: result.fsp_balance,
+            fsp_balance_temp: result.fsp_balance_temp,
+            credential_balance: result.credential_balance,
+        })
+    }
 }

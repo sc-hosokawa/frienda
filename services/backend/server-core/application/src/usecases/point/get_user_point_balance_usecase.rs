@@ -12,6 +12,7 @@ pub struct GetUserPointBalanceInput {
 
 pub struct GetUserPointBalanceOutput {
     pub fsp_balance: i32,
+    pub fsp_balance_temp: i32,
     pub credential_balance: i32,
 }
 
@@ -55,6 +56,7 @@ impl GetUserPointBalanceUsecaseTrait for GetUserPointBalanceUsecase {
             .ok_or_else(|| anyhow::anyhow!("User not found"))?;
         Ok(GetUserPointBalanceOutput {
             fsp_balance: user.fsp,
+            fsp_balance_temp: user.fsp_temp,
             credential_balance: user.credential,
         })
     }

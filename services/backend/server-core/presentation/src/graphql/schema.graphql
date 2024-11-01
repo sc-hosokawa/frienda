@@ -226,6 +226,7 @@ type MessageRoomData {
 	id: String!
 	category: String
 	latestMessage: String
+	latestMessageId: String
 	latestSentAt: String
 	isRead: Boolean!
 	users: [UserSimpleData!]!
@@ -389,6 +390,7 @@ type QueryRoot {
 	getUserData(userId: String!): UserDetailData!
 	getBelongedArtists(userId: String!): ArtistByUserDataList!
 	getUserDetailProfile(userId: String!): UserDetailData!
+	getUserPointBalance(userId: String!): UserPointBalanceData!
 	getAllArtists: ArtistsData!
 	getArtistById(artistId: String!): ArtistFullData!
 	getPopularPrizes: [PrizeData!]!
@@ -567,6 +569,12 @@ type UserDetailData {
 	createdAt: String!
 	belongsToArtists: [ArtistByUserData!]!
 	primaryArtist: ArtistByUserData
+}
+
+type UserPointBalanceData {
+	fspBalance: Int!
+	fspBalanceTemp: Int!
+	credentialBalance: Int!
 }
 
 type UserSimpleData {
