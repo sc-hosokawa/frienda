@@ -1,6 +1,7 @@
 use async_trait::async_trait;
 use futures::stream::{self, StreamExt, TryStreamExt};
 use std::sync::Arc;
+use uuid::Uuid;
 
 use domain::entities::room_user::Model as RoomUser;
 use domain::entities::sea_orm_active_enums::MessageRoomType;
@@ -25,6 +26,7 @@ pub struct RoomData {
     pub id: String, // uuid
     pub category: Option<MessageRoomType>,
     pub users: Vec<SimpleUser>,
+    pub latest_message_id: Option<Uuid>,
     pub latest_message: Option<String>,
     pub latest_sent_at: Option<chrono::DateTime<chrono::Utc>>, // datetime
     pub is_read: bool,
@@ -129,6 +131,7 @@ impl GetRoomListUsecaseTrait for GetRoomListUsecase {
                         id: room_id.to_string(),
                         category: Some(room_info.r#type),
                         latest_message: room_info.latest_message,
+                        latest_message_id: room_info.latest_message_id,
                         latest_sent_at: room_info.latest_sent_at.map(|dt| dt.and_utc()),
                         is_read: match (room.last_read_message_id, room_info.latest_message_id) {
                             (None, None) => true,     // 両方メッセージIDがない場合は既読
@@ -207,6 +210,7 @@ impl GetRoomListUsecaseTrait for GetRoomListUsecase {
                         id: room_id.to_string(),
                         category: Some(room_info.r#type),
                         latest_message: room_info.latest_message,
+                        latest_message_id: room_info.latest_message_id,
                         latest_sent_at: room_info.latest_sent_at.map(|dt| dt.and_utc()),
                         is_read,
                         users,

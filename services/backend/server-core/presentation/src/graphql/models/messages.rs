@@ -41,6 +41,7 @@ pub struct MessageRoomData {
     pub id: String, // uuid
     pub category: Option<String>,
     pub latest_message: Option<String>,
+    pub latest_message_id: Option<String>,
     pub latest_sent_at: Option<String>, // datetime
     pub is_read: bool,                  // falseの場合は未読
     pub users: Vec<UserSimpleData>,
@@ -139,6 +140,7 @@ impl From<application::usecases::messaging::get_room_list_usecase::RoomData> for
                 MessageRoomType::Group => "group".to_string(),
             }),
             latest_message: room.latest_message,
+            latest_message_id: room.latest_message_id.map(|id| id.to_string()),
             latest_sent_at: room.latest_sent_at.map(|dt| dt.to_rfc3339()),
             is_read: room.is_read,
             users: room.users.into_iter().map(|u| u.into()).collect(),
