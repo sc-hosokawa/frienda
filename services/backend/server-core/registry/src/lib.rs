@@ -136,6 +136,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
             repos.offers.clone(),
             repos.users.clone(),
             repos.offer_attach.clone(),
+            repos.offer_user.clone(),
         )),
         get_user_basic_info: Arc::new(GetUserBasicInfoUsecase::new(
             repos.users.clone(),
@@ -165,6 +166,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
             repos.messages.clone(),
             repos.users.clone(),
             repos.room_user.clone(),
+            repos.message_attach.clone(),
         )),
         get_available_offer: Arc::new(GetAvailableOfferUsecase::new(repos.offers.clone())),
         get_offer_by_owner: Arc::new(GetOfferByOwnerUsecase::new(repos.offers.clone())),

@@ -2,8 +2,9 @@ use async_trait::async_trait;
 use std::sync::Arc;
 
 use domain::entities::offers::Model as Offer;
-use domain::entities::sea_orm_active_enums::{OfferCategory, UserCategory};
+use domain::entities::sea_orm_active_enums::{OfferCategory, OfferStatus, UserCategory};
 use domain::repositories::offer_attach_repo::OfferAttachRepository;
+use domain::repositories::offer_user_repo::OfferUserRepository;
 use domain::repositories::offers_repo::OffersRepository;
 use domain::repositories::users_repo::UsersRepository;
 
@@ -12,6 +13,7 @@ use domain::repositories::users_repo::UsersRepository;
 //
 pub struct GetOfferDetailsUsecaseInput {
     pub offer_id: i32,
+    pub user_id: String,
 }
 
 //
@@ -19,6 +21,7 @@ pub struct GetOfferDetailsUsecaseInput {
 //
 pub struct GetOfferDetailsUsecaseOutput {
     pub id: i32,
+    pub status: Option<OfferStatus>,
     pub raid_id: Option<i32>,
     pub owner: crate::usecases::basic::get_all_users_usecase::UserSimpleData,
     pub title: String,
@@ -56,6 +59,7 @@ pub struct GetOfferDetailsUsecase {
     offers_repo: Arc<dyn OffersRepository>,
     users_repo: Arc<dyn UsersRepository>,
     offer_attach_repo: Arc<dyn OfferAttachRepository>,
+    offer_user_repo: Arc<dyn OfferUserRepository>,
 }
 
 impl GetOfferDetailsUsecase {
@@ -63,11 +67,13 @@ impl GetOfferDetailsUsecase {
         offers_repo: Arc<dyn OffersRepository>,
         users_repo: Arc<dyn UsersRepository>,
         offer_attach_repo: Arc<dyn OfferAttachRepository>,
+        offer_user_repo: Arc<dyn OfferUserRepository>,
     ) -> Self {
         Self {
             offers_repo,
             users_repo,
             offer_attach_repo,
+            offer_user_repo,
         }
     }
 }
@@ -105,9 +111,17 @@ impl GetOfferDetailsUsecaseTrait for GetOfferDetailsUsecase {
             .get_files_by_offer_id(offer.id)
             .await?;
 
+        // オファーユーザーマッピングを取得（存在しない場合はNone）
+        let offer_status = self
+            .offer_user_repo
+            .get_by_user_id_and_offer_id(&input.user_id, offer.id)
+            .await?
+            .map(|mapping| mapping.status); // マッピングが存在する場合はそのステータスを使用
+
         Ok(GetOfferDetailsUsecaseOutput {
             id: offer.id,
             raid_id: offer.raid_id,
+            status: offer_status, // Option<OfferStatus>型として設定
             owner: crate::usecases::basic::get_all_users_usecase::UserSimpleData {
                 id: owner_simple_data.id,
                 name: owner_simple_data.username,
@@ -128,11 +142,11 @@ impl GetOfferDetailsUsecaseTrait for GetOfferDetailsUsecase {
             updated_at: offer.updated_at.to_string(),
             attached_imgs: attached_imgs
                 .iter()
-                .map(|a| a.image_uri.as_ref().unwrap().clone())
+                .filter_map(|a| a.image_uri.clone())
                 .collect(),
             attached_files: attached_files
                 .iter()
-                .map(|a| a.file_uri.as_ref().unwrap().clone())
+                .filter_map(|a| a.file_uri.clone())
                 .collect(),
         })
     }

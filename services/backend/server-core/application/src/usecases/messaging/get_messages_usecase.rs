@@ -2,6 +2,7 @@ use async_trait::async_trait;
 use std::sync::Arc;
 use uuid::Uuid;
 
+use domain::repositories::message_attach_repo::MessageAttachRepository;
 use domain::repositories::messages_repo::MessagesRepository;
 use domain::repositories::room_user_repo::RoomUserRepository;
 use domain::repositories::users_repo::UsersRepository;
@@ -23,6 +24,8 @@ pub struct MessageData {
     pub content: String,
     pub sent_by: String,
     pub sent_at: chrono::DateTime<chrono::Utc>,
+    pub attached_file_url: Option<String>,
+    pub attached_img_url: Option<String>,
 }
 pub struct SimpleUser {
     pub id: String,
@@ -48,6 +51,7 @@ pub struct GetMessagesUsecase {
     messages_repo: Arc<dyn MessagesRepository>,
     user_repo: Arc<dyn UsersRepository>,
     room_user_repo: Arc<dyn RoomUserRepository>,
+    message_attach_repo: Arc<dyn MessageAttachRepository>,
 }
 
 impl GetMessagesUsecase {
@@ -55,11 +59,13 @@ impl GetMessagesUsecase {
         messages_repo: Arc<dyn MessagesRepository>,
         user_repo: Arc<dyn UsersRepository>,
         room_user_repo: Arc<dyn RoomUserRepository>,
+        message_attach_repo: Arc<dyn MessageAttachRepository>,
     ) -> Self {
         Self {
             messages_repo,
             user_repo,
             room_user_repo,
+            message_attach_repo,
         }
     }
 }
@@ -74,9 +80,15 @@ impl GetMessagesUsecaseTrait for GetMessagesUsecase {
         input: GetMessagesInput,
     ) -> Result<GetMessagesOutput, anyhow::Error> {
         // 最新の10件のメッセージを取得
-        let messages = self
+        let messages: Vec<domain::entities::messages::Model> = self
             .messages_repo
             .get_latest_by_room_id(input.room_id, 10)
+            .await?;
+
+        // メッセージに紐づく添付ファイルを取得
+        let message_attaches: Vec<domain::entities::message_attach::Model> = self
+            .message_attach_repo
+            .get_by_message_ids(messages.iter().map(|m| m.id).collect())
             .await?;
 
         // メッセージをMessageData形式に変換
@@ -87,6 +99,14 @@ impl GetMessagesUsecaseTrait for GetMessagesUsecase {
                 content: msg.message,
                 sent_by: msg.send_by,
                 sent_at: msg.created_at.and_utc(),
+                attached_file_url: message_attaches
+                    .iter()
+                    .find(|ma| ma.message_id == Some(msg.id) && ma.attached_file_url.is_some())
+                    .map(|ma| ma.attached_file_url.clone().unwrap_or_default()),
+                attached_img_url: message_attaches
+                    .iter()
+                    .find(|ma| ma.message_id == Some(msg.id) && ma.attached_img_url.is_some())
+                    .map(|ma| ma.attached_img_url.clone().unwrap_or_default()),
             })
             .collect();
 

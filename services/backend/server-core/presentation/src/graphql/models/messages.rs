@@ -23,6 +23,8 @@ pub struct MessageTempData {
     pub content: String,
     pub sent_by: String,
     pub sent_at: String,
+    pub attached_file: Option<String>,
+    pub attached_img: Option<String>,
 }
 
 // メッセージルーム本体データ
@@ -184,6 +186,8 @@ impl From<application::usecases::messaging::get_messages_usecase::MessageData> f
             content: message.content,
             sent_by: message.sent_by,
             sent_at: message.sent_at.to_rfc3339(),
+            attached_file: message.attached_file_url,
+            attached_img: message.attached_img_url,
         }
     }
 }

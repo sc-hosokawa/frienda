@@ -23,6 +23,10 @@ pub trait MessageAttachRepository: Send + Sync {
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
     async fn get_by_id(&self, id: i32) -> Result<Option<MessageAttach>, DomainError>;
     async fn get_by_message_id(&self, message_id: Uuid) -> Result<Vec<MessageAttach>, DomainError>;
+    async fn get_by_message_ids(
+        &self,
+        message_ids: Vec<Uuid>,
+    ) -> Result<Vec<MessageAttach>, DomainError>;
     async fn get_by_sender_id(&self, sender_id: &str) -> Result<Vec<MessageAttach>, DomainError>;
     async fn get_by_sender_and_message_id(
         &self,

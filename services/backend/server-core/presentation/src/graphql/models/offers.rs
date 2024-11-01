@@ -37,6 +37,7 @@ pub struct OfferData {
 pub struct OfferDetailData {
     pub id: i32,
     pub raid_id: Option<i32>,
+    pub status: Option<String>,
     pub title: String,
     pub description: String,
     pub image_url: Option<String>,
@@ -213,6 +214,18 @@ pub fn from_string_to_offer_status(s: &str) -> Result<OfferStatus, String> {
         "Rejected" => Ok(OfferStatus::Rejected),
         "Suspend" => Ok(OfferStatus::Suspend),
         _ => Err(format!("Invalid OfferStatus: {}", s)),
+    }
+}
+
+pub fn from_offer_status_to_string(s: Option<OfferStatus>) -> Option<String> {
+    match s {
+        Some(OfferStatus::Applied) => Some("Applied".to_string()),
+        Some(OfferStatus::Finished) => Some("Finished".to_string()),
+        Some(OfferStatus::Canceled) => Some("Canceled".to_string()),
+        Some(OfferStatus::Ongoing) => Some("Ongoing".to_string()),
+        Some(OfferStatus::Rejected) => Some("Rejected".to_string()),
+        Some(OfferStatus::Suspend) => Some("Suspend".to_string()),
+        None => None,
     }
 }
 

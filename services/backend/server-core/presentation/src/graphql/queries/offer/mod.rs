@@ -87,6 +87,7 @@ impl OfferQuery {
         &self,
         ctx: &Context<'_>,
         offer_id: i32,
+        user_id: String,
     ) -> Result<models::offers::OfferDetailData> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let result = usecases
@@ -94,12 +95,14 @@ impl OfferQuery {
             .get_offer_details(
                 application::usecases::offer::get_offer_details_usecase::GetOfferDetailsUsecaseInput {
                     offer_id,
+                    user_id,
                 },
             )
             .await?;
 
         Ok(models::offers::OfferDetailData {
             id: result.id,
+            status: crate::graphql::models::offers::from_offer_status_to_string(result.status),
             title: result.title,
             description: result.description,
             image_url: result.img_url,

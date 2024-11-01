@@ -75,6 +75,17 @@ impl MessageAttachRepository for MessageAttachRepoImpl {
         Ok(message_attaches)
     }
 
+    async fn get_by_message_ids(
+        &self,
+        message_ids: Vec<Uuid>,
+    ) -> Result<Vec<MessageAttach>, DomainError> {
+        let message_attaches = MessageAttachEntity::find()
+            .filter(Column::MessageId.is_in(message_ids))
+            .all(&self.db)
+            .await?;
+        Ok(message_attaches)
+    }
+
     async fn get_by_sender_id(&self, sender_id: &str) -> Result<Vec<MessageAttach>, DomainError> {
         let message_attaches = MessageAttachEntity::find()
             .filter(Column::Sender.eq(sender_id))
