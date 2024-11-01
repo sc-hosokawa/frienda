@@ -212,6 +212,16 @@ type HealthCheck {
 
 
 
+input MarkAsReadInput {
+	roomId: String!
+	userId: String!
+	messageId: String!
+}
+
+type MarkAsReadResponse {
+	isSuccess: Boolean!
+}
+
 type MessageRoomData {
 	id: String!
 	category: String
@@ -229,6 +239,7 @@ type MessageRoomsByUserData {
 type MessageTempData {
 	id: String!
 	content: String!
+	sentBy: String!
 	sentAt: String!
 }
 
@@ -244,8 +255,10 @@ type MutationRoot {
 	updateUserData(input: UpdateUserDataInput!): UpdateUserDataResponse!
 	updateBelongsToArtistStatus(input: UpdateBelongsToArtistStatusInput!): UpdateBelongsToArtistStatusResponse!
 	contactToAdmin(input: ContactToAdminInput!): ContactToAdminResponse!
+	updateUserDetailProfile(input: UpdateUserDetailProfileInput!): UpdateUserDetailProfileResponse!
 	createNewMessageRoom(input: CreateNewMessageRoomInput!): CreateNewMessageRoomResponse!
 	sendMessage(input: SendMessageInput!): SendMessageResponse!
+	markAsRead(input: MarkAsReadInput!): MarkAsReadResponse!
 	createNewNotification(input: CreateNewNotificationInput!): CreateNewNotificationResponse!
 	updateNotification(input: UpdateNotificationInput!): UpdateNotificationResponse!
 	deleteNotification(input: DeleteNotificationInput!): DeleteNotificationResponse!
@@ -284,6 +297,26 @@ type OfferData {
 	imageUrl: String
 	fee: Int!
 	category: String
+}
+
+type OfferDetailData {
+	id: Int!
+	raidId: Int
+	title: String!
+	description: String!
+	imageUrl: String
+	fee: Int!
+	category: String
+	place: String!
+	attention: String
+	requiredSkill: String
+	targetRole: String
+	publicity: Boolean
+	attachedImgs: [String!]
+	attachedFiles: [String!]
+	createdAt: String!
+	updatedAt: String!
+	owner: UserSimpleData!
 }
 
 type OfferStatsByUserData {
@@ -338,19 +371,18 @@ type QueryRoot {
 	getPlaybacksByGenderData(artistId: String, isrc: String, dsp: String, period: String): PlaybacksByGenderData!
 	getPlaybacksByGenerationData(artistId: String, isrc: String, dsp: String, period: String): PlaybacksByGenerationData!
 	getCommunities: ConnectedUsersData!
-	getUserInfo: UserFullData!
 	getOfferStatsByUser(userId: String!): OfferStatsByUserData!
 	getOffersByOwner(userId: String!): OffersData!
 	getOffersByStatus(userId: String!): OfferByStatusData!
 	getOffers: OffersData!
-	getAllOffers: [OfferData!]!
-	getOffersByCategory(category: String!): OffersData!
+	getOffersById(offerId: Int!): OfferDetailData!
 	getMessageRooms(userId: String!): MessageRoomsByUserData!
 	getMessagesInProgress(userId: String!): MessageRoomsByUserData!
 	getMessagesByMessageRoomId(userId: String!, messageRoomId: String!): MessagesByRoomIdByUserData!
 	getNotifications(count: Int!, offset: Int!): NotificationsData!
 	getAllNotifications: NotificationsData!
 	getAllUsers: AllUsersData!
+	getAllUsersExceptMe(userId: String!): AllUsersData!
 	getUserData(userId: String!): UserDetailData!
 	getBelongedArtists(userId: String!): ArtistByUserDataList!
 	getUserDetailProfile(userId: String!): UserDetailData!
@@ -488,6 +520,24 @@ type UpdateUserDataResponse {
 	userInfo: UserDetailData!
 }
 
+input UpdateUserDetailProfileInput {
+	id: String!
+	name: String
+	imageUrl: String
+	role: String
+	primaryRole: String
+	greeting: String
+	skill: String
+	xHandle: String
+	instagramHandle: String
+	fbHandle: String
+	interestOffer: [String!]
+}
+
+type UpdateUserDetailProfileResponse {
+	userInfo: UserDetailData!
+}
+
 type UserBasicData {
 	id: String!
 	name: String!
@@ -499,19 +549,21 @@ type UserBasicData {
 
 type UserDetailData {
 	id: String!
-	email: String!
 	name: String!
 	imageUrl: String
 	fspBalance: Int!
 	credentialBalance: Int!
 	role: String!
 	primaryRole: String!
+	greeting: String
+	skill: String
+	xHandle: String
+	instagramHandle: String
+	fbHandle: String
+	interestOffer: String
+	createdAt: String!
 	belongsToArtists: [ArtistByUserData!]!
 	primaryArtist: ArtistByUserData
-}
-
-type UserFullData {
-	userInfo: UserDetailData!
 }
 
 type UserSimpleData {

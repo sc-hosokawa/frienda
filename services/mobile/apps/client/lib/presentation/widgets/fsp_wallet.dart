@@ -427,6 +427,8 @@ final transactionsProvider = FutureProvider.autoDispose<
         ),
       );
 
+  print('Transactions: ${result.data}');
+
   final transactions = (result.data!['getFspHistoryByUser']['transactionList']
           as List)
       .map((tx) => Query$GetFspHistoryByUser$getFspHistoryByUser$transactionList

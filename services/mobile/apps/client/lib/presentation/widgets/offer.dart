@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:client/presentation/widgets/offer/available_offers.dart';
 
 class Offer extends ConsumerStatefulWidget {
   const Offer({super.key});
@@ -16,27 +17,15 @@ class Offer extends ConsumerStatefulWidget {
 
 class _OfferState extends ConsumerState<Offer> {
   bool _isTransitioning = false;
-  final List<String> offers = const [
-    'Offer 1',
-    'Offer 2',
-    'Offer 3',
-    'Offer 4',
-    'Offer 5'
-  ];
-  final List<String> ownedOffers = const [
-    'My Offer 1',
-    'My Offer 2',
-    'My Offer 3',
-  ];
 
-  void _navigateToOfferDetail(BuildContext context) async {
+  void _navigateToOfferDetail(BuildContext context, int offerId) async {
     setState(() {
       _isTransitioning = true;
     });
 
     await navigateWithFadeTransition(
       context,
-      OfferDetailPage(),
+      OfferDetailPage(offerId: offerId),
     );
 
     if (mounted) {
@@ -111,13 +100,12 @@ class _OfferState extends ConsumerState<Offer> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            final data = result.data?['getOffersByStatus'];
+            print('GraphQL Response:OffersData: ${result.data}');
+            final offersByStatus = result.data?['getOffersByStatus'];
             final inprogressOffers =
-                data?['inprogressOffers'] as List<dynamic>? ?? [];
+                offersByStatus?['inprogressOffers'] as List<dynamic>? ?? [];
             final appliedOffers =
-                data?['appliedOffers'] as List<dynamic>? ?? [];
-            final availableOffers =
-                result.data?['getAllOffers'] as List<dynamic>? ?? [];
+                offersByStatus?['appliedOffers'] as List<dynamic>? ?? [];
 
             return RefreshIndicator(
               onRefresh: () async {
@@ -126,7 +114,19 @@ class _OfferState extends ConsumerState<Offer> {
               child: CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(child: _buildOverviewCard()),
-                  SliverToBoxAdapter(child: _buildSectionTitle('自分のOffer')),
+                  SliverToBoxAdapter(
+                    child: _buildSectionTitle(
+                      '自分のOffer',
+                      onTapMore: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AvailableOffers(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                   SliverToBoxAdapter(child: _buildOwnedOfferCarousel()),
                   SliverToBoxAdapter(child: _buildSectionTitle('進行中')),
                   SliverToBoxAdapter(
@@ -142,14 +142,6 @@ class _OfferState extends ConsumerState<Offer> {
                       context: context,
                       offers: appliedOffers,
                       height: 150,
-                    ),
-                  ),
-                  SliverToBoxAdapter(child: _buildSectionTitle('応募できるOffer')),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => _buildAvailableOfferTile(
-                          context, availableOffers[index]),
-                      childCount: availableOffers.length,
                     ),
                   ),
                 ],
@@ -353,18 +345,41 @@ class _OfferState extends ConsumerState<Offer> {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, {VoidCallback? onTapMore}) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 8.0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+      padding: const EdgeInsets.only(
+          left: 16.0, right: 16.0, top: 16.0, bottom: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
+          if (onTapMore != null)
+            GestureDetector(
+              onTap: onTapMore,
+              child: Row(
+                children: [
+                  Text(
+                    'もっと見る',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Icon(
+                    Icons.chevron_right,
+                    color: Theme.of(context).primaryColor,
+                    size: 20,
+                  ),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -432,7 +447,7 @@ class _OfferState extends ConsumerState<Offer> {
                 width: 150,
                 margin: const EdgeInsets.all(8),
                 child: GestureDetector(
-                  onTap: () => _navigateToOfferDetail(context),
+                  onTap: () => _navigateToOfferDetail(context, offer['id']),
                   child: Card(
                     color: Colors.blue[100],
                     child: Padding(
@@ -479,53 +494,6 @@ class _OfferState extends ConsumerState<Offer> {
     );
   }
 
-  Widget _buildOngoingOfferCarousel() {
-    return SizedBox(
-      height: 150,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 3,
-        itemBuilder: (context, index) => _buildOfferCard(context, index),
-      ),
-    );
-  }
-
-  Widget _buildOfferCard(BuildContext context, int index,
-      {bool isOwned = false}) {
-    final offerList = isOwned ? ownedOffers : offers;
-    final cardColor = isOwned ? Colors.blue[100] : Colors.white;
-    final textColor = isOwned ? Colors.blue[800] : Colors.black;
-
-    return Container(
-      width: 150,
-      margin: const EdgeInsets.all(8),
-      child: GestureDetector(
-        onTap: () => _navigateToOfferDetail(context),
-        child: Card(
-          color: cardColor,
-          child: Center(
-            child: Text(
-              offerList[index],
-              style: TextStyle(fontSize: 18, color: textColor),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOfferListTile(BuildContext context, int index) {
-    return InkWell(
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      onTap: () => _navigateToOfferDetail(context),
-      child: ListTile(
-        title: Text(offers[index]),
-      ),
-    );
-  }
-
   Widget _buildOfferCarousel({
     required BuildContext context,
     required List<dynamic> offers,
@@ -557,7 +525,7 @@ class _OfferState extends ConsumerState<Offer> {
             width: 150,
             margin: const EdgeInsets.all(8),
             child: GestureDetector(
-              onTap: () => _navigateToOfferDetail(context),
+              onTap: () => _navigateToOfferDetail(context, offer['id']),
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -596,28 +564,6 @@ class _OfferState extends ConsumerState<Offer> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  Widget _buildAvailableOfferTile(
-      BuildContext context, Map<String, dynamic> offer) {
-    return InkWell(
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      onTap: () => _navigateToOfferDetail(context),
-      child: ListTile(
-        leading: offer['imageUrl'] != null
-            ? Image.network(
-                offer['imageUrl'],
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-              )
-            : null,
-        title: Text(offer['title']),
-        subtitle: Text(offer['description'] ?? ''),
-        trailing: Text('${offer['fee']} FSP'),
       ),
     );
   }

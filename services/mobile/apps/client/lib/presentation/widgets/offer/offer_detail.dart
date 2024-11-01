@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:client/presentation/providers/client_provider.dart';
 
 class OfferDetailPage extends StatefulWidget {
-  const OfferDetailPage({super.key});
+  final int offerId;
+
+  const OfferDetailPage({
+    super.key,
+    required this.offerId,
+  });
 
   @override
   State<OfferDetailPage> createState() => _OfferDetailPageState();
@@ -9,9 +16,92 @@ class OfferDetailPage extends StatefulWidget {
 
 class _OfferDetailPageState extends State<OfferDetailPage> {
   bool _isApplied = false;
+  bool _isLoading = true;
+  String? _error;
+  Map<String, dynamic>? _offerData;
+  bool _isInitialized = false;
+
+  static const String getOfferQuery = '''
+    query GetOfferDetail(\$offerId: Int!) {
+      getOffersById(offerId: \$offerId) {
+        id
+        title
+        description
+        imageUrl
+        fee
+        category
+        place
+        attention
+        requiredSkill
+        targetRole
+        publicity
+        attachedImgs
+        attachedFiles
+        createdAt
+        updatedAt
+        owner {
+          id
+          name
+          imageUrl
+        }
+      }
+    }
+  ''';
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      _fetchOfferData();
+      _isInitialized = true;
+    }
+  }
+
+  Future<void> _fetchOfferData() async {
+    final GraphQLClient client = GraphQLProvider.of(context).value;
+
+    try {
+      final QueryResult result = await client.query(
+        QueryOptions(
+          document: gql(getOfferQuery),
+          variables: {
+            'offerId': widget.offerId,
+          },
+        ),
+      );
+
+      if (result.hasException) {
+        setState(() {
+          _error = result.exception.toString();
+          _isLoading = false;
+        });
+        return;
+      }
+
+      print(result);
+
+      setState(() {
+        _offerData = result.data?['getOffersById'];
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (_error != null) {
+      return Center(child: Text('Error: $_error'));
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -62,45 +152,21 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
+        image: _offerData?['imageUrl'] != null
+            ? DecorationImage(
+                image: NetworkImage(_offerData!['imageUrl']),
+                fit: BoxFit.cover,
+              )
+            : null,
       ),
-      // TODO: Implement artwork
-    );
-  }
-
-  Widget _buildCategories() {
-    return Row(
-      children: [
-        _buildCategoryChip('Category 01', Colors.orange),
-        SizedBox(width: 8),
-        _buildCategoryChip('Category 02', Colors.purple),
-        SizedBox(width: 8),
-        _buildCategoryChip('Category 03', Colors.green),
-      ],
-    );
-  }
-
-  Widget _buildCategoryChip(String label, Color color) {
-    return Chip(
-      label: Text(label),
-      backgroundColor: color,
     );
   }
 
   Widget _buildTitle() {
     return Text(
-      'イベントに参加してくれるアーティスト募集中！\n2行目の場合こう見えます。2行目の場合こう見えます。',
+      _offerData?['title'] ?? '',
       style: TextStyle(
           color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-    );
-  }
-
-  Widget _buildLastUpdated() {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Text(
-        'Last Updated: 2024/10/10',
-        style: TextStyle(color: Colors.grey),
-      ),
     );
   }
 
@@ -108,11 +174,12 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildDetailRow('獲得ポイント', '1,000 FSP'),
-        _buildDetailRow('期限', '2024/10/31'),
-        _buildDetailRow('場所', '東京都'),
-        _buildDetailRow('対象', '2 Artists'),
-        _buildDetailRow('カテゴリ', 'Music'),
+        _buildDetailRow('獲得ポイント', '${_offerData?['fee'] ?? 0} FSP'),
+        _buildDetailRow('場所', _offerData?['place'] ?? ''),
+        if (_offerData?['category'] != null)
+          _buildDetailRow('カテゴリ', _offerData!['category']),
+        if (_offerData?['targetRole'] != null)
+          _buildDetailRow('対象', _offerData!['targetRole']),
       ],
     );
   }
@@ -131,28 +198,31 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
   }
 
   Widget _buildHostInfo() {
+    final owner = _offerData?['owner'];
     return Row(
       children: [
         CircleAvatar(
-            // TODO: Implement host avatar
-            ),
+          backgroundImage: owner?['imageUrl'] != null
+              ? NetworkImage(owner['imageUrl'])
+              : null,
+        ),
         SizedBox(width: 8),
-        Text('brady_nakayama', style: TextStyle(color: Colors.white)),
-        SizedBox(width: 8),
-        Text('4 connections', style: TextStyle(color: Colors.grey)),
-        SizedBox(width: 8),
+        Text(owner?['name'] ?? '', style: TextStyle(color: Colors.white)),
       ],
     );
   }
 
   Widget _buildDescription() {
     return Text(
-      'ここにオファーの概要が入ります。音楽シーンを盛り上げるための特別なイベントに参加してくれるアーティストを大募集しています！このイベントは、あなたの音楽を新しいリスナーに届ける絶好のチャンスです。才能あふれるアーティスト同士が集まり、共にクリエイティブなコラボレーションを楽しみながら、音楽の未来を切り開きましょう。\n\n参加者は、経験豊富なプロフェッショナルとネットワークを広げるだけでなく、音楽業界での知名度を高める貴重な機会を得ることができます。あなたの音楽が、多くのリスナーに響き渡る瞬間を一緒に作り上げませんか？是非、この素晴らしい機会をお見逃しなく！',
+      _offerData?['description'] ?? '',
       style: TextStyle(color: Colors.white),
     );
   }
 
   Widget _buildAttachments() {
+    final attachedImgs = _offerData?['attachedImgs'] as List<dynamic>? ?? [];
+    if (attachedImgs.isEmpty) return SizedBox.shrink();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -160,18 +230,23 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
             style: TextStyle(color: Colors.white, fontSize: 18)),
         SizedBox(height: 8),
         Row(
-          children: List.generate(
-              3,
-              (index) => Expanded(
+          children: attachedImgs
+              .take(3)
+              .map((imgUrl) => Expanded(
                     child: Container(
                       height: 100,
-                      margin: EdgeInsets.only(right: index < 2 ? 8 : 0),
+                      margin: EdgeInsets.only(right: 8),
                       decoration: BoxDecoration(
                         color: Colors.grey[800],
                         borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          image: NetworkImage(imgUrl),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  )),
+                  ))
+              .toList(),
         ),
       ],
     );
@@ -247,6 +322,16 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildLastUpdated() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Text(
+        'Last Updated: ${_offerData?['updatedAt'] ?? ''}',
+        style: TextStyle(color: Colors.grey),
+      ),
     );
   }
 }

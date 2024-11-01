@@ -36,7 +36,7 @@ class Transactions extends StatelessWidget {
               '''),
               variables: {
                 'userId': 'current-user-id', // ユーザーIDを適切に設定
-                'count': 50,
+                'count': 100,
               },
             ),
             builder: (result, {fetchMore, refetch}) {

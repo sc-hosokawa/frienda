@@ -17,6 +17,7 @@ class Transfer extends ConsumerStatefulWidget {
 class _TransferState extends ConsumerState<Transfer> {
   final TextEditingController _recipientController = TextEditingController();
   final TextEditingController _pointsController = TextEditingController();
+  final TextEditingController _noteController = TextEditingController();
   bool _isLongPressed = true;
 
   // フォームのキーを追加
@@ -27,6 +28,7 @@ class _TransferState extends ConsumerState<Transfer> {
       final input = Input$CreateNewTransactionInput(
         to: recipientId,
         amount: amount,
+        note: _noteController.text,
       );
 
       final result = await ref.read(graphQLClientProvider).mutate$CreateFspTx(
@@ -50,6 +52,7 @@ class _TransferState extends ConsumerState<Transfer> {
   void dispose() {
     _recipientController.dispose();
     _pointsController.dispose();
+    _noteController.dispose();
     super.dispose();
   }
 
@@ -113,6 +116,7 @@ class _TransferState extends ConsumerState<Transfer> {
                   _TransferInputFields(
                     recipientController: _recipientController,
                     pointsController: _pointsController,
+                    noteController: _noteController,
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(
@@ -153,6 +157,8 @@ class _TransferState extends ConsumerState<Transfer> {
               Text('送付先ユーザー: ${_recipientController.text}'),
               Text('送付するポイント: $pointsToSend'),
               Text('送付後のポイント残高: $remainingPoints'),
+              if (_noteController.text.isNotEmpty)
+                Text('メモ: ${_noteController.text}'),
             ],
           ),
           actions: <Widget>[
@@ -203,6 +209,7 @@ class _TransferState extends ConsumerState<Transfer> {
     setState(() {
       _recipientController.clear();
       _pointsController.clear();
+      _noteController.clear();
     });
   }
 }
@@ -246,10 +253,12 @@ class _AvailablePointsAndQRScanner extends ConsumerWidget {
 class _TransferInputFields extends StatelessWidget {
   final TextEditingController recipientController;
   final TextEditingController pointsController;
+  final TextEditingController noteController;
 
   const _TransferInputFields({
     required this.recipientController,
     required this.pointsController,
+    required this.noteController,
   });
 
   @override
@@ -259,12 +268,18 @@ class _TransferInputFields extends StatelessWidget {
         TextFormField(
           controller: recipientController,
           decoration: const InputDecoration(
-            labelText: '受取ユーザーのユーザー名かEmail',
+            labelText: '受取ユーザーのEmail',
             border: OutlineInputBorder(),
           ),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return '受取ユーザーを入力してください';
+            }
+            // Email形式の検証を追加
+            final emailRegExp =
+                RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+            if (!emailRegExp.hasMatch(value)) {
+              return '有効なメールアドレスを入力してください';
             }
             return null;
           },
@@ -286,6 +301,15 @@ class _TransferInputFields extends StatelessWidget {
             }
             return null;
           },
+        ),
+        const SizedBox(height: 16),
+        TextFormField(
+          controller: noteController,
+          decoration: const InputDecoration(
+            labelText: 'メモ（任意）',
+            border: OutlineInputBorder(),
+          ),
+          maxLines: 2,
         ),
       ],
     );
