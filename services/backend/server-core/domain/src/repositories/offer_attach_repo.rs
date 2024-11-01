@@ -20,4 +20,6 @@ pub trait OfferAttachRepository: Send + Sync {
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
     async fn get_by_id(&self, id: i32) -> Result<Option<OfferAttach>, DomainError>;
     async fn get_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferAttach>, DomainError>;
+    async fn get_images_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferAttach>, DomainError>;
+    async fn get_files_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferAttach>, DomainError>;
 }

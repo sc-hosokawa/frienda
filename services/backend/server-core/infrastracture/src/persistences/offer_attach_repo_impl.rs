@@ -74,4 +74,24 @@ impl OfferAttachRepository for OfferAttachRepoImpl {
         let _res = OfferAttachEntity::delete_by_id(id).exec(&self.db).await?;
         Ok(())
     }
+
+    async fn get_images_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferAttach>, DomainError> {
+        let offer_attaches = self.get_by_offer_id(offer_id).await?;
+        let images = offer_attaches
+            .iter()
+            .filter(|a| a.image_uri.is_some())
+            .cloned()
+            .collect();
+        Ok(images)
+    }
+
+    async fn get_files_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferAttach>, DomainError> {
+        let offer_attaches = self.get_by_offer_id(offer_id).await?;
+        let files = offer_attaches
+            .iter()
+            .filter(|a| a.file_uri.is_none())
+            .cloned()
+            .collect();
+        Ok(files)
+    }
 }

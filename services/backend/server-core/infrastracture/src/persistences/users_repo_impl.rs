@@ -159,9 +159,16 @@ impl UsersRepository for UsersRepoImpl {
         Ok(count as i64)
     }
 
-    async fn find_by_username_or_email(&self, username_or_email: &str) -> Result<Option<User>, DomainError> {
+    async fn find_by_username_or_email(
+        &self,
+        username_or_email: &str,
+    ) -> Result<Option<User>, DomainError> {
         let user = UserEntity::find()
-            .filter(Column::Username.eq(username_or_email).or(Column::Email.eq(username_or_email)))
+            .filter(
+                Column::Username
+                    .eq(username_or_email)
+                    .or(Column::Email.eq(username_or_email)),
+            )
             .one(&self.db)
             .await?;
         Ok(user)

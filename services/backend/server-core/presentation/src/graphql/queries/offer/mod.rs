@@ -83,22 +83,52 @@ impl OfferQuery {
         })
     }
 
-    async fn get_all_offers(&self, ctx: &Context<'_>) -> Result<Vec<models::offers::OfferData>> {
-        todo!()
-    }
-
-    async fn get_offers_by_category(
+    async fn get_offers_by_id(
         &self,
         ctx: &Context<'_>,
-        category: String,
-    ) -> Result<models::offers::OffersData> {
-        todo!()
+        offer_id: i32,
+    ) -> Result<models::offers::OfferDetailData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_offer_details
+            .get_offer_details(
+                application::usecases::offer::get_offer_details_usecase::GetOfferDetailsUsecaseInput {
+                    offer_id,
+                },
+            )
+            .await?;
+
+        Ok(models::offers::OfferDetailData {
+            id: result.id,
+            title: result.title,
+            description: result.description,
+            image_url: result.img_url,
+            fee: result.fee,
+            category: crate::graphql::models::offers::from_offer_category_to_string(
+                result.category,
+            ),
+            place: result.place,
+            attention: result.attention,
+            required_skill: result.required_skill,
+            target_role: crate::graphql::models::offers::from_user_category_to_string(
+                result.target_role,
+            ),
+            publicity: Some(result.publicity),
+            created_at: result.created_at.to_string(),
+            updated_at: result.updated_at.to_string(),
+            owner: crate::graphql::models::users::UserSimpleData {
+                id: result.owner.id,
+                name: result.owner.name,
+                image_url: result.owner.image_url,
+            },
+            raid_id: result.raid_id,
+            attached_files: Some(result.attached_files),
+            attached_imgs: Some(result.attached_imgs),
+        })
     }
 
     /*
-    async fn get_offers_by_id(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
-        todo!()
-    }
+
 
     async fn get_offers_by_applied(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
         todo!()

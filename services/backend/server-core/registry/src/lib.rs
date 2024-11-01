@@ -23,6 +23,7 @@ use application::usecases::offer::{
     get_available_offer_usecase::{GetAvailableOfferUsecase, GetAvailableOfferUsecaseTrait},
     get_offer_by_owner_usecase::{GetOfferByOwnerUsecase, GetOfferByOwnerUsecaseTrait},
     get_offer_by_status_usecase::{GetOfferByStatusUsecase, GetOfferByStatusUsecaseTrait},
+    get_offer_details_usecase::{GetOfferDetailsUsecase, GetOfferDetailsUsecaseTrait},
     get_offer_stats_usecase::{GetOfferStatsUsecase, GetOfferStatsUsecaseTrait},
     register_task_usecase::{RegisterTaskUsecase, RegisterTaskUsecaseTrait},
     update_task_usecase::{UpdateTaskUsecase, UpdateTaskUsecaseTrait},
@@ -101,6 +102,7 @@ pub struct Usecases {
     pub get_artist: Arc<dyn GetArtistUsecaseTrait>,
     pub get_all_users: Arc<dyn GetAllUsersUsecaseTrait>,
     pub mark_as_read: Arc<dyn MarkAsReadUsecaseTrait>,
+    pub get_offer_details: Arc<dyn GetOfferDetailsUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -130,6 +132,11 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
         create_user: Arc::new(CreateUserUsecase::new(repos.users.clone())),
         get_artist: Arc::new(GetArtistUsecase::new(repos.artists.clone())),
         get_all_users: Arc::new(GetAllUsersUsecase::new(repos.users.clone())),
+        get_offer_details: Arc::new(GetOfferDetailsUsecase::new(
+            repos.offers.clone(),
+            repos.users.clone(),
+            repos.offer_attach.clone(),
+        )),
         get_user_basic_info: Arc::new(GetUserBasicInfoUsecase::new(
             repos.users.clone(),
             repos.user_artist.clone(),

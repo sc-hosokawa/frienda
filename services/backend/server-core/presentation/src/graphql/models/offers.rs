@@ -1,7 +1,6 @@
 use anyhow::Error;
 use application::usecases::offer::register_task_usecase;
 use async_graphql::{InputObject, SimpleObject};
-use chrono::{DateTime, Utc};
 use domain::entities::sea_orm_active_enums::{OfferCategory, OfferStatus, UserCategory};
 
 // ===== Query =====
@@ -32,6 +31,27 @@ pub struct OfferData {
     pub image_url: Option<String>,
     pub fee: i32,
     pub category: Option<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct OfferDetailData {
+    pub id: i32,
+    pub raid_id: Option<i32>,
+    pub title: String,
+    pub description: String,
+    pub image_url: Option<String>,
+    pub fee: i32,
+    pub category: Option<String>,
+    pub place: String,
+    pub attention: Option<String>,
+    pub required_skill: Option<String>,
+    pub target_role: Option<String>,
+    pub publicity: Option<bool>,
+    pub attached_imgs: Option<Vec<String>>,
+    pub attached_files: Option<Vec<String>>,
+    pub created_at: String,
+    pub updated_at: String,
+    pub owner: crate::graphql::models::users::UserSimpleData,
 }
 
 #[derive(SimpleObject)]
@@ -154,6 +174,16 @@ pub fn from_string_to_user_category(s: &str) -> Result<UserCategory, String> {
     }
 }
 
+pub fn from_user_category_to_string(c: Option<UserCategory>) -> Option<String> {
+    match c {
+        Some(UserCategory::Musician) => Some("Musician".to_string()),
+        Some(UserCategory::Creator) => Some("Creator".to_string()),
+        Some(UserCategory::Curator) => Some("Curator".to_string()),
+        Some(UserCategory::Supporter) => Some("Supporter".to_string()),
+        None => None,
+    }
+}
+
 pub fn from_string_to_offer_category(s: &str) -> Result<OfferCategory, String> {
     match s {
         "Creation" => Ok(OfferCategory::Creation),
@@ -161,6 +191,16 @@ pub fn from_string_to_offer_category(s: &str) -> Result<OfferCategory, String> {
         "Promotion" => Ok(OfferCategory::Promotion),
         "Other" => Ok(OfferCategory::Other),
         _ => Err(format!("Invalid OfferCategory: {}", s)),
+    }
+}
+
+pub fn from_offer_category_to_string(c: Option<OfferCategory>) -> Option<String> {
+    match c {
+        Some(OfferCategory::Creation) => Some("Creation".to_string()),
+        Some(OfferCategory::Event) => Some("Event".to_string()),
+        Some(OfferCategory::Promotion) => Some("Promotion".to_string()),
+        Some(OfferCategory::Other) => Some("Other".to_string()),
+        None => None,
     }
 }
 

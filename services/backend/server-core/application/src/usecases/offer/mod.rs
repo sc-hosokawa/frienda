@@ -6,6 +6,7 @@ pub mod follow_user_usecase;
 pub mod get_available_offer_usecase;
 pub mod get_offer_by_owner_usecase;
 pub mod get_offer_by_status_usecase;
+pub mod get_offer_details_usecase;
 pub mod get_offer_stats_usecase;
 pub mod get_task_analytics_usecase;
 pub mod get_user_task_history_usecase;

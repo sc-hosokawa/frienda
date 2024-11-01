@@ -299,6 +299,26 @@ type OfferData {
 	category: String
 }
 
+type OfferDetailData {
+	id: Int!
+	raidId: Int
+	title: String!
+	description: String!
+	imageUrl: String
+	fee: Int!
+	category: String
+	place: String!
+	attention: String
+	requiredSkill: String
+	targetRole: String
+	publicity: Boolean
+	attachedImgs: [String!]
+	attachedFiles: [String!]
+	createdAt: String!
+	updatedAt: String!
+	owner: UserSimpleData!
+}
+
 type OfferStatsByUserData {
 	totalOffers: Int!
 	ongoingOffers: Int!
@@ -355,8 +375,7 @@ type QueryRoot {
 	getOffersByOwner(userId: String!): OffersData!
 	getOffersByStatus(userId: String!): OfferByStatusData!
 	getOffers: OffersData!
-	getAllOffers: [OfferData!]!
-	getOffersByCategory(category: String!): OffersData!
+	getOffersById(offerId: Int!): OfferDetailData!
 	getMessageRooms(userId: String!): MessageRoomsByUserData!
 	getMessagesInProgress(userId: String!): MessageRoomsByUserData!
 	getMessagesByMessageRoomId(userId: String!, messageRoomId: String!): MessagesByRoomIdByUserData!

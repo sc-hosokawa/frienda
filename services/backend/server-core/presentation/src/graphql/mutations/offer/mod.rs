@@ -1,6 +1,5 @@
 use crate::graphql::models;
 use async_graphql::{Context, Object, Result};
-use chrono::DateTime;
 use registry::Usecases;
 use std::sync::Arc;
 
