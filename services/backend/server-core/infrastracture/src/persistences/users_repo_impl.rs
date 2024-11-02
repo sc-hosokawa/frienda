@@ -165,9 +165,9 @@ impl UsersRepository for UsersRepoImpl {
     ) -> Result<Option<User>, DomainError> {
         let user = UserEntity::find()
             .filter(
-                Column::Username
-                    .eq(username_or_email)
-                    .or(Column::Email.eq(username_or_email)),
+                Condition::any()
+                    .add(Column::Username.eq(username_or_email))
+                    .add(Column::Email.eq(username_or_email)),
             )
             .one(&self.db)
             .await?;

@@ -28,6 +28,26 @@ impl PointsTxMutation {
         })
     }
 
+    async fn create_fsp_tx_between_userids(
+        &self,
+        ctx: &Context<'_>,
+        input: models::transactions::CreateNewTransactionInput,
+    ) -> Result<models::transactions::CreateNewTransactionResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .transfer_point_between_accounts
+            .transfer(application::usecases::point::transfer_point_between_accounts_usecase::TransferPointBetweenAccountsInput {
+                from: input.from,
+                to: input.to,
+                amount: input.amount,
+                notes: input.note,
+            })
+            .await?;
+        Ok(models::transactions::CreateNewTransactionResponse {
+            tx_id: result.to_string(),
+        })
+    }
+
     async fn create_bulk_fsp_tx(
         &self,
         ctx: &Context<'_>,

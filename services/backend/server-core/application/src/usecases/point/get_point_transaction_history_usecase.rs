@@ -73,6 +73,7 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
             .txs_fsp_repo
             .get_by_user_id(&input.user_id, input.count)
             .await?;
+        print!("\ntxs_fsps: {:?}\n", txs_fsps);
 
         let mut transactions = Vec::new();
         for tx in txs_fsps {

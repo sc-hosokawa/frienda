@@ -65,7 +65,6 @@ impl ArtistQuery {
         name: String,
     ) -> Result<models::artists::ArtistsData> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        println!("\n{:?}\n", name);
 
         let result = usecases
             .get_artist

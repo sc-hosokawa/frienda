@@ -75,7 +75,7 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
         input: TransferPointBetweenAccountsInput,
     ) -> Result<Uuid, anyhow::Error> {
         if let Some(from) = &input.from {
-            if from != "u_00000000000000000000000000" {
+            if from != "admin_0000000000000000000001" {
                 let from_user = self
                     .users_repo
                     .find_by_id(from)
@@ -168,7 +168,7 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
 
         for transfer in &input {
             if let Some(from) = &transfer.from {
-                if from != "u_00000000000000000000000000" {
+                if from != "admin_0000000000000000000001" {
                     if let Ok(Some(from_user)) = self.users_repo.find_by_id(from).await {
                         if from_user.fsp < transfer.amount {
                             return Err(anyhow::anyhow!("Insufficient balance"));

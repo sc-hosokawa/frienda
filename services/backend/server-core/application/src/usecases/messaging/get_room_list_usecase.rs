@@ -156,7 +156,6 @@ impl GetRoomListUsecaseTrait for GetRoomListUsecase {
     }
     async fn get_active_rooms(&self, user_id: String) -> Result<GetRoomListOutput, anyhow::Error> {
         let rooms: Vec<RoomUser> = self.room_user_repo.get_by_user_id(&user_id).await?;
-        println!("rooms: {:?}", rooms);
         let user_id = user_id.clone();
 
         // 各ルームの最新メッセージと未読状態を取得

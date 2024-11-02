@@ -5,7 +5,6 @@ use uuid::Uuid;
 
 use domain::entities::exchange_prize_history::ActiveModel as ExchangePrizeHistoryActiveModel;
 use domain::entities::txs_fsp::ActiveModel as FspTxActiveModel;
-use domain::entities::users::Model as User;
 
 use domain::repositories::exchange_prize_history_repo::ExchangePrizeHistoryRepository;
 use domain::repositories::prizes_repo::PrizesRepository;

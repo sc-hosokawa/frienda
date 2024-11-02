@@ -42,8 +42,11 @@ impl TxsFspRepository for TxsFspRepoImpl {
 
     async fn get_by_user_id(&self, user_id: &str, count: i32) -> Result<Vec<TxsFsp>, DomainError> {
         let txs_fsps = TxsFspEntity::find()
-            .filter(Column::From.eq(user_id))
-            .filter(Column::To.eq(user_id))
+            .filter(
+                Condition::any()
+                    .add(Column::From.eq(user_id))
+                    .add(Column::To.eq(user_id)),
+            )
             .limit(count as u64)
             .order_by_desc(Column::TxAt)
             .all(&self.db)

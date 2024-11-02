@@ -284,6 +284,7 @@ type MutationRoot {
 	updateOfferStatus(input: UpdateOfferStatusInput!): UpdateOfferStatusResponse!
 	deleteOffer(input: DeleteOfferInput!): DeleteOfferResponse!
 	createFspTx(input: CreateNewTransactionInput!): CreateNewTransactionResponse!
+	createFspTxBetweenUserids(input: CreateNewTransactionInput!): CreateNewTransactionResponse!
 	createBulkFspTx(input: [CreateNewTransactionInput!]!): CreateNewTransactionResponse!
 	createPrize(input: CreateNewPrizeInput!): CreateNewPrizeResponse!
 	exchangePrize(input: ExchangePrizeInput!): ExchangePrizeResponse!

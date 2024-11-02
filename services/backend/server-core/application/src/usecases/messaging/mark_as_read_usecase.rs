@@ -3,12 +3,8 @@ use sea_orm::ActiveValue;
 use std::sync::Arc;
 use uuid::Uuid;
 
-use domain::entities::messages::Model as Message;
-use domain::entities::room_user::{ActiveModel as RoomUserActiveModel, Model as RoomUser};
-use domain::entities::rooms::Model as Room;
-use domain::repositories::messages_repo::MessagesRepository;
+use domain::entities::room_user::ActiveModel as RoomUserActiveModel;
 use domain::repositories::room_user_repo::RoomUserRepository;
-use domain::repositories::rooms_repo::RoomsRepository;
 
 //
 // Define the input for the usecase

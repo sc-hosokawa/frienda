@@ -3,7 +3,6 @@ use sea_orm::ActiveValue;
 use std::sync::Arc;
 use tokio::try_join;
 use tracing::{info, instrument};
-use uuid::Uuid;
 
 use domain::entities::offer_user::ActiveModel as OfferUserActiveModel;
 use domain::entities::offers::ActiveModel as OfferActiveModel;

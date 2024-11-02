@@ -5,6 +5,8 @@ import 'package:countries_world_map/data/maps/world_map.dart';
 import 'package:client/presentation/widgets/components/artist_select_sheet.dart';
 import 'package:client/presentation/widgets/dashboard/new_artists.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/user_provider.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -788,13 +790,16 @@ class _DashboardState extends State<Dashboard> {
   }
 }
 
-class _ArtistList extends StatelessWidget {
+class _ArtistList extends ConsumerWidget {
   final Function(String) onSelectArtist;
 
   const _ArtistList({super.key, required this.onSelectArtist});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userData = ref.watch(userProvider);
+    final artists = userData?.belongsToArtists ?? [];
+
     return ListView(
       children: [
         const Padding(
@@ -803,11 +808,20 @@ class _ArtistList extends StatelessWidget {
             child: Text('選択可能なアーティスト', style: TextStyle(fontSize: 16)),
           ),
         ),
-        for (final artist in ['Artist 1', 'Artist 2', 'Artist 3', 'Artist 4'])
-          _ArtistListTile(
-            artist: artist,
-            onTap: () => onSelectArtist(artist),
-          ),
+        if (artists.isEmpty)
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Center(
+              child: Text('閲覧可能なアーティストがありません'),
+            ),
+          )
+        else
+          for (final artist in artists)
+            _ArtistListTile(
+              artist: artist.name,
+              imageUrl: artist.imageUrl,
+              onTap: () => onSelectArtist(artist.name),
+            ),
       ],
     );
   }
@@ -815,15 +829,23 @@ class _ArtistList extends StatelessWidget {
 
 class _ArtistListTile extends StatelessWidget {
   final String artist;
+  final String? imageUrl;
   final VoidCallback onTap;
 
-  const _ArtistListTile({super.key, required this.artist, required this.onTap});
+  const _ArtistListTile({
+    super.key,
+    required this.artist,
+    this.imageUrl,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const CircleAvatar(
-        child: Icon(Icons.person),
+      leading: CircleAvatar(
+        child: imageUrl != null
+            ? Image.network(imageUrl!)
+            : const Icon(Icons.person),
       ),
       title: Text(artist),
       onTap: onTap,
