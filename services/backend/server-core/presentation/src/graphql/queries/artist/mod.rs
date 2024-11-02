@@ -79,4 +79,60 @@ impl ArtistQuery {
                 .collect::<Result<Vec<_>, _>>()?,
         })
     }
+
+    async fn get_members_joined_to_artist(
+        &self,
+        ctx: &Context<'_>,
+        artist_id: String,
+        user_id: Option<String>,
+    ) -> Result<Vec<models::users::UserSimpleData>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_members
+            .get_members_joined_to_artist(
+                application::usecases::artist::get_members_usecase::GetMembersUsecaseInput {
+                    artist_id,
+                    user_id,
+                },
+            )
+            .await?;
+
+        Ok(result
+            .members
+            .into_iter()
+            .map(|user| models::users::UserSimpleData {
+                id: user.id,
+                name: user.username,
+                image_url: user.img_url,
+            })
+            .collect::<Vec<models::users::UserSimpleData>>())
+    }
+
+    async fn get_members_belonged_to_artist(
+        &self,
+        ctx: &Context<'_>,
+        artist_id: String,
+        user_id: Option<String>,
+    ) -> Result<Vec<models::users::UserSimpleData>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_members
+            .get_members_belonged_to_artist(
+                application::usecases::artist::get_members_usecase::GetMembersUsecaseInput {
+                    artist_id,
+                    user_id,
+                },
+            )
+            .await?;
+
+        Ok(result
+            .members
+            .into_iter()
+            .map(|user| models::users::UserSimpleData {
+                id: user.id,
+                name: user.username,
+                image_url: user.img_url,
+            })
+            .collect())
+    }
 }

@@ -5,6 +5,7 @@ use tracing;
 use application::health_check::*;
 use application::usecases::artist::{
     get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait},
+    get_members_usecase::{GetMembersUsecase, GetMembersUsecaseTrait},
     request_to_access_usecase::{RequestToAccessUsecase, RequestToAccessUsecaseTrait},
 };
 use application::usecases::basic::{
@@ -107,6 +108,7 @@ pub struct Usecases {
     pub mark_as_read: Arc<dyn MarkAsReadUsecaseTrait>,
     pub get_offer_details: Arc<dyn GetOfferDetailsUsecaseTrait>,
     pub request_to_access: Arc<dyn RequestToAccessUsecaseTrait>,
+    pub get_members: Arc<dyn GetMembersUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -136,6 +138,10 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
         request_to_access: Arc::new(RequestToAccessUsecase::new(
             repos.user_artist.clone(),
             repos.artists.clone(),
+        )),
+        get_members: Arc::new(GetMembersUsecase::new(
+            repos.user_artist.clone(),
+            repos.users.clone(),
         )),
         create_user: Arc::new(CreateUserUsecase::new(repos.users.clone())),
         get_artist: Arc::new(GetArtistUsecase::new(repos.artists.clone())),

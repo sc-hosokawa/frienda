@@ -411,6 +411,8 @@ type QueryRoot {
 	getArtistById(artistId: String!): ArtistFullData!
 	getArtistsByIds(artistIds: [String!]!): ArtistsData!
 	getArtistsByName(name: String!): ArtistsData!
+	getMembersJoinedToArtist(artistId: String!, userId: String): [UserSimpleData!]!
+	getMembersBelongedToArtist(artistId: String!, userId: String): [UserSimpleData!]!
 	getPopularPrizes: [PrizeData!]!
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
