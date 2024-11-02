@@ -76,33 +76,36 @@ class UserData {
 
 // アーティスト情報を表すクラス
 class ArtistByUser {
-  final int mappingId;
+  final int? mappingId;
+  final String artistId;
   final String id;
   final String name;
   final String? imageUrl;
   final int fsp;
-  final String status;
-  final bool isAdmin;
+  final String? status;
+  final bool? isAdmin;
 
   ArtistByUser({
-    required this.mappingId,
+    this.mappingId,
+    required this.artistId,
     required this.id,
     required this.name,
     this.imageUrl,
     required this.fsp,
-    required this.status,
-    required this.isAdmin,
+    this.status,
+    this.isAdmin,
   });
 
   factory ArtistByUser.fromJson(Map<String, dynamic> json) {
     return ArtistByUser(
-      mappingId: json['mappingId'] as int,
+      artistId: json['artistId'] as String,
+      mappingId: json['mappingId'] as int?,
       id: json['id'] as String,
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String?,
       fsp: json['fsp'] as int,
-      status: json['status'] as String,
-      isAdmin: json['isAdmin'] as bool,
+      status: json['status'] as String?,
+      isAdmin: json['isAdmin'] as bool?,
     );
   }
 }
