@@ -23,6 +23,7 @@ pub struct GetUserBasicInfoOutput {
 }
 pub struct ArtistSimpleInfo {
     pub id: Uuid,
+    pub artist_id: String,
     pub name: String,
     pub img_url: Option<String>,
     pub fsp: i32,
@@ -90,7 +91,12 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
 
         let artists: Vec<Artist> = self
             .artists_repo
-            .find_by_ids(belongs_to_artists.iter().map(|a| a.artist_id).collect())
+            .find_by_ids(
+                belongs_to_artists
+                    .iter()
+                    .map(|a| a.artist_id.as_str())
+                    .collect(),
+            )
             .await?;
 
         let artist_info: Vec<ArtistSimpleInfo> = artists
@@ -98,11 +104,12 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
             .map(|artist| {
                 let user_artist = belongs_to_artists
                     .iter()
-                    .find(|ua| ua.artist_id == artist.id)
+                    .find(|ua| ua.artist_id == artist.artist_id)
                     .expect("UserArtist should exist for this artist");
 
                 ArtistSimpleInfo {
                     id: artist.id,
+                    artist_id: artist.artist_id,
                     name: artist.display_name_jp,
                     img_url: artist.img_url,
                     fsp: artist.fsp,
@@ -127,7 +134,12 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
 
         let artists: Vec<Artist> = self
             .artists_repo
-            .find_by_ids(belongs_to_artists.iter().map(|a| a.artist_id).collect())
+            .find_by_ids(
+                belongs_to_artists
+                    .iter()
+                    .map(|a| a.artist_id.as_str())
+                    .collect(),
+            )
             .await?;
 
         let artist_info: Vec<ArtistSimpleInfo> = artists
@@ -135,11 +147,12 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
             .map(|artist| {
                 let user_artist = belongs_to_artists
                     .iter()
-                    .find(|ua| ua.artist_id == artist.id)
+                    .find(|ua| ua.artist_id == artist.artist_id)
                     .expect("UserArtist should exist for this artist");
 
                 ArtistSimpleInfo {
                     id: artist.id,
+                    artist_id: artist.artist_id,
                     name: artist.display_name_jp,
                     img_url: artist.img_url,
                     fsp: artist.fsp,

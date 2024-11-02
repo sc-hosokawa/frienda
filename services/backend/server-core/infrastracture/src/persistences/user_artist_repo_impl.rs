@@ -56,12 +56,21 @@ impl UserArtistRepository for UserArtistRepoImpl {
         &self,
         artist_id: &str,
         user_id: &str,
-    ) -> Result<UserArtist, DomainError> {
+    ) -> Result<Option<UserArtist>, DomainError> {
         let user_artist = UserArtistEntity::find()
             .filter(Column::ArtistId.eq(artist_id))
             .filter(Column::UserId.eq(user_id))
             .one(&self.db)
             .await?;
-        Ok(user_artist.unwrap())
+        Ok(user_artist)
+    }
+
+    async fn exists(&self, user_id: &str, artist_id: &str) -> Result<bool, DomainError> {
+        let user_artist = UserArtistEntity::find()
+            .filter(Column::ArtistId.eq(artist_id))
+            .filter(Column::UserId.eq(user_id))
+            .one(&self.db)
+            .await?;
+        Ok(user_artist.is_some())
     }
 }

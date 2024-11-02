@@ -3,7 +3,10 @@ use std::sync::Arc;
 use tracing;
 
 use application::health_check::*;
-use application::usecases::artist::get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait};
+use application::usecases::artist::{
+    get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait},
+    request_to_access_usecase::{RequestToAccessUsecase, RequestToAccessUsecaseTrait},
+};
 use application::usecases::basic::{
     create_user_usecase::{CreateUserUsecase, CreateUserUsecaseTrait},
     get_all_users_usecase::{GetAllUsersUsecase, GetAllUsersUsecaseTrait},
@@ -103,6 +106,7 @@ pub struct Usecases {
     pub get_all_users: Arc<dyn GetAllUsersUsecaseTrait>,
     pub mark_as_read: Arc<dyn MarkAsReadUsecaseTrait>,
     pub get_offer_details: Arc<dyn GetOfferDetailsUsecaseTrait>,
+    pub request_to_access: Arc<dyn RequestToAccessUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -129,6 +133,10 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        request_to_access: Arc::new(RequestToAccessUsecase::new(
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+        )),
         create_user: Arc::new(CreateUserUsecase::new(repos.users.clone())),
         get_artist: Arc::new(GetArtistUsecase::new(repos.artists.clone())),
         get_all_users: Arc::new(GetAllUsersUsecase::new(repos.users.clone())),

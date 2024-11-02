@@ -131,7 +131,7 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
         info!("to_user_info: {:?}", to_user_info.id);
 
         if let Some(from) = &input.from {
-            if from != "u_00000000000000000000000000" {
+            if from != "admin_0000000000000000000001" {
                 let from_user = self
                     .users_repo
                     .find_by_id(from)

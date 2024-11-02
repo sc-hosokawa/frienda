@@ -32,24 +32,32 @@ impl ArtistsRepository for ArtistsRepoImpl {
         Ok(updated_artist)
     }
 
-    async fn find_by_id(&self, id: Uuid) -> Result<Option<Artist>, DomainError> {
-        let artist = ArtistEntity::find_by_id(id).one(&self.db).await?;
+    async fn find_by_id(&self, id: &str) -> Result<Option<Artist>, DomainError> {
+        let artist = ArtistEntity::find()
+            .filter(Column::ArtistId.eq(id))
+            .one(&self.db)
+            .await?;
         Ok(artist)
     }
 
-    async fn find_by_ids(&self, ids: Vec<Uuid>) -> Result<Vec<Artist>, DomainError> {
+    async fn find_by_ids(&self, ids: Vec<&str>) -> Result<Vec<Artist>, DomainError> {
         let artists = ArtistEntity::find()
-            .filter(Column::Id.is_in(ids))
-            .order_by_asc(Column::Id)
+            .filter(Column::ArtistId.is_in(ids))
+            .order_by_asc(Column::ArtistId)
             .all(&self.db)
             .await?;
         Ok(artists)
     }
 
     async fn find_by_name(&self, name: &str) -> Result<Vec<Artist>, DomainError> {
+        let search_pattern = format!("%{}%", name);
         let artists = ArtistEntity::find()
-            .filter(Column::DisplayNameJp.like(name))
-            .order_by_asc(Column::Id)
+            .filter(
+                Condition::any()
+                    .add(Column::DisplayNameJp.like(&search_pattern))
+                    .add(Column::DisplayNameEn.like(&search_pattern)),
+            )
+            .order_by_asc(Column::ArtistId)
             .all(&self.db)
             .await?;
         Ok(artists)
@@ -57,7 +65,7 @@ impl ArtistsRepository for ArtistsRepoImpl {
 
     async fn find_all(&self) -> Result<Vec<Artist>, DomainError> {
         let artists = ArtistEntity::find()
-            .order_by_asc(Column::Id)
+            .order_by_asc(Column::ArtistId)
             .all(&self.db)
             .await?;
         Ok(artists)

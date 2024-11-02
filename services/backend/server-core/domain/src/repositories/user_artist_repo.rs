@@ -18,5 +18,6 @@ pub trait UserArtistRepository: Send + Sync {
         &self,
         artist_id: &str,
         user_id: &str,
-    ) -> Result<UserArtist, DomainError>;
+    ) -> Result<Option<UserArtist>, DomainError>;
+    async fn exists(&self, user_id: &str, artist_id: &str) -> Result<bool, DomainError>;
 }

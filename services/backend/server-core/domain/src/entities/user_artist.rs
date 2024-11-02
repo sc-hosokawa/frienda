@@ -9,7 +9,7 @@ pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
     pub user_id: String,
-    pub artist_id: Uuid,
+    pub artist_id: String,
     pub is_admin: bool,
     pub status: UserArtistStatus,
 }
@@ -19,7 +19,7 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "super::artists::Entity",
         from = "Column::ArtistId",
-        to = "super::artists::Column::Id",
+        to = "super::artists::Column::ArtistId",
         on_update = "NoAction",
         on_delete = "NoAction"
     )]

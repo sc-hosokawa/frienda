@@ -1,6 +1,5 @@
 use async_trait::async_trait;
 use std::sync::Arc;
-use uuid::Uuid;
 
 use domain::entities::artists::Model as Artist;
 use domain::repositories::artists_repo::ArtistsRepository;
@@ -9,7 +8,7 @@ use domain::repositories::artists_repo::ArtistsRepository;
 // Define the input for the usecase
 //
 pub struct GetArtistUsecaseInput {
-    pub artist_id: Uuid,
+    pub artist_id: String, // varchar(28)
 }
 
 pub struct GetArtistUsecaseOutput {
@@ -23,7 +22,15 @@ pub struct GetArtistUsecaseOutput {
 pub trait GetArtistUsecaseTrait: Send + Sync {
     async fn get_artist_by_id(&self, input: GetArtistUsecaseInput)
         -> Result<Artist, anyhow::Error>;
+    async fn get_artists_by_ids(
+        &self,
+        ids: Vec<&str>,
+    ) -> Result<GetArtistUsecaseOutput, anyhow::Error>;
     async fn get_all_artists(&self) -> Result<GetArtistUsecaseOutput, anyhow::Error>;
+    async fn get_artists_by_name(
+        &self,
+        name: &str,
+    ) -> Result<GetArtistUsecaseOutput, anyhow::Error>;
 }
 
 //
@@ -48,12 +55,32 @@ impl GetArtistUsecaseTrait for GetArtistUsecase {
         &self,
         input: GetArtistUsecaseInput,
     ) -> Result<Artist, anyhow::Error> {
-        let artist = self.artists_repo.find_by_id(input.artist_id).await?;
-        Ok(artist.unwrap())
+        let artist = self
+            .artists_repo
+            .find_by_id(&input.artist_id)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("Artist not found"))?;
+        Ok(artist)
+    }
+
+    async fn get_artists_by_ids(
+        &self,
+        ids: Vec<&str>,
+    ) -> Result<GetArtistUsecaseOutput, anyhow::Error> {
+        let artists: Vec<Artist> = self.artists_repo.find_by_ids(ids).await?;
+        Ok(GetArtistUsecaseOutput { artists })
     }
 
     async fn get_all_artists(&self) -> Result<GetArtistUsecaseOutput, anyhow::Error> {
-        let artists = self.artists_repo.find_all().await?;
+        let artists: Vec<Artist> = self.artists_repo.find_all().await?;
+        Ok(GetArtistUsecaseOutput { artists })
+    }
+
+    async fn get_artists_by_name(
+        &self,
+        name: &str,
+    ) -> Result<GetArtistUsecaseOutput, anyhow::Error> {
+        let artists: Vec<Artist> = self.artists_repo.find_by_name(name).await?;
         Ok(GetArtistUsecaseOutput { artists })
     }
 }

@@ -7,7 +7,6 @@ use domain::repositories::user_artist_repo::UserArtistRepository;
 use domain::repositories::users_repo::UsersRepository;
 use sea_orm::ActiveValue;
 use std::sync::Arc;
-use uuid::Uuid;
 
 //
 // Define the input for the usecase
@@ -23,8 +22,8 @@ pub struct UpdateUserProfileInput {
 }
 
 pub struct UpdateBelongsToArtistStatusInput {
-    pub user_id: String,
-    pub artist_id: String,
+    pub user_id: String,   // varchar(28)
+    pub artist_id: String, // varchar(28)
     pub next_status_is_admin: Option<bool>,
     pub next_status: Option<UserArtistStatus>,
 }
@@ -121,7 +120,12 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
 
         let artists = self
             .artists_repo
-            .find_by_ids(belongs_to_artists.iter().map(|a| a.artist_id).collect())
+            .find_by_ids(
+                belongs_to_artists
+                    .iter()
+                    .map(|a| a.artist_id.as_str())
+                    .collect(),
+            )
             .await?;
 
         let artist_info = artists
@@ -129,11 +133,12 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
             .map(|artist| {
                 let user_artist = belongs_to_artists
                     .iter()
-                    .find(|ua| ua.artist_id == artist.id)
+                    .find(|ua| ua.artist_id == artist.artist_id)
                     .expect("UserArtist should exist for this artist");
 
                 crate::usecases::basic::get_user_basic_info_usecase::ArtistSimpleInfo {
                     id: artist.id,
+                    artist_id: artist.artist_id,
                     name: artist.display_name_jp,
                     img_url: artist.img_url,
                     fsp: artist.fsp,
@@ -160,7 +165,7 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
             .user_artist_repo
             .find_by_artist_id_and_user_id(&input.artist_id, &input.user_id)
             .await?;
-        let mut updated_user_artist: UserArtistActiveModel = user_artist.into();
+        let mut updated_user_artist: UserArtistActiveModel = user_artist.unwrap().into();
 
         if let Some(next_status) = input.next_status {
             updated_user_artist.status = ActiveValue::Set(next_status);
@@ -176,11 +181,12 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
 
         let artist = self
             .artists_repo
-            .find_by_id(Uuid::parse_str(&input.artist_id).unwrap())
+            .find_by_id(&input.artist_id)
             .await?
             .ok_or_else(|| anyhow::anyhow!("Artist not found"))?;
         let artist_info = crate::usecases::basic::get_user_basic_info_usecase::ArtistSimpleInfo {
             id: artist.id,
+            artist_id: artist.artist_id,
             name: artist.display_name_jp,
             img_url: artist.img_url,
             fsp: artist.fsp,

@@ -2,7 +2,6 @@ use crate::graphql::models;
 use async_graphql::{Context, Object, Result};
 use registry::Usecases;
 use std::sync::Arc;
-use uuid::Uuid;
 
 #[derive(Default)]
 pub struct ArtistQuery;
@@ -32,11 +31,53 @@ impl ArtistQuery {
             .get_artist
             .get_artist_by_id(
                 application::usecases::artist::get_artist_usecase::GetArtistUsecaseInput {
-                    artist_id: Uuid::parse_str(&artist_id).unwrap(),
+                    artist_id,
                 },
             )
             .await?;
 
         Ok(models::artists::ArtistFullData::from_domain(result).unwrap())
+    }
+
+    async fn get_artists_by_ids(
+        &self,
+        ctx: &Context<'_>,
+        artist_ids: Vec<String>,
+    ) -> Result<models::artists::ArtistsData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_artist
+            .get_artists_by_ids(artist_ids.iter().map(|s| s.as_str()).collect())
+            .await?;
+
+        Ok(models::artists::ArtistsData {
+            artist_list: result
+                .artists
+                .iter()
+                .map(|artist| models::artists::ArtistData::from_domain(artist.clone()))
+                .collect::<Result<Vec<_>, _>>()?,
+        })
+    }
+
+    async fn get_artists_by_name(
+        &self,
+        ctx: &Context<'_>,
+        name: String,
+    ) -> Result<models::artists::ArtistsData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        println!("\n{:?}\n", name);
+
+        let result = usecases
+            .get_artist
+            .get_artists_by_name(name.as_str())
+            .await?;
+
+        Ok(models::artists::ArtistsData {
+            artist_list: result
+                .artists
+                .iter()
+                .map(|artist| models::artists::ArtistData::from_domain(artist.clone()))
+                .collect::<Result<Vec<_>, _>>()?,
+        })
     }
 }
