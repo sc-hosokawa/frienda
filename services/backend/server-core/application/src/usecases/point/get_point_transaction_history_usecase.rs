@@ -95,7 +95,7 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
                         Some(id) => id,
                         None => continue,
                     };
-                    
+
                     match self.users_repo.find_by_id(from_id).await? {
                         Some(user) => (
                             "In".to_string(),
