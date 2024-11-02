@@ -73,37 +73,42 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
             .txs_fsp_repo
             .get_by_user_id(&input.user_id, input.count)
             .await?;
-        print!("\ntxs_fsps: {:?}\n", txs_fsps);
 
         let mut transactions = Vec::new();
         for tx in txs_fsps {
             let (direction, counter_party) = match (&tx.from, &tx.to) {
                 (Some(from_id), to_id) if from_id == &input.user_id => {
-                    // ユーザーが送信者の場合
-                    let user = self.users_repo.find_by_id(to_id).await?.unwrap();
-                    (
-                        "Out".to_string(),
-                        UserSimpleData {
-                            id: user.id,
-                            name: user.username,
-                            img_url: user.img_url,
-                        },
-                    )
+                    match self.users_repo.find_by_id(to_id).await? {
+                        Some(user) => (
+                            "Out".to_string(),
+                            UserSimpleData {
+                                id: user.id,
+                                name: user.username,
+                                img_url: user.img_url,
+                            },
+                        ),
+                        None => continue,
+                    }
                 }
-                (_, to_id) if to_id == &input.user_id => {
-                    // ユーザーが受信者の場合
-                    let from_id = tx.from.as_ref().unwrap();
-                    let user = self.users_repo.find_by_id(from_id).await?.unwrap();
-                    (
-                        "In".to_string(),
-                        UserSimpleData {
-                            id: user.id,
-                            name: user.username,
-                            img_url: user.img_url,
-                        },
-                    )
+                (from_opt, to_id) if to_id == &input.user_id => {
+                    let from_id = match from_opt {
+                        Some(id) => id,
+                        None => continue,
+                    };
+                    
+                    match self.users_repo.find_by_id(from_id).await? {
+                        Some(user) => (
+                            "In".to_string(),
+                            UserSimpleData {
+                                id: user.id,
+                                name: user.username,
+                                img_url: user.img_url,
+                            },
+                        ),
+                        None => continue,
+                    }
                 }
-                _ => unreachable!("Transaction must be related to the user"),
+                _ => continue,
             };
 
             transactions.push(TransactionData {
