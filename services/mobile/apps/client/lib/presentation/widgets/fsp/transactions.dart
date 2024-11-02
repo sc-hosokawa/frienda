@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // 日付フォーマット用
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/user_provider.dart';
 
-class Transactions extends StatelessWidget {
+class Transactions extends ConsumerWidget {
   const Transactions({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userId = ref.watch(userProvider)?.id ?? '';
+
     return Column(
       children: [
         SafeArea(
@@ -35,7 +39,7 @@ class Transactions extends StatelessWidget {
                 }
               '''),
               variables: {
-                'userId': 'current-user-id', // ユーザーIDを適切に設定
+                'userId': userId,
                 'count': 100,
               },
             ),
@@ -84,7 +88,7 @@ class Transactions extends StatelessWidget {
                     title: Text(transaction['counterParty']['name']),
                     subtitle: Text(formattedDate),
                     trailing: Text(
-                      '${isIncoming ? "+" : "-"}${transaction['amount']} ポイント',
+                      '${isIncoming ? "+" : "-"}${transaction['amount']} FSP',
                       style: TextStyle(
                         color: isIncoming ? Colors.green : Colors.red,
                         fontWeight: FontWeight.bold,

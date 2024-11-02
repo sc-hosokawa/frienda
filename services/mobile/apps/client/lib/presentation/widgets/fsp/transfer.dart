@@ -18,7 +18,6 @@ class _TransferState extends ConsumerState<Transfer> {
   final TextEditingController _recipientController = TextEditingController();
   final TextEditingController _pointsController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
-  bool _isLongPressed = true;
 
   // フォームのキーを追加
   final _formKey = GlobalKey<FormState>();
@@ -100,10 +99,6 @@ class _TransferState extends ConsumerState<Transfer> {
 
   @override
   Widget build(BuildContext context) {
-    // ユーザー情報を取得
-    final userInfo = ref.watch(userProvider);
-    final availablePoints = userInfo?.fspBalance ?? 0;
-
     return Column(
       children: [
         SafeArea(

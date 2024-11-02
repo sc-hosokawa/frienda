@@ -160,8 +160,6 @@ class _HomePageState extends ConsumerState<HomePage> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            print('GraphQL Response:Rooms: ${result.data}');
-
             final messageRooms = result.data?['getMessageRooms']
                     ['messageRoomList'] as List<dynamic>? ??
                 [];

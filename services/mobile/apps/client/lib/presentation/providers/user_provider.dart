@@ -3,25 +3,39 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ユーザーの状態を表すクラス
 class UserData {
   final String id;
-  final String email;
   final String name;
+  final String? email;
   final String? imageUrl;
   final int fspBalance;
   final int credentialBalance;
   final String role;
   final String primaryRole;
+  final String? greeting;
+  final String? skill;
+  final String? xHandle;
+  final String? instagramHandle;
+  final String? fbHandle;
+  final String? interestOffer;
+  final DateTime? createdAt;
   final List<ArtistByUser> belongsToArtists;
   final ArtistByUser? primaryArtist;
 
   UserData({
     required this.id,
-    required this.email,
     required this.name,
+    this.email,
     this.imageUrl,
     required this.fspBalance,
     required this.credentialBalance,
     required this.role,
     required this.primaryRole,
+    this.greeting,
+    this.skill,
+    this.xHandle,
+    this.instagramHandle,
+    this.fbHandle,
+    this.interestOffer,
+    this.createdAt,
     required this.belongsToArtists,
     this.primaryArtist,
   });
@@ -30,13 +44,18 @@ class UserData {
   factory UserData.fromJson(Map<String, dynamic> json) {
     return UserData(
       id: json['id'] as String,
-      email: json['email'] as String,
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String?,
       fspBalance: json['fspBalance'] as int,
       credentialBalance: json['credentialBalance'] as int,
       role: json['role'] as String,
       primaryRole: json['primaryRole'] as String,
+      greeting: json['greeting'] as String?,
+      skill: json['skill'] as String?,
+      xHandle: json['xHandle'] as String?,
+      instagramHandle: json['instagramHandle'] as String?,
+      fbHandle: json['fbHandle'] as String?,
+      interestOffer: json['interestOffer'] as String?,
       belongsToArtists: (json['belongsToArtists'] as List)
           .map((e) => ArtistByUser.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -56,18 +75,30 @@ class UserData {
     int? credentialBalance,
     String? role,
     String? primaryRole,
+    String? greeting,
+    String? skill,
+    String? xHandle,
+    String? instagramHandle,
+    String? fbHandle,
+    String? interestOffer,
+    DateTime? createdAt,
     List<ArtistByUser>? belongsToArtists,
     ArtistByUser? primaryArtist,
   }) {
     return UserData(
       id: id ?? this.id,
-      email: email ?? this.email,
       name: name ?? this.name,
       imageUrl: imageUrl ?? this.imageUrl,
       fspBalance: fspBalance ?? this.fspBalance,
       credentialBalance: credentialBalance ?? this.credentialBalance,
       role: role ?? this.role,
       primaryRole: primaryRole ?? this.primaryRole,
+      greeting: greeting ?? this.greeting,
+      skill: skill ?? this.skill,
+      xHandle: xHandle ?? this.xHandle,
+      instagramHandle: instagramHandle ?? this.instagramHandle,
+      fbHandle: fbHandle ?? this.fbHandle,
+      interestOffer: interestOffer ?? this.interestOffer,
       belongsToArtists: belongsToArtists ?? this.belongsToArtists,
       primaryArtist: primaryArtist ?? this.primaryArtist,
     );

@@ -108,15 +108,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               query GetUserData(\$userId: String!) {
                 getUserData(userId: \$userId) {
                   id
-                  email
                   name
                   imageUrl
                   fspBalance
                   credentialBalance
                   role
                   primaryRole
+                  greeting
+                  skill
+                  xHandle
+                  instagramHandle
+                  fbHandle
+                  interestOffer
+                  createdAt
                   belongsToArtists {
                     id
+                    artistId
                     name
                     imageUrl
                     fsp
@@ -125,6 +132,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   }
                   primaryArtist {
                     id
+                    artistId
                     name
                     imageUrl
                     fsp

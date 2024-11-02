@@ -311,25 +311,29 @@ class Fsp extends ConsumerWidget {
                                     const SizedBox(width: 8),
                                     CircleAvatar(
                                       backgroundImage:
-                                          transaction.counterParty.imageUrl !=
+                                          transaction['counterParty']
+                                                      ?['imageUrl'] !=
                                                   null
-                                              ? NetworkImage(transaction
-                                                  .counterParty.imageUrl!)
+                                              ? NetworkImage(
+                                                  transaction['counterParty']
+                                                      ['imageUrl'])
                                               : null,
-                                      child: transaction
-                                                  .counterParty.imageUrl ==
+                                      child: transaction['counterParty']
+                                                  ?['imageUrl'] ==
                                               null
-                                          ? Text(
-                                              transaction.counterParty.name[0])
+                                          ? const Icon(Icons.person, size: 20)
                                           : null,
                                     ),
                                   ],
                                 ),
-                                title: Text(transaction.counterParty.name),
+                                title: Text(transaction['counterParty']
+                                        ?['name'] ??
+                                    'Unknown'),
                                 subtitle: Text(DateFormat('yyyy/MM/dd HH:mm')
-                                    .format(DateTime.parse(transaction.txAt))),
+                                    .format(
+                                        DateTime.parse(transaction['txAt']))),
                                 trailing: Text(
-                                  '${isIncoming ? "+" : "-"}${transaction.amount} fsp',
+                                  '${isIncoming ? "+" : "-"}${transaction['amount']} fsp',
                                   style: TextStyle(
                                     color:
                                         isIncoming ? Colors.green : Colors.red,

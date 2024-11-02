@@ -60,8 +60,6 @@ class _MessageListState extends ConsumerState<MessageList> {
                 return const Center(child: Text('ユーザーデータを取得できませんでした'));
               }
 
-              print('GraphQL Response:Users: ${users[0]['id']}');
-
               final currentUserId = ref.read(userProvider)?.id;
 
               return ListView.builder(
@@ -215,8 +213,6 @@ class _MessageListState extends ConsumerState<MessageList> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          print('GraphQL Response:Rooms: ${result.data}');
-
           final messageRooms = result.data?['getMessageRooms']
                   ['messageRoomList'] as List<dynamic>? ??
               [];
@@ -240,7 +236,6 @@ class _MessageListState extends ConsumerState<MessageList> {
             itemCount: messageRooms.length,
             itemBuilder: (context, index) {
               final room = messageRooms[index];
-              print('GraphQL Response:Room: ${room['latestMessageId']}');
               final otherUsers = (room['users'] as List<dynamic>?)
                       ?.where((user) => user['id'] != userId)
                       .toList() ??

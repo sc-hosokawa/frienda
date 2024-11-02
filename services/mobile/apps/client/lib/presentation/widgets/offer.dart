@@ -100,7 +100,6 @@ class _OfferState extends ConsumerState<Offer> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            print('GraphQL Response:OffersData: ${result.data}');
             final offersByStatus = result.data?['getOffersByStatus'];
             final inprogressOffers =
                 offersByStatus?['inprogressOffers'] as List<dynamic>? ?? [];
@@ -401,8 +400,6 @@ class _OfferState extends ConsumerState<Offer> {
         if (result.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-
-        print('GraphQL Response:OffersByOwner: ${result.data}');
 
         final offers =
             result.data?['getOffersByOwner']['offerList'] as List<dynamic>? ??

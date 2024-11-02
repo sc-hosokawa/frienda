@@ -4,6 +4,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/user_provider.dart';
+import 'package:client/presentation/providers/auth_provider.dart';
 
 class Receive extends ConsumerStatefulWidget {
   const Receive({super.key});
@@ -19,9 +20,10 @@ class _ReceiveState extends ConsumerState<Receive> {
 
   String _generateQRData() {
     final user = ref.read(userProvider);
+    final auth = ref.read(authProvider);
     final data = {
       'username': user?.name ?? '',
-      'email': user?.email ?? '',
+      'email': auth.email ?? '',
       'points': _pointsController.text,
       'notes': _notesController.text,
     };

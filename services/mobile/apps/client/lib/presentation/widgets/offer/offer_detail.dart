@@ -74,7 +74,7 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
   }
 
   Future<void> _fetchOfferData() async {
-    final GraphQLClient client = GraphQLProvider.of(context).value;
+    final GraphQLClient client = ref.read(graphQLClientProvider);
     final currentUser = ref.read(userProvider);
 
     try {
@@ -96,8 +96,6 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
         return;
       }
 
-      print(result);
-
       setState(() {
         _offerData = result.data?['getOffersById'];
         _isLoading = false;
@@ -111,7 +109,7 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
   }
 
   Future<void> _applyToOffer() async {
-    final GraphQLClient client = GraphQLProvider.of(context).value;
+    final GraphQLClient client = ref.read(graphQLClientProvider);
     final currentUser = ref.read(userProvider);
 
     try {
@@ -121,7 +119,7 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
           variables: {
             'id': widget.offerId,
             'userId': currentUser?.id ?? '',
-            'status': 'applied',
+            'status': 'Applied',
           },
         ),
       );

@@ -16,7 +16,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  String _selectedArtist = 'Artist 1';
+  late String _selectedArtist;
   String _selectedSong = 'Song 1';
   String _selectedPeriod = '1week';
   String _selectedWork = 'UPC 1';
@@ -162,6 +162,14 @@ class _DashboardState extends State<Dashboard> {
       _selectedArtist = artist;
     });
     Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize _selectedArtist with the first artist from the user provider
+    final userRef = ProviderContainer().read(userProvider);
+    _selectedArtist = userRef?.belongsToArtists.firstOrNull?.name ?? '';
   }
 
   @override

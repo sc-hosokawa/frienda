@@ -74,106 +74,103 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
 
         final messages =
             result.data?['getMessagesByMessageRoomId']['messageList'] ?? [];
-        print('msg list result: $result');
 
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            children: [
-              SafeArea(
-                child: AppBar(
-                  title: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CircleAvatar(
-                        backgroundImage:
-                            result.data?['getMessagesByMessageRoomId']['to']
-                                        ['imageUrl'] !=
-                                    null
-                                ? NetworkImage(
-                                    result.data!['getMessagesByMessageRoomId']
-                                        ['to']['imageUrl'] as String)
-                                : null,
-                        radius: 16,
-                        child: result.data?['getMessagesByMessageRoomId']['to']
-                                    ['imageUrl'] ==
-                                null
-                            ? const Icon(Icons.person, size: 20)
-                            : null,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        result.data?['getMessagesByMessageRoomId']['to']
-                                ['name'] ??
-                            '不明なユーザー',
-                        style: Theme.of(context).textTheme.titleMedium,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircleAvatar(
+                    backgroundImage: result.data?['getMessagesByMessageRoomId']
+                                ['to']['imageUrl'] !=
+                            null
+                        ? NetworkImage(
+                            result.data!['getMessagesByMessageRoomId']['to']
+                                ['imageUrl'] as String)
+                        : null,
+                    radius: 16,
+                    child: result.data?['getMessagesByMessageRoomId']['to']
+                                ['imageUrl'] ==
+                            null
+                        ? const Icon(Icons.person, size: 20)
+                        : null,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    result.data?['getMessagesByMessageRoomId']['to']['name'] ??
+                        '不明なユーザー',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
+              centerTitle: true,
+            ),
+            body: Column(
+              children: [
+                Expanded(
+                  child: messages.isEmpty
+                      ? const Center(child: Text('メッセージがありません'))
+                      : ListView.builder(
+                          reverse: true,
+                          itemCount: messages.length,
+                          itemBuilder: (context, index) {
+                            final message = messages[index];
+                            return MessageBubble(
+                              message: message['content'],
+                              isMyMessage: message['sentBy'] == userId,
+                              timestamp: DateTime.parse(message['sentAt']),
+                              attachedFile: message['attachedFile'],
+                              attachedImg: message['attachedImg'],
+                            );
+                          },
+                        ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: Offset(0, -1),
                       ),
                     ],
                   ),
-                  centerTitle: true,
-                ),
-              ),
-              Expanded(
-                child: messages.isEmpty
-                    ? const Center(child: Text('メッセージがありません'))
-                    : ListView.builder(
-                        reverse: true,
-                        itemCount: messages.length,
-                        itemBuilder: (context, index) {
-                          final message = messages[index];
-                          return MessageBubble(
-                            message: message['content'],
-                            isMyMessage: message['sentBy'] == userId,
-                            timestamp: DateTime.parse(message['sentAt']),
-                            attachedFile: message['attachedFile'],
-                            attachedImg: message['attachedImg'],
-                          );
-                        },
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: _attachFile,
                       ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, -1),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: _attachFile,
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: _messageController,
-                        decoration: InputDecoration(
-                          hintText: 'メッセージを入力...',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                      Expanded(
+                        child: TextField(
+                          controller: _messageController,
+                          decoration: InputDecoration(
+                            hintText: 'メッセージを入力...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
+                            filled: true,
+                            fillColor: Theme.of(context).cardColor,
                           ),
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          filled: true,
-                          fillColor: Theme.of(context).cardColor,
                         ),
                       ),
-                    ),
-                    SizedBox(width: 8),
-                    IconButton(
-                      icon: Icon(Icons.send),
-                      onPressed: _sendMessage,
-                    ),
-                  ],
+                      SizedBox(width: 8),
+                      IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: _sendMessage,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
