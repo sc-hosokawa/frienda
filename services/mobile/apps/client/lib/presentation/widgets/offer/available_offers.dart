@@ -8,103 +8,110 @@ class AvailableOffers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Query(
-      options: QueryOptions(
-        document: gql('''
-          query GetOffers {
-            getOffers {
-              offerList {
-                id
-                title
-                imageUrl
-                description
-                fee
-                category
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('利用可能なオファー'),
+        titleTextStyle: Theme.of(context).textTheme.titleMedium,
+        centerTitle: true,
+      ),
+      body: Query(
+        options: QueryOptions(
+          document: gql('''
+            query GetOffers {
+              getOffers {
+                offerList {
+                  id
+                  title
+                  imageUrl
+                  description
+                  fee
+                  category
+                }
               }
             }
+          '''),
+          fetchPolicy: FetchPolicy.cacheAndNetwork,
+        ),
+        builder: (QueryResult result, {fetchMore, refetch}) {
+          if (result.hasException) {
+            return Center(
+                child: Text('エラーが発生しました: ${result.exception.toString()}'));
           }
-        '''),
-        fetchPolicy: FetchPolicy.cacheAndNetwork,
-      ),
-      builder: (QueryResult result, {fetchMore, refetch}) {
-        if (result.hasException) {
-          return Center(
-              child: Text('エラーが発生しました: ${result.exception.toString()}'));
-        }
 
-        if (result.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
+          if (result.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-        final offers =
-            result.data?['getOffers']['offerList'] as List<dynamic>? ?? [];
+          final offers =
+              result.data?['getOffers']['offerList'] as List<dynamic>? ?? [];
 
-        return ListView.builder(
-          padding: const EdgeInsets.all(16),
-          itemCount: offers.length,
-          itemBuilder: (context, index) {
-            final offer = offers[index];
-            return Card(
-              margin: const EdgeInsets.only(bottom: 12),
-              child: ListTile(
-                leading: offer['imageUrl'] != null
-                    ? Image.network(
-                        offer['imageUrl'],
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
-                      )
-                    : SvgPicture.asset(
-                        'assets/design.svg',
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
+          return ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: offers.length,
+            itemBuilder: (context, index) {
+              final offer = offers[index];
+              return Card(
+                margin: const EdgeInsets.only(bottom: 12),
+                child: ListTile(
+                  leading: offer['imageUrl'] != null
+                      ? Image.network(
+                          offer['imageUrl'],
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                        )
+                      : SvgPicture.asset(
+                          'assets/design.svg',
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                        ),
+                  title: Text(offer['title']),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        offer['description'],
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                title: Text(offer['title']),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      offer['description'],
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '報酬: ${offer['fee']} FSP',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                trailing: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OfferDetailPage(
-                          offerId: offer['id'],
+                      const SizedBox(height: 4),
+                      Text(
+                        '報酬: ${offer['fee']} FSP',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    );
-                  },
-                  child: const Text(
-                    '詳細',
-                    style: TextStyle(
-                      color: Colors.black,
+                    ],
+                  ),
+                  trailing: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OfferDetailPage(
+                            offerId: offer['id'],
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      '詳細',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
+                  isThreeLine: true,
                 ),
-                isThreeLine: true,
-              ),
-            );
-          },
-        );
-      },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

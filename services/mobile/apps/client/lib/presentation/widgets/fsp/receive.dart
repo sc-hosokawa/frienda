@@ -14,13 +14,16 @@ class Receive extends ConsumerStatefulWidget {
 
 class _ReceiveState extends ConsumerState<Receive> {
   final TextEditingController _pointsController = TextEditingController();
+  final TextEditingController _notesController = TextEditingController();
   String _qrData = '';
 
   String _generateQRData() {
     final user = ref.read(userProvider);
     final data = {
       'username': user?.name ?? '',
+      'email': user?.email ?? '',
       'points': _pointsController.text,
+      'notes': _notesController.text,
     };
     return jsonEncode(data);
   }
@@ -71,6 +74,15 @@ class _ReceiveState extends ConsumerState<Receive> {
                       },
                     ),
                   ],
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: _notesController,
+                  decoration: const InputDecoration(
+                    labelText: 'メモ',
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 3,
                 ),
                 if (_qrData.isNotEmpty) ...[
                   const SizedBox(height: 20),

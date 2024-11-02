@@ -77,6 +77,12 @@ resource "random_password" "db_password" {
   special = false
 }
 
+resource "google_storage_bucket_iam_member" "sql_storage_object_admin" {
+  bucket = google_storage_bucket.general_file_storage.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_sql_database_instance.main.service_account_email_address}"
+}
+
 // ======= Cloud Run =======
 resource "google_cloud_run_v2_service" "frienda_server" {
   name     = "frienda-server"

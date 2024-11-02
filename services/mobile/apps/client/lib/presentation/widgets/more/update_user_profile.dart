@@ -1,103 +1,422 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:client/presentation/providers/client_provider.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as path;
 
-class UpdateUserProfile extends StatefulWidget {
+class UpdateUserProfile extends ConsumerStatefulWidget {
   const UpdateUserProfile({super.key});
 
   @override
-  _UpdateUserProfileState createState() => _UpdateUserProfileState();
+  ConsumerState<UpdateUserProfile> createState() => _UpdateUserProfileState();
 }
 
-class _UpdateUserProfileState extends State<UpdateUserProfile> {
+class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
   final _formKey = GlobalKey<FormState>();
-  String _name = '';
-  String _email = '';
-  String _message = '';
-  String _category = 'お問い合わせ';
+  late TextEditingController _nameController;
+  late TextEditingController _greetingController;
+  late TextEditingController _skillController;
+  late TextEditingController _xHandleController;
+  late TextEditingController _instagramHandleController;
+  late TextEditingController _fbHandleController;
+  String? _selectedRole;
+  String? _selectedPrimaryRole;
+  List<String> _selectedInterests = [];
+  File? _imageFile;
+  String? _currentImageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _greetingController = TextEditingController();
+    _skillController = TextEditingController();
+    _xHandleController = TextEditingController();
+    _instagramHandleController = TextEditingController();
+    _fbHandleController = TextEditingController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    try {
+      final userId = ref.read(userProvider)?.id;
+      if (userId == null) return;
+
+      final result = await GraphQLProvider.of(context).value.query(
+            QueryOptions(
+              document: gql('''
+            query GetUserData(\$userId: String!) {
+              getUserData(userId: \$userId) {
+                id
+                name
+                imageUrl
+                role
+                primaryRole
+                greeting
+                skill
+                xHandle
+                instagramHandle
+                fbHandle
+                interestOffer
+                createdAt
+                belongsToArtists {
+                  id
+                  name
+                  imageUrl
+                }
+                primaryArtist {
+                  id
+                  name
+                  imageUrl
+                }
+              }
+            }
+          '''),
+              variables: {
+                'userId': userId,
+              },
+            ),
+          );
+
+      if (result.hasException) {
+        throw result.exception!;
+      }
+
+      final userData = result.data?['getUserData'];
+      if (userData != null) {
+        setState(() {
+          _nameController.text = userData['name'] ?? '';
+          _greetingController.text = userData['greeting'] ?? '';
+          _skillController.text = userData['skill'] ?? '';
+          _xHandleController.text = userData['xHandle'] ?? '';
+          _instagramHandleController.text = userData['instagramHandle'] ?? '';
+          _fbHandleController.text = userData['fbHandle'] ?? '';
+          _selectedRole = userData['role'];
+          _selectedPrimaryRole = userData['primaryRole'];
+          _selectedInterests =
+              List<String>.from(userData['interestOffer'] ?? []);
+          _currentImageUrl = userData['imageUrl'];
+        });
+      }
+    } catch (e) {
+      // エラーハンドリングを遅延実行
+      Future.microtask(() {
+        if (mounted) {
+          // Widgetがまだ存在することを確認
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('プロフィールの取得に失敗しました: ${e.toString()}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      });
+    }
+  }
+
+  Future<String?> _uploadImageToFirebase(File imageFile) async {
+    try {
+      final userId = ref.read(userProvider)?.id;
+      if (userId == null) return null;
+
+      // Generate a unique filename using timestamp
+      final String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+      final String filename = '${userId}_$timestamp.jpg';
+
+      // Upload to Firebase Storage with correct path structure
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('user_images')
+          .child(userId) // ユーザーIDのフォルダを作成
+          .child(filename);
+
+      // Upload with metadata
+      final metadata = SettableMetadata(
+        contentType: 'image/jpeg',
+        customMetadata: {'userId': userId},
+      );
+
+      // ファイルをアップロード
+      final uploadTask = storageRef.putFile(imageFile, metadata);
+
+      // アップロードの進行状況を監視
+      uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
+        final progress = snapshot.bytesTransferred / snapshot.totalBytes;
+        // TODO: 必要に応じてプログレス表示を実装
+      });
+
+      // アップロード完了を待機
+      await uploadTask;
+
+      // アップロードされた画像のURLを取得
+      final downloadUrl = await storageRef.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('画像のアップロードに失敗しました: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      return null;
+    }
+  }
+
+  Future<void> _deleteOldImage(String imageUrl) async {
+    try {
+      // URLからファイルパスを抽出
+      // 例: https://firebasestorage.googleapis.com/v0/b/frienda-auth-test1.appspot.com/o/user_images%2F0JxH0rRFWHgKuty6CzwmcpSQ7bo1%2F0JxH0rRFWHgKuty6CzwmcpSQ7bo1_1730350296623.jpg?alt=media&token=...
+      final uri = Uri.parse(imageUrl);
+      final path = Uri.decodeFull(uri.path);
+      // /v0/b/frienda-auth-test1.appspot.com/o/user_images/0JxH0rRFWHgKuty6CzwmcpSQ7bo1/0JxH0rRFWHgKuty6CzwmcpSQ7bo1_1730350296623.jpg から
+      // user_images/0JxH0rRFWHgKuty6CzwmcpSQ7bo1/0JxH0rRFWHgKuty6CzwmcpSQ7bo1_1730350296623.jpg を抽出
+      final match = RegExp(r'o\/(.+?)\?').firstMatch(path);
+      if (match != null) {
+        final storagePath = match.group(1);
+        if (storagePath != null) {
+          final ref = FirebaseStorage.instance.ref().child(storagePath);
+          await ref.delete();
+          debugPrint('古い画像を削除しました: $storagePath');
+        }
+      }
+    } catch (e) {
+      // 削除に失敗しても、新しい画像のアップロードには影響させない
+      debugPrint('古い画像の削除に失敗しました: ${e.toString()}');
+    }
+  }
+
+  Future<void> _updateProfile() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    bool _isLoading;
+    setState(() => _isLoading = true);
+
+    try {
+      String? imageUrl;
+      if (_imageFile != null) {
+        // 新しい画像をアップロード
+        imageUrl = await _uploadImageToFirebase(_imageFile!);
+        if (imageUrl == null) return; // アップロード失敗
+
+        // 新しい画像のアップロードが成功したら、古い画像を削除
+        if (_currentImageUrl != null && _currentImageUrl!.isNotEmpty) {
+          await _deleteOldImage(_currentImageUrl!);
+        }
+      }
+
+      final userId = ref.read(userProvider)?.id;
+      if (userId == null) return;
+
+      final result = await GraphQLProvider.of(context).value.mutate(
+            MutationOptions(
+              document: gql('''
+            mutation UpdateUserDetailProfile(
+              \$userId: String!
+              \$name: String!
+              \$greeting: String
+              \$skill: String
+              \$xHandle: String
+              \$instagramHandle: String
+              \$fbHandle: String
+              \$imageUrl: String
+            ) {
+              updateUserDetailProfile(input: {
+                userId: \$userId
+                name: \$name
+                greeting: \$greeting
+                skill: \$skill
+                xHandle: \$xHandle
+                instagramHandle: \$instagramHandle
+                fbHandle: \$fbHandle
+                imageUrl: \$imageUrl
+              }) {
+                id
+                name
+                imageUrl
+              }
+            }
+          '''),
+              variables: {
+                'userId': userId,
+                'name': _nameController.text,
+                'greeting': _greetingController.text,
+                'skill': _skillController.text,
+                'xHandle': _xHandleController.text,
+                'instagramHandle': _instagramHandleController.text,
+                'fbHandle': _fbHandleController.text,
+                'imageUrl': imageUrl ?? _currentImageUrl,
+              },
+            ),
+          );
+
+      if (result.hasException) {
+        throw result.exception!;
+      }
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('プロフィールを更新しました'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.of(context).pop();
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('プロフィールの更新に失敗しました: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ユーザー情報の変更'),
+        title: const Text('プロフィール編集'),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DropdownButtonFormField<String>(
-                value: _category,
-                decoration: const InputDecoration(labelText: 'カテゴリ'),
-                items: ['お問い合わせ', '不具合報告']
-                    .map((label) => DropdownMenuItem(
-                          value: label,
-                          child: Text(label),
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _category = value!;
-                  });
-                },
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            Center(
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: _imageFile != null
+                        ? FileImage(_imageFile!) as ImageProvider
+                        : (_currentImageUrl != null
+                                ? NetworkImage(_currentImageUrl!)
+                                : const AssetImage('assets/default_avatar.png'))
+                            as ImageProvider,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.camera_alt, color: Colors.white),
+                        onPressed: _pickImage,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'お名前'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'お名前を入力してください';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _name = value!,
+            ),
+            const SizedBox(height: 24),
+            TextFormField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: '名前',
+                border: OutlineInputBorder(),
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'メールアドレス'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'メールアドレスを入力してください';
-                  }
-                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                      .hasMatch(value)) {
-                    return '有効なメールアドレスを入力してください';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _email = value!,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return '名前を入力してください';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _greetingController,
+              decoration: const InputDecoration(
+                labelText: '自己紹介',
+                border: OutlineInputBorder(),
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'メッセージ'),
-                maxLines: 5,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'メッセージを入力してください';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _message = value!,
+              maxLines: 3,
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _skillController,
+              decoration: const InputDecoration(
+                labelText: 'スキル',
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _submitForm,
-                child: const Text('送信'),
+            ),
+            const SizedBox(height: 16),
+            // SNSハンドル入力フィールド
+            TextFormField(
+              controller: _xHandleController,
+              decoration: const InputDecoration(
+                labelText: 'X (Twitter)',
+                border: OutlineInputBorder(),
+                prefixText: '@',
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _instagramHandleController,
+              decoration: const InputDecoration(
+                labelText: 'Instagram',
+                border: OutlineInputBorder(),
+                prefixText: '@',
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _fbHandleController,
+              decoration: const InputDecoration(
+                labelText: 'Facebook',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: _updateProfile,
+              child: const Text('プロフィールを更新'),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // TODO: ここでフォームデータを送信する処理を実装
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('フォームが送信されました')),
-      );
-      // フォーム送信後に前の画面に戻る
-      Navigator.of(context).pop();
-    }
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _greetingController.dispose();
+    _skillController.dispose();
+    _xHandleController.dispose();
+    _instagramHandleController.dispose();
+    _fbHandleController.dispose();
+    super.dispose();
   }
 }

@@ -8,6 +8,11 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/auth_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:dio/dio.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:path/path.dart' as path;
 
 class MessageRoom extends ConsumerStatefulWidget {
   const MessageRoom({super.key, required this.roomId});
@@ -44,6 +49,8 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                 content
                 sentAt
                 sentBy
+                attachedFile
+                attachedImg
               }
               to {
                 id
@@ -118,6 +125,8 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                             message: message['content'],
                             isMyMessage: message['sentBy'] == userId,
                             timestamp: DateTime.parse(message['sentAt']),
+                            attachedFile: message['attachedFile'],
+                            attachedImg: message['attachedImg'],
                           );
                         },
                       ),
@@ -202,40 +211,114 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
     );
   }
 
-  void _pickImage() async {
-    try {
-      final ImagePicker picker = ImagePicker();
-      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
-      if (image != null) {
-        print('Selected image: ${image.path}');
-        await _uploadImageToCloudStorage(image);
-      } else {
-        print('No image selected');
-      }
-    } catch (e) {
-      print('Error picking image: $e');
-    }
-  }
-
-  Future<void> _uploadImageToCloudStorage(XFile image) async {
+  Future<String?> _uploadImageToCloudStorage(XFile image) async {
     try {
       File imageFile = File(image.path);
       FirebaseStorage storage = FirebaseStorage.instance;
-      String fileName = 'images/${DateTime.now().millisecondsSinceEpoch}.jpg';
+      String fileName =
+          'msg/images/${DateTime.now().millisecondsSinceEpoch}_${image.name}';
       Reference ref = storage.ref().child(fileName);
 
-      UploadTask uploadTask = ref.putFile(imageFile);
+      // メタデータを設定
+      final metadata = SettableMetadata(
+        contentType: _getImageContentType(image.name),
+      );
 
-      await uploadTask.whenComplete(() => print('Image uploaded'));
+      UploadTask uploadTask = ref.putFile(imageFile, metadata);
+
+      // アップロード完了を待機
+      await uploadTask;
 
       // アップロードされた画像のURLを取得
       String downloadURL = await ref.getDownloadURL();
-      print('Image available at: $downloadURL');
+      print('Image uploaded successfully. URL: $downloadURL');
 
-      // TODO: ここでダウンロードURLをメッセージに添付するなどの処理を行う
+      return downloadURL;
     } catch (e) {
       print('Error uploading image: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('画像のアップロードに失敗しました: ${e.toString()}')),
+      );
+      return null;
+    }
+  }
+
+  Future<String?> _uploadFileToCloudStorage(PlatformFile file) async {
+    try {
+      File fileToUpload = File(file.path!);
+      FirebaseStorage storage = FirebaseStorage.instance;
+      String fileName =
+          'msg/files/${DateTime.now().millisecondsSinceEpoch}_${file.name}';
+      Reference ref = storage.ref().child(fileName);
+
+      // メタデータを設定
+      final metadata = SettableMetadata(
+        contentType: file.extension != null
+            ? 'application/${file.extension}'
+            : 'application/octet-stream',
+      );
+
+      UploadTask uploadTask = ref.putFile(fileToUpload, metadata);
+
+      // アップロード完了を待機
+      await uploadTask;
+
+      // アップロードされたファイルのURLを取得
+      String downloadURL = await ref.getDownloadURL();
+      print('File uploaded successfully. URL: $downloadURL');
+
+      return downloadURL;
+    } catch (e) {
+      print('Error uploading file: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('ファイルのアップロードに失敗しました: ${e.toString()}')),
+      );
+      return null;
+    }
+  }
+
+  String _getImageContentType(String fileName) {
+    final extension = fileName.toLowerCase().split('.').last;
+    switch (extension) {
+      case 'png':
+        return 'image/png';
+      case 'jpg':
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'gif':
+        return 'image/gif';
+      case 'webp':
+        return 'image/webp';
+      case 'heic':
+        return 'image/heic';
+      case 'heif':
+        return 'image/heif';
+      default:
+        return 'image/jpeg';
+    }
+  }
+
+  void _pickImage() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 1920,
+        maxHeight: 1080,
+        imageQuality: 85,
+      );
+
+      if (image != null) {
+        final String? downloadURL = await _uploadImageToCloudStorage(image);
+        if (downloadURL != null) {
+          _sendMessage(attachedImages: [downloadURL]);
+        }
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('画像の選択に失敗しました')),
+      );
     }
   }
 
@@ -243,45 +326,36 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.any,
-        allowMultiple: true,
+        allowMultiple: false,
       );
 
-      if (result != null) {
-        List<PlatformFile> files = result.files;
-        for (var file in files) {
-          print('Selected file: ${file.name}, Size: ${file.size} bytes');
-          await _uploadFileToCloudStorage(file);
+      if (result != null && result.files.isNotEmpty) {
+        PlatformFile file = result.files.first;
+        if (file.size > 10 * 1024 * 1024) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('ファイルサイズは10MB以下にしてください')),
+          );
+          return;
         }
-      } else {
-        print('No file selected');
+
+        final String? downloadURL = await _uploadFileToCloudStorage(file);
+        if (downloadURL != null) {
+          _sendMessage(attachedFiles: [downloadURL]);
+        }
       }
     } catch (e) {
       print('Error picking file: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('ファイルの選択に失敗しました')),
+      );
     }
   }
 
-  Future<void> _uploadFileToCloudStorage(PlatformFile file) async {
-    try {
-      File fileToUpload = File(file.path!);
-      FirebaseStorage storage = FirebaseStorage.instance;
-      Reference ref = storage.ref().child('uploads/${file.name}');
-
-      UploadTask uploadTask = ref.putFile(fileToUpload);
-
-      await uploadTask.whenComplete(() => print('File uploaded'));
-
-      // アップロードされたファイルのURLを取得
-      String downloadURL = await ref.getDownloadURL();
-      print('File available at: $downloadURL');
-
-      // TODO: ここでダウンロードURLをメッセージに添付するなどの処理を行う
-    } catch (e) {
-      print('Error uploading file: $e');
-    }
-  }
-
-  void _sendMessage() {
-    if (_messageController.text.isEmpty) return;
+  void _sendMessage(
+      {List<String>? attachedImages, List<String>? attachedFiles}) {
+    if (_messageController.text.isEmpty &&
+        (attachedImages == null || attachedImages.isEmpty) &&
+        (attachedFiles == null || attachedFiles.isEmpty)) return;
 
     final userId = ref.read(authProvider).uid;
     if (userId == null) return;
@@ -295,6 +369,8 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
               id
               message
               sentAt
+              attachedFile
+              attachedImg
             }
           }
         '''),
@@ -303,11 +379,14 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
             'roomId': widget.roomId,
             'sentBy': userId,
             'message': _messageController.text,
+            if (attachedFiles != null && attachedFiles.isNotEmpty)
+              'attachedFile': attachedFiles,
+            if (attachedImages != null && attachedImages.isNotEmpty)
+              'attachedImg': attachedImages,
           },
         },
         onCompleted: (dynamic resultData) {
           _messageController.clear();
-          // refetch関数を呼び出し
           _refetchMessages?.call();
         },
         onError: (error) {
@@ -323,6 +402,8 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
 class MessageBubble extends StatelessWidget {
   final String message;
   final bool isMyMessage;
+  final String? attachedFile;
+  final String? attachedImg;
   final DateTime timestamp;
 
   const MessageBubble({
@@ -330,7 +411,66 @@ class MessageBubble extends StatelessWidget {
     required this.message,
     required this.isMyMessage,
     required this.timestamp,
+    this.attachedFile,
+    this.attachedImg,
   });
+
+  Future<void> _downloadFile(
+      BuildContext context, String url, bool isImage) async {
+    try {
+      // Android 13以降の場合、明示的な権限リクエストが必要
+      if (Platform.isAndroid) {
+        final status = await Permission.storage.request();
+        if (!status.isGranted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('ストレージの権限が必要です')),
+          );
+          return;
+        }
+      }
+
+      // ダウンロード開始を通知
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('ダウンロードを開始しました')),
+      );
+
+      final dio = Dio();
+      final response = await dio.get(
+        url,
+        options: Options(responseType: ResponseType.bytes),
+      );
+
+      // ファイル名を生成（URLから取得するか、タイムスタンプを使用）
+      final fileName = path.basename(url).contains('?')
+          ? '${DateTime.now().millisecondsSinceEpoch}${isImage ? '.jpg' : ''}'
+          : path.basename(url);
+
+      // 保存先ディレクトリを取得
+      final directory = Platform.isAndroid
+          ? Directory('/storage/emulated/0/Download')
+          : await getApplicationDocumentsDirectory();
+
+      if (Platform.isAndroid && !await directory.exists()) {
+        directory.createSync(recursive: true);
+      }
+
+      final filePath = path.join(directory.path, fileName);
+      final file = File(filePath);
+      await file.writeAsBytes(response.data);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('ダウンロードが完了しました'),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    } catch (e) {
+      print('Download error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('ダウンロードに失敗しました')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -343,20 +483,84 @@ class MessageBubble extends StatelessWidget {
           crossAxisAlignment:
               isMyMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: isMyMessage ? Colors.green[300] : Colors.grey[300],
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                message,
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 16,
+            if (message.isNotEmpty)
+              Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: isMyMessage ? Colors.green[300] : Colors.grey[300],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 16,
+                  ),
                 ),
               ),
-            ),
+            if (message.isNotEmpty &&
+                (attachedFile != null || attachedImg != null))
+              SizedBox(height: 8),
+            if (attachedFile != null)
+              Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: isMyMessage ? Colors.green[100] : Colors.grey[100],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.attachment, size: 20),
+                    SizedBox(width: 8),
+                    Flexible(
+                      child: Text(
+                        '添付ファイル',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.download),
+                      onPressed: () =>
+                          _downloadFile(context, attachedFile!, false),
+                    ),
+                  ],
+                ),
+              ),
+            if (attachedImg != null)
+              Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Stack(
+                  children: [
+                    Image.network(
+                      attachedImg!,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                    Positioned(
+                      right: 8,
+                      top: 8,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.download, color: Colors.white),
+                          onPressed: () =>
+                              _downloadFile(context, attachedImg!, true),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             SizedBox(height: 4),
             Text(
               DateFormat('yyyy/MM/dd HH:mm').format(timestamp.toLocal()),

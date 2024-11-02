@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:graphql/client.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/user_provider.dart';
-import 'package:client/data/graphql/mutation.graphql.dart';
-import 'package:client/data/graphql/schema.graphql.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 
 class Transfer extends ConsumerStatefulWidget {
@@ -25,15 +25,25 @@ class _TransferState extends ConsumerState<Transfer> {
 
   Future<void> _executeFspTransfer(String recipientId, int amount) async {
     try {
-      final input = Input$CreateNewTransactionInput(
-        to: recipientId,
-        amount: amount,
-        note: _noteController.text,
-      );
+      final currentUser = ref.read(userProvider);
 
-      final result = await ref.read(graphQLClientProvider).mutate$CreateFspTx(
-            Options$Mutation$CreateFspTx(
-              variables: Variables$Mutation$CreateFspTx(input: input),
+      final result = await ref.read(graphQLClientProvider).mutate(
+            MutationOptions(
+              document: gql('''
+            mutation CreateFspTx(\$input: CreateNewTransactionInput!) {
+              createFspTx(input: \$input) {
+                txId
+              }
+            }
+          '''),
+              variables: {
+                'input': {
+                  'from': currentUser?.id,
+                  'to': recipientId,
+                  'amount': amount,
+                  'note': _noteController.text,
+                },
+              },
             ),
           );
 
@@ -61,8 +71,9 @@ class _TransferState extends ConsumerState<Transfer> {
       try {
         final decodedData = jsonDecode(scanData.code ?? '');
         setState(() {
-          _recipientController.text = decodedData['username']?.toString() ?? '';
+          _recipientController.text = decodedData['email']?.toString() ?? '';
           _pointsController.text = decodedData['points']?.toString() ?? '';
+          _noteController.text = decodedData['note']?.toString() ?? '';
         });
       } catch (e) {
         print('Invalid QR code data: $e');

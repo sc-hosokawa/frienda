@@ -76,6 +76,7 @@ class UserData {
 
 // アーティスト情報を表すクラス
 class ArtistByUser {
+  final int mappingId;
   final String id;
   final String name;
   final String? imageUrl;
@@ -84,6 +85,7 @@ class ArtistByUser {
   final bool isAdmin;
 
   ArtistByUser({
+    required this.mappingId,
     required this.id,
     required this.name,
     this.imageUrl,
@@ -94,6 +96,7 @@ class ArtistByUser {
 
   factory ArtistByUser.fromJson(Map<String, dynamic> json) {
     return ArtistByUser(
+      mappingId: json['mappingId'] as int,
       id: json['id'] as String,
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String?,

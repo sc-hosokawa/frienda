@@ -115,17 +115,29 @@ class _OfferState extends ConsumerState<Offer> {
                 slivers: [
                   SliverToBoxAdapter(child: _buildOverviewCard()),
                   SliverToBoxAdapter(
-                    child: _buildSectionTitle(
-                      '自分のOffer',
-                      onTapMore: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AvailableOffers(),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AvailableOffers(),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 48),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        );
-                      },
+                        ),
+                        child: const Text('もっと見る'),
+                      ),
                     ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: _buildSectionTitle('自分のOffer'),
                   ),
                   SliverToBoxAdapter(child: _buildOwnedOfferCarousel()),
                   SliverToBoxAdapter(child: _buildSectionTitle('進行中')),
@@ -345,41 +357,16 @@ class _OfferState extends ConsumerState<Offer> {
     );
   }
 
-  Widget _buildSectionTitle(String title, {VoidCallback? onTapMore}) {
+  Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.only(
           left: 16.0, right: 16.0, top: 16.0, bottom: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          if (onTapMore != null)
-            GestureDetector(
-              onTap: onTapMore,
-              child: Row(
-                children: [
-                  Text(
-                    'もっと見る',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 14,
-                    ),
-                  ),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Theme.of(context).primaryColor,
-                    size: 20,
-                  ),
-                ],
-              ),
-            ),
-        ],
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -449,7 +436,7 @@ class _OfferState extends ConsumerState<Offer> {
                 child: GestureDetector(
                   onTap: () => _navigateToOfferDetail(context, offer['id']),
                   child: Card(
-                    color: Colors.blue[100],
+                    color: Colors.grey[500],
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -468,7 +455,7 @@ class _OfferState extends ConsumerState<Offer> {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: Colors.blue[800],
+                              color: Colors.grey[800],
                             ),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -478,7 +465,7 @@ class _OfferState extends ConsumerState<Offer> {
                             '${offer['fee']} FSP',
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.blue[800],
+                              color: Colors.black,
                             ),
                           ),
                         ],

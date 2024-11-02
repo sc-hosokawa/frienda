@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
+import 'package:client/presentation/providers/user_provider.dart';
 
-class OfferDetailPage extends StatefulWidget {
+class OfferDetailPage extends ConsumerStatefulWidget {
   final int offerId;
 
   const OfferDetailPage({
@@ -11,10 +13,10 @@ class OfferDetailPage extends StatefulWidget {
   });
 
   @override
-  State<OfferDetailPage> createState() => _OfferDetailPageState();
+  ConsumerState<OfferDetailPage> createState() => _OfferDetailPageState();
 }
 
-class _OfferDetailPageState extends State<OfferDetailPage> {
+class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
   bool _isApplied = false;
   bool _isLoading = true;
   String? _error;
@@ -22,10 +24,11 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
   bool _isInitialized = false;
 
   static const String getOfferQuery = '''
-    query GetOfferDetail(\$offerId: Int!) {
-      getOffersById(offerId: \$offerId) {
+    query GetOfferDetail(\$offerId: Int!, \$userId: String!) {
+      getOffersById(offerId: \$offerId, userId: \$userId) {
         id
         title
+        status
         description
         imageUrl
         fee
@@ -48,6 +51,19 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
     }
   ''';
 
+  static const String updateOfferStatusMutation = '''
+    mutation UpdateOfferStatus(\$id: Int!, \$userId: String!, \$status: String!) {
+      updateOfferStatus(input: {
+        id: \$id,
+        userId: \$userId,
+        status: \$status
+      }) {
+        id
+        offerId
+      }
+    }
+  ''';
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -59,6 +75,7 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
 
   Future<void> _fetchOfferData() async {
     final GraphQLClient client = GraphQLProvider.of(context).value;
+    final currentUser = ref.read(userProvider);
 
     try {
       final QueryResult result = await client.query(
@@ -66,6 +83,7 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
           document: gql(getOfferQuery),
           variables: {
             'offerId': widget.offerId,
+            'userId': currentUser?.id ?? '',
           },
         ),
       );
@@ -89,6 +107,35 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
         _error = e.toString();
         _isLoading = false;
       });
+    }
+  }
+
+  Future<void> _applyToOffer() async {
+    final GraphQLClient client = GraphQLProvider.of(context).value;
+    final currentUser = ref.read(userProvider);
+
+    try {
+      final result = await client.mutate(
+        MutationOptions(
+          document: gql(updateOfferStatusMutation),
+          variables: {
+            'id': widget.offerId,
+            'userId': currentUser?.id ?? '',
+            'status': 'applied',
+          },
+        ),
+      );
+
+      if (result.hasException) {
+        print(result.exception.toString());
+        return;
+      }
+
+      setState(() {
+        _isApplied = true;
+      });
+    } catch (e) {
+      print(e.toString());
     }
   }
 
@@ -312,11 +359,9 @@ class _OfferDetailPageState extends State<OfferDetailPage> {
             ),
             TextButton(
               child: Text('確認'),
-              onPressed: () {
-                setState(() {
-                  _isApplied = true;
-                });
+              onPressed: () async {
                 Navigator.of(context).pop();
+                await _applyToOffer();
               },
             ),
           ],

@@ -4,8 +4,7 @@ import 'package:client/presentation/providers/client_provider.dart';
 import 'package:client/presentation/widgets/message/message_list.dart';
 import 'package:client/presentation/widgets/message/message_room.dart';
 import 'package:client/presentation/providers/auth_provider.dart';
-import 'package:client/data/graphql/schema.graphql.dart';
-import 'package:client/data/graphql/query.graphql.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:graphql/client.dart';
 import 'package:intl/intl.dart';
@@ -126,11 +125,30 @@ class _HomePageState extends ConsumerState<HomePage> {
             ],
           ),
         ),
-        Query$GetMessageRooms$Widget(
-          options: Options$Query$GetMessageRooms(
-            variables: Variables$Query$GetMessageRooms(
-              userId: userState?.id ?? '',
-            ),
+        Query(
+          options: QueryOptions(
+            document: gql('''
+              query GetMessageRooms(\$userId: String!) {
+                getMessageRooms(userId: \$userId) {
+                  messageRoomList {
+                    id
+                    category
+                    latestMessage
+                    latestSentAt
+                    isRead
+                    users {
+                      id
+                      name
+                      imageUrl
+                    }
+                  }
+                  countOfMessageRooms
+                }
+              }
+            '''),
+            variables: {
+              'userId': userState?.id ?? '',
+            },
             fetchPolicy: FetchPolicy.networkOnly,
           ),
           builder: (result, {refetch, fetchMore}) {
@@ -377,7 +395,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       else if (dateTime.year == now.year) {
         return DateFormat('M/d HH:mm').format(dateTime);
       }
-      // それ以外は年月日と時刻
+      // そ��以外は年月日と時刻
       return DateFormat('yyyy/M/d HH:mm').format(dateTime);
     } catch (e) {
       print('Date formatting error: ${e.toString()}');

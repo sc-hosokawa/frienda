@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 class NewArtists extends StatefulWidget {
   const NewArtists({super.key});
@@ -8,90 +9,132 @@ class NewArtists extends StatefulWidget {
 }
 
 class _NewArtistsState extends State<NewArtists> {
-  final List<String> _artists = [
-    'アーティスト1',
-    'アーティスト2',
-    'アーティスト3',
-    'アーティスト4',
-    'アーティスト5',
-    'アーティスト6',
-    'アーティスト7',
-    'アーティスト8',
-    'アーティスト9',
-    'アーティスト10',
-    'アーティスト11',
-    'アーティスト12',
-  ];
-  final Set<String> _selectedArtists = {};
+  final TextEditingController _searchController = TextEditingController();
+  String _searchText = '';
+  List<ArtistData> _artists = [];
+
+  static const String searchArtistsQuery = r'''
+    query SearchArtists($name: String!) {
+      getArtistsByName(name: $name) {
+        artistList {
+          id
+          artistId
+          name
+          imageUrl
+          fsp
+        }
+      }
+    }
+  ''';
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // 選択されたアーティストを表示するエリア
-        Container(
-          padding: const EdgeInsets.all(8.0),
-          height: 60,
-          color: Colors.grey[800],
-          child: _selectedArtists.isEmpty
-              ? const Center(
-                  child: Text(
-                    'アーティストが選択されていません',
-                    style: TextStyle(color: Colors.grey),
+    return Query(
+      options: QueryOptions(
+        document: gql(searchArtistsQuery),
+        variables: {'name': _searchText},
+      ),
+      builder: (QueryResult result,
+          {VoidCallback? refetch, FetchMore? fetchMore}) {
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: const InputDecoration(
+                        hintText: 'アーティスト名を入力',
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                    ),
                   ),
-                )
-              : ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: _selectedArtists
-                      .map((artist) => Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 4.0),
-                            child: Chip(
-                              label: Text(artist),
-                              onDeleted: () {
-                                setState(() {
-                                  _selectedArtists.remove(artist);
-                                });
-                              },
-                            ),
-                          ))
-                      .toList(),
-                ),
-        ),
-        const Divider(height: 1, thickness: 1),
-        Expanded(
-          child: ListView.builder(
-            itemCount: _artists.length,
-            itemBuilder: (context, index) {
-              final artist = _artists[index];
-              return CheckboxListTile(
-                title: Text(artist),
-                value: _selectedArtists.contains(artist),
-                onChanged: (bool? value) {
-                  setState(() {
-                    if (value == true) {
-                      _selectedArtists.add(artist);
-                    } else {
-                      _selectedArtists.remove(artist);
-                    }
-                  });
-                },
-              );
-            },
-          ),
-        ),
-        ElevatedButton(
-          onPressed: _selectedArtists.isNotEmpty
-              ? () {
-                  print('選択されたアーティスト: $_selectedArtists');
-                  // 選択されたアーティストのリストを前の画面に渡して閉じる
-                  Navigator.of(context)
-                      .pop(List<String>.from(_selectedArtists));
-                }
-              : null,
-          child: const Text('送信'),
-        ),
-      ],
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () {
+                      final searchText = _searchController.text.trim();
+                      if (searchText.isNotEmpty) {
+                        setState(() {
+                          _searchText = searchText;
+                        });
+                        refetch?.call();
+                      }
+                    },
+                    child: const Text('検索'),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: _searchText.isEmpty
+                  ? const Center(child: Text('アーティスト名を入力して検索してください'))
+                  : result.isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : result.hasException
+                          ? Center(
+                              child: Text('エラーが発生しました: ${result.exception}'))
+                          : _buildSearchResults(result),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildSearchResults(QueryResult result) {
+    if (result.data == null ||
+        result.data!['getArtistsByName'] == null ||
+        result.data!['getArtistsByName']['artistList'] == null) {
+      return const Center(child: Text('検索結果がありません'));
+    }
+
+    final artists = (result.data!['getArtistsByName']['artistList'] as List)
+        .map((artist) => ArtistData.fromJson(artist as Map<String, dynamic>))
+        .toList();
+
+    return ListView.builder(
+      itemCount: artists.length,
+      itemBuilder: (context, index) {
+        final artist = artists[index];
+        return ListTile(
+          title: Text(artist.name),
+          subtitle: Text('FSP: ${artist.fsp}'),
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+}
+
+class ArtistData {
+  final String id;
+  final String artistId;
+  final String name;
+  final String? imageUrl;
+  final int fsp;
+
+  ArtistData({
+    required this.id,
+    required this.artistId,
+    required this.name,
+    this.imageUrl,
+    required this.fsp,
+  });
+
+  factory ArtistData.fromJson(Map<String, dynamic> json) {
+    return ArtistData(
+      id: json['id'],
+      artistId: json['artistId'],
+      name: json['name'],
+      imageUrl: json['imageUrl'],
+      fsp: json['fsp'],
     );
   }
 }

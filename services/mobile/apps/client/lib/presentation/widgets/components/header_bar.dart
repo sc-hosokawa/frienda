@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/widgets/more.dart';
 import 'package:client/presentation/providers/user_provider.dart';
+import 'package:client/presentation/providers/fsp_balance_provider.dart';
 
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
@@ -16,7 +17,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userData = ref.watch(userProvider);
-    final points = userData?.fspBalance ?? 0;
+    final balanceState = ref.watch(balanceStreamProvider);
     final profileImage = userData?.imageUrl;
 
     return AppBar(
@@ -27,9 +28,13 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 16.0),
           child: Row(
             children: [
-              Text(
-                '$points pts',
-                style: TextStyle(fontSize: 16),
+              balanceState.when(
+                data: (balance) => Text(
+                  '${balance.fspBalance} fsp',
+                  style: TextStyle(fontSize: 16),
+                ),
+                loading: () => const SizedBox.shrink(),
+                error: (err, stack) => const SizedBox.shrink(),
               ),
               SizedBox(width: 8),
               GestureDetector(

@@ -11,9 +11,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:graphql/client.dart';
-import 'package:client/data/graphql/schema.graphql.dart';
-import 'package:client/data/graphql/query.graphql.dart';
-import 'package:client/data/graphql/mutation.graphql.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:client/presentation/providers/fsp_balance_provider.dart';
@@ -23,7 +20,7 @@ class Fsp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final fspBalance = ref.watch(fspBalanceProvider);
+    final balanceState = ref.watch(balanceStreamProvider);
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -51,9 +48,9 @@ class Fsp extends ConsumerWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      fspBalance.when(
+                      balanceState.when(
                         data: (balance) => Text(
-                          '$balance fsp',
+                          '${balance.fspBalance} fsp',
                           style: Theme.of(context).textTheme.headlineLarge,
                           textAlign: TextAlign.center,
                         ),
@@ -71,9 +68,13 @@ class Fsp extends ConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              '期間限定 0 fsp',
-                              style: Theme.of(context).textTheme.bodyMedium,
+                            balanceState.when(
+                              data: (balance) => Text(
+                                '期間限定 ${balance.fspBalanceTemp} fsp',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              loading: () => const SizedBox.shrink(),
+                              error: (err, stack) => const SizedBox.shrink(),
                             ),
                             IconButton(
                               icon: const Icon(Icons.info_outline, size: 16),
@@ -291,8 +292,8 @@ class Fsp extends ConsumerWidget {
                             itemCount: transactions.length,
                             itemBuilder: (context, index) {
                               final transaction = transactions[index];
-                              final isIncoming = transaction.direction ==
-                                  Enum$TransactionDirection.IN;
+                              final isIncoming =
+                                  transaction['direction'] == 'IN';
 
                               return ListTile(
                                 leading: Row(
@@ -395,9 +396,8 @@ class Fsp extends ConsumerWidget {
   }
 }
 
-final transactionsProvider = FutureProvider.autoDispose<
-        List<Query$GetFspHistoryByUser$getFspHistoryByUser$transactionList>>(
-    (ref) async {
+final transactionsProvider =
+    FutureProvider.autoDispose<List<dynamic>>((ref) async {
   final user = ref.watch(userProvider);
   if (user == null) return [];
 
@@ -427,19 +427,15 @@ final transactionsProvider = FutureProvider.autoDispose<
         ),
       );
 
-  print('Transactions: ${result.data}');
-
-  final transactions = (result.data!['getFspHistoryByUser']['transactionList']
-          as List)
-      .map((tx) => Query$GetFspHistoryByUser$getFspHistoryByUser$transactionList
-          .fromJson(tx as Map<String, dynamic>))
-      .toList();
+  final transactions =
+      (result.data!['getFspHistoryByUser']['transactionList'] as List)
+          .map((tx) => tx as Map<String, dynamic>)
+          .toList();
   return transactions;
 });
 
 final popularPrizesProvider =
-    FutureProvider.autoDispose<List<Query$GetPopularPrizes$getPopularPrizes>>(
-        (ref) async {
+    FutureProvider.autoDispose<List<dynamic>>((ref) async {
   final result = await ref.read(graphQLClientProvider).query(
         QueryOptions(
           document: gql('''
@@ -456,8 +452,7 @@ final popularPrizesProvider =
       );
 
   final prizes = (result.data!['getPopularPrizes'] as List)
-      .map((prize) => Query$GetPopularPrizes$getPopularPrizes.fromJson(
-          prize as Map<String, dynamic>))
+      .map((prize) => prize as Map<String, dynamic>)
       .toList();
   return prizes;
 });

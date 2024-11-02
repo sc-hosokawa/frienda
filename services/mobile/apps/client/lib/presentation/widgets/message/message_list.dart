@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/widgets/message/message_room.dart';
-import 'package:client/data/graphql/schema.graphql.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:graphql/client.dart';
-import 'package:client/data/graphql/query.graphql.dart';
-import 'package:client/data/graphql/mutation.graphql.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:intl/intl.dart';
 
@@ -17,7 +15,7 @@ class MessageList extends ConsumerStatefulWidget {
 }
 
 class _MessageListState extends ConsumerState<MessageList> {
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   final _recipientController = TextEditingController();
   void Function()? _refetch;
 
@@ -34,7 +32,20 @@ class _MessageListState extends ConsumerState<MessageList> {
         title: const Text('ユーザーを選択'),
         content: SizedBox(
           width: double.maxFinite,
-          child: Query$GetAllUsers$Widget(
+          child: Query(
+            options: QueryOptions(
+              document: gql('''
+                query GetAllUsers {
+                  getAllUsers {
+                    users {
+                      id
+                      name
+                      imageUrl
+                    }
+                  }
+                }
+              '''),
+            ),
             builder: (result, {refetch, fetchMore}) {
               if (result.hasException) {
                 return Center(child: Text(result.exception.toString()));
@@ -93,20 +104,24 @@ class _MessageListState extends ConsumerState<MessageList> {
   }
 
   Future<void> _createRoom(String recipientId) async {
-    final variables = Variables$Mutation$CreateNewMessageRoom(
-      input: Input$CreateNewMessageRoomInput(
-        createdBy: ref.read(userProvider)?.id ?? '',
-        userList: [ref.read(userProvider)?.id ?? '', recipientId],
-        category: 'dm',
-      ),
-    );
-
-    final result =
-        await ref.read(graphQLClientProvider).mutate$CreateNewMessageRoom(
-              Options$Mutation$CreateNewMessageRoom(
-                variables: variables,
-              ),
-            );
+    final result = await ref.read(graphQLClientProvider).mutate(
+          MutationOptions(
+            document: gql('''
+          mutation CreateNewMessageRoom(\$input: CreateNewMessageRoomInput!) {
+            createNewMessageRoom(input: \$input) {
+              id
+            }
+          }
+        '''),
+            variables: {
+              'input': {
+                'createdBy': ref.read(userProvider)?.id ?? '',
+                'userList': [ref.read(userProvider)?.id ?? '', recipientId],
+                'category': 'dm',
+              },
+            },
+          ),
+        );
 
     if (result.hasException) {
       if (context.mounted) {
@@ -121,8 +136,7 @@ class _MessageListState extends ConsumerState<MessageList> {
       Navigator.pop(context);
       _refetch?.call();
 
-      final roomId =
-          result.data?['createNewMessageRoom']['messageRoom']['id'] as String?;
+      final roomId = result.data?['createNewMessageRoom']['id'] as String?;
       if (roomId != null) {
         Navigator.push(
           context,
@@ -163,13 +177,35 @@ class _MessageListState extends ConsumerState<MessageList> {
           ),
         ],
       ),
-      body: Query$GetMessageRooms$Widget(
-        options: Options$Query$GetMessageRooms(
-          variables: Variables$Query$GetMessageRooms(
-            userId: userId,
-          ),
+      body: Query(
+        options: QueryOptions(
+          document: gql('''
+            query GetMessageRooms(\$userId: String!) {
+              getMessageRooms(userId: \$userId) {
+                messageRoomList {
+                  id
+                  category
+                  latestMessage
+                  latestMessageId
+                  latestSentAt
+                  isRead
+                  users {
+                    id
+                    name
+                    imageUrl
+                  }
+                  latestMessage
+                }
+                countOfMessageRooms
+              }
+            }
+          '''),
+          variables: {
+            'userId': userId,
+          },
         ),
-        builder: (result, {refetch, fetchMore}) {
+        builder: (QueryResult result,
+            {VoidCallback? refetch, FetchMore? fetchMore}) {
           _refetch = refetch;
           if (result.hasException) {
             return Center(child: Text(result.exception.toString()));
@@ -204,6 +240,7 @@ class _MessageListState extends ConsumerState<MessageList> {
             itemCount: messageRooms.length,
             itemBuilder: (context, index) {
               final room = messageRooms[index];
+              print('GraphQL Response:Room: ${room['latestMessageId']}');
               final otherUsers = (room['users'] as List<dynamic>?)
                       ?.where((user) => user['id'] != userId)
                       .toList() ??
@@ -239,7 +276,16 @@ class _MessageListState extends ConsumerState<MessageList> {
                   ),
                 ),
                 tileColor: isUnread ? Colors.grey[800] : null,
-                onTap: () {
+                onTap: () async {
+                  final currentUserId = ref.read(userProvider)?.id;
+                  if (currentUserId == null) return;
+
+                  await _markAsRead(
+                    roomId: room['id'] as String,
+                    userId: currentUserId,
+                    messageId: room['latestMessageId'] as String,
+                  );
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -254,5 +300,38 @@ class _MessageListState extends ConsumerState<MessageList> {
         },
       ),
     );
+  }
+
+  Future<void> _markAsRead({
+    required String roomId,
+    required String userId,
+    required String messageId,
+  }) async {
+    try {
+      final result = await ref.read(graphQLClientProvider).mutate(
+            MutationOptions(
+              document: gql('''
+            mutation MarkAsRead(\$input: MarkAsReadInput!) {
+              markAsRead(input: \$input) {
+                isSuccess
+              }
+            }
+          '''),
+              variables: {
+                'input': {
+                  'roomId': roomId,
+                  'userId': userId,
+                  'messageId': messageId,
+                },
+              },
+            ),
+          );
+
+      if (result.hasException) {
+        print('Error marking message as read: ${result.exception}');
+      }
+    } catch (e) {
+      print('Error marking message as read: $e');
+    }
   }
 }
