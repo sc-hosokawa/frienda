@@ -151,7 +151,7 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
       // アップロードの進行状況を監視
       uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
         final progress = snapshot.bytesTransferred / snapshot.totalBytes;
-        // TODO: 必要に応じてプログレス表示を実装
+        // TODO: 必要にじてプログレス表示を実装
       });
 
       // アップロード完了を待機
@@ -221,44 +221,63 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
       final result = await GraphQLProvider.of(context).value.mutate(
             MutationOptions(
               document: gql('''
-            mutation UpdateUserDetailProfile(
-              \$userId: String!
-              \$name: String!
-              \$greeting: String
-              \$skill: String
-              \$xHandle: String
-              \$instagramHandle: String
-              \$fbHandle: String
+            mutation UpdateUserData(
+              \$id: String!
+              \$name: String
               \$imageUrl: String
             ) {
-              updateUserDetailProfile(input: {
-                userId: \$userId
+              updateUserData(input: {
+                id: \$id
                 name: \$name
-                greeting: \$greeting
-                skill: \$skill
-                xHandle: \$xHandle
-                instagramHandle: \$instagramHandle
-                fbHandle: \$fbHandle
                 imageUrl: \$imageUrl
               }) {
-                id
-                name
-                imageUrl
+                userInfo {
+                  id
+                  name
+                  imageUrl
+                  fspBalance
+                  credentialBalance
+                  role
+                  primaryRole
+                  greeting
+                  skill
+                  xHandle
+                  instagramHandle
+                  fbHandle
+                  interestOffer
+                  createdAt
+                  belongsToArtists {
+                    id
+                    artistId
+                    name
+                    imageUrl
+                    fsp
+                    status
+                    isAdmin
+                  }
+                  primaryArtist {
+                    id
+                    artistId
+                    name
+                    imageUrl
+                    fsp
+                    status
+                    isAdmin
+                  }
+                }
               }
             }
           '''),
               variables: {
-                'userId': userId,
+                'id': userId,
                 'name': _nameController.text,
-                'greeting': _greetingController.text,
-                'skill': _skillController.text,
-                'xHandle': _xHandleController.text,
-                'instagramHandle': _instagramHandleController.text,
-                'fbHandle': _fbHandleController.text,
                 'imageUrl': imageUrl ?? _currentImageUrl,
               },
+              fetchPolicy: FetchPolicy.noCache,
             ),
           );
+
+      print('result: $result');
 
       if (result.hasException) {
         throw result.exception!;

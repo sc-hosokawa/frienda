@@ -33,6 +33,7 @@ class _ReceiveState extends ConsumerState<Receive> {
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
+    final auth = ref.watch(authProvider);
 
     return Column(
       children: [
@@ -50,7 +51,7 @@ class _ReceiveState extends ConsumerState<Receive> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildUserInfo('ユーザー名', user?.name ?? ''),
-                _buildUserInfo('メールアドレス', user?.email ?? ''),
+                _buildUserInfo('メールアドレス', auth.email ?? ''),
                 const SizedBox(height: 20),
                 Row(
                   children: [
