@@ -1,0 +1,80 @@
+import Image from "next/image";
+
+export default function OfferStats() {
+  return (
+    <div className="p-6 bg-black text-white mb-6">
+      <h1 className="text-2xl mb-6">Overview</h1>
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex items-center space-x-3">
+            <Image
+              src="/total.svg"
+              alt="logo"
+              className="mr-2"
+              width={40}
+              height={40}
+            />
+            <div>
+              <p className="text-xs text-gray-400">Total</p>
+              <p className="text-4xl font-bold">4</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Image
+              src="/current.svg"
+              alt="logo"
+              className="mr-2"
+              width={40}
+              height={40}
+            />
+            <div>
+              <p className="text-xs text-gray-400">Current</p>
+              <p className="text-4xl font-bold">2</p>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex items-center space-x-3">
+            <Image
+              src="/apply.svg"
+              alt="logo"
+              className="mr-2"
+              width={40}
+              height={40}
+            />
+            <div>
+              <p className="text-xs text-gray-400">Applying</p>
+              <p className="text-4xl font-bold">1</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Image
+              src="/complete.svg"
+              alt="logo"
+              className="mr-2"
+              width={40}
+              height={40}
+            />
+            <div>
+              <p className="text-xs text-gray-400">Completed</p>
+              <p className="text-4xl font-bold">1</p>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center space-x-3">
+          <Image
+            src="/total_point_earn.svg"
+            alt="logo"
+            className="mr-2"
+            width={40}
+            height={40}
+          />
+          <div>
+            <p className="text-xs text-gray-400">Total Point Earned</p>
+            <p className="text-4xl font-bold">612,345</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

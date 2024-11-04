@@ -9,14 +9,24 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.8",
+    "@apollo/experimental-nextjs-app-support": "^0.11.5",
+    "@uploadthing/react": "^7.1.0",
+    "date-fns": "^4.1.0",
+    "graphql": "^16.9.0",
+    "lucide-react": "^0.322.0",
     "next": "^14.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "ui": "workspace:*"
+    "react-hook-form": "^7.53.1",
+    "swr": "^2.2.5",
+    "ui": "workspace:*",
+    "uploadthing": "^7.2.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.2",
-    "@repo/eslint-config": "workspace:*",
+    "@repo/eslint-config": "workspace:^",
     "@repo/typescript-config": "workspace:*",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.12.7",
