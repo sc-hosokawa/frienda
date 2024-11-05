@@ -137,7 +137,7 @@ const SkeletonCard = () => (
 );
 
 // OfferList component with SWR
-const OfferList = () => {
+const OfferListClient = () => {
   const { data: offers } = useSWR<Offer[]>("offers", fetchOffers, {
     suspense: true,
     fallbackData: Array(6).fill({
@@ -158,59 +158,48 @@ const OfferList = () => {
         connections: "3 connections",
       },
     }),
+    revalidateOnMount: true,
   });
+
+  if (!offers) return null;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {offers?.map((offer, index) => <OfferCard key={index} offer={offer} />)}
+      {offers.map((offer, index) => (
+        <OfferCard key={index} offer={offer} />
+      ))}
     </div>
   );
 };
 
-// Fallback component for Suspense
-const OfferListFallback = () => (
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {Array(6)
-      .fill(null)
-      .map((_, index) => (
-        <SkeletonCard key={index} />
-      ))}
+// Rename OfferListFallback to OfferAllListSkeleton and export it
+export const OfferAllListSkeleton = () => (
+  <div className="min-h-screen bg-black text-white py-6">
+    <div className="max-w-7xl mx-auto">
+      <div className="flex justify-between items-center mb-6">
+        <Skeleton className="h-8 w-32" /> {/* タイトルのスケルトン */}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {Array(6)
+          .fill(null)
+          .map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+      </div>
+    </div>
   </div>
 );
 
 export default function AllOfferList() {
   return (
-    <div className="min-h-screen bg-black text-white p-6">
+    <div className="min-h-screen bg-black text-white py-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl">Offer List</h1>
+          <h1 className="text-2xl ml-6">Offer List</h1>
         </div>
 
-        {/* カテゴリ 
-        <div className="flex gap-2 overflow-x-auto mb-6 pb-2">
-          {[
-            "All (43)",
-            "Category A (4)",
-            "Category B (4)",
-            "Category C (4)",
-            "Category D (4)",
-            "Category E (4)",
-            "Category F (4)",
-            "Category G (4)",
-          ].map((category) => (
-            <Badge
-              key={category}
-              variant="outline"
-              className="text-white border-white whitespace-nowrap"
-            >
-              {category}
-            </Badge>
-          ))}
-        </div>
-        */}
-
-        <Suspense fallback={<OfferListFallback />}>
-          <OfferList />
+        <Suspense fallback={<OfferAllListSkeleton />}>
+          <OfferListClient />
         </Suspense>
       </div>
     </div>

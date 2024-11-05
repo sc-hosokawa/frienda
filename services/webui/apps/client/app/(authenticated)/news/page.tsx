@@ -30,6 +30,7 @@ export default function Component() {
           />
           <span className="text-6xl tracking-wide mb-2">NEWS</span>
         </div>
+        {/* TODO: フィルター 
         <nav>
           <ul className="flex gap-6 text-sm text-gray-400">
             <li className="text-white">All</li>
@@ -38,6 +39,7 @@ export default function Component() {
             <li>Other</li>
           </ul>
         </nav>
+        */}
       </header>
 
       <main className="p-4">
@@ -45,7 +47,7 @@ export default function Component() {
           {news.map((item) => (
             <Card
               key={item.id}
-              className="bg-gray-900 border-gray-800 overflow-hidden group"
+              className="border-grey-900 overflow-hidden group"
             >
               <div className="relative">
                 <Image
@@ -56,12 +58,7 @@ export default function Component() {
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute top-2 left-2 flex gap-2">
-                  {item.isNew && (
-                    <span className="bg-yellow-400 text-black text-xs px-2 py-1 rounded-full">
-                      new
-                    </span>
-                  )}
-                  <span className="bg-cyan-500 text-white text-xs px-2 py-1 rounded-full">
+                  <span className="text-white text-xs px-2 py-1 rounded-full">
                     {item.category}
                   </span>
                 </div>

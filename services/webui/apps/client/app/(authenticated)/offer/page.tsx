@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import Image from "next/image";
-import OfferList from "../offer/offer-list";
-import OfferListSkeleton from "../offer/offer-list-skeleton";
+import OfferList from "./offer-list";
+import OfferListSkeleton from "./offer-list-skeleton";
 import OfferStats from "./stats";
-import OfferAllList from "./offer-all-list";
+import OfferAllList, { OfferAllListSkeleton } from "./offer-all-list";
 
 export default function OfferPage() {
   return (
@@ -27,7 +27,7 @@ export default function OfferPage() {
         <Suspense fallback={<OfferListSkeleton />}>
           <OfferList />
         </Suspense>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<OfferAllListSkeleton />}>
           <OfferAllList />
         </Suspense>
       </div>
