@@ -2,6 +2,7 @@
 
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import { format } from "date-fns";
 
 import { Card } from "@ui/components/ui/card";
 import {
@@ -12,54 +13,58 @@ import {
   TableHeader,
   TableRow,
 } from "@ui/components/ui/table";
+import { useQuery, gql } from "@apollo/client";
+import useUserStore from "../../../../store/user";
+
+interface Transaction {
+  id: string;
+  amount: number;
+  direction: string;
+  counterParty: { name: string };
+  txAt: string;
+}
+
+const GET_FSP_HISTORY = gql`
+  query GetFspHistory($userId: String!, $count: Int!) {
+    getFspHistoryByUser(userId: $userId, count: $count) {
+      transactionList {
+        id
+        amount
+        direction
+        counterParty {
+          name
+        }
+        txAt
+      }
+    }
+  }
+`;
 
 export default function HistoryPage() {
-  const transactions = [
-    {
-      date: "2024/7/15",
-      type: "獲得",
-      content: "オファー名が入ります。オファー名が入ります。一緒にイベント...",
-      user: {
-        name: "brady_nakayama",
-        avatar: "/home.svg?height=32&width=32",
-      },
-      points: 200,
-      isGain: true,
-    },
-    {
-      date: "2024/7/15",
-      type: "利用",
-      content: "オファー名が入ります。オファー名が入ります。一緒にイベント...",
-      user: {
-        name: "brady_nakayama",
-        avatar: "/home.svg?height=32&width=32",
-      },
-      points: 1000,
-      isGain: false,
-    },
-    {
-      date: "2024/7/15",
-      type: "利用",
-      content: "オファー名が入ります。オファー名が入ります。一緒にイベント...",
-      user: {
-        name: "brady_nakayama",
-        avatar: "/home.svg?height=32&width=32",
-      },
-      points: 1000,
-      isGain: false,
-    },
-    {
-      date: "2024/7/15",
-      type: "獲得",
-      content: "オファー名が入ります。オファー名が入ります。一緒にイベント...",
-      user: {
-        name: "brady_nakayama",
-        avatar: "/home.svg?height=32&width=32",
-      },
-      points: 200,
-      isGain: true,
-    },
-  ];
+  const { user } = useUserStore();
+  const { data, loading, error } = useQuery(GET_FSP_HISTORY, {
+    variables: { userId: user?.id, count: 100 },
+  });
+
+  console.log(data);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black text-white p-6 flex items-center justify-center">
+        <div className="animate-spin">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-black text-white p-6 flex items-center justify-center">
+        エラーが発生しました
+      </div>
+    );
+  }
+
+  const transactions = data?.getFspHistoryByUser?.transactionList ?? [];
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
@@ -90,56 +95,61 @@ export default function HistoryPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {transactions.map((transaction, index) => (
+              {transactions.map((transaction: Transaction) => (
                 <TableRow
-                  key={index}
+                  key={transaction.id}
                   className="border-b border-gray-800 hover:bg-transparent"
                 >
                   <TableCell className="font-medium text-gray-200">
-                    {transaction.date}
+                    {format(new Date(transaction.txAt), "yyyy/MM/dd HH:mm")}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <div
                         className={`rounded-full p-1.5 ${
-                          transaction.isGain
+                          transaction.direction === "IN"
                             ? "bg-emerald-500/20 text-emerald-500"
                             : "bg-yellow-500/20 text-yellow-500"
                         }`}
                       >
-                        {transaction.isGain ? (
+                        {transaction.direction === "IN" ? (
                           <ArrowUpRight className="h-4 w-4" />
                         ) : (
                           <ArrowDownRight className="h-4 w-4" />
                         )}
                       </div>
                       <span className="text-gray-200">
-                        ポイント{transaction.type}
+                        ポイント
+                        {transaction.direction === "IN" ? "獲得" : "利用"}
                       </span>
                     </div>
                   </TableCell>
                   <TableCell className="text-gray-200">
-                    {transaction.content}
+                    {transaction.counterParty.name}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <Image
-                        src={transaction.user.avatar}
-                        alt={`${transaction.user.name}'s avatar`}
+                        src="/avatar-placeholder.png" // TODO: 実際のアバター画像を使用
+                        alt={`${transaction.counterParty.name}'s avatar`}
                         className="rounded-full"
                         width={24}
                         height={24}
                       />
                       <span className="text-gray-200">
-                        {transaction.user.name}
+                        {transaction.counterParty.name}
                       </span>
                     </div>
                   </TableCell>
                   <TableCell
-                    className={`text-right ${transaction.isGain ? "text-emerald-500" : "text-red-500"}`}
+                    className={`text-right ${
+                      transaction.direction === "IN"
+                        ? "text-emerald-500"
+                        : "text-red-500"
+                    }`}
                   >
-                    {transaction.isGain ? "+" : "-"}
-                    {transaction.points.toLocaleString()}
+                    {transaction.direction === "IN" ? "+" : "-"}
+                    {transaction.amount.toLocaleString()} FSP
                   </TableCell>
                 </TableRow>
               ))}

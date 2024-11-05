@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@ui/components/ui/button";
 import { Card } from "@ui/components/ui/card";
 import {
@@ -10,8 +12,108 @@ import {
   Star,
 } from "lucide-react";
 import Image from "next/image";
+import { useQuery, useMutation, gql } from "@apollo/client";
+import { useState } from "react";
+import useUserStore from "../../../../store/user";
+import { OfferDetailData } from "../../../../generated/graphql";
 
-export default function OfferDetailPage() {
+const GET_OFFER_QUERY = gql`
+  query GetOfferDetail($offerId: Int!, $userId: String!) {
+    getOffersById(offerId: $offerId, userId: $userId) {
+      id
+      title
+      status
+      description
+      imageUrl
+      fee
+      category
+      place
+      attention
+      requiredSkill
+      targetRole
+      publicity
+      attachedImgs
+      attachedFiles
+      createdAt
+      updatedAt
+      owner {
+        id
+        name
+        imageUrl
+      }
+    }
+  }
+`;
+
+interface ResData {
+  getOffersById: OfferDetailData;
+}
+
+const UPDATE_OFFER_STATUS = gql`
+  mutation UpdateOfferStatus($id: Int!, $userId: String!, $status: String!) {
+    updateOfferStatus(input: { id: $id, userId: $userId, status: $status }) {
+      id
+      offerId
+    }
+  }
+`;
+
+export default function OfferDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const [isApplied, setIsApplied] = useState(false);
+  const { user } = useUserStore();
+  const { data, loading, error } = useQuery<ResData>(GET_OFFER_QUERY, {
+    variables: {
+      offerId: parseInt(params.id),
+      userId: user?.id,
+    },
+    skip: !user?.id,
+  });
+
+  console.log(data?.getOffersById);
+
+  const [updateStatus] = useMutation(UPDATE_OFFER_STATUS);
+
+  if (loading)
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="animate-spin">Loading...</div>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        Error: {error.message}
+      </div>
+    );
+
+  const offer = data?.getOffersById;
+
+  const handleApply = async () => {
+    const result = await updateStatus({
+      variables: {
+        id: parseInt(params.id),
+        userId: user?.id,
+        status: "Applied",
+      },
+    });
+
+    if (result.data) {
+      setIsApplied(true);
+    }
+  };
+
+  const showConfirmationDialog = () => {
+    // TODO: Add dialog component
+    if (window.confirm("本当に申し込みますか？")) {
+      handleApply();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-4xl mx-auto p-6">
@@ -25,8 +127,8 @@ export default function OfferDetailPage() {
         <div className="grid md:grid-cols-[300px,1fr] gap-8">
           <Card className="bg-zinc-900 border-none overflow-hidden">
             <Image
-              src="/placeholder.svg"
-              alt="Abstract geometric design"
+              src={offer?.imageUrl || "/placeholder.svg"}
+              alt={offer?.title || "offer image"}
               width={300}
               height={300}
               className="w-full h-auto"
@@ -35,10 +137,8 @@ export default function OfferDetailPage() {
 
           <div className="space-y-6">
             <div>
-              <p className="text-lg mb-2 text-white">
-                イベントに参加してくれるアーティスト募集中！
-              </p>
-              <p className="text-gray-400">2行目の場合こう見えます。</p>
+              <p className="text-lg mb-2 text-white">{offer?.title}</p>
+              <p className="text-gray-400">{offer?.description}</p>
             </div>
 
             <div className="flex items-center gap-4">
@@ -183,6 +283,10 @@ export default function OfferDetailPage() {
               </Card>
             ))}
           </div>
+        </div>
+
+        <div className="mt-4 text-right text-gray-400 text-sm">
+          Last Updated: {new Date(offer?.updatedAt || "").toLocaleDateString()}
         </div>
       </div>
     </div>

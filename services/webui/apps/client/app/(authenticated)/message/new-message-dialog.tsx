@@ -13,59 +13,68 @@ import {
 import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
 import { Plus } from "lucide-react";
+import { useQuery, useMutation, gql } from "@apollo/client";
+import useUserStore from "../../../store/user";
+import { AllUsersData } from "../../../generated/graphql";
+import { useRouter } from "next/navigation";
+
+const GET_ALL_USERS = gql`
+  query GetAllUsers {
+    getAllUsers {
+      users {
+        id
+        name
+        imageUrl
+      }
+    }
+  }
+`;
+interface ResData {
+  getAllUsers: AllUsersData;
+}
+
+const CREATE_MESSAGE_ROOM = gql`
+  mutation CreateNewMessageRoom($input: CreateNewMessageRoomInput!) {
+    createNewMessageRoom(input: $input) {
+      id
+    }
+  }
+`;
 
 export default function NewMessageDialog() {
+  const { user } = useUserStore();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const { data } = useQuery<ResData>(GET_ALL_USERS);
+  const [createRoom] = useMutation(CREATE_MESSAGE_ROOM);
 
-  const users = [
-    {
-      id: 1,
-      name: "kudo_nakama",
-      connections: 8,
-      avatar: "/home.svg?height=40&width=40",
-    },
-    {
-      id: 2,
-      name: "kudo_nakama",
-      connections: 8,
-      avatar: "/home.svg?height=40&width=40",
-    },
-    {
-      id: 3,
-      name: "kudo_nakama",
-      connections: 8,
-      avatar: "/home.svg?height=40&width=40",
-    },
-    {
-      id: 4,
-      name: "kudo_nakama",
-      connections: 8,
-      avatar: "/home.svg?height=40&width=40",
-    },
-    {
-      id: 5,
-      name: "chris_hayashi",
-      connections: 4,
-      avatar: "/home.svg?height=40&width=40",
-    },
-    {
-      id: 6,
-      name: "brady_johnson",
-      connections: 6,
-      avatar: "/home.svg?height=40&width=40",
-    },
-    {
-      id: 7,
-      name: "minoru_kou",
-      connections: 3,
-      avatar: "/home.svg?height=40&width=40",
-    },
-  ];
-
+  const users = data?.getAllUsers.users || [];
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase()),
   );
+
+  // Handle room creation
+  const handleUserSelect = async (userId: string) => {
+    try {
+      const result = await createRoom({
+        variables: {
+          input: {
+            createdBy: user?.id,
+            userList: [user?.id, userId],
+            category: "dm",
+          },
+        },
+      });
+
+      if (result.data?.createNewMessageRoom?.id) {
+        router.push(`/message/${result.data.createNewMessageRoom.id}`);
+        setOpen(false);
+      }
+    } catch (err) {
+      console.error("Failed to create room:", err);
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -105,15 +114,16 @@ export default function NewMessageDialog() {
             <button
               key={user.id}
               className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-800/50 transition-colors text-left"
+              onClick={() => handleUserSelect(user.id)}
             >
               <Avatar className="h-10 w-10">
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage
+                  src={user.imageUrl || "/logo_visualonly.jpg"}
+                  alt={user.name}
+                />
               </Avatar>
               <div>
                 <p className="text-sm font-medium">{user.name}</p>
-                <p className="text-xs text-gray-400">
-                  {user.connections} connections
-                </p>
               </div>
             </button>
           ))}

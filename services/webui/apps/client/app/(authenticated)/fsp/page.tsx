@@ -22,6 +22,7 @@ import { TransferDialog } from "./transfer-dialog";
 import { AllocationDialog } from "./allocation-dialog";
 import { PurchaseDialog } from "./purchase-dialog";
 import useUserStore from "../../../store/user";
+import { useQuery, gql } from "@apollo/client";
 
 // 商品データの型定義
 type Product = {
@@ -62,32 +63,39 @@ const products: Product[] = [
   },
 ];
 
-const transactions: Transaction[] = [
-  {
-    id: 1,
-    type: "receive",
-    amount: 100,
-    date: "2023-11-01",
-    description: "ログインボーナス",
-  },
-  {
-    id: 2,
-    type: "send",
-    amount: 50,
-    date: "2023-11-02",
-    description: "友達にポイント送信",
-  },
-  {
-    id: 3,
-    type: "exchange",
-    amount: 500,
-    date: "2023-11-03",
-    description: "商品Aと交換",
-  },
-];
+const GET_POPULAR_PRIZES = gql`
+  query GetPopularPrizes {
+    getPopularPrizes {
+      id
+      name
+      point
+      imgUrl
+    }
+  }
+`;
 
-export default function Component() {
+const GET_FSP_HISTORY = gql`
+  query GetFspHistory($userId: String!, $count: Int!) {
+    getFspHistoryByUser(userId: $userId, count: $count) {
+      transactionList {
+        id
+        amount
+        direction
+        counterParty {
+          name
+        }
+        txAt
+      }
+    }
+  }
+`;
+
+export default function FspPage() {
   const { user } = useUserStore();
+  const { data: fspHistoryData } = useQuery(GET_FSP_HISTORY, {
+    variables: { userId: user?.id, count: 5 },
+  });
+  const { data: popularPrizesData } = useQuery(GET_POPULAR_PRIZES);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = "/logo_visualonly.jpg";
@@ -119,25 +127,32 @@ export default function Component() {
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-        {products.map((product) => (
-          <Card key={product.id}>
-            <CardContent className="flex flex-col items-center p-4">
-              <Image
-                src={product.imageUrl || "/logo_visualonly.jpg"}
-                alt={product.name}
-                width={128}
-                height={128}
-                className="object-cover mb-2"
-                onError={handleImageError}
-              />
-              <h3 className="font-bold">{product.name}</h3>
-              <p>{product.points} pt</p>
-              <Link href={`/fsp/prize/${product.id}`}>
-                <Button className="mt-2">詳細を見る</Button>
-              </Link>
-            </CardContent>
-          </Card>
-        ))}
+        {!popularPrizesData?.getPopularPrizes ||
+        popularPrizesData.getPopularPrizes.length === 0 ? (
+          <div className="col-span-full flex justify-center items-center h-40 text-gray-500">
+            No available prizes
+          </div>
+        ) : (
+          popularPrizesData.getPopularPrizes.map((product: any) => (
+            <Card key={product.id}>
+              <CardContent className="flex flex-col items-center p-4">
+                <Image
+                  src={product.imageUrl || "/logo_visualonly.jpg"}
+                  alt={product.name}
+                  width={128}
+                  height={128}
+                  className="object-cover mb-2"
+                  onError={handleImageError}
+                />
+                <h3 className="font-bold">{product.name}</h3>
+                <p>{product.points} pt</p>
+                <Link href={`/fsp/prize/${product.id}`}>
+                  <Button className="mt-2">詳細を見る</Button>
+                </Link>
+              </CardContent>
+            </Card>
+          ))
+        )}
       </div>
 
       <div className="flex justify-between items-center mb-4">
@@ -161,14 +176,16 @@ export default function Component() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {transactions.map((transaction) => (
-                  <TableRow key={transaction.id}>
-                    <TableCell>{transaction.date}</TableCell>
-                    <TableCell>{transaction.type}</TableCell>
-                    <TableCell>{transaction.amount} pt</TableCell>
-                    <TableCell>{transaction.description}</TableCell>
-                  </TableRow>
-                ))}
+                {fspHistoryData?.getFspHistoryByUser.transactionList.map(
+                  (transaction: any) => (
+                    <TableRow key={transaction.id}>
+                      <TableCell>{transaction.txAt}</TableCell>
+                      <TableCell>{transaction.type}</TableCell>
+                      <TableCell>{transaction.amount} pt</TableCell>
+                      <TableCell>{transaction.description}</TableCell>
+                    </TableRow>
+                  ),
+                )}
               </TableBody>
             </Table>
           </ScrollArea>

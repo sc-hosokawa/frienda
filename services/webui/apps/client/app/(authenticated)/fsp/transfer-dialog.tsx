@@ -13,6 +13,8 @@ import { Label } from "@ui/components/ui/label";
 import { Input } from "@ui/components/ui/input";
 import { Textarea } from "@ui/components/ui/textarea";
 import { Send } from "lucide-react";
+import { useMutation, gql } from "@apollo/client";
+import useUserStore from "../../../store/user";
 
 type TransferFormData = {
   recipient: string;
@@ -20,7 +22,16 @@ type TransferFormData = {
   notes: string;
 };
 
+const CREATE_FSP_TX = gql`
+  mutation CreateFspTx($input: CreateNewTransactionInput!) {
+    createFspTx(input: $input) {
+      txId
+    }
+  }
+`;
+
 export function TransferDialog() {
+  const { user } = useUserStore();
   const [showConfirm, setShowConfirm] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [formData, setFormData] = useState<TransferFormData>({
@@ -29,6 +40,9 @@ export function TransferDialog() {
     notes: "",
   });
 
+  // ミューテーションフックを追加
+  const [createFspTx] = useMutation(CREATE_FSP_TX);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setShowConfirm(true);
@@ -36,21 +50,33 @@ export function TransferDialog() {
 
   const handleTransfer = async () => {
     try {
-      // ここに実際の送信処理を実装
-      console.log("送信処理", formData);
+      const result = await createFspTx({
+        variables: {
+          input: {
+            from: user?.id,
+            to: formData.recipient,
+            amount: parseInt(formData.points),
+            note: formData.notes,
+          },
+        },
+      });
 
-      // 送信完了後の処理
+      if (result.errors) {
+        throw new Error(result.errors[0]?.message || "送信に失敗しました");
+      }
+
       setShowConfirm(false);
       setShowDialog(false);
-      // フォームデータをリセット
+
       setFormData({
         recipient: "",
         points: "",
         notes: "",
       });
+
+      console.log("送信成功:", result.data);
     } catch (error) {
       console.error("送信エラー:", error);
-      // エラー処理を追加
     }
   };
 

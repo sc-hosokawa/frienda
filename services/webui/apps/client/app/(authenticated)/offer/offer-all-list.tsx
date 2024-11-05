@@ -1,104 +1,87 @@
 "use client";
 
 import { Suspense } from "react";
-import useSWR from "swr";
-import { Button } from "@ui/components/ui/button";
 import { Card, CardContent, CardFooter } from "@ui/components/ui/card";
 import { Badge } from "@ui/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/ui/avatar";
-import { Send, MoreHorizontal, Download } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { Skeleton } from "@ui/components/ui/skeleton";
+import { gql, useQuery } from "@apollo/client";
+import { OffersData } from "../../../generated/graphql";
+import useUserStore from "../../../store/user";
+import { useRouter } from "next/navigation";
 
 // Offer type definition
 type Offer = {
-  image: string;
-  categories: { name: string; color: string }[];
+  id: string;
   title: string;
-  points: string;
-  match: string;
-  date: string;
-  status: string;
-  details: string;
-  user: {
-    avatar: string;
-    name: string;
-    connections: string;
-  };
+  description: string;
+  imageUrl: string;
+  fee: number;
+  category: string;
 };
 
-// Simulated API fetch function
-const fetchOffers = async (): Promise<Offer[]> => {
-  await new Promise((resolve) => setTimeout(resolve, 5000)); // 5 second delay
-  return Array(6).fill({
-    image: "/logo_visualonly.jpg",
-    categories: [
-      { name: "Category A", color: "bg-cyan-500" },
-      { name: "Category B", color: "bg-pink-500" },
-    ],
-    title: "イベントに参加してくれるアーティスト募集中！2万円で良い...",
-    points: "1,000",
-    match: "100% Match!",
-    date: "2024/10/31",
-    status: "審査中",
-    details: "2 skills, 1 region, 1 other",
-    user: {
-      avatar: "/logo_visualonly.jpg",
-      name: "kyoko_adagawa",
-      connections: "3 connections",
-    },
-  });
+type OffersByStatus = {
+  inprogressOffers: Offer[];
+  appliedOffers: Offer[];
 };
+
+const GET_OFFERS_BY_STATUS = gql`
+  query GetOffersData($userId: String!) {
+    getOffersByStatus(userId: $userId) {
+      inprogressOffers {
+        id
+        title
+        description
+        imageUrl
+        fee
+        category
+      }
+      appliedOffers {
+        id
+        title
+        description
+        imageUrl
+        fee
+        category
+      }
+    }
+  }
+`;
 
 // OfferCard component
-const OfferCard = ({ offer }: { offer: Offer }) => (
-  <Card className="bg-zinc-900 border-zinc-800">
-    <CardContent className="p-0">
-      <img src={offer.image} alt="" className="w-full h-48 object-cover" />
-      <div className="p-4">
-        <div className="flex gap-2 mb-3">
-          {offer.categories.map((category, idx) => (
-            <Badge key={idx} className={`${category.color} text-white`}>
-              {category.name}
-            </Badge>
-          ))}
-          <div className="ml-auto flex gap-1">
-            <Download className="h-4 w-4" />
-            <MoreHorizontal className="h-4 w-4" />
+const OfferCard = ({ offer }: { offer: Offer }) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/offer/${offer.id}`);
+  };
+
+  return (
+    <Card
+      className="bg-zinc-900 border-zinc-800 cursor-pointer hover:bg-zinc-800 transition-colors"
+      onClick={handleClick}
+    >
+      <CardContent className="p-0">
+        <img src={offer.imageUrl} alt="" className="w-full h-48 object-cover" />
+        <div className="p-4">
+          <div className="flex gap-2 mb-3">
+            <Badge className="bg-cyan-500 text-white">{offer.category}</Badge>
+            <div className="ml-auto flex gap-1">
+              <MoreHorizontal className="h-4 w-4" />
+            </div>
+          </div>
+          <p className="text-sm mb-3 line-clamp-2">{offer.title}</p>
+          <div className="flex items-center gap-4 text-sm mb-3">
+            <div>獲得ポイント {offer.fee} FSP</div>
+          </div>
+          <div className="flex items-center gap-4 text-sm text-gray-400 line-clamp-2">
+            <div>{offer.description}</div>
           </div>
         </div>
-        <p className="text-sm mb-3">{offer.title}</p>
-        <div className="flex items-center gap-4 text-sm mb-3">
-          <div>獲得ポイント {offer.points} Pt</div>
-          <div className="text-green-500">{offer.match}</div>
-        </div>
-        <div className="flex items-center gap-4 text-sm text-gray-400">
-          <div>{offer.date}</div>
-          <div>{offer.status}</div>
-          <div>{offer.details}</div>
-        </div>
-      </div>
-    </CardContent>
-    <CardFooter className="p-4 pt-0">
-      <div className="flex items-center gap-2">
-        <Avatar className="h-8 w-8">
-          <AvatarImage src={offer.user.avatar} />
-          <AvatarFallback>UA</AvatarFallback>
-        </Avatar>
-        <div className="text-sm">
-          <div>{offer.user.name}</div>
-          <div className="text-gray-400">{offer.user.connections}</div>
-        </div>
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto text-white border-white"
-        >
-          4.5
-        </Button>
-      </div>
-    </CardFooter>
-  </Card>
-);
+      </CardContent>
+    </Card>
+  );
+};
 
 // SkeletonCard component
 const SkeletonCard = () => (
@@ -138,36 +121,40 @@ const SkeletonCard = () => (
 
 // OfferList component with SWR
 const OfferListClient = () => {
-  const { data: offers } = useSWR<Offer[]>("offers", fetchOffers, {
-    suspense: true,
-    fallbackData: Array(6).fill({
-      image: "/logo_visualonly.jpg",
-      categories: [
-        { name: "Category A", color: "bg-cyan-500" },
-        { name: "Category B", color: "bg-pink-500" },
-      ],
-      title: "イベントに参加してくれるアーティスト募集中！2万円で良い...",
-      points: "1,000",
-      match: "100% Match!",
-      date: "2024/10/31",
-      status: "審査中",
-      details: "2 skills, 1 region, 1 other",
-      user: {
-        avatar: "/logo_visualonly.jpg",
-        name: "kyoko_adagawa",
-        connections: "3 connections",
-      },
-    }),
-    revalidateOnMount: true,
+  const user = useUserStore((state) => state.user);
+  const { data, loading, error } = useQuery<{
+    getOffersByStatus: OffersByStatus;
+  }>(GET_OFFERS_BY_STATUS, {
+    variables: { userId: user?.id },
+    skip: !user?.id,
   });
 
-  if (!offers) return null;
+  if (loading) return null;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!data) return null;
+
+  const { inprogressOffers, appliedOffers } = data.getOffersByStatus;
+  const allOffers = [...inprogressOffers, ...appliedOffers];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {offers.map((offer, index) => (
-        <OfferCard key={index} offer={offer} />
-      ))}
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-xl mb-4">進行中のOffer</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {inprogressOffers.map((offer) => (
+            <OfferCard key={offer.id} offer={offer} />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h2 className="text-xl mb-4">応募中のOffer</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {appliedOffers.map((offer) => (
+            <OfferCard key={offer.id} offer={offer} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

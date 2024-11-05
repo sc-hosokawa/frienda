@@ -1,0 +1,8 @@
+schema: schema.graphql  # GraphQLスキーマファイルのパス
+# documents: './src/**/*.graphql'
+generates:
+  ./generated/graphql.tsx: # 生成される型定義ファイルのパス
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

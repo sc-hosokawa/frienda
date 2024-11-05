@@ -1,19 +1,21 @@
+"use client";
+
 import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@ui/components/ui/card";
+import { useQuery, gql } from "@apollo/client";
 
-// Simulated data fetch
-async function getProducts() {
-  await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate loading
-  return Array(6).fill({
-    title: "SNS広告代行（1ヶ月）商品名が入ります。",
-    description:
-      "あなたのアーティスト活動を多くの人に知ってもらうチャンスです。SNSの広告代行では、あなたの選択する音楽を...",
-    points: 1000,
-    image: "/placeholder.svg?height=400&width=600",
-  });
-}
+const GET_POPULAR_PRIZES = gql`
+  query GetPopularPrizes {
+    getPopularPrizes {
+      id
+      name
+      point
+      imgUrl
+    }
+  }
+`;
 
 function ProductSkeleton() {
   return (
@@ -40,11 +42,21 @@ function ProductSkeleton() {
 }
 
 async function ProductList() {
-  const products = await getProducts();
+  const { loading, error, data } = useQuery(GET_POPULAR_PRIZES);
+
+  if (loading) return <ProductSkeleton />;
+  if (error) return <div>Error loading products</div>;
+  if (!data.getPopularPrizes || data.getPopularPrizes.length === 0) {
+    return (
+      <div className="h-40 flex items-center justify-center text-gray-400">
+        No data
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {products.map((product, i) => (
+      {data.getPopularPrizes.map((product: any, i: number) => (
         <Card
           key={i}
           className="bg-gray-800 border-0 overflow-hidden hover:bg-gray-700 transition-colors"
@@ -52,23 +64,23 @@ async function ProductList() {
           <CardContent className="p-0">
             <Link href="#" className="block">
               <Image
-                src={product.image}
-                alt={product.title}
+                src={product.imgUrl}
+                alt={product.name}
                 width={600}
                 height={400}
                 className="aspect-[4/3] object-cover"
               />
               <div className="p-4 space-y-3">
                 <h3 className="font-medium line-clamp-2 text-white">
-                  {product.title}
+                  {product.name}
                 </h3>
                 <p className="text-sm text-gray-300 line-clamp-2">
-                  {product.description}
+                  {product.name}
                 </p>
                 <div className="flex items-center gap-2 text-white">
                   <span className="text-sm">必要ポイント</span>
                   <span className="font-medium">
-                    {product.points.toLocaleString()} Pt
+                    {product.point.toLocaleString()} Pt
                   </span>
                 </div>
               </div>

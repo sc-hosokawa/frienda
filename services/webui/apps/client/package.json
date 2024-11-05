@@ -6,7 +6,9 @@
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "codegen": "graphql-codegen --config codegen.yaml",
+    "watch": "graphql-codegen --config codegen.yaml --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
@@ -31,6 +33,10 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/client-preset": "^4.5.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@next/eslint-plugin-next": "^14.2.2",
     "@repo/eslint-config": "workspace:^",
     "@repo/typescript-config": "workspace:*",

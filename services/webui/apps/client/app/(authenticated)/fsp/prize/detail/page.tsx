@@ -4,7 +4,7 @@ import { Info } from "lucide-react";
 import { Button } from "@ui/components/ui/button";
 import { Card } from "@ui/components/ui/card";
 
-export default function Component() {
+export default function PrizeDetailPage() {
   return (
     <div className="min-h-screen bg-black text-white p-6">
       <div className="max-w-6xl mx-auto space-y-8">

@@ -13,8 +13,8 @@ import { Share2, User } from "lucide-react";
 import { Input } from "@ui/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/ui/avatar";
 import useUserStore from "../../../store/user";
+import { useQuery, useMutation, gql } from "@apollo/client";
 
-// 型定義
 interface Artist {
   artistId: string;
   name: string;
@@ -29,28 +29,23 @@ interface Member {
   fsp: number;
 }
 
-// ダミーデータ
-const dummyArtists: Artist[] = [
-  { artistId: "1", name: "乃木坂46", imageUrl: "/nogizaka.jpg", fsp: 1000 },
-  { artistId: "2", name: "櫻坂46", imageUrl: "/sakurazaka.jpg", fsp: 800 },
-  { artistId: "3", name: "日向坂46", imageUrl: "/hinatazaka.jpg", fsp: 600 },
-];
+const GET_MEMBERS = gql`
+  query GetMembers($artistId: String!) {
+    getMembersJoinedToArtist(artistId: $artistId) {
+      id
+      name
+      imageUrl
+    }
+  }
+`;
 
-const dummyMembers: { [key: string]: Member[] } = {
-  "1": [
-    { id: "101", name: "齋藤飛鳥", imageUrl: "/asuka.jpg", fsp: 0 },
-    { id: "102", name: "遠藤さくら", imageUrl: "/sakura.jpg", fsp: 0 },
-    { id: "103", name: "山下美月", imageUrl: "/mizuki.jpg", fsp: 0 },
-  ],
-  "2": [
-    { id: "201", name: "森田ひかる", imageUrl: "/hikaru.jpg", fsp: 0 },
-    { id: "202", name: "菅井友香", imageUrl: "/yuka.jpg", fsp: 0 },
-  ],
-  "3": [
-    { id: "301", name: "加藤史帆", imageUrl: "/shiho.jpg", fsp: 0 },
-    { id: "302", name: "金村美玖", imageUrl: "/miku.jpg", fsp: 0 },
-  ],
-};
+const CREATE_BULK_FSP_TX = gql`
+  mutation CreateBulkFspTx($input: [CreateNewTransactionInput!]!) {
+    createBulkFspTx(input: $input) {
+      txId
+    }
+  }
+`;
 
 export function AllocationDialog() {
   const { user } = useUserStore();
@@ -61,12 +56,33 @@ export function AllocationDialog() {
   }>({});
   const [showConfirmation, setShowConfirmation] = useState(false);
 
+  const [createBulkFspTx] = useMutation(CREATE_BULK_FSP_TX);
+
+  const {
+    loading: membersLoading,
+    error: membersError,
+    data: membersData,
+  } = useQuery(GET_MEMBERS, {
+    variables: { artistId: selectedArtist?.artistId },
+    skip: !selectedArtist,
+  });
+
   // アーティスト選択時にメンバーリストを更新
   useEffect(() => {
-    if (selectedArtist) {
-      setMembers(dummyMembers[selectedArtist.artistId] || []);
+    if (selectedArtist && membersData) {
+      const fetchedMembers = membersData.getMembersJoinedToArtist.map(
+        (member: any) => ({
+          id: member.id,
+          name: member.name,
+          imageUrl: member.imageUrl,
+          fsp: 0,
+        }),
+      );
+      setMembers(fetchedMembers);
+      // 新しいメンバーリストに基づいて配分ポイントをリセット
+      setAllocatedPoints({});
     }
-  }, [selectedArtist]);
+  }, [selectedArtist, membersData]);
 
   const handlePointsChange = (memberId: string, points: number) => {
     const currentPoints = allocatedPoints[memberId] || 0;
@@ -85,12 +101,30 @@ export function AllocationDialog() {
 
   const handleConfirm = async () => {
     try {
+      // 分配データを CreateNewTransactionInput の配列に変換
+      const transactions = Object.entries(allocatedPoints)
+        .filter(([_, amount]) => amount > 0) // 0以上のポイントのみを送信
+        .map(([memberId, amount]) => ({
+          from: selectedArtist?.artistId,
+          amount,
+          to: memberId,
+          note: `FSP allocation from ${selectedArtist?.name}`,
+        }));
+
+      // ミューテーションを実行
+      await createBulkFspTx({
+        variables: {
+          input: transactions,
+        },
+      });
+
       console.log("ポイント分配完了:", allocatedPoints);
       setShowConfirmation(false);
       setAllocatedPoints({});
       setSelectedArtist(null);
     } catch (error) {
       console.error("Failed to allocate points:", error);
+      // TODO: エラー処理を追加（例：トースト通知など）
     }
   };
 
@@ -146,27 +180,41 @@ export function AllocationDialog() {
                     送付
                   </Button>
                 </div>
-                <div className="space-y-2">
-                  {members.map((member) => (
-                    <div
-                      key={member.id}
-                      className="flex items-center justify-between p-2"
-                    >
-                      <span>{member.name}</span>
-                      <Input
-                        type="number"
-                        className="w-24"
-                        value={allocatedPoints[member.id] || 0}
-                        onChange={(e) =>
-                          handlePointsChange(
-                            member.id,
-                            parseInt(e.target.value) || 0,
-                          )
-                        }
-                      />
-                    </div>
-                  ))}
-                </div>
+                {membersLoading ? (
+                  <div className="flex justify-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
+                  </div>
+                ) : membersError ? (
+                  <div className="text-center text-red-500">
+                    メンバー一覧の取得に失敗しました
+                  </div>
+                ) : members.length === 0 ? (
+                  <div className="text-center text-gray-500 py-8">
+                    No member you can allocate FSP.
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {members.map((member) => (
+                      <div
+                        key={member.id}
+                        className="flex items-center justify-between p-2"
+                      >
+                        <span>{member.name}</span>
+                        <Input
+                          type="number"
+                          className="w-24"
+                          value={allocatedPoints[member.id] || 0}
+                          onChange={(e) =>
+                            handlePointsChange(
+                              member.id,
+                              parseInt(e.target.value) || 0,
+                            )
+                          }
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <div className="text-right">
                   残りポイント:{" "}
                   {selectedArtist.fsp -

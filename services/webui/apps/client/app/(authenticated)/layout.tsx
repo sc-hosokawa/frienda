@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "@ui/components/ui/sidebar";
 import { ClientSidebar } from "./client-sidebar";
 import Header from "./header";
 import { AuthProvider } from "../../provider/auth-provider";
+import { ApollClientProvider } from "../../provider/apollo-client";
 
 export const metadata: Metadata = {
   title: "FRIENDSHIP. DAO",
@@ -26,15 +27,17 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            <SidebarProvider>
-              <div className="flex w-full pt-12">
-                <ClientSidebar />
-                <main className="flex-1 min-w-0 w-full">
-                  <Header />
-                  {children}
-                </main>
-              </div>
-            </SidebarProvider>
+            <ApollClientProvider>
+              <SidebarProvider>
+                <div className="flex w-full pt-12">
+                  <ClientSidebar />
+                  <main className="flex-1 min-w-0 w-full">
+                    <Header />
+                    {children}
+                  </main>
+                </div>
+              </SidebarProvider>
+            </ApollClientProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>
