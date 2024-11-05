@@ -6,7 +6,7 @@ export default function Component() {
   const news = [
     {
       id: 1,
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/logo_visualonly.jpg",
       category: "FRIENDSHIP",
       title: "ここに追加のタイトルが入りますここに追加のタイトルが入ります",
       description:
@@ -52,13 +52,13 @@ export default function Component() {
               <div className="relative">
                 <Image
                   src={item.image}
-                  alt=""
+                  alt="news image"
                   width={600}
                   height={400}
                   className="w-full h-48 object-cover"
                 />
                 <div className="absolute top-2 left-2 flex gap-2">
-                  <span className="text-white text-xs px-2 py-1 rounded-full">
+                  <span className="text-white bg-black/50 text-xs px-2 py-1 rounded-full">
                     {item.category}
                   </span>
                 </div>

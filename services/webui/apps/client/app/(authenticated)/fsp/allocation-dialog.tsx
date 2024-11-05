@@ -12,6 +12,7 @@ import { Button } from "@ui/components/ui/button";
 import { Share2, User } from "lucide-react";
 import { Input } from "@ui/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/ui/avatar";
+import useUserStore from "../../../store/user";
 
 // 型定義
 interface Artist {
@@ -52,6 +53,7 @@ const dummyMembers: { [key: string]: Member[] } = {
 };
 
 export function AllocationDialog() {
+  const { user } = useUserStore();
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [allocatedPoints, setAllocatedPoints] = useState<{
@@ -116,7 +118,7 @@ export function AllocationDialog() {
             !selectedArtist ? (
               // アーティスト選択画面
               <div className="space-y-2">
-                {dummyArtists.map((artist) => (
+                {user?.belongsToArtists.map((artist) => (
                   <div
                     key={artist.artistId}
                     className="flex items-center justify-between p-2 hover:bg-gray-100 cursor-pointer"

@@ -2,6 +2,12 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Next.js",
   "extends": "./base.json",
+  "images": {
+    "domains": [
+      "localhost",
+      "firebasestorage.googleapis.com"
+    ],
+  },
   "compilerOptions": {
     "plugins": [{ "name": "next" }],
     "module": "ESNext",

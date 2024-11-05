@@ -30,7 +30,7 @@ type Offer = {
 const fetchOffers = async (): Promise<Offer[]> => {
   await new Promise((resolve) => setTimeout(resolve, 5000)); // 5 second delay
   return Array(6).fill({
-    image: "/placeholder.svg?height=200&width=400",
+    image: "/logo_visualonly.jpg",
     categories: [
       { name: "Category A", color: "bg-cyan-500" },
       { name: "Category B", color: "bg-pink-500" },
@@ -42,7 +42,7 @@ const fetchOffers = async (): Promise<Offer[]> => {
     status: "審査中",
     details: "2 skills, 1 region, 1 other",
     user: {
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/logo_visualonly.jpg",
       name: "kyoko_adagawa",
       connections: "3 connections",
     },
@@ -141,7 +141,7 @@ const OfferListClient = () => {
   const { data: offers } = useSWR<Offer[]>("offers", fetchOffers, {
     suspense: true,
     fallbackData: Array(6).fill({
-      image: "/placeholder.svg?height=200&width=400",
+      image: "/logo_visualonly.jpg",
       categories: [
         { name: "Category A", color: "bg-cyan-500" },
         { name: "Category B", color: "bg-pink-500" },
@@ -153,7 +153,7 @@ const OfferListClient = () => {
       status: "審査中",
       details: "2 skills, 1 region, 1 other",
       user: {
-        avatar: "/placeholder.svg?height=40&width=40",
+        avatar: "/logo_visualonly.jpg",
         name: "kyoko_adagawa",
         connections: "3 connections",
       },

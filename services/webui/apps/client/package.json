@@ -16,16 +16,19 @@
     "@uploadthing/react": "^7.1.0",
     "date-fns": "^4.1.0",
     "firebase": "^11.0.1",
+    "firebase-admin": "^12.7.0",
     "graphql": "^16.9.0",
     "lucide-react": "^0.322.0",
     "next": "^14.2.2",
+    "next-auth": "^4.24.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.53.1",
     "swr": "^2.2.5",
     "ui": "workspace:*",
     "uploadthing": "^7.2.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.2",

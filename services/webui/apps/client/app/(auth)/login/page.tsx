@@ -7,58 +7,93 @@ import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
 import { useRouter } from "next/navigation";
+import { gql, useLazyQuery } from "@apollo/client";
+import useAuthStore from "../../../store/auth";
+import useUserStore from "../../../store/user";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { setAuthInfo } = useAuthStore();
+  const { setUser } = useUserStore();
+
+  const [getUserData] = useLazyQuery(GET_USER_DATA, {
+    onCompleted: async (data) => {
+      if (data?.getUserData) {
+        console.log(data.getUserData);
+        setUser(data.getUserData);
+
+        const idToken = await auth.currentUser?.getIdToken(true);
+        if (idToken && auth.currentUser?.uid) {
+          try {
+            const response = await fetch("/api/auth/session", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                idToken,
+                uid: auth.currentUser?.uid,
+              }),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+              throw new Error(result.error || "Failed to set session");
+            }
+
+            if (result.status === "success") {
+              console.log("Session created successfully");
+              router.push("/");
+            } else {
+              throw new Error("Session creation failed");
+            }
+          } catch (error) {
+            console.error("Session creation error:", error);
+            alert(`セッションの作成に失敗しました: ${error}`);
+          }
+        }
+      }
+    },
+    onError: (error) => {
+      console.error("GraphQL Error:", error);
+      alert("ユーザー情報の取得に失敗しました");
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Firebase Authでログイン
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password,
       );
-
-      // ユーザー情報を取得
       const user = userCredential.user;
 
-      // IDトークンを取得
-      const idToken = await user.getIdToken();
+      await setAuthInfo(user);
 
-      console.log(user);
-      console.log(idToken);
-
-      /* 
-      // バックエンドAPIに認証情報を送信
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${idToken}`,
+      getUserData({
+        variables: {
+          userId: user.uid,
         },
-        body: JSON.stringify({
-          uid: user.uid,
-          email: user.email,
-        }),
       });
-
-      if (response.ok) {
-        // ログイン成功後、ダッシュボードにリダイレクト
-        router.push('/');
-      } else {
-        throw new Error('Login failed');
-      }
-    */
     } catch (error: any) {
       console.error("Error logging in:", error);
-      alert(error.message);
+      let errorMessage = "ログインに失敗しました";
+
+      if (error.code === "auth/user-not-found") {
+        errorMessage = "ユーザーが見つかりません";
+      } else if (error.code === "auth/wrong-password") {
+        errorMessage = "パスワードが間違っています";
+      }
+
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -138,3 +173,43 @@ export default function Login() {
     </div>
   );
 }
+
+// GraphQLクエリの定義
+const GET_USER_DATA = gql`
+  query GetUserData($userId: String!) {
+    getUserData(userId: $userId) {
+      id
+      name
+      imageUrl
+      fspBalance
+      credentialBalance
+      role
+      primaryRole
+      greeting
+      skill
+      xHandle
+      instagramHandle
+      fbHandle
+      interestOffer
+      createdAt
+      belongsToArtists {
+        id
+        artistId
+        name
+        imageUrl
+        fsp
+        status
+        isAdmin
+      }
+      primaryArtist {
+        id
+        artistId
+        name
+        imageUrl
+        fsp
+        status
+        isAdmin
+      }
+    }
+  }
+`;

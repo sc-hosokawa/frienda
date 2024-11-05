@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -21,6 +21,7 @@ import {
 import { TransferDialog } from "./transfer-dialog";
 import { AllocationDialog } from "./allocation-dialog";
 import { PurchaseDialog } from "./purchase-dialog";
+import useUserStore from "../../../store/user";
 
 // 商品データの型定義
 type Product = {
@@ -45,19 +46,19 @@ const products: Product[] = [
     id: 1,
     name: "商品A",
     points: 500,
-    imageUrl: "/placeholder.svg?height=100&width=100",
+    imageUrl: "/logo_visualonly.jpg",
   },
   {
     id: 2,
     name: "商品B",
     points: 1000,
-    imageUrl: "/placeholder.svg?height=100&width=100",
+    imageUrl: "/logo_visualonly.jpg",
   },
   {
     id: 3,
     name: "商品C",
     points: 1500,
-    imageUrl: "/placeholder.svg?height=100&width=100",
+    imageUrl: "/logo_visualonly.jpg",
   },
 ];
 
@@ -86,7 +87,11 @@ const transactions: Transaction[] = [
 ];
 
 export default function Component() {
-  const [balance, setBalance] = useState(2000);
+  const { user } = useUserStore();
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = "/logo_visualonly.jpg";
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -95,7 +100,7 @@ export default function Component() {
           <CardTitle>ポイント残高</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-4xl font-bold">{balance} pt</p>
+          <p className="text-4xl font-bold">{user?.fspBalance} pt</p>
         </CardContent>
       </Card>
 
@@ -117,10 +122,13 @@ export default function Component() {
         {products.map((product) => (
           <Card key={product.id}>
             <CardContent className="flex flex-col items-center p-4">
-              <img
-                src={product.imageUrl}
+              <Image
+                src={product.imageUrl || "/logo_visualonly.jpg"}
                 alt={product.name}
-                className="w-24 h-24 object-cover mb-2"
+                width={128}
+                height={128}
+                className="object-cover mb-2"
+                onError={handleImageError}
               />
               <h3 className="font-bold">{product.name}</h3>
               <p>{product.points} pt</p>
