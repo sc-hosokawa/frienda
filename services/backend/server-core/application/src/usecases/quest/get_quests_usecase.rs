@@ -51,10 +51,8 @@ impl GetQuestsUsecaseTrait for GetQuestsUsecase {
             .get_by_user_and_status(user_id, true)
             .await?;
 
-        let completed_quest_ids: std::collections::HashSet<i32> = quest_user
-            .iter()
-            .map(|qu| qu.quest)
-            .collect();
+        let completed_quest_ids: std::collections::HashSet<i32> =
+            quest_user.iter().map(|qu| qu.quest).collect();
 
         let all_quests = self.quests_repo.find_all().await?;
         let uncompleted_quests: Vec<Quest> = all_quests

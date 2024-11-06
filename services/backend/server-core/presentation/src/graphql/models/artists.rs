@@ -127,6 +127,35 @@ pub struct RequestToAccessArtistResponse {
     pub created_mappings: Vec<ArtistByUserDataWithMappingId>,
 }
 
+#[derive(InputObject)]
+pub struct MarkAsMemberInput {
+    pub member: String,
+    pub artist_id: String,
+    pub mapping: Vec<StatusUser>,
+}
+#[derive(InputObject)]
+pub struct StatusUser {
+    pub user_id: String,
+    pub status: String,
+}
+
+#[derive(InputObject)]
+pub struct MarkAsAdminInput {
+    pub admin_member: String,
+    pub user_id: String,
+    pub artist_id: String,
+}
+
+#[derive(SimpleObject)]
+pub struct MarkAsMemberResponse {
+    pub checked_user_id: Vec<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct MarkAsAdminResponse {
+    pub checked_user_id: String,
+}
+
 impl ArtistByUserData {
     pub fn from_domain(
         domain: application::usecases::basic::get_user_basic_info_usecase::ArtistSimpleInfo,

@@ -37,10 +37,12 @@ impl QuestMutation {
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let result = usecases
             .create_quest
-            .create(application::usecases::quest::create_quest_usecase::CreateQuestUsecaseInput {
-                name: input.name,
-                description: input.description,
-            })
+            .create(
+                application::usecases::quest::create_quest_usecase::CreateQuestUsecaseInput {
+                    name: input.name,
+                    description: input.description,
+                },
+            )
             .await?;
         Ok(models::quests::CreateQuestResponse {
             quest_id: result.id,

@@ -6,6 +6,7 @@ use application::health_check::*;
 use application::usecases::artist::{
     get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait},
     get_members_usecase::{GetMembersUsecase, GetMembersUsecaseTrait},
+    mark_as_member_usecase::{MarkAsMemberUsecase, MarkAsMemberUsecaseTrait},
     request_to_access_usecase::{RequestToAccessUsecase, RequestToAccessUsecaseTrait},
 };
 use application::usecases::basic::{
@@ -120,6 +121,7 @@ pub struct Usecases {
     pub get_quests: Arc<dyn GetQuestsUsecaseTrait>,
     pub create_quest: Arc<dyn CreateQuestUsecaseTrait>,
     pub quest_mark_as_done: Arc<dyn MarkAsDoneUsecaseTrait>,
+    pub mark_as_member: Arc<dyn MarkAsMemberUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -149,6 +151,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
         create_quest: Arc::new(CreateQuestUsecase::new(repos.quests.clone())),
+        mark_as_member: Arc::new(MarkAsMemberUsecase::new(repos.user_artist.clone())),
         quest_mark_as_done: Arc::new(MarkAsDoneUsecase::new(repos.quest_user.clone())),
         request_to_access: Arc::new(RequestToAccessUsecase::new(
             repos.user_artist.clone(),
