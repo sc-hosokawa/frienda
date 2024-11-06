@@ -8,3 +8,4 @@ pub mod notification;
 pub mod offer;
 pub mod point;
 pub mod prize;
+pub mod quest;

@@ -226,6 +226,10 @@ type HealthCheck {
 
 
 
+type MarkAsDoneResponse {
+	questId: Int!
+}
+
 input MarkAsReadInput {
 	roomId: String!
 	userId: String!
@@ -288,6 +292,7 @@ type MutationRoot {
 	createBulkFspTx(input: [CreateNewTransactionInput!]!): CreateNewTransactionResponse!
 	createPrize(input: CreateNewPrizeInput!): CreateNewPrizeResponse!
 	exchangePrize(input: ExchangePrizeInput!): ExchangePrizeResponse!
+	questMarkAsDone(questId: Int!, userId: String!): MarkAsDoneResponse!
 	createNewArtist(input: CreateNewArtistInput!): CreateNewArtistResponse!
 	requestToAccessArtist(input: RequestToAccessArtistInput!): RequestToAccessArtistResponse!
 }
@@ -418,6 +423,14 @@ type QueryRoot {
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
 	getFspHistory(userId: String!, count: Int!): TransactionsData!
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
+	getQuests: [QuestData!]!
+	getQuestByUserId(userId: String!): [QuestData!]!
+}
+
+type QuestData {
+	id: Int!
+	name: String!
+	description: String!
 }
 
 input RequestToAccessArtistInput {

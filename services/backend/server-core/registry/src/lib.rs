@@ -49,6 +49,11 @@ use application::usecases::prize::{
     get_prize_usecase::{GetPrizeUsecase, GetPrizeUsecaseTrait},
     update_prize_usecase::{UpdatePrizeUsecase, UpdatePrizeUsecaseTrait},
 };
+use application::usecases::quest::{
+    create_quest_usecase::{CreateQuestUsecase, CreateQuestUsecaseTrait},
+    get_quests_usecase::{GetQuestsUsecase, GetQuestsUsecaseTrait},
+    mark_as_done_usecase::{MarkAsDoneUsecase, MarkAsDoneUsecaseTrait},
+};
 use infrastracture::persistences::health_check_repo_impl::HealthCheckRepoImpl;
 use infrastracture::persistences::{
     artists_repo_impl::ArtistsRepoImpl,
@@ -56,6 +61,7 @@ use infrastracture::persistences::{
     message_attach_repo_impl::MessageAttachRepoImpl, messages_repo_impl::MessagesRepoImpl,
     offer_attach_repo_impl::OfferAttachRepoImpl, offer_user_repo_impl::OfferUserRepoImpl,
     offers_repo_impl::OffersRepoImpl, prizes_repo_impl::PrizesRepoImpl,
+    quest_user_repo_impl::QuestUserRepoImpl, quests_repo_impl::QuestsRepoImpl,
     room_user_repo_impl::RoomUserRepoImpl, rooms_repo_impl::RoomsRepoImpl,
     txs_fsp_repo_impl::TxsFspRepoImpl, user_artist_repo_impl::UserArtistRepoImpl,
     users_repo_impl::UsersRepoImpl,
@@ -76,6 +82,8 @@ pub struct RepositoriesImpl {
     pub offer_attach: Arc<OfferAttachRepoImpl>,
     pub offer_user: Arc<OfferUserRepoImpl>,
     pub message_attach: Arc<MessageAttachRepoImpl>,
+    pub quests: Arc<QuestsRepoImpl>,
+    pub quest_user: Arc<QuestUserRepoImpl>,
 }
 pub struct Usecases {
     pub health_check: Arc<dyn HealthCheckUseCase>,
@@ -109,6 +117,9 @@ pub struct Usecases {
     pub get_offer_details: Arc<dyn GetOfferDetailsUsecaseTrait>,
     pub request_to_access: Arc<dyn RequestToAccessUsecaseTrait>,
     pub get_members: Arc<dyn GetMembersUsecaseTrait>,
+    pub get_quests: Arc<dyn GetQuestsUsecaseTrait>,
+    pub create_quest: Arc<dyn CreateQuestUsecaseTrait>,
+    pub quest_mark_as_done: Arc<dyn MarkAsDoneUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -128,6 +139,8 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
         offer_attach: Arc::new(OfferAttachRepoImpl::new(db.clone())),
         offer_user: Arc::new(OfferUserRepoImpl::new(db.clone())),
         message_attach: Arc::new(MessageAttachRepoImpl::new(db.clone())),
+        quests: Arc::new(QuestsRepoImpl::new(db.clone())),
+        quest_user: Arc::new(QuestUserRepoImpl::new(db.clone())),
     }
 }
 
@@ -135,9 +148,15 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        create_quest: Arc::new(CreateQuestUsecase::new(repos.quests.clone())),
+        quest_mark_as_done: Arc::new(MarkAsDoneUsecase::new(repos.quest_user.clone())),
         request_to_access: Arc::new(RequestToAccessUsecase::new(
             repos.user_artist.clone(),
             repos.artists.clone(),
+        )),
+        get_quests: Arc::new(GetQuestsUsecase::new(
+            repos.quests.clone(),
+            repos.quest_user.clone(),
         )),
         get_members: Arc::new(GetMembersUsecase::new(
             repos.user_artist.clone(),

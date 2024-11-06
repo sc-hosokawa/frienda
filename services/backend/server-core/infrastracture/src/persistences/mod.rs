@@ -7,6 +7,8 @@ pub mod offer_attach_repo_impl;
 pub mod offer_user_repo_impl;
 pub mod offers_repo_impl;
 pub mod prizes_repo_impl;
+pub mod quest_user_repo_impl;
+pub mod quests_repo_impl;
 pub mod room_user_repo_impl;
 pub mod rooms_repo_impl;
 pub mod txs_fsp_repo_impl;

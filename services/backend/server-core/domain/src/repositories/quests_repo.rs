@@ -3,9 +3,9 @@ use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
 #[async_trait]
-pub trait QuestsRepository {
-    async fn create(&self, quest: &QuestActiveModel) -> Result<Quest, DomainError>;
-    async fn update(&self, quest: &QuestActiveModel) -> Result<Quest, DomainError>;
+pub trait QuestsRepository: Send + Sync {
+    async fn create(&self, quest: QuestActiveModel) -> Result<Quest, DomainError>;
+    async fn update(&self, quest: QuestActiveModel) -> Result<Quest, DomainError>;
 
     async fn find_by_id(&self, id: i32) -> Result<Option<Quest>, DomainError>;
     async fn find_all(&self) -> Result<Vec<Quest>, DomainError>;

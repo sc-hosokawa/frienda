@@ -10,6 +10,7 @@ pub mod notifications;
 pub mod offers;
 pub mod points;
 pub mod prizes;
+pub mod quests;
 pub mod track;
 pub mod transactions;
 pub mod users;

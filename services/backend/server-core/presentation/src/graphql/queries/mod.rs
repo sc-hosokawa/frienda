@@ -10,6 +10,7 @@ mod notification;
 mod offer;
 mod points_tx;
 mod prize;
+mod quest;
 
 use async_graphql::MergedObject;
 use health_check::HealthCheckQuery;
@@ -26,4 +27,5 @@ pub struct QueryRoot(
     artist::ArtistQuery,
     prize::PrizeQuery,
     points_tx::PointsTxQuery,
+    quest::QuestQuery,
 );
