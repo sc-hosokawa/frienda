@@ -77,6 +77,8 @@ export default function OfferDetailPage({
 
   const [updateStatus] = useMutation(UPDATE_OFFER_STATUS);
 
+  const isOwner = user?.id === data?.getOffersById?.owner?.id;
+
   if (loading)
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -119,9 +121,18 @@ export default function OfferDetailPage({
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-6xl my-6">Offer Details</h1>
-          <Button className="bg-teal-500 hover:bg-teal-600 text-white">
-            このオファーに応募する
-          </Button>
+          {/* ここのハンドリングを丁寧に実装 */}
+          {isOwner ? (
+            <Button className="">編集する</Button>
+          ) : (
+            <Button
+              className="bg-teal-500 hover:bg-teal-600 text-white"
+              onClick={showConfirmationDialog}
+              disabled={isApplied}
+            >
+              {isApplied ? "応募済み" : "このオファーに応募する"}
+            </Button>
+          )}
         </div>
 
         <div className="grid md:grid-cols-[300px,1fr] gap-8">
@@ -188,7 +199,7 @@ export default function OfferDetailPage({
 
             <p className="text-gray-400 text-sm">
               ここにオファーの概要が入ります。ここにオファーの概要が入ります。ここにオファーの概要が入ります。
-              ここにオファーの概要が入ります。ここにオファーの概要が入ります。ここにオファーの概要が入ります。
+              ここにオファーの概要が入ります。ここにオファーの概要が入ります。ここにオファーの��要が入ります。
             </p>
           </div>
         </div>

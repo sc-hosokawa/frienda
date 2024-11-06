@@ -1,5 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import useUserStore from "../../store/user";
+import { useQuery, gql } from "@apollo/client";
+import { QuestData } from "../../generated/graphql";
+
+const GET_QUESTS_BY_USER = gql`
+  query GetQuestsByUser($userId: String!) {
+    getQuestByUserId(userId: $userId) {
+      id
+      name
+      description
+    }
+  }
+`;
+interface QuestsResData {
+  getQuestByUserId: QuestData[];
+}
 
 export default function Home() {
   return (
@@ -23,71 +41,58 @@ export default function Home() {
 }
 
 function Actions() {
+  const { user } = useUserStore();
+
+  const { data } = useQuery<QuestsResData>(GET_QUESTS_BY_USER, {
+    variables: { userId: user?.id },
+  });
+
+  console.log(data?.getQuestByUserId);
+
   return (
     <section className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">Actions (4)</h2>
-        <button className="rounded-full p-2 hover:bg-white/10">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
+        <h2 className="text-xl font-semibold">
+          Quests ({data?.getQuestByUserId?.length})
+        </h2>
       </div>
 
       <div className="relative">
-        <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="min-w-[280px] p-6 rounded-xl bg-white/5 space-y-4 hover:bg-white/10 transition-colors"
-            >
-              <div className="inline-block px-3 py-1 rounded-full text-xs bg-white/10">
-                フレンド追加
+        {data?.getQuestByUserId?.length ? (
+          <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2">
+            {data?.getQuestByUserId?.map((quest) => (
+              <div
+                key={quest.id}
+                className="min-w-[280px] p-6 rounded-xl bg-white/5 space-y-4 hover:bg-white/10 transition-colors"
+              >
+                <div className="inline-block px-3 py-1 rounded-full text-xs bg-white/10">
+                  フレンド追加
+                </div>
+                <h3 className="font-medium">{quest.name}</h3>
+                <p className="text-sm text-gray-400">{quest.description}</p>
+                <button className="p-2 hover:bg-white/10 rounded-full">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </button>
               </div>
-              <h3 className="font-medium">
-                フレンドを追加して繋がりを作りましょう！
-              </h3>
-              <p className="text-sm text-gray-400">
-                オファーを利用してユーザーや、フレンドからのフレンド申請ができます。メッセージを送ることができます。
-              </p>
-              <button className="p-2 hover:bg-white/10 rounded-full">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
-              </button>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-center gap-1 mt-4">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div
-              key={i}
-              className={`w-2 h-2 rounded-full ${
-                i === 2 ? "bg-blue-500" : "bg-white/20"
-              }`}
-            />
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400">
+            利用可能なクエストはありません
+          </div>
+        )}
       </div>
     </section>
   );

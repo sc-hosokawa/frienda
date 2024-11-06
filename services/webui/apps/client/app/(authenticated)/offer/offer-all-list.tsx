@@ -139,7 +139,7 @@ const OfferListClient = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl mb-4">進行中のOffer</h2>
+        <h2 className="text-xl mb-4 ml-6">進行中のOffer</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {inprogressOffers.map((offer) => (
             <OfferCard key={offer.id} offer={offer} />
@@ -148,7 +148,7 @@ const OfferListClient = () => {
       </div>
 
       <div>
-        <h2 className="text-xl mb-4">応募中のOffer</h2>
+        <h2 className="text-xl mb-4 ml-6">応募中のOffer</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {appliedOffers.map((offer) => (
             <OfferCard key={offer.id} offer={offer} />

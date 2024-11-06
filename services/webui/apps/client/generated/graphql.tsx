@@ -240,6 +240,16 @@ export type CreateNewUserDataResponse = {
   userId: Scalars["String"]["output"];
 };
 
+export type CreateQuestInput = {
+  description: Scalars["String"]["input"];
+  name: Scalars["String"]["input"];
+};
+
+export type CreateQuestResponse = {
+  __typename?: "CreateQuestResponse";
+  questId: Scalars["Int"]["output"];
+};
+
 export type DeleteNotificationInput = {
   id: Scalars["String"]["input"];
 };
@@ -273,6 +283,33 @@ export type ExchangePrizeResponse = {
 export type HealthCheck = {
   __typename?: "HealthCheck";
   status: Scalars["String"]["output"];
+};
+
+export type MarkAsAdminInput = {
+  adminMember: Scalars["String"]["input"];
+  artistId: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
+};
+
+export type MarkAsAdminResponse = {
+  __typename?: "MarkAsAdminResponse";
+  checkedUserId: Scalars["String"]["output"];
+};
+
+export type MarkAsDoneResponse = {
+  __typename?: "MarkAsDoneResponse";
+  questId: Scalars["Int"]["output"];
+};
+
+export type MarkAsMemberInput = {
+  artistId: Scalars["String"]["input"];
+  mapping: Array<StatusUser>;
+  member: Scalars["String"]["input"];
+};
+
+export type MarkAsMemberResponse = {
+  __typename?: "MarkAsMemberResponse";
+  checkedUserId: Array<Scalars["String"]["output"]>;
 };
 
 export type MarkAsReadInput = {
@@ -333,10 +370,14 @@ export type MutationRoot = {
   createNewOffer: CreateNewOfferResponse;
   createNewUserData: CreateNewUserDataResponse;
   createPrize: CreateNewPrizeResponse;
+  createQuest: CreateQuestResponse;
   deleteNotification: DeleteNotificationResponse;
   deleteOffer: DeleteOfferResponse;
   exchangePrize: ExchangePrizeResponse;
+  markAsAdmin: MarkAsAdminResponse;
+  markAsMember: MarkAsMemberResponse;
   markAsRead: MarkAsReadResponse;
+  questMarkAsDone: MarkAsDoneResponse;
   requestToAccessArtist: RequestToAccessArtistResponse;
   sendMessage: SendMessageResponse;
   updateBelongsToArtistStatus: UpdateBelongsToArtistStatusResponse;
@@ -391,6 +432,10 @@ export type MutationRootCreatePrizeArgs = {
   input: CreateNewPrizeInput;
 };
 
+export type MutationRootCreateQuestArgs = {
+  input: CreateQuestInput;
+};
+
 export type MutationRootDeleteNotificationArgs = {
   input: DeleteNotificationInput;
 };
@@ -403,8 +448,21 @@ export type MutationRootExchangePrizeArgs = {
   input: ExchangePrizeInput;
 };
 
+export type MutationRootMarkAsAdminArgs = {
+  input: MarkAsAdminInput;
+};
+
+export type MutationRootMarkAsMemberArgs = {
+  input: MarkAsMemberInput;
+};
+
 export type MutationRootMarkAsReadArgs = {
   input: MarkAsReadInput;
+};
+
+export type MutationRootQuestMarkAsDoneArgs = {
+  questId: Scalars["Int"]["input"];
+  userId: Scalars["String"]["input"];
 };
 
 export type MutationRootRequestToAccessArtistArgs = {
@@ -572,6 +630,8 @@ export type QueryRoot = {
   getPlaybacksByGenerationData: PlaybacksByGenerationData;
   getPopularPrizes: Array<PrizeData>;
   getPrizeDetail: PrizeDetailData;
+  getQuestByUserId: Array<QuestData>;
+  getQuests: Array<QuestData>;
   getTrendingData: TrendingData;
   getUserData: UserDetailData;
   getUserDetailProfile: UserDetailData;
@@ -683,6 +743,10 @@ export type QueryRootGetPrizeDetailArgs = {
   prizeId: Scalars["Int"]["input"];
 };
 
+export type QueryRootGetQuestByUserIdArgs = {
+  userId: Scalars["String"]["input"];
+};
+
 export type QueryRootGetTrendingDataArgs = {
   artistId?: InputMaybe<Scalars["String"]["input"]>;
 };
@@ -697,6 +761,13 @@ export type QueryRootGetUserDetailProfileArgs = {
 
 export type QueryRootGetUserPointBalanceArgs = {
   userId: Scalars["String"]["input"];
+};
+
+export type QuestData = {
+  __typename?: "QuestData";
+  description: Scalars["String"]["output"];
+  id: Scalars["Int"]["output"];
+  name: Scalars["String"]["output"];
 };
 
 export type RequestToAccessArtistInput = {
@@ -724,6 +795,11 @@ export type SendMessageResponse = {
   id: Scalars["String"]["output"];
   message: Scalars["String"]["output"];
   sentAt: Scalars["String"]["output"];
+};
+
+export type StatusUser = {
+  status: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
 };
 
 export type TotalOverviewData = {

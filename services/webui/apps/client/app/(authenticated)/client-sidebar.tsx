@@ -9,7 +9,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarFooter,
 } from "@ui/components/ui/sidebar";
+import AccessControlDialog from "./access-control";
 
 const items = [
   {
@@ -68,6 +70,9 @@ export function ClientSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <AccessControlDialog />
+      </SidebarFooter>
     </Sidebar>
   );
 }

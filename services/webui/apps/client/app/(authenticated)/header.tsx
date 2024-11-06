@@ -22,7 +22,10 @@ export default function Header() {
   return (
     <header className="fixed top-0 right-0 z-50 bg-black text-white px-4 flex justify-end h-12 md:left-[var(--sidebar-width)] transition-[left] duration-200 ease-linear peer-data-[collapsible=icon]:md:left-[var(--sidebar-width-icon)] peer-data-[collapsible=offcanvas]:md:left-0">
       <div className="flex items-center bg-[#d1c3a9] text-black rounded-l-full">
-        <div className="flex items-center gap-2 pl-1 pr-2 py-2">
+        <Link
+          href="/profile"
+          className="flex items-center gap-2 pl-1 pr-2 py-2 hover:bg-black/10"
+        >
           <Image
             src={user?.imageUrl || "/logo_visualonly.jpg"}
             alt="Profile picture"
@@ -32,7 +35,7 @@ export default function Header() {
           />
           <span className="text-sm">{user?.name}</span>
           <span className="text-sm">{user?.id}</span>
-        </div>
+        </Link>
 
         <Link
           href="/fsp"
