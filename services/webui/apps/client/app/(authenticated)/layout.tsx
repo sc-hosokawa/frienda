@@ -27,7 +27,9 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${JostFont.className} bg-white text-black dark:bg-black dark:text-white`}>
+      <body
+        className={`${JostFont.className} bg-white text-black dark:bg-black dark:text-white`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
