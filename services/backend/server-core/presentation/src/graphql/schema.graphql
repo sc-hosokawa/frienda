@@ -192,6 +192,15 @@ type CreateNewUserDataResponse {
 	imageUrl: String
 }
 
+input CreateQuestInput {
+	name: String!
+	description: String!
+}
+
+type CreateQuestResponse {
+	questId: Int!
+}
+
 input DeleteNotificationInput {
 	id: String!
 }
@@ -226,8 +235,28 @@ type HealthCheck {
 
 
 
+input MarkAsAdminInput {
+	adminMember: String!
+	userId: String!
+	artistId: String!
+}
+
+type MarkAsAdminResponse {
+	checkedUserId: String!
+}
+
 type MarkAsDoneResponse {
 	questId: Int!
+}
+
+input MarkAsMemberInput {
+	member: String!
+	artistId: String!
+	mapping: [StatusUser!]!
+}
+
+type MarkAsMemberResponse {
+	checkedUserId: [String!]!
 }
 
 input MarkAsReadInput {
@@ -293,8 +322,11 @@ type MutationRoot {
 	createPrize(input: CreateNewPrizeInput!): CreateNewPrizeResponse!
 	exchangePrize(input: ExchangePrizeInput!): ExchangePrizeResponse!
 	questMarkAsDone(questId: Int!, userId: String!): MarkAsDoneResponse!
+	createQuest(input: CreateQuestInput!): CreateQuestResponse!
 	createNewArtist(input: CreateNewArtistInput!): CreateNewArtistResponse!
 	requestToAccessArtist(input: RequestToAccessArtistInput!): RequestToAccessArtistResponse!
+	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
+	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 }
 
 type NotificationData {
@@ -456,6 +488,11 @@ type SendMessageResponse {
 	sentAt: String!
 	attachedFile: [String!]
 	attachedImg: [String!]
+}
+
+input StatusUser {
+	userId: String!
+	status: String!
 }
 
 
