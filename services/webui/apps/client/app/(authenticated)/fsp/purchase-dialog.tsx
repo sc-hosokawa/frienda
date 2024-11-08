@@ -23,11 +23,11 @@ export function PurchaseDialog() {
   });
 
   const pointOptions: PointOption[] = [
-    { points: 100, price: 1000 },
-    { points: 300, price: 3000 },
-    { points: 500, price: 5000 },
-    { points: 1000, price: 10000 },
-    { points: 5000, price: 50000 },
+    { points: 100, price: 150 },
+    { points: 300, price: 450 },
+    { points: 500, price: 750 },
+    { points: 1000, price: 1500 },
+    { points: 5000, price: 7500 },
   ];
 
   return (
