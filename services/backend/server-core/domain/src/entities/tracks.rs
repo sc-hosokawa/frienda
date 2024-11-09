@@ -9,10 +9,19 @@ pub struct Model {
     pub isrc: String,
     pub img_url: Option<String>,
     pub title: String,
+    pub artist_id: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
+    #[sea_orm(
+        belongs_to = "super::artists::Entity",
+        from = "Column::ArtistId",
+        to = "super::artists::Column::ArtistId",
+        on_update = "NoAction",
+        on_delete = "NoAction"
+    )]
+    Artists,
     #[sea_orm(has_many = "super::plays_daily::Entity")]
     PlaysDaily,
     #[sea_orm(has_many = "super::plays_monthly::Entity")]
@@ -21,6 +30,14 @@ pub enum Relation {
     PlaysYearly,
     #[sea_orm(has_many = "super::product_track::Entity")]
     ProductTrack,
+    #[sea_orm(has_many = "super::track_credits::Entity")]
+    TrackCredits,
+}
+
+impl Related<super::artists::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Artists.def()
+    }
 }
 
 impl Related<super::plays_daily::Entity> for Entity {
@@ -44,6 +61,12 @@ impl Related<super::plays_yearly::Entity> for Entity {
 impl Related<super::product_track::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::ProductTrack.def()
+    }
+}
+
+impl Related<super::track_credits::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::TrackCredits.def()
     }
 }
 

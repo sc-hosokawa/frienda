@@ -3,14 +3,15 @@
 use sea_orm::entity::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
-#[sea_orm(table_name = "quests")]
+#[sea_orm(table_name = "gender_gen_playback")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
-    pub name: String,
-    pub description: String,
-    pub created_at: DateTime,
-    pub category: Option<String>,
+    pub isrc: String,
+    pub date: Date,
+    pub gender: Option<String>,
+    pub age: Option<String>,
+    pub play_count: i32,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

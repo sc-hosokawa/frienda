@@ -9,12 +9,28 @@ pub struct Model {
     pub upc: String,
     pub title: String,
     pub img_url: Option<String>,
+    pub r#type: Option<String>,
+    pub artist_id: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
+    #[sea_orm(
+        belongs_to = "super::artists::Entity",
+        from = "Column::ArtistId",
+        to = "super::artists::Column::ArtistId",
+        on_update = "NoAction",
+        on_delete = "NoAction"
+    )]
+    Artists,
     #[sea_orm(has_many = "super::product_track::Entity")]
     ProductTrack,
+}
+
+impl Related<super::artists::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Artists.def()
+    }
 }
 
 impl Related<super::product_track::Entity> for Entity {

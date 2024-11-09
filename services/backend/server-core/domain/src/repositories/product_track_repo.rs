@@ -5,18 +5,20 @@ use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
 #[async_trait]
-pub trait ProductTrackRepository {
+pub trait ProductTrackRepository: Send + Sync {
     async fn create(
         &self,
-        product_track: &ProductTrackActiveModel,
+        product_track: ProductTrackActiveModel,
     ) -> Result<ProductTrack, DomainError>;
     async fn update(
         &self,
-        product_track: &ProductTrackActiveModel,
+        product_track: ProductTrackActiveModel,
     ) -> Result<ProductTrack, DomainError>;
 
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
     async fn get_by_id(&self, id: i32) -> Result<Option<ProductTrack>, DomainError>;
-    async fn get_by_upc(&self, upc: &str) -> Result<Option<ProductTrack>, DomainError>;
-    async fn get_by_isrc(&self, isrc: &str) -> Result<Option<ProductTrack>, DomainError>;
+    async fn get_by_upc(&self, upc: &str) -> Result<Vec<ProductTrack>, DomainError>;
+    async fn get_by_isrc(&self, isrc: &str) -> Result<Vec<ProductTrack>, DomainError>;
+    async fn get_by_upcs(&self, upcs: Vec<String>) -> Result<Vec<ProductTrack>, DomainError>;
+    async fn get_by_isrcs(&self, isrcs: Vec<String>) -> Result<Vec<ProductTrack>, DomainError>;
 }

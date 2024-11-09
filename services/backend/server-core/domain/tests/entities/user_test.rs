@@ -24,6 +24,7 @@ fn test_user_entity() {
     let interest_offer = Some(OfferCategory::Creation);
     let email = "test@example.com".to_string();
     let id_token = Some("id_token".to_string());
+    let is_superadmin = false;
 
     // ユーザーの作成
     let user = User {
@@ -49,6 +50,7 @@ fn test_user_entity() {
         email: email.clone(),
         id_token: id_token.clone(),
         publicity: true,
+        is_superadmin,
     };
 
     // 全ての属性の確認
@@ -115,6 +117,7 @@ fn test_user_entity() {
         email: "".to_string(),
         id_token: None,
         publicity: true,
+        is_superadmin,
     };
 
     assert_eq!(user_without_optionals.evm_addr, None);

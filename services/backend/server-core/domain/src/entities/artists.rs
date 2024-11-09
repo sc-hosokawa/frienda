@@ -8,8 +8,6 @@ use sea_orm::entity::prelude::*;
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
-    #[sea_orm(unique)]
-    pub artist_id: String,
     pub display_name_jp: String,
     pub display_name_en: String,
     pub display_name_kana: Option<String>,
@@ -23,12 +21,30 @@ pub struct Model {
     pub line_key: Option<String>,
     pub amazon_key: Option<String>,
     pub youtube_key: Option<String>,
+    #[sea_orm(unique)]
+    pub artist_id: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
+    #[sea_orm(has_many = "super::products::Entity")]
+    Products,
+    #[sea_orm(has_many = "super::tracks::Entity")]
+    Tracks,
     #[sea_orm(has_many = "super::user_artist::Entity")]
     UserArtist,
+}
+
+impl Related<super::products::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Products.def()
+    }
+}
+
+impl Related<super::tracks::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Tracks.def()
+    }
 }
 
 impl Related<super::user_artist::Entity> for Entity {

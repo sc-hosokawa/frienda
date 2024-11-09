@@ -20,6 +20,9 @@ pub enum DomainError {
 
     #[error("Unexpected error occurred: {0}")]
     UnexpectedError(String),
+
+    #[error("Invalid parameter: {0}")]
+    InvalidParameter(String),
 }
 
 impl From<DbErr> for DomainError {

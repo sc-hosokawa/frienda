@@ -31,6 +31,7 @@ pub struct Model {
     pub interest_offer: Option<OfferCategory>,
     pub created_at: DateTime,
     pub updated_at: DateTime,
+    pub is_superadmin: bool,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -57,6 +58,8 @@ pub enum Relation {
     Raids,
     #[sea_orm(has_many = "super::room_user::Entity")]
     RoomUser,
+    #[sea_orm(has_many = "super::track_credits::Entity")]
+    TrackCredits,
     #[sea_orm(has_many = "super::user_artist::Entity")]
     UserArtist,
 }
@@ -124,6 +127,12 @@ impl Related<super::raids::Entity> for Entity {
 impl Related<super::room_user::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::RoomUser.def()
+    }
+}
+
+impl Related<super::track_credits::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::TrackCredits.def()
     }
 }
 
