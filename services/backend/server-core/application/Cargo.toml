@@ -14,3 +14,4 @@ uuid = { workspace = true }
 sea-orm = { workspace = true }
 chrono = { workspace = true }
 tokio = { workspace = true }
+serde = { workspace = true }

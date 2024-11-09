@@ -1,8 +1,14 @@
 use async_trait::async_trait;
 use std::sync::Arc;
 
+use domain::entities::plays_daily::Model as PlaysDaily;
+use domain::entities::plays_monthly::Model as PlaysMonthly;
+use domain::entities::product_track::Model as ProductTrack;
+use domain::entities::products::Model as Product;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
 use domain::repositories::plays_monthly_repo::PlaysMonthlyRepository;
+use domain::repositories::product_track_repo::ProductTrackRepository;
+use domain::repositories::products_repo::ProductsRepository;
 
 pub struct PlaybackOverviewUsecaseInput {
     pub artist_id: String,
@@ -21,21 +27,31 @@ pub trait PlaybackOverviewUsecaseTrait: Send + Sync {
         &self,
         input: PlaybackOverviewUsecaseInput,
     ) -> Result<PlaybackOverviewUsecaseOutput, anyhow::Error>;
+    async fn get_playback_overview_by_upc(
+        &self,
+        input: PlaybackOverviewUsecaseInput,
+    ) -> Result<PlaybackOverviewUsecaseOutput, anyhow::Error>;
 }
 
 pub struct PlaybackOverviewUsecase {
     plays_monthly_repo: Arc<dyn PlaysMonthlyRepository>,
     plays_daily_repo: Arc<dyn PlaysDailyRepository>,
+    products_repo: Arc<dyn ProductsRepository>,
+    product_track_repo: Arc<dyn ProductTrackRepository>,
 }
 
 impl PlaybackOverviewUsecase {
     pub fn new(
         plays_monthly_repo: Arc<dyn PlaysMonthlyRepository>,
         plays_daily_repo: Arc<dyn PlaysDailyRepository>,
+        products_repo: Arc<dyn ProductsRepository>,
+        product_track_repo: Arc<dyn ProductTrackRepository>,
     ) -> Self {
         Self {
             plays_monthly_repo,
             plays_daily_repo,
+            products_repo,
+            product_track_repo,
         }
     }
 }
@@ -46,9 +62,62 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         &self,
         input: PlaybackOverviewUsecaseInput,
     ) -> Result<PlaybackOverviewUsecaseOutput, anyhow::Error> {
+        let products: Vec<Product> = self
+            .products_repo
+            .find_by_artist_id(&input.artist_id)
+            .await?;
+        let upcs: Vec<String> = products.iter().map(|p| p.upc.clone()).collect();
+        let product_tracks: Vec<ProductTrack> = self.product_track_repo.get_by_upcs(upcs).await?;
+        let isrcs: Vec<String> = product_tracks.iter().map(|p| p.isrc.clone()).collect();
+
+        let plays_daily: Vec<PlaysDaily> =
+            self.plays_daily_repo.find_by_isrcs(isrcs.clone()).await?;
+        let plays_monthly: Vec<PlaysMonthly> =
+            self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
+
+        let all_month_play_count: i32 = plays_monthly.iter().map(|p| p.sum.unwrap_or(0)).sum();
+        let all_day_play_count: i32 = plays_daily.iter().map(|p| p.sum.unwrap_or(0)).sum();
+        let weekly_play_count: i32 = plays_daily
+            .iter()
+            .rev()
+            .take(7)
+            .map(|p| p.sum.unwrap_or(0))
+            .sum();
+
         Ok(PlaybackOverviewUsecaseOutput {
-            total_play_count: 0,
-            weekly_play_count: 0,
+            total_play_count: all_month_play_count + all_day_play_count,
+            weekly_play_count,
         })
+    }
+
+    async fn get_playback_overview_by_upc(
+        &self,
+        input: PlaybackOverviewUsecaseInput,
+    ) -> Result<PlaybackOverviewUsecaseOutput, anyhow::Error> {
+        if let Some(upc) = input.upc {
+            let product_track: Vec<ProductTrack> = self.product_track_repo.get_by_upc(&upc).await?;
+            let isrcs: Vec<String> = product_track.iter().map(|p| p.isrc.clone()).collect();
+
+            let plays_daily: Vec<PlaysDaily> =
+                self.plays_daily_repo.find_by_isrcs(isrcs.clone()).await?;
+            let plays_monthly: Vec<PlaysMonthly> =
+                self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
+
+            let all_month_play_count: i32 = plays_monthly.iter().map(|p| p.sum.unwrap_or(0)).sum();
+            let all_day_play_count: i32 = plays_daily.iter().map(|p| p.sum.unwrap_or(0)).sum();
+            let weekly_play_count: i32 = plays_daily
+                .iter()
+                .rev()
+                .take(7)
+                .map(|p| p.sum.unwrap_or(0))
+                .sum();
+
+            Ok(PlaybackOverviewUsecaseOutput {
+                total_play_count: all_month_play_count + all_day_play_count,
+                weekly_play_count,
+            })
+        } else {
+            Err(anyhow::anyhow!("UPC is required"))
+        }
     }
 }

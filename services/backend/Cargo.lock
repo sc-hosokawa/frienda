@@ -410,6 +410,7 @@ dependencies = [
  "domain",
  "futures",
  "sea-orm",
+ "serde",
  "shared",
  "tokio",
  "tracing",
