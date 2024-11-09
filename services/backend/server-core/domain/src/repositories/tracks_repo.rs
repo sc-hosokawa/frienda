@@ -9,5 +9,6 @@ pub trait TracksRepository: Send + Sync {
 
     async fn delete(&self, isrc: &str) -> Result<(), DomainError>;
     async fn get_by_isrc(&self, isrc: &str) -> Result<Option<Track>, DomainError>;
+    async fn get_by_isrcs(&self, isrcs: Vec<String>) -> Result<Vec<Track>, DomainError>;
     async fn find_by_artist_id(&self, artist_id: &str) -> Result<Vec<Track>, DomainError>;
 }

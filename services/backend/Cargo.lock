@@ -2531,6 +2531,7 @@ dependencies = [
  "futures",
  "registry",
  "sea-orm",
+ "serde",
  "shared",
  "tracing",
  "uuid",

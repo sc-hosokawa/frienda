@@ -41,6 +41,7 @@ impl PlaysMonthlyRepository for PlaysMonthlyRepoImpl {
     async fn find_by_isrcs(&self, isrcs: Vec<String>) -> Result<Vec<PlaysMonthly>, DomainError> {
         let res = PlaysMonthlyEntity::find()
             .filter(Column::Isrc.is_in(isrcs))
+            .order_by_asc(Column::Month)
             .all(&self.db)
             .await?;
         Ok(res)
@@ -58,17 +59,9 @@ impl PlaysMonthlyRepository for PlaysMonthlyRepoImpl {
             .checked_sub_months(chrono::Months::new((period - 1) as u32))
             .ok_or_else(|| DomainError::InvalidParameter("Invalid date calculation".to_string()))?;
 
-        // YYYYMMの形式で期間を取得
-        let start_period: i32 = start_date
-            .format("%Y%m")
-            .to_string()
-            .parse()
-            .map_err(|_| DomainError::InvalidParameter("Invalid period format".to_string()))?;
-        let end_period: i32 = last_month
-            .format("%Y%m")
-            .to_string()
-            .parse()
-            .map_err(|_| DomainError::InvalidParameter("Invalid period format".to_string()))?;
+        // NaiveDate型に変換（時間部分を除去）
+        let start_period = start_date.date_naive();
+        let end_period = last_month.date_naive();
 
         let res = PlaysMonthlyEntity::find()
             .filter(Column::Month.gte(start_period))
@@ -94,22 +87,15 @@ impl PlaysMonthlyRepository for PlaysMonthlyRepoImpl {
             .checked_sub_months(chrono::Months::new((period - 1) as u32))
             .ok_or_else(|| DomainError::InvalidParameter("Invalid date calculation".to_string()))?;
 
-        // YYYYMMの形式で期間を取得
-        let start_period: i32 = start_date
-            .format("%Y%m")
-            .to_string()
-            .parse()
-            .map_err(|_| DomainError::InvalidParameter("Invalid period format".to_string()))?;
-        let end_period: i32 = last_month
-            .format("%Y%m")
-            .to_string()
-            .parse()
-            .map_err(|_| DomainError::InvalidParameter("Invalid period format".to_string()))?;
+        // NaiveDate型に変換
+        let start_period = start_date.date_naive();
+        let end_period = last_month.date_naive();
 
         let res = PlaysMonthlyEntity::find()
             .filter(Column::Isrc.eq(isrc))
             .filter(Column::Month.gte(start_period))
             .filter(Column::Month.lte(end_period))
+            .order_by_asc(Column::Month)
             .all(&self.db)
             .await?;
         Ok(res)
@@ -131,22 +117,15 @@ impl PlaysMonthlyRepository for PlaysMonthlyRepoImpl {
             .checked_sub_months(chrono::Months::new((period - 1) as u32))
             .ok_or_else(|| DomainError::InvalidParameter("Invalid date calculation".to_string()))?;
 
-        // YYYYMMの形式で期間を取得
-        let start_period: i32 = start_date
-            .format("%Y%m")
-            .to_string()
-            .parse()
-            .map_err(|_| DomainError::InvalidParameter("Invalid period format".to_string()))?;
-        let end_period: i32 = last_month
-            .format("%Y%m")
-            .to_string()
-            .parse()
-            .map_err(|_| DomainError::InvalidParameter("Invalid period format".to_string()))?;
+        // NaiveDate型に変換
+        let start_period = start_date.date_naive();
+        let end_period = last_month.date_naive();
 
         let res = PlaysMonthlyEntity::find()
             .filter(Column::Isrc.is_in(isrcs))
             .filter(Column::Month.gte(start_period))
             .filter(Column::Month.lte(end_period))
+            .order_by_asc(Column::Month)
             .all(&self.db)
             .await?;
         Ok(res)

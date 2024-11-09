@@ -38,6 +38,14 @@ impl TracksRepository for TracksRepoImpl {
         Ok(res)
     }
 
+    async fn get_by_isrcs(&self, isrcs: Vec<String>) -> Result<Vec<Tracks>, DomainError> {
+        let res: Vec<Tracks> = TracksEntity::find()
+            .filter(Column::Isrc.is_in(isrcs))
+            .all(&self.db)
+            .await?;
+        Ok(res)
+    }
+
     async fn find_by_artist_id(&self, artist_id: &str) -> Result<Vec<Tracks>, DomainError> {
         let res: Vec<Tracks> = TracksEntity::find()
             .filter(Column::ArtistId.eq(artist_id))

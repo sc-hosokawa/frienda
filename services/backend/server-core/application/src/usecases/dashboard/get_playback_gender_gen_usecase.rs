@@ -88,13 +88,15 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             // Gender Balance
             let male_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.gender == Some("male".to_string()))
+                .filter(|p| p.gender == Some("m".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let female_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.gender == Some("female".to_string()))
+                .filter(|p| p.gender == Some("f".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
             let total_count = male_count + female_count;
@@ -115,54 +117,63 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             let under_14_count: i32 = gender_gen_playback_by_upc
                 .iter()
                 .filter(|p| p.age == Some("under-14".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _15_19_count: i32 = gender_gen_playback_by_upc
                 .iter()
                 .filter(|p| p.age == Some("15-19".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _20_24_count: i32 = gender_gen_playback_by_upc
                 .iter()
                 .filter(|p| p.age == Some("20-24".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _25_29_count: i32 = gender_gen_playback_by_upc
                 .iter()
                 .filter(|p| p.age == Some("25-29".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _30_34_count: i32 = gender_gen_playback_by_upc
                 .iter()
                 .filter(|p| p.age == Some("30-34".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _35_39_count: i32 = gender_gen_playback_by_upc
                 .iter()
                 .filter(|p| p.age == Some("35-39".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _40_44_count: i32 = gender_gen_playback_by_upc
                 .iter()
                 .filter(|p| p.age == Some("40-44".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _45_49_count: i32 = gender_gen_playback_by_upc
                 .iter()
                 .filter(|p| p.age == Some("45-49".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _50_over_count: i32 = gender_gen_playback_by_upc
                 .iter()
                 .filter(|p| p.age == Some("50-over".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
@@ -259,13 +270,15 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             // Gender Balance
             let male_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.gender == Some("male".to_string()))
+                .filter(|p| p.gender == Some("m".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let female_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.gender == Some("female".to_string()))
+                .filter(|p| p.gender == Some("f".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
             let total_count = male_count + female_count;
@@ -286,54 +299,63 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             let under_14_count: i32 = gender_gen_playback_by_artist
                 .iter()
                 .filter(|p| p.age == Some("under-14".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _15_19_count: i32 = gender_gen_playback_by_artist
                 .iter()
                 .filter(|p| p.age == Some("15-19".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _20_24_count: i32 = gender_gen_playback_by_artist
                 .iter()
                 .filter(|p| p.age == Some("20-24".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _25_29_count: i32 = gender_gen_playback_by_artist
                 .iter()
                 .filter(|p| p.age == Some("25-29".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _30_34_count: i32 = gender_gen_playback_by_artist
                 .iter()
                 .filter(|p| p.age == Some("30-34".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _35_39_count: i32 = gender_gen_playback_by_artist
                 .iter()
                 .filter(|p| p.age == Some("35-39".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _40_44_count: i32 = gender_gen_playback_by_artist
                 .iter()
                 .filter(|p| p.age == Some("40-44".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _45_49_count: i32 = gender_gen_playback_by_artist
                 .iter()
                 .filter(|p| p.age == Some("45-49".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let _50_over_count: i32 = gender_gen_playback_by_artist
                 .iter()
                 .filter(|p| p.age == Some("50-over".to_string()))
+                .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
