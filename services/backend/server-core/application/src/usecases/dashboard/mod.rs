@@ -7,6 +7,7 @@ pub mod generate_play_count_report_usecase;
 pub mod get_artist_total_play_count_usecase;
 pub mod get_play_count_history_usecase;
 pub mod get_playback_gender_gen_usecase;
+pub mod get_products_usecase;
 pub mod get_realtime_play_count_usecase;
 pub mod get_song_playback_count_usecase;
 pub mod get_top_artists_usecase;

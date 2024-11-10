@@ -8,6 +8,7 @@ use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Products;
 use domain::entities::tracks::Model as Track;
 
+use domain::repositories::artists_repo::ArtistsRepository;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
 use domain::repositories::plays_monthly_repo::PlaysMonthlyRepository;
 use domain::repositories::product_track_repo::ProductTrackRepository;
@@ -31,12 +32,27 @@ pub struct TrendTrack {
     pub weekly_play_count: i32,
 }
 
+pub struct GetTrendingByUpcUsecaseInput {
+    pub user_id: String,
+    pub upc: String,
+}
+pub struct GetTrendingByUpcUsecaseOutput {
+    pub artist_name: String,
+    pub product_img_url: Option<String>,
+    pub product_title: String,
+    pub trending: Vec<TrendTrack>,
+}
+
 #[async_trait]
 pub trait GetTrendingUsecaseTrait: Send + Sync {
     async fn get_trending(
         &self,
         input: GetTrendingUsecaseInput,
     ) -> Result<GetTrendingUsecaseOutput, anyhow::Error>;
+    async fn get_trending_by_upc(
+        &self,
+        input: GetTrendingByUpcUsecaseInput,
+    ) -> Result<GetTrendingByUpcUsecaseOutput, anyhow::Error>;
 }
 
 pub struct GetTrendingUsecase {
@@ -45,6 +61,7 @@ pub struct GetTrendingUsecase {
     products_repo: Arc<dyn ProductsRepository>,
     tracks_repo: Arc<dyn TracksRepository>,
     product_track_repo: Arc<dyn ProductTrackRepository>,
+    artists_repo: Arc<dyn ArtistsRepository>,
 }
 
 impl GetTrendingUsecase {
@@ -54,6 +71,7 @@ impl GetTrendingUsecase {
         products_repo: Arc<dyn ProductsRepository>,
         tracks_repo: Arc<dyn TracksRepository>,
         product_track_repo: Arc<dyn ProductTrackRepository>,
+        artists_repo: Arc<dyn ArtistsRepository>,
     ) -> Self {
         Self {
             plays_monthly_repo,
@@ -61,6 +79,7 @@ impl GetTrendingUsecase {
             products_repo,
             tracks_repo,
             product_track_repo,
+            artists_repo,
         }
     }
 }
@@ -138,5 +157,59 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         }
 
         Ok(GetTrendingUsecaseOutput { trending })
+    }
+
+    async fn get_trending_by_upc(
+        &self,
+        input: GetTrendingByUpcUsecaseInput,
+    ) -> Result<GetTrendingByUpcUsecaseOutput, anyhow::Error> {
+        let product: Option<Products> = self.products_repo.get_by_upc(&input.upc).await?;
+        let artist_id: String = product.clone().unwrap().artist_id.unwrap();
+        let artist = self.artists_repo.find_by_id(&artist_id).await?;
+        let artist_name: String = artist.unwrap().display_name_jp;
+        let product_img_url: Option<String> = product.clone().unwrap().img_url;
+        let product_title: String = product.clone().unwrap().title;
+
+        let isrcs_in_upc: Vec<String> = self
+            .product_track_repo
+            .get_by_upc(&input.upc)
+            .await?
+            .iter()
+            .map(|p| p.isrc.clone())
+            .collect();
+
+        let plays_monthly: Vec<PlaysMonthly> = self
+            .plays_monthly_repo
+            .find_by_isrcs(isrcs_in_upc.clone())
+            .await?;
+
+        let mut plays_by_isrc: HashMap<String, i32> = HashMap::new();
+
+        // [TODO] ISRCの再生数が取れていない
+        for play in plays_monthly {
+            *plays_by_isrc.entry(play.isrc.clone().unwrap()).or_insert(0) += play.sum.unwrap_or(0);
+        }
+
+        let tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(isrcs_in_upc).await?;
+
+        let mut trending: Vec<TrendTrack> = vec![];
+
+        for track in tracks {
+            trending.push(TrendTrack {
+                isrc: track.isrc.clone(),
+                track_title: Some(track.title),
+                upc_title: None,
+                image_url: None,
+                total_play_count: plays_by_isrc.get(&track.isrc).unwrap_or(&0).clone(),
+                weekly_play_count: 0,
+            });
+        }
+
+        Ok(GetTrendingByUpcUsecaseOutput {
+            artist_name,
+            product_img_url,
+            product_title,
+            trending,
+        })
     }
 }

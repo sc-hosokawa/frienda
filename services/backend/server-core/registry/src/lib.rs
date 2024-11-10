@@ -24,6 +24,7 @@ use application::usecases::dashboard::{
     get_playback_gender_gen_usecase::{
         GetPlaybackGenderGenUsecase, GetPlaybackGenderGenUsecaseTrait,
     },
+    get_products_usecase::{GetProductsUsecase, GetProductsUsecaseTrait},
     get_trending_usecase::{GetTrendingUsecase, GetTrendingUsecaseTrait},
     playback_overview_usecase::{PlaybackOverviewUsecase, PlaybackOverviewUsecaseTrait},
 };
@@ -151,6 +152,7 @@ pub struct Usecases {
     pub get_playback_overview: Arc<dyn PlaybackOverviewUsecaseTrait>,
     pub register_credit: Arc<dyn RegisterUsecaseTrait>,
     pub get_credits: Arc<dyn GetCreditsUsecaseTrait>,
+    pub get_products: Arc<dyn GetProductsUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -186,6 +188,11 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        get_products: Arc::new(GetProductsUsecase::new(
+            repos.products.clone(),
+            repos.tracks.clone(),
+            repos.product_track.clone(),
+        )),
         get_credits: Arc::new(GetCreditsUsecase::new(
             repos.track_credits.clone(),
             repos.users.clone(),
@@ -214,6 +221,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
             repos.products.clone(),
             repos.tracks.clone(),
             repos.product_track.clone(),
+            repos.artists.clone(),
         )),
         get_play_count_history: Arc::new(GetPlayCountHistoryUsecase::new(
             repos.plays_monthly.clone(),

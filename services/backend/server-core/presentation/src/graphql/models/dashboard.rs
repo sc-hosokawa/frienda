@@ -154,4 +154,68 @@ pub struct PlaybacksByCountryData {
     pub country_other: i32,
 }
 
+#[derive(SimpleObject)]
+pub struct ProductsData {
+    pub album: Vec<ProductWithTracks>,
+    pub single: Vec<ProductWithTracks>,
+    pub ep: Vec<ProductWithTracks>,
+}
+#[derive(SimpleObject)]
+pub struct ProductWithTracks {
+    pub product: Product,
+    pub tracks: Vec<Track>,
+}
+impl From<application::usecases::dashboard::get_products_usecase::ProductWithTracks>
+    for ProductWithTracks
+{
+    fn from(p: application::usecases::dashboard::get_products_usecase::ProductWithTracks) -> Self {
+        Self {
+            product: p.product.into(),
+            tracks: p.tracks.into_iter().map(|t| t.into()).collect(),
+        }
+    }
+}
+#[derive(SimpleObject)]
+pub struct Product {
+    pub upc: String,
+    pub title: String,
+    pub img_url: Option<String>,
+    pub r#type: Option<String>,
+    pub artist_id: Option<String>,
+}
+#[derive(SimpleObject)]
+pub struct Track {
+    pub isrc: String,
+    pub title: Option<String>,
+    pub img_url: Option<String>,
+}
+impl From<domain::entities::tracks::Model> for Track {
+    fn from(t: domain::entities::tracks::Model) -> Self {
+        Self {
+            isrc: t.isrc,
+            title: Some(t.title),
+            img_url: t.img_url,
+        }
+    }
+}
+impl From<domain::entities::products::Model> for Product {
+    fn from(p: domain::entities::products::Model) -> Self {
+        Self {
+            upc: p.upc,
+            title: p.title,
+            img_url: p.img_url,
+            r#type: p.r#type,
+            artist_id: p.artist_id,
+        }
+    }
+}
+
+#[derive(SimpleObject)]
+pub struct TrendingByUPCData {
+    pub artist_name: String,
+    pub product_img_url: Option<String>,
+    pub product_title: String,
+    pub trending_tracks: Vec<TrendTrack>,
+}
+
 // ===== Mutation =====

@@ -158,4 +158,51 @@ impl DashboardQuery {
             gen_rate: result.gen_rate.into(),
         })
     }
+
+    async fn get_products(
+        &self,
+        ctx: &Context<'_>,
+        artist_id: String,
+    ) -> Result<models::dashboard::ProductsData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_products
+            .get_products(
+                application::usecases::dashboard::get_products_usecase::GetProductsUsecaseInput {
+                    artist_id,
+                },
+            )
+            .await?;
+
+        Ok(models::dashboard::ProductsData {
+            album: result.album.into_iter().map(|p| p.into()).collect(),
+            single: result.single.into_iter().map(|p| p.into()).collect(),
+            ep: result.ep.into_iter().map(|p| p.into()).collect(),
+        })
+    }
+
+    async fn get_trending_by_upc(
+        &self,
+        ctx: &Context<'_>,
+        upc: String,
+        user_id: String,
+    ) -> Result<models::dashboard::TrendingByUPCData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_trending
+            .get_trending_by_upc(
+                application::usecases::dashboard::get_trending_usecase::GetTrendingByUpcUsecaseInput {
+                    upc,
+                    user_id,
+                },
+            )
+            .await?;
+
+        Ok(models::dashboard::TrendingByUPCData {
+            artist_name: result.artist_name,
+            product_img_url: result.product_img_url,
+            product_title: result.product_title,
+            trending_tracks: result.trending.into_iter().map(|t| t.into()).collect(),
+        })
+    }
 }
