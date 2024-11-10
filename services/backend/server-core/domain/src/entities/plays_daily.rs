@@ -12,8 +12,8 @@ pub struct Model {
     pub spotify: i32,
     pub apple: i32,
     pub line: i32,
-    pub amazon: i32,
-    pub youtube: i32,
+    pub amazon: Option<i32>,
+    pub youtube: Option<i32>,
     pub sum: Option<i32>,
 }
 

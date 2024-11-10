@@ -17,6 +17,7 @@ impl QuestQuery {
                 id: quest.id,
                 name: quest.name,
                 description: quest.description,
+                category: quest.category.unwrap_or("Uncategorized".to_string()),
             })
             .collect())
     }
@@ -35,6 +36,7 @@ impl QuestQuery {
                 id: quest.id,
                 name: quest.name,
                 description: quest.description,
+                category: quest.category.unwrap_or("Uncategorized".to_string()),
             })
             .collect())
     }

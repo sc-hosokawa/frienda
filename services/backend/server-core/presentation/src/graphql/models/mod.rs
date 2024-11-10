@@ -2,6 +2,7 @@ pub mod artists;
 pub mod comments;
 pub mod communities;
 pub mod contact_us;
+pub mod credit;
 pub mod dashboard;
 pub mod health_check;
 pub mod indicators;

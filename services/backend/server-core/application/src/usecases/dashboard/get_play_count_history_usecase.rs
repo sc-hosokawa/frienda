@@ -107,37 +107,37 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
         let mut chart_data: Vec<ChartDataByDSP> = vec![];
         if input.period == 7 || input.period == 30 {
             let plays_daily_by_isrcs: Vec<PlaysDaily> = self
-            .plays_daily_repo
-            .find_by_isrcs_and_period(isrcs, input.period)
-            .await?;
+                .plays_daily_repo
+                .find_by_isrcs_and_period(isrcs, input.period)
+                .await?;
 
-        let mut aggregated_data: HashMap<String, ChartDataByDSP> = HashMap::new();
-        
-        for play in plays_daily_by_isrcs.iter() {
-            let date = play.date.unwrap().format("%Y-%m-%d").to_string();
-            aggregated_data
-                .entry(date)
-                .and_modify(|e| {
-                    e.spotify += play.spotify;
-                    e.apple += play.apple;
-                    e.line += play.line;
-                    e.amazon += play.amazon;
-                    e.youtube += play.youtube;
-                })
-                .or_insert(ChartDataByDSP {
-                    date: play.date.unwrap().format("%Y-%m-%d").to_string(),
-                    spotify: play.spotify,
-                    apple: play.apple,
-                    line: play.line,
-                    amazon: play.amazon,
-                    youtube: play.youtube,
-                });
-        }
+            let mut aggregated_data: HashMap<String, ChartDataByDSP> = HashMap::new();
 
-        chart_data = aggregated_data
-            .into_values()
-            .collect::<Vec<ChartDataByDSP>>();
-        
+            for play in plays_daily_by_isrcs.iter() {
+                let date = play.date.unwrap().format("%Y-%m-%d").to_string();
+                aggregated_data
+                    .entry(date)
+                    .and_modify(|e| {
+                        e.spotify += play.spotify;
+                        e.apple += play.apple;
+                        e.line += play.line;
+                        e.amazon += play.amazon.unwrap_or(0);
+                        e.youtube += play.youtube.unwrap_or(0);
+                    })
+                    .or_insert(ChartDataByDSP {
+                        date: play.date.unwrap().format("%Y-%m-%d").to_string(),
+                        spotify: play.spotify,
+                        apple: play.apple,
+                        line: play.line,
+                        amazon: play.amazon.unwrap_or(0),
+                        youtube: play.youtube.unwrap_or(0),
+                    });
+            }
+
+            chart_data = aggregated_data
+                .into_values()
+                .collect::<Vec<ChartDataByDSP>>();
+
             // Sort by date in ascending order
             chart_data.sort_by(|a, b| a.date.cmp(&b.date));
         } else if input.period == 12 || input.period == 36 {
@@ -147,7 +147,7 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 .await?;
 
             let mut aggregated_data: HashMap<String, ChartDataByDSP> = HashMap::new();
-            
+
             for play in plays_monthly_by_isrcs.iter() {
                 let date = play.month.unwrap().format("%Y-%m").to_string();
                 aggregated_data
@@ -172,15 +172,15 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
             chart_data = aggregated_data
                 .into_values()
                 .collect::<Vec<ChartDataByDSP>>();
-            
+
             // Sort by date in ascending order
             chart_data.sort_by(|a, b| a.date.cmp(&b.date));
         } else if input.period == -1 {
             let plays_monthly_by_isrcs: Vec<PlaysMonthly> =
                 self.plays_monthly_repo.find_by_isrcs(isrcs).await?;
-            
+
             let mut aggregated_data: HashMap<String, ChartDataByDSP> = HashMap::new();
-            
+
             for play in plays_monthly_by_isrcs.iter() {
                 let date = play.month.unwrap().format("%Y-%m").to_string();
                 aggregated_data
@@ -205,7 +205,7 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
             chart_data = aggregated_data
                 .into_values()
                 .collect::<Vec<ChartDataByDSP>>();
-            
+
             // Sort by date in ascending order
             chart_data.sort_by(|a, b| a.date.cmp(&b.date));
         } else {

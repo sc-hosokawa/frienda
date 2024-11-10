@@ -2,6 +2,7 @@ mod health_check;
 
 mod artist;
 mod community;
+mod credit;
 mod dashboard;
 mod general;
 mod message;
@@ -28,4 +29,5 @@ pub struct QueryRoot(
     prize::PrizeQuery,
     points_tx::PointsTxQuery,
     quest::QuestQuery,
+    credit::CreditQuery,
 );

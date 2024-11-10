@@ -15,6 +15,10 @@ use application::usecases::basic::{
     get_user_basic_info_usecase::{GetUserBasicInfoUsecase, GetUserBasicInfoUsecaseTrait},
     update_user_profile_usecase::{UpdateUserProfileUsecase, UpdateUserProfileUsecaseTrait},
 };
+use application::usecases::credit::{
+    get_credits_usecase::{GetCreditsUsecase, GetCreditsUsecaseTrait},
+    register_usecase::{RegisterUsecase, RegisterUsecaseTrait},
+};
 use application::usecases::dashboard::{
     get_play_count_history_usecase::{GetPlayCountHistoryUsecase, GetPlayCountHistoryUsecaseTrait},
     get_playback_gender_gen_usecase::{
@@ -75,8 +79,9 @@ use infrastracture::persistences::{
     product_track_repo_impl::ProductTrackRepoImpl, products_repo_impl::ProductsRepoImpl,
     quest_user_repo_impl::QuestUserRepoImpl, quests_repo_impl::QuestsRepoImpl,
     room_user_repo_impl::RoomUserRepoImpl, rooms_repo_impl::RoomsRepoImpl,
-    tracks_repo_impl::TracksRepoImpl, txs_fsp_repo_impl::TxsFspRepoImpl,
-    user_artist_repo_impl::UserArtistRepoImpl, users_repo_impl::UsersRepoImpl,
+    track_credits_repo_impl::TrackCreditsRepoImpl, tracks_repo_impl::TracksRepoImpl,
+    txs_fsp_repo_impl::TxsFspRepoImpl, user_artist_repo_impl::UserArtistRepoImpl,
+    users_repo_impl::UsersRepoImpl,
 };
 
 pub struct RepositoriesImpl {
@@ -102,6 +107,7 @@ pub struct RepositoriesImpl {
     pub plays_monthly: Arc<PlaysMonthlyRepoImpl>,
     pub plays_daily: Arc<PlaysDailyRepoImpl>,
     pub gender_gen_playback: Arc<GenderGenPlaybackRepoImpl>,
+    pub track_credits: Arc<TrackCreditsRepoImpl>,
 }
 pub struct Usecases {
     pub health_check: Arc<dyn HealthCheckUseCase>,
@@ -143,6 +149,8 @@ pub struct Usecases {
     pub get_play_count_history: Arc<dyn GetPlayCountHistoryUsecaseTrait>,
     pub get_playback_gender_gen: Arc<dyn GetPlaybackGenderGenUsecaseTrait>,
     pub get_playback_overview: Arc<dyn PlaybackOverviewUsecaseTrait>,
+    pub register_credit: Arc<dyn RegisterUsecaseTrait>,
+    pub get_credits: Arc<dyn GetCreditsUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -170,6 +178,7 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
         plays_monthly: Arc::new(PlaysMonthlyRepoImpl::new(db.clone())),
         plays_daily: Arc::new(PlaysDailyRepoImpl::new(db.clone())),
         gender_gen_playback: Arc::new(GenderGenPlaybackRepoImpl::new(db.clone())),
+        track_credits: Arc::new(TrackCreditsRepoImpl::new(db.clone())),
     }
 }
 
@@ -177,9 +186,14 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        get_credits: Arc::new(GetCreditsUsecase::new(
+            repos.track_credits.clone(),
+            repos.users.clone(),
+        )),
         create_quest: Arc::new(CreateQuestUsecase::new(repos.quests.clone())),
         mark_as_member: Arc::new(MarkAsMemberUsecase::new(repos.user_artist.clone())),
         quest_mark_as_done: Arc::new(MarkAsDoneUsecase::new(repos.quest_user.clone())),
+        register_credit: Arc::new(RegisterUsecase::new(repos.track_credits.clone())),
         request_to_access: Arc::new(RequestToAccessUsecase::new(
             repos.user_artist.clone(),
             repos.artists.clone(),

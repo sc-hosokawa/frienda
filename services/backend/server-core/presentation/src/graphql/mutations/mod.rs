@@ -1,5 +1,6 @@
 mod artist;
 mod community;
+mod credit;
 mod general;
 mod message;
 mod notification;
@@ -21,4 +22,5 @@ pub struct MutationRoot(
     prize::PrizeMutation,
     quest::QuestMutation,
     artist::ArtistMutation,
+    credit::CreditMutation,
 );

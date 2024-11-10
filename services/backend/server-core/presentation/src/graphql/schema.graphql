@@ -65,7 +65,16 @@ type ArtistsData {
 
 
 type ChartData {
-	lineChartData: [Int!]!
+	lineChartData: [LineChartData!]!
+}
+
+type ChartDataByISRC {
+	date: String!
+	isrcCount: JSONObject!
+}
+
+type ChartDataByUPC {
+	lineChartData: [ChartDataByISRC!]!
 }
 
 type ConnectedUserByUserData {
@@ -229,11 +238,51 @@ type ExchangePrizeResponse {
 }
 
 
+type GenPlaybackRate {
+	under14: Int!
+	gen1519: Int!
+	gen2024: Int!
+	gen2529: Int!
+	gen3034: Int!
+	gen3539: Int!
+	gen4044: Int!
+	gen4549: Int!
+	gen50Over: Int!
+}
+
+type GenderGenRateData {
+	genderRate: GenderPlaybackRate!
+	genRate: GenPlaybackRate!
+}
+
+type GenderPlaybackRate {
+	maleCount: Int!
+	femaleCount: Int!
+}
+
+type GetAllCreditsOutput {
+	credits: [TrackCreditsByAdmin!]!
+}
+
 type HealthCheck {
 	status: String!
 }
 
 
+
+"""
+A scalar that can represent any JSON Object value.
+"""
+scalar JSONObject
+
+type LineChartData {
+	date: String!
+	spotify: Int!
+	apple: Int!
+	line: Int!
+	amazon: Int!
+	youtube: Int!
+}
 
 input MarkAsAdminInput {
 	adminMember: String!
@@ -327,6 +376,7 @@ type MutationRoot {
 	requestToAccessArtist(input: RequestToAccessArtistInput!): RequestToAccessArtistResponse!
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
+	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
 }
 
 type NotificationData {
@@ -388,21 +438,6 @@ type OffersData {
 	offerList: [OfferData!]!
 }
 
-type PlaybacksByGenderData {
-	malePlaybacks: Int!
-	femalePlaybacks: Int!
-	unknownPlaybacks: Int!
-}
-
-type PlaybacksByGenerationData {
-	playbacksOver60: Int!
-	playbacks50S: Int!
-	playbacks40S: Int!
-	playbacks30S: Int!
-	playbacks20S: Int!
-	playbacksUnder10S: Int!
-}
-
 type PrizeData {
 	id: Int!
 	imgUrl: String
@@ -422,11 +457,13 @@ type PrizeDetailData {
 
 type QueryRoot {
 	healthCheck: HealthCheck!
-	getOverviewData(artistId: String): TotalOverviewData!
-	getTrendingData(artistId: String): TrendingData!
-	getLineChartData(artistId: String, isrc: String, dsp: String, period: String): ChartData!
-	getPlaybacksByGenderData(artistId: String, isrc: String, dsp: String, period: String): PlaybacksByGenderData!
-	getPlaybacksByGenerationData(artistId: String, isrc: String, dsp: String, period: String): PlaybacksByGenerationData!
+	getOverview(artistId: String!, userId: String!): TotalOverviewData!
+	getOverviewByUpc(artistId: String!, userId: String!, upc: String!): TotalOverviewData!
+	getTrending(artistId: String!, userId: String!): TrendingData!
+	getPlayCountHistory(artistId: String!, userId: String!, period: Int!): ChartData!
+	getPlaycountHistoryByUpc(upc: String!, period: Int!): ChartDataByUPC!
+	getGenderGenRateByArtist(artistId: String!, userId: String!): GenderGenRateData!
+	getGenderGenRateByUpc(artistId: String!, userId: String!, upc: String!): GenderGenRateData!
 	getCommunities: ConnectedUsersData!
 	getOfferStatsByUser(userId: String!): OfferStatsByUserData!
 	getOffersByOwner(userId: String!): OffersData!
@@ -457,12 +494,33 @@ type QueryRoot {
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
 	getQuestByUserId(userId: String!): [QuestData!]!
+	getCredits(userId: String!, artistId: String!, isrc: String!): [TrackCredit!]!
+	getAllCredits(userId: String!): GetAllCreditsOutput!
 }
 
 type QuestData {
 	id: Int!
 	name: String!
 	description: String!
+	category: String!
+}
+
+input RegisterCreditInput {
+	registerInfo: [RegisterInfo!]!
+}
+
+type RegisterCreditResponse {
+	isSuccess: Boolean!
+}
+
+input RegisterInfo {
+	isrc: String!
+	commitUser: String!
+	creditRole: String!
+	creditName: String!
+	email: String!
+	isInvite: Boolean!
+	memo: String
 }
 
 input RequestToAccessArtistInput {
@@ -501,10 +559,28 @@ type TotalOverviewData {
 	weeklyPlaybacks: Int!
 }
 
-type TrackData {
+type TrackCredit {
 	isrc: String!
-	imgUrl: String
-	title: String!
+	commitUser: String!
+	creditRole: String!
+	creditName: String!
+	email: String!
+	isInvite: Boolean
+	memo: String
+	createdAt: String!
+}
+
+type TrackCreditsByAdmin {
+	id: Int!
+	isrc: String!
+	commitUser: String!
+	creditRole: String!
+	creditName: String!
+	creditUser: String
+	email: String!
+	isInvite: Boolean
+	memo: String
+	createdAt: String!
 }
 
 type TransactionByUserData {
@@ -536,8 +612,17 @@ type TransactionsData {
 	transactionList: [TransactionData!]!
 }
 
+type TrendTrack {
+	isrc: String!
+	trackTitle: String
+	upcTitle: String
+	imageUrl: String
+	totalPlayCount: Int!
+	weeklyPlayCount: Int!
+}
+
 type TrendingData {
-	trendingTracks: [TrackData!]!
+	trendingTracks: [TrendTrack!]!
 }
 
 input UpdateBelongsToArtistStatusInput {

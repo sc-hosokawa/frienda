@@ -8,6 +8,8 @@ use sea_orm::entity::prelude::*;
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
+    #[sea_orm(unique)]
+    pub artist_id: String,
     pub display_name_jp: String,
     pub display_name_en: String,
     pub display_name_kana: Option<String>,
@@ -21,8 +23,6 @@ pub struct Model {
     pub line_key: Option<String>,
     pub amazon_key: Option<String>,
     pub youtube_key: Option<String>,
-    #[sea_orm(unique)]
-    pub artist_id: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

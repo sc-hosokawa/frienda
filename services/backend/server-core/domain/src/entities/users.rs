@@ -12,6 +12,7 @@ pub struct Model {
     pub id: String,
     pub id_token: Option<String>,
     pub username: String,
+    pub realname: String,
     pub email: String,
     pub img_url: Option<String>,
     pub evm_addr: Option<String>,
@@ -22,6 +23,7 @@ pub struct Model {
     pub credential: i32,
     pub category: UserCategory,
     pub primary_category: UserCategory,
+    pub is_superadmin: Option<bool>,
     pub publicity: bool,
     pub greeting: Option<String>,
     pub skill: Option<String>,
@@ -31,7 +33,6 @@ pub struct Model {
     pub interest_offer: Option<OfferCategory>,
     pub created_at: DateTime,
     pub updated_at: DateTime,
-    pub is_superadmin: bool,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -40,6 +41,8 @@ pub enum Relation {
     Comments,
     #[sea_orm(has_many = "super::exchange_prize_history::Entity")]
     ExchangePrizeHistory,
+    #[sea_orm(has_many = "super::invitations::Entity")]
+    Invitations,
     #[sea_orm(has_many = "super::messages::Entity")]
     Messages,
     #[sea_orm(has_many = "super::news::Entity")]
@@ -73,6 +76,12 @@ impl Related<super::comments::Entity> for Entity {
 impl Related<super::exchange_prize_history::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::ExchangePrizeHistory.def()
+    }
+}
+
+impl Related<super::invitations::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Invitations.def()
     }
 }
 

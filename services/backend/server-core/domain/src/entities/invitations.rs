@@ -8,7 +8,7 @@ pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
     pub invitee: String,
-    pub inviter: String,
+    pub inviter_email: String,
     pub digest_code: Option<String>,
     pub invited_at: DateTime,
 }
@@ -22,15 +22,13 @@ pub enum Relation {
         on_update = "NoAction",
         on_delete = "NoAction"
     )]
-    Users2,
-    #[sea_orm(
-        belongs_to = "super::users::Entity",
-        from = "Column::Inviter",
-        to = "super::users::Column::Id",
-        on_update = "NoAction",
-        on_delete = "NoAction"
-    )]
-    Users1,
+    Users,
+}
+
+impl Related<super::users::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Users.def()
+    }
 }
 
 impl ActiveModelBehavior for ActiveModel {}

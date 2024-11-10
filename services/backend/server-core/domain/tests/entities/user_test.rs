@@ -31,6 +31,7 @@ fn test_user_entity() {
         id: id.clone(),
         username: username.clone(),
         evm_addr: evm_addr.clone(),
+        realname: "".to_string(),
         status: UserStatus::Joined,
         invited_by: invited_by.clone(),
         fsp,
@@ -50,7 +51,7 @@ fn test_user_entity() {
         email: email.clone(),
         id_token: id_token.clone(),
         publicity: true,
-        is_superadmin,
+        is_superadmin: Some(is_superadmin),
     };
 
     // 全ての属性の確認
@@ -97,6 +98,7 @@ fn test_user_entity() {
     let user_without_optionals = User {
         id: Uuid::new_v4().to_string(),
         username: "no_optionals".to_string(),
+        realname: "".to_string(),
         evm_addr: None,
         status: UserStatus::Joined,
         invited_by: None,
@@ -117,7 +119,7 @@ fn test_user_entity() {
         email: "".to_string(),
         id_token: None,
         publicity: true,
-        is_superadmin,
+        is_superadmin: Some(false),
     };
 
     assert_eq!(user_without_optionals.evm_addr, None);

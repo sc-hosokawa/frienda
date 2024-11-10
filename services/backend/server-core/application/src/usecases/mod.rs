@@ -1,6 +1,7 @@
 pub mod artist;
 pub mod basic;
 pub mod community;
+pub mod credit;
 pub mod dashboard;
 pub mod messaging;
 pub mod news;

@@ -17,7 +17,8 @@ pub struct TrackCreditsRepoImpl {
 #[async_trait]
 impl TrackCreditsRepository for TrackCreditsRepoImpl {
     async fn create(&self, model: TrackCreditsActiveModel) -> Result<TrackCredits, DomainError> {
-        let res = TrackCreditsEntity::insert(model).exec(&self.db).await?;
+        let res: InsertResult<TrackCreditsActiveModel> =
+            TrackCreditsEntity::insert(model).exec(&self.db).await?;
         let inserted_model: Option<TrackCredits> =
             TrackCreditsEntity::find_by_id(res.last_insert_id)
                 .one(&self.db)
@@ -33,6 +34,11 @@ impl TrackCreditsRepository for TrackCreditsRepoImpl {
     async fn delete(&self, id: i32) -> Result<(), DomainError> {
         TrackCreditsEntity::delete_by_id(id).exec(&self.db).await?;
         Ok(())
+    }
+
+    async fn find_all(&self) -> Result<Vec<TrackCredits>, DomainError> {
+        let res = TrackCreditsEntity::find().all(&self.db).await?;
+        Ok(res)
     }
 
     async fn find_by_id(&self, id: i32) -> Result<Option<TrackCredits>, DomainError> {

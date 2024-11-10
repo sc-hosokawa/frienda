@@ -9,11 +9,13 @@ pub struct Model {
     pub id: i32,
     pub isrc: String,
     pub commit_user: String,
-    pub credit_role: Option<String>,
+    pub credit_role: String,
+    pub credit_name: String,
     pub credit_user: Option<String>,
-    pub email: Option<String>,
+    pub email: String,
     pub is_invite: Option<bool>,
     pub memo: Option<String>,
+    pub created_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
