@@ -1,71 +1,22 @@
 "use client";
 
-import { MoreHorizontal, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@ui/components/ui/button";
 import { Card, CardContent, CardHeader } from "@ui/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@ui/components/ui/dropdown-menu";
+
 import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { Separator } from "@ui/components/ui/separator";
 import { useQuery, gql } from "@apollo/client";
-
 import useUserStore from "../../../../store/user";
+import { ProductsData, ProductWithTracks } from "../../../../generated/graphql";
 
-
-const discographyData = {
-  artists: [
-    {
-      id: 1,
-      name: "The Awesome Band",
-      subName: "The Awesome Band",
-      image: "/placeholder.svg?height=40&width=40",
-    },
-    {
-      id: 2,
-      name: "The Another Band",
-      subName: "The Another Band",
-      image: "/placeholder.svg?height=40&width=40",
-    },
-  ],
-  albums: [
-    {
-      id: 1,
-      title: "This is awesome album",
-      artwork: "/placeholder.svg?height=200&width=200",
-      tracks: Array(10).fill({
-        title: "Song name goes here",
-      }),
-    },
-    {
-      id: 2,
-      title: "This is awesome album",
-      artwork: "/placeholder.svg?height=200&width=200",
-      tracks: Array(12).fill({
-        title: "Song name goes here",
-      }),
-    },
-  ],
-  singles: [
-    {
-      id: 1,
-      title: "This is awesome album",
-      artwork: "/placeholder.svg?height=200&width=200",
-      tracks: [
-        {
-          title: "Song name goes here",
-        },
-      ],
-    },
-  ],
-};
+interface ResData {
+  getProducts: ProductsData;
+}
 
 export default function DiscographyPage() {
   const { user } = useUserStore();
@@ -73,6 +24,13 @@ export default function DiscographyPage() {
   const [selectedArtist, setSelectedArtist] = useState<string | null>(
     artists?.[0]?.artistId || null,
   );
+  const { data } = useQuery<ResData>(GET_PRODUCTS, {
+    variables: {
+      artistId: selectedArtist || "",
+    },
+  });
+
+  console.log(data);
 
   if (!artists?.length) {
     return (
@@ -118,22 +76,28 @@ export default function DiscographyPage() {
         ))}
       </div>
 
-      {selectedArtist}
-
       <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Albums (4)</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          Albums ({data?.getProducts.album.length})
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {discographyData.albums.map((album) => (
-            <AlbumCard key={album.id} album={album} />
+          {data?.getProducts.album.map((album) => (
+            <AlbumCard key={album.product.upc} album={album} category="album" />
           ))}
         </div>
       </section>
 
       <section>
-        <h2 className="text-xl font-semibold mb-4">Singles (7)</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          Singles ({data?.getProducts.single.length})
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {discographyData.singles.map((single) => (
-            <AlbumCard key={single.id} album={single} />
+          {data?.getProducts.single.map((single) => (
+            <AlbumCard
+              key={single.product.upc}
+              album={single}
+              category="single"
+            />
           ))}
         </div>
       </section>
@@ -143,21 +107,20 @@ export default function DiscographyPage() {
 
 function AlbumCard({
   album,
+  category,
 }: {
-  album: {
-    id: number;
-    artwork: string;
-    title: string;
-    tracks: { title: string }[];
-  };
+  album: ProductWithTracks;
+  category: "album" | "single" | "ep";
 }) {
   return (
-    <Link href={`/dashboard/discography/${album.id}`}>
+    <Link href={`/dashboard/discography/${album.product.upc}`}>
       <Card className="bg-zinc-900 border-zinc-800 text-gray-200 hover:bg-zinc-800 transition-colors">
         <CardHeader className="flex-row items-start gap-4 space-y-0">
           <Image
-            src={album.artwork}
-            alt={album.title}
+            src={
+              album.product.imgUrl || "/placeholder.svg?height=100&width=100"
+            }
+            alt={album.product.title}
             width={100}
             height={100}
             className="rounded-md"
@@ -165,21 +128,10 @@ function AlbumCard({
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs px-2 py-0.5 rounded bg-zinc-800">
-                Album
+                {category}
               </span>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="icon" variant="ghost" className="h-8 w-8">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-40">
-                  <DropdownMenuItem>Share</DropdownMenuItem>
-                  <DropdownMenuItem>Download</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </div>
-            <h3 className="font-semibold">{album.title}</h3>
+            <h3 className="font-semibold">{album.product.title}</h3>
           </div>
         </CardHeader>
         <CardContent>
@@ -193,9 +145,6 @@ function AlbumCard({
                     </span>
                     <span className="text-sm">{track.title}</span>
                   </div>
-                  <Button size="icon" variant="ghost" className="h-8 w-8">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
                 </div>
                 {index < album.tracks.length - 1 && (
                   <Separator className="bg-zinc-700" />
@@ -208,3 +157,52 @@ function AlbumCard({
     </Link>
   );
 }
+
+export const GET_PRODUCTS = gql`
+  query GetProducts($artistId: String!) {
+    getProducts(artistId: $artistId) {
+      album {
+        product {
+          artistId
+          imgUrl
+          title
+          type
+          upc
+        }
+        tracks {
+          imgUrl
+          isrc
+          title
+        }
+      }
+      ep {
+        product {
+          artistId
+          imgUrl
+          title
+          type
+          upc
+        }
+        tracks {
+          imgUrl
+          isrc
+          title
+        }
+      }
+      single {
+        product {
+          artistId
+          imgUrl
+          title
+          type
+          upc
+        }
+        tracks {
+          imgUrl
+          isrc
+          title
+        }
+      }
+    }
+  }
+`;

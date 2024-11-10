@@ -1,6 +1,5 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 import {
@@ -17,41 +16,50 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@ui/components/ui/chart";
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
+import { useQuery, gql } from "@apollo/client";
+import { ChartDataByUpc } from "../../../../../generated/graphql";
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "#2563eb",
-  },
-} satisfies ChartConfig;
+const GET_PLAYCOUNT_HISTORY_BY_UPC = gql`
+  query GetPlaycountHistoryByUpc($upc: String!, $period: Int!) {
+    getPlaycountHistoryByUpc(upc: $upc, period: $period) {
+      lineChartData {
+        date
+        isrcCount
+      }
+    }
+  }
+`;
 
-export function HistoricalByUPC({
-  selectedArtistId,
-}: {
-  selectedArtistId: string | null;
-}) {
+interface ResData {
+  getPlaycountHistoryByUpc: ChartDataByUpc;
+}
+
+export function HistoricalByUPC({ upc }: { upc: string }) {
+  const { data, loading, error } = useQuery<ResData>(
+    GET_PLAYCOUNT_HISTORY_BY_UPC,
+    {
+      variables: { upc, period: 12 },
+    },
+  );
+
+  const chartData =
+    data?.getPlaycountHistoryByUpc.lineChartData.map(transformData);
+  const generatedChartConfig = generateChartConfig(chartData || []);
+
+  const dataKeys = Object.keys(generatedChartConfig);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  if (!chartData?.length) return <div>No data available</div>;
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Area Chart - Gradient</CardTitle>
-        <CardDescription>
-          Showing total visitors for the last 6 months
-        </CardDescription>
+        <CardTitle className="font-light">Chart</CardTitle>
+        <CardDescription>playcount of product</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={generatedChartConfig}>
           <AreaChart
             accessibilityLayer
             data={chartData}
@@ -62,55 +70,47 @@ export function HistoricalByUPC({
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="date"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => new Date(value).toLocaleDateString()}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <defs>
-              <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-desktop)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-desktop)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-              <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
+              {dataKeys.map((key, index) => (
+                <linearGradient
+                  key={key}
+                  id={`fill${key}`}
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop
+                    offset="5%"
+                    stopColor={generatedChartConfig[key]?.color}
+                    stopOpacity={0.8}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor={generatedChartConfig[key]?.color}
+                    stopOpacity={0.1}
+                  />
+                </linearGradient>
+              ))}
             </defs>
-            <Area
-              dataKey="mobile"
-              type="natural"
-              fill="url(#fillMobile)"
-              fillOpacity={0.4}
-              stroke="var(--color-mobile)"
-              stackId="a"
-            />
-            <Area
-              dataKey="desktop"
-              type="natural"
-              fill="url(#fillDesktop)"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
+            {dataKeys.map((key, index) => (
+              <Area
+                key={key}
+                dataKey={key}
+                type="natural"
+                fill={`url(#fill${key})`}
+                fillOpacity={0.4}
+                stroke={generatedChartConfig[key]?.color}
+                stackId="a"
+              />
+            ))}
           </AreaChart>
         </ChartContainer>
       </CardContent>
@@ -118,10 +118,7 @@ export function HistoricalByUPC({
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - June 2024
+              ここで説明を入れる。
             </div>
           </div>
         </div>
@@ -129,3 +126,46 @@ export function HistoricalByUPC({
     </Card>
   );
 }
+
+const transformData = (data: any) => {
+  const { date, isrcCount } = data;
+  console.log("Transform input:", { date, isrcCount });
+  const entries = Object.entries(isrcCount);
+  const result = {
+    date: date,
+    ...Object.fromEntries(entries),
+  };
+  console.log("Transform result:", result);
+  return result;
+};
+
+const generateChartConfig = (data: any) => {
+  if (!data?.length) {
+    console.log("No data length");
+    return {};
+  }
+
+  // ISRCの一覧を取得
+  const isrcs = Object.keys(data[0]).filter((key) => key !== "date");
+
+  // 色のパレット（必要に応じて色を追加）
+  const colors = [
+    "#2563eb", // blue
+    "#16a34a", // green
+    "#dc2626", // red
+    "#9333ea", // purple
+    "#ea580c", // orange
+    "#0891b2", // cyan
+    "#4f46e5", // indigo
+    "#be185d", // pink
+  ];
+
+  // ISRCごとにconfigを生成
+  return isrcs.reduce((config, isrc, index) => {
+    config[isrc] = {
+      label: isrc,
+      color: colors[index % colors.length],
+    };
+    return config;
+  }, {} as ChartConfig);
+};

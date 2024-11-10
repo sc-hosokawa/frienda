@@ -455,6 +455,25 @@ type PrizeDetailData {
 	condition: String
 }
 
+type Product {
+	upc: String!
+	title: String!
+	imgUrl: String
+	type: String
+	artistId: String
+}
+
+type ProductWithTracks {
+	product: Product!
+	tracks: [Track!]!
+}
+
+type ProductsData {
+	album: [ProductWithTracks!]!
+	single: [ProductWithTracks!]!
+	ep: [ProductWithTracks!]!
+}
+
 type QueryRoot {
 	healthCheck: HealthCheck!
 	getOverview(artistId: String!, userId: String!): TotalOverviewData!
@@ -464,6 +483,8 @@ type QueryRoot {
 	getPlaycountHistoryByUpc(upc: String!, period: Int!): ChartDataByUPC!
 	getGenderGenRateByArtist(artistId: String!, userId: String!): GenderGenRateData!
 	getGenderGenRateByUpc(artistId: String!, userId: String!, upc: String!): GenderGenRateData!
+	getProducts(artistId: String!): ProductsData!
+	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
 	getCommunities: ConnectedUsersData!
 	getOfferStatsByUser(userId: String!): OfferStatsByUserData!
 	getOffersByOwner(userId: String!): OffersData!
@@ -559,6 +580,12 @@ type TotalOverviewData {
 	weeklyPlaybacks: Int!
 }
 
+type Track {
+	isrc: String!
+	title: String
+	imgUrl: String
+}
+
 type TrackCredit {
 	isrc: String!
 	commitUser: String!
@@ -619,6 +646,13 @@ type TrendTrack {
 	imageUrl: String
 	totalPlayCount: Int!
 	weeklyPlayCount: Int!
+}
+
+type TrendingByUPCData {
+	artistName: String!
+	productImgUrl: String
+	productTitle: String!
+	trendingTracks: [TrendTrack!]!
 }
 
 type TrendingData {

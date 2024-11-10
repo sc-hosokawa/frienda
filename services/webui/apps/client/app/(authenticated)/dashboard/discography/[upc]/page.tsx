@@ -12,6 +12,7 @@ import { HistoricalByUPC } from "./histrical-chart";
 import { GenderGenViewByUPC } from "./gender-gen-data";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../../../store/user";
+import { TrendingByUpcData } from "../../../../../generated/graphql";
 
 const GET_OVERVIEW_BY_UPC = gql`
   query GetOverviewByUpc($artistId: String!, $userId: String!, $upc: String!) {
@@ -22,6 +23,28 @@ const GET_OVERVIEW_BY_UPC = gql`
   }
 `;
 
+const GET_TRENDING_BY_UPC = gql`
+  query GetTrendingByUpc($upc: String!, $userId: String!) {
+    getTrendingByUpc(upc: $upc, userId: $userId) {
+      artistName
+      productImgUrl
+      productTitle
+      trendingTracks {
+        isrc
+        trackTitle
+        upcTitle
+        imageUrl
+        totalPlayCount
+        weeklyPlayCount
+      }
+    }
+  }
+`;
+
+interface TrendingResData {
+  getTrendingByUpc: TrendingByUpcData;
+}
+
 type Props = {
   params: {
     upc: string;
@@ -31,21 +54,23 @@ type Props = {
 export default function DiscographyAlbumPage({ params }: Props) {
   const { user } = useUserStore();
   const { data } = useQuery(GET_OVERVIEW_BY_UPC, {
-    variables: { artistId: '', userId: user?.id, upc: params.upc },
+    variables: { artistId: "", userId: user?.id, upc: params.upc },
   });
-
-  console.log(data);
+  const { data: trendingData } = useQuery<TrendingResData>(
+    GET_TRENDING_BY_UPC,
+    {
+      variables: { upc: params.upc, userId: user?.id },
+    },
+  );
+  console.log(trendingData?.getTrendingByUpc.trendingTracks[0]?.trackTitle);
 
   return (
     <div className="bg-black text-white min-h-screen p-6">
       <div className="max-w-4xl mx-auto space-y-6 mb-16">
-        {/* UPC display */}
-        <div className="text-sm text-gray-400">UPC: {params.upc}</div>
-
         <div className="flex gap-6">
           <div className="flex-shrink-0">
             <img
-              src="/placeholder.svg?height=200&width=200"
+              src={trendingData?.getTrendingByUpc.productImgUrl || ""}
               alt="Album artwork showing an orange circular design"
               className="w-48 h-48 rounded-sm"
             />
@@ -54,7 +79,7 @@ export default function DiscographyAlbumPage({ params }: Props) {
             <div className="space-y-4 mb-16">
               <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">
-                  This is awesome Album
+                  {trendingData?.getTrendingByUpc.productTitle}
                 </h1>
                 <div className="flex gap-2">
                   <Button variant="ghost" size="icon">
@@ -62,16 +87,22 @@ export default function DiscographyAlbumPage({ params }: Props) {
                   </Button>
                 </div>
               </div>
-              <p className="text-sm text-gray-400">The Awesome Band</p>
+              <p className="text-sm text-gray-400">
+                {trendingData?.getTrendingByUpc.artistName}
+              </p>
               <div className="flex gap-8">
                 <div>
-                  <div className="text-2xl">{data?.getOverviewByUpc.totalPlaybacks.toLocaleString()}</div>
+                  <div className="text-2xl">
+                    {data?.getOverviewByUpc.totalPlaybacks.toLocaleString()}
+                  </div>
                   <div className="text-xs text-gray-400">
                     Song Played (Total)
                   </div>
                 </div>
                 <div>
-                  <div className="text-2xl">{data?.getOverviewByUpc.weeklyPlaybacks.toLocaleString()}</div>
+                  <div className="text-2xl">
+                    {data?.getOverviewByUpc.weeklyPlaybacks.toLocaleString()}
+                  </div>
                   <div className="text-xs text-gray-400">
                     Song Played (Week)
                   </div>
@@ -79,9 +110,8 @@ export default function DiscographyAlbumPage({ params }: Props) {
               </div>
             </div>
 
-            {/* 曲リスト */}
             <div className="space-y-2">
-              {Array.from({ length: 7 }).map((_, i) => (
+              {trendingData?.getTrendingByUpc.trendingTracks.map((track, i) => (
                 <div
                   key={i}
                   className="flex items-center justify-between py-2 hover:bg-gray-800 rounded-lg px-4 group w-full"
@@ -91,9 +121,9 @@ export default function DiscographyAlbumPage({ params }: Props) {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <div className="font-medium">Song name goes here</div>
+                      <div className="font-medium">{track.trackTitle}</div>
                       <div className="text-sm text-gray-400">
-                        The Awesome Band
+                        {trendingData?.getTrendingByUpc.artistName}
                       </div>
                     </div>
                   </div>
@@ -115,8 +145,8 @@ export default function DiscographyAlbumPage({ params }: Props) {
           </div>
         </div>
       </div>
-      <HistoricalByUPC selectedArtistId={params.upc} />
-      <GenderGenViewByUPC selectedArtistId={params.upc} />
+      <HistoricalByUPC upc={params.upc} />
+      <GenderGenViewByUPC upc={params.upc} />
     </div>
   );
 }

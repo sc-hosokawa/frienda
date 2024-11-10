@@ -640,6 +640,28 @@ export type PrizeDetailData = {
   representation: Scalars["String"]["output"];
 };
 
+export type Product = {
+  __typename?: "Product";
+  artistId?: Maybe<Scalars["String"]["output"]>;
+  imgUrl?: Maybe<Scalars["String"]["output"]>;
+  title: Scalars["String"]["output"];
+  type?: Maybe<Scalars["String"]["output"]>;
+  upc: Scalars["String"]["output"];
+};
+
+export type ProductWithTracks = {
+  __typename?: "ProductWithTracks";
+  product: Product;
+  tracks: Array<Track>;
+};
+
+export type ProductsData = {
+  __typename?: "ProductsData";
+  album: Array<ProductWithTracks>;
+  ep: Array<ProductWithTracks>;
+  single: Array<ProductWithTracks>;
+};
+
 export type QueryRoot = {
   __typename?: "QueryRoot";
   getAllArtists: ArtistsData;
@@ -675,9 +697,11 @@ export type QueryRoot = {
   getPlaycountHistoryByUpc: ChartDataByUpc;
   getPopularPrizes: Array<PrizeData>;
   getPrizeDetail: PrizeDetailData;
+  getProducts: ProductsData;
   getQuestByUserId: Array<QuestData>;
   getQuests: Array<QuestData>;
   getTrending: TrendingData;
+  getTrendingByUpc: TrendingByUpcData;
   getUserData: UserDetailData;
   getUserDetailProfile: UserDetailData;
   getUserPointBalance: UserPointBalanceData;
@@ -806,12 +830,21 @@ export type QueryRootGetPrizeDetailArgs = {
   prizeId: Scalars["Int"]["input"];
 };
 
+export type QueryRootGetProductsArgs = {
+  artistId: Scalars["String"]["input"];
+};
+
 export type QueryRootGetQuestByUserIdArgs = {
   userId: Scalars["String"]["input"];
 };
 
 export type QueryRootGetTrendingArgs = {
   artistId: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
+};
+
+export type QueryRootGetTrendingByUpcArgs = {
+  upc: Scalars["String"]["input"];
   userId: Scalars["String"]["input"];
 };
 
@@ -892,6 +925,13 @@ export type TotalOverviewData = {
   weeklyPlaybacks: Scalars["Int"]["output"];
 };
 
+export type Track = {
+  __typename?: "Track";
+  imgUrl?: Maybe<Scalars["String"]["output"]>;
+  isrc: Scalars["String"]["output"];
+  title?: Maybe<Scalars["String"]["output"]>;
+};
+
 export type TrackCredit = {
   __typename?: "TrackCredit";
   commitUser: Scalars["String"]["output"];
@@ -959,6 +999,14 @@ export type TrendTrack = {
   trackTitle?: Maybe<Scalars["String"]["output"]>;
   upcTitle?: Maybe<Scalars["String"]["output"]>;
   weeklyPlayCount: Scalars["Int"]["output"];
+};
+
+export type TrendingByUpcData = {
+  __typename?: "TrendingByUPCData";
+  artistName: Scalars["String"]["output"];
+  productImgUrl?: Maybe<Scalars["String"]["output"]>;
+  productTitle: Scalars["String"]["output"];
+  trendingTracks: Array<TrendTrack>;
 };
 
 export type TrendingData = {

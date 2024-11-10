@@ -39,57 +39,6 @@ interface ResData {
   getPlayCountHistory: ChartData;
 }
 
-const chartData = [
-  {
-    month: "January",
-    spotify: 186,
-    apple: 80,
-    line: 100,
-    youtube: 100,
-    amazon: 100,
-  },
-  {
-    month: "February",
-    spotify: 305,
-    apple: 200,
-    line: 100,
-    youtube: 100,
-    amazon: 100,
-  },
-  {
-    month: "March",
-    spotify: 237,
-    apple: 120,
-    line: 100,
-    youtube: 100,
-    amazon: 100,
-  },
-  {
-    month: "April",
-    spotify: 73,
-    apple: 190,
-    line: 100,
-    youtube: 100,
-    amazon: 100,
-  },
-  {
-    month: "May",
-    spotify: 209,
-    apple: 130,
-    line: 100,
-    youtube: 100,
-    amazon: 100,
-  },
-  {
-    month: "June",
-    spotify: 214,
-    apple: 140,
-    line: 100,
-    youtube: 100,
-    amazon: 100,
-  },
-];
-
 const chartConfig = {
   spotify: {
     label: "Spotify",
@@ -131,9 +80,7 @@ export function Historical({
     <Card>
       <CardHeader>
         <CardTitle className="font-light">Chart</CardTitle>
-        <CardDescription>
-          all songs
-        </CardDescription>
+        <CardDescription>all songs</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

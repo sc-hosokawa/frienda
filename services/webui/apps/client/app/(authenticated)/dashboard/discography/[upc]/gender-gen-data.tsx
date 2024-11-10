@@ -18,20 +18,38 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { useQuery, gql } from "@apollo/client";
+import { GenderGenRateData } from "../../../../../generated/graphql";
 
-const generationData = [
-  { name: "Under 20", value: 23 },
-  { name: "21-30", value: 54 },
-  { name: "31-40", value: 21 },
-  { name: "41-50", value: 1 },
-  { name: "Above 51", value: 1 },
-];
+const GET_GENDER_GEN_RATE_BY_UPC = gql`
+  query GetGenderGenRateByUpc(
+    $artistId: String!
+    $userId: String!
+    $upc: String!
+  ) {
+    getGenderGenRateByUpc(artistId: $artistId, userId: $userId, upc: $upc) {
+      genderRate {
+        maleCount
+        femaleCount
+      }
+      genRate {
+        under14
+        gen1519
+        gen2024
+        gen2529
+        gen3034
+        gen3539
+        gen4044
+        gen4549
+        gen50Over
+      }
+    }
+  }
+`;
 
-const genderData = [
-  { name: "Male", value: 65 },
-  { name: "Female", value: 33 },
-  { name: "Unknown", value: 2 },
-];
+interface ResData {
+  getGenderGenRateByUpc: GenderGenRateData;
+}
 
 const GENERATION_COLORS = [
   "#fde047",
@@ -39,19 +57,49 @@ const GENERATION_COLORS = [
   "#5eead4",
   "#fb923c",
   "#c084fc",
+  "#60a5fa",
+  "#4ade80",
+  "#f472b6",
+  "#a78bfa",
 ];
-const GENDER_COLORS = ["#5eead4", "#f87171", "#737373"];
+const GENDER_COLORS = ["#5eead4", "#f87171"];
 
-export function GenderGenViewByUPC({
-  selectedArtistId,
-}: {
-  selectedArtistId: string | null;
-}) {
+export function GenderGenViewByUPC({ upc }: { upc: string }) {
+  const { data } = useQuery<ResData>(GET_GENDER_GEN_RATE_BY_UPC, {
+    variables: { upc, artistId: "", userId: "" },
+  });
+
+  const generationData = [
+    { name: "Under 14", value: data?.getGenderGenRateByUpc.genRate.under14 },
+    { name: "15-19", value: data?.getGenderGenRateByUpc.genRate.gen1519 },
+    { name: "20-24", value: data?.getGenderGenRateByUpc.genRate.gen2024 },
+    { name: "25-29", value: data?.getGenderGenRateByUpc.genRate.gen2529 },
+    { name: "30-34", value: data?.getGenderGenRateByUpc.genRate.gen3034 },
+    { name: "35-39", value: data?.getGenderGenRateByUpc.genRate.gen3539 },
+    { name: "40-44", value: data?.getGenderGenRateByUpc.genRate.gen4044 },
+    { name: "45-49", value: data?.getGenderGenRateByUpc.genRate.gen4549 },
+    {
+      name: "50 Over",
+      value: data?.getGenderGenRateByUpc.genRate.gen50Over,
+    },
+  ];
+
+  const genderData = [
+    {
+      name: "Male",
+      value: data?.getGenderGenRateByUpc.genderRate.maleCount,
+    },
+    {
+      name: "Female",
+      value: data?.getGenderGenRateByUpc.genderRate.femaleCount,
+    },
+  ];
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-black/95">
-      <Card className="bg-zinc-900 border-zinc-800">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+      <Card className="border-zinc-800">
         <CardHeader>
-          <CardTitle className="text-zinc-100">Generation</CardTitle>
+          <CardTitle className="text-zinc-100 font-light">Generation</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
@@ -86,9 +134,9 @@ export function GenderGenViewByUPC({
         </CardContent>
       </Card>
 
-      <Card className="bg-zinc-900 border-zinc-800">
+      <Card className="border-zinc-800">
         <CardHeader>
-          <CardTitle className="text-zinc-100">Gender</CardTitle>
+          <CardTitle className="text-zinc-100 font-light">Gender</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
