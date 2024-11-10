@@ -1,0 +1,45 @@
+import { Play } from "lucide-react";
+import { useQuery, gql } from "@apollo/client";
+import useUserStore from "../../../store/user";
+
+const GET_OVERVIEW = gql`
+  query GetOverview($artistId: String!, $userId: String!) {
+    getOverview(artistId: $artistId, userId: $userId) {
+      totalPlaybacks
+      weeklyPlaybacks
+    }
+  }
+`;
+
+export function Overview({
+  selectedArtistId,
+}: {
+  selectedArtistId: string | null;
+}) {
+  const { user } = useUserStore();
+  const { data } = useQuery(GET_OVERVIEW, {
+    variables: { artistId: selectedArtistId, userId: user?.id },
+  });
+
+  return (
+    <div className="mb-8">
+      <h2 className="text-2xl font-light mb-4">Overview</h2>
+      <div className="space-y-4">
+        <div className="flex items-center">
+          <Play className="mr-2 text-yellow-400" />
+          <span className="text-gray-400 mr-4">Song Played (Total) /</span>
+          <span className="text-4xl">
+            {data?.getOverview.totalPlaybacks.toLocaleString()}
+          </span>
+        </div>
+        <div className="flex items-center">
+          <Play className="mr-2 text-yellow-400" />
+          <span className="text-gray-400 mr-4">Song Played (Week) /</span>
+          <span className="text-4xl">
+            {data?.getOverview.weeklyPlaybacks.toLocaleString()}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}

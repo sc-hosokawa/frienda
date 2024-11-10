@@ -3,6 +3,6 @@ module.exports = {
   reactStrictMode: true,
   transpilePackages: ["ui"],
   images: {
-    domains: ["localhost", "firebasestorage.googleapis.com"],
+    domains: ["localhost", "firebasestorage.googleapis.com", "i.scdn.co"],
   },
 };

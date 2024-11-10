@@ -18,6 +18,7 @@ const CREATE_USER_MUTATION = gql`
     createNewUserData(input: $input) {
       userId
       name
+      realname
       imageUrl
     }
   }
@@ -41,6 +42,7 @@ export default function SignIn() {
   const [photoURL, setPhotoURL] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [realname, setRealname] = useState("");
 
   const categories = [
     { id: "Musician", name: "ミュージシャン" },
@@ -146,6 +148,7 @@ export default function SignIn() {
             id: auth.currentUser?.uid,
             email: auth.currentUser?.email,
             name: displayName,
+            realname: realname,
             imageUrl: uploadedImageUrl,
             category: selectedCategory,
             primaryCategory: selectedPrimaryCategory,
@@ -199,6 +202,18 @@ export default function SignIn() {
                   className="bg-black border-white/20 text-white"
                 />
               </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="realname">氏名</Label>
+              <Input
+                id="realname"
+                value={realname}
+                onChange={(e) => setRealname(e.target.value)}
+                placeholder="氏名（本名・フルネーム）を入力してください。他のユーザーには表示されません。"
+                className="bg-black border-white/20 text-white placeholder:text-white/50"
+                required
+              />
             </div>
 
             <div className="space-y-2">

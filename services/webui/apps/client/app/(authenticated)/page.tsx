@@ -5,6 +5,13 @@ import Link from "next/link";
 import useUserStore from "../../store/user";
 import { useQuery, gql } from "@apollo/client";
 import { QuestData } from "../../generated/graphql";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@ui/components/ui/carousel";
 
 const GET_QUESTS_BY_USER = gql`
   query GetQuestsByUser($userId: String!) {
@@ -12,6 +19,7 @@ const GET_QUESTS_BY_USER = gql`
       id
       name
       description
+      category
     }
   }
 `;
@@ -47,8 +55,6 @@ function Actions() {
     variables: { userId: user?.id },
   });
 
-  console.log(data?.getQuestByUserId);
-
   return (
     <section className="space-y-4">
       <div className="flex justify-between items-center">
@@ -59,35 +65,46 @@ function Actions() {
 
       <div className="relative">
         {data?.getQuestByUserId?.length ? (
-          <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2">
-            {data?.getQuestByUserId?.map((quest) => (
-              <div
-                key={quest.id}
-                className="min-w-[280px] p-6 rounded-xl bg-white/5 space-y-4 hover:bg-white/10 transition-colors"
-              >
-                <div className="inline-block px-3 py-1 rounded-full text-xs bg-white/10">
-                  フレンド追加
-                </div>
-                <h3 className="font-medium">{quest.name}</h3>
-                <p className="text-sm text-gray-400">{quest.description}</p>
-                <button className="p-2 hover:bg-white/10 rounded-full">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </button>
-              </div>
-            ))}
-          </div>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {data?.getQuestByUserId?.map((quest) => (
+                <CarouselItem
+                  key={quest.id}
+                  className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+                >
+                  <div className="p-6 rounded-xl bg-white/5 space-y-4 hover:bg-white/10 transition-colors">
+                    <div className="inline-block px-3 py-1 rounded-full text-xs bg-white/10">
+                      {quest.category}
+                    </div>
+                    <h3 className="font-medium">{quest.name}</h3>
+                    <p className="text-sm text-gray-400">{quest.description}</p>
+                    <button className="p-2 hover:bg-white/10 rounded-full">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         ) : (
           <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400">
             利用可能なクエストはありません

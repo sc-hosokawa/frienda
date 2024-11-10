@@ -26,6 +26,8 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  /** A scalar that can represent any JSON Object value. */
+  JSONObject: { input: any; output: any };
 };
 
 export type AddNewConnectionByUserInput = {
@@ -103,7 +105,18 @@ export type ArtistsData = {
 
 export type ChartData = {
   __typename?: "ChartData";
-  lineChartData: Array<Scalars["Int"]["output"]>;
+  lineChartData: Array<LineChartData>;
+};
+
+export type ChartDataByIsrc = {
+  __typename?: "ChartDataByISRC";
+  date: Scalars["String"]["output"];
+  isrcCount: Scalars["JSONObject"]["output"];
+};
+
+export type ChartDataByUpc = {
+  __typename?: "ChartDataByUPC";
+  lineChartData: Array<ChartDataByIsrc>;
 };
 
 export type ConnectedUserByUserData = {
@@ -280,9 +293,49 @@ export type ExchangePrizeResponse = {
   txId: Scalars["String"]["output"];
 };
 
+export type GenPlaybackRate = {
+  __typename?: "GenPlaybackRate";
+  gen50Over: Scalars["Int"]["output"];
+  gen1519: Scalars["Int"]["output"];
+  gen2024: Scalars["Int"]["output"];
+  gen2529: Scalars["Int"]["output"];
+  gen3034: Scalars["Int"]["output"];
+  gen3539: Scalars["Int"]["output"];
+  gen4044: Scalars["Int"]["output"];
+  gen4549: Scalars["Int"]["output"];
+  under14: Scalars["Int"]["output"];
+};
+
+export type GenderGenRateData = {
+  __typename?: "GenderGenRateData";
+  genRate: GenPlaybackRate;
+  genderRate: GenderPlaybackRate;
+};
+
+export type GenderPlaybackRate = {
+  __typename?: "GenderPlaybackRate";
+  femaleCount: Scalars["Int"]["output"];
+  maleCount: Scalars["Int"]["output"];
+};
+
+export type GetAllCreditsOutput = {
+  __typename?: "GetAllCreditsOutput";
+  credits: Array<TrackCreditsByAdmin>;
+};
+
 export type HealthCheck = {
   __typename?: "HealthCheck";
   status: Scalars["String"]["output"];
+};
+
+export type LineChartData = {
+  __typename?: "LineChartData";
+  amazon: Scalars["Int"]["output"];
+  apple: Scalars["Int"]["output"];
+  date: Scalars["String"]["output"];
+  line: Scalars["Int"]["output"];
+  spotify: Scalars["Int"]["output"];
+  youtube: Scalars["Int"]["output"];
 };
 
 export type MarkAsAdminInput = {
@@ -378,6 +431,7 @@ export type MutationRoot = {
   markAsMember: MarkAsMemberResponse;
   markAsRead: MarkAsReadResponse;
   questMarkAsDone: MarkAsDoneResponse;
+  registerCredit: RegisterCreditResponse;
   requestToAccessArtist: RequestToAccessArtistResponse;
   sendMessage: SendMessageResponse;
   updateBelongsToArtistStatus: UpdateBelongsToArtistStatusResponse;
@@ -463,6 +517,10 @@ export type MutationRootMarkAsReadArgs = {
 export type MutationRootQuestMarkAsDoneArgs = {
   questId: Scalars["Int"]["input"];
   userId: Scalars["String"]["input"];
+};
+
+export type MutationRootRegisterCreditArgs = {
+  input: RegisterCreditInput;
 };
 
 export type MutationRootRequestToAccessArtistArgs = {
@@ -563,23 +621,6 @@ export type OffersData = {
   offerList: Array<OfferData>;
 };
 
-export type PlaybacksByGenderData = {
-  __typename?: "PlaybacksByGenderData";
-  femalePlaybacks: Scalars["Int"]["output"];
-  malePlaybacks: Scalars["Int"]["output"];
-  unknownPlaybacks: Scalars["Int"]["output"];
-};
-
-export type PlaybacksByGenerationData = {
-  __typename?: "PlaybacksByGenerationData";
-  playbacks20S: Scalars["Int"]["output"];
-  playbacks30S: Scalars["Int"]["output"];
-  playbacks40S: Scalars["Int"]["output"];
-  playbacks50S: Scalars["Int"]["output"];
-  playbacksOver60: Scalars["Int"]["output"];
-  playbacksUnder10S: Scalars["Int"]["output"];
-};
-
 export type PrizeData = {
   __typename?: "PrizeData";
   id: Scalars["Int"]["output"];
@@ -602,6 +643,7 @@ export type PrizeDetailData = {
 export type QueryRoot = {
   __typename?: "QueryRoot";
   getAllArtists: ArtistsData;
+  getAllCredits: GetAllCreditsOutput;
   getAllNotifications: NotificationsData;
   getAllPrizes: Array<PrizeData>;
   getAllUsers: AllUsersData;
@@ -611,9 +653,11 @@ export type QueryRoot = {
   getArtistsByName: ArtistsData;
   getBelongedArtists: ArtistByUserDataList;
   getCommunities: ConnectedUsersData;
+  getCredits: Array<TrackCredit>;
   getFspHistory: TransactionsData;
   getFspHistoryByUser: TransactionsByUserData;
-  getLineChartData: ChartData;
+  getGenderGenRateByArtist: GenderGenRateData;
+  getGenderGenRateByUpc: GenderGenRateData;
   getMembersBelongedToArtist: Array<UserSimpleData>;
   getMembersJoinedToArtist: Array<UserSimpleData>;
   getMessageRooms: MessageRoomsByUserData;
@@ -625,18 +669,23 @@ export type QueryRoot = {
   getOffersById: OfferDetailData;
   getOffersByOwner: OffersData;
   getOffersByStatus: OfferByStatusData;
-  getOverviewData: TotalOverviewData;
-  getPlaybacksByGenderData: PlaybacksByGenderData;
-  getPlaybacksByGenerationData: PlaybacksByGenerationData;
+  getOverview: TotalOverviewData;
+  getOverviewByUpc: TotalOverviewData;
+  getPlayCountHistory: ChartData;
+  getPlaycountHistoryByUpc: ChartDataByUpc;
   getPopularPrizes: Array<PrizeData>;
   getPrizeDetail: PrizeDetailData;
   getQuestByUserId: Array<QuestData>;
   getQuests: Array<QuestData>;
-  getTrendingData: TrendingData;
+  getTrending: TrendingData;
   getUserData: UserDetailData;
   getUserDetailProfile: UserDetailData;
   getUserPointBalance: UserPointBalanceData;
   healthCheck: HealthCheck;
+};
+
+export type QueryRootGetAllCreditsArgs = {
+  userId: Scalars["String"]["input"];
 };
 
 export type QueryRootGetAllUsersExceptMeArgs = {
@@ -659,6 +708,12 @@ export type QueryRootGetBelongedArtistsArgs = {
   userId: Scalars["String"]["input"];
 };
 
+export type QueryRootGetCreditsArgs = {
+  artistId: Scalars["String"]["input"];
+  isrc: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
+};
+
 export type QueryRootGetFspHistoryArgs = {
   count: Scalars["Int"]["input"];
   userId: Scalars["String"]["input"];
@@ -669,11 +724,15 @@ export type QueryRootGetFspHistoryByUserArgs = {
   userId: Scalars["String"]["input"];
 };
 
-export type QueryRootGetLineChartDataArgs = {
-  artistId?: InputMaybe<Scalars["String"]["input"]>;
-  dsp?: InputMaybe<Scalars["String"]["input"]>;
-  isrc?: InputMaybe<Scalars["String"]["input"]>;
-  period?: InputMaybe<Scalars["String"]["input"]>;
+export type QueryRootGetGenderGenRateByArtistArgs = {
+  artistId: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
+};
+
+export type QueryRootGetGenderGenRateByUpcArgs = {
+  artistId: Scalars["String"]["input"];
+  upc: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
 };
 
 export type QueryRootGetMembersBelongedToArtistArgs = {
@@ -721,22 +780,26 @@ export type QueryRootGetOffersByStatusArgs = {
   userId: Scalars["String"]["input"];
 };
 
-export type QueryRootGetOverviewDataArgs = {
-  artistId?: InputMaybe<Scalars["String"]["input"]>;
+export type QueryRootGetOverviewArgs = {
+  artistId: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
 };
 
-export type QueryRootGetPlaybacksByGenderDataArgs = {
-  artistId?: InputMaybe<Scalars["String"]["input"]>;
-  dsp?: InputMaybe<Scalars["String"]["input"]>;
-  isrc?: InputMaybe<Scalars["String"]["input"]>;
-  period?: InputMaybe<Scalars["String"]["input"]>;
+export type QueryRootGetOverviewByUpcArgs = {
+  artistId: Scalars["String"]["input"];
+  upc: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
 };
 
-export type QueryRootGetPlaybacksByGenerationDataArgs = {
-  artistId?: InputMaybe<Scalars["String"]["input"]>;
-  dsp?: InputMaybe<Scalars["String"]["input"]>;
-  isrc?: InputMaybe<Scalars["String"]["input"]>;
-  period?: InputMaybe<Scalars["String"]["input"]>;
+export type QueryRootGetPlayCountHistoryArgs = {
+  artistId: Scalars["String"]["input"];
+  period: Scalars["Int"]["input"];
+  userId: Scalars["String"]["input"];
+};
+
+export type QueryRootGetPlaycountHistoryByUpcArgs = {
+  period: Scalars["Int"]["input"];
+  upc: Scalars["String"]["input"];
 };
 
 export type QueryRootGetPrizeDetailArgs = {
@@ -747,8 +810,9 @@ export type QueryRootGetQuestByUserIdArgs = {
   userId: Scalars["String"]["input"];
 };
 
-export type QueryRootGetTrendingDataArgs = {
-  artistId?: InputMaybe<Scalars["String"]["input"]>;
+export type QueryRootGetTrendingArgs = {
+  artistId: Scalars["String"]["input"];
+  userId: Scalars["String"]["input"];
 };
 
 export type QueryRootGetUserDataArgs = {
@@ -765,9 +829,29 @@ export type QueryRootGetUserPointBalanceArgs = {
 
 export type QuestData = {
   __typename?: "QuestData";
+  category: Scalars["String"]["output"];
   description: Scalars["String"]["output"];
   id: Scalars["Int"]["output"];
   name: Scalars["String"]["output"];
+};
+
+export type RegisterCreditInput = {
+  registerInfo: Array<RegisterInfo>;
+};
+
+export type RegisterCreditResponse = {
+  __typename?: "RegisterCreditResponse";
+  isSuccess: Scalars["Boolean"]["output"];
+};
+
+export type RegisterInfo = {
+  commitUser: Scalars["String"]["input"];
+  creditName: Scalars["String"]["input"];
+  creditRole: Scalars["String"]["input"];
+  email: Scalars["String"]["input"];
+  isInvite: Scalars["Boolean"]["input"];
+  isrc: Scalars["String"]["input"];
+  memo?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type RequestToAccessArtistInput = {
@@ -808,11 +892,30 @@ export type TotalOverviewData = {
   weeklyPlaybacks: Scalars["Int"]["output"];
 };
 
-export type TrackData = {
-  __typename?: "TrackData";
-  imgUrl?: Maybe<Scalars["String"]["output"]>;
+export type TrackCredit = {
+  __typename?: "TrackCredit";
+  commitUser: Scalars["String"]["output"];
+  createdAt: Scalars["String"]["output"];
+  creditName: Scalars["String"]["output"];
+  creditRole: Scalars["String"]["output"];
+  email: Scalars["String"]["output"];
+  isInvite?: Maybe<Scalars["Boolean"]["output"]>;
   isrc: Scalars["String"]["output"];
-  title: Scalars["String"]["output"];
+  memo?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type TrackCreditsByAdmin = {
+  __typename?: "TrackCreditsByAdmin";
+  commitUser: Scalars["String"]["output"];
+  createdAt: Scalars["String"]["output"];
+  creditName: Scalars["String"]["output"];
+  creditRole: Scalars["String"]["output"];
+  creditUser?: Maybe<Scalars["String"]["output"]>;
+  email: Scalars["String"]["output"];
+  id: Scalars["Int"]["output"];
+  isInvite?: Maybe<Scalars["Boolean"]["output"]>;
+  isrc: Scalars["String"]["output"];
+  memo?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type TransactionByUserData = {
@@ -848,9 +951,19 @@ export type TransactionsData = {
   transactionList: Array<TransactionData>;
 };
 
+export type TrendTrack = {
+  __typename?: "TrendTrack";
+  imageUrl?: Maybe<Scalars["String"]["output"]>;
+  isrc: Scalars["String"]["output"];
+  totalPlayCount: Scalars["Int"]["output"];
+  trackTitle?: Maybe<Scalars["String"]["output"]>;
+  upcTitle?: Maybe<Scalars["String"]["output"]>;
+  weeklyPlayCount: Scalars["Int"]["output"];
+};
+
 export type TrendingData = {
   __typename?: "TrendingData";
-  trendingTracks: Array<TrackData>;
+  trendingTracks: Array<TrendTrack>;
 };
 
 export type UpdateBelongsToArtistStatusInput = {
