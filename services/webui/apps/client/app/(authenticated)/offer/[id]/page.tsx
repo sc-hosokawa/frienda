@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@ui/components/ui/button";
-import { Card } from "@ui/components/ui/card";
 import { Download } from "lucide-react";
 import Image from "next/image";
 import { useQuery, useMutation, gql } from "@apollo/client";
@@ -112,7 +111,7 @@ export default function OfferDetailPage({
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-6xl my-6">Offer Details</h1>
+          <h1 className="text-6xl font-light my-6">Offer Details</h1>
           {/* ここのハンドリングを丁寧に実装 */}
           {isOwner ? (
             <Button className="">編集する</Button>
@@ -187,7 +186,7 @@ export default function OfferDetailPage({
         </div>
 
         <div className="mt-12">
-          <h2 className="text-xl font-bold mb-4">Attachments</h2>
+          <h2 className="text-xl mb-4">Attachments</h2>
           <div className="grid grid-cols-4 gap-4 mb-4">
             {offer?.attachedImgs?.map((img, i) => (
               <Image

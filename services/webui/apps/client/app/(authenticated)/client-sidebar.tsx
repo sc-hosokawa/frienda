@@ -61,7 +61,7 @@ export function ClientSidebar() {
                   <SidebarMenuButton asChild>
                     <a href={item.url} className="py-8">
                       {item.icon}
-                      <span>{item.title}</span>
+                      <span className="font-light">{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

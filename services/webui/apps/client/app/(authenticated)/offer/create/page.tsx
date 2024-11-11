@@ -19,7 +19,7 @@ import { Switch } from "@ui/components/ui/switch";
 import useUserStore from "../../../../store/user";
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { storage } from "../../../../config"; // Firebaseの設定が必要
+import { storage } from "../../../../config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const CREATE_NEW_OFFER = gql`
