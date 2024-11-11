@@ -12,6 +12,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@ui/components/ui/carousel";
+import { RequestForViewDialog } from "./reqest-for-view";
+import { CreditDialog } from "./credit-dialog";
 
 const GET_QUESTS_BY_USER = gql`
   query GetQuestsByUser($userId: String!) {
@@ -40,7 +42,8 @@ export default function Home() {
         />
         <h1 className="text-6xl font-light tracking-tight">HOME</h1>
       </div>
-
+      <RequestForViewDialog />
+      <CreditDialog onSubmit={() => {}} isrc="" />
       <Actions />
       <Dashboard />
       <Trending />
@@ -58,9 +61,7 @@ function Actions() {
   return (
     <section className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl">
-          Quests ({data?.getQuestByUserId?.length})
-        </h2>
+        <h2 className="text-xl">Quests ({data?.getQuestByUserId?.length})</h2>
       </div>
 
       <div className="relative">
