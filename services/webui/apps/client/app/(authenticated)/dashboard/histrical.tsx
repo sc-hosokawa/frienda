@@ -1,6 +1,8 @@
 "use client";
 
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Info } from "lucide-react";
+
 import {
   Card,
   CardContent,
@@ -173,7 +175,8 @@ export function Historical({
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none text-muted-foreground">
-              注意書きを書く。ほげほげほげほgへおhごえhげおhげおhg
+              <Info className="w-4 h-4" />
+              各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。
             </div>
           </div>
         </div>

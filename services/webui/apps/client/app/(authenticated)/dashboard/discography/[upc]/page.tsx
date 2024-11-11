@@ -123,7 +123,11 @@ export default function DiscographyAlbumPage({ params }: Props) {
                     </div>
                   </div>
                   <div className="flex gap-2 group-hover:opacity-100 transition-opacity rounded-md p-1">
-                    <CreditDialog isrc={track.isrc} artistId={""} />
+                    <CreditDialog
+                      isrc={track.isrc}
+                      trackName={track.trackTitle ?? ""}
+                      artistId={""}
+                    />
                   </div>
                 </div>
               ))}

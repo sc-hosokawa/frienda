@@ -2,6 +2,7 @@
 
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { useState } from "react";
+import { Info } from "lucide-react";
 
 import {
   Card,
@@ -155,8 +156,9 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
       <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              ここで説明を入れる。
+            <div className="flex items-center gap-2 font-medium leading-none text-muted-foreground">
+              <Info className="w-4 h-4" />
+              各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。
             </div>
           </div>
         </div>

@@ -1,12 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MoreHorizontal } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@ui/components/ui/dropdown-menu";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../store/user";
 import { TrendingData } from "../../../generated/graphql";
@@ -52,36 +45,42 @@ export function Trending({
         </Link>
       </div>
       <div className="space-y-4">
-        {data?.getTrending.trendingTracks.map((song, index) => (
-          <div
-            key={index}
-            className={`flex items-center justify-between p-4 rounded-lg ${index % 2 === 1 ? "bg-[#23231f]" : ""}`}
-          >
-            <div className="flex items-center space-x-4">
-              <span className="text-2xl w-8">{index + 1}</span>
-              <Image
-                src={song.imageUrl || "/placeholder.svg"}
-                alt="Album cover"
-                width={64}
-                height={64}
-                className="rounded-lg"
-              />
-              <div>
-                <h3 className="font-medium">{song.trackTitle}</h3>
-                <p className="text-gray-400 text-sm">{song.upcTitle}</p>
+        {[...(data?.getTrending.trendingTracks ?? [])]
+          .sort((a, b) => b.totalPlayCount - a.totalPlayCount)
+          .map((song, index) => (
+            <div
+              key={index}
+              className={`flex items-center justify-between p-4 rounded-lg ${index % 2 === 1 ? "bg-[#23231f]" : ""}`}
+            >
+              <div className="flex items-center space-x-4">
+                <span className="text-2xl w-8">{index + 1}</span>
+                <Image
+                  src={song.imageUrl || "/placeholder.svg"}
+                  alt="Album cover"
+                  width={64}
+                  height={64}
+                  className="rounded-lg"
+                />
+                <div>
+                  <h3 className="font-medium">{song.trackTitle}</h3>
+                  <p className="text-gray-400 text-sm">{song.upcTitle}</p>
+                </div>
               </div>
+              <div className="text-right">
+                <p className="">
+                  Total /{" "}
+                  <span className="text-2xl">
+                    {song.totalPlayCount.toLocaleString()}
+                  </span>
+                </p>
+              </div>
+              <CreditDialog
+                isrc={song.isrc}
+                trackName={song.trackTitle ?? ""}
+                artistId={selectedArtistId || ""}
+              />
             </div>
-            <div className="text-right">
-              <p className="">
-                Total /{" "}
-                <span className="text-2xl">
-                  {song.totalPlayCount.toLocaleString()}
-                </span>
-              </p>
-            </div>
-            <CreditDialog isrc={song.isrc} artistId={selectedArtistId || ""} />
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

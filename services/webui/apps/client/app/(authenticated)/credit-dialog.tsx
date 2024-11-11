@@ -24,6 +24,7 @@ interface CreditFormData {
 
 interface CreditDialogProps {
   isrc: string;
+  trackName: string;
   artistId: string;
   onSubmit?: (credits: CreditFormData[]) => void;
 }
@@ -46,7 +47,7 @@ const GET_CREDITS = gql`
   }
 `;
 
-export function CreditDialog({ isrc, artistId, onSubmit }: CreditDialogProps) {
+export function CreditDialog({ isrc, trackName, artistId, onSubmit }: CreditDialogProps) {
   const [open, setOpen] = useState(false);
   const [credits, setCredits] = useState<CreditFormData[]>([
     { role: "", name: "", email: "" },
@@ -70,7 +71,11 @@ export function CreditDialog({ isrc, artistId, onSubmit }: CreditDialogProps) {
         name: credit.creditName,
         email: credit.email,
       }));
-      setCredits(existingCredits.length > 0 ? existingCredits : [{ role: "", name: "", email: "" }]);
+      setCredits(
+        existingCredits.length > 0
+          ? existingCredits
+          : [{ role: "", name: "", email: "" }],
+      );
     }
   }, [open, creditData]);
 
@@ -133,7 +138,7 @@ export function CreditDialog({ isrc, artistId, onSubmit }: CreditDialogProps) {
       </DialogTrigger>
       <DialogContent className="w-4/5 max-w-4xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>クレジット入力: {isrc}</DialogTitle>
+          <DialogTitle>クレジット入力: {trackName}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           {credits.map((credit, index) => (

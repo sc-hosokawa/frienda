@@ -13,7 +13,8 @@ import {
   CarouselPrevious,
 } from "@ui/components/ui/carousel";
 import { RequestForViewDialog } from "./reqest-for-view";
-import { CreditDialog } from "./credit-dialog";
+import { Overview } from "./dashboard/overview";
+import { Trending } from "./dashboard/trending";
 
 const GET_QUESTS_BY_USER = gql`
   query GetQuestsByUser($userId: String!) {
@@ -30,6 +31,13 @@ interface QuestsResData {
 }
 
 export default function Home() {
+  const { user } = useUserStore();
+  const timestamp = Date.now();
+  const artistsLength = user?.belongsToArtists?.length || 1;
+  const randomIndex = timestamp % artistsLength;
+  const randomArtist = user?.belongsToArtists[randomIndex];
+  console.log(randomArtist);
+
   return (
     <div className="h-full bg-black text-white p-6 space-y-8 overflow-x-hidden">
       <div className="flex items-center gap-2">
@@ -42,11 +50,27 @@ export default function Home() {
         />
         <h1 className="text-6xl font-light tracking-tight">HOME</h1>
       </div>
-      <RequestForViewDialog />
-      <CreditDialog onSubmit={() => {}} isrc="" artistId="" />
       <Actions />
-      <Dashboard />
-      <Trending />
+      {randomArtist ? (
+        <>
+          <div className="flex items-center gap-2">
+            <Image
+              src={randomArtist.imageUrl || ""}
+              alt={randomArtist.name}
+              width={40}
+              height={40}
+            />
+            <div>{randomArtist.name}</div>
+          </div>
+          <Overview selectedArtistId={randomArtist.artistId} />
+          <Trending selectedArtistId={randomArtist.artistId} />
+        </>
+      ) : (
+        <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400">
+          アーティスト閲覧権限を申請してください
+          <RequestForViewDialog />
+        </div>
+      )}
     </div>
   );
 }
@@ -153,152 +177,6 @@ function Dashboard() {
           </div>
           <div className="text-5xl font-light tracking-tight">612,345</div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function Trending() {
-  const songs = [
-    {
-      id: 1,
-      name: "Song name goes here",
-      album: "Awesome Album",
-      artist: "The Awesome Band",
-      duration: "3:23",
-      totalPlays: "192,112,345",
-      weeklyPlays: "234,567",
-      trend: "up",
-    },
-    {
-      id: 2,
-      name: "Song name goes here",
-      album: "Awesome Album",
-      artist: "The Awesome Band",
-      duration: "3:23",
-      totalPlays: "192,112,345",
-      weeklyPlays: "234,567",
-      trend: "up",
-      selected: true,
-    },
-    {
-      id: 3,
-      name: "Song name goes here",
-      album: "Awesome Album",
-      artist: "The Awesome Band",
-      duration: "3:23",
-      totalPlays: "192,112,345",
-      weeklyPlays: "234,567",
-      trend: "down",
-    },
-    {
-      id: 4,
-      name: "Song name goes here",
-      album: "Awesome Album",
-      artist: "The Awesome Band",
-      duration: "3:23",
-      totalPlays: "192,112,345",
-      weeklyPlays: "234,567",
-      trend: "neutral",
-    },
-    {
-      id: 5,
-      name: "Song name goes here",
-      album: "Awesome Album",
-      artist: "The Awesome Band",
-      duration: "3:23",
-      totalPlays: "192,112,345",
-      weeklyPlays: "234,567",
-      trend: "up",
-    },
-  ];
-
-  return (
-    <section className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">( Trending )</h2>
-        <Link href="/dashboard">
-          <button className="px-4 py-2 rounded-full bg-white/10 text-sm hover:bg-white/20">
-            詳細を見る
-          </button>
-        </Link>
-      </div>
-
-      <div className="space-y-2">
-        {songs.map((song) => (
-          <div
-            key={song.id}
-            className={`p-2 rounded-xl ${
-              song.selected ? "bg-blue-500/20" : "hover:bg-white/5"
-            }`}
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-8 text-center font-medium">
-                {String(song.id).padStart(2, "0")}
-                <div
-                  className={`w-1 h-1 mx-auto mt-1 rounded-full ${
-                    song.trend === "up"
-                      ? "bg-green-500"
-                      : song.trend === "down"
-                        ? "bg-red-500"
-                        : "bg-yellow-500"
-                  }`}
-                />
-              </div>
-
-              <div className="w-16 h-16 bg-white/10 rounded-lg overflow-hidden">
-                <img
-                  src="/placeholder.svg?height=64&width=64"
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <div className="font-medium truncate">{song.name}</div>
-                <div className="text-sm text-gray-400 truncate">
-                  {song.album} - {song.artist}
-                </div>
-                <div className="text-sm text-gray-400">{song.duration}</div>
-              </div>
-
-              <div className="text-right">
-                <div className="text-sm">
-                  Total /{" "}
-                  <span className="text-gray-400">{song.totalPlays}</span>
-                </div>
-                <div className="text-sm">
-                  Week /{" "}
-                  <span className="text-gray-400">{song.weeklyPlays}</span>
-                </div>
-              </div>
-
-              <div className="flex gap-1">
-                <button className="p-2 hover:bg-white/10 rounded-full">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24">
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      className="fill-current opacity-20"
-                    />
-                    <path
-                      className="fill-current"
-                      d="M15.9 10.2l-3.9 3.9-3.9-3.9a1 1 0 0 0-1.4 1.4l4.6 4.6a1 1 0 0 0 1.4 0l4.6-4.6a1 1 0 0 0-1.4-1.4z"
-                    />
-                  </svg>
-                </button>
-                <button className="p-2 hover:bg-white/10 rounded-full">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="3" className="fill-current" />
-                    <circle cx="4" cy="12" r="3" className="fill-current" />
-                    <circle cx="20" cy="12" r="3" className="fill-current" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
     </section>
   );
