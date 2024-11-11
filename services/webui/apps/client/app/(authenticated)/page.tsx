@@ -43,7 +43,7 @@ export default function Home() {
         <h1 className="text-6xl font-light tracking-tight">HOME</h1>
       </div>
       <RequestForViewDialog />
-      <CreditDialog onSubmit={() => {}} isrc="" />
+      <CreditDialog onSubmit={() => {}} isrc="" artistId="" />
       <Actions />
       <Dashboard />
       <Trending />

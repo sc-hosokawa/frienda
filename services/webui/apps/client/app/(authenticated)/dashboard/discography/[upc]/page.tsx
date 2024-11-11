@@ -2,14 +2,9 @@
 
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@ui/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@ui/components/ui/dropdown-menu";
 import { HistoricalByUPC } from "./histrical-chart";
 import { GenderGenViewByUPC } from "./gender-gen-data";
+import { CreditDialog } from "../../../credit-dialog";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../../../store/user";
 import { TrendingByUpcData } from "../../../../../generated/graphql";
@@ -127,17 +122,8 @@ export default function DiscographyAlbumPage({ params }: Props) {
                       </div>
                     </div>
                   </div>
-                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity text-white rounded-md p-1">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="w-4 h-4 text-white" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>クレジットを編集</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                  <div className="flex gap-2 group-hover:opacity-100 transition-opacity rounded-md p-1">
+                    <CreditDialog isrc={track.isrc} artistId={""} />
                   </div>
                 </div>
               ))}

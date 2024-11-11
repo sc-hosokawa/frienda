@@ -24,6 +24,7 @@ interface CreditFormData {
 
 interface CreditDialogProps {
   isrc: string;
+  artistId: string;
   onSubmit?: (credits: CreditFormData[]) => void;
 }
 
@@ -35,7 +36,7 @@ const REGISTER_CREDIT = gql`
   }
 `;
 
-export function CreditDialog({ isrc, onSubmit }: CreditDialogProps) {
+export function CreditDialog({ isrc, artistId, onSubmit }: CreditDialogProps) {
   const [open, setOpen] = useState(false);
   const [credits, setCredits] = useState<CreditFormData[]>([
     { role: "", name: "", email: "" },

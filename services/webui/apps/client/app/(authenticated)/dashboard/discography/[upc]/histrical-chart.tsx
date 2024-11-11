@@ -1,6 +1,7 @@
 "use client";
 
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { useState } from "react";
 
 import {
   Card,
@@ -18,6 +19,13 @@ import {
 } from "@ui/components/ui/chart";
 import { useQuery, gql } from "@apollo/client";
 import { ChartDataByUpc } from "../../../../../generated/graphql";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@ui/components/ui/select";
 
 const GET_PLAYCOUNT_HISTORY_BY_UPC = gql`
   query GetPlaycountHistoryByUpc($upc: String!, $period: Int!) {
@@ -34,11 +42,22 @@ interface ResData {
   getPlaycountHistoryByUpc: ChartDataByUpc;
 }
 
+// 期間の設定を定義
+const PERIOD_OPTIONS = [
+  { label: "7 days", value: 7 },
+  { label: "30 days", value: 30 },
+  { label: "12 months", value: 12 },
+  { label: "36 months", value: 36 },
+  { label: "All", value: -1 },
+] as const;
+
 export function HistoricalByUPC({ upc }: { upc: string }) {
+  const [selectedPeriod, setSelectedPeriod] = useState<number>(12);
+
   const { data, loading, error } = useQuery<ResData>(
     GET_PLAYCOUNT_HISTORY_BY_UPC,
     {
-      variables: { upc, period: 12 },
+      variables: { upc, period: selectedPeriod },
     },
   );
 
@@ -55,8 +74,27 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-light">Chart</CardTitle>
-        <CardDescription>playcount of product</CardDescription>
+        <div className="flex justify-between items-center">
+          <div>
+            <CardTitle className="font-light">Chart</CardTitle>
+            <CardDescription>playcount of product</CardDescription>
+          </div>
+          <Select
+            value={selectedPeriod.toString()}
+            onValueChange={(value) => setSelectedPeriod(Number(value))}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select period" />
+            </SelectTrigger>
+            <SelectContent>
+              {PERIOD_OPTIONS.map((option) => (
+                <SelectItem key={option.value} value={option.value.toString()}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </CardHeader>
       <CardContent>
         <ChartContainer config={generatedChartConfig}>

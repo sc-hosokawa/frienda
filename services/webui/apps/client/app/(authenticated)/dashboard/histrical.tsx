@@ -1,6 +1,5 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import {
   Card,
@@ -19,6 +18,14 @@ import {
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../store/user";
 import { ChartData } from "../../../generated/graphql";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@ui/components/ui/select";
+import { useState } from "react";
 
 const GET_HISTORICAL = gql`
   query GetHistorical($artistId: String!, $userId: String!, $period: Int!) {
@@ -62,25 +69,53 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+const PERIOD_OPTIONS = [
+  { label: "7 days", value: 7 },
+  { label: "30 days", value: 30 },
+  { label: "12 months", value: 12 },
+  { label: "36 months", value: 36 },
+  { label: "All", value: -1 },
+] as const;
+
 export function Historical({
   selectedArtistId,
 }: {
   selectedArtistId: string | null;
 }) {
+  const [selectedPeriod, setSelectedPeriod] = useState<number>(12);
   const { user } = useUserStore();
   const { data } = useQuery<ResData>(GET_HISTORICAL, {
     variables: {
       artistId: selectedArtistId,
       userId: user?.id,
-      period: 12,
+      period: selectedPeriod,
     },
   });
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-light">Chart</CardTitle>
-        <CardDescription>all songs</CardDescription>
+        <div className="flex justify-between items-center">
+          <div>
+            <CardTitle className="font-light">Chart</CardTitle>
+            <CardDescription>all songs</CardDescription>
+          </div>
+          <Select
+            value={selectedPeriod.toString()}
+            onValueChange={(value) => setSelectedPeriod(Number(value))}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select period" />
+            </SelectTrigger>
+            <SelectContent>
+              {PERIOD_OPTIONS.map((option) => (
+                <SelectItem key={option.value} value={option.value.toString()}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

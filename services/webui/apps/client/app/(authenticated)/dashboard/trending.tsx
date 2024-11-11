@@ -10,6 +10,7 @@ import {
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../store/user";
 import { TrendingData } from "../../../generated/graphql";
+import { CreditDialog } from "../credit-dialog";
 
 const GET_TRENDING = gql`
   query GetTrending($artistId: String!, $userId: String!) {
@@ -78,16 +79,7 @@ export function Trending({
                 </span>
               </p>
             </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="focus:outline-none">
-                  <MoreHorizontal className="text-gray-400" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>クレジットを入力</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <CreditDialog isrc={song.isrc} artistId={selectedArtistId || ""} />
           </div>
         ))}
       </div>
