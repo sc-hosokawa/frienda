@@ -4,11 +4,19 @@ import { useState, useRef, useEffect } from "react";
 import { Avatar, AvatarImage } from "@ui/components/ui/avatar";
 import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
-import { Info, Image as ImageIcon, Send, Loader2 } from "lucide-react";
+import { Info, Image as ImageIcon, Send, Loader2, Plus } from "lucide-react";
 import useUserStore from "../../../../store/user";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { MessagesByRoomIdByUserData } from "../../../../generated/graphql";
 import { useParams } from "next/navigation";
+import { storage } from "../../../../config";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@ui/components/ui/dropdown-menu";
 
 const GET_MESSAGES = gql`
   query GetMessages($userId: String!, $messageRoomId: String!) {
@@ -30,16 +38,26 @@ const GET_MESSAGES = gql`
   }
 `;
 
+const SEND_MESSAGE = gql`
+  mutation SendMessage($input: SendMessageInput!) {
+    sendMessage(input: $input) {
+      id
+      message
+      sentAt
+      attachedFile
+      attachedImg
+    }
+  }
+`;
+
 interface ResData {
   getMessagesByMessageRoomId: MessagesByRoomIdByUserData;
 }
 
 interface Message {
-  id: string;
   content: string;
   sentAt: string;
   sentBy: string;
-  // ... other fields
 }
 
 export default function Component() {
@@ -48,6 +66,9 @@ export default function Component() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<Message | null>(null);
+  const [attachedImage, setAttachedImage] = useState<string | null>(null);
+  const [attachedFile, setAttachedFile] = useState<string | null>(null);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
 
   const { loading, error, data, refetch } = useQuery<ResData>(GET_MESSAGES, {
     variables: {
@@ -65,8 +86,6 @@ export default function Component() {
   const messageEndRef = useRef<HTMLDivElement>(null);
   // メッセージエリア全体を参照するref
   const messageAreaRef = useRef<HTMLDivElement>(null);
-  // ユーザーが手動でスクロールしているかを追跡
-  const [isUserScrolling, setIsUserScrolling] = useState(false);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -89,6 +108,12 @@ export default function Component() {
   useEffect(() => {
     adjustTextareaHeight();
   }, []);
+
+  const [sendMessage] = useMutation(SEND_MESSAGE, {
+    onCompleted: () => {
+      refetch(); // メッセージリストを更新
+    },
+  });
 
   // スクロール位置を監視
   const handleScroll = () => {
@@ -122,19 +147,26 @@ export default function Component() {
 
     // 送信中メッセージを作成
     const tempMessage: Message = {
-      id: `temp-${Date.now()}`,
-      content: message,
+      content: message.trim(),
       sentAt: new Date().toISOString(),
       sentBy: user?.id || "",
-      // ... other required fields
     };
 
     try {
       setIsSubmitting(true);
       setPendingMessage(tempMessage);
 
-      // TODO: 実際のメッセージ送信処理
-      // await sendMessage({ content: message });
+      await sendMessage({
+        variables: {
+          input: {
+            roomId: params.roomid as string,
+            sentBy: user?.id,
+            message: message.trim(),
+            attachedFile: attachedFile ? [attachedFile] : [],
+            attachedImg: attachedImage ? [attachedImage] : [],
+          },
+        },
+      });
 
       setMessage("");
     } catch (error) {
@@ -143,6 +175,9 @@ export default function Component() {
       setIsSubmitting(false);
       setPendingMessage(null);
     }
+
+    setAttachedImage(null);
+    setAttachedFile(null);
   };
 
   // キー入力のハンドリング
@@ -161,6 +196,50 @@ export default function Component() {
         e.preventDefault();
         handleSubmit();
       }
+    }
+  };
+
+  const handleFileUpload = async (file: File, type: "image" | "file") => {
+    const path = type === "image" ? "msg/images" : "msg/files";
+    const storageRef = ref(storage, `${path}/${Date.now()}_${file.name}`);
+
+    if (file.size > 10 * 1024 * 1024) {
+      throw new Error("ファイルサイズは10MB以下にしてください");
+    }
+
+    await uploadBytes(storageRef, file);
+    return await getDownloadURL(storageRef);
+  };
+
+  const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("画像ファイルを選択してください");
+      return;
+    }
+
+    try {
+      const imageUrl = await handleFileUpload(file, "image");
+      setAttachedImage(imageUrl);
+    } catch (error) {
+      alert(
+        error instanceof Error ? error.message : "アップロードに失敗しました",
+      );
+      console.error("Failed to upload image:", error);
+    }
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const fileUrl = await handleFileUpload(file, "file");
+      setAttachedFile(fileUrl);
+    } catch (error) {
+      console.error("Failed to upload file:", error);
     }
   };
 
@@ -310,6 +389,72 @@ export default function Component() {
       {/* Message Input */}
       <div className="flex-none p-4 border-t border-gray-800 sticky bottom-0">
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
+          {/* 非表示のファイル入力フィールド */}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageSelect}
+            className="hidden"
+            id="image-upload"
+            disabled={isSubmitting}
+          />
+          <input
+            type="file"
+            onChange={handleFileSelect}
+            className="hidden"
+            id="file-upload"
+            disabled={isSubmitting}
+          />
+
+          {/* 添付ファイルドロップダウン */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                className="shrink-0"
+                disabled={isSubmitting}
+              >
+                <Plus className="w-5 h-5" />
+                <span className="sr-only">添付ファイルを追加</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <label
+                  htmlFor="image-upload"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <ImageIcon className="w-4 h-4" />
+                  <span>画像を添付</span>
+                </label>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <label
+                  htmlFor="file-upload"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                  <span>ファイルを添付</span>
+                </label>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* メッセージ入力欄 */}
           <textarea
             ref={textareaRef}
             value={message}
@@ -331,6 +476,8 @@ export default function Component() {
               lineHeight: "1.5",
             }}
           />
+
+          {/* 送信ボタン */}
           <Button
             type="submit"
             size="icon"
