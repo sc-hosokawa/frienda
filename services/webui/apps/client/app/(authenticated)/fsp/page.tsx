@@ -105,10 +105,10 @@ export default function FspPage() {
     <div className="container mx-auto p-4">
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle>ポイント残高</CardTitle>
+          <CardTitle className="font-light">ポイント残高</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-4xl font-bold">{user?.fspBalance} pt</p>
+          <p className="text-4xl font-light">{user?.fspBalance} FSP</p>
         </CardContent>
       </Card>
 

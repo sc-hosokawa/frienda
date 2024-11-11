@@ -51,7 +51,7 @@ export default function OfferStats() {
             />
             <div>
               <p className="text-xs text-gray-400">Total</p>
-              <p className="text-4xl font-bold">{stats.totalOffers}</p>
+              <p className="text-4xl font-light">{stats.totalOffers}</p>
             </div>
           </div>
           <div className="flex items-center space-x-3">
@@ -64,7 +64,7 @@ export default function OfferStats() {
             />
             <div>
               <p className="text-xs text-gray-400">Current</p>
-              <p className="text-4xl font-bold">{stats.ongoingOffers}</p>
+              <p className="text-4xl font-light">{stats.ongoingOffers}</p>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function OfferStats() {
             />
             <div>
               <p className="text-xs text-gray-400">Applying</p>
-              <p className="text-4xl font-bold">{stats.appliedOffers}</p>
+              <p className="text-4xl font-light">{stats.appliedOffers}</p>
             </div>
           </div>
           <div className="flex items-center space-x-3">
@@ -92,7 +92,7 @@ export default function OfferStats() {
             />
             <div>
               <p className="text-xs text-gray-400">Completed</p>
-              <p className="text-4xl font-bold">{stats.completedOffers}</p>
+              <p className="text-4xl font-light">{stats.completedOffers}</p>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@ export default function OfferStats() {
           />
           <div>
             <p className="text-xs text-gray-400">Total Point Earned</p>
-            <p className="text-4xl font-bold">{stats.totalEarnings}</p>
+            <p className="text-4xl font-light">{stats.totalEarnings}</p>
           </div>
         </div>
       </div>

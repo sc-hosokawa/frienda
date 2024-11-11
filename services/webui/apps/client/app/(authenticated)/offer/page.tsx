@@ -19,7 +19,7 @@ export default function OfferPage() {
             width={40}
             height={40}
           />
-          <h1 className="text-6xl tracking-tight">OFFER</h1>
+          <h1 className="text-6xl font-light tracking-tight">OFFER</h1>
         </div>
         <Link
           href="/offer/create"

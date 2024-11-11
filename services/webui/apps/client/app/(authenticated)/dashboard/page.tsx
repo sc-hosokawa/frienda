@@ -27,7 +27,7 @@ export default function Dashboard() {
             height={40}
           />
 
-          <h1 className="text-6xl">DASHBOARD</h1>
+          <h1 className="text-6xl font-light">DASHBOARD</h1>
         </div>
       </header>
       <div className="flex space-x-4 mb-8">

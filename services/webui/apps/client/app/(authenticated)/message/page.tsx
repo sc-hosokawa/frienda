@@ -92,7 +92,7 @@ const MessageList = () => {
   if (sortedRooms.length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-gray-400">No messages yet</p>
+        <p className="text-gray-400 text-lg font-light">No messages yet</p>
       </div>
     );
   }
@@ -156,7 +156,9 @@ export default function MessagePage() {
             height={40}
           />
           <div className="flex items-center gap-2">
-            <span className="text-6xl tracking-wide mb-2">MESSAGE</span>
+            <span className="text-6xl font-light tracking-wide mb-2">
+              MESSAGE
+            </span>
             <Button variant="ghost" size="icon" className="rounded-full">
               <Info className="w-4 h-4" />
             </Button>

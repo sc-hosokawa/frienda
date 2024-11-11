@@ -28,7 +28,7 @@ export default function Component() {
             width={40}
             height={40}
           />
-          <span className="text-6xl tracking-wide mb-2">NEWS</span>
+          <span className="text-6xl font-light tracking-wide mb-2">NEWS</span>
         </div>
         {/* TODO: フィルター 
         <nav>

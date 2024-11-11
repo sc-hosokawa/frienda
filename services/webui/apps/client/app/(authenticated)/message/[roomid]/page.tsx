@@ -3,8 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Avatar, AvatarImage } from "@ui/components/ui/avatar";
 import { Button } from "@ui/components/ui/button";
-import { Input } from "@ui/components/ui/input";
-import { Info, Image as ImageIcon, Send, Loader2, Plus } from "lucide-react";
+import { Info, Image as ImageIcon, Send, Loader2, Plus, X } from "lucide-react";
 import useUserStore from "../../../../store/user";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { MessagesByRoomIdByUserData } from "../../../../generated/graphql";
@@ -80,7 +79,6 @@ export default function Component() {
 
   const messages = data?.getMessagesByMessageRoomId?.messageList ?? [];
   const recipient = data?.getMessagesByMessageRoomId?.to;
-  console.log(messages);
 
   // メッセージエリアの最下部を参照するref
   const messageEndRef = useRef<HTMLDivElement>(null);
@@ -258,9 +256,6 @@ export default function Component() {
             <span className="text-2xl tracking-wide">
               {recipient?.name || "Unknown User"}
             </span>
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Info className="w-4 h-4" />
-            </Button>
           </div>
         </div>
       </header>
@@ -303,7 +298,7 @@ export default function Component() {
                     />
                   </Avatar>
                   <div
-                    className={`space-y-1 ${
+                    className={`space-y-1 text-gray-400 ${
                       message.sentBy === user?.id ? "text-right" : ""
                     }`}
                   >
@@ -315,7 +310,7 @@ export default function Component() {
 
                     {/* メッセージコンテンツの条件分岐 */}
                     {message.content && (
-                      <p className="text-sm text-gray-400">{message.content}</p>
+                      <p className="text-sm text-white">{message.content}</p>
                     )}
 
                     {/* 添付画像の表示 */}
@@ -388,6 +383,57 @@ export default function Component() {
 
       {/* Message Input */}
       <div className="flex-none p-4 border-t border-gray-800 sticky bottom-0">
+        {/* プレビューエリア */}
+        {(attachedImage || attachedFile) && (
+          <div className="mb-2 p-2 bg-gray-900 rounded-md">
+            {attachedImage && (
+              <div className="relative inline-block">
+                <img
+                  src={attachedImage}
+                  alt="Preview"
+                  className="max-h-32 rounded-md"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="absolute top-1 right-1 bg-black/50 hover:bg-black/70 rounded-full"
+                  onClick={() => setAttachedImage(null)}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
+            {attachedFile && (
+              <div className="flex items-center gap-2 p-2 bg-gray-800 rounded-md">
+                <svg
+                  className="w-4 h-4 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                <span className="text-sm truncate">添付ファイル</span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="ml-auto"
+                  onClick={() => setAttachedFile(null)}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
           {/* 非表示のファイル入力フィールド */}
           <input

@@ -28,14 +28,14 @@ export function Overview({
         <div className="flex items-center">
           <Play className="mr-2 text-yellow-400" />
           <span className="text-gray-400 mr-4">Song Played (Total) /</span>
-          <span className="text-4xl">
+          <span className="text-4xl font-light">
             {data?.getOverview.totalPlaybacks.toLocaleString()}
           </span>
         </div>
         <div className="flex items-center">
           <Play className="mr-2 text-yellow-400" />
           <span className="text-gray-400 mr-4">Song Played (Week) /</span>
-          <span className="text-4xl">
+          <span className="text-4xl font-light">
             {data?.getOverview.weeklyPlaybacks.toLocaleString()}
           </span>
         </div>

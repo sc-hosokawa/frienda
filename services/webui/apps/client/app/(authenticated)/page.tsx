@@ -38,7 +38,7 @@ export default function Home() {
           width={40}
           height={40}
         />
-        <h1 className="text-6xl tracking-tight">HOME</h1>
+        <h1 className="text-6xl font-light tracking-tight">HOME</h1>
       </div>
 
       <Actions />
@@ -58,7 +58,7 @@ function Actions() {
   return (
     <section className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">
+        <h2 className="text-xl">
           Quests ({data?.getQuestByUserId?.length})
         </h2>
       </div>
@@ -119,7 +119,7 @@ function Dashboard() {
   return (
     <section className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">Dashboard</h2>
+        <h2 className="text-xl">Dashboard</h2>
         <Link href="/dashboard">
           <button className="px-4 py-2 rounded-full bg-white/10 text-sm hover:bg-white/20">
             詳細を見る
