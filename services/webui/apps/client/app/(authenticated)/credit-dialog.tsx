@@ -47,7 +47,12 @@ const GET_CREDITS = gql`
   }
 `;
 
-export function CreditDialog({ isrc, trackName, artistId, onSubmit }: CreditDialogProps) {
+export function CreditDialog({
+  isrc,
+  trackName,
+  artistId,
+  onSubmit,
+}: CreditDialogProps) {
   const [open, setOpen] = useState(false);
   const [credits, setCredits] = useState<CreditFormData[]>([
     { role: "", name: "", email: "" },
