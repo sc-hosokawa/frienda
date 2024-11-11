@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +14,7 @@ import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
 import { PlusCircle, X } from "lucide-react";
 import useUserStore from "../../store/user";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 interface CreditFormData {
   role: string;
@@ -36,6 +36,16 @@ const REGISTER_CREDIT = gql`
   }
 `;
 
+const GET_CREDITS = gql`
+  query GetCredits($userId: String!, $artistId: String!, $isrc: String!) {
+    getCredits(userId: $userId, artistId: $artistId, isrc: $isrc) {
+      creditRole
+      creditName
+      email
+    }
+  }
+`;
+
 export function CreditDialog({ isrc, artistId, onSubmit }: CreditDialogProps) {
   const [open, setOpen] = useState(false);
   const [credits, setCredits] = useState<CreditFormData[]>([
@@ -43,6 +53,26 @@ export function CreditDialog({ isrc, artistId, onSubmit }: CreditDialogProps) {
   ]);
   const { user } = useUserStore();
   const [registerCredit] = useMutation(REGISTER_CREDIT);
+
+  const { data: creditData } = useQuery(GET_CREDITS, {
+    variables: {
+      userId: user?.id || "",
+      artistId,
+      isrc,
+    },
+    skip: !open,
+  });
+
+  useEffect(() => {
+    if (open && creditData?.getCredits) {
+      const existingCredits = creditData.getCredits.map((credit: any) => ({
+        role: credit.creditRole,
+        name: credit.creditName,
+        email: credit.email,
+      }));
+      setCredits(existingCredits.length > 0 ? existingCredits : [{ role: "", name: "", email: "" }]);
+    }
+  }, [open, creditData]);
 
   const handleInputChange = (
     index: number,
