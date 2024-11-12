@@ -23,6 +23,7 @@ pub struct GetAllPendingMembersUsecaseOutput {
 pub struct AllPendingMember {
     pub member: User,
     pub artist_name: String,
+    pub artist_id: String,
 }
 
 #[async_trait]
@@ -143,6 +144,7 @@ impl GetMembersUsecaseTrait for GetMembersUsecase {
             all_pending_members.push(AllPendingMember {
                 member: user,
                 artist_name: artist.display_name_jp,
+                artist_id: mapping.artist_id,
             });
         }
 

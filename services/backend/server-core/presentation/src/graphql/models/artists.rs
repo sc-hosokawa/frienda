@@ -161,6 +161,7 @@ pub struct MarkAsAdminResponse {
 pub struct AllPendingMember {
     pub member: UserSimpleData,
     pub artist_name: String,
+    pub artist_id: String,
 }
 
 impl ArtistByUserData {

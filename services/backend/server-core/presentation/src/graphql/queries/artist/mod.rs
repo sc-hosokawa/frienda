@@ -160,6 +160,7 @@ impl ArtistQuery {
                     image_url: member.member.img_url,
                 },
                 artist_name: member.artist_name,
+                artist_id: member.artist_id,
             })
             .collect())
     }
