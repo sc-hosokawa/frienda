@@ -23,6 +23,15 @@ import { AllocationDialog } from "./allocation-dialog";
 import { PurchaseDialog } from "./purchase-dialog";
 import useUserStore from "../../../store/user";
 import { useQuery, gql } from "@apollo/client";
+import dayjs from "dayjs";
+import "dayjs/locale/ja";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale("ja");
+dayjs.tz.setDefault("Asia/Tokyo");
 
 // 商品データの型定義
 type Product = {
@@ -40,28 +49,6 @@ type Transaction = {
   date: string;
   description: string;
 };
-
-// ダミーデータ
-const products: Product[] = [
-  {
-    id: 1,
-    name: "商品A",
-    points: 500,
-    imageUrl: "/logo_visualonly.jpg",
-  },
-  {
-    id: 2,
-    name: "商品B",
-    points: 1000,
-    imageUrl: "/logo_visualonly.jpg",
-  },
-  {
-    id: 3,
-    name: "商品C",
-    points: 1500,
-    imageUrl: "/logo_visualonly.jpg",
-  },
-];
 
 const GET_POPULAR_PRIZES = gql`
   query GetPopularPrizes {
@@ -96,6 +83,8 @@ export default function FspPage() {
     variables: { userId: user?.id, count: 5 },
   });
   const { data: popularPrizesData } = useQuery(GET_POPULAR_PRIZES);
+
+  console.log(fspHistoryData);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = "/logo_visualonly.jpg";
@@ -179,10 +168,14 @@ export default function FspPage() {
                 {fspHistoryData?.getFspHistoryByUser.transactionList.map(
                   (transaction: any) => (
                     <TableRow key={transaction.id}>
-                      <TableCell>{transaction.txAt}</TableCell>
-                      <TableCell>{transaction.type}</TableCell>
-                      <TableCell>{transaction.amount} pt</TableCell>
-                      <TableCell>{transaction.description}</TableCell>
+                      <TableCell>
+                        {dayjs(transaction.txAt)
+                          .tz()
+                          .format("YYYY/MM/DD HH:mm:ss")}
+                      </TableCell>
+                      <TableCell>{transaction.direction}</TableCell>
+                      <TableCell>{transaction.amount} fsp</TableCell>
+                      <TableCell>{transaction.counterParty.name}</TableCell>
                     </TableRow>
                   ),
                 )}

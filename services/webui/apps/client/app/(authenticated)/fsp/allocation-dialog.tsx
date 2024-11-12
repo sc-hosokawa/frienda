@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@ui/components/ui/dialog";
 import { Button } from "@ui/components/ui/button";
-import { Share2, User } from "lucide-react";
+import { Share2, User, ArrowLeft } from "lucide-react";
 import { Input } from "@ui/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/ui/avatar";
 import useUserStore from "../../../store/user";
@@ -85,6 +85,8 @@ export function AllocationDialog() {
   }, [selectedArtist, membersData]);
 
   const handlePointsChange = (memberId: string, points: number) => {
+    if (points < 0) return;
+
     const currentPoints = allocatedPoints[memberId] || 0;
     const totalAllocated =
       Object.values(allocatedPoints).reduce((a, b) => a + b, 0) -
@@ -102,6 +104,7 @@ export function AllocationDialog() {
   const handleConfirm = async () => {
     try {
       // 分配データを CreateNewTransactionInput の配列に変換
+      console.log(`selectedArtist: ${selectedArtist?.artistId}`);
       const transactions = Object.entries(allocatedPoints)
         .filter(([_, amount]) => amount > 0) // 0以上のポイントのみを送信
         .map(([memberId, amount]) => ({
@@ -138,13 +141,32 @@ export function AllocationDialog() {
       </DialogTrigger>
       <DialogContent className="w-4/5 h-4/5 max-w-none">
         <DialogHeader>
-          <DialogTitle>
-            {showConfirmation
-              ? "確認"
-              : selectedArtist
-                ? `${selectedArtist.name}のメンバー`
-                : "アーティスト選択"}
-          </DialogTitle>
+          <div className="flex items-center">
+            {(selectedArtist || showConfirmation) && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="mr-2"
+                onClick={() => {
+                  if (showConfirmation) {
+                    setShowConfirmation(false);
+                  } else {
+                    setSelectedArtist(null);
+                    setAllocatedPoints({});
+                  }
+                }}
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+            )}
+            <DialogTitle className="font-light">
+              {showConfirmation
+                ? "確認"
+                : selectedArtist
+                  ? `${selectedArtist.name}のメンバー`
+                  : "アーティスト選択"}
+            </DialogTitle>
+          </div>
         </DialogHeader>
 
         <div className="flex-1 overflow-auto p-4">
@@ -172,7 +194,7 @@ export function AllocationDialog() {
                         </Avatar>
                         <span>{artist.name}</span>
                       </div>
-                      <span>{artist.fsp} ポイント</span>
+                      <span>{artist.fsp.toLocaleString()} ポイント</span>
                     </div>
                   ))
                 )}
@@ -208,8 +230,9 @@ export function AllocationDialog() {
                         <span>{member.name}</span>
                         <Input
                           type="number"
+                          min="0"
                           className="w-24"
-                          value={allocatedPoints[member.id] || 0}
+                          value={allocatedPoints[member.id] ?? ""}
                           onChange={(e) =>
                             handlePointsChange(
                               member.id,

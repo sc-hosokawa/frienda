@@ -84,10 +84,7 @@ export default function HistoryPage() {
                   種類
                 </TableHead>
                 <TableHead className="text-gray-400 font-normal">
-                  内容
-                </TableHead>
-                <TableHead className="text-gray-400 font-normal">
-                  取引
+                  取引相手
                 </TableHead>
                 <TableHead className="text-gray-400 font-normal text-right">
                   ポイント
@@ -124,18 +121,8 @@ export default function HistoryPage() {
                       </span>
                     </div>
                   </TableCell>
-                  <TableCell className="text-gray-200">
-                    {transaction.counterParty.name}
-                  </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <Image
-                        src="/avatar-placeholder.png" // TODO: 実際のアバター画像を使用
-                        alt={`${transaction.counterParty.name}'s avatar`}
-                        className="rounded-full"
-                        width={24}
-                        height={24}
-                      />
                       <span className="text-gray-200">
                         {transaction.counterParty.name}
                       </span>

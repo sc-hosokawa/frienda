@@ -33,7 +33,10 @@ export function PurchaseDialog() {
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
-        <Button className="w-full">
+        <Button
+          className="w-full cursor-not-allowed opacity-60 hover:opacity-60"
+          disabled
+        >
           <ShoppingCart className="mr-2 h-4 w-4" />
           購入
         </Button>
