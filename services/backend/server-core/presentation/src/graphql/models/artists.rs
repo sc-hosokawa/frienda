@@ -1,3 +1,4 @@
+use crate::graphql::models::users::UserSimpleData;
 use async_graphql::{InputObject, SimpleObject};
 use domain::entities::sea_orm_active_enums::{ArtistStatus, UserArtistStatus};
 
@@ -154,6 +155,12 @@ pub struct MarkAsMemberResponse {
 #[derive(SimpleObject)]
 pub struct MarkAsAdminResponse {
     pub checked_user_id: String,
+}
+
+#[derive(SimpleObject)]
+pub struct AllPendingMember {
+    pub member: UserSimpleData,
+    pub artist_name: String,
 }
 
 impl ArtistByUserData {

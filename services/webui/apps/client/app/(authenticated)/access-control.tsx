@@ -18,7 +18,6 @@ import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { Check, Settings, X } from "lucide-react";
 import useUserStore from "../../store/user";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import { UserSimpleData } from "../../generated/graphql";
 
 const MARK_AS_MEMBER = gql`
   mutation MarkAsMember($input: MarkAsMemberInput!) {
@@ -33,28 +32,27 @@ const GET_MEMBERS_BELONGED = gql`
     getMembersBelongedToArtist(artistId: $artistId, userId: $userId) {
       id
       name
+      realname
       imageUrl
     }
   }
 `;
-interface ResData {
-  getMembersBelongedToArtist: UserSimpleData[];
-}
 
 function AccessControlDialog() {
   const { user } = useUserStore();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState<string>(
-    user?.belongsToArtists[0]?.id || "",
+    user?.belongsToArtists[0]?.artistId || "",
   );
 
-  const { data, loading, error } = useQuery<ResData>(GET_MEMBERS_BELONGED, {
+  const { data, loading, error } = useQuery(GET_MEMBERS_BELONGED, {
     variables: {
       artistId: selectedArtist,
       userId: user?.id,
     },
     skip: !selectedArtist || !isOpen,
   });
+
   console.log(data);
 
   const [markAsMember] = useMutation(MARK_AS_MEMBER, {
@@ -74,12 +72,12 @@ function AccessControlDialog() {
   };
 
   const handleApprove = async (userId: string) => {
-    console.log(userId, selectedArtist, "Accept");
+    console.log(`userId: ${userId}, selectedArtist: ${selectedArtist}, "Accept"`);
     try {
       await markAsMember({
         variables: {
           input: {
-            member: userId,
+            member: user?.id,
             artistId: selectedArtist,
             mapping: [
               {
@@ -102,7 +100,7 @@ function AccessControlDialog() {
       await markAsMember({
         variables: {
           input: {
-            member: userId,
+            member: user?.id,
             artistId: selectedArtist,
             mapping: [
               {
@@ -146,8 +144,8 @@ function AccessControlDialog() {
               <TabsList className="flex justify-start px-6 pt-2 pb-0">
                 {user?.belongsToArtists.map((artist) => (
                   <TabsTrigger
-                    key={artist.id}
-                    value={artist.id}
+                    key={artist.artistId}
+                    value={artist.artistId}
                     className="px-4 py-2"
                   >
                     {artist.name}
@@ -157,19 +155,29 @@ function AccessControlDialog() {
               <div className="flex-grow overflow-hidden p-6 pt-2">
                 {user?.belongsToArtists.map((artist) => (
                   <TabsContent
-                    key={artist.id}
-                    value={artist.id}
+                    key={artist.artistId}
+                    value={artist.artistId}
                     className="h-full m-0 overflow-hidden"
                   >
-                    <ScrollArea className="h-full border rounded-md">
-                      <div className="p-4 space-y-4">
-                        {data?.getMembersBelongedToArtist?.map((user) => (
+                    {error?.message === "not admin" ? (
+                      <div className="flex items-center justify-center flex-grow p-6">
+                        <p className="text-muted-foreground mt-24">
+                          このアーティストの管理権限がありません
+                        </p>
+                      </div>
+                    ) : (
+                      <ScrollArea className="h-full border rounded-md">
+                        <div className="p-4 space-y-4">
+                        {data?.getMembersBelongedToArtist?.map((user: { id: string; name: string; realname: string }) => (
                           <div
                             key={user.id}
                             className="flex items-center justify-between bg-secondary p-4 rounded-lg"
                           >
                             <div>
                               <h3 className="font-semibold">{user.name}</h3>
+                            </div>
+                            <div>
+                              <p className="text-muted-foreground">{user.realname}</p>
                             </div>
                             <div className="space-x-2">
                               <Button
@@ -191,8 +199,9 @@ function AccessControlDialog() {
                             </div>
                           </div>
                         ))}
-                      </div>
-                    </ScrollArea>
+                        </div>
+                      </ScrollArea>
+                    )}
                   </TabsContent>
                 ))}
               </div>

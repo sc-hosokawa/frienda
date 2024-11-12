@@ -137,4 +137,30 @@ impl ArtistQuery {
             })
             .collect())
     }
+
+    async fn get_all_pending_members(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<Vec<models::artists::AllPendingMember>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_members
+            .get_all_pending_members(user_id)
+            .await?;
+
+        Ok(result
+            .members
+            .into_iter()
+            .map(|member| models::artists::AllPendingMember {
+                member: models::users::UserSimpleData {
+                    id: member.member.id,
+                    name: member.member.username,
+                    realname: member.member.realname,
+                    image_url: member.member.img_url,
+                },
+                artist_name: member.artist_name,
+            })
+            .collect())
+    }
 }

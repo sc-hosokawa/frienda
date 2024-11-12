@@ -43,6 +43,11 @@ impl UserArtistRepository for UserArtistRepoImpl {
         Ok(())
     }
 
+    async fn find_all(&self) -> Result<Vec<UserArtist>, DomainError> {
+        let user_artists = UserArtistEntity::find().all(&self.db).await?;
+        Ok(user_artists)
+    }
+
     async fn find_by_artist_id(&self, artist_id: &str) -> Result<Vec<UserArtist>, DomainError> {
         let user_artists = UserArtistEntity::find()
             .filter(Column::ArtistId.eq(artist_id))

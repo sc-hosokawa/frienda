@@ -198,7 +198,10 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
             repos.users.clone(),
         )),
         create_quest: Arc::new(CreateQuestUsecase::new(repos.quests.clone())),
-        mark_as_member: Arc::new(MarkAsMemberUsecase::new(repos.user_artist.clone())),
+        mark_as_member: Arc::new(MarkAsMemberUsecase::new(
+            repos.user_artist.clone(),
+            repos.users.clone(),
+        )),
         quest_mark_as_done: Arc::new(MarkAsDoneUsecase::new(repos.quest_user.clone())),
         register_credit: Arc::new(RegisterUsecase::new(repos.track_credits.clone())),
         request_to_access: Arc::new(RequestToAccessUsecase::new(
@@ -212,6 +215,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
         get_members: Arc::new(GetMembersUsecase::new(
             repos.user_artist.clone(),
             repos.users.clone(),
+            repos.artists.clone(),
         )),
         create_user: Arc::new(CreateUserUsecase::new(repos.users.clone())),
         get_artist: Arc::new(GetArtistUsecase::new(repos.artists.clone())),

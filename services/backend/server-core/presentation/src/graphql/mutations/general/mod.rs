@@ -67,6 +67,8 @@ impl GeneralMutation {
             user_info: models::users::UserDetailData {
                 id: res.updated_user.id,
                 name: res.updated_user.username,
+                realname: res.updated_user.realname,
+                is_super_admin: res.updated_user.is_superadmin.unwrap_or(false),
                 image_url: res.updated_user.img_url,
                 fsp_balance: res.updated_user.fsp,
                 credential_balance: res.updated_user.credential,

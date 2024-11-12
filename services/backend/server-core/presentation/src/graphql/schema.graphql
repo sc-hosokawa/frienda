@@ -755,6 +755,8 @@ type UserDetailData {
 	id: String!
 	name: String!
 	imageUrl: String
+	realname: String!
+	isSuperAdmin: Boolean!
 	fspBalance: Int!
 	credentialBalance: Int!
 	role: String!

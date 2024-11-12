@@ -5,6 +5,7 @@ use std::sync::Arc;
 use domain::entities::sea_orm_active_enums::UserArtistStatus;
 use domain::entities::user_artist::{ActiveModel as UserArtistActiveModel, Model as UserArtist};
 use domain::repositories::user_artist_repo::UserArtistRepository;
+use domain::repositories::users_repo::UsersRepository;
 use shared::error::domain_err::DomainError;
 
 pub struct MarkAsMemberUsecaseInput {
@@ -37,11 +38,18 @@ pub trait MarkAsMemberUsecaseTrait: Send + Sync {
 
 pub struct MarkAsMemberUsecase {
     user_artist_repo: Arc<dyn UserArtistRepository>,
+    user_repo: Arc<dyn UsersRepository>,
 }
 
 impl MarkAsMemberUsecase {
-    pub fn new(user_artist_repo: Arc<dyn UserArtistRepository>) -> Self {
-        Self { user_artist_repo }
+    pub fn new(
+        user_artist_repo: Arc<dyn UserArtistRepository>,
+        user_repo: Arc<dyn UsersRepository>,
+    ) -> Self {
+        Self {
+            user_artist_repo,
+            user_repo,
+        }
     }
 }
 
@@ -51,9 +59,10 @@ impl MarkAsMemberUsecaseTrait for MarkAsMemberUsecase {
         &self,
         input: MarkAsMemberUsecaseInput,
     ) -> Result<Vec<UserArtist>, DomainError> {
-        let super_admin_user_id = "BnHP2OVFtRUrZ9G6rGN48DRUim53";
+        let user = self.user_repo.find_by_id(&input.member).await?;
+        let is_super_admin: bool = user.unwrap().is_superadmin.unwrap_or(false);
 
-        if input.member != super_admin_user_id {
+        if !is_super_admin {
             let user_artist = self
                 .user_artist_repo
                 .find_by_artist_id_and_user_id(&input.artist_id, &input.member)
@@ -101,9 +110,10 @@ impl MarkAsMemberUsecaseTrait for MarkAsMemberUsecase {
         &self,
         input: MarkAsAdminUsecaseInput,
     ) -> Result<UserArtist, DomainError> {
-        let super_admin_user_id = "BnHP2OVFtRUrZ9G6rGN48DRUim53";
+        let user = self.user_repo.find_by_id(&input.admin_member).await?;
+        let is_super_admin: bool = user.unwrap().is_superadmin.unwrap_or(false);
 
-        if input.admin_member != super_admin_user_id {
+        if !is_super_admin {
             let user_artist = self
                 .user_artist_repo
                 .find_by_artist_id_and_user_id(&input.artist_id, &input.admin_member)

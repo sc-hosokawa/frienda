@@ -152,24 +152,30 @@ export function AllocationDialog() {
             !selectedArtist ? (
               // アーティスト選択画面
               <div className="space-y-2">
-                {user?.belongsToArtists.map((artist) => (
-                  <div
-                    key={artist.artistId}
-                    className="flex items-center justify-between p-2 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => setSelectedArtist(artist)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <Avatar>
-                        <AvatarImage src={artist.imageUrl} />
-                        <AvatarFallback>
-                          <User />
-                        </AvatarFallback>
-                      </Avatar>
-                      <span>{artist.name}</span>
-                    </div>
-                    <span>{artist.fsp} ポイント</span>
+                {!user?.belongsToArtists?.length ? (
+                  <div className="text-center text-gray-500 py-8">
+                    選択できるアーティストがありません。
                   </div>
-                ))}
+                ) : (
+                  user.belongsToArtists.map((artist) => (
+                    <div
+                      key={artist.artistId}
+                      className="flex items-center justify-between p-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => setSelectedArtist(artist)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Avatar>
+                          <AvatarImage src={artist.imageUrl} />
+                          <AvatarFallback>
+                            <User />
+                          </AvatarFallback>
+                        </Avatar>
+                        <span>{artist.name}</span>
+                      </div>
+                      <span>{artist.fsp} ポイント</span>
+                    </div>
+                  ))
+                )}
               </div>
             ) : (
               // メンバー一覧と分配画面
