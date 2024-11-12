@@ -4,8 +4,10 @@ use std::sync::Arc;
 use tracing::info;
 use uuid::Uuid;
 
+use domain::entities::artists::Model as Artist;
 use domain::entities::txs_fsp::ActiveModel as TxsFspActiveModel;
 use domain::entities::users::Model as User;
+use domain::repositories::artists_repo::ArtistsRepository;
 use domain::repositories::txs_fsp_repo::TxsFspRepository;
 use domain::repositories::users_repo::UsersRepository;
 
@@ -51,16 +53,19 @@ pub trait TransferPointBetweenAccountsUsecaseTrait: Send + Sync {
 pub struct TransferPointBetweenAccountsUsecase {
     txs_fsp_repo: Arc<dyn TxsFspRepository>,
     users_repo: Arc<dyn UsersRepository>,
+    artists_repo: Arc<dyn ArtistsRepository>,
 }
 
 impl TransferPointBetweenAccountsUsecase {
     pub fn new(
         txs_fsp_repo: Arc<dyn TxsFspRepository>,
         users_repo: Arc<dyn UsersRepository>,
+        artists_repo: Arc<dyn ArtistsRepository>,
     ) -> Self {
         Self {
             txs_fsp_repo,
             users_repo,
+            artists_repo,
         }
     }
 }
@@ -168,7 +173,24 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
 
         for transfer in &input {
             if let Some(from) = &transfer.from {
-                if from != "admin_0000000000000000000001" {
+                if from == "admin_0000000000000000000001" {
+                    // 管理者アカウントの処理（スキップ）
+                } else if from.starts_with("artist_") {
+                    // アーティストアカウント用の特別処理をここに実装
+                    let from_artist: Artist = self
+                        .artists_repo
+                        .find_by_id(from)
+                        .await?
+                        .ok_or_else(|| anyhow::anyhow!("Artist not found"))?;
+                    if from_artist.fsp < transfer.amount {
+                        return Err(anyhow::anyhow!("Insufficient artist balance"));
+                    }
+
+                    let from_artist_info: Artist =
+                        self.artists_repo.update_fsp(from, -transfer.amount).await?;
+                    info!("BulkTx::artist_from_artist_info: {:?}", from_artist_info.id);
+                } else {
+                    // 通常ユーザーの処理
                     if let Ok(Some(from_user)) = self.users_repo.find_by_id(from).await {
                         if from_user.fsp < transfer.amount {
                             return Err(anyhow::anyhow!("Insufficient balance"));

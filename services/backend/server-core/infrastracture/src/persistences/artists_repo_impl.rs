@@ -75,4 +75,23 @@ impl ArtistsRepository for ArtistsRepoImpl {
         let _res = ArtistEntity::delete_by_id(id).exec(&self.db).await?;
         Ok(())
     }
+
+    async fn update_fsp(&self, id: &str, fsp: i32) -> Result<Artist, DomainError> {
+        let update_artist: Artist = ArtistEntity::find()
+            .filter(Column::ArtistId.eq(id))
+            .one(&self.db)
+            .await?
+            .unwrap();
+
+        let new_fsp: i32 = update_artist.fsp + fsp;
+
+        let updated_artist: ArtistActiveModel = ArtistActiveModel {
+            id: ActiveValue::Set(update_artist.id),
+            fsp: ActiveValue::Set(new_fsp),
+            ..Default::default()
+        };
+
+        let res: Artist = ArtistEntity::update(updated_artist).exec(&self.db).await?;
+        Ok(res)
+    }
 }

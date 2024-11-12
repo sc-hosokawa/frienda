@@ -2,6 +2,7 @@ use async_trait::async_trait;
 use std::sync::Arc;
 
 use domain::entities::txs_fsp::Model as TxsFsp;
+use domain::repositories::artists_repo::ArtistsRepository;
 use domain::repositories::txs_fsp_repo::TxsFspRepository;
 use domain::repositories::users_repo::UsersRepository;
 
@@ -46,16 +47,19 @@ pub trait GetPointTransactionHistoryUsecaseTrait: Send + Sync {
 pub struct GetPointTransactionHistoryUsecase {
     txs_fsp_repo: Arc<dyn TxsFspRepository>,
     users_repo: Arc<dyn UsersRepository>,
+    artists_repo: Arc<dyn ArtistsRepository>,
 }
 
 impl GetPointTransactionHistoryUsecase {
     pub fn new(
         txs_fsp_repo: Arc<dyn TxsFspRepository>,
         users_repo: Arc<dyn UsersRepository>,
+        artists_repo: Arc<dyn ArtistsRepository>,
     ) -> Self {
         Self {
             txs_fsp_repo,
             users_repo,
+            artists_repo,
         }
     }
 }
@@ -78,16 +82,30 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
         for tx in txs_fsps {
             let (direction, counter_party) = match (&tx.from, &tx.to) {
                 (Some(from_id), to_id) if from_id == &input.user_id => {
-                    match self.users_repo.find_by_id(to_id).await? {
-                        Some(user) => (
-                            "Out".to_string(),
-                            UserSimpleData {
-                                id: user.id,
-                                name: user.username,
-                                img_url: user.img_url,
-                            },
-                        ),
-                        None => continue,
+                    if to_id.starts_with("artist_") {
+                        match self.artists_repo.find_by_id(to_id).await? {
+                            Some(artist) => (
+                                "Out".to_string(),
+                                UserSimpleData {
+                                    id: artist.artist_id,
+                                    name: artist.display_name_jp,
+                                    img_url: artist.img_url,
+                                },
+                            ),
+                            None => continue,
+                        }
+                    } else {
+                        match self.users_repo.find_by_id(to_id).await? {
+                            Some(user) => (
+                                "Out".to_string(),
+                                UserSimpleData {
+                                    id: user.id,
+                                    name: user.username,
+                                    img_url: user.img_url,
+                                },
+                            ),
+                            None => continue,
+                        }
                     }
                 }
                 (from_opt, to_id) if to_id == &input.user_id => {
@@ -96,16 +114,30 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
                         None => continue,
                     };
 
-                    match self.users_repo.find_by_id(from_id).await? {
-                        Some(user) => (
-                            "In".to_string(),
-                            UserSimpleData {
-                                id: user.id,
-                                name: user.username,
-                                img_url: user.img_url,
-                            },
-                        ),
-                        None => continue,
+                    if from_id.starts_with("artist_") {
+                        match self.artists_repo.find_by_id(from_id).await? {
+                            Some(artist) => (
+                                "In".to_string(),
+                                UserSimpleData {
+                                    id: artist.artist_id,
+                                    name: artist.display_name_jp,
+                                    img_url: artist.img_url,
+                                },
+                            ),
+                            None => continue,
+                        }
+                    } else {
+                        match self.users_repo.find_by_id(from_id).await? {
+                            Some(user) => (
+                                "In".to_string(),
+                                UserSimpleData {
+                                    id: user.id,
+                                    name: user.username,
+                                    img_url: user.img_url,
+                                },
+                            ),
+                            None => continue,
+                        }
                     }
                 }
                 _ => continue,

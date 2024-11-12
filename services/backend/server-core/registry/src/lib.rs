@@ -321,11 +321,13 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
         get_point_transaction_history: Arc::new(GetPointTransactionHistoryUsecase::new(
             repos.txs_fsp.clone(),
             repos.users.clone(),
+            repos.artists.clone(),
         )),
         get_user_point_balance: Arc::new(GetUserPointBalanceUsecase::new(repos.users.clone())),
         transfer_point_between_accounts: Arc::new(TransferPointBetweenAccountsUsecase::new(
             repos.txs_fsp.clone(),
             repos.users.clone(),
+            repos.artists.clone(),
         )),
         mark_as_read: Arc::new(MarkAsReadUsecase::new(repos.room_user.clone())),
     }
