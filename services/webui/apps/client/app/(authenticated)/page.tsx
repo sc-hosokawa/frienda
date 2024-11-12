@@ -31,11 +31,20 @@ interface QuestsResData {
 
 export default function Home() {
   const { user } = useUserStore();
+  const acceptedArtists = user?.belongsToArtists.filter(
+    (artist) => artist.status === "Accept",
+  );
+  const pendingArtists = user?.belongsToArtists.filter(
+    (artist) => artist.status === "Check",
+  );
   const timestamp = Date.now();
-  const artistsLength = user?.belongsToArtists?.length || 1;
+  const artistsLength = acceptedArtists?.length || 1;
   const randomIndex = timestamp % artistsLength;
-  const randomArtist = user?.belongsToArtists[randomIndex];
-  console.log(randomArtist);
+  const randomArtist = acceptedArtists?.[randomIndex];
+
+  console.log(user?.belongsToArtists);
+  console.log(acceptedArtists);
+  console.log(pendingArtists);
 
   return (
     <div className="h-full bg-black text-white p-6 space-y-8 overflow-x-hidden">
@@ -51,22 +60,40 @@ export default function Home() {
       </div>
       <Actions />
       {randomArtist ? (
-        <>
-          <div className="flex items-center gap-2">
-            <Image
-              src={randomArtist.imageUrl || ""}
-              alt={randomArtist.name}
-              width={40}
-              height={40}
-            />
-            <div>{randomArtist.name}</div>
+        randomArtist.status === "Accept" ? (
+          <>
+            <div className="flex items-center gap-2">
+              <Image
+                src={randomArtist.imageUrl || ""}
+                alt={randomArtist.name}
+                width={40}
+                height={40}
+              />
+              <div>{randomArtist.name}</div>
+            </div>
+            <Overview selectedArtistId={randomArtist.artistId} />
+            <Trending selectedArtistId={randomArtist.artistId} />
+          </>
+        ) : (
+          <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400 space-y-4">
+            {pendingArtists?.length ? (
+              <>
+                <div>
+                  {pendingArtists?.map((artist) => artist.name).join(", ")}
+                </div>
+                <div>に閲覧許可を申請中です</div>
+              </>
+            ) : (
+              <div>閲覧許可申請中です</div>
+            )}
           </div>
-          <Overview selectedArtistId={randomArtist.artistId} />
-          <Trending selectedArtistId={randomArtist.artistId} />
-        </>
+        )
       ) : (
         <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400 space-y-4">
-          <div>アーティスト閲覧権限を申請してください</div>
+          <p>アーティスト閲覧権限を申請してください。</p>
+          <p>
+            すでに行った方はログアウトして再度ログインするか、しばらく時間をあけてからアクセスしてください。
+          </p>
           <RequestForViewDialog />
         </div>
       )}

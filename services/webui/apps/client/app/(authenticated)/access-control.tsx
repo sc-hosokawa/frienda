@@ -44,8 +44,9 @@ function AccessControlDialog() {
   const [selectedArtist, setSelectedArtist] = useState<string>(
     user?.belongsToArtists[0]?.artistId || "",
   );
+  console.log(user?.isSuperAdmin);
 
-  const { data, loading, error } = useQuery(GET_MEMBERS_BELONGED, {
+  const { data, loading, error, refetch } = useQuery(GET_MEMBERS_BELONGED, {
     variables: {
       artistId: selectedArtist,
       userId: user?.id,
@@ -72,7 +73,9 @@ function AccessControlDialog() {
   };
 
   const handleApprove = async (userId: string) => {
-    console.log(`userId: ${userId}, selectedArtist: ${selectedArtist}, "Accept"`);
+    console.log(
+      `userId: ${userId}, selectedArtist: ${selectedArtist}, "Accept"`,
+    );
     try {
       await markAsMember({
         variables: {
@@ -88,6 +91,7 @@ function AccessControlDialog() {
           },
         },
       });
+      refetch();
     } catch (error) {
       console.error("Error approving user:", error);
       // ここでエラーハンドリングを実装（例：トースト通知など）
@@ -111,6 +115,7 @@ function AccessControlDialog() {
           },
         },
       });
+      refetch();
     } catch (error) {
       console.error("Error denying user:", error);
       // ここでエラーハンドリングを実装（例：トースト通知など）
@@ -168,37 +173,47 @@ function AccessControlDialog() {
                     ) : (
                       <ScrollArea className="h-full border rounded-md">
                         <div className="p-4 space-y-4">
-                        {data?.getMembersBelongedToArtist?.map((user: { id: string; name: string; realname: string }) => (
-                          <div
-                            key={user.id}
-                            className="flex items-center justify-between bg-secondary p-4 rounded-lg"
-                          >
-                            <div>
-                              <h3 className="font-semibold">{user.name}</h3>
-                            </div>
-                            <div>
-                              <p className="text-muted-foreground">{user.realname}</p>
-                            </div>
-                            <div className="space-x-2">
-                              <Button
-                                onClick={() => handleApprove(user.id)}
-                                size="sm"
-                                className="bg-green-500 hover:bg-green-600"
+                          {data?.getMembersBelongedToArtist?.map(
+                            (user: {
+                              id: string;
+                              name: string;
+                              realname: string;
+                            }) => (
+                              <div
+                                key={user.id}
+                                className="flex items-center justify-between bg-secondary p-4 rounded-lg"
                               >
-                                <Check className="mr-2 h-4 w-4" />
-                                許可
-                              </Button>
-                              <Button
-                                onClick={() => handleDeny(user.id)}
-                                size="sm"
-                                variant="destructive"
-                              >
-                                <X className="mr-2 h-4 w-4" />
-                                拒否
-                              </Button>
-                            </div>
-                          </div>
-                        ))}
+                                <div>
+                                  <h3 className="font-semibold">{user.name}</h3>
+                                </div>
+                                <div>
+                                  <p className="text-muted-foreground">
+                                    {user.realname}
+                                  </p>
+                                </div>
+                                <div className="space-x-2">
+                                  <>
+                                    <Button
+                                      onClick={() => handleApprove(user.id)}
+                                      size="sm"
+                                      className="bg-green-500 hover:bg-green-600"
+                                    >
+                                      <Check className="mr-2 h-4 w-4" />
+                                      許可
+                                    </Button>
+                                    <Button
+                                      onClick={() => handleDeny(user.id)}
+                                      size="sm"
+                                      variant="destructive"
+                                    >
+                                      <X className="mr-2 h-4 w-4" />
+                                      拒否
+                                    </Button>
+                                  </>
+                                </div>
+                              </div>
+                            ),
+                          )}
                         </div>
                       </ScrollArea>
                     )}

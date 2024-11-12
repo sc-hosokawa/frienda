@@ -6,6 +6,12 @@ type AddNewConnectionResponse {
 	mapId: String!
 }
 
+type AllPendingMember {
+	member: UserSimpleData!
+	artistName: String!
+	artistId: String!
+}
+
 type AllUsersData {
 	users: [UserSimpleData!]!
 }
@@ -509,6 +515,7 @@ type QueryRoot {
 	getArtistsByName(name: String!): ArtistsData!
 	getMembersJoinedToArtist(artistId: String!, userId: String): [UserSimpleData!]!
 	getMembersBelongedToArtist(artistId: String!, userId: String): [UserSimpleData!]!
+	getAllPendingMembers(userId: String!): [AllPendingMember!]!
 	getPopularPrizes: [PrizeData!]!
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
@@ -755,6 +762,8 @@ type UserDetailData {
 	id: String!
 	name: String!
 	imageUrl: String
+	realname: String!
+	isSuperAdmin: Boolean!
 	fspBalance: Int!
 	credentialBalance: Int!
 	role: String!

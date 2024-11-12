@@ -33,6 +33,8 @@ const GET_USER_DATA = gql`
       id
       name
       imageUrl
+      realname
+      isSuperAdmin
       fspBalance
       credentialBalance
       role

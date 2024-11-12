@@ -12,9 +12,15 @@ import { RequestForViewDialog } from "../reqest-for-view";
 export default function Dashboard() {
   const { user } = useUserStore();
   const artists = user?.belongsToArtists;
-  const [selectedArtist, setSelectedArtist] = useState<string | null>(
-    artists?.[0]?.artistId || null,
+  const acceptedArtists = artists?.filter(
+    (artist) => artist.status === "Accept",
   );
+  const [selectedArtist, setSelectedArtist] = useState<string | null>(
+    acceptedArtists?.[0]?.artistId || null,
+  );
+
+  console.log(artists);
+  console.log(acceptedArtists);
 
   return (
     <div className="bg-black text-white min-h-screen p-8">
@@ -32,8 +38,8 @@ export default function Dashboard() {
         </div>
       </header>
       <div className="flex space-x-4 mb-8">
-        {artists && artists.length > 0 ? (
-          artists.map((artist) => {
+        {acceptedArtists && acceptedArtists.length > 0 ? (
+          acceptedArtists.map((artist) => {
             const isSelected = artist.artistId === selectedArtist;
             return (
               <button
@@ -59,9 +65,10 @@ export default function Dashboard() {
             );
           })
         ) : (
-          <div className="w-full flex flex-col justify-center items-center py-8 space-y-4">
-            <p className="text-lg text-gray-400">
-              アーティストへのアクセス権限を申請しましょう
+          <div className="w-full flex flex-col justify-center items-center py-8 space-y-4 text-gray-400">
+            <p>アーティスト閲覧権限を申請してください。</p>
+            <p>
+              すでに行った方はログアウトして再度ログインするか、しばらく時間をあけてからアクセスしてください。
             </p>
             <RequestForViewDialog />
           </div>

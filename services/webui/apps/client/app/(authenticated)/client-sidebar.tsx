@@ -12,6 +12,7 @@ import {
   SidebarFooter,
 } from "@ui/components/ui/sidebar";
 import AccessControlDialog from "./access-control";
+import SuperAdminDialog from "./superadmin-dialog";
 
 const items = [
   {
@@ -71,6 +72,7 @@ export function ClientSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <SuperAdminDialog />
         <AccessControlDialog />
       </SidebarFooter>
     </Sidebar>
