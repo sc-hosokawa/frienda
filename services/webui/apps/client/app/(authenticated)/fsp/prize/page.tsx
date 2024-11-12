@@ -41,7 +41,7 @@ function ProductSkeleton() {
   );
 }
 
-async function ProductList() {
+function ProductList() {
   const { loading, error, data } = useQuery(GET_POPULAR_PRIZES);
 
   if (loading) return <ProductSkeleton />;
@@ -53,6 +53,8 @@ async function ProductList() {
       </div>
     );
   }
+
+  console.log(data.getPopularPrizes);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

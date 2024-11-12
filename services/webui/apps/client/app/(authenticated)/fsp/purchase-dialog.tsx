@@ -38,7 +38,7 @@ export function PurchaseDialog() {
           disabled
         >
           <ShoppingCart className="mr-2 h-4 w-4" />
-          購入
+          購入(近日公開)
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-black text-white border-zinc-800">

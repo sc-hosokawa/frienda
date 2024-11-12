@@ -4,7 +4,7 @@ import OfferList from "./offer-list";
 import OfferListSkeleton from "./offer-list-skeleton";
 import OfferStats from "./stats";
 import OfferAllList, { OfferAllListSkeleton } from "./offer-all-list";
-import { Plus } from "lucide-react";
+import { Plus, List } from "lucide-react";
 import Link from "next/link";
 
 export default function OfferPage() {
@@ -21,12 +21,20 @@ export default function OfferPage() {
           />
           <h1 className="text-6xl font-light tracking-tight">OFFER</h1>
         </div>
-        <Link
-          href="/offer/create"
-          className="p-2 rounded-full hover:bg-gray-700 transition-colors border-2 border-white"
-        >
-          <Plus className="h-8 w-8 text-white" />
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/offer/list"
+            className="p-2 rounded-full hover:bg-gray-700 transition-colors border-0 border-white"
+          >
+            <List className="h-8 w-8 text-white" />
+          </Link>
+          <Link
+            href="/offer/create"
+            className="p-2 rounded-full hover:bg-gray-700 transition-colors border-0 border-white"
+          >
+            <Plus className="h-8 w-8 text-white" />
+          </Link>
+        </div>
       </div>
       <div className="max-w-4xl mx-auto">
         <OfferStats />

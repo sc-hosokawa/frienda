@@ -11,10 +11,12 @@ import {
   MessageSquare,
   Share2,
   Star,
+  ArrowLeft,
 } from "lucide-react";
 import Image from "next/image";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // GraphQLクエリの定義
 const GET_OFFERS = gql`
@@ -67,7 +69,15 @@ export default function OfferList() {
     <div className="min-h-screen bg-black text-white p-6">
       <div className="max-w-7xl mx-auto">
         <header className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">Offer List</h1>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/offer"
+              className="p-2 rounded-full hover:bg-gray-700 transition-colors"
+            >
+              <ArrowLeft className="h-8 w-8 text-white" />
+            </Link>
+            <h1 className="text-6xl font-light">Offer List</h1>
+          </div>
         </header>
 
         {/*
@@ -136,7 +146,7 @@ function OfferCard({ offer }: { offer: Offer }) {
           />
         ) : (
           <Image
-            src="/design.svg"
+            src="/offer.svg"
             alt="Default thumbnail"
             width={150}
             height={150}
@@ -147,21 +157,25 @@ function OfferCard({ offer }: { offer: Offer }) {
         <div className="flex-1 min-w-0">
           <div className="flex justify-between items-start mb-2">
             <span className="px-2 py-1 rounded text-xs bg-blue-500/20 text-blue-400">
-              Category
+              {offer.category}
             </span>
+            {/*
             <div className="flex gap-2">
               <Share2 className="w-4 h-4" />
               <Heart className="w-4 h-4" />
             </div>
+            */}
           </div>
 
           <h3 className="font-medium mb-1 truncate">{offer.title}</h3>
           <p className="text-sm text-gray-400 mb-2 line-clamp-2 break-words">
             {offer.description}
           </p>
+          {/*
           <p className="text-xs text-gray-500 mb-4">
             Last Updated: {offer.fee} FSP
           </p>
+          */}
 
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center gap-2 text-sm">
@@ -169,11 +183,9 @@ function OfferCard({ offer }: { offer: Offer }) {
                 報酬: {offer.fee} FSP
               </span>
             </div>
-            <div className="flex items-center gap-1 text-sm">
-              <Diamond className="w-4 h-4" />
-              <span>{offer.fee}% Match!</span>
-            </div>
           </div>
+
+          {/*
 
           <div className="grid grid-cols-3 gap-4 text-sm mb-4">
             <div>
@@ -211,6 +223,7 @@ function OfferCard({ offer }: { offer: Offer }) {
               <button className="text-sm">→</button>
             </div>
           </div>
+          */}
         </div>
       </div>
     </Card>

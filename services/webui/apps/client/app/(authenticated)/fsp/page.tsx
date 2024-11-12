@@ -83,8 +83,11 @@ export default function FspPage() {
     variables: { userId: user?.id, count: 5 },
   });
   const { data: popularPrizesData } = useQuery(GET_POPULAR_PRIZES);
-
-  console.log(fspHistoryData);
+  const sortedPrizes = popularPrizesData?.getPopularPrizes
+    ? [...popularPrizesData.getPopularPrizes].sort(
+        (a: any, b: any) => a.point - b.point,
+      )
+    : [];
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = "/logo_visualonly.jpg";
@@ -109,11 +112,13 @@ export default function FspPage() {
 
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl">交換可能な商品</h2>
+        {/* TODO: もっと見るを実装 
         <Link href="/fsp/prize">
           <Button variant="link" className="text-primary">
             もっと見る
           </Button>
         </Link>
+        */}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         {!popularPrizesData?.getPopularPrizes ||
@@ -122,7 +127,7 @@ export default function FspPage() {
             No available prizes
           </div>
         ) : (
-          popularPrizesData.getPopularPrizes.map((product: any) => (
+          sortedPrizes.map((product: any) => (
             <Card key={product.id}>
               <CardContent className="flex flex-col items-center p-4">
                 <Image
@@ -130,11 +135,11 @@ export default function FspPage() {
                   alt={product.name}
                   width={128}
                   height={128}
-                  className="object-cover mb-2"
+                  className="object-cover mb-2 rounded-lg"
                   onError={handleImageError}
                 />
-                <h3 className="font-bold">{product.name}</h3>
-                <p>{product.points} pt</p>
+                <h3 className="">{product.name}</h3>
+                <p>{product.point.toLocaleString()} fsp</p>
                 <Link href={`/fsp/prize/${product.id}`}>
                   <Button className="mt-2">詳細を見る</Button>
                 </Link>

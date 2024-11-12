@@ -149,6 +149,7 @@ CREATE TABLE "quests" (
   "name" varchar NOT NULL,
   "description" varchar NOT NULL,
   "category" varchar,
+  "point" int NOT NULL DEFAULT 0,
   "created_at" timestamp NOT NULL DEFAULT (now())
 );
 

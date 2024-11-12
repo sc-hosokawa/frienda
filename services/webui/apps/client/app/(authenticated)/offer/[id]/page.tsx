@@ -1,12 +1,13 @@
 "use client";
 
 import { Button } from "@ui/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { useState } from "react";
 import useUserStore from "../../../../store/user";
 import { OfferDetailData } from "../../../../generated/graphql";
+import Link from "next/link";
 
 const GET_OFFER_QUERY = gql`
   query GetOfferDetail($offerId: Int!, $userId: String!) {
@@ -56,15 +57,13 @@ export default function OfferDetailPage({
 }) {
   const [isApplied, setIsApplied] = useState(false);
   const { user } = useUserStore();
-  const { data, loading, error } = useQuery<ResData>(GET_OFFER_QUERY, {
+  const { data, loading, error, refetch } = useQuery<ResData>(GET_OFFER_QUERY, {
     variables: {
       offerId: parseInt(params.id),
       userId: user?.id,
     },
     skip: !user?.id,
   });
-
-  console.log(data?.getOffersById);
 
   const [updateStatus] = useMutation(UPDATE_OFFER_STATUS);
 
@@ -104,6 +103,7 @@ export default function OfferDetailPage({
     // TODO: Add dialog component
     if (window.confirm("本当に申し込みますか？")) {
       handleApply();
+      refetch();
     }
   };
 
@@ -111,18 +111,46 @@ export default function OfferDetailPage({
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-6xl font-light my-6">Offer Details</h1>
-          {/* ここのハンドリングを丁寧に実装 */}
+          <div className="flex items-center gap-4">
+            <Link href="/offer" className="hover:opacity-80">
+              <ArrowLeft className="w-6 h-6" />
+            </Link>
+            <h1 className="text-6xl font-light my-6">Offer Details</h1>
+          </div>
           {isOwner ? (
             <Button className="">編集する</Button>
           ) : (
-            <Button
-              className="bg-teal-500 hover:bg-teal-600 text-white"
-              onClick={showConfirmationDialog}
-              disabled={isApplied}
-            >
-              {isApplied ? "応募済み" : "このオファーに応募する"}
-            </Button>
+            <>
+              {data?.getOffersById?.status === "Reject" ? null : (
+                <Button
+                  className="bg-teal-500 hover:bg-teal-600 text-white"
+                  onClick={showConfirmationDialog}
+                  disabled={[
+                    "Applied",
+                    "Ongoing",
+                    "Suspend",
+                    "Canceled",
+                    "Finished",
+                  ].includes(data?.getOffersById?.status ?? "")}
+                >
+                  {(() => {
+                    switch (data?.getOffersById?.status) {
+                      case "Applied":
+                        return "応募済み";
+                      case "Ongoing":
+                        return "進行中";
+                      case "Suspend":
+                      case "Canceled":
+                        return "停止中";
+                      case "Finished":
+                        return "完了";
+                      default:
+                        return "このオファーに応募する";
+                    }
+                  })()}
+                </Button>
+              )}
+            </>
           )}
         </div>
 

@@ -134,21 +134,6 @@ function Actions() {
                     </div>
                     <h3 className="font-medium">{quest.name}</h3>
                     <p className="text-sm text-gray-400">{quest.description}</p>
-                    <button className="p-2 hover:bg-white/10 rounded-full">
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </button>
                   </div>
                 </CarouselItem>
               ))}
