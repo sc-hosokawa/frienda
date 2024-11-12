@@ -103,6 +103,7 @@ impl ArtistQuery {
             .map(|user| models::users::UserSimpleData {
                 id: user.id,
                 name: user.username,
+                realname: user.realname,
                 image_url: user.img_url,
             })
             .collect::<Vec<models::users::UserSimpleData>>())
@@ -131,6 +132,7 @@ impl ArtistQuery {
             .map(|user| models::users::UserSimpleData {
                 id: user.id,
                 name: user.username,
+                realname: user.realname,
                 image_url: user.img_url,
             })
             .collect())

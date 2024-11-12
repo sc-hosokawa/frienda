@@ -123,6 +123,7 @@ impl OfferQuery {
                 id: result.owner.id,
                 name: result.owner.name,
                 image_url: result.owner.image_url,
+                realname: "".to_string(),
             },
             raid_id: result.raid_id,
             attached_files: Some(result.attached_files),

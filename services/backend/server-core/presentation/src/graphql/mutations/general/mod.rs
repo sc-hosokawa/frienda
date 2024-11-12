@@ -21,6 +21,7 @@ impl GeneralMutation {
                     id: input.id.clone(),
                     email: input.email.clone(),
                     name: input.name.clone(),
+                    realname: input.realname.clone(),
                     image_url: input.image_url.clone(),
                     invited_by: input.invited_by,
                     category: models::users::from_string_to_user_category(&input.category).unwrap(),

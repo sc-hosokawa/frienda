@@ -167,6 +167,7 @@ impl From<application::usecases::messaging::get_messages_usecase::SimpleUser> fo
             id: user.id,
             name: user.name,
             image_url: user.image_url,
+            realname: "".to_string(),
         }
     }
 }
@@ -177,6 +178,7 @@ impl From<application::usecases::messaging::get_room_list_usecase::SimpleUser> f
             id: user.id,
             name: user.name,
             image_url: user.image_url,
+            realname: "".to_string(),
         }
     }
 }

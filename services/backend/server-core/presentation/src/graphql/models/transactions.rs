@@ -76,6 +76,7 @@ impl From<application::usecases::point::get_point_transaction_history_usecase::U
             id: user.id,
             name: user.name,
             image_url: user.img_url,
+            realname: "".to_string(),
         }
     }
 }

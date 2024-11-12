@@ -18,6 +18,7 @@ impl GeneralQuery {
                 .map(|user| models::users::UserSimpleData {
                     id: user.id,
                     name: user.name,
+                    realname: "".to_string(),
                     image_url: user.image_url,
                 })
                 .collect::<Vec<_>>(),
@@ -41,6 +42,7 @@ impl GeneralQuery {
                 .map(|user| models::users::UserSimpleData {
                     id: user.id,
                     name: user.name,
+                    realname: "".to_string(),
                     image_url: user.image_url,
                 })
                 .collect::<Vec<_>>(),

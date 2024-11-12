@@ -10,6 +10,7 @@ use domain::entities::sea_orm_active_enums::{OfferCategory, UserArtistStatus, Us
 pub struct UserSimpleData {
     pub id: String,
     pub name: String,
+    pub realname: String,
     pub image_url: Option<String>,
 }
 
@@ -87,6 +88,7 @@ pub struct CreateNewUserDataInput {
     pub id: String,
     pub email: String,
     pub name: String,
+    pub realname: String,
     pub image_url: Option<String>,
     pub invited_by: Option<String>,
     pub category: String,
@@ -155,6 +157,7 @@ impl CreateNewUserDataInput {
             id: self.id,
             email: self.email,
             name: self.name,
+            realname: self.realname,
             image_url: self.image_url,
             invited_by: self.invited_by,
             category: from_string_to_user_category(&self.category).map_err(Error::msg)?,
