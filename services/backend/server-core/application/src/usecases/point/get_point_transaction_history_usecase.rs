@@ -92,7 +92,14 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
                                     img_url: artist.img_url,
                                 },
                             ),
-                            None => continue,
+                            None => (
+                                "Out".to_string(),
+                                UserSimpleData {
+                                    id: to_id.to_string(),
+                                    name: "Unknown".to_string(),
+                                    img_url: None,
+                                },
+                            ),
                         }
                     } else {
                         match self.users_repo.find_by_id(to_id).await? {
@@ -104,18 +111,25 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
                                     img_url: user.img_url,
                                 },
                             ),
-                            None => continue,
+                            None => (
+                                "Out".to_string(),
+                                UserSimpleData {
+                                    id: to_id.to_string(),
+                                    name: "Unknown".to_string(),
+                                    img_url: None,
+                                },
+                            ),
                         }
                     }
                 }
                 (from_opt, to_id) if to_id == &input.user_id => {
                     let from_id = match from_opt {
                         Some(id) => id,
-                        None => continue,
+                        None => "system",
                     };
 
                     if from_id.starts_with("artist_") {
-                        match self.artists_repo.find_by_id(from_id).await? {
+                        match self.artists_repo.find_by_id(&from_id).await? {
                             Some(artist) => (
                                 "In".to_string(),
                                 UserSimpleData {
@@ -124,10 +138,17 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
                                     img_url: artist.img_url,
                                 },
                             ),
-                            None => continue,
+                            None => (
+                                "In".to_string(),
+                                UserSimpleData {
+                                    id: from_id.to_string(),
+                                    name: "Unknown".to_string(),
+                                    img_url: None,
+                                },
+                            ),
                         }
                     } else {
-                        match self.users_repo.find_by_id(from_id).await? {
+                        match self.users_repo.find_by_id(&from_id).await? {
                             Some(user) => (
                                 "In".to_string(),
                                 UserSimpleData {
@@ -136,11 +157,29 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
                                     img_url: user.img_url,
                                 },
                             ),
-                            None => continue,
+                            None => (
+                                "In".to_string(),
+                                UserSimpleData {
+                                    id: from_id.to_string(),
+                                    name: if from_id == "system" {
+                                        "System".to_string()
+                                    } else {
+                                        "Unknown".to_string()
+                                    },
+                                    img_url: None,
+                                },
+                            ),
                         }
                     }
                 }
-                _ => continue,
+                _ => (
+                    "Unknown".to_string(),
+                    UserSimpleData {
+                        id: "unknown".to_string(),
+                        name: "Unknown".to_string(),
+                        img_url: None,
+                    },
+                ),
             };
 
             transactions.push(TransactionData {
