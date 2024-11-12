@@ -214,7 +214,10 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
             info!("BulkTx::to_user_info: {:?}", to_user_info.id);
 
             let tx_fsp = TxsFspActiveModel {
-                from: ActiveValue::Set(transfer.from.clone()),
+                from: match &transfer.from {
+                    Some(from) if from.starts_with("artist_") => ActiveValue::Set(None),
+                    other => ActiveValue::Set(other.clone()),
+                },
                 to: ActiveValue::Set(transfer.to.clone()),
                 amount: ActiveValue::Set(transfer.amount),
                 notes: ActiveValue::Set(transfer.notes.clone()),
