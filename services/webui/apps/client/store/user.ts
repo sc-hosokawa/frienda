@@ -15,6 +15,8 @@ interface ArtistByUser {
 interface User {
   id: string;
   name: string;
+  realname: string;
+  isSuperAdmin: boolean;
   email?: string;
   imageUrl?: string;
   fspBalance: number;

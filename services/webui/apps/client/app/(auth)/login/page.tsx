@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { auth } from "../../../config";
 import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
@@ -10,6 +13,12 @@ import { useRouter } from "next/navigation";
 import { gql, useLazyQuery } from "@apollo/client";
 import useAuthStore from "../../../store/auth";
 import useUserStore from "../../../store/user";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@ui/components/ui/dialog";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,6 +27,8 @@ export default function Login() {
   const router = useRouter();
   const { setAuthInfo } = useAuthStore();
   const { setUser } = useUserStore();
+  const [resetDialogOpen, setResetDialogOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
 
   const [getUserData] = useLazyQuery(GET_USER_DATA, {
     onCompleted: async (data) => {
@@ -103,6 +114,33 @@ export default function Login() {
     router.push("/signin");
   };
 
+  const handlePasswordReset = async () => {
+    if (!resetEmail) {
+      alert("メールアドレスを入力してください");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, resetEmail);
+      alert(
+        "パスワードリセットのメールを送信しました。メールをご確認ください。",
+      );
+      setResetDialogOpen(false);
+      setResetEmail("");
+    } catch (error: any) {
+      console.error("Password reset error:", error);
+      let errorMessage = "パスワードリセットメールの送信に失敗しました";
+
+      if (error.code === "auth/user-not-found") {
+        errorMessage = "このメールアドレスのユーザーが見つかりません";
+      } else if (error.code === "auth/invalid-email") {
+        errorMessage = "無効なメールアドレスです";
+      }
+
+      alert(errorMessage);
+    }
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       <div className="space-y-8">
@@ -146,9 +184,13 @@ export default function Login() {
           </div>
 
           <div className="text-sm">
-            <a href="#" className="hover:underline">
+            <button
+              type="button"
+              className="hover:underline text-left"
+              onClick={() => setResetDialogOpen(true)}
+            >
               パスワードをお忘れの方はこちら →
-            </a>
+            </button>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -162,7 +204,7 @@ export default function Login() {
             <Button
               type="button"
               variant="outline"
-              className="flex-1 bg-white text-black border-white hover:bg-black hover:text-white transition-colors"
+              className="flex-1 bg-black text-white border-gray-500 hover:bg-white/90 hover:text-black transition-colors"
               onClick={handleSignUp}
             >
               新規登録
@@ -170,6 +212,34 @@ export default function Login() {
           </div>
         </form>
       </div>
+
+      <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
+        <DialogContent className="bg-black border border-white/20">
+          <DialogHeader>
+            <DialogTitle>パスワードリセット</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="reset-email">メールアドレス</Label>
+              <Input
+                id="reset-email"
+                type="email"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                placeholder="メールアドレスを入力してください"
+                className="bg-black border-white/20 text-white placeholder:text-white/50"
+              />
+            </div>
+            <Button
+              type="button"
+              className="w-full bg-white text-black hover:bg-white/90"
+              onClick={handlePasswordReset}
+            >
+              パスワードを再設定
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

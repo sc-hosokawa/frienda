@@ -114,7 +114,12 @@ export function RequestForViewDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">アーティストを探す</Button>
+        <Button
+          variant="outline"
+          className="border-white rounded-full bg-white text-black hover:bg-black hover:text-white"
+        >
+          アーティストを探す
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

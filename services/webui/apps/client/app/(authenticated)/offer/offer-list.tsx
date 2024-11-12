@@ -41,6 +41,14 @@ export default function OfferList() {
 
   const offers = data?.getOffersByOwner?.offerList || [];
 
+  if (offers.length === 0) {
+    return (
+      <div className="text-center py-10">
+        <p className="text-zinc-500">まだオファーがありません。</p>
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {offers.map((offer) => (

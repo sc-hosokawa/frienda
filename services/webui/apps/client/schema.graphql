@@ -189,6 +189,7 @@ input CreateNewUserDataInput {
 	id: String!
 	email: String!
 	name: String!
+	realname: String!
 	imageUrl: String
 	invitedBy: String
 	category: String!
@@ -778,6 +779,7 @@ type UserPointBalanceData {
 type UserSimpleData {
 	id: String!
 	name: String!
+	realname: String!
 	imageUrl: String
 }
 

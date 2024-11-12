@@ -1,16 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useState, useEffect } from "react";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { auth } from "../../../config";
 import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../config";
+import useUserStore from "../../../store/user";
 
 // GraphQL Mutationの定義
 const CREATE_USER_MUTATION = gql`
@@ -18,23 +22,56 @@ const CREATE_USER_MUTATION = gql`
     createNewUserData(input: $input) {
       userId
       name
-      realname
       imageUrl
     }
   }
 `;
 
-// ファイル名から拡張子を取得する関数
-const getExtension = (filename: string): string => {
-  return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 1);
-};
+const GET_USER_DATA = gql`
+  query GetUserData($userId: String!) {
+    getUserData(userId: $userId) {
+      id
+      name
+      imageUrl
+      fspBalance
+      credentialBalance
+      role
+      primaryRole
+      greeting
+      skill
+      xHandle
+      instagramHandle
+      fbHandle
+      interestOffer
+      createdAt
+      belongsToArtists {
+        id
+        artistId
+        name
+        imageUrl
+        fsp
+        status
+        isAdmin
+      }
+      primaryArtist {
+        id
+        artistId
+        name
+        imageUrl
+        fsp
+        status
+        isAdmin
+      }
+    }
+  }
+`;
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [step, setStep] = useState<"signup" | "profile">("signup");
+  const [step, setStep] = useState<"signup" | "verify" | "profile">("signup");
   const [displayName, setDisplayName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedPrimaryCategory, setSelectedPrimaryCategory] =
@@ -43,6 +80,11 @@ export default function SignIn() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [realname, setRealname] = useState("");
+  const [verificationTimer, setVerificationTimer] =
+    useState<NodeJS.Timeout | null>(null);
+  const [getUserData, { data: userData }] = useLazyQuery(GET_USER_DATA);
+
+  const { setUser } = useUserStore();
 
   const categories = [
     { id: "Musician", name: "ミュージシャン" },
@@ -63,10 +105,22 @@ export default function SignIn() {
         email,
         password,
       );
-      const uid = userCredential.user.uid;
-      console.log(uid);
+      const user = userCredential.user;
 
-      setStep("profile");
+      // メール認証を送信
+      await sendEmailVerification(user);
+      setStep("verify");
+
+      // 認証状態を定期的にチェック
+      const timer = setInterval(async () => {
+        await user.reload();
+        if (user.emailVerified) {
+          clearInterval(timer);
+          setStep("profile");
+        }
+      }, 3000);
+
+      setVerificationTimer(timer);
     } catch (error: any) {
       console.error("Error signing up:", error);
       alert(error.message);
@@ -140,8 +194,6 @@ export default function SignIn() {
         }
       }
 
-      console.log(selectedCategory);
-
       const response = await createUser({
         variables: {
           input: {
@@ -157,15 +209,89 @@ export default function SignIn() {
       });
 
       if (response.data) {
-        router.push("/");
+        const { data: fetchedUserData } = await getUserData({
+          variables: { userId: auth.currentUser?.uid },
+        });
+        setUser(fetchedUserData?.getUserData);
+
+        const idToken = await auth.currentUser?.getIdToken(true);
+        if (idToken && auth.currentUser?.uid) {
+          try {
+            const sessionResponse = await fetch("/api/auth/session", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                idToken,
+                uid: auth.currentUser?.uid,
+              }),
+            });
+
+            const result = await sessionResponse.json();
+
+            if (!sessionResponse.ok) {
+              throw new Error(result.error || "Failed to set session");
+            }
+
+            if (result.status === "success") {
+              console.log("Session created successfully");
+              router.push("/");
+            } else {
+              throw new Error("Session creation failed");
+            }
+          } catch (error) {
+            console.error("Session creation error:", error);
+            alert(`セッションの作成に失敗しました: ${error}`);
+            return; // セッション作成に失敗した場合は処理を中断
+          }
+        }
       }
     } catch (error: any) {
       console.error("Error creating profile:", error);
-      alert("プロフィールの作成に失敗しました");
+      alert("プロフィールの成に失敗しました");
     } finally {
       setLoading(false);
     }
   };
+
+  // コンポーネントのクリーンアップ
+  useEffect(() => {
+    return () => {
+      if (verificationTimer) {
+        clearInterval(verificationTimer);
+      }
+    };
+  }, [verificationTimer]);
+
+  // メール認証待ち画面のレンダリング
+  if (step === "verify") {
+    return (
+      <div className="w-full max-w-4xl mx-auto p-4">
+        <div className="space-y-8">
+          <div className="space-y-2">
+            <h1 className="text-5xl font-light tracking-wider">メール認証</h1>
+            <p className="text-sm">
+              認証メールを送信しました。メールを確認して認証を完了してください。
+              <br />
+              認証が完了すると自動的に次の画面に進みます。
+            </p>
+          </div>
+          <Button
+            onClick={() => {
+              if (auth.currentUser) {
+                sendEmailVerification(auth.currentUser);
+                alert("認証メールを再送信しました");
+              }
+            }}
+            className="bg-white text-black hover:bg-white/90"
+          >
+            認証メールを再送信
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   // プロフィール設定画面のレンダリング
   if (step === "profile") {
@@ -210,7 +336,7 @@ export default function SignIn() {
                 id="realname"
                 value={realname}
                 onChange={(e) => setRealname(e.target.value)}
-                placeholder="氏名（本名・フルネーム）を入力してください。他のユーザーには表示されません。"
+                placeholder="氏名（本名・フルネーム）を入力してください。"
                 className="bg-black border-white/20 text-white placeholder:text-white/50"
                 required
               />
@@ -250,12 +376,22 @@ export default function SignIn() {
               <Label htmlFor="primaryCategory">サブカテゴリー</Label>
               <select
                 id="primaryCategory"
-                value={selectedPrimaryCategory}
-                onChange={(e) => setSelectedPrimaryCategory(e.target.value)}
+                value={
+                  selectedPrimaryCategory === "Supporter"
+                    ? "none"
+                    : selectedPrimaryCategory
+                }
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSelectedPrimaryCategory(
+                    value === "none" ? "Supporter" : value,
+                  );
+                }}
                 className="w-full p-2 bg-black border border-white/20 text-white rounded-md"
                 required
               >
                 <option value="">選択してください</option>
+                <option value="none">特になし</option>
                 {categories
                   .filter((cat) => cat.id !== selectedCategory)
                   .map((cat) => (

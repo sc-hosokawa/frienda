@@ -7,6 +7,7 @@ import { Trending } from "./trending";
 import { Historical } from "./histrical";
 import { GenderGenView } from "./gender-gen-data";
 import useUserStore from "../../../store/user";
+import { RequestForViewDialog } from "../reqest-for-view";
 
 export default function Dashboard() {
   const { user } = useUserStore();
@@ -58,18 +59,23 @@ export default function Dashboard() {
             );
           })
         ) : (
-          <div className="w-full flex justify-center items-center py-8">
+          <div className="w-full flex flex-col justify-center items-center py-8 space-y-4">
             <p className="text-lg text-gray-400">
               アーティストへのアクセス権限を申請しましょう
             </p>
+            <RequestForViewDialog />
           </div>
         )}
       </div>
       <main className="space-y-16">
-        <Overview selectedArtistId={selectedArtist} />
-        <Trending selectedArtistId={selectedArtist} />
-        <Historical selectedArtistId={selectedArtist} />
-        <GenderGenView selectedArtistId={selectedArtist} />
+        {selectedArtist && (
+          <>
+            <Overview selectedArtistId={selectedArtist} />
+            <Trending selectedArtistId={selectedArtist} />
+            <Historical selectedArtistId={selectedArtist} />
+            <GenderGenView selectedArtistId={selectedArtist} />
+          </>
+        )}
       </main>
     </div>
   );

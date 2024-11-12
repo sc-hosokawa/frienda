@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Suspense } from "react";
 import { Card, CardContent, CardFooter } from "@ui/components/ui/card";
 import { Badge } from "@ui/components/ui/badge";
@@ -139,21 +140,51 @@ const OfferListClient = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl mb-4 ml-6">進行中のOffer</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {inprogressOffers.map((offer) => (
-            <OfferCard key={offer.id} offer={offer} />
-          ))}
+        <div className="flex items-center mb-4">
+          <Image
+            src="/current.svg"
+            alt="logo"
+            className="mr-2"
+            width={30}
+            height={30}
+          />
+          <h2 className="text-xl">進行中のOffer</h2>
         </div>
+        {inprogressOffers.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {inprogressOffers.map((offer) => (
+              <OfferCard key={offer.id} offer={offer} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8 text-gray-400">
+            進行中のオファーはまだありません
+          </div>
+        )}
       </div>
 
       <div>
-        <h2 className="text-xl mb-4 ml-6">応募中のOffer</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {appliedOffers.map((offer) => (
-            <OfferCard key={offer.id} offer={offer} />
-          ))}
+        <div className="flex items-center mb-4">
+          <Image
+            src="/apply.svg"
+            alt="logo"
+            className="mr-2"
+            width={30}
+            height={30}
+          />
+          <h2 className="text-xl">応募中のOffer</h2>
         </div>
+        {appliedOffers.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {appliedOffers.map((offer) => (
+              <OfferCard key={offer.id} offer={offer} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8 text-gray-400">
+            応募中のオファーはまだありません
+          </div>
+        )}
       </div>
     </div>
   );

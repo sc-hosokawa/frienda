@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import useUserStore from "../../store/user";
 import { useQuery, gql } from "@apollo/client";
 import { QuestData } from "../../generated/graphql";
@@ -66,8 +65,8 @@ export default function Home() {
           <Trending selectedArtistId={randomArtist.artistId} />
         </>
       ) : (
-        <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400">
-          アーティスト閲覧権限を申請してください
+        <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400 space-y-4">
+          <div>アーティスト閲覧権限を申請してください</div>
           <RequestForViewDialog />
         </div>
       )}
@@ -135,48 +134,6 @@ function Actions() {
             利用可能なクエストはありません
           </div>
         )}
-      </div>
-    </section>
-  );
-}
-
-function Dashboard() {
-  return (
-    <section className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl">Dashboard</h2>
-        <Link href="/dashboard">
-          <button className="px-4 py-2 rounded-full bg-white/10 text-sm hover:bg-white/20">
-            詳細を見る
-          </button>
-        </Link>
-      </div>
-
-      <div className="space-y-6">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-gradient-to-br from-blue-400 to-blue-600 rounded" />
-            <span className="text-gray-400">Song Played (Total) /</span>
-          </div>
-          <div className="text-5xl font-light tracking-tight">212,234,566</div>
-        </div>
-
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-gradient-to-br from-blue-400 to-blue-600 rounded" />
-            <span className="text-gray-400">Song Played (Week) /</span>
-          </div>
-          <div className="text-5xl font-light tracking-tight">1,234,212</div>
-          <div className="text-sm text-green-500">+123,321</div>
-        </div>
-
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-gradient-to-br from-blue-400 to-blue-600 rounded" />
-            <span className="text-gray-400">Listeners /</span>
-          </div>
-          <div className="text-5xl font-light tracking-tight">612,345</div>
-        </div>
       </div>
     </section>
   );
