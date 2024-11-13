@@ -112,6 +112,11 @@ pub struct UpdateUserDataInput {
     pub image_url: Option<String>,
     pub primary_category: Option<String>,
     pub evm_addr: Option<String>,
+    pub greeting: Option<String>,
+    pub skill: Option<String>,
+    pub x_handle: Option<String>,
+    pub instagram_handle: Option<String>,
+    pub fb_handle: Option<String>,
 }
 
 #[derive(SimpleObject)]

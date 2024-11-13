@@ -18,6 +18,11 @@ pub struct UpdateUserProfileInput {
     pub image_url: Option<String>,
     pub primary_category: Option<UserCategory>,
     pub evm_addr: Option<String>,
+    pub greeting: Option<String>,
+    pub skill: Option<String>,
+    pub x_handle: Option<String>,
+    pub instagram_handle: Option<String>,
+    pub fb_handle: Option<String>,
     // pub status: Option<UserStatus>,
 }
 
@@ -112,6 +117,21 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
         }
         if let Some(evm_addr) = input.evm_addr {
             updated_user.evm_addr = ActiveValue::Set(Some(evm_addr));
+        }
+        if let Some(greeting) = input.greeting {
+            updated_user.greeting = ActiveValue::Set(Some(greeting));
+        }
+        if let Some(skill) = input.skill {
+            updated_user.skill = ActiveValue::Set(Some(skill));
+        }
+        if let Some(x_handle) = input.x_handle {
+            updated_user.x_handle = ActiveValue::Set(Some(x_handle));
+        }
+        if let Some(instagram_handle) = input.instagram_handle {
+            updated_user.instagram_handle = ActiveValue::Set(Some(instagram_handle));
+        }
+        if let Some(fb_handle) = input.fb_handle {
+            updated_user.fb_handle = ActiveValue::Set(Some(fb_handle));
         }
 
         let updated_user = self.users_repo.update(updated_user).await?;

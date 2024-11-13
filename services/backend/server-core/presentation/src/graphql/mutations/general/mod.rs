@@ -54,7 +54,11 @@ impl GeneralMutation {
                     name: input.name,
                     image_url: input.image_url,
                     email: input.email,
-                    // TODO: 処理内容を吟味する
+                    greeting: input.greeting,
+                    skill: input.skill,
+                    x_handle: input.x_handle,
+                    instagram_handle: input.instagram_handle,
+                    fb_handle: input.fb_handle,
                     primary_category: input.primary_category.as_deref().map(|category| {
                         models::users::from_string_to_user_category(category).unwrap()
                     }),
