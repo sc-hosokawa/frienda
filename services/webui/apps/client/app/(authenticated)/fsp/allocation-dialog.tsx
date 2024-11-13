@@ -205,7 +205,7 @@ export function AllocationDialog() {
                   user.belongsToArtists.map((artist) => (
                     <div
                       key={artist.artistId}
-                      className="flex items-center justify-between p-2 hover:bg-gray-100 cursor-pointer"
+                      className="flex items-center justify-between p-2 hover:bg-gray-100 hover:text-black cursor-pointer"
                       onClick={() => setSelectedArtist(artist)}
                     >
                       <div className="flex items-center gap-3">
