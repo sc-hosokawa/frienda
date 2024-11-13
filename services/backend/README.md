@@ -1,3 +1,6 @@
 # Frienda server
 
-## Health Check
+## Commands
+
+```bash
+```
