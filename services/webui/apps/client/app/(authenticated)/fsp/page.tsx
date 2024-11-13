@@ -170,19 +170,32 @@ export default function FspPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {fspHistoryData?.getFspHistoryByUser.transactionList.map(
-                  (transaction: any) => (
-                    <TableRow key={transaction.id}>
-                      <TableCell>
-                        {dayjs(transaction.txAt)
-                          .tz()
-                          .format("YYYY/MM/DD HH:mm:ss")}
-                      </TableCell>
-                      <TableCell>{transaction.direction}</TableCell>
-                      <TableCell>{transaction.amount} fsp</TableCell>
-                      <TableCell>{transaction.counterParty.name}</TableCell>
-                    </TableRow>
-                  ),
+                {!fspHistoryData?.getFspHistoryByUser.transactionList ||
+                fspHistoryData.getFspHistoryByUser.transactionList.length ===
+                  0 ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={4}
+                      className="text-center text-gray-500"
+                    >
+                      取引履歴がありません
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  fspHistoryData.getFspHistoryByUser.transactionList.map(
+                    (transaction: any) => (
+                      <TableRow key={transaction.id}>
+                        <TableCell>
+                          {dayjs(transaction.txAt)
+                            .tz()
+                            .format("YYYY/MM/DD HH:mm:ss")}
+                        </TableCell>
+                        <TableCell>{transaction.direction}</TableCell>
+                        <TableCell>{transaction.amount} fsp</TableCell>
+                        <TableCell>{transaction.counterParty.name}</TableCell>
+                      </TableRow>
+                    ),
+                  )
                 )}
               </TableBody>
             </Table>

@@ -38,13 +38,18 @@ export default function Home() {
     (artist) => artist.status === "Check",
   );
   const timestamp = Date.now();
-  const artistsLength = acceptedArtists?.length || 1;
-  const randomIndex = timestamp % artistsLength;
-  const randomArtist = acceptedArtists?.[randomIndex];
+  const artistsLength = acceptedArtists?.length || 0;
+  const randomIndex = artistsLength ? timestamp % artistsLength : 0;
+  const randomArtist = artistsLength ? acceptedArtists?.[randomIndex] : null;
 
-  console.log(user?.belongsToArtists);
-  console.log(acceptedArtists);
-  console.log(pendingArtists);
+  console.log({
+    belongsToArtists: user?.belongsToArtists,
+    acceptedArtists,
+    pendingArtists,
+    artistsLength,
+    randomIndex,
+    randomArtist,
+  });
 
   return (
     <div className="h-full bg-black text-white p-6 space-y-8 overflow-x-hidden">

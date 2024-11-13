@@ -43,8 +43,28 @@ const GET_USER_DATA = gql`
 `;
 
 const UPDATE_USER_DATA = gql`
-  mutation UpdateUserData($id: String!, $name: String, $imageUrl: String) {
-    updateUserData(input: { id: $id, name: $name, imageUrl: $imageUrl }) {
+  mutation UpdateUserData(
+    $id: String!
+    $name: String
+    $imageUrl: String
+    $greeting: String
+    $skill: String
+    $xHandle: String
+    $instagramHandle: String
+    $fbHandle: String
+  ) {
+    updateUserData(
+      input: {
+        id: $id
+        name: $name
+        imageUrl: $imageUrl
+        greeting: $greeting
+        skill: $skill
+        xHandle: $xHandle
+        instagramHandle: $instagramHandle
+        fbHandle: $fbHandle
+      }
+    ) {
       userInfo {
         id
         name
@@ -84,7 +104,7 @@ const UPDATE_USER_DATA = gql`
 `;
 
 export default function SettingPage() {
-  const { user } = useUserStore();
+  const { user, updateUser } = useUserStore();
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -163,13 +183,24 @@ export default function SettingPage() {
         }
       }
 
-      await updateUserData({
+      console.log(formData);
+
+      const res = await updateUserData({
         variables: {
           id: userId,
           name: formData.name,
           imageUrl,
+          greeting: formData.greeting,
+          skill: formData.skill,
+          xHandle: formData.xHandle,
+          instagramHandle: formData.instagramHandle,
+          fbHandle: formData.fbHandle,
         },
       });
+
+      console.log(res);
+
+      updateUser(res.data.updateUserData.userInfo);
 
       router.push("/");
     } catch (error) {
@@ -267,7 +298,7 @@ export default function SettingPage() {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full py-2 px-4 rounded-md hover:bg-white hover:text-black disabled:opacity-50"
+          className="w-full py-2 px-4 rounded-md hover:bg-white hover:text-black disabled:opacity-50 border border-primary"
         >
           {isLoading ? "更新中..." : "プロフィールを更新"}
         </button>

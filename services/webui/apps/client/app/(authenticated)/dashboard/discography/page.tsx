@@ -47,9 +47,6 @@ export default function DiscographyPage() {
       <header className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-semibold">Discography</h1>
-          <Button size="icon" variant="ghost" className="rounded-full">
-            <Plus className="h-4 w-4" />
-          </Button>
         </div>
       </header>
 

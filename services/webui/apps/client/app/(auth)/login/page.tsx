@@ -32,13 +32,13 @@ export default function Login() {
 
   const [getUserData] = useLazyQuery(GET_USER_DATA, {
     onCompleted: async (data) => {
-      if (data?.getUserData) {
-        console.log(data.getUserData);
-        setUser(data.getUserData);
+      try {
+        if (data?.getUserData) {
+          console.log(data.getUserData);
+          setUser(data.getUserData);
 
-        const idToken = await auth.currentUser?.getIdToken(true);
-        if (idToken && auth.currentUser?.uid) {
-          try {
+          const idToken = await auth.currentUser?.getIdToken(true);
+          if (idToken && auth.currentUser?.uid) {
             const response = await fetch("/api/auth/session", {
               method: "POST",
               headers: {
@@ -59,19 +59,23 @@ export default function Login() {
             if (result.status === "success") {
               console.log("Session created successfully");
               router.push("/");
+              //setLoading(false);
             } else {
               throw new Error("Session creation failed");
             }
-          } catch (error) {
-            console.error("Session creation error:", error);
-            alert(`セッションの作成に失敗しました: ${error}`);
           }
         }
+      } catch (error) {
+        console.error("Session creation error:", error);
+        alert(`セッションの作成に失敗しました: ${error}`);
+      } finally {
+        // setLoading(false);
       }
     },
     onError: (error) => {
       console.error("GraphQL Error:", error);
       alert("ユーザー情報の取得に失敗しました");
+      setLoading(false);
     },
   });
 
@@ -101,11 +105,10 @@ export default function Login() {
       if (error.code === "auth/user-not-found") {
         errorMessage = "ユーザーが見つかりません";
       } else if (error.code === "auth/wrong-password") {
-        errorMessage = "パスワードが間違っています";
+        errorMessage = "パスワードが間��っています";
       }
 
       alert(errorMessage);
-    } finally {
       setLoading(false);
     }
   };

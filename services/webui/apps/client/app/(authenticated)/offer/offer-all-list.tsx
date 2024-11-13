@@ -157,7 +157,7 @@ const OfferListClient = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-8 text-gray-400">
+          <div className="text-center py-8 text-zinc-500">
             進行中のオファーはまだありません
           </div>
         )}
@@ -181,7 +181,7 @@ const OfferListClient = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-8 text-gray-400">
+          <div className="text-center py-8 text-zinc-500">
             応募中のオファーはまだありません
           </div>
         )}

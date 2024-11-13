@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -252,12 +253,12 @@ export default function SignIn() {
     } catch (error: any) {
       console.error("Error creating profile:", error);
       alert("プロフィールの成に失敗しました");
-    } finally {
       setLoading(false);
+    } finally {
+      // setLoading(false);
     }
   };
 
-  // コンポーネントのクリーンアップ
   useEffect(() => {
     return () => {
       if (verificationTimer) {
@@ -421,17 +422,6 @@ export default function SignIn() {
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       <div className="space-y-8">
-        {/* Logo */}
-        <div className="w-16 h-16 relative">
-          <Image
-            src="/logo_visualonly_dark.jpg"
-            alt="Logo"
-            width={64}
-            height={64}
-            className="object-contain"
-          />
-        </div>
-
         {/* Header */}
         <div className="space-y-2">
           <h1 className="text-5xl font-light tracking-wider">新規登録</h1>
@@ -476,6 +466,14 @@ export default function SignIn() {
             </Button>
           </div>
         </form>
+        <div className="flex justify-end">
+          <Link
+            href="/login"
+            className="text-sm text-gray-200 hover:text-gray-400 hover:font-semibold"
+          >
+            ログインはこちら
+          </Link>
+        </div>
       </div>
     </div>
   );

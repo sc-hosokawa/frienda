@@ -8,6 +8,7 @@ import { Checkbox } from "@ui/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -55,6 +56,9 @@ export function RequestForViewDialog() {
   const [selectedArtists, setSelectedArtists] = useState<Set<string>>(
     new Set(),
   );
+  const [selectedArtistDetails, setSelectedArtistDetails] = useState<
+    Map<string, any>
+  >(new Map());
   const { user } = useUserStore();
   const { toast } = useToast();
 
@@ -72,6 +76,7 @@ export function RequestForViewDialog() {
         description: "アクセスリクエストを送信しました",
       });
       setSelectedArtists(new Set());
+      setSelectedArtistDetails(new Map());
       setOpen(false);
     },
     onError: (error) => {
@@ -91,14 +96,29 @@ export function RequestForViewDialog() {
   };
 
   // アーティスト選択ハンドラー
-  const handleArtistSelect = (artistId: string) => {
+  const handleArtistSelect = (artist: any) => {
     const newSelected = new Set(selectedArtists);
-    if (newSelected.has(artistId)) {
-      newSelected.delete(artistId);
+    const newSelectedDetails = new Map(selectedArtistDetails);
+
+    if (newSelected.has(artist.artistId)) {
+      newSelected.delete(artist.artistId);
+      newSelectedDetails.delete(artist.artistId);
     } else {
-      newSelected.add(artistId);
+      newSelected.add(artist.artistId);
+      newSelectedDetails.set(artist.artistId, artist);
     }
     setSelectedArtists(newSelected);
+    setSelectedArtistDetails(newSelectedDetails);
+  };
+
+  // 選択解除ハンドラー
+  const handleRemoveSelection = (artistId: string) => {
+    const newSelected = new Set(selectedArtists);
+    const newSelectedDetails = new Map(selectedArtistDetails);
+    newSelected.delete(artistId);
+    newSelectedDetails.delete(artistId);
+    setSelectedArtists(newSelected);
+    setSelectedArtistDetails(newSelectedDetails);
   };
 
   // リクエスト送信ハンドラー
@@ -124,6 +144,9 @@ export function RequestForViewDialog() {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>アーティストを探す</DialogTitle>
+          <DialogDescription>
+            正式名称で検索してください。うまくヒットしない場合は、大文字と小文字を入れ替えるなど入力を変更してみてください。
+          </DialogDescription>
         </DialogHeader>
 
         {/* 検索フォーム */}
@@ -142,10 +165,28 @@ export function RequestForViewDialog() {
           </Button>
         </div>
 
-        {/* 選択中の件数 */}
+        {/* 選択中のアーティスト一覧 */}
         {selectedArtists.size > 0 && (
-          <div className="text-sm text-muted-foreground">
-            選択中: {selectedArtists.size}件
+          <div className="space-y-2">
+            <div className="text-sm text-muted-foreground">
+              選択中: {selectedArtists.size}件
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {Array.from(selectedArtistDetails.values()).map((artist) => (
+                <div
+                  key={artist.artistId}
+                  className="flex items-center gap-1 bg-secondary px-2 py-1 rounded-full text-sm"
+                >
+                  <span>{artist.name}</span>
+                  <button
+                    onClick={() => handleRemoveSelection(artist.artistId)}
+                    className="hover:text-destructive"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -171,7 +212,7 @@ export function RequestForViewDialog() {
                   <Checkbox
                     id={artist.artistId}
                     checked={selectedArtists.has(artist.artistId)}
-                    onCheckedChange={() => handleArtistSelect(artist.artistId)}
+                    onCheckedChange={() => handleArtistSelect(artist)}
                   />
                   <label
                     htmlFor={artist.artistId}

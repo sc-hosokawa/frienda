@@ -6,6 +6,12 @@ type AddNewConnectionResponse {
 	mapId: String!
 }
 
+type AllPendingMember {
+	member: UserSimpleData!
+	artistName: String!
+	artistId: String!
+}
+
 type AllUsersData {
 	users: [UserSimpleData!]!
 }
@@ -189,6 +195,7 @@ input CreateNewUserDataInput {
 	id: String!
 	email: String!
 	name: String!
+	realname: String!
 	imageUrl: String
 	invitedBy: String
 	category: String!
@@ -508,6 +515,7 @@ type QueryRoot {
 	getArtistsByName(name: String!): ArtistsData!
 	getMembersJoinedToArtist(artistId: String!, userId: String): [UserSimpleData!]!
 	getMembersBelongedToArtist(artistId: String!, userId: String): [UserSimpleData!]!
+	getAllPendingMembers(userId: String!): [AllPendingMember!]!
 	getPopularPrizes: [PrizeData!]!
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
@@ -717,6 +725,11 @@ input UpdateUserDataInput {
 	imageUrl: String
 	primaryCategory: String
 	evmAddr: String
+	greeting: String
+	skill: String
+	xHandle: String
+	instagramHandle: String
+	fbHandle: String
 }
 
 type UpdateUserDataResponse {
@@ -754,6 +767,8 @@ type UserDetailData {
 	id: String!
 	name: String!
 	imageUrl: String
+	realname: String!
+	isSuperAdmin: Boolean!
 	fspBalance: Int!
 	credentialBalance: Int!
 	role: String!
@@ -778,6 +793,7 @@ type UserPointBalanceData {
 type UserSimpleData {
 	id: String!
 	name: String!
+	realname: String!
 	imageUrl: String
 }
 

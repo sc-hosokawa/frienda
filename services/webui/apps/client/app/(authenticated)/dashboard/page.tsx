@@ -25,7 +25,7 @@ export default function Dashboard() {
   return (
     <div className="bg-black text-white min-h-screen p-8">
       <div className="max-w-7xl mx-auto">
-        <header className="flex items-center mb-8">
+        <header className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-2">
             <Image
               src="/dashboard.svg"
@@ -37,6 +37,7 @@ export default function Dashboard() {
 
             <h1 className="text-6xl font-light">DASHBOARD</h1>
           </div>
+          <RequestForViewDialog />
         </header>
         <div className="flex space-x-4 mb-8">
           {acceptedArtists && acceptedArtists.length > 0 ? (

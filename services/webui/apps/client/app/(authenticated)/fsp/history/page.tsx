@@ -46,8 +46,6 @@ export default function HistoryPage() {
     variables: { userId: user?.id, count: 100 },
   });
 
-  console.log(data);
-
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white p-6 flex items-center justify-center">
@@ -92,54 +90,62 @@ export default function HistoryPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {transactions.map((transaction: Transaction) => (
-                <TableRow
-                  key={transaction.id}
-                  className="border-b border-gray-800 hover:bg-transparent"
-                >
-                  <TableCell className="font-medium text-gray-200">
-                    {format(new Date(transaction.txAt), "yyyy/MM/dd HH:mm")}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <div
-                        className={`rounded-full p-1.5 ${
-                          transaction.direction === "IN"
-                            ? "bg-emerald-500/20 text-emerald-500"
-                            : "bg-yellow-500/20 text-yellow-500"
-                        }`}
-                      >
-                        {transaction.direction === "IN" ? (
-                          <ArrowUpRight className="h-4 w-4" />
-                        ) : (
-                          <ArrowDownRight className="h-4 w-4" />
-                        )}
-                      </div>
-                      <span className="text-gray-200">
-                        ポイント
-                        {transaction.direction === "IN" ? "獲得" : "利用"}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <span className="text-gray-200">
-                        {transaction.counterParty.name}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell
-                    className={`text-right ${
-                      transaction.direction === "IN"
-                        ? "text-emerald-500"
-                        : "text-red-500"
-                    }`}
-                  >
-                    {transaction.direction === "IN" ? "+" : "-"}
-                    {transaction.amount.toLocaleString()} FSP
+              {!transactions || transactions.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={4} className="text-center text-gray-500">
+                    取引履歴がありません
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                transactions.map((transaction: Transaction) => (
+                  <TableRow
+                    key={transaction.id}
+                    className="border-b border-gray-800 hover:bg-transparent"
+                  >
+                    <TableCell className="font-medium text-gray-200">
+                      {format(new Date(transaction.txAt), "yyyy/MM/dd HH:mm")}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`rounded-full p-1.5 ${
+                            transaction.direction === "IN"
+                              ? "bg-emerald-500/20 text-emerald-500"
+                              : "bg-yellow-500/20 text-yellow-500"
+                          }`}
+                        >
+                          {transaction.direction === "IN" ? (
+                            <ArrowUpRight className="h-4 w-4" />
+                          ) : (
+                            <ArrowDownRight className="h-4 w-4" />
+                          )}
+                        </div>
+                        <span className="text-gray-200">
+                          ポイント
+                          {transaction.direction === "IN" ? "獲得" : "利用"}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <span className="text-gray-200">
+                          {transaction.counterParty.name}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      className={`text-right ${
+                        transaction.direction === "IN"
+                          ? "text-emerald-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {transaction.direction === "IN" ? "+" : "-"}
+                      {transaction.amount.toLocaleString()} FSP
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </Card>

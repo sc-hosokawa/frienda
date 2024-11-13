@@ -110,13 +110,19 @@ export default function OfferList() {
         */}
 
         <div className="grid md:grid-cols-2 gap-6">
-          {loading
-            ? Array(6)
-                .fill(0)
-                .map((_, index) => <OfferCardSkeleton key={index} />)
-            : offers.map((offer: Offer) => (
-                <OfferCard key={offer.id} offer={offer} />
-              ))}
+          {loading ? (
+            Array(6)
+              .fill(0)
+              .map((_, index) => <OfferCardSkeleton key={index} />)
+          ) : offers.length === 0 ? (
+            <div className="col-span-2 text-center py-10 text-gray-400">
+              まだOfferが登録されていません
+            </div>
+          ) : (
+            offers.map((offer: Offer) => (
+              <OfferCard key={offer.id} offer={offer} />
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -725,6 +725,11 @@ input UpdateUserDataInput {
 	imageUrl: String
 	primaryCategory: String
 	evmAddr: String
+	greeting: String
+	skill: String
+	xHandle: String
+	instagramHandle: String
+	fbHandle: String
 }
 
 type UpdateUserDataResponse {
