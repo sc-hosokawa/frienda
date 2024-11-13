@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Play } from "lucide-react";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../store/user";
@@ -26,14 +27,26 @@ export function Overview({
       <h2 className="text-2xl font-light mb-4">Overview</h2>
       <div className="space-y-4">
         <div className="flex items-center">
-          <Play className="mr-2 text-yellow-400" />
+          <Image
+            src="/song_played_total.svg"
+            alt="play"
+            width={24}
+            height={24}
+            className="mr-2"
+          />
           <span className="text-gray-400 mr-4">Song Played (Total) /</span>
           <span className="text-4xl font-light">
             {data?.getOverview.totalPlaybacks.toLocaleString()}
           </span>
         </div>
         <div className="flex items-center">
-          <Play className="mr-2 text-yellow-400" />
+          <Image
+            src="/song_played_week.svg"
+            alt="play"
+            width={24}
+            height={24}
+            className="mr-2"
+          />
           <span className="text-gray-400 mr-4">Song Played (Week) /</span>
           <span className="text-4xl font-light">
             {data?.getOverview.weeklyPlaybacks.toLocaleString()}

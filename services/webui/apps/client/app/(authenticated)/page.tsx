@@ -64,12 +64,19 @@ export default function Home() {
           <>
             <div className="flex items-center gap-2">
               <Image
-                src={randomArtist.imageUrl || ""}
-                alt={randomArtist.name}
+                src="/dashboard.svg"
+                alt="dashboard"
                 width={40}
                 height={40}
+                className="mr-4"
               />
-              <div>{randomArtist.name}</div>
+              <div>
+                <span className="text-xl mr-2">{randomArtist.name}</span>
+                のサマリー
+                <p className="text-sm text-gray-400 mt-2">
+                  所属しているアーティストからランダムで表示しています。
+                </p>
+              </div>
             </div>
             <Overview selectedArtistId={randomArtist.artistId} />
             <Trending selectedArtistId={randomArtist.artistId} />

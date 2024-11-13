@@ -64,13 +64,6 @@ export default function DiscographyPage() {
                 : "bg-zinc-900 hover:bg-zinc-800"
             }`}
           >
-            <Image
-              src={artist.imageUrl || "/placeholder.svg?height=24&width=24"}
-              alt={artist.name}
-              width={24}
-              height={24}
-              className="rounded-full"
-            />
             <div className="text-sm">{artist.name}</div>
           </button>
         ))}

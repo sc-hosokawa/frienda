@@ -1,6 +1,6 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { useState } from "react";
 import { Info } from "lucide-react";
 
@@ -113,7 +113,14 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => new Date(value).toLocaleDateString()}
+              interval={3}
+              tickFormatter={(value) => value.slice(0, 7)}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.toLocaleString()}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <defs>
@@ -158,7 +165,7 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none text-muted-foreground">
               <Info className="w-4 h-4" />
-              各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。
+              各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。AmazonとYouTubeは日次のデータがありませんが今後対応予定です。
             </div>
           </div>
         </div>

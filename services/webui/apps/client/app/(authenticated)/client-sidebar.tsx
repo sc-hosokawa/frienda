@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   Sidebar,
@@ -35,11 +36,13 @@ const items = [
     url: "/message",
     icon: <Image src="/message.svg" alt="Messages" width={24} height={24} />,
   },
+  /*
   {
     title: "News",
     url: "/news",
     icon: <Image src="/news.svg" alt="News" width={24} height={24} />,
   },
+  */
 ];
 
 export function ClientSidebar() {
@@ -72,6 +75,14 @@ export function ClientSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <Link
+          className="text-center w-full"
+          href="https://forms.gle/1ZGguxTLQeNseW877"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Feedback
+        </Link>
         <SuperAdminDialog />
         <AccessControlDialog />
       </SidebarFooter>

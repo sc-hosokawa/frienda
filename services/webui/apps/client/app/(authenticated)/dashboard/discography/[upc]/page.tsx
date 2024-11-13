@@ -60,8 +60,8 @@ export default function DiscographyAlbumPage({ params }: Props) {
   console.log(trendingData?.getTrendingByUpc.trendingTracks[0]?.trackTitle);
 
   return (
-    <div className="bg-black text-white min-h-screen p-6">
-      <div className="max-w-4xl mx-auto space-y-6 mb-16">
+    <div className="max-w-7xl mx-auto bg-black text-white min-h-screen p-6">
+      <div className="space-y-6 mb-16">
         <div className="flex gap-6">
           <div className="flex-shrink-0">
             <img

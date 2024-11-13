@@ -193,7 +193,7 @@ const OfferListClient = () => {
 // Rename OfferListFallback to OfferAllListSkeleton and export it
 export const OfferAllListSkeleton = () => (
   <div className="min-h-screen bg-black text-white py-6">
-    <div className="max-w-7xl mx-auto">
+    <div className="">
       <div className="flex justify-between items-center mb-6">
         <Skeleton className="h-8 w-32" /> {/* タイトルのスケルトン */}
       </div>
@@ -211,7 +211,7 @@ export const OfferAllListSkeleton = () => (
 export default function AllOfferList() {
   return (
     <div className="min-h-screen bg-black text-white py-6">
-      <div className="max-w-7xl mx-auto">
+      <div className="">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl ml-6">Offer List</h1>
         </div>

@@ -44,7 +44,9 @@ export default function Header() {
           href="/fsp"
           className="flex items-center gap-2 bg-black/10 px-3 py-1 hover:bg-black/20 rounded-full"
         >
-          <span className="text-xs">Total Point: {user?.fspBalance}</span>
+          <span className="text-xs">
+            Total Point: {user?.fspBalance.toLocaleString()}
+          </span>
         </Link>
 
         <button

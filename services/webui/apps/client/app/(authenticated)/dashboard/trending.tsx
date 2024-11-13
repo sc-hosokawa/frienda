@@ -66,19 +66,21 @@ export function Trending({
                   <p className="text-gray-400 text-sm">{song.upcTitle}</p>
                 </div>
               </div>
-              <div className="text-right">
-                <p className="">
-                  Total /{" "}
-                  <span className="text-2xl">
-                    {song.totalPlayCount.toLocaleString()}
-                  </span>
-                </p>
+              <div className="flex items-center space-x-64">
+                <div className="flex flex-col items-end">
+                  <p className="flex items-baseline gap-2">
+                    <span className="text-sm">Total /</span>
+                    <span className="text-2xl">
+                      {song.totalPlayCount.toLocaleString()}
+                    </span>
+                  </p>
+                </div>
+                <CreditDialog
+                  isrc={song.isrc}
+                  trackName={song.trackTitle ?? ""}
+                  artistId={selectedArtistId || ""}
+                />
               </div>
-              <CreditDialog
-                isrc={song.isrc}
-                trackName={song.trackTitle ?? ""}
-                artistId={selectedArtistId || ""}
-              />
             </div>
           ))}
       </div>

@@ -109,7 +109,7 @@ export default function OfferDetailPage({
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="p-6">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Link href="/offer" className="hover:opacity-80">

@@ -36,7 +36,7 @@ export default function OfferPage() {
           </Link>
         </div>
       </div>
-      <div className="max-w-4xl mx-auto">
+      <div className="">
         <OfferStats />
         <div className="flex items-baseline gap-2 mb-4">
           <h1 className="text-2xl p-6">My Offers</h1>

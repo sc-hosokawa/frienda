@@ -49,17 +49,17 @@ interface ResData {
 }
 
 const GENERATION_COLORS = [
-  "#fde047",
-  "#f87171",
-  "#5eead4",
-  "#fb923c",
-  "#c084fc",
-  "#60a5fa",
-  "#4ade80",
-  "#f472b6",
-  "#a78bfa",
+  "rgba(253, 224, 71, 0.6)", // 60% opacity
+  "rgba(248, 113, 113, 0.6)",
+  "rgba(94, 234, 212, 0.6)",
+  "rgba(251, 146, 60, 0.6)",
+  "rgba(192, 132, 252, 0.6)",
+  "rgba(96, 165, 250, 0.6)",
+  "rgba(74, 222, 128, 0.6)",
+  "rgba(244, 114, 182, 0.6)",
+  "rgba(167, 139, 250, 0.6)",
 ];
-const GENDER_COLORS = ["#5eead4", "#f87171"];
+const GENDER_COLORS = ["rgba(94, 234, 212, 0.6)", "rgba(248, 113, 113, 0.6)"];
 
 export function GenderGenView({
   selectedArtistId,
@@ -121,8 +121,17 @@ export function GenderGenView({
                   contentStyle={{
                     backgroundColor: "hsl(var(--background))",
                     borderColor: "hsl(var(--border))",
+                    color: "hsl(var(--foreground))",
+                    borderRadius: "6px",
+                    padding: "8px",
                   }}
-                  labelStyle={{ color: "hsl(var(--foreground))" }}
+                  labelStyle={{
+                    color: "hsl(var(--foreground))",
+                    marginBottom: "4px",
+                  }}
+                  itemStyle={{
+                    color: "hsl(var(--muted-foreground))",
+                  }}
                   formatter={(value) => [`${value}%`, "Value"]}
                 />
                 <Bar dataKey="value" radius={[0, 4, 4, 0]}>
@@ -154,6 +163,10 @@ export function GenderGenView({
                   cx="50%"
                   cy="50%"
                   outerRadius={80}
+                  startAngle={90}
+                  endAngle={450}
+                  innerRadius={60}
+                  strokeWidth={0}
                   label={({ name, percent }) =>
                     `${(percent * 100).toFixed(0)}%`
                   }
@@ -170,8 +183,17 @@ export function GenderGenView({
                   contentStyle={{
                     backgroundColor: "hsl(var(--background))",
                     borderColor: "hsl(var(--border))",
+                    color: "hsl(var(--foreground))",
+                    borderRadius: "6px",
+                    padding: "8px",
                   }}
-                  labelStyle={{ color: "hsl(var(--foreground))" }}
+                  labelStyle={{
+                    color: "hsl(var(--foreground))",
+                    marginBottom: "4px",
+                  }}
+                  itemStyle={{
+                    color: "hsl(var(--muted-foreground))",
+                  }}
                 />
                 <Legend
                   verticalAlign="bottom"

@@ -24,66 +24,61 @@ export default function Dashboard() {
 
   return (
     <div className="bg-black text-white min-h-screen p-8">
-      <header className="flex items-center mb-8">
-        <div className="flex items-center space-x-2">
-          <Image
-            src="/dashboard.svg"
-            alt="Logo"
-            className="mr-2"
-            width={40}
-            height={40}
-          />
+      <div className="max-w-7xl mx-auto">
+        <header className="flex items-center mb-8">
+          <div className="flex items-center space-x-2">
+            <Image
+              src="/dashboard.svg"
+              alt="Logo"
+              className="mr-2"
+              width={40}
+              height={40}
+            />
 
-          <h1 className="text-6xl font-light">DASHBOARD</h1>
-        </div>
-      </header>
-      <div className="flex space-x-4 mb-8">
-        {acceptedArtists && acceptedArtists.length > 0 ? (
-          acceptedArtists.map((artist) => {
-            const isSelected = artist.artistId === selectedArtist;
-            return (
-              <button
-                key={artist.artistId}
-                onClick={() => setSelectedArtist(artist.artistId)}
-                className={`flex items-center space-x-2 p-2 rounded-lg transition-colors ${
-                  isSelected ? "bg-gray-800" : "hover:bg-gray-900"
-                }`}
-              >
-                <Image
-                  src={artist.imageUrl || "/placeholder.svg"}
-                  alt={`${artist.name} Avatar`}
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
-                <span
-                  className={`text-sm ${isSelected ? "text-white" : "text-gray-400"}`}
-                >
-                  {artist.name}
-                </span>
-              </button>
-            );
-          })
-        ) : (
-          <div className="w-full flex flex-col justify-center items-center py-8 space-y-4 text-gray-400">
-            <p>アーティスト閲覧権限を申請してください。</p>
-            <p>
-              すでに行った方はログアウトして再度ログインするか、しばらく時間をあけてからアクセスしてください。
-            </p>
-            <RequestForViewDialog />
+            <h1 className="text-6xl font-light">DASHBOARD</h1>
           </div>
-        )}
+        </header>
+        <div className="flex space-x-4 mb-8">
+          {acceptedArtists && acceptedArtists.length > 0 ? (
+            acceptedArtists.map((artist) => {
+              const isSelected = artist.artistId === selectedArtist;
+              return (
+                <button
+                  key={artist.artistId}
+                  onClick={() => setSelectedArtist(artist.artistId)}
+                  className={`flex items-center space-x-2 p-2 rounded-lg transition-colors ${
+                    isSelected ? "bg-gray-800" : "hover:bg-gray-900"
+                  }`}
+                >
+                  <span
+                    className={`text-sm ${isSelected ? "text-white" : "text-gray-400"}`}
+                  >
+                    {artist.name}
+                  </span>
+                </button>
+              );
+            })
+          ) : (
+            <div className="w-full flex flex-col justify-center items-center py-8 space-y-4 text-gray-400">
+              <p>アーティスト閲覧権限を申請してください。</p>
+              <p>
+                すでに行った方はログアウトして再度ログインするか、しばらく時間をあけてからアクセスしてください。
+              </p>
+              <RequestForViewDialog />
+            </div>
+          )}
+        </div>
+        <main className="space-y-16">
+          {selectedArtist && (
+            <>
+              <Overview selectedArtistId={selectedArtist} />
+              <Trending selectedArtistId={selectedArtist} />
+              <Historical selectedArtistId={selectedArtist} />
+              <GenderGenView selectedArtistId={selectedArtist} />
+            </>
+          )}
+        </main>
       </div>
-      <main className="space-y-16">
-        {selectedArtist && (
-          <>
-            <Overview selectedArtistId={selectedArtist} />
-            <Trending selectedArtistId={selectedArtist} />
-            <Historical selectedArtistId={selectedArtist} />
-            <GenderGenView selectedArtistId={selectedArtist} />
-          </>
-        )}
-      </main>
     </div>
   );
 }
