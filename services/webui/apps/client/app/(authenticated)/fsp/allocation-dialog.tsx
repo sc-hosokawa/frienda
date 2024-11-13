@@ -47,8 +47,16 @@ const CREATE_BULK_FSP_TX = gql`
   }
 `;
 
+const GET_USER_POINT_BALANCE = gql`
+  query GetUserPointBalance($userId: String!) {
+    getUserPointBalance(userId: $userId) {
+      fspBalance
+    }
+  }
+`;
+
 export function AllocationDialog() {
-  const { user } = useUserStore();
+  const { user, updateBalance } = useUserStore();
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [allocatedPoints, setAllocatedPoints] = useState<{
@@ -57,6 +65,15 @@ export function AllocationDialog() {
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   const [createBulkFspTx] = useMutation(CREATE_BULK_FSP_TX);
+
+  // クエリフックを追加
+  const { refetch } = useQuery(GET_USER_POINT_BALANCE, {
+    variables: { userId: user?.id },
+    skip: !user?.id,
+    onCompleted: (data) => {
+      updateBalance(data.getUserPointBalance.fspBalance);
+    },
+  });
 
   const {
     loading: membersLoading,
@@ -122,6 +139,12 @@ export function AllocationDialog() {
       });
 
       console.log("ポイント分配完了:", allocatedPoints);
+
+      console.log("refetch");
+      const { data: newBalance } = await refetch();
+      console.log("newBalance", newBalance);
+      updateBalance(newBalance.getUserPointBalance.fspBalance);
+
       setShowConfirmation(false);
       setAllocatedPoints({});
       setSelectedArtist(null);

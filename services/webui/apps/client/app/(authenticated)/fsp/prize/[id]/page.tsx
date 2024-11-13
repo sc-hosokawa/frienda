@@ -23,6 +23,14 @@ export const GET_PRIZE_DETAIL = gql`
   }
 `;
 
+const GET_USER_POINT_BALANCE = gql`
+  query GetUserPointBalance($userId: String!) {
+    getUserPointBalance(userId: $userId) {
+      fspBalance
+    }
+  }
+`;
+
 export default function PrizeDetailPage({
   params,
 }: {
@@ -33,7 +41,7 @@ export default function PrizeDetailPage({
   const { loading, error, data } = useQuery(GET_PRIZE_DETAIL, {
     variables: { prizeId },
   });
-  const { user } = useUserStore();
+  const { user, updateBalance } = useUserStore();
 
   const [exchangePrize] = useMutation(gql`
     mutation ExchangePrize($input: ExchangePrizeInput!) {
@@ -43,6 +51,15 @@ export default function PrizeDetailPage({
       }
     }
   `);
+
+  // クエリフックを追加
+  const { refetch } = useQuery(GET_USER_POINT_BALANCE, {
+    variables: { userId: user?.id },
+    skip: !user?.id,
+    onCompleted: (data) => {
+      updateBalance(data.getUserPointBalance.fspBalance);
+    },
+  });
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
@@ -96,6 +113,11 @@ export default function PrizeDetailPage({
                       },
                     });
                     console.log(response);
+                    console.log("refetch");
+                    const { data: newBalance } = await refetch();
+                    console.log("newBalance", newBalance);
+                    updateBalance(newBalance.getUserPointBalance.fspBalance);
+
                     alert(
                       "交換が完了しました。\n" +
                         "交換ID: " +

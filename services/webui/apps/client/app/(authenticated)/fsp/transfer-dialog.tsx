@@ -13,7 +13,7 @@ import { Label } from "@ui/components/ui/label";
 import { Input } from "@ui/components/ui/input";
 import { Textarea } from "@ui/components/ui/textarea";
 import { Send } from "lucide-react";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql, useQuery } from "@apollo/client";
 import useUserStore from "../../../store/user";
 
 type TransferFormData = {
@@ -30,8 +30,16 @@ const CREATE_FSP_TX = gql`
   }
 `;
 
+const GET_USER_POINT_BALANCE = gql`
+  query GetUserPointBalance($userId: String!) {
+    getUserPointBalance(userId: $userId) {
+      fspBalance
+    }
+  }
+`;
+
 export function TransferDialog() {
-  const { user } = useUserStore();
+  const { user, updateBalance } = useUserStore();
   const [showConfirm, setShowConfirm] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [formData, setFormData] = useState<TransferFormData>({
@@ -42,6 +50,15 @@ export function TransferDialog() {
 
   // ミューテーションフックを追加
   const [createFspTx] = useMutation(CREATE_FSP_TX);
+
+  // クエリフックを追加
+  const { refetch } = useQuery(GET_USER_POINT_BALANCE, {
+    variables: { userId: user?.id },
+    skip: !user?.id,
+    onCompleted: (data) => {
+      updateBalance(data.getUserPointBalance.fspBalance);
+    },
+  });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -64,6 +81,11 @@ export function TransferDialog() {
       if (result.errors) {
         throw new Error(result.errors[0]?.message || "送信に失敗しました");
       }
+
+      console.log("refetch");
+      const { data: newBalance } = await refetch();
+      console.log("newBalance", newBalance);
+      updateBalance(newBalance.getUserPointBalance.fspBalance);
 
       setShowConfirm(false);
       setShowDialog(false);

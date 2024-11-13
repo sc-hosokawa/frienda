@@ -44,7 +44,7 @@ function AccessControlDialog() {
   const [selectedArtist, setSelectedArtist] = useState<string>(
     user?.belongsToArtists[0]?.artistId || "",
   );
-  console.log(user?.isSuperAdmin);
+  console.log(`user?.isSuperAdmin: ${user?.isSuperAdmin}`);
 
   const { data, loading, error, refetch } = useQuery(GET_MEMBERS_BELONGED, {
     variables: {
@@ -53,8 +53,6 @@ function AccessControlDialog() {
     },
     skip: !selectedArtist || !isOpen,
   });
-
-  console.log(data);
 
   const [markAsMember] = useMutation(MARK_AS_MEMBER, {
     refetchQueries: [
