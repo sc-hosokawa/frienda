@@ -90,8 +90,9 @@ export function CreditDialog({
     value: string,
   ) => {
     const newCredits = [...credits];
+    // オブジェクトの存在確認と型アサーションを追加
     if (newCredits[index]) {
-      newCredits[index][field] = value;
+      (newCredits[index] as CreditFormData)[field] = value;
       setCredits(newCredits);
     }
   };

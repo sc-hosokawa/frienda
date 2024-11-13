@@ -23,7 +23,6 @@ const firebaseConfigPrd = {
 };
 
 const getFirebaseConfig = () => {
-  console.log(process.env.NEXT_PUBLIC_ENV);
   switch (process.env.NEXT_PUBLIC_ENV) {
     case "production":
       return firebaseConfigPrd;

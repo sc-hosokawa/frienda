@@ -151,7 +151,7 @@ function AlbumCard({
   );
 }
 
-export const GET_PRODUCTS = gql`
+const GET_PRODUCTS = gql`
   query GetProducts($artistId: String!) {
     getProducts(artistId: $artistId) {
       album {

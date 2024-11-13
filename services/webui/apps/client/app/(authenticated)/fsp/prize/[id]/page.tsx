@@ -9,7 +9,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import useUserStore from "../../../../../store/user";
 import { useRouter } from "next/navigation";
 
-export const GET_PRIZE_DETAIL = gql`
+const GET_PRIZE_DETAIL = gql`
   query GetPrizeDetail($prizeId: Int!) {
     getPrizeDetail(prizeId: $prizeId) {
       id
