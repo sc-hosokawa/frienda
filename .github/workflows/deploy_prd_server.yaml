@@ -33,7 +33,7 @@ jobs:
       - id: "auth"
         uses: "google-github-actions/auth@v2"
         with:
-          credentials_json: "${{ secrets.GCLOUD_AUTH }}"
+          credentials_json: "${{ secrets.GCLOUD_AUTH_PRD }}"
 
       - name: Setup Google Cloud
         uses: google-github-actions/setup-gcloud@v2
