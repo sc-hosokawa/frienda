@@ -65,7 +65,7 @@ CREATE TABLE "users" (
   "evm_addr" varchar,
   "status" user_status NOT NULL DEFAULT 'invited',
   "invited_by" varchar(28),
-  "fsp" int NOT NULL DEFAULT 0,
+  "fsp" int NOT NULL DEFAULT 1,
   "fsp_temp" int NOT NULL DEFAULT 0,
   "credential" int NOT NULL DEFAULT 0,
   "category" user_category NOT NULL,
@@ -79,7 +79,8 @@ CREATE TABLE "users" (
   "fb_handle" varchar,
   "interest_offer" offer_category,
   "created_at" timestamp NOT NULL DEFAULT (now()),
-  "updated_at" timestamp NOT NULL DEFAULT (now())
+  "updated_at" timestamp NOT NULL DEFAULT (now()),
+  "last_login_at" timestamp
 );
 
 CREATE TABLE "maps" (
