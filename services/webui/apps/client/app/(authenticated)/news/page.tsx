@@ -1,82 +1,91 @@
 import { Card } from "@ui/components/ui/card";
 import Image from "next/image";
-import { Share2 } from "lucide-react";
+import { getEntries } from "../contentful";
+import { Asset } from "contentful";
+import Link from "next/link";
+import { differenceInDays } from "date-fns";
 
-export default function Component() {
-  const news = [
-    {
-      id: 1,
-      image: "/logo_visualonly.jpg",
-      category: "FRIENDSHIP",
-      title: "ここに追加のタイトルが入りますここに追加のタイトルが入ります",
-      description:
-        "ここに説明の内容が入ります。ここに説明の内容が入ります。ここに説明の内容が入ります。ここに説明の内容が入ります。",
-      date: "2024/12/12 12:23",
-      isNew: true,
-    },
-    // Repeat similar items for other cards
-  ];
+// 型ガードの関数を追加
+function isAsset(obj: any): obj is Asset {
+  return obj && typeof obj === "object" && "fields" in obj && "sys" in obj;
+}
+
+export default async function NewsPage() {
+  const entries = await getEntries("information", {
+    order: "-sys.createdAt",
+    limit: 10,
+  });
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <header className="p-4 border-b border-gray-800">
-        <div className="flex items-center gap-2 mb-6">
+    <div className="container max-w-7xl mx-auto">
+      <header className="flex items-center justify-between mb-8">
+        <div className="flex items-center space-x-2">
           <Image
             src="/news.svg"
-            alt="logo"
+            alt="Logo"
             className="mr-2"
             width={40}
             height={40}
           />
-          <span className="text-6xl font-light tracking-wide mb-2">NEWS</span>
-        </div>
-        {/* TODO: フィルター 
-        <nav>
-          <ul className="flex gap-6 text-sm text-gray-400">
-            <li className="text-white">All</li>
-            <li>FRIENDSHIP</li>
-            <li>FRIENDSHIP Q&Q</li>
-            <li>Other</li>
-          </ul>
-        </nav>
-        */}
-      </header>
 
-      <main className="p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {news.map((item) => (
-            <Card
-              key={item.id}
-              className="border-grey-900 overflow-hidden group"
-            >
-              <div className="relative">
-                <Image
-                  src={item.image}
-                  alt="news image"
-                  width={600}
-                  height={400}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute top-2 left-2 flex gap-2">
-                  <span className="text-white bg-black/50 text-xs px-2 py-1 rounded-full">
-                    {item.category}
-                  </span>
-                </div>
-                <button className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Share2 className="w-4 h-4" />
-                </button>
-              </div>
-              <div className="p-4 space-y-2">
-                <h2 className="font-medium line-clamp-2">{item.title}</h2>
-                <p className="text-sm text-gray-400 line-clamp-2">
-                  {item.description}
-                </p>
-                <time className="text-xs text-gray-500">{item.date}</time>
-              </div>
-            </Card>
-          ))}
+          <h1 className="text-6xl font-light">News</h1>
         </div>
-      </main>
+      </header>{" "}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        {entries.items.map((entry) => {
+          const isNew = entry.fields.date
+            ? differenceInDays(
+                new Date(),
+                new Date(entry.fields.date.toString()),
+              ) <= 5
+            : false;
+
+          return (
+            <Link key={entry.sys.id} href={`/news/${entry.sys.id}`}>
+              <Card className="overflow-hidden hover:shadow-lg transition-all hover:bg-white/50 relative">
+                {isNew && (
+                  <span className="absolute top-2 right-2 z-10 bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-semibold">
+                    New
+                  </span>
+                )}
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={
+                      isAsset(entry.fields.thumbnail)
+                        ? `https:${entry.fields.thumbnail.fields.file?.url}`
+                        : "/placeholder.jpg"
+                    }
+                    alt={entry.fields.title?.toString() ?? ""}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-muted-foreground">
+                      {entry.fields.date
+                        ? new Date(entry.fields.date.toString())
+                            .toLocaleDateString("ja-JP", {
+                              year: "numeric",
+                              month: "2-digit",
+                              day: "2-digit",
+                            })
+                            .replace(/\//g, "-")
+                        : ""}
+                    </span>
+                    <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
+                      {entry.fields.category?.toString()}
+                    </span>
+                  </div>
+                  <h2 className="text-lg mb-2 line-clamp-2">
+                    {entry.fields.title?.toString()}
+                  </h2>
+                </div>
+              </Card>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@ui/components/ui/card";
 import {
   Bar,
@@ -18,6 +19,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { Info } from "lucide-react";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../store/user";
 import { GenderGenRateData } from "../../../generated/graphql";
@@ -146,6 +148,16 @@ export function GenderGenView({
             </ResponsiveContainer>
           </div>
         </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
+                <Info className="w-4 h-4" />
+                各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。AmazonとYouTubeは日次のデータがありませんが今後対応予定です。
+              </div>
+            </div>
+          </div>
+        </CardFooter>
       </Card>
 
       <Card className="border-zinc-800">
