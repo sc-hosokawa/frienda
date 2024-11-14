@@ -100,7 +100,9 @@ export default function FspPage() {
           <CardTitle className="font-light">ポイント残高</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-4xl font-light">{user?.fspBalance} FSP</p>
+          <p className="text-4xl font-light">
+            {user?.fspBalance.toLocaleString()} FSP
+          </p>
         </CardContent>
       </Card>
 
@@ -190,9 +192,27 @@ export default function FspPage() {
                             .tz()
                             .format("YYYY/MM/DD HH:mm:ss")}
                         </TableCell>
-                        <TableCell>{transaction.direction}</TableCell>
-                        <TableCell>{transaction.amount} fsp</TableCell>
-                        <TableCell>{transaction.counterParty.name}</TableCell>
+                        <TableCell
+                          className={
+                            transaction.direction === "IN"
+                              ? "text-green-600"
+                              : "text-red-600"
+                          }
+                        >
+                          {transaction.direction}
+                        </TableCell>
+                        <TableCell>
+                          {transaction.amount.toLocaleString()} fsp
+                        </TableCell>
+                        <TableCell
+                          className={
+                            transaction.counterParty.name === "System"
+                              ? "text-gray-600"
+                              : ""
+                          }
+                        >
+                          {transaction.counterParty.name}
+                        </TableCell>
                       </TableRow>
                     ),
                   )

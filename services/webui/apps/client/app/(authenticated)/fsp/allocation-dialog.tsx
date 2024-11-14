@@ -56,7 +56,7 @@ const GET_USER_POINT_BALANCE = gql`
 `;
 
 export function AllocationDialog() {
-  const { user, updateBalance } = useUserStore();
+  const { user, updateBalance, updateUser } = useUserStore();
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [allocatedPoints, setAllocatedPoints] = useState<{
@@ -72,6 +72,14 @@ export function AllocationDialog() {
     skip: !user?.id,
     onCompleted: (data) => {
       updateBalance(data.getUserPointBalance.fspBalance);
+    },
+  });
+
+  const { refetch: refetchUser } = useQuery(GET_USER_DATA, {
+    variables: { userId: user?.id },
+    skip: !user?.id,
+    onCompleted: (data) => {
+      updateUser(data.getUserData);
     },
   });
 
@@ -142,8 +150,10 @@ export function AllocationDialog() {
 
       console.log("refetch");
       const { data: newBalance } = await refetch();
+      const { data: newUser } = await refetchUser();
       console.log("newBalance", newBalance);
       updateBalance(newBalance.getUserPointBalance.fspBalance);
+      updateUser(newUser.getUserData);
 
       setShowConfirmation(false);
       setAllocatedPoints({});
@@ -293,3 +303,45 @@ export function AllocationDialog() {
     </Dialog>
   );
 }
+
+// GraphQLクエリの定義
+const GET_USER_DATA = gql`
+  query GetUserData($userId: String!) {
+    getUserData(userId: $userId) {
+      id
+      name
+      imageUrl
+      realname
+      isSuperAdmin
+      fspBalance
+      credentialBalance
+      role
+      primaryRole
+      greeting
+      skill
+      xHandle
+      instagramHandle
+      fbHandle
+      interestOffer
+      createdAt
+      belongsToArtists {
+        id
+        artistId
+        name
+        imageUrl
+        fsp
+        status
+        isAdmin
+      }
+      primaryArtist {
+        id
+        artistId
+        name
+        imageUrl
+        fsp
+        status
+        isAdmin
+      }
+    }
+  }
+`;

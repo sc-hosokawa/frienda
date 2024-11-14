@@ -1,8 +1,9 @@
 "use client";
 
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { format } from "date-fns";
+import Link from "next/link";
 
 import { Card } from "@ui/components/ui/card";
 import {
@@ -68,7 +69,15 @@ export default function HistoryPage() {
     <div className="min-h-screen bg-black text-white p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl">History</h1>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/fsp"
+              className="flex items-center gap-2 hover:text-white transition-colors"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Link>
+            <h1 className="text-2xl">History</h1>
+          </div>
         </div>
 
         <Card className="w-full bg-black text-white">
@@ -128,7 +137,9 @@ export default function HistoryPage() {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <span className="text-gray-200">
+                        <span
+                          className={`${transaction.counterParty.name === "System" ? "text-gray-600" : "text-gray-200"}`}
+                        >
                           {transaction.counterParty.name}
                         </span>
                       </div>
