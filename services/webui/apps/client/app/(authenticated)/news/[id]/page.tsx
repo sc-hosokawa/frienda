@@ -54,9 +54,17 @@ export default async function NewsDetailPage({ params }: Props) {
       [BLOCKS.OL_LIST]: (node: any, children: any) => (
         <ol className="list-decimal pl-6 mb-4">{children}</ol>
       ),
-      [INLINES.ENTRY_HYPERLINK]: (node: any, children: any) => (
-        <Link href={`/news/${node.data.target.sys.id}`}>{children}</Link>
-      ),
+      [INLINES.HYPERLINK]: (node: any) => {
+        const uri = node.data.uri;
+        const text = node.content.find(
+          (child: any) => child.nodeType === "text",
+        )?.value;
+        return (
+          <Link href={uri} className="text-blue-500" passHref>
+            {text}
+          </Link>
+        );
+      },
     },
     renderMark: {
       [MARKS.BOLD]: (text: any) => <span className="font-bold">{text}</span>,
@@ -75,7 +83,6 @@ export default async function NewsDetailPage({ params }: Props) {
             width={40}
             height={40}
           />
-
           <h1 className="text-6xl font-light">News</h1>
         </div>
       </header>
