@@ -30,11 +30,11 @@ export default function Header() {
           <Image
             src={user?.imageUrl || "/logo_visualonly.jpg"}
             alt="Profile picture"
-            width={24}
-            height={24}
+            width={32}
+            height={32}
             className="rounded-full"
           />
-          <div className="flex flex-col px-2 mx-1">
+          <div className="flex flex-col px-2">
             <span className="text-sm">{user?.name}</span>
             <span className="text-xs text-gray-600">{user?.realname}</span>
           </div>
@@ -54,6 +54,7 @@ export default function Header() {
           className="flex items-center gap-2 p-2 hover:bg-black/20 rounded-full mx-2"
         >
           <LogOut className="w-4 h-4" />
+          <span className="text-xs">ログアウト</span>
         </button>
       </div>
     </header>

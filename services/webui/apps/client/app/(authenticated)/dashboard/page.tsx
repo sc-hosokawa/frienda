@@ -60,9 +60,9 @@ export default function Dashboard() {
               );
             })
           ) : (
-            <div className="w-full flex flex-col justify-center items-center py-8 space-y-4 text-gray-400">
+            <div className="w-full flex flex-col justify-center items-center py-8 text-gray-400">
               <p>アーティスト閲覧権限を申請してください。</p>
-              <p>
+              <p className="mb-8">
                 すでに行った方はログアウトして再度ログインするか、しばらく時間をあけてからアクセスしてください。
               </p>
               <RequestForViewDialog />

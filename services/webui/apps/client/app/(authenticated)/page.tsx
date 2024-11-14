@@ -101,10 +101,13 @@ export default function Home() {
           </div>
         )
       ) : (
-        <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400 space-y-4">
-          <p>アーティスト閲覧権限を申請してください。</p>
-          <p>
-            すでに行った方はログアウトして再度ログインするか、しばらく時間をあけてからアクセスしてください。
+        <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400">
+          <p className="text-sm">アーティスト閲覧権限を申請してください。</p>
+          <p className="text-sm">
+            すでに行った方は、しばらく時間をあけてからアクセスしてください。閲覧申請が承認されたらデータが確認できるようになります。
+          </p>
+          <p className="text-sm mb-8">
+            現在申請中のアーティストは左下のアクセス管理で確認できます。（表示されていない場合は、一度ログアウトしてから再度試みてください）
           </p>
           <RequestForViewDialog />
         </div>

@@ -145,7 +145,7 @@ export function RequestForViewDialog() {
         <DialogHeader>
           <DialogTitle>アーティストを探す</DialogTitle>
           <DialogDescription>
-            正式名称で検索してください。うまくヒットしない場合は、大文字と小文字を入れ替えるなど入力を変更してみてください。
+            正式名称で検索してください。検索結果はスクロールできます。うまくヒットしない場合は、大文字と小文字を入れ替えたり、頭文字だけ入れてスクロールして探してみるなどしてみてください。どうしても表示されない場合は事務局までご連絡ください。
           </DialogDescription>
         </DialogHeader>
 

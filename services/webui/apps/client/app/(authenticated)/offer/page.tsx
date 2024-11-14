@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense } from "react";
 import Image from "next/image";
 import OfferList from "./offer-list";
@@ -6,8 +8,11 @@ import OfferStats from "./stats";
 import OfferAllList, { OfferAllListSkeleton } from "./offer-all-list";
 import { Plus, List } from "lucide-react";
 import Link from "next/link";
+import useUserStore from "../../../store/user";
 
 export default function OfferPage() {
+  const { user } = useUserStore();
+
   return (
     <div className="p-4 min-h-screen">
       <div className="flex items-center justify-between gap-2 mb-8">
@@ -28,12 +33,14 @@ export default function OfferPage() {
           >
             <List className="h-8 w-8 text-white" />
           </Link>
-          <Link
-            href="/offer/create"
-            className="p-2 rounded-full hover:bg-gray-700 transition-colors border-0 border-white"
-          >
-            <Plus className="h-8 w-8 text-white" />
-          </Link>
+          {user?.fspBalance !== undefined && user.fspBalance > 50 && (
+            <Link
+              href="/offer/create"
+              className="p-2 rounded-full hover:bg-gray-700 transition-colors border-0 border-white"
+            >
+              <Plus className="h-8 w-8 text-white" />
+            </Link>
+          )}
         </div>
       </div>
       <div className="">
