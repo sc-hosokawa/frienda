@@ -49,7 +49,7 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
 
     async fn find_by_period(&self, period: i32) -> Result<Vec<PlaysDaily>, DomainError> {
         // Calculate date range
-        let end_date = Utc::now().date_naive();
+        let end_date = (Utc::now() - Duration::days(2)).date_naive();
         let start_date = end_date - Duration::days(period as i64);
 
         // Query records within date range
@@ -68,7 +68,7 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
         period: i32,
     ) -> Result<Vec<PlaysDaily>, DomainError> {
         // Calculate date range
-        let end_date = Utc::now().date_naive();
+        let end_date = (Utc::now() - Duration::days(2)).date_naive();
         let start_date = end_date - Duration::days(period as i64);
 
         // Query records within date range and ISRC
@@ -88,7 +88,7 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
         period: i32,
     ) -> Result<Vec<PlaysDaily>, DomainError> {
         // Calculate date range
-        let end_date = Utc::now().date_naive();
+        let end_date = (Utc::now() - Duration::days(2)).date_naive();
         let start_date = end_date - Duration::days(period as i64);
 
         // Query records within date range and ISRCs

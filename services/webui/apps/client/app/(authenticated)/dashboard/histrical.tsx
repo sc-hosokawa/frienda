@@ -144,6 +144,7 @@ export function Historical({
               tickMargin={8}
               tickCount={5}
               tickFormatter={(value) => value.toLocaleString()}
+              domain={[0, (dataMax: number) => Math.ceil(dataMax * 1.1)]}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <defs>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Plus, Info } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,10 +45,13 @@ export default function DiscographyPage() {
   return (
     <div className="min-h-screen bg-black text-gray-200 p-6">
       <header className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-semibold">Discography</h1>
-        </div>
+        <h1 className="text-2xl font-semibold">Discography</h1>
       </header>
+
+      <div className="flex items-center gap-2 mb-8 text-sm text-gray-400">
+        <Info className="w-4 h-4 mr-1" />
+        作品が反映されるまで最大で3週間程度かかる場合があります。反映されていないと感じた場合やデータに不備がある場合は、左下のFeedbackからお知らせください。
+      </div>
 
       <div className="flex gap-2 mb-8">
         {artists?.map((artist) => (

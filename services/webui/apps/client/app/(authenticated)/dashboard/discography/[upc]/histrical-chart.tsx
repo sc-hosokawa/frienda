@@ -121,6 +121,7 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
               axisLine={false}
               tickMargin={8}
               tickFormatter={(value) => value.toLocaleString()}
+              domain={[0, (dataMax: number) => Math.ceil(dataMax * 1.1)]}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <defs>
