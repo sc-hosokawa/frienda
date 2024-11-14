@@ -21,7 +21,7 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-transparent fixed top-0 right-0 z-50 bg-black text-white px-4 flex justify-end h-12 md:left-[var(--sidebar-width)] transition-[left] duration-200 ease-linear peer-data-[collapsible=icon]:md:left-[var(--sidebar-width-icon)] peer-data-[collapsible=offcanvas]:md:left-0">
+    <header className="dark bg-transparent fixed top-0 right-0 z-50 bg-black text-white px-4 flex justify-end h-12 md:left-[var(--sidebar-width)] transition-[left] duration-200 ease-linear peer-data-[collapsible=icon]:md:left-[var(--sidebar-width-icon)] peer-data-[collapsible=offcanvas]:md:left-0">
       <div className="flex items-center bg-[#d1c3a9] text-black rounded-l-full pl-4">
         <Link
           href="/profile"

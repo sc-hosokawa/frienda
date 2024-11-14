@@ -379,11 +379,7 @@ export default function SignIn() {
               <Label htmlFor="primaryCategory">サブカテゴリー</Label>
               <select
                 id="primaryCategory"
-                value={
-                  selectedPrimaryCategory === "Supporter"
-                    ? "none"
-                    : selectedPrimaryCategory
-                }
+                value={selectedPrimaryCategory}
                 onChange={(e) => {
                   const value = e.target.value;
                   setSelectedPrimaryCategory(

@@ -47,8 +47,9 @@ const items = [
 
 export function ClientSidebar() {
   return (
-    <Sidebar>
-      <SidebarHeader>
+    <div className="dark">
+      <Sidebar>
+        <SidebarHeader>
         <Image
           src="/logo_visualonly_dark.jpg"
           alt="Logo"
@@ -86,6 +87,7 @@ export function ClientSidebar() {
         <SuperAdminDialog />
         <AccessControlDialog />
       </SidebarFooter>
-    </Sidebar>
+      </Sidebar>
+    </div>
   );
 }
