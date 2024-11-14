@@ -22,19 +22,9 @@ const items = [
     icon: <Image src="/home.svg" alt="Home" width={24} height={24} />,
   },
   {
-    title: "Offers",
-    url: "/offer",
-    icon: <Image src="/offer.svg" alt="Offer" width={24} height={24} />,
-  },
-  {
     title: "Dashboard",
     url: "/dashboard",
     icon: <Image src="/dashboard.svg" alt="Dashboard" width={24} height={24} />,
-  },
-  {
-    title: "Messages",
-    url: "/message",
-    icon: <Image src="/message.svg" alt="Messages" width={24} height={24} />,
   },
   /*
   {
@@ -43,6 +33,16 @@ const items = [
     icon: <Image src="/news.svg" alt="News" width={24} height={24} />,
   },
   */
+  {
+    title: "Offers",
+    url: "/offer",
+    icon: <Image src="/offer.svg" alt="Offer" width={24} height={24} />,
+  },
+  {
+    title: "Messages",
+    url: "/message",
+    icon: <Image src="/message.svg" alt="Messages" width={24} height={24} />,
+  },
 ];
 
 export function ClientSidebar() {
