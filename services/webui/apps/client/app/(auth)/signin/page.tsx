@@ -78,7 +78,7 @@ export default function SignIn() {
   const [displayName, setDisplayName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedPrimaryCategory, setSelectedPrimaryCategory] =
-    useState<string>("");
+    useState<string>("Supporter");
   const [photoURL, setPhotoURL] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -197,6 +197,8 @@ export default function SignIn() {
         }
       }
 
+      console.log(`selectedCategory: ${selectedCategory}`);
+      console.log(`selectedPrimaryCategory: ${selectedPrimaryCategory}`);
       const response = await createUser({
         variables: {
           input: {
@@ -252,7 +254,7 @@ export default function SignIn() {
       }
     } catch (error: any) {
       console.error("Error creating profile:", error);
-      alert("プロフィールの成に失敗しました");
+      alert("プロフィールの作成に失敗しました");
       setLoading(false);
     } finally {
       // setLoading(false);
@@ -358,7 +360,10 @@ export default function SignIn() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="category">カテゴリー</Label>
+              <Label htmlFor="category">属性</Label>
+              <p className="text-sm text-gray-400">
+                ご自身を言い表すのに最も相応しいと思われるものを選択してください。なお、FRIENDSHIP.のキュレーターの方はキュレーターを選択してください。
+              </p>
               <select
                 id="category"
                 value={selectedCategory}
@@ -372,32 +377,6 @@ export default function SignIn() {
                     {cat.name}
                   </option>
                 ))}
-              </select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="primaryCategory">サブカテゴリー</Label>
-              <select
-                id="primaryCategory"
-                value={selectedPrimaryCategory}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setSelectedPrimaryCategory(
-                    value === "none" ? "Supporter" : value,
-                  );
-                }}
-                className="w-full p-2 bg-black border border-white/20 text-white rounded-md"
-                required
-              >
-                <option value="">選択してください</option>
-                <option value="none">特になし</option>
-                {categories
-                  .filter((cat) => cat.id !== selectedCategory)
-                  .map((cat) => (
-                    <option key={cat.id} value={cat.id}>
-                      {cat.name}
-                    </option>
-                  ))}
               </select>
             </div>
 
@@ -427,7 +406,7 @@ export default function SignIn() {
         {/* Form */}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <Label htmlFor="email">メールアドレス</Label>
+            <Label htmlFor="email">登録に利用するメールアドレス</Label>
             <Input
               id="email"
               type="email"
@@ -440,7 +419,7 @@ export default function SignIn() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">パスワード</Label>
+            <Label htmlFor="password">登録するパスワード</Label>
             <Input
               id="password"
               type="password"

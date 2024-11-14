@@ -5,6 +5,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@ui/components/ui/card";
 import {
   Bar,
@@ -18,6 +19,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { Info } from "lucide-react";
 import { useQuery, gql } from "@apollo/client";
 import { GenderGenRateData } from "../../../../../generated/graphql";
 
@@ -141,6 +143,17 @@ export function GenderGenViewByUPC({ upc }: { upc: string }) {
             </ResponsiveContainer>
           </div>
         </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
+                <Info className="w-4 h-4" />
+                世代比データはLINE
+                Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。
+              </div>
+            </div>
+          </div>
+        </CardFooter>
       </Card>
 
       <Card className="border-zinc-800">
@@ -199,6 +212,17 @@ export function GenderGenViewByUPC({ upc }: { upc: string }) {
             </ResponsiveContainer>
           </div>
         </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
+                <Info className="w-4 h-4" />
+                性別比データはLINE
+                Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。
+              </div>
+            </div>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );

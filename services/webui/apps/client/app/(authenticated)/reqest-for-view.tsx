@@ -138,12 +138,12 @@ export function RequestForViewDialog() {
           variant="outline"
           className="border-white rounded-full bg-white text-black hover:bg-black hover:text-white"
         >
-          アーティストを探す
+          アーティストデータの閲覧権限を申請する
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>アーティストを探す</DialogTitle>
+          <DialogTitle>アーティストデータの閲覧権限を申請する</DialogTitle>
           <DialogDescription>
             正式名称で検索してください。検索結果はスクロールできます。うまくヒットしない場合は、大文字と小文字を入れ替えたり、頭文字だけ入れてスクロールして探してみるなどしてみてください。どうしても表示されない場合は事務局までご連絡ください。
           </DialogDescription>

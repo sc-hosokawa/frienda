@@ -153,7 +153,8 @@ export function GenderGenView({
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
                 <Info className="w-4 h-4" />
-                各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。AmazonとYouTubeは日次のデータがありませんが今後対応予定です。
+                世代比データはLINE
+                Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。
               </div>
             </div>
           </div>
@@ -216,6 +217,17 @@ export function GenderGenView({
             </ResponsiveContainer>
           </div>
         </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
+                <Info className="w-4 h-4" />
+                性別比データはLINE
+                Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。
+              </div>
+            </div>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );
