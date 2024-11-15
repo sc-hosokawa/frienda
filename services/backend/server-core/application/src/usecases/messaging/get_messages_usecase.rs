@@ -82,7 +82,7 @@ impl GetMessagesUsecaseTrait for GetMessagesUsecase {
         // 最新の10件のメッセージを取得
         let messages: Vec<domain::entities::messages::Model> = self
             .messages_repo
-            .get_latest_by_room_id(input.room_id, 10)
+            .get_latest_by_room_id(input.room_id, 100)
             .await?;
 
         // メッセージに紐づく添付ファイルを取得

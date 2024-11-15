@@ -53,14 +53,14 @@ export default function DiscographyPage() {
         作品が反映されるまで最大で3週間程度かかる場合があります。反映されていないと感じた場合やデータに不備がある場合は、左下のFeedbackからお知らせください。
       </div>
 
-      <div className="flex gap-2 mb-8">
+      <div className="flex gap-2 mb-8 overflow-x-auto">
         {artists?.map((artist) => (
           <button
             key={artist.artistId}
             onClick={() => setSelectedArtist(artist.artistId)}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors ${
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors shrink-0 ${
               selectedArtist === artist.artistId
-                ? "bg-zinc-700 ring-2 ring-zinc-500"
+                ? "bg-zinc-700 ring-zinc-500"
                 : "bg-zinc-900 hover:bg-zinc-800"
             }`}
           >

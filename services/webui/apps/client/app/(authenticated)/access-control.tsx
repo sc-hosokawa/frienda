@@ -144,12 +144,12 @@ function AccessControlDialog() {
               onValueChange={setSelectedArtist}
               className="flex flex-col flex-grow overflow-hidden"
             >
-              <TabsList className="flex justify-start px-6 pt-2 pb-0">
+              <TabsList className="flex justify-start px-6 pt-2 pb-0 overflow-x-auto">
                 {user?.belongsToArtists.map((artist) => (
                   <TabsTrigger
                     key={artist.artistId}
                     value={artist.artistId}
-                    className="px-4 py-2"
+                    className="px-4 py-2 shrink-0"
                   >
                     {artist.name}
                   </TabsTrigger>

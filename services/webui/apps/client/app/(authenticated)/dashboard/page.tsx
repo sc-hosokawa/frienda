@@ -39,7 +39,7 @@ export default function Dashboard() {
           </div>
           <RequestForViewDialog />
         </header>
-        <div className="flex space-x-4 mb-8">
+        <div className="flex space-x-4 mb-8 overflow-x-auto">
           {acceptedArtists && acceptedArtists.length > 0 ? (
             acceptedArtists.map((artist) => {
               const isSelected = artist.artistId === selectedArtist;
@@ -47,7 +47,7 @@ export default function Dashboard() {
                 <button
                   key={artist.artistId}
                   onClick={() => setSelectedArtist(artist.artistId)}
-                  className={`flex items-center space-x-2 p-2 rounded-lg transition-colors ${
+                  className={`flex items-center space-x-2 p-2 rounded-lg transition-colors shrink-0 ${
                     isSelected ? "bg-gray-800" : "hover:bg-gray-900"
                   }`}
                 >
