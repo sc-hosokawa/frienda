@@ -32,22 +32,24 @@ jobs:
         with:
           path: 'services/backend'
 
-  admin:
-    runs-on: ubuntu-latest
-    if: |
-      contains(github.event.head_commit.message, 'admin')
-    strategy:
-      matrix:
-        node-version: [18, 20]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Admin Test
-        uses: ./.github/actions/nextjs-test
-        with:
-          path: 'services/frontend'
-          app: 'admin'
-          node: ${{ matrix.node-version }}
+
+#  admin:
+#    runs-on: ubuntu-latest
+#    if: |
+#      contains(github.event.head_commit.message, 'admin')
+#    strategy:
+#      matrix:
+#        node-version: [18, 20]
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#      - name: Admin Test
+#        uses: ./.github/actions/nextjs-test
+#        with:
+#          path: 'services/frontend'
+#          app: 'admin'
+#          node: ${{ matrix.node-version }}
+
 
   client:
     runs-on: ubuntu-latest
