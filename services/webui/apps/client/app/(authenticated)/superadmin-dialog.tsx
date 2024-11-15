@@ -20,6 +20,7 @@ const GET_PENDING_MEMBERS = gql`
         id
         name
         realname
+        email
         imageUrl
       }
       artistName
@@ -49,6 +50,7 @@ type PendingMember = {
     id: string;
     name: string;
     realname: string;
+    email: string;
     imageUrl?: string;
   };
   artistName: string;
@@ -166,9 +168,12 @@ export default function SuperAdminDialog() {
                     <div>
                       <h3 className="font-semibold">{item.member.name}</h3>
                     </div>
-                    <div>
+                    <div className="flex flex-col gap-1">
                       <p className="text-muted-foreground">
                         {item.member.realname}
+                      </p>
+                      <p className="text-muted-foreground">
+                        {item.member.email}
                       </p>
                     </div>
                     <div>

@@ -39,6 +39,13 @@ export type AddNewConnectionResponse = {
   mapId: Scalars["String"]["output"];
 };
 
+export type AllPendingMember = {
+  __typename?: "AllPendingMember";
+  artistId: Scalars["String"]["output"];
+  artistName: Scalars["String"]["output"];
+  member: PendingMember;
+};
+
 export type AllUsersData = {
   __typename?: "AllUsersData";
   users: Array<UserSimpleData>;
@@ -244,6 +251,7 @@ export type CreateNewUserDataInput = {
   invitedBy?: InputMaybe<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
   primaryCategory: Scalars["String"]["input"];
+  realname: Scalars["String"]["input"];
 };
 
 export type CreateNewUserDataResponse = {
@@ -621,6 +629,15 @@ export type OffersData = {
   offerList: Array<OfferData>;
 };
 
+export type PendingMember = {
+  __typename?: "PendingMember";
+  email: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  imageUrl?: Maybe<Scalars["String"]["output"]>;
+  name: Scalars["String"]["output"];
+  realname: Scalars["String"]["output"];
+};
+
 export type PrizeData = {
   __typename?: "PrizeData";
   id: Scalars["Int"]["output"];
@@ -667,6 +684,7 @@ export type QueryRoot = {
   getAllArtists: ArtistsData;
   getAllCredits: GetAllCreditsOutput;
   getAllNotifications: NotificationsData;
+  getAllPendingMembers: Array<AllPendingMember>;
   getAllPrizes: Array<PrizeData>;
   getAllUsers: AllUsersData;
   getAllUsersExceptMe: AllUsersData;
@@ -709,6 +727,10 @@ export type QueryRoot = {
 };
 
 export type QueryRootGetAllCreditsArgs = {
+  userId: Scalars["String"]["input"];
+};
+
+export type QueryRootGetAllPendingMembersArgs = {
   userId: Scalars["String"]["input"];
 };
 
@@ -1072,10 +1094,15 @@ export type UpdateOfferStatusResponse = {
 export type UpdateUserDataInput = {
   email?: InputMaybe<Scalars["String"]["input"]>;
   evmAddr?: InputMaybe<Scalars["String"]["input"]>;
+  fbHandle?: InputMaybe<Scalars["String"]["input"]>;
+  greeting?: InputMaybe<Scalars["String"]["input"]>;
   id: Scalars["String"]["input"];
   imageUrl?: InputMaybe<Scalars["String"]["input"]>;
+  instagramHandle?: InputMaybe<Scalars["String"]["input"]>;
   name?: InputMaybe<Scalars["String"]["input"]>;
   primaryCategory?: InputMaybe<Scalars["String"]["input"]>;
+  skill?: InputMaybe<Scalars["String"]["input"]>;
+  xHandle?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type UpdateUserDataResponse = {
@@ -1124,9 +1151,11 @@ export type UserDetailData = {
   imageUrl?: Maybe<Scalars["String"]["output"]>;
   instagramHandle?: Maybe<Scalars["String"]["output"]>;
   interestOffer?: Maybe<Scalars["String"]["output"]>;
+  isSuperAdmin: Scalars["Boolean"]["output"];
   name: Scalars["String"]["output"];
   primaryArtist?: Maybe<ArtistByUserData>;
   primaryRole: Scalars["String"]["output"];
+  realname: Scalars["String"]["output"];
   role: Scalars["String"]["output"];
   skill?: Maybe<Scalars["String"]["output"]>;
   xHandle?: Maybe<Scalars["String"]["output"]>;
@@ -1144,4 +1173,5 @@ export type UserSimpleData = {
   id: Scalars["String"]["output"];
   imageUrl?: Maybe<Scalars["String"]["output"]>;
   name: Scalars["String"]["output"];
+  realname: Scalars["String"]["output"];
 };

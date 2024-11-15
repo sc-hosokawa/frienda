@@ -159,9 +159,17 @@ pub struct MarkAsAdminResponse {
 
 #[derive(SimpleObject)]
 pub struct AllPendingMember {
-    pub member: UserSimpleData,
+    pub member: PendingMember,
     pub artist_name: String,
     pub artist_id: String,
+}
+#[derive(SimpleObject)]
+pub struct PendingMember {
+    pub id: String,
+    pub name: String,
+    pub realname: String,
+    pub email: String,
+    pub image_url: Option<String>,
 }
 
 impl ArtistByUserData {

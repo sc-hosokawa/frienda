@@ -95,8 +95,13 @@ export default function PrizeDetailPage({
               </span>
             </div>
             <Button
-              className="w-full bg-white text-black hover:bg-white/80"
+              className="w-full bg-white text-black hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={(user?.fspBalance ?? 0) < data?.getPrizeDetail?.point}
               onClick={async () => {
+                if ((user?.fspBalance ?? 0) < data?.getPrizeDetail?.point) {
+                  alert("ポイント残高が不足しています。");
+                  return;
+                }
                 if (
                   confirm(
                     `${data?.getPrizeDetail?.name}を${data?.getPrizeDetail?.point.toLocaleString()} fspで交換しますか？`,

@@ -153,10 +153,11 @@ impl ArtistQuery {
             .members
             .into_iter()
             .map(|member| models::artists::AllPendingMember {
-                member: models::users::UserSimpleData {
+                member: models::artists::PendingMember {
                     id: member.member.id,
                     name: member.member.username,
                     realname: member.member.realname,
+                    email: member.member.email,
                     image_url: member.member.img_url,
                 },
                 artist_name: member.artist_name,

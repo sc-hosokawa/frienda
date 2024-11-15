@@ -7,7 +7,7 @@ type AddNewConnectionResponse {
 }
 
 type AllPendingMember {
-	member: UserSimpleData!
+	member: PendingMember!
 	artistName: String!
 	artistId: String!
 }
@@ -443,6 +443,14 @@ type OfferStatsByUserData {
 
 type OffersData {
 	offerList: [OfferData!]!
+}
+
+type PendingMember {
+	id: String!
+	name: String!
+	realname: String!
+	email: String!
+	imageUrl: String
 }
 
 type PrizeData {
