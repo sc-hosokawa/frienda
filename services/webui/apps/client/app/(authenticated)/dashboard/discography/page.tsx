@@ -48,9 +48,15 @@ export default function DiscographyPage() {
         <h1 className="text-2xl font-semibold">Discography</h1>
       </header>
 
-      <div className="flex items-center gap-2 mb-8 text-sm text-gray-400">
-        <Info className="w-4 h-4 mr-1" />
-        作品が反映されるまで最大で3週間程度かかる場合があります。反映されていないと感じた場合やデータに不備がある場合は、左下のFeedbackからお知らせください。
+      <div className="flex flex-col gap-1 mb-8 text-sm text-gray-400">
+        <div className="flex items-center gap-2">
+          <Info className="w-4 h-4 mr-1 shrink-0" />
+          作品が反映されるまで最大で3週間程度かかる場合があります。反映されていないと感じた場合やデータに不備がある場合は、左下のFeedbackからお知らせください。
+        </div>
+        <div className="flex items-center gap-2">
+          <Info className="w-4 h-4 mr-1 shrink-0" />
+          作品や楽曲の順序が反映されていない可能性があります。データの整理も合わせて進めているため今後改善する予定です。あらかじめご了承ください。
+        </div>
       </div>
 
       <div className="flex gap-2 mb-8 overflow-x-auto">

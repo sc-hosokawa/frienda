@@ -105,7 +105,7 @@ export default function Login() {
       if (error.code === "auth/user-not-found") {
         errorMessage = "ユーザーが見つかりません";
       } else if (error.code === "auth/wrong-password") {
-        errorMessage = "パスワードが間��っています";
+        errorMessage = "パスワードが間違っています";
       }
 
       alert(errorMessage);

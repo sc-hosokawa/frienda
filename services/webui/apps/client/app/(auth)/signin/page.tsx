@@ -92,8 +92,7 @@ export default function SignIn() {
   const categories = [
     { id: "Musician", name: "ミュージシャン" },
     { id: "Curator", name: "キュレーター" },
-    { id: "Creator", name: "クリエイター" },
-    { id: "Supporter", name: "サポーター" },
+    { id: "Supporter", name: "その他" },
   ];
 
   const [createUser] = useMutation(CREATE_USER_MUTATION);
@@ -126,7 +125,9 @@ export default function SignIn() {
       setVerificationTimer(timer);
     } catch (error: any) {
       console.error("Error signing up:", error);
-      alert(error.message);
+      alert(
+        "サインインに失敗しました。大変お手数ですが事務局にお問い合わせください。",
+      );
     } finally {
       setLoading(false);
     }
@@ -275,11 +276,20 @@ export default function SignIn() {
       <div className="w-full max-w-4xl mx-auto p-4">
         <div className="space-y-8">
           <div className="space-y-2">
-            <h1 className="text-5xl font-light tracking-wider">メール認証</h1>
+            <h1 className="text-5xl font-light tracking-wider mb-8">
+              メール認証
+            </h1>
             <p className="text-sm">
               認証メールを送信しました。メールを確認して認証を完了してください。
-              <br />
+            </p>
+            <p className="text-sm">
+              <span className="text-red-500">
+                このページは閉じないでください。
+              </span>
               認証が完了すると自動的に次の画面に進みます。
+            </p>
+            <p className="text-sm">
+              次の画面でごく簡単なプロフィール設定を行い、その後ご利用になれます。
             </p>
           </div>
           <Button
@@ -313,7 +323,9 @@ export default function SignIn() {
           <form className="space-y-6" onSubmit={handleProfileSubmit}>
             {/* プロフィール画像アップロード */}
             <div className="space-y-2">
-              <Label htmlFor="profileImage">プロフィール画像</Label>
+              <Label htmlFor="profileImage">
+                プロフィール画像（任意、後から設定・変更できます）
+              </Label>
               <div className="flex flex-col items-center gap-4">
                 {imagePreview && (
                   <div className="w-32 h-32 relative rounded-full overflow-hidden">
