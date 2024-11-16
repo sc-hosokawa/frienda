@@ -289,7 +289,7 @@ export default function SignIn() {
               認証が完了すると自動的に次の画面に進みます。
             </p>
             <p className="text-sm">
-              次の画面でごく簡単なプロフィール設定を行い、その後ご利用になれます。
+              次の画面でお名前と属性などの簡単な設定を行い、その後ご利用できるようになります。
             </p>
           </div>
           <Button
@@ -348,7 +348,7 @@ export default function SignIn() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="realname">氏名</Label>
+              <Label htmlFor="realname">氏名（事務局以外の他のユーザーには許諾なく公開されません）</Label>
               <Input
                 id="realname"
                 value={realname}
@@ -360,7 +360,7 @@ export default function SignIn() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="displayName">ユーザーネーム</Label>
+              <Label htmlFor="displayName">ユーザーネーム（他のユーザーに表示されます）</Label>
               <Input
                 id="displayName"
                 value={displayName}
@@ -374,7 +374,7 @@ export default function SignIn() {
             <div className="space-y-2">
               <Label htmlFor="category">属性</Label>
               <p className="text-sm text-gray-400">
-                ご自身を言い表すのに最も相応しいと思われるものを選択してください。なお、FRIENDSHIP.のキュレーターの方はキュレーターを選択してください。
+                FRIENDSHIP.のキュレーターの方はキュレーターを選択してください。特に思い当たらない方はその他を選択してください。この設定は後ほど変更できます。
               </p>
               <select
                 id="category"
