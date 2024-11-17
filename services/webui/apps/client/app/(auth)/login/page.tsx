@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import {
   signInWithEmailAndPassword,
@@ -184,6 +185,25 @@ export default function Login() {
               className="bg-black border-white/20 text-white placeholder:text-white/50"
               required
             />
+          </div>
+
+          <div className="text-sm text-gray-400 space-y-2">
+            <p>
+              <Link
+                href="/termofservice"
+                className="text-white hover:underline"
+              >
+                利用規約
+              </Link>{" "}
+              および{" "}
+              <Link
+                href="/privacypolicy"
+                className="text-white hover:underline"
+              >
+                プライバシーポリシー
+              </Link>{" "}
+              をご確認ください。
+            </p>
           </div>
 
           <div className="text-sm">
