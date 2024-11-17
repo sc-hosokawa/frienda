@@ -1,6 +1,18 @@
+"use client";
+import { useRouter } from "next/navigation";
+
 export default function PrivacyPolicy() {
+  const router = useRouter();
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <button
+        onClick={() => router.back()}
+        className="mb-6 px-4 py-2 text-sm font-medium text-white rounded-md hover:bg-gray-200"
+      >
+        ← 戻る
+      </button>
+
       <h1 className="text-3xl font-bold mb-6">プライバシーポリシー</h1>
 
       <section className="mb-8">
@@ -41,8 +53,13 @@ export default function PrivacyPolicy() {
         <p className="mb-4">
           プライバシーポリシーに関するお問い合わせは、以下の連絡先までご連絡ください：
         </p>
-        <p>メール：example@example.com</p>
+        <p>メール：info@friendshipdao.xyz</p>
       </section>
+
+      <footer className="text-sm text-gray-400 mt-12 pt-4 border-t border-gray-200">
+        <p>公開日：2024年11月15日</p>
+        <p>最終更新日：2024年11月17日</p>
+      </footer>
     </div>
   );
 }

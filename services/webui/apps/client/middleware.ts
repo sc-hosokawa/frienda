@@ -9,13 +9,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // /login または /signin ページにいる場合はセッションをチェックしない
+  // パブリックにアクセス可能なページの場合はセッションをチェックしない
   if (
     request.nextUrl.pathname.startsWith("/login") ||
-    request.nextUrl.pathname.startsWith("/signin")
+    request.nextUrl.pathname.startsWith("/signin") ||
+    request.nextUrl.pathname.startsWith("/termofservice") ||
+    request.nextUrl.pathname.startsWith("/privacypolicy")
   ) {
-    // セッションがある場合はホームにリダイレクト
-    if (session) {
+    // セッションがある場合はホームにリダイレクト（利用規約とプライバシーポリシーページは除く）
+    if (
+      session &&
+      !request.nextUrl.pathname.startsWith("/termofservice") &&
+      !request.nextUrl.pathname.startsWith("/privacypolicy")
+    ) {
       return NextResponse.redirect(new URL("/", request.url));
     }
     return NextResponse.next();

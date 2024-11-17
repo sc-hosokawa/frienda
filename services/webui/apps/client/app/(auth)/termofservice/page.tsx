@@ -1,6 +1,18 @@
+"use client";
+import { useRouter } from "next/navigation";
+
 export default function TermOfService() {
+  const router = useRouter();
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <button
+        onClick={() => router.back()}
+        className="mb-6 px-4 py-2 text-sm font-medium text-white rounded-md hover:bg-gray-200"
+      >
+        ← 戻る
+      </button>
+
       <h1 className="text-3xl font-bold mb-6">利用規約</h1>
 
       <section className="mb-8">
@@ -62,12 +74,50 @@ export default function TermOfService() {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">7. お問い合わせ</h2>
+        <h2 className="text-2xl font-semibold mb-4">7. 個人情報の取り扱い</h2>
+        <p className="mb-4">
+          当社は、ユーザーの個人情報について、当社のプライバシーポリシーに従って適切に取り扱います。
+          個人情報の収集、利用、管理等の詳細については、プライバシーポリシーをご確認ください。
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">8. 知的財産権</h2>
+        <p className="mb-4">
+          本サービスに関する知的財産権は、全て当社または当社にライセンスを許諾している者に帰属します。
+          ユーザーが投稿したコンテンツの知的財産権は、当該ユーザーに帰属します。ただし、ユーザーは当社に対し、
+          投稿コンテンツを本サービスの提供、改善、宣伝等の目的で利用する権利を無償で許諾するものとします。
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">9. 退会・アカウント削除</h2>
+        <p className="mb-4">
+          ユーザーは、所定の手続きにより、いつでも退会することができます。
+          退会後のデータの取り扱いについては、プライバシーポリシーに定めるとおりとします。
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">10. 準拠法・管轄裁判所</h2>
+        <p className="mb-4">
+          本規約の解釈にあたっては、日本法を準拠法とします。
+          本サービスに関して紛争が生じた場合には、東京地方裁判所を第一審の専属的合意管轄裁判所とします。
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">11. お問い合わせ</h2>
         <p className="mb-4">
           本規約に関するお問い合わせは、以下の連絡先までご連絡ください：
         </p>
-        <p>メール：support@example.com</p>
+        <p>メール：info@friendshipdao.xyz</p>
       </section>
+
+      <footer className="text-sm text-gray-400 mt-12 pt-4 border-t border-gray-200">
+        <p>公開日：2024年11月15日</p>
+        <p>最終更新日：2024年11月17日</p>
+      </footer>
     </div>
   );
 }

@@ -348,7 +348,9 @@ export default function SignIn() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="realname">氏名（事務局以外の他のユーザーには許諾なく公開されません）</Label>
+              <Label htmlFor="realname">
+                氏名（事務局以外の他のユーザーには許諾なく公開されません）
+              </Label>
               <Input
                 id="realname"
                 value={realname}
@@ -360,7 +362,9 @@ export default function SignIn() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="displayName">ユーザーネーム（他のユーザーに表示されます）</Label>
+              <Label htmlFor="displayName">
+                ユーザーネーム（他のユーザーに表示されます）
+              </Label>
               <Input
                 id="displayName"
                 value={displayName}
@@ -441,6 +445,30 @@ export default function SignIn() {
               className="bg-black border-white/20 text-white placeholder:text-white/50"
               required
             />
+          </div>
+
+          {/* 利用規約とプライバシーポリシーの同意文 */}
+          <div className="text-sm text-gray-400 space-y-2">
+            <p>
+              <Link
+                href="/termofservice"
+                className="text-white hover:underline"
+              >
+                利用規約
+              </Link>{" "}
+              および{" "}
+              <Link
+                href="/privacypolicy"
+                className="text-white hover:underline"
+              >
+                プライバシーポリシー
+              </Link>{" "}
+              をご確認ください。
+            </p>
+            <p>
+              アカウントを作成するボタンをクリックすることで、
+              利用規約とプライバシーポリシーに同意したものとみなされます。
+            </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
