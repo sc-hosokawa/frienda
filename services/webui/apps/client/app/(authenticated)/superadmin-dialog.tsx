@@ -9,7 +9,7 @@ import {
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { Button } from "@ui/components/ui/button";
 import { ScrollArea } from "@ui/components/ui/scroll-area";
-import { Check, X } from "lucide-react";
+import { Check, X, ShieldCheck } from "lucide-react";
 import useUserStore from "../../store/user";
 import { useState } from "react";
 
@@ -145,6 +145,7 @@ export default function SuperAdminDialog() {
     <>
       {user?.isSuperAdmin && (
         <Button onClick={() => setOpen(true)} variant="outline" className="">
+          <ShieldCheck className="mr-4 h-4 w-4" />
           管理者専用
         </Button>
       )}

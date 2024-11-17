@@ -14,6 +14,14 @@ import {
 } from "@ui/components/ui/sidebar";
 import AccessControlDialog from "./access-control";
 import SuperAdminDialog from "./superadmin-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@ui/components/ui/dropdown-menu";
+import { Settings } from "lucide-react";
+import { Button } from "@ui/components/ui/button";
 
 const items = [
   {
@@ -84,6 +92,28 @@ export function ClientSidebar() {
           </Link>
           <SuperAdminDialog />
           <AccessControlDialog />
+          <div className="relative w-full">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="w-full">
+                  <Settings className="mr-11 h-4 w-4" />
+                  Settings
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side="right" align="start">
+                <DropdownMenuItem asChild>
+                  <Link href="/privacypolicy">
+                    <span>プライバシーポリシー</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/termofservice">
+                    <span>利用規約</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </SidebarFooter>
       </Sidebar>
     </div>

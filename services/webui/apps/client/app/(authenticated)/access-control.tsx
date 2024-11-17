@@ -15,7 +15,7 @@ import {
 } from "@ui/components/ui/tabs";
 import { Button } from "@ui/components/ui/button";
 import { ScrollArea } from "@ui/components/ui/scroll-area";
-import { Check, Settings, X } from "lucide-react";
+import { Check, UserCheck, X } from "lucide-react";
 import useUserStore from "../../store/user";
 import { gql, useQuery, useMutation } from "@apollo/client";
 
@@ -123,7 +123,7 @@ function AccessControlDialog() {
   return (
     <>
       <Button onClick={() => setIsOpen(true)} variant="outline" size="sm">
-        <Settings className="mr-2 h-4 w-4" />
+        <UserCheck className="mr-2 h-4 w-4" />
         アクセス管理
       </Button>
 
