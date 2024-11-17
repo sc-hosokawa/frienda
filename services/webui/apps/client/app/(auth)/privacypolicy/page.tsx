@@ -49,7 +49,27 @@ export default function PrivacyPolicy() {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">4. お問い合わせ</h2>
+        <h2 className="text-2xl font-semibold mb-4">4. Cookieの使用について</h2>
+        <p className="mb-4">
+          当サービスでは、ユーザー体験の向上及びサービスの改善のために、Cookieを使用しています。
+          Cookieは、ブラウザの設定により無効化することが可能です。
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">
+          5. アクセス解析ツールについて
+        </h2>
+        <p className="mb-4">
+          当サービスでは、Googleアナリティクスを利用してアクセス情報を収集しています。
+          収集された情報は、サービスの改善とユーザー体験の向上のために利用されます。
+          なお、Googleアナリティクスのデータ収集方法および利用方法については、
+          Googleのプライバシーポリシーをご確認ください。
+        </p>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">6. お問い合わせ</h2>
         <p className="mb-4">
           プライバシーポリシーに関するお問い合わせは、以下の連絡先までご連絡ください：
         </p>
