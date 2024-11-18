@@ -6,11 +6,13 @@ use std::sync::Arc;
 use domain::entities::plays_daily::Model as PlaysDaily;
 use domain::entities::plays_monthly::Model as PlaysMonthly;
 use domain::entities::product_track::Model as ProductTrack;
+use domain::entities::tracks::Model as Tracks;
 use domain::repositories::gender_gen_playback_repo::GenderGenPlaybackRepository;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
 use domain::repositories::plays_monthly_repo::PlaysMonthlyRepository;
 use domain::repositories::product_track_repo::ProductTrackRepository;
 use domain::repositories::products_repo::ProductsRepository;
+use domain::repositories::tracks_repo::TracksRepository;
 
 pub struct GetAllHistroyUsecaseInput {
     pub artist_id: String,
@@ -42,7 +44,7 @@ pub struct ChartDataByDSP {
 pub struct ChartDataByISRC {
     pub date: String,
     #[serde(flatten)]
-    pub isrc_count: HashMap<String, i32>,
+    pub track_count: HashMap<String, i32>,
 }
 
 #[async_trait]
@@ -63,6 +65,7 @@ pub struct GetPlayCountHistoryUsecase {
     gender_gen_playback_repo: Arc<dyn GenderGenPlaybackRepository>,
     products_repo: Arc<dyn ProductsRepository>,
     product_track_repo: Arc<dyn ProductTrackRepository>,
+    tracks_repo: Arc<dyn TracksRepository>,
 }
 
 impl GetPlayCountHistoryUsecase {
@@ -72,6 +75,7 @@ impl GetPlayCountHistoryUsecase {
         gender_gen_playback_repo: Arc<dyn GenderGenPlaybackRepository>,
         products_repo: Arc<dyn ProductsRepository>,
         product_track_repo: Arc<dyn ProductTrackRepository>,
+        tracks_repo: Arc<dyn TracksRepository>,
     ) -> Self {
         Self {
             plays_monthly_repo,
@@ -79,6 +83,7 @@ impl GetPlayCountHistoryUsecase {
             gender_gen_playback_repo,
             products_repo,
             product_track_repo,
+            tracks_repo,
         }
     }
 }
@@ -225,6 +230,13 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
             .map(|p| p.isrc.clone())
             .collect::<Vec<String>>();
 
+        // ISRCからトラックタイトルへのマッピングを取得
+        let tracks = self.tracks_repo.get_by_isrcs(isrcs.clone()).await?;
+        let isrc_to_title: HashMap<String, String> = tracks
+            .into_iter()
+            .map(|track| (track.isrc, track.title))
+            .collect();
+
         let mut chart_data: Vec<ChartDataByISRC> = vec![];
 
         if input.period == 7 || input.period == 30 {
@@ -234,14 +246,17 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 .await?;
             chart_data = plays_daily_by_isrcs
                 .iter()
-                .map(|p| {
-                    let mut isrc_count: HashMap<String, i32> = HashMap::new();
-                    isrc_count.insert(p.isrc.clone().unwrap(), p.sum.unwrap_or(0));
+                .filter_map(|p| {
+                    let isrc = p.isrc.clone()?;
+                    let title = isrc_to_title.get(&isrc)?.clone();
 
-                    ChartDataByISRC {
+                    let mut title_count: HashMap<String, i32> = HashMap::new();
+                    title_count.insert(title, p.sum.unwrap_or(0));
+
+                    Some(ChartDataByISRC {
                         date: p.date.unwrap().format("%Y-%m-%d").to_string(),
-                        isrc_count,
-                    }
+                        track_count: title_count,
+                    })
                 })
                 .collect::<Vec<ChartDataByISRC>>();
 
@@ -249,13 +264,13 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
             for data in chart_data {
                 merged_data
                     .entry(data.date)
-                    .and_modify(|e| e.extend(data.isrc_count.clone()))
-                    .or_insert(data.isrc_count.clone());
+                    .and_modify(|e| e.extend(data.track_count.clone()))
+                    .or_insert(data.track_count.clone());
             }
 
             chart_data = merged_data
                 .into_iter()
-                .map(|(date, isrc_count)| ChartDataByISRC { date, isrc_count })
+                .map(|(date, track_count)| ChartDataByISRC { date, track_count })
                 .collect();
 
             chart_data.sort_by(|a, b| a.date.cmp(&b.date));
@@ -266,14 +281,17 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 .await?;
             chart_data = plays_monthly_by_isrcs
                 .iter()
-                .map(|p| {
-                    let mut isrc_count: HashMap<String, i32> = HashMap::new();
-                    isrc_count.insert(p.isrc.clone().unwrap(), p.sum.unwrap_or(0));
+                .filter_map(|p| {
+                    let isrc = p.isrc.clone()?;
+                    let title = isrc_to_title.get(&isrc)?.clone();
 
-                    ChartDataByISRC {
+                    let mut title_count: HashMap<String, i32> = HashMap::new();
+                    title_count.insert(title, p.sum.unwrap_or(0));
+
+                    Some(ChartDataByISRC {
                         date: p.month.unwrap().format("%Y-%m").to_string(),
-                        isrc_count,
-                    }
+                        track_count: title_count,
+                    })
                 })
                 .collect::<Vec<ChartDataByISRC>>();
 
@@ -281,13 +299,13 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
             for data in chart_data {
                 merged_data
                     .entry(data.date)
-                    .and_modify(|e| e.extend(data.isrc_count.clone()))
-                    .or_insert(data.isrc_count.clone());
+                    .and_modify(|e| e.extend(data.track_count.clone()))
+                    .or_insert(data.track_count.clone());
             }
 
             chart_data = merged_data
                 .into_iter()
-                .map(|(date, isrc_count)| ChartDataByISRC { date, isrc_count })
+                .map(|(date, track_count)| ChartDataByISRC { date, track_count })
                 .collect();
 
             chart_data.sort_by(|a, b| a.date.cmp(&b.date));
@@ -296,14 +314,17 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
             chart_data = plays_monthly_by_isrcs
                 .iter()
-                .map(|p| {
-                    let mut isrc_count: HashMap<String, i32> = HashMap::new();
-                    isrc_count.insert(p.isrc.clone().unwrap(), p.sum.unwrap_or(0));
+                .filter_map(|p| {
+                    let isrc = p.isrc.clone()?;
+                    let title = isrc_to_title.get(&isrc)?.clone();
 
-                    ChartDataByISRC {
+                    let mut title_count: HashMap<String, i32> = HashMap::new();
+                    title_count.insert(title, p.sum.unwrap_or(0));
+
+                    Some(ChartDataByISRC {
                         date: p.month.unwrap().format("%Y-%m").to_string(),
-                        isrc_count,
-                    }
+                        track_count: title_count,
+                    })
                 })
                 .collect::<Vec<ChartDataByISRC>>();
 
@@ -311,13 +332,13 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
             for data in chart_data {
                 merged_data
                     .entry(data.date)
-                    .and_modify(|e| e.extend(data.isrc_count.clone()))
-                    .or_insert(data.isrc_count.clone());
+                    .and_modify(|e| e.extend(data.track_count.clone()))
+                    .or_insert(data.track_count.clone());
             }
 
             chart_data = merged_data
                 .into_iter()
-                .map(|(date, isrc_count)| ChartDataByISRC { date, isrc_count })
+                .map(|(date, track_count)| ChartDataByISRC { date, track_count })
                 .collect();
 
             chart_data.sort_by(|a, b| a.date.cmp(&b.date));
