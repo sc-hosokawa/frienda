@@ -33,7 +33,7 @@ const GET_PLAYCOUNT_HISTORY_BY_UPC = gql`
     getPlaycountHistoryByUpc(upc: $upc, period: $period) {
       lineChartData {
         date
-        isrcCount
+        trackCount
       }
     }
   }
@@ -176,9 +176,9 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
 }
 
 const transformData = (data: any) => {
-  const { date, isrcCount } = data;
-  console.log("Transform input:", { date, isrcCount });
-  const entries = Object.entries(isrcCount);
+  const { date, trackCount } = data;
+  console.log("Transform input:", { date, trackCount });
+  const entries = Object.entries(trackCount);
   const result = {
     date: date,
     ...Object.fromEntries(entries),
@@ -193,8 +193,7 @@ const generateChartConfig = (data: any) => {
     return {};
   }
 
-  // ISRCの一覧を取得
-  const isrcs = Object.keys(data[0]).filter((key) => key !== "date");
+  const trackTitles = Object.keys(data[0]).filter((key) => key !== "date");
 
   // 色のパレット（必要に応じて色を追加）
   const colors = [
@@ -208,10 +207,9 @@ const generateChartConfig = (data: any) => {
     "#be185d", // pink
   ];
 
-  // ISRCごとにconfigを生成
-  return isrcs.reduce((config, isrc, index) => {
-    config[isrc] = {
-      label: isrc,
+  return trackTitles.reduce((config, title, index) => {
+    config[title] = {
+      label: title,
       color: colors[index % colors.length],
     };
     return config;

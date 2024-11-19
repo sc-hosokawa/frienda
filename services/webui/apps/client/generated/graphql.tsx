@@ -118,7 +118,7 @@ export type ChartData = {
 export type ChartDataByIsrc = {
   __typename?: "ChartDataByISRC";
   date: Scalars["String"]["output"];
-  isrcCount: Scalars["JSONObject"]["output"];
+  trackCount: Scalars["JSONObject"]["output"];
 };
 
 export type ChartDataByUpc = {

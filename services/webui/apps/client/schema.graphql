@@ -76,7 +76,7 @@ type ChartData {
 
 type ChartDataByISRC {
 	date: String!
-	isrcCount: JSONObject!
+	trackCount: JSONObject!
 }
 
 type ChartDataByUPC {
