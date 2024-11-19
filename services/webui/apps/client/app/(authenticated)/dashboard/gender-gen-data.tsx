@@ -23,6 +23,7 @@ import { Info } from "lucide-react";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../store/user";
 import { GenderGenRateData } from "../../../generated/graphql";
+import { ChartSkeleton } from "./gender-gen-chart-skelton";
 
 const GET_GENDER_GEN_RATE = gql`
   query GetGenderGenRate($artistId: String!, $userId: String!) {
@@ -69,7 +70,7 @@ export function GenderGenView({
   selectedArtistId: string | null;
 }) {
   const { user } = useUserStore();
-  const { data } = useQuery<ResData>(GET_GENDER_GEN_RATE, {
+  const { data, loading } = useQuery<ResData>(GET_GENDER_GEN_RATE, {
     variables: {
       artistId: selectedArtistId,
       userId: user?.id,
@@ -102,6 +103,13 @@ export function GenderGenView({
     },
   ];
 
+  const hasGenerationData = generationData.some(
+    (item) => item.value !== undefined && item.value !== null && item.value > 0,
+  );
+  const hasGenderData = genderData.some(
+    (item) => item.value !== undefined && item.value !== null && item.value > 0,
+  );
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
       <Card className="border-zinc-800">
@@ -110,42 +118,53 @@ export function GenderGenView({
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={generationData} layout="vertical">
-                <XAxis type="number" hide />
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  tick={{ fill: "hsl(var(--muted-foreground))" }}
-                  width={80}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "hsl(var(--background))",
-                    borderColor: "hsl(var(--border))",
-                    color: "hsl(var(--foreground))",
-                    borderRadius: "6px",
-                    padding: "8px",
-                  }}
-                  labelStyle={{
-                    color: "hsl(var(--foreground))",
-                    marginBottom: "4px",
-                  }}
-                  itemStyle={{
-                    color: "hsl(var(--muted-foreground))",
-                  }}
-                  formatter={(value) => [`${value}%`, "Value"]}
-                />
-                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                  {generationData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={GENERATION_COLORS[index % GENERATION_COLORS.length]}
-                    />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            {loading ? (
+              <ChartSkeleton />
+            ) : hasGenerationData ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={generationData} layout="vertical">
+                  <XAxis type="number" hide />
+                  <YAxis
+                    type="category"
+                    dataKey="name"
+                    tick={{ fill: "hsl(var(--muted-foreground))" }}
+                    width={80}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "hsl(var(--background))",
+                      borderColor: "hsl(var(--border))",
+                      color: "hsl(var(--foreground))",
+                      borderRadius: "6px",
+                      padding: "8px",
+                    }}
+                    labelStyle={{
+                      color: "hsl(var(--foreground))",
+                      marginBottom: "4px",
+                    }}
+                    itemStyle={{
+                      color: "hsl(var(--muted-foreground))",
+                    }}
+                    formatter={(value) => [`${value}%`, "Value"]}
+                  />
+                  <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                    {generationData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={
+                          GENERATION_COLORS[index % GENERATION_COLORS.length]
+                        }
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="h-full w-full flex flex-col items-center justify-center text-muted-foreground text-center">
+                <p>算出に必要なデータが収集できませんでした。</p>
+                <p>今後十分な再生数がある場合に算出できるようになります。</p>
+              </div>
+            )}
           </div>
         </CardContent>
         <CardFooter>
@@ -167,54 +186,63 @@ export function GenderGenView({
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={genderData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={80}
-                  startAngle={90}
-                  endAngle={450}
-                  innerRadius={60}
-                  strokeWidth={0}
-                  label={({ name, percent }) =>
-                    `${(percent * 100).toFixed(0)}%`
-                  }
-                  labelLine={false}
-                >
-                  {genderData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={GENDER_COLORS[index % GENDER_COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "hsl(var(--background))",
-                    borderColor: "hsl(var(--border))",
-                    color: "hsl(var(--foreground))",
-                    borderRadius: "6px",
-                    padding: "8px",
-                  }}
-                  labelStyle={{
-                    color: "hsl(var(--foreground))",
-                    marginBottom: "4px",
-                  }}
-                  itemStyle={{
-                    color: "hsl(var(--muted-foreground))",
-                  }}
-                />
-                <Legend
-                  verticalAlign="bottom"
-                  height={36}
-                  wrapperStyle={{ color: "hsl(var(--muted-foreground))" }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+            {loading ? (
+              <ChartSkeleton />
+            ) : hasGenderData ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={genderData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    startAngle={90}
+                    endAngle={450}
+                    innerRadius={60}
+                    strokeWidth={0}
+                    label={({ name, percent }) =>
+                      `${(percent * 100).toFixed(0)}%`
+                    }
+                    labelLine={false}
+                  >
+                    {genderData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={GENDER_COLORS[index % GENDER_COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "hsl(var(--background))",
+                      borderColor: "hsl(var(--border))",
+                      color: "hsl(var(--foreground))",
+                      borderRadius: "6px",
+                      padding: "8px",
+                    }}
+                    labelStyle={{
+                      color: "hsl(var(--foreground))",
+                      marginBottom: "4px",
+                    }}
+                    itemStyle={{
+                      color: "hsl(var(--muted-foreground))",
+                    }}
+                  />
+                  <Legend
+                    verticalAlign="bottom"
+                    height={36}
+                    wrapperStyle={{ color: "hsl(var(--muted-foreground))" }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="h-full w-full flex flex-col items-center justify-center text-muted-foreground text-center">
+                <p>算出に必要なデータが収集できませんでした。</p>
+                <p>今後十分な再生数がある場合に算出できるようになります。</p>
+              </div>
+            )}
           </div>
         </CardContent>
         <CardFooter>
