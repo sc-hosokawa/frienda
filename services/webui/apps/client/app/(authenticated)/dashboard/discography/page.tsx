@@ -86,6 +86,17 @@ export default function DiscographyPage() {
         </div>
       </section>
 
+      <section className="mb-8">
+        <h2 className="text-xl font-semibold mb-4">
+          EPs ({data?.getProducts.ep.length})
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {data?.getProducts.ep.map((ep) => (
+            <AlbumCard key={ep.product.upc} album={ep} category="ep" />
+          ))}
+        </div>
+      </section>
+
       <section>
         <h2 className="text-xl font-semibold mb-4">
           Singles ({data?.getProducts.single.length})

@@ -77,7 +77,7 @@ pub struct ChartDataByUPC {
 pub struct ChartDataByISRC {
     pub date: String,
     #[serde(flatten)]
-    pub isrc_count: HashMap<String, i32>,
+    pub track_count: HashMap<String, i32>,
 }
 impl From<application::usecases::dashboard::get_play_count_history_usecase::ChartDataByISRC>
     for ChartDataByISRC
@@ -87,7 +87,7 @@ impl From<application::usecases::dashboard::get_play_count_history_usecase::Char
     ) -> Self {
         Self {
             date: d.date,
-            isrc_count: d.isrc_count,
+            track_count: d.track_count,
         }
     }
 }

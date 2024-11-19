@@ -233,6 +233,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
             repos.gender_gen_playback.clone(),
             repos.products.clone(),
             repos.product_track.clone(),
+            repos.tracks.clone(),
         )),
         get_playback_gender_gen: Arc::new(GetPlaybackGenderGenUsecase::new(
             repos.gender_gen_playback.clone(),

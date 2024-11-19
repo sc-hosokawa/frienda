@@ -117,9 +117,7 @@ export default function DiscographyAlbumPage({ params }: Props) {
                     </span>
                     <div>
                       <div className="font-medium">{track.trackTitle}</div>
-                      <div className="text-sm text-gray-400">
-                        {trendingData?.getTrendingByUpc.artistName}
-                      </div>
+                      <div className="text-sm text-gray-400">{track.isrc}</div>
                     </div>
                   </div>
                   <div className="flex gap-2 group-hover:opacity-100 transition-opacity rounded-md p-1">
