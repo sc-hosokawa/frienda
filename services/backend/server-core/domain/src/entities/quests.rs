@@ -10,6 +10,7 @@ pub struct Model {
     pub name: String,
     pub description: String,
     pub category: Option<String>,
+    pub point: i32,
     pub created_at: DateTime,
 }
 

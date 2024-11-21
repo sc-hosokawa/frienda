@@ -1,6 +1,7 @@
 use async_trait::async_trait;
 use std::sync::Arc;
 
+use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Product;
 use domain::entities::tracks::Model as Track;
 use domain::repositories::product_track_repo::ProductTrackRepository;
@@ -55,10 +56,12 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
         &self,
         input: GetProductsUsecaseInput,
     ) -> Result<GetProductsUsecaseOutput, anyhow::Error> {
-        let products: Vec<Product> = self
+        let mut products: Vec<Product> = self
             .products_repo
             .find_by_artist_id(&input.artist_id)
             .await?;
+
+        products.sort_by_key(|product| std::cmp::Reverse(product.distributed_at));
 
         let mut output = GetProductsUsecaseOutput {
             album: vec![],
@@ -68,10 +71,19 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
 
         for product in products {
             let category: String = product.r#type.clone().unwrap_or("".to_string());
-            let product_track_map = self.product_track_repo.get_by_upc(&product.upc).await?;
-            let tracks: Vec<Track> = self
+            let mut product_track_map = self.product_track_repo.get_by_upc(&product.upc).await?;
+
+            // track_noがNoneの場合は最後に配置、Someの場合は昇順でソート
+            product_track_map.sort_by_key(|pt| (pt.track_no.is_none(), pt.track_no));
+
+            let mut tracks: Vec<Track> = self
                 .tracks_repo
-                .get_by_isrcs(product_track_map.iter().map(|p| p.isrc.clone()).collect())
+                .get_by_isrcs(
+                    product_track_map
+                        .iter()
+                        .map(|pt| pt.isrc.clone())
+                        .collect::<Vec<String>>(),
+                )
                 .await?;
             match category.as_str() {
                 "album" => output.album.push(ProductWithTracks { product, tracks }),

@@ -52,6 +52,7 @@ fn test_user_entity() {
         id_token: id_token.clone(),
         publicity: true,
         is_superadmin: Some(is_superadmin),
+        last_login_at: None,
     };
 
     // 全ての属性の確認
@@ -120,6 +121,7 @@ fn test_user_entity() {
         id_token: None,
         publicity: true,
         is_superadmin: Some(false),
+        last_login_at: None,
     };
 
     assert_eq!(user_without_optionals.evm_addr, None);

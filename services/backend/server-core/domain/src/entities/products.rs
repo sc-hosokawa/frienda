@@ -10,6 +10,7 @@ pub struct Model {
     pub title: String,
     pub img_url: Option<String>,
     pub r#type: Option<String>,
+    pub distributed_at: Option<Date>,
     pub artist_id: Option<String>,
 }
 
