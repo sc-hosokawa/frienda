@@ -71,10 +71,18 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
 
         for product in products {
             let category: String = product.r#type.clone().unwrap_or("".to_string());
-            let mut product_track_map = self.product_track_repo.get_by_upc(&product.upc).await?;
+            let mut product_track_map: Vec<ProductTrack> =
+                self.product_track_repo.get_by_upc(&product.upc).await?;
 
-            // track_noがNoneの場合は最後に配置、Someの場合は昇順でソート
-            product_track_map.sort_by_key(|pt| (pt.track_no.is_none(), pt.track_no));
+            // Sort product_track_map:
+            // 1. track_noがNoneの場合は最後に配置
+            // 2. track_noがSomeの場合は昇順でソート
+            product_track_map.sort_by(|a, b| match (a.track_no, b.track_no) {
+                (None, None) => std::cmp::Ordering::Equal,
+                (None, Some(_)) => std::cmp::Ordering::Greater,
+                (Some(_), None) => std::cmp::Ordering::Less,
+                (Some(a_no), Some(b_no)) => a_no.cmp(&b_no),
+            });
 
             let mut tracks: Vec<Track> = self
                 .tracks_repo
