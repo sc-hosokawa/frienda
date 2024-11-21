@@ -170,10 +170,15 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         let product_img_url: Option<String> = product.clone().unwrap().img_url;
         let product_title: String = product.clone().unwrap().title;
 
-        let isrcs_in_upc: Vec<String> = self
+        let mut product_tracks: Vec<ProductTrack> = self
             .product_track_repo
             .get_by_upc(&input.upc)
-            .await?
+            .await?;
+
+        // Sort product_tracks by track_no
+        product_tracks.sort_by_key(|pt| pt.track_no.unwrap_or(i32::MAX));
+
+        let isrcs_in_upc: Vec<String> = product_tracks
             .iter()
             .map(|p| p.isrc.clone())
             .collect();
@@ -190,7 +195,16 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             *plays_by_isrc.entry(play.isrc.clone().unwrap()).or_insert(0) += play.sum.unwrap_or(0);
         }
 
-        let tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(isrcs_in_upc).await?;
+        let mut tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(isrcs_in_upc).await?;
+
+        // Sort tracks according to the product_tracks order
+        let isrc_order: std::collections::HashMap<String, usize> = product_tracks
+            .iter()
+            .enumerate()
+            .map(|(index, pt)| (pt.isrc.clone(), index))
+            .collect();
+
+        tracks.sort_by_key(|track| isrc_order.get(&track.isrc).copied().unwrap_or(usize::MAX));
 
         let mut trending: Vec<TrendTrack> = vec![];
 

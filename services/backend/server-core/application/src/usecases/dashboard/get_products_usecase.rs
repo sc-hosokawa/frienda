@@ -74,15 +74,11 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
             let mut product_track_map: Vec<ProductTrack> =
                 self.product_track_repo.get_by_upc(&product.upc).await?;
 
-            // Sort product_track_map:
-            // 1. track_noがNoneの場合は最後に配置
-            // 2. track_noがSomeの場合は昇順でソート
-            product_track_map.sort_by(|a, b| match (a.track_no, b.track_no) {
-                (None, None) => std::cmp::Ordering::Equal,
-                (None, Some(_)) => std::cmp::Ordering::Greater,
-                (Some(_), None) => std::cmp::Ordering::Less,
-                (Some(a_no), Some(b_no)) => a_no.cmp(&b_no),
-            });
+            // Sort product_track_map by track_no
+            product_track_map.sort_by_key(|pt| pt.track_no.unwrap_or(i32::MAX));
+
+            tracing::debug!("======== after::product_track_map: {:?}", product_track_map);
+
 
             let mut tracks: Vec<Track> = self
                 .tracks_repo
@@ -93,6 +89,17 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
                         .collect::<Vec<String>>(),
                 )
                 .await?;
+
+            // product_track_mapの順序に合わせてtracksをソート
+            let isrc_order: std::collections::HashMap<String, usize> = product_track_map
+                .iter()
+                .enumerate()
+                .map(|(index, pt)| (pt.isrc.clone(), index))
+                .collect();
+
+            tracks.sort_by_key(|track| isrc_order.get(&track.isrc).copied().unwrap_or(usize::MAX));
+
+            tracing::debug!("======== tracks: {:?}", tracks);
             match category.as_str() {
                 "album" => output.album.push(ProductWithTracks { product, tracks }),
                 "single" => output.single.push(ProductWithTracks { product, tracks }),
