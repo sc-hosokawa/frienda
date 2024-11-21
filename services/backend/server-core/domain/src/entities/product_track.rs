@@ -9,6 +9,7 @@ pub struct Model {
     pub id: i32,
     pub upc: String,
     pub isrc: String,
+    pub track_no: Option<i32>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

@@ -33,6 +33,7 @@ pub struct Model {
     pub interest_offer: Option<OfferCategory>,
     pub created_at: DateTime,
     pub updated_at: DateTime,
+    pub last_login_at: Option<DateTime>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
