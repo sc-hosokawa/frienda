@@ -170,18 +170,13 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         let product_img_url: Option<String> = product.clone().unwrap().img_url;
         let product_title: String = product.clone().unwrap().title;
 
-        let mut product_tracks: Vec<ProductTrack> = self
-            .product_track_repo
-            .get_by_upc(&input.upc)
-            .await?;
+        let mut product_tracks: Vec<ProductTrack> =
+            self.product_track_repo.get_by_upc(&input.upc).await?;
 
         // Sort product_tracks by track_no
         product_tracks.sort_by_key(|pt| pt.track_no.unwrap_or(i32::MAX));
 
-        let isrcs_in_upc: Vec<String> = product_tracks
-            .iter()
-            .map(|p| p.isrc.clone())
-            .collect();
+        let isrcs_in_upc: Vec<String> = product_tracks.iter().map(|p| p.isrc.clone()).collect();
 
         let plays_monthly: Vec<PlaysMonthly> = self
             .plays_monthly_repo

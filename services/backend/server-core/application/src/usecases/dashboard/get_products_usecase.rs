@@ -79,7 +79,6 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
 
             tracing::debug!("======== after::product_track_map: {:?}", product_track_map);
 
-
             let mut tracks: Vec<Track> = self
                 .tracks_repo
                 .get_by_isrcs(
