@@ -49,11 +49,13 @@ impl GeneralQuery {
         })
     }
 
+    #[tracing::instrument(skip(self, ctx))]
     async fn get_user_data(
         &self,
         ctx: &Context<'_>,
         user_id: String,
     ) -> Result<models::users::UserDetailData> {
+        tracing::info!("get_user_data called with user_id: {}", user_id);
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let result = usecases
             .get_user_basic_info
