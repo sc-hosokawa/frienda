@@ -27,7 +27,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const expiresIn = 60 * 60 * 24 * 14; // 2週間（秒単位）
+    const expiresIn = 60 * 60 * 24; // 1日（秒単位）
 
     try {
       console.log("Attempting to set cookie...");
