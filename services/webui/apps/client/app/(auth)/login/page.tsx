@@ -214,7 +214,7 @@ export default function Login() {
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
-      {/* Logo - 位置を固定 */}
+      {/* Logo - 位置を固定 
       <div className="fixed top-8 left-8">
         <div className="w-16 h-16 relative">
           <Image
@@ -225,6 +225,7 @@ export default function Login() {
           />
         </div>
       </div>
+      */}
 
       <div className="space-y-8">
         {/* Header */}
