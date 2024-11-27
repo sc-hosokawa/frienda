@@ -211,9 +211,10 @@ export const OfferAllListSkeleton = () => (
 export default function AllOfferList() {
   return (
     <div className="min-h-screen bg-black text-white py-6">
-      <div className="">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl ml-6">Offer List</h1>
+      <div className="mt-8">
+        <div className="flex flex-col space-y-0 mb-6">
+          <h1 className="text-6xl font-light">Offer List</h1>
+          <p className="text-sm -mt-2">オファー一覧</p>
         </div>
 
         <Suspense fallback={<OfferAllListSkeleton />}>

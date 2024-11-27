@@ -53,32 +53,32 @@ export default function Home() {
 
   return (
     <div className="h-full bg-black text-white p-6 space-y-8 overflow-x-hidden">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 pt-[100px]">
         <Image
           src="/home.svg"
           alt="logo"
           className="mr-2"
-          width={40}
-          height={40}
+          width={105}
+          height={105}
         />
-        <h1 className="text-6xl font-light tracking-tight">HOME</h1>
+        <div className="flex flex-col space-y-0">
+          <h1 className="text-[90px] font-light tracking-tight leading-none">
+            HOME
+          </h1>
+          <p className="text-sm -mt-2">ホーム</p>
+        </div>
       </div>
+      <hr className="mb-8 mt-24 border-[#303030]" />
       <Actions />
+      <hr className="mb-8 mt-48 border-[#303030]" />
       {randomArtist ? (
         randomArtist.status === "Accept" ? (
           <>
             <div className="flex items-center gap-2">
-              <Image
-                src="/dashboard.svg"
-                alt="dashboard"
-                width={40}
-                height={40}
-                className="mr-4"
-              />
               <div>
                 <span className="text-xl mr-2">{randomArtist.name}</span>
                 のサマリー
-                <p className="text-sm text-gray-400 mt-2">
+                <p className="text-sm text-gray-400">
                   所属しているアーティストからランダムで表示しています。
                 </p>
               </div>
@@ -125,8 +125,11 @@ function Actions() {
 
   return (
     <section className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl">Quests ({data?.getQuestByUserId?.length})</h2>
+      <div className="flex flex-col">
+        <h2 className="text-6xl font-light">
+          Actions ({data?.getQuestByUserId?.length})
+        </h2>
+        <p className="text-sm">アクション</p>
       </div>
 
       <div className="relative">
@@ -143,12 +146,16 @@ function Actions() {
                   key={quest.id}
                   className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
                 >
-                  <div className="p-6 rounded-xl bg-white/5 space-y-4 hover:bg-white/10 transition-colors">
-                    <div className="inline-block px-3 py-1 rounded-full text-xs bg-white/10">
-                      {quest.category}
+                  <div className="h-full">
+                    <div className="border border-[#707070] p-6 rounded-2xl bg-white/5 space-y-4 transition-colors h-full">
+                      <div className="inline-block px-3 py-1 rounded-full text-xs border border-white">
+                        {quest.category}
+                      </div>
+                      <h3 className="font-medium">{quest.name}</h3>
+                      <p className="text-sm text-gray-400">
+                        {quest.description}
+                      </p>
                     </div>
-                    <h3 className="font-medium">{quest.name}</h3>
-                    <p className="text-sm text-gray-400">{quest.description}</p>
                   </div>
                 </CarouselItem>
               ))}

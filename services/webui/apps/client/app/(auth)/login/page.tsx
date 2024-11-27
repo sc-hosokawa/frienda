@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "../../../config";
 import { Button } from "@ui/components/ui/button";
@@ -20,6 +22,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@ui/components/ui/dialog";
+import useAuthStepStore from "../../../store/authStep";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -30,6 +33,8 @@ export default function Login() {
   const { setUser } = useUserStore();
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
+  const [authCheckComplete, setAuthCheckComplete] = useState(false);
+  const { setStep } = useAuthStepStore();
 
   const [getUserData] = useLazyQuery(GET_USER_DATA, {
     onCompleted: async (data) => {
@@ -75,10 +80,66 @@ export default function Login() {
     },
     onError: (error) => {
       console.error("GraphQL Error:", error);
-      alert("ユーザー情報の取得に失敗しました");
+      // alert("ユーザー情報の取得に失敗しました");
       setLoading(false);
     },
   });
+
+  const checkAuthStatus = async (user: any) => {
+    try {
+      const idToken = await user.getIdToken(true);
+
+      const response = await fetch("/api/auth/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      const result = await response.json();
+
+      if (!result.data.emailVerified) {
+        try {
+          await sendEmailVerification(user);
+          console.log("Verification email resent");
+          setStep("verify");
+          router.push("/signin");
+          alert("認証メールを再送信しました。メールをご確認ください。");
+          return false;
+        } catch (error: any) {
+          console.error("Email verification error:", error);
+          let errorMessage = "認証メールの送信に失敗しました";
+
+          if (error.code === "auth/too-many-requests") {
+            errorMessage =
+              "短時間に多くのメールが送信されました。しばらく待ってから再試行してください。";
+          }
+
+          alert(errorMessage);
+          return false;
+        }
+      }
+
+      // プロフィール情報の確認
+      const { data } = await getUserData({
+        variables: {
+          userId: user.uid,
+        },
+      });
+
+      if (!data?.getUserData?.name) {
+        setStep("profile");
+        router.push("/signin");
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error checking auth status:", error);
+      return false;
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,6 +152,12 @@ export default function Login() {
         password,
       );
       const user = userCredential.user;
+
+      const isAuthComplete = await checkAuthStatus(user);
+      if (!isAuthComplete) {
+        setLoading(false);
+        return;
+      }
 
       await setAuthInfo(user);
 
@@ -147,17 +214,26 @@ export default function Login() {
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
-      <div className="space-y-8">
-        {/* Logo */}
+      {/* Logo - 位置を固定 */}
+      <div className="fixed top-8 left-8">
         <div className="w-16 h-16 relative">
-          <div className="w-full h-full rounded-full border-4 border-white animate-[spin_3s_linear_infinite]" />
+          <Image
+            src="/logo_visualonly_dark.jpg"
+            alt="Logo"
+            width={60}
+            height={60}
+          />
+        </div>
+      </div>
+
+      <div className="space-y-8">
+        {/* Header */}
+        <div className="">
+          <h1 className="text-[90px] font-light tracking-wider">LOGIN</h1>
+          <p className="text-sm -mt-4">FRIENDSHIP. DAOにログイン</p>
         </div>
 
-        {/* Header */}
-        <div className="space-y-2">
-          <h1 className="text-5xl font-light tracking-wider">LOGIN</h1>
-          <p className="text-sm">FRIENDSHIP. DAOにログイン</p>
-        </div>
+        <hr className="border-white/20" />
 
         {/* Form */}
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -169,7 +245,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="メールアドレスを入力してください"
-              className="bg-black border-white/20 text-white placeholder:text-white/50"
+              className="bg-black border-white text-white placeholder:text-white/50 h-[90px] rounded-3xl"
               required
             />
           </div>
@@ -182,7 +258,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="パスワードを入力してください"
-              className="bg-black border-white/20 text-white placeholder:text-white/50"
+              className="bg-black border-white text-white placeholder:text-white/50 h-[90px] rounded-3xl"
               required
             />
           </div>
@@ -216,10 +292,10 @@ export default function Login() {
             </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-8 pt-4">
             <Button
               type="submit"
-              className="flex-1 bg-white text-black hover:bg-white/90"
+              className="bg-white text-black hover:bg-white/90 h-[60px] w-[180px] rounded-full"
               disabled={loading}
             >
               {loading ? "ログイン中..." : "ログイン"}
@@ -227,7 +303,7 @@ export default function Login() {
             <Button
               type="button"
               variant="outline"
-              className="flex-1 bg-black text-white border-gray-500 hover:bg-white/90 hover:text-black transition-colors"
+              className="bg-black text-white border-gray-500 hover:bg-white/90 hover:text-black transition-colors h-[60px] w-[180px] rounded-full border-dashed"
               onClick={handleSignUp}
             >
               新規登録

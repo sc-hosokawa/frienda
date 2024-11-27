@@ -41,11 +41,9 @@ export default function RootLayout({
               <SidebarProvider>
                 <div className="flex w-full pt-12">
                   <ClientSidebar />
+                  <Header />
                   <main className="flex-1 min-w-0 w-full">
-                    <div className="max-w-7xl mx-auto">
-                      <Header />
-                      {children}
-                    </div>
+                    <div className="max-w-6xl mx-auto">{children}</div>
                   </main>
                 </div>
               </SidebarProvider>

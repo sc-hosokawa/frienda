@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Play } from "lucide-react";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../store/user";
 
@@ -24,34 +23,61 @@ export function Overview({
 
   return (
     <div className="mb-8">
-      <h2 className="text-2xl font-light mb-4">Overview</h2>
+      <h2 className="text-6xl font-light">Overview</h2>
+      <p className="text-sm mb-14">再生数概要</p>
       <div className="space-y-4">
-        <div className="flex items-center">
-          <Image
-            src="/song_played_total.svg"
-            alt="play"
-            width={24}
-            height={24}
-            className="mr-2"
-          />
-          <span className="text-gray-400 mr-4">Song Played (Total) /</span>
-          <span className="text-4xl font-light">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <Image
+              src="/song_played_total.svg"
+              alt="play"
+              width={60}
+              height={60}
+              className="mr-2"
+            />
+            <span className="mr-4 text-4xl font-light">
+              Song Played (Total) /
+            </span>
+          </div>
+          <span className="text-7xl font-light">
             {data?.getOverview.totalPlaybacks.toLocaleString()}
           </span>
         </div>
-        <div className="flex items-center">
-          <Image
-            src="/song_played_week.svg"
-            alt="play"
-            width={24}
-            height={24}
-            className="mr-2"
-          />
-          <span className="text-gray-400 mr-4">Song Played (Week) /</span>
-          <span className="text-4xl font-light">
+        <hr
+          className="mt-2 mb-8 border-0 border-t-[1px] h-0"
+          style={{
+            borderStyle: "dashed",
+            borderWidth: "1px 0 0 0",
+            borderSpacing: "4rem",
+            borderColor: "#FFFFFF",
+          }}
+        />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <Image
+              src="/song_played_week.svg"
+              alt="play"
+              width={60}
+              height={60}
+              className="mr-2"
+            />
+            <span className="mr-4 text-4xl font-light">
+              Song Played (Week) /
+            </span>
+          </div>
+          <span className="text-7xl font-light">
             {data?.getOverview.weeklyPlaybacks.toLocaleString()}
           </span>
         </div>
+        <hr
+          className="mt-2 mb-8 border-0 border-t-[1px] h-0"
+          style={{
+            borderStyle: "dashed",
+            borderWidth: "1px 0 0 0",
+            borderSpacing: "4rem",
+            borderColor: "#FFFFFF",
+          }}
+        />
       </div>
     </div>
   );

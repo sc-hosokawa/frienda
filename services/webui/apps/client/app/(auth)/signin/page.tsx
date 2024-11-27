@@ -16,6 +16,7 @@ import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../config";
 import useUserStore from "../../../store/user";
+import useAuthStepStore from "../../../store/authStep";
 
 // GraphQL Mutationの定義
 const CREATE_USER_MUTATION = gql`
@@ -70,11 +71,11 @@ const GET_USER_DATA = gql`
 `;
 
 export default function SignIn() {
+  const { step, setStep } = useAuthStepStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [step, setStep] = useState<"signup" | "verify" | "profile">("signup");
   const [displayName, setDisplayName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedPrimaryCategory, setSelectedPrimaryCategory] =
@@ -96,6 +97,65 @@ export default function SignIn() {
   ];
 
   const [createUser] = useMutation(CREATE_USER_MUTATION);
+  console.log(`step: ${step}`);
+
+  // checkAuthStatus 関数を useEffect の外で定義
+  const checkAuthStatus = async (user: any) => {
+    try {
+      const idToken = await user.getIdToken(true);
+      const response = await fetch("/api/auth/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        if (result.data.emailVerified) {
+          // メール認証完了後、ユーザーデータを確認
+          const { data: fetchedUserData } = await getUserData({
+            variables: { userId: user.uid },
+          });
+
+          if (fetchedUserData?.getUserData) {
+            setStep("signup"); // ユーザーデータが存在する場合
+          } else {
+            setStep("profile"); // ユーザーデータが存在しない場合
+          }
+        } else {
+          setStep("verify");
+        }
+      }
+    } catch (error) {
+      console.error("Error checking auth status:", error);
+    }
+  };
+
+  useEffect(() => {
+    // 1. 認証状態の変更を監視
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        await user.reload(); // 最新の状態を取得
+        await checkAuthStatus(user);
+      }
+    });
+
+    // 2. verify ステップの場合は定期的にチェック
+    const interval = setInterval(async () => {
+      if (auth.currentUser && step === "verify") {
+        await auth.currentUser.reload();
+        await checkAuthStatus(auth.currentUser);
+      }
+    }, 3000);
+
+    return () => {
+      unsubscribe();
+      clearInterval(interval);
+    };
+  }, [step]); // step の変更も監視
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,20 +169,15 @@ export default function SignIn() {
       );
       const user = userCredential.user;
 
-      // メール認証を送信
       await sendEmailVerification(user);
       setStep("verify");
 
-      // 認証状態を定期的にチェック
-      const timer = setInterval(async () => {
-        await user.reload();
-        if (user.emailVerified) {
-          clearInterval(timer);
-          setStep("profile");
-        }
+      // 認証状態の監視を開始
+      const checkVerification = setInterval(async () => {
+        await checkAuthStatus(user);
       }, 3000);
 
-      setVerificationTimer(timer);
+      setVerificationTimer(checkVerification);
     } catch (error: any) {
       console.error("Error signing up:", error);
       alert(
@@ -242,6 +297,7 @@ export default function SignIn() {
 
             if (result.status === "success") {
               console.log("Session created successfully");
+              setStep("signup");
               router.push("/");
             } else {
               throw new Error("Session creation failed");
@@ -249,7 +305,7 @@ export default function SignIn() {
           } catch (error) {
             console.error("Session creation error:", error);
             alert(`セッションの作成に失敗しました: ${error}`);
-            return; // セッション作成に失敗した場合は処理を中断
+            return;
           }
         }
       }
@@ -261,14 +317,6 @@ export default function SignIn() {
       // setLoading(false);
     }
   };
-
-  useEffect(() => {
-    return () => {
-      if (verificationTimer) {
-        clearInterval(verificationTimer);
-      }
-    };
-  }, [verificationTimer]);
 
   // メール認証待ち画面のレンダリング
   if (step === "verify") {
@@ -356,7 +404,7 @@ export default function SignIn() {
                 value={realname}
                 onChange={(e) => setRealname(e.target.value)}
                 placeholder="氏名（本名・フルネーム）を入力してください。"
-                className="bg-black border-white/20 text-white placeholder:text-white/50"
+                className="bg-black border-white text-white placeholder:text-white/50"
                 required
               />
             </div>
@@ -370,7 +418,7 @@ export default function SignIn() {
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 placeholder="あなたの表示名を入力してください"
-                className="bg-black border-white/20 text-white placeholder:text-white/50"
+                className="bg-black border-white text-white placeholder:text-white/50"
                 required
               />
             </div>
@@ -384,7 +432,7 @@ export default function SignIn() {
                 id="category"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full p-2 bg-black border border-white/20 text-white rounded-md"
+                className="w-full p-2 bg-black border border-white text-white rounded-md"
                 required
               >
                 <option value="">選択してください</option>
@@ -413,11 +461,23 @@ export default function SignIn() {
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       <div className="space-y-8">
-        {/* Header */}
-        <div className="space-y-2">
-          <h1 className="text-5xl font-light tracking-wider">新規登録</h1>
-          <p className="text-sm">FRIENDSHIP. DAOにサインイン</p>
+        <div className="fixed top-8 left-8">
+          <div className="w-16 h-16 relative">
+            <Image
+              src="/logo_visualonly_dark.jpg"
+              alt="Logo"
+              width={60}
+              height={60}
+            />
+          </div>
         </div>
+        {/* Header */}
+        <div className="">
+          <h1 className="text-[90px] font-light tracking-wider">SIGNUP</h1>
+          <p className="text-sm -mt-4">FRIENDSHIP. DAOにサインイン</p>
+        </div>
+
+        <hr className="border-white/20" />
 
         {/* Form */}
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -429,7 +489,7 @@ export default function SignIn() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="メールアドレスを入力してください"
-              className="bg-black border-white/20 text-white placeholder:text-white/50"
+              className="bg-black border-white text-white placeholder:text-white/50 h-[90px] rounded-3xl"
               required
             />
           </div>
@@ -442,7 +502,7 @@ export default function SignIn() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="パスワードを入力してください"
-              className="bg-black border-white/20 text-white placeholder:text-white/50"
+              className="bg-black border-white text-white placeholder:text-white/50 h-[90px] rounded-3xl"
               required
             />
           </div>

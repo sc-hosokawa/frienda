@@ -21,8 +21,8 @@ export default function Header() {
   };
 
   return (
-    <header className="dark bg-transparent fixed top-0 right-0 z-50 bg-black text-white px-4 flex justify-end h-12 md:left-[var(--sidebar-width)] transition-[left] duration-200 ease-linear peer-data-[collapsible=icon]:md:left-[var(--sidebar-width-icon)] peer-data-[collapsible=offcanvas]:md:left-0">
-      <div className="flex items-center bg-[#d1c3a9] text-black rounded-l-full pl-4">
+    <header className="dark bg-transparent fixed top-0 right-0 z-50 bg-black text-white flex justify-end h-[60px] md:left-[var(--sidebar-width)] transition-[left] duration-200 ease-linear peer-data-[collapsible=icon]:md:left-[var(--sidebar-width-icon)] peer-data-[collapsible=offcanvas]:md:left-0">
+      <div className="flex items-center bg-[#E4DBC0] text-black rounded-l-full pl-4">
         <Link
           href="/profile"
           className="flex items-center gap-2 pl-1 pr-2 py-2 mr-2 hover:bg-black/10"
@@ -30,21 +30,22 @@ export default function Header() {
           <Image
             src={user?.imageUrl || "/logo_visualonly.jpg"}
             alt="Profile picture"
-            width={32}
-            height={32}
+            width={36}
+            height={36}
             className="rounded-full"
           />
           <div className="flex flex-col px-2">
-            <span className="text-sm">{user?.name}</span>
+            <span className="text-sm">@{user?.name}</span>
             <span className="text-xs text-gray-600">{user?.realname}</span>
           </div>
         </Link>
 
         <Link
           href="/fsp"
-          className="flex items-center gap-2 bg-black/10 px-3 py-1 hover:bg-black/20 rounded-full"
+          className="flex items-center gap-2 px-2 py-1 hover:bg-black/20 rounded-full border border-black"
         >
-          <span className="text-xs">
+          <span className="text-xs flex gap-8 items-center">
+            <Image src="/disc.svg" alt="header" width={24} height={24} />
             Total Point: {user?.fspBalance.toLocaleString()}
           </span>
         </Link>

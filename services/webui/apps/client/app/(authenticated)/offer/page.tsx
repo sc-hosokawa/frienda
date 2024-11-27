@@ -6,7 +6,6 @@ import OfferList from "./offer-list";
 import OfferListSkeleton from "./offer-list-skeleton";
 import OfferStats from "./stats";
 import OfferAllList, { OfferAllListSkeleton } from "./offer-all-list";
-import { Plus, List } from "lucide-react";
 import Link from "next/link";
 import useUserStore from "../../../store/user";
 
@@ -15,39 +14,45 @@ export default function OfferPage() {
 
   return (
     <div className="p-4 min-h-screen">
-      <div className="flex items-center justify-between gap-2 mb-8">
+      <div className="flex items-center gap-2 pt-[103px] justify-between mb-8">
         <div className="flex items-center gap-2">
           <Image
             src="/offer.svg"
             alt="logo"
             className="mr-2"
-            width={40}
-            height={40}
+            width={105}
+            height={105}
           />
-          <h1 className="text-6xl font-light tracking-tight">OFFER</h1>
+          <div className="flex flex-col space-y-0">
+            <h1 className="text-[90px] font-light tracking-tight leading-none">
+              OFFERS
+            </h1>
+            <p className="text-sm -mt-2">オファー</p>
+          </div>{" "}
         </div>
         <div className="flex items-center gap-2">
           <Link
             href="/offer/list"
-            className="p-2 rounded-full hover:bg-gray-700 transition-colors border-0 border-white"
+            className="p-2 rounded-full hover:bg-gray-700 transition-colors border border-white border-dashed w-[60px] h-[60px] flex items-center justify-center"
           >
-            <List className="h-8 w-8 text-white" />
+            <Image src="/search.svg" alt="list" width={24} height={24} />
           </Link>
           {user?.fspBalance !== undefined && user.fspBalance > 50 && (
             <Link
               href="/offer/create"
-              className="p-2 rounded-full hover:bg-gray-700 transition-colors border-0 border-white"
+              className="p-2 rounded-full hover:bg-gray-700 transition-colors border border-white border-dashed  w-[60px] h-[60px] flex items-center justify-center"
             >
-              <Plus className="h-8 w-8 text-white" />
+              <Image src="/plus.svg" alt="plus" width={24} height={24} />
             </Link>
           )}
         </div>
       </div>
       <div className="">
+        <hr className="mb-8 mt-24 border-[#303030]" />
         <OfferStats />
-        <div className="flex items-baseline gap-2 mb-4">
-          <h1 className="text-2xl p-6">My Offers</h1>
-          <p className="text-sm text-zinc-400">マイオファー</p>
+        <div className="flex flex-col space-y-0 mt-16 mb-8">
+          <h1 className="text-6xl font-light">My Offers</h1>
+          <p className="text-sm">マイオファー</p>
         </div>
         <Suspense fallback={<OfferListSkeleton />}>
           <OfferList />

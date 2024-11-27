@@ -100,7 +100,9 @@ export function Historical({
         <div className="flex justify-between items-center">
           <div>
             <CardTitle className="font-light">Stacked Chart</CardTitle>
-            <CardDescription>各DSPの再生数が積み上げられて表示されます</CardDescription>
+            <CardDescription>
+              各DSPの再生数が積み上げられて表示されます
+            </CardDescription>
           </div>
           <Select
             value={selectedPeriod.toString()}

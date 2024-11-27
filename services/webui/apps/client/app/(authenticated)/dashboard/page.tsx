@@ -19,25 +19,28 @@ export default function Dashboard() {
     acceptedArtists?.[0]?.artistId || null,
   );
 
-  console.log(artists);
-  console.log(acceptedArtists);
-
   return (
-    <div className="bg-black text-white min-h-screen p-8">
+    <div className="bg-black text-white min-h-screen">
       <div className="max-w-7xl mx-auto">
-        <header className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-2">
+        <header className="flex items-center justify-between mb-8 w-full">
+          <div className="flex items-center gap-2 pt-[120px]">
             <Image
               src="/dashboard.svg"
               alt="Logo"
               className="mr-2"
-              width={40}
-              height={40}
+              width={105}
+              height={105}
             />
-
-            <h1 className="text-6xl font-light">DASHBOARD</h1>
+            <div className="flex flex-col space-y-0">
+              <h1 className="text-[90px] font-light tracking-tight leading-none">
+                DASHBOARD
+              </h1>
+              <p className="text-sm -mt-2">ダッシュボード</p>
+            </div>
           </div>
-          <RequestForViewDialog />
+          <div className="pt-[120px]">
+            <RequestForViewDialog />
+          </div>
         </header>
         <div className="flex space-x-4 mb-8 overflow-x-auto">
           {acceptedArtists && acceptedArtists.length > 0 ? (
@@ -47,12 +50,14 @@ export default function Dashboard() {
                 <button
                   key={artist.artistId}
                   onClick={() => setSelectedArtist(artist.artistId)}
-                  className={`flex items-center space-x-2 p-2 rounded-lg transition-colors shrink-0 ${
-                    isSelected ? "bg-gray-800" : "hover:bg-gray-900"
+                  className={`flex items-center space-x-2 p-2 transition-colors shrink-0 ${
+                    isSelected
+                      ? "border-b border-white border-dashed"
+                      : "hover:bg-gray-900"
                   }`}
                 >
                   <span
-                    className={`text-sm ${isSelected ? "text-white" : "text-gray-400"}`}
+                    className={`text-sm ${isSelected ? "text-white" : "text-white/90"}`}
                   >
                     {artist.name}
                   </span>
@@ -72,9 +77,13 @@ export default function Dashboard() {
         <main className="space-y-16">
           {selectedArtist && (
             <>
+              <hr className="mt-2 mb-4 border-t border-gray-800" />
               <Overview selectedArtistId={selectedArtist} />
+              <hr className="mt-2 mb-8 border-t border-gray-800" />
               <Trending selectedArtistId={selectedArtist} />
+              <hr className="mt-2 mb-8 border-t border-gray-800" />
               <Historical selectedArtistId={selectedArtist} />
+              <hr className="mt-2 mb-8 border-t border-gray-800" />
               <GenderGenView selectedArtistId={selectedArtist} />
             </>
           )}
