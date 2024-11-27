@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Send, Settings } from "lucide-react";
 
 import {
   Sidebar,
@@ -142,7 +143,7 @@ export function ClientSidebar() {
                     </SidebarMenuItem>
                   );
                 })}
-                <div className="relative w-full mt-32">
+                <div className="relative w-full mt-24">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
@@ -150,14 +151,8 @@ export function ClientSidebar() {
                         size="sm"
                         className="w-full font-light justify-start hover:bg-white rounded-md transition-colors duration-200 hover:text-black"
                       >
-                        <Image
-                          src="/settings.svg"
-                          alt="Settings"
-                          width={16}
-                          height={16}
-                          className="mr-2"
-                        />
-                        Settings
+                        <Settings className="w-4 h-4 mr-2" />
+                        <span>Settings</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side="right" align="start">
@@ -174,19 +169,20 @@ export function ClientSidebar() {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
+                <Link
+                  className="w-full flex items-center gap-2 pl-3 py-2 font-light hover:bg-white rounded-md transition-colors duration-200 hover:text-black"
+                  href="https://forms.gle/1ZGguxTLQeNseW877"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  <span>Feedback</span>
+                </Link>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
-          <Link
-            className="text-center w-full"
-            href="https://forms.gle/1ZGguxTLQeNseW877"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Feedback
-          </Link>
           <SuperAdminDialog />
           <AccessControlDialog />
         </SidebarFooter>
