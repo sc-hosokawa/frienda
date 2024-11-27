@@ -138,7 +138,7 @@ export function RequestForViewDialog() {
           variant="outline"
           className="border-white rounded-full bg-white text-black hover:bg-black hover:text-white"
         >
-          アーティストデータの閲覧権限を申請する
+          閲覧権限を申請
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

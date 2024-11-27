@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { useQuery, gql } from "@apollo/client";
 
 interface ArtistByUser {
   mappingId?: number;
@@ -41,6 +42,34 @@ interface UserState {
   updateBalance: (newBalance: number) => void;
   clearUser: () => void;
 }
+
+const GET_USER_BALANCE = gql`
+  query GetUserBalance($userId: String!) {
+    getUserPointBalance(userId: $userId) {
+      fspBalance
+      credentialBalance
+    }
+  }
+`;
+
+// カスタムフックを作成
+export const useUserBalance = () => {
+  const { user, updateUser } = useUserStore();
+
+  const { loading, error } = useQuery(GET_USER_BALANCE, {
+    variables: { userId: user?.id },
+    skip: !user?.id,
+    fetchPolicy: "network-only",
+    onCompleted: (data) => {
+      updateUser({
+        fspBalance: data.getUserPointBalance.fspBalance,
+        credentialBalance: data.getUserPointBalance.credentialBalance,
+      });
+    },
+  });
+
+  return { loading, error };
+};
 
 const useUserStore = create<UserState>()(
   persist(

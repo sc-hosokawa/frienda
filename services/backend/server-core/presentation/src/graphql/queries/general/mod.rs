@@ -103,11 +103,13 @@ impl GeneralQuery {
         Ok(models::users::UserDetailData::from_domain(result).unwrap())
     }
 
+    #[tracing::instrument(skip(self, ctx))]
     async fn get_user_point_balance(
         &self,
         ctx: &Context<'_>,
         user_id: String,
     ) -> Result<models::points::UserPointBalanceData> {
+        tracing::info!("get_user_point_balance called with user_id: {}", user_id);
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let result = usecases
             .get_user_point_balance

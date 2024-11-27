@@ -40,6 +40,7 @@ export default function RootLayout({
             <ApollClientProvider>
               <SidebarProvider>
                 <div className="flex w-full pt-12">
+                  <SidebarTrigger />
                   <ClientSidebar />
                   <Header />
                   <main className="flex-1 min-w-0 w-full">
