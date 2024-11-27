@@ -461,6 +461,7 @@ export default function SignIn() {
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       <div className="space-y-8">
+        {/* Logo - 位置を固定 
         <div className="fixed top-8 left-8">
           <div className="w-16 h-16 relative">
             <Image
@@ -471,6 +472,8 @@ export default function SignIn() {
             />
           </div>
         </div>
+        */}
+
         {/* Header */}
         <div className="">
           <h1 className="text-[90px] font-light tracking-wider">SIGNUP</h1>
