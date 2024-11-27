@@ -91,7 +91,10 @@ export function ClientSidebar() {
             <SidebarGroupContent>
               <SidebarMenu>
                 {items.map((item) => {
-                  const isActive = pathname === item.url;
+                  const isActive =
+                    item.url === "/"
+                      ? pathname === item.url
+                      : pathname.startsWith(item.url);
                   const showActiveIcon = isActive || hoveredItem === item.url;
 
                   return (
