@@ -5,9 +5,11 @@ import Link from "next/link";
 import useUserStore from "../../store/user";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
+import { useUserBalance } from "../../store/user";
 
 export default function Header() {
   const { user, clearUser } = useUserStore();
+  const { loading } = useUserBalance();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -46,7 +48,12 @@ export default function Header() {
         >
           <span className="text-xs flex gap-8 items-center">
             <Image src="/disc.svg" alt="header" width={24} height={24} />
-            Total Point: {user?.fspBalance.toLocaleString()}
+            Total Point:{" "}
+            {loading
+              ? "---"
+              : user?.fspBalance === undefined
+                ? "0"
+                : user.fspBalance.toLocaleString()}
           </span>
         </Link>
 

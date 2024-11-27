@@ -98,6 +98,7 @@ export default function NewMessageDialog() {
             送信先のユーザーを選択してください。
           </p>
         </DialogHeader>
+        {/* 送信先 
         <div className="mt-6">
           <Label htmlFor="search" className="text-sm text-gray-400">
             送信先
@@ -109,6 +110,7 @@ export default function NewMessageDialog() {
             className="mt-1.5 bg-transparent border-gray-800"
           />
         </div>
+        */}
         <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto">
           {filteredUsers.map((user) => (
             <button
