@@ -1,11 +1,10 @@
 "use client";
 
-import { Plus, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "@ui/components/ui/button";
 import { Card, CardContent, CardHeader } from "@ui/components/ui/card";
 
 import { ScrollArea } from "@ui/components/ui/scroll-area";
@@ -41,71 +40,94 @@ export default function DiscographyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-gray-200 p-6">
-      <header className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-semibold">Discography</h1>
-      </header>
-
-      <div className="flex flex-col gap-1 mb-8 text-sm text-gray-400">
+    <>
+      <Link href="/dashboard">
         <div className="flex items-center gap-2">
-          <Info className="w-4 h-4 mr-1 shrink-0" />
-          作品が反映されるまで最大で3週間程度かかる場合があります。反映されていないと感じた場合やデータに不備がある場合は、左下のFeedbackからお知らせください。
+          <Image
+            src="/arrow-left.svg"
+            alt="arrow-left"
+            width={60}
+            height={60}
+            className="ml-6 -mt-6"
+          />
         </div>
+      </Link>
+      <div className="min-h-screen bg-black text-gray-200 p-6">
+        <hr className="my-8 border-[#303030]" />
+        <header className="flex items-center justify-between mb-8">
+          <h1 className="text-6xl font-light">Discography</h1>
+        </header>
+
+        <div className="flex flex-col gap-1 mb-8 text-sm text-gray-400">
+          <div className="flex items-center gap-2">
+            <Info className="w-4 h-4 mr-1 shrink-0" />
+            作品が反映されるまで最大で3週間程度かかる場合があります。反映されていないと感じた場合やデータに不備がある場合は、左下のFeedbackからお知らせください。
+          </div>
+        </div>
+
+        <div className="flex gap-2 mb-8 overflow-x-auto">
+          {artists?.map((artist) => (
+            <button
+              key={artist.artistId}
+              onClick={() => setSelectedArtist(artist.artistId)}
+              className={`flex items-center gap-2 px-3 py-1.5 transition-colors shrink-0 ${
+                selectedArtist === artist.artistId
+                  ? "border-b border-white border-dashed"
+                  : "hover:bg-zinc-900"
+              }`}
+            >
+              <div className="text-sm">{artist.name}</div>
+            </button>
+          ))}
+        </div>
+
+        <hr className="mb-8 mt-24 border-[#303030]" />
+
+        <section className="mb-8">
+          <h2 className="text-6xl font-light">
+            Albums ({data?.getProducts.album.length})
+          </h2>
+          <p className="mb-8">アルバム</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {data?.getProducts.album.map((album) => (
+              <AlbumCard
+                key={album.product.upc}
+                album={album}
+                category="album"
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-8 mt-24">
+          <h2 className="text-6xl font-light">
+            EPs ({data?.getProducts.ep.length})
+          </h2>
+          <p className="mb-8">eps</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {data?.getProducts.ep.map((ep) => (
+              <AlbumCard key={ep.product.upc} album={ep} category="ep" />
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-8 mt-24">
+          <h2 className="text-6xl font-light">
+            Singles ({data?.getProducts.single.length})
+          </h2>
+          <p className="mb-8">シングル</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {data?.getProducts.single.map((single) => (
+              <AlbumCard
+                key={single.product.upc}
+                album={single}
+                category="single"
+              />
+            ))}
+          </div>
+        </section>
       </div>
-
-      <div className="flex gap-2 mb-8 overflow-x-auto">
-        {artists?.map((artist) => (
-          <button
-            key={artist.artistId}
-            onClick={() => setSelectedArtist(artist.artistId)}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors shrink-0 ${
-              selectedArtist === artist.artistId
-                ? "bg-zinc-700 ring-zinc-500"
-                : "bg-zinc-900 hover:bg-zinc-800"
-            }`}
-          >
-            <div className="text-sm">{artist.name}</div>
-          </button>
-        ))}
-      </div>
-
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">
-          Albums ({data?.getProducts.album.length})
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {data?.getProducts.album.map((album) => (
-            <AlbumCard key={album.product.upc} album={album} category="album" />
-          ))}
-        </div>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">
-          EPs ({data?.getProducts.ep.length})
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {data?.getProducts.ep.map((ep) => (
-            <AlbumCard key={ep.product.upc} album={ep} category="ep" />
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-xl font-semibold mb-4">
-          Singles ({data?.getProducts.single.length})
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {data?.getProducts.single.map((single) => (
-            <AlbumCard
-              key={single.product.upc}
-              album={single}
-              category="single"
-            />
-          ))}
-        </div>
-      </section>
-    </div>
+    </>
   );
 }
 
@@ -131,7 +153,7 @@ function AlbumCard({
           />
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs px-2 py-0.5 rounded bg-zinc-800">
+              <span className="text-xs px-4 py-2 rounded-full border border-white">
                 {category}
               </span>
             </div>
