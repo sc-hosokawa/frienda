@@ -14,7 +14,6 @@ import { ja } from "date-fns/locale";
 import { MessageRoomsByUserData } from "../../../generated/graphql";
 import { useRouter } from "next/navigation";
 
-// GraphQL Queries
 const GET_MESSAGE_ROOMS = gql`
   query GetMessageRooms($userId: String!) {
     getMessageRooms(userId: $userId) {
@@ -146,26 +145,25 @@ const MessageList = () => {
 export default function MessagePage() {
   return (
     <div className="bg-black text-white flex-1">
-      <div className="flex items-center justify-between p-4 border-b border-gray-800">
+      <div className="flex items-center justify-between pt-[115px] border-gray-800">
         <div className="flex items-center gap-2">
           <Image
             src="/message.svg"
             alt="logo"
             className="mr-2"
-            width={40}
-            height={40}
+            width={105}
+            height={105}
           />
-          <div className="flex items-center gap-2">
-            <span className="text-6xl font-light tracking-wide mb-2">
+          <div className="flex flex-col">
+            <h1 className="text-[90px] font-light tracking-tight leading-none">
               MESSAGE
-            </span>
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Info className="w-4 h-4" />
-            </Button>
+            </h1>
+            <p className="text-sm">メッセージ</p>
           </div>
         </div>
         <NewMessageDialog />
       </div>
+      <hr className="mb-8 mt-24 border-[#303030]" />
 
       <Suspense
         fallback={

@@ -22,11 +22,13 @@ impl QuestQuery {
             .collect())
     }
 
+    #[tracing::instrument(skip(self, ctx))]
     async fn get_quest_by_user_id(
         &self,
         ctx: &Context<'_>,
         user_id: String,
     ) -> Result<Vec<models::quests::QuestData>> {
+        tracing::info!("get_quest_by_user_id called with user_id: {}", user_id);
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let quests_by_user = usecases.get_quests.get_by_user(&user_id).await?;
 

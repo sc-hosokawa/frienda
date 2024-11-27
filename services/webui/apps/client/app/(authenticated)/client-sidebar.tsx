@@ -20,7 +20,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@ui/components/ui/dropdown-menu";
-import { Settings } from "lucide-react";
 import { Button } from "@ui/components/ui/button";
 
 const items = [
@@ -45,9 +44,9 @@ const items = [
     icon: <Image src="/offer.svg" alt="Offer" width={24} height={24} />,
   },
   {
-    title: "Messages",
+    title: "Message",
     url: "/message",
-    icon: <Image src="/message.svg" alt="Messages" width={24} height={24} />,
+    icon: <Image src="/message.svg" alt="Message" width={24} height={24} />,
   },
 ];
 
@@ -61,9 +60,10 @@ export function ClientSidebar() {
             alt="Logo"
             width={50}
             height={50}
+            className="mt-4 ml-2"
           />
         </SidebarHeader>
-        <SidebarContent>
+        <SidebarContent className="mt-24">
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
@@ -72,11 +72,45 @@ export function ClientSidebar() {
                     <SidebarMenuButton asChild>
                       <a href={item.url} className="py-8">
                         {item.icon}
-                        <span className="font-light">{item.title}</span>
+                        <span className="font-light text-[15px]">
+                          {item.title}
+                        </span>
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
+                <div className="relative w-full mt-32">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-full font-light justify-start"
+                      >
+                        <Image
+                          src="/settings.svg"
+                          alt="Settings"
+                          width={16}
+                          height={16}
+                          className="mr-2"
+                        />
+                        Settings
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent side="right" align="start">
+                      <DropdownMenuItem asChild>
+                        <Link href="/privacypolicy">
+                          <span>プライバシーポリシー</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/termofservice">
+                          <span>利用規約</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
@@ -92,28 +126,6 @@ export function ClientSidebar() {
           </Link>
           <SuperAdminDialog />
           <AccessControlDialog />
-          <div className="relative w-full">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="w-full">
-                  <Settings className="mr-11 h-4 w-4" />
-                  Settings
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent side="right" align="start">
-                <DropdownMenuItem asChild>
-                  <Link href="/privacypolicy">
-                    <span>プライバシーポリシー</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/termofservice">
-                    <span>利用規約</span>
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
         </SidebarFooter>
       </Sidebar>
     </div>

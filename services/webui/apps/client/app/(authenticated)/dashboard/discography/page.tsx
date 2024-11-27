@@ -30,8 +30,6 @@ export default function DiscographyPage() {
     },
   });
 
-  console.log(data);
-
   if (!artists?.length) {
     return (
       <div className="min-h-screen bg-black text-gray-200 p-6 flex flex-col items-center justify-center">
@@ -52,10 +50,6 @@ export default function DiscographyPage() {
         <div className="flex items-center gap-2">
           <Info className="w-4 h-4 mr-1 shrink-0" />
           作品が反映されるまで最大で3週間程度かかる場合があります。反映されていないと感じた場合やデータに不備がある場合は、左下のFeedbackからお知らせください。
-        </div>
-        <div className="flex items-center gap-2">
-          <Info className="w-4 h-4 mr-1 shrink-0" />
-          作品や楽曲の順序が反映されていない可能性があります。データの整理も合わせて進めているため今後改善する予定です。あらかじめご了承ください。
         </div>
       </div>
 

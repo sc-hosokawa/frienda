@@ -36,10 +36,12 @@ export function Trending({
   return (
     <div className="mb-8">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-light">Trending</h2>
+        <div className="flex flex-col space-y-0">
+          <h2 className="text-2xl font-light">( Trending )</h2>
+        </div>
 
         <Link href={`/dashboard/discography`}>
-          <button className="bg-gray-800 text-white px-4 py-2 rounded-full text-sm">
+          <button className="text-white px-8 py-4 rounded-full text-sm border border-dashed border-white">
             全ての曲を見る
           </button>
         </Link>

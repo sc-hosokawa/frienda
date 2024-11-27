@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { Avatar, AvatarImage } from "@ui/components/ui/avatar";
 import { Button } from "@ui/components/ui/button";
@@ -12,7 +13,6 @@ import {
 } from "@ui/components/ui/dialog";
 import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
-import { Plus } from "lucide-react";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import useUserStore from "../../../store/user";
 import { AllUsersData } from "../../../generated/graphql";
@@ -82,9 +82,9 @@ export default function NewMessageDialog() {
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full border border-dashed border-gray-600"
+          className="rounded-full border border-dashed border-gray-600 w-[60px] h-[60px] flex items-center justify-center"
         >
-          <Plus className="w-4 h-4" />
+          <Image src="/plus.svg" alt="plus" width={24} height={24} />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[80%] h-[80vh] bg-black border-gray-800">
