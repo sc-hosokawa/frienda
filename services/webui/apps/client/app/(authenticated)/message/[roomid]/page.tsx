@@ -123,13 +123,49 @@ export default function Component() {
     }
   };
 
-  // 新しいメッセージが来たときのスクロール処理
+  // 画像の読み込みを待つ関数を追加
+  const waitForImages = async () => {
+    const images = messageAreaRef.current?.getElementsByTagName("img");
+    if (!images?.length) return;
+
+    const imageLoadPromises = Array.from(images).map((img) => {
+      if (img.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        img.onload = resolve;
+        img.onerror = resolve; // エラー時もスクロールするために解決する
+      });
+    });
+
+    await Promise.all(imageLoadPromises);
+  };
+
+  // 初期表示時のスクロール処理を修正
   useEffect(() => {
-    // ユーザーが手動でスクロールしていない場合のみ自動スクロール
-    if (!isUserScrolling) {
-      messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (!loading && messages.length > 0 && messageAreaRef.current) {
+      const scrollToBottom = async () => {
+        await waitForImages();
+        messageAreaRef.current?.scrollTo({
+          top: messageAreaRef.current.scrollHeight,
+          behavior: "auto",
+        });
+      };
+      scrollToBottom();
     }
-  }, [messages]); // messagesが更新されたときに実行
+  }, [loading, messages.length]);
+
+  // 新しいメッセージが来たときのスクロール処理も修正
+  useEffect(() => {
+    if (!isUserScrolling && messageAreaRef.current) {
+      const scrollToBottom = async () => {
+        await waitForImages();
+        messageAreaRef.current?.scrollTo({
+          top: messageAreaRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      };
+      scrollToBottom();
+    }
+  }, [messages, isUserScrolling]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -382,7 +418,7 @@ export default function Component() {
       </div>
 
       {/* Message Input */}
-      <div className="flex-none p-4 border-t border-gray-800 sticky bottom-0">
+      <div className="flex-none p-4 sticky bottom-0">
         {/* プレビューエリア */}
         {(attachedImage || attachedFile) && (
           <div className="mb-2 p-2 bg-gray-900 rounded-md">
@@ -512,9 +548,9 @@ export default function Component() {
             }
             rows={1}
             className={`
-              flex-1 bg-gray-900 border-gray-800 text-white 
-              placeholder:text-gray-500 resize-none min-h-[40px] 
-              max-h-[200px] py-2 px-3 rounded-md
+              flex-1 text-white 
+              placeholder:text-white placeholder:text-[10px] placeholder:py-1 resize-none min-h-[40px] 
+              max-h-[200px] py-2 px-3 rounded-full border border-white
               ${isSubmitting ? "opacity-50" : ""}
             `}
             style={{

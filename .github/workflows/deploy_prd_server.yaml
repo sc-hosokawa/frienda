@@ -52,3 +52,19 @@ jobs:
 
       - name: Deploy
         run: gcloud run deploy ${{ secrets.SERVER_NAME_PRD }} --image asia-northeast1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME/$IMAGE:$TAG --region ${{ secrets.GCP_REGION_PRD }} --allow-unauthenticated --set-env-vars DATABASE_URL=$DATABASE_URL
+
+      - name: Notify Slack on Success
+        if: success()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          fields: workflow,job,commit,repo,ref,author,took
+          custom_payload: |
+            {
+              "attachments": [{
+                "color": "good",
+                "text": ":white_check_mark: Production deployment succeeded!\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}"
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

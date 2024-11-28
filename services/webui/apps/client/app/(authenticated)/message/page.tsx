@@ -105,36 +105,34 @@ const MessageList = () => {
         return (
           <div
             key={room.id}
-            className={`flex items-start gap-4 p-4 cursor-pointer hover:bg-gray-900 transition-colors ${
-              isUnread ? "bg-gray-800" : ""
+            className={`flex items-center gap-4 p-4 cursor-pointer hover:bg-[#E4DBC0] transition-colors group ${
+              isUnread ? "" : ""
             }`}
             onClick={() => {
               router.push(`/message/${room.id}`);
             }}
           >
-            <Avatar className="w-12 h-12">
+            <Avatar className="w-12 h-12 flex-shrink-0">
               <AvatarImage
                 src={otherUser?.imageUrl || "/message.svg"}
                 alt={otherUser?.name}
               />
             </Avatar>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between gap-2">
-                <span className={`font-${isUnread ? "bold" : "medium"}`}>
-                  {otherUser?.name || "Unknown User"}
-                </span>
-                <span
-                  className={`text-sm ${isUnread ? "text-white" : "text-gray-400"}`}
-                >
-                  {formatDateTime(room.latestSentAt || "")}
-                </span>
-              </div>
-              <p
-                className={`text-sm ${isUnread ? "text-white" : "text-gray-400"}`}
-              >
-                {room.latestMessage || "No messages"}
-              </p>
-            </div>
+            <span
+              className="font-medium w-48 flex-shrink-0 group-hover:text-black"
+            >
+              {otherUser?.name || "Unknown User"}
+            </span>
+            <p
+              className="text-sm text-white flex-1 truncate group-hover:text-black"
+            >
+              {room.latestMessage || "No messages"}
+            </p>
+            <span
+              className="text-sm text-gray-400 flex-shrink-0 group-hover:text-black"
+            >
+              {formatDateTime(room.latestSentAt || "")}
+            </span>
           </div>
         );
       })}

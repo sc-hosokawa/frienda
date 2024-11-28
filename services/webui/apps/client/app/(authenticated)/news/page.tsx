@@ -22,7 +22,7 @@ export default async function NewsPage() {
   });
 
   return (
-    <div className="container max-w-7xl mx-auto">
+    <div className="container max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-2 pt-[125px] space-x-2">
           <Image
@@ -52,14 +52,14 @@ export default async function NewsPage() {
 
           return (
             <Link key={entry.sys.id} href={`/news/${entry.sys.id}`}>
-              <Card className="h-full overflow-hidden hover:shadow-lg transition-all hover:bg-white/50 relative border rounded-3xl border-white/30">
+              <Card className="h-full overflow-hidden hover:shadow-lg transition-all hover:bg-white/30 relative border rounded-3xl border-white/30">
                 {isNew && (
                   <span className="absolute top-0 left-0 z-10 bg-[#E1F000] text-black py-4 px-6 rounded-3xl text-xs font-light">
                     NEW
                   </span>
                 )}
                 <div className="relative h-48 w-full p-2">
-                  <div className="relative h-full w-full rounded-lg overflow-hidden">
+                  <div className="relative h-full w-full rounded-3xl overflow-hidden">
                     <Image
                       src={
                         isAsset(entry.fields.thumbnail)

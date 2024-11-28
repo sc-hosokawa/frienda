@@ -219,12 +219,6 @@ export function AllocationDialog() {
                       onClick={() => setSelectedArtist(artist)}
                     >
                       <div className="flex items-center gap-3">
-                        <Avatar>
-                          <AvatarImage src={artist.imageUrl} />
-                          <AvatarFallback>
-                            <User />
-                          </AvatarFallback>
-                        </Avatar>
                         <span>{artist.name}</span>
                       </div>
                       <span>{artist.fsp.toLocaleString()} ポイント</span>

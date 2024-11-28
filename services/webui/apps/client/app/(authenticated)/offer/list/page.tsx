@@ -1,18 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Button } from "@ui/components/ui/button";
 import { Card } from "@ui/components/ui/card";
 import { Skeleton } from "@ui/components/ui/skeleton";
-import {
-  Diamond,
-  Filter,
-  Heart,
-  MessageSquare,
-  Share2,
-  Star,
-  ArrowLeft,
-} from "lucide-react";
 import Image from "next/image";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
@@ -45,11 +34,9 @@ interface Offer {
 }
 
 export default function OfferList() {
-  // モックデータの代わりにGraphQLを使用
   const { loading, error, data } = useQuery(GET_OFFERS);
   const offers = data?.getOffers?.offerList ?? [];
 
-  // エラー状態の処理を追加
   if (error) {
     return (
       <div className="min-h-screen bg-black text-white p-6 flex items-center justify-center">
@@ -66,21 +53,28 @@ export default function OfferList() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
-      <div className="max-w-7xl mx-auto">
-        <header className="flex justify-between items-center mb-8">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/offer"
-              className="p-2 rounded-full hover:bg-gray-700 transition-colors"
-            >
-              <ArrowLeft className="h-8 w-8 text-white" />
-            </Link>
-            <h1 className="text-6xl font-light">Offer List</h1>
-          </div>
-        </header>
+    <>
+      <Link href="/offer">
+        <div className="flex items-center gap-2">
+          <Image
+            src="/arrow-left.svg"
+            alt="arrow-left"
+            width={60}
+            height={60}
+            className="ml-6 -mt-6"
+          />
+        </div>
+      </Link>
 
-        {/*
+      <div className="min-h-screen bg-black text-white p-6">
+        <div className="max-w-7xl mx-auto">
+          <header className="flex justify-between items-center mb-8">
+            <div className="flex items-center gap-4">
+              <h1 className="text-6xl font-light">Offer List</h1>
+            </div>
+          </header>
+
+          {/*
           <div className="flex gap-4">
             <Button variant="outline" className="text-white">
               <Filter className="w-4 h-4 mr-2" />
@@ -109,23 +103,24 @@ export default function OfferList() {
         </nav>
         */}
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {loading ? (
-            Array(6)
-              .fill(0)
-              .map((_, index) => <OfferCardSkeleton key={index} />)
-          ) : offers.length === 0 ? (
-            <div className="col-span-2 text-center py-10 text-gray-400">
-              まだOfferが登録されていません
-            </div>
-          ) : (
-            offers.map((offer: Offer) => (
-              <OfferCard key={offer.id} offer={offer} />
-            ))
-          )}
+          <div className="grid md:grid-cols-2 gap-6">
+            {loading ? (
+              Array(6)
+                .fill(0)
+                .map((_, index) => <OfferCardSkeleton key={index} />)
+            ) : offers.length === 0 ? (
+              <div className="col-span-2 text-center py-10 text-gray-400">
+                まだOfferが登録されていません
+              </div>
+            ) : (
+              offers.map((offer: Offer) => (
+                <OfferCard key={offer.id} offer={offer} />
+              ))
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
