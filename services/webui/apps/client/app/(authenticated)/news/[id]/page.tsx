@@ -1,8 +1,6 @@
-import { getEntries } from "../../contentful";
 import { Asset } from "contentful";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { getEntry } from "../../contentful";
 import { Document, BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
@@ -25,6 +23,13 @@ type Props = {
     id: string;
   };
 };
+
+// categoryStyles を追加
+const categoryStyles = {
+  "FRIENDSHIP.": "bg-[#2D78FF]",
+  "FRIENDSHIP. DAO": "bg-[#00B496]",
+  Info: "bg-[#B487FF]",
+} as const;
 
 export default async function NewsDetailPage({ params }: Props) {
   const entry = await getEntry("information", params.id);
@@ -74,25 +79,19 @@ export default async function NewsDetailPage({ params }: Props) {
 
   return (
     <div className="container max-w-4xl mx-auto py-8">
-      <header className="flex items-center justify-between mb-8">
-        <div className="flex items-center space-x-2">
+      <Link href="/news">
+        <div className="flex items-center gap-2">
           <Image
-            src="/news.svg"
-            alt="Logo"
-            className="mr-2"
-            width={40}
-            height={40}
+            src="/arrow-left.svg"
+            alt="arrow-left"
+            width={60}
+            height={60}
+            className="-mt-6"
           />
-          <h1 className="text-6xl font-light">News</h1>
         </div>
-      </header>
-      <Link
-        href="/news"
-        className="flex items-center text-primary hover:underline mb-8"
-      >
-        <ArrowLeft className="w-4 h-4 mr-2" />
-        ニュース一覧に戻る
       </Link>
+
+      <div className="my-8"></div>
 
       {/* サムネイル画像 */}
       {isAsset(entry.fields.thumbnail) && (
@@ -119,7 +118,13 @@ export default async function NewsDetailPage({ params }: Props) {
                 .replace(/\//g, "-")
             : ""}
         </span>
-        <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
+        <span
+          className={`text-sm px-4 py-2 rounded-full text-black font-light ${
+            categoryStyles[
+              entry.fields.category?.toString() as keyof typeof categoryStyles
+            ] ?? "bg-primary/10 text-primary"
+          }`}
+        >
           {entry.fields.category?.toString()}
         </span>
       </div>

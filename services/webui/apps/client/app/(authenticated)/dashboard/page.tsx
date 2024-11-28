@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   return (
     <div className="bg-black text-white min-h-screen">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <header className="flex items-center justify-between mb-8 w-full">
           <div className="flex items-center gap-2 pt-[120px]">
             <Image

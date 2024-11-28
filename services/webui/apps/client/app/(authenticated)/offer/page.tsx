@@ -8,6 +8,12 @@ import OfferStats from "./stats";
 import OfferAllList, { OfferAllListSkeleton } from "./offer-all-list";
 import Link from "next/link";
 import useUserStore from "../../../store/user";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@ui/components/ui/tooltip";
 
 export default function OfferPage() {
   const { user } = useUserStore();
@@ -37,13 +43,26 @@ export default function OfferPage() {
           >
             <Image src="/search.svg" alt="list" width={24} height={24} />
           </Link>
-          {user?.fspBalance !== undefined && user.fspBalance > 50 && (
+          {user?.fspBalance !== undefined && user.fspBalance > 20 ? (
             <Link
               href="/offer/create"
-              className="p-2 rounded-full hover:bg-gray-700 transition-colors border border-white border-dashed  w-[60px] h-[60px] flex items-center justify-center"
+              className="p-2 rounded-full hover:bg-gray-700 transition-colors border border-white border-dashed w-[60px] h-[60px] flex items-center justify-center"
             >
               <Image src="/plus.svg" alt="plus" width={24} height={24} />
             </Link>
+          ) : (
+            <TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger asChild>
+                  <div className="p-2 rounded-full border border-white border-dashed w-[60px] h-[60px] flex items-center justify-center opacity-50 cursor-not-allowed">
+                    <Image src="/plus.svg" alt="plus" width={24} height={24} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>20 FSP以上を保有するユーザーがOfferを作成できます</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
         </div>
       </div>
