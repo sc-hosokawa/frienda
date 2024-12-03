@@ -42,6 +42,9 @@ contract Credential is
     /// @notice Event emitted when a credential is granted
     event CredentialGranted(address indexed account, uint256 amount);
 
+    /// @notice Event emitted when a credential is burned
+    event CredentialBurned(address indexed account, uint256 amount);
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
@@ -97,6 +100,7 @@ contract Credential is
         require(from.length == amount.length, INVALID_LENGTH());
         for (uint256 i = 0; i < from.length; i++) {
             burnFrom(from[i], amount[i]);
+            emit CredentialBurned(from[i], amount[i]);
         }
     }
 
