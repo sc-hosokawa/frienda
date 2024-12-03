@@ -225,13 +225,13 @@ contract CredentialTest is Test {
         assertEq(credential.paused(), false);
     }
 
-    function testInvalidPauser() external {
+    function testRevertInvalidPauser() external {
         // this will revert because bob is not a pauser
         vm.expectRevert();
         __pause(alice);
     }
 
-    function testInvalidUnpauser() external {
+    function testRevertInvalidUnpauser() external {
         __pause(pauser);
         assertEq(credential.paused(), true);
 
