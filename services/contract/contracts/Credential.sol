@@ -97,18 +97,6 @@ contract Credential is
         }
     }
 
-    function transfer(address to, uint256 amount) public override returns (bool) {
-        revert("Credential: transfer is disabled");
-    }
-
-    function transferFrom(address from, address to, uint256 amount) public override returns (bool) {
-        revert("Credential: transferFrom is disabled");
-    }
-
-    function approve(address spender, uint256 amount) public override returns (bool) {
-        revert("Credential: approve is disabled");
-    }
-
     // The following functions are overrides required by Solidity.
     function _update(address from, address to, uint256 value)
         internal
