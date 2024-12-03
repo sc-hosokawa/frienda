@@ -8,7 +8,6 @@ import {Credential} from "../../contracts/Credential.sol";
 
 contract CredentialTest is Test {
     address currentPrankee;
-
     address admin = makeAddr("admin");
     address minter = makeAddr("minter");
     address pauser = makeAddr("pauser");
@@ -19,8 +18,7 @@ contract CredentialTest is Test {
     Credential public credential;
 
     event CredentialGranted(address indexed account, uint256 amount);
-
-    error INVALID_TRANSFER(address from, address to);
+    event CredentialBurned(address indexed account, uint256 amount);
 
     function setUp() public {
         // deploy UUPS proxy and initialize the contract
@@ -65,6 +63,105 @@ contract CredentialTest is Test {
         // test check if the balance is correct
         assertEq(credential.balanceOf(alice), 100);
         assertEq(credential.balanceOf(bob), 200);
+    }
+
+    function testBurn() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+
+        __mint(accounts, amounts, minter);
+        assertEq(credential.balanceOf(alice), 100);
+
+        // alice approve minter to burn 100 tokens
+        // so that minter can burn the tokens that alice has
+        __approve(alice, minter, 100);
+        assertEq(credential.allowance(alice, minter), 100);
+
+        vm.expectEmit(true, true, true, false);
+        emit CredentialBurned(alice, 100);
+        __burn(accounts, amounts, minter);
+
+        // test check if the balance is correct
+        assertEq(credential.balanceOf(alice), 0);
+    }
+
+    function testBatchBurn() external {
+        address[] memory accounts = new address[](2);
+        uint256[] memory amounts = new uint256[](2);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+        accounts[1] = bob;
+        amounts[1] = 200;
+
+        __mint(accounts, amounts, minter);
+        assertEq(credential.balanceOf(alice), 100);
+        assertEq(credential.balanceOf(bob), 200);
+
+        // alice approve minter to burn 100 tokens
+        // so that minter can burn the tokens that alice has
+        __approve(alice, minter, 100);
+        assertEq(credential.allowance(alice, minter), 100);
+
+        // bob approve minter to burn 200 tokens
+        // so that minter can burn the tokens that bob has
+        __approve(bob, minter, 200);
+        assertEq(credential.allowance(bob, minter), 200);
+
+        __burn(accounts, amounts, minter);
+
+        // test check if the balance is correct
+        assertEq(credential.balanceOf(alice), 0);
+        assertEq(credential.balanceOf(bob), 0);
+    }
+
+    function testRevertBurn() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+
+        // this will revert because alice has not approved minter to burn the tokens
+        vm.expectRevert();
+        __burn(accounts, amounts, bob);
+    }
+
+    function testRevertInvalidBurnLength() external {
+        address[] memory accounts = new address[](2);
+        uint256[] memory amounts = new uint256[](2);
+
+        accounts[0] = alice;
+        accounts[1] = bob;
+        amounts[0] = 100;
+        amounts[1] = 200;
+
+        __mint(accounts, amounts, minter);
+
+        address[] memory invalidAccounts = new address[](1);
+        invalidAccounts[0] = alice;
+
+        // this will revert because the length of the accounts and amounts are not the same
+        vm.expectRevert(abi.encodeWithSelector(Credential.INVALID_LENGTH.selector));
+        __burn(invalidAccounts, amounts, minter);
+    }
+
+    function testRevertInvalidBurner() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+
+        __mint(accounts, amounts, minter);
+
+        __approve(alice, minter, 100);
+
+        vm.expectRevert();
+        __burn(accounts, amounts, alice);
     }
 
     function testRevertMint() external {
@@ -124,6 +221,25 @@ contract CredentialTest is Test {
         prankception(caller)
     {
         credential.mint(accounts, amounts);
+    }
+
+    function __burn(address[] memory accounts, uint256[] memory amounts, address caller)
+        internal
+        prankception(caller)
+    {
+        credential.burn(accounts, amounts);
+    }
+
+    function __approve(address owner, address spender, uint256 amount) internal prankception(owner) {
+        credential.approve(spender, amount);
+    }
+
+    function __pause(address caller) internal prankception(caller) {
+        credential.pause();
+    }
+
+    function __unpause(address caller) internal prankception(caller) {
+        credential.unpause();
     }
 
     modifier prankception(address prankee) {
