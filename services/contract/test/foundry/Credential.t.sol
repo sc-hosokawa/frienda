@@ -212,6 +212,34 @@ contract CredentialTest is Test {
         __transfer(alice, bob, 100);
     }
 
+    function testPause() external {
+        __pause(pauser);
+        assertEq(credential.paused(), true);
+    }
+
+    function testUnpause() external {
+        __pause(pauser);
+        assertEq(credential.paused(), true);
+
+        __unpause(pauser);
+        assertEq(credential.paused(), false);
+    }
+
+    function testInvalidPauser() external {
+        // this will revert because bob is not a pauser
+        vm.expectRevert();
+        __pause(alice);
+    }
+
+    function testInvalidUnpauser() external {
+        __pause(pauser);
+        assertEq(credential.paused(), true);
+
+        // this will revert because alice is not a pauser
+        vm.expectRevert();
+        __unpause(alice);
+    }
+
     function __transfer(address from, address to, uint256 amount) internal prankception(from) {
         credential.transfer(to, amount);
     }
