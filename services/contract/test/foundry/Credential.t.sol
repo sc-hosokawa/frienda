@@ -18,12 +18,88 @@ contract CredentialTest is Test {
 
     Credential public credential;
 
+    event CredentialGranted(address indexed account, uint256 amount);
+
+    error INVALID_TRANSFER(address from, address to);
+
     function setUp() public {
         // deploy UUPS proxy and initialize the contract
         address proxy =
             Upgrades.deployUUPSProxy("Credential.sol", abi.encodeCall(Credential.initialize, (admin, pauser, minter)));
 
         credential = Credential(proxy);
+    }
+
+    function testMint() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+        // test check if the event is emitted
+        vm.expectEmit(true, true, true, false);
+        emit CredentialGranted(alice, 100);
+        __mint(accounts, amounts, minter);
+
+        // test check if the balance is correct
+        assertEq(credential.balanceOf(alice), 100);
+    }
+
+    function testBatchMint() external {
+        address[] memory accounts = new address[](2);
+        uint256[] memory amounts = new uint256[](2);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+        accounts[1] = bob;
+        amounts[1] = 200;
+
+        __mint(accounts, amounts, minter);
+
+        // test check if the balance is correct
+        assertEq(credential.balanceOf(alice), 100);
+        assertEq(credential.balanceOf(bob), 200);
+    }
+
+    function testRevertMint() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+
+        vm.expectRevert();
+        __mint(accounts, amounts, bob);
+    }
+
+    function testRevertInvalidMinter() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+
+        vm.expectRevert();
+        __mint(accounts, amounts, alice);
+    }
+
+    function testRevertInvalidMintLength() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](2);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+        amounts[1] = 200;
+
+        vm.expectRevert(abi.encodeWithSelector(Credential.INVALID_LENGTH.selector));
+        __mint(accounts, amounts, minter);
+    }
+
+    function __mint(address[] memory accounts, uint256[] memory amounts, address caller)
+        internal
+        prankception(caller)
+    {
+        credential.mint(accounts, amounts);
     }
 
     function testInitializations() external {
