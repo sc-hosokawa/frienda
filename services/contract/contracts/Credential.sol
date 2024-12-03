@@ -101,6 +101,8 @@ contract Credential is
     }
 
     // The following functions are overrides required by Solidity.
+    /// @dev Reverts if the from or to address is not the zero address.
+    /// that means the valid transfers are from the zero address(mint) or to the zero address(burn)
     function _update(address from, address to, uint256 value)
         internal
         override(ERC20Upgradeable, ERC20PausableUpgradeable)

@@ -30,6 +30,12 @@ contract CredentialTest is Test {
         credential = Credential(proxy);
     }
 
+    function testInitializations() external view {
+        assertEq(credential.name(), "Credential");
+        assertEq(credential.symbol(), "CRED");
+        assertEq(credential.decimals(), 18);
+    }
+
     function testMint() external {
         address[] memory accounts = new address[](1);
         uint256[] memory amounts = new uint256[](1);
@@ -95,17 +101,29 @@ contract CredentialTest is Test {
         __mint(accounts, amounts, minter);
     }
 
+    function testRevertTransfer() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+
+        __mint(accounts, amounts, minter);
+
+        // expect revert transfer token alice -> bob
+        vm.expectRevert(abi.encodeWithSelector(Credential.INVALID_TRANSFER.selector, alice, bob));
+        __transfer(alice, bob, 100);
+    }
+
+    function __transfer(address from, address to, uint256 amount) internal prankception(from) {
+        credential.transfer(to, amount);
+    }
+
     function __mint(address[] memory accounts, uint256[] memory amounts, address caller)
         internal
         prankception(caller)
     {
         credential.mint(accounts, amounts);
-    }
-
-    function testInitializations() external {
-        assertEq(credential.name(), "Credential");
-        assertEq(credential.symbol(), "CRED");
-        assertEq(credential.decimals(), 18);
     }
 
     modifier prankception(address prankee) {
