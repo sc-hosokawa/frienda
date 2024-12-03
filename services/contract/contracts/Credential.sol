@@ -36,6 +36,9 @@ contract Credential is
     /// @notice Error message for invalid length
     error INVALID_LENGTH();
 
+    /// @notice Error message for invalid transfer
+    error INVALID_TRANSFER(address from, address to);
+
     /// @notice Event emitted when a credential is granted
     event CredentialGranted(address indexed account, uint256 amount);
 
@@ -102,6 +105,10 @@ contract Credential is
         internal
         override(ERC20Upgradeable, ERC20PausableUpgradeable)
     {
+        // Revert if the from or to address is not the zero address
+        if (from != address(0) && to != address(0)) {
+            revert INVALID_TRANSFER(from, to);
+        }
         super._update(from, to, value);
     }
 }
