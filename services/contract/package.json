@@ -6,6 +6,8 @@
   "scripts": {
     "clean": "pnpm hardhat clean",
     "test": "GAS_REPORT=true pnpm hardhat test",
+    "foundrytest": "forge clean && forge test",
+    "coverage": "forge clean && forge coverage",
     "test:inheritance": "pnpm hardhat run scripts/checks/inheritance-ordering.ts",
     "balance": "pnpm hardhat run scripts/utils/balances.ts",
     "hhnode": "pnpm hardhat node",
