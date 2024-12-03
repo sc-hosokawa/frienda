@@ -23,6 +23,9 @@ contract Credential is
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
     bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
 
+    /// @notice Error message for invalid length
+    error INVALID_LENGTH();
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
@@ -52,14 +55,14 @@ contract Credential is
     }
 
     function mint(address[] memory to, uint256[] memory amount) public onlyRole(MINTER_ROLE) {
-        require(to.length == amount.length, "Credential: to and amount arrays must be the same length");
+        require(to.length == amount.length, INVALID_LENGTH());
         for (uint256 i = 0; i < to.length; i++) {
             _mint(to[i], amount[i]);
         }
     }
 
     function burn(address[] memory from, uint256[] memory amount) public onlyRole(BURNER_ROLE) {
-        require(from.length == amount.length, "Credential: from and amount arrays must be the same length");
+        require(from.length == amount.length, INVALID_LENGTH());
         for (uint256 i = 0; i < from.length; i++) {
             _burn(from[i], amount[i]);
         }
