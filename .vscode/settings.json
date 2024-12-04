@@ -2,7 +2,7 @@
     "rust-analyzer.linkedProjects": [
       "./services/backend/Cargo.toml",
       "./services/pipeline/layer1/playback_aggregator/Cargo.toml",
-      "./services/pipeline/layer1/metadata_integrator/Cargo.toml",
+      "./services/pipeline/layer1/onchain_integrator/Cargo.toml",
     ],
     "makefile.configureOnOpen": false
 }
