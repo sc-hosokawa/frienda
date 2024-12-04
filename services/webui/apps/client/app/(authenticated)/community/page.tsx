@@ -1,8 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "../../../../../packages/ui/components/ui/button";
 import CommunityListsRow from "../../../components/community/community-lits-row";
+import { Button } from "../../../../../packages/ui/components/ui/button";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../../../../../packages/ui/components/ui/tabs";
 
 export default function MessagePage() {
   return (
@@ -32,9 +38,33 @@ export default function MessagePage() {
         </Button>
       </div>
       <hr className="mb-8 mt-24 border-[#303030]" />
-      {mockData.map((data) => (
-        <CommunityListsRow {...data} />
-      ))}
+
+      <Tabs defaultValue="list" className="w-full">
+        <div className="flex justify-end mb-6">
+          <TabsList className="bg-transparent border border-dashed border-white rounded-full p-1 w-[186px] h-[60px]">
+            <TabsTrigger
+              value="map"
+              className="rounded-[60px] w-[90px] text-base h-[52.5px] data-[state=active]:bg-white data-[state=active]:text-black"
+            >
+              Map View
+            </TabsTrigger>
+            <TabsTrigger
+              value="list"
+              className="rounded-[60px] w-[90px] text-base h-[52.5px] data-[state=active]:bg-white data-[state=active]:text-black"
+            >
+              List View
+            </TabsTrigger>
+          </TabsList>
+        </div>
+        <TabsContent value="map">
+          Make changes to your account here.
+        </TabsContent>
+        <TabsContent value="list">
+          {mockData.map((data) => (
+            <CommunityListsRow key={data.id} {...data} />
+          ))}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
@@ -43,7 +73,7 @@ const mockData = [
   {
     id: "1",
     name: "john_john",
-    avatar: "/logo_visualonly.jpg",
+
     friendCount: "4 common friends",
     rate: "4.5",
     type: "Curator",
@@ -57,7 +87,7 @@ const mockData = [
   {
     id: "2",
     name: "john_john",
-    avatar: "/logo_visualonly.jpg",
+
     friendCount: "4 common friends",
     rate: "4.5",
     type: "Curator",
@@ -72,7 +102,7 @@ const mockData = [
   {
     id: "3",
     name: "john_john",
-    avatar: "/logo_visualonly.jpg",
+
     friendCount: "4 common friends",
     rate: "4.5",
     type: "Curator",
@@ -86,7 +116,7 @@ const mockData = [
   {
     id: "4",
     name: "Sayaka Yoshida",
-    avatar: "/logo_visualonly.jpg",
+
     friendCount: "4 common friends",
     rate: "4.5",
     type: "Curator",
@@ -100,7 +130,7 @@ const mockData = [
   {
     id: "5",
     name: "john_john",
-    avatar: "/logo_visualonly.jpg",
+
     friendCount: "4 common friends",
     rate: "4.5",
     type: "Curator",
@@ -114,7 +144,7 @@ const mockData = [
   {
     id: "6",
     name: "john_john",
-    avatar: "/logo_visualonly.jpg",
+
     friendCount: "4 common friends",
     rate: "4.5",
     type: "Curator",

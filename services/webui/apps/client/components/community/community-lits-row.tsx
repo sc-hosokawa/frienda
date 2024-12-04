@@ -6,7 +6,7 @@ import heart from "../../public/heart.svg";
 interface CommunityListsRowProps {
   id: string;
   name: string;
-  avatar: string;
+  avatar?: string;
   friendCount: string;
   rate: string;
   type: string;
@@ -62,7 +62,7 @@ export default function CommunityListsRow({
 
         <div className="flex items-center gap-3">
           <Image
-            src={avatar}
+            src={avatar || "/logo_visualonly.jpg"}
             alt={name}
             className="w-10 h-10 rounded-full object-cover"
             width={40}
