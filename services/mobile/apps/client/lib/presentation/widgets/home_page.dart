@@ -9,6 +9,7 @@ import 'package:client/presentation/providers/user_provider.dart';
 import 'package:graphql/client.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/number_symbols_data.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -89,7 +90,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // TODO: Unreadを最大5件表示、5ない場合は最新のメッセを全体で5件になるまで取得。なお未読のメッセはハイライトする。
   Widget _buildMessagesSection({Key? key}) {
     final userState = ref.watch(userProvider);
 
@@ -280,6 +280,8 @@ class _HomePageState extends ConsumerState<HomePage> {
 */
 
   Widget _buildTrendingSection() {
+    final userState = ref.watch(userProvider);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -297,23 +299,75 @@ class _HomePageState extends ConsumerState<HomePage> {
             ],
           ),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return _buildTrendingItem(index);
+        Query(
+          options: QueryOptions(
+            document: gql('''
+              query GetTrending(\$artistId: String!, \$userId: String!) {
+                getTrending(artistId: \$artistId, userId: \$userId) {
+                  trendingTracks {
+                    isrc
+                    trackTitle
+                    upcTitle
+                    imageUrl
+                    totalPlayCount
+                    weeklyPlayCount
+                  }
+                }
+              }
+            '''),
+            variables: {
+              'artistId': userState?.belongsToArtists[0].artistId ?? '',
+              'userId': userState?.id ?? '',
+            },
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+          builder: (result, {refetch, fetchMore}) {
+            if (result.hasException) {
+              return Center(child: Text('Error loading trending data'));
+            }
+
+            if (result.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            final tracks = result.data?['getTrending']?['trendingTracks']
+                    as List<dynamic>? ??
+                [];
+
+            if (tracks.isEmpty) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(32.0),
+                  child: Text('No trending tracks available'),
+                ),
+              );
+            }
+
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: tracks.length,
+              itemBuilder: (context, index) {
+                final track = tracks[index];
+                return _buildTrendingItem(
+                  index,
+                  track['trackTitle'] ?? 'Unknown Track',
+                  track['imageUrl'],
+                  track['totalPlayCount'] ?? 0,
+                  track['weeklyPlayCount'] ?? 0,
+                );
+              },
+            );
           },
         ),
       ],
     );
   }
 
-  Widget _buildTrendingItem(int index) {
+  Widget _buildTrendingItem(int index, String title, String? imageUrl,
+      int totalCount, int weeklyCount) {
     final rank = index + 1;
-    final isUp = index % 2 == 0;
-    final changeIcon = isUp ? Icons.arrow_upward : Icons.arrow_downward;
-    final changeColor = isUp ? Colors.green : Colors.red;
+    final numberFormat = NumberFormat('#,###');
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -326,18 +380,18 @@ class _HomePageState extends ConsumerState<HomePage> {
               style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
-          Icon(changeIcon, color: changeColor),
-          const SizedBox(width: 10),
           Container(
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://ogre.natalie.mu/media/news/music/2024/0913/Thefin_jkt2014.jpg?imwidth=750&imdensity=1'),
-                fit: BoxFit.cover,
-              ),
+              image: imageUrl != null
+                  ? DecorationImage(
+                      image: NetworkImage(imageUrl),
+                      fit: BoxFit.cover,
+                    )
+                  : null,
             ),
+            child: imageUrl == null ? const Icon(Icons.music_note) : null,
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -345,7 +399,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Song name $rank',
+                  title,
                   style: Theme.of(context).textTheme.titleMedium,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -356,11 +410,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'Total: ${1000000 - index * 100000}',
+                'Total: ${numberFormat.format(totalCount)}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               Text(
-                'Week: ${100000 - index * 10000}',
+                'Week: ${numberFormat.format(weeklyCount)}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ],
@@ -393,7 +447,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       else if (dateTime.year == now.year) {
         return DateFormat('M/d HH:mm').format(dateTime);
       }
-      // そ��以外は年月日と時刻
+      // そ以外は年月日と時刻
       return DateFormat('yyyy/M/d HH:mm').format(dateTime);
     } catch (e) {
       print('Date formatting error: ${e.toString()}');

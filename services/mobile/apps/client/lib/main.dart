@@ -116,18 +116,18 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey[800],
-              foregroundColor: Colors.lightGreen,
+              foregroundColor: Colors.white,
             ),
           ),
           cardTheme: CardTheme(color: Colors.grey[800]),
           textSelectionTheme: TextSelectionThemeData(
-            selectionColor: Colors.green.withOpacity(0.3),
-            cursorColor: Colors.green,
-            selectionHandleColor: Colors.green,
+            selectionColor: Colors.white.withOpacity(0.3),
+            cursorColor: Colors.white,
+            selectionHandleColor: Colors.white,
           ),
           colorScheme: ColorScheme.dark(
-            primary: Colors.green,
-            secondary: Colors.lightGreen,
+            primary: Colors.white,
+            secondary: Colors.white,
           ),
         ),
         themeMode: ThemeMode.dark,

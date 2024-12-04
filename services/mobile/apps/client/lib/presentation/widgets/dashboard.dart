@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:countries_world_map/countries_world_map.dart';
-import 'package:countries_world_map/data/maps/world_map.dart';
 import 'package:client/presentation/widgets/components/artist_select_sheet.dart';
 import 'package:client/presentation/widgets/dashboard/new_artists.dart';
 import 'package:intl/intl.dart';
@@ -16,7 +14,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  late String _selectedArtist;
+  late String? _selectedArtist;
   String _selectedSong = 'Song 1';
   String _selectedPeriod = '1week';
   String _selectedWork = 'UPC 1';
@@ -169,11 +167,32 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
     // Initialize _selectedArtist with the first artist from the user provider
     final userRef = ProviderContainer().read(userProvider);
-    _selectedArtist = userRef?.belongsToArtists.firstOrNull?.name ?? '';
+    _selectedArtist = userRef?.belongsToArtists.firstOrNull?.name;
   }
 
   @override
   Widget build(BuildContext context) {
+    // アーティストが選択されていない場合の表示
+    if (_selectedArtist == null || _selectedArtist!.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'アーティストを選択してください',
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _showArtistSelectionBottomSheet,
+              child: const Text('アーティストを選択'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // 通常のダッシュボード表示
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -191,8 +210,6 @@ class _DashboardState extends State<Dashboard> {
             _buildGenderPlayCountSection(),
             const SizedBox(height: 20),
             _buildGenerationSection(),
-            const SizedBox(height: 20),
-            _buildWorldwidePlayCountSection(),
           ],
         ),
       ),
@@ -211,7 +228,7 @@ class _DashboardState extends State<Dashboard> {
           ),
           const SizedBox(width: 8),
           Text(
-            _selectedArtist,
+            _selectedArtist!,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(width: 4),
@@ -602,119 +619,6 @@ class _DashboardState extends State<Dashboard> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildWorldwidePlayCountSection() {
-    final Map<String, int> playCountData = {
-      'US': 1000000,
-      'GB': 500000,
-      'JP': 750000,
-      'DE': 300000,
-      'FR': 250000,
-    };
-
-    return Card(
-      color: Colors.grey[850],
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Geography', style: TextStyle(color: Colors.white)),
-              ],
-            ),
-            const SizedBox(height: 24),
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: SimpleMap(
-                instructions: SMapWorld.instructions,
-                defaultColor: Colors.grey,
-                colors: SMapWorldColors(
-                  uS: Colors.green,
-                  cN: Colors.green,
-                  rU: Colors.green,
-                ).toMap(),
-                callback: (id, name, tapdetails) {
-                  // タップされた国の処理をここに追加
-                  print('Tapped on country: $name');
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            _buildLegendWorldMap(),
-            const SizedBox(height: 16),
-            _buildCountryPlayCountList(playCountData),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLegendWorldMap() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          _buildLegendItem('> 750K', Colors.red),
-          const SizedBox(width: 8),
-          _buildLegendItem('500K-750K', Colors.orange),
-          const SizedBox(width: 8),
-          _buildLegendItem('250K-500K', Colors.yellow),
-          const SizedBox(width: 8),
-          _buildLegendItem('< 250K', Colors.green),
-          const SizedBox(width: 8),
-          _buildLegendItem('No data', Colors.grey),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLegendItem(String label, Color color) {
-    return Row(
-      children: [
-        Container(
-          width: 16,
-          height: 16,
-          color: color,
-        ),
-        const SizedBox(width: 4),
-        Text(
-          label,
-          style: const TextStyle(color: Colors.white, fontSize: 12),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCountryPlayCountList(Map<String, int> playCountData) {
-    final sortedEntries = playCountData.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 8),
-        ...sortedEntries.map((entry) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    entry.key,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    NumberFormat.compact().format(entry.value),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            )),
-      ],
     );
   }
 

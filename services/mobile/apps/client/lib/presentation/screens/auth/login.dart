@@ -73,7 +73,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 TextButton(
                   child: Text(
                     '新規登録',
-                    style: TextStyle(fontSize: 14, color: Colors.green),
+                    style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                   onPressed: () {
                     Navigator.push(

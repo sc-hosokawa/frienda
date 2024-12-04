@@ -21,7 +21,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   final _linkButtonStyle = TextButton.styleFrom(
     padding: EdgeInsets.symmetric(vertical: 4),
-    foregroundColor: Colors.green,
+    foregroundColor: Colors.white,
     textStyle: TextStyle(fontSize: 12),
   );
 
@@ -89,16 +89,17 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     children: [
                       TextButton(
                         style: _linkButtonStyle,
-                        onPressed: () => _openWebView(
-                            'プライバシーポリシー', 'https://example.com/privacy'),
+                        onPressed: () => _openWebView('プライバシーポリシー',
+                            'https://app.friendshipdao.xyz/privacypolicy'),
                         child: Text('プライバシーポリシー'),
                       ),
                       TextButton(
                         style: _linkButtonStyle,
-                        onPressed: () =>
-                            _openWebView('利用規約', 'https://example.com/terms'),
+                        onPressed: () => _openWebView('利用規約',
+                            'https://app.friendshipdao.xyz/termofservice'),
                         child: Text('利用規約'),
                       ),
+                      /*
                       TextButton(
                         style: _linkButtonStyle,
                         onPressed: () => _openWebView('特定商取引法',
@@ -111,6 +112,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                             '資金決済法', 'https://example.com/fund-settlement'),
                         child: Text('資金決済法'),
                       ),
+                      */
                     ],
                   ),
                 ],
