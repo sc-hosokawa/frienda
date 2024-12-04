@@ -67,6 +67,7 @@ contract Credential is
         _grantRole(UPGRADER_ROLE, initialOwner);
     }
 
+    /// @notice See {UUPSUpgradeable-_authorizeUpgrade}
     function _authorizeUpgrade(address newImplementation) internal override onlyRole(UPGRADER_ROLE) {}
 
     /// @notice Pause the contract
