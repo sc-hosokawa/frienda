@@ -17,3 +17,4 @@ node_modules
 # Foundry files
 /cache_forge
 /out
+/broadcast

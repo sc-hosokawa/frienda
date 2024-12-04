@@ -1,7 +1,7 @@
 name: Contract CI
 
 inputs:
-  path: 
+  path:
     description: "CI environment"
     required: true
 
@@ -14,14 +14,23 @@ runs:
     - uses: actions/setup-node@v4
       with:
         node-version: 18
-        cache: 'pnpm'
-        cache-dependency-path: 'services/contract/pnpm-lock.yaml'
+        cache: "pnpm"
+        cache-dependency-path: "services/contract/pnpm-lock.yaml"
+    - uses: "foundry-rs/foundry-toolchain@v1"
+      with:
+        version: "nightly"
     - name: Install Dependencies
       run: cd ${{ inputs.path }} && pnpm install
       shell: bash
-    - name: Hardhat Test
-      run: cd ${{ inputs.path }} && pnpm hardhat test
+    - name: Install foundry Dependencies
+      run: cd ${{ inputs.path }} && forge install
       shell: bash
+    - name: Foundry test
+      run: cd ${{ inputs.path }} && forge test
+      shell: bash
+    # - name: Hardhat Test
+    #   run: cd ${{ inputs.path }} && pnpm hardhat test
+    #   shell: bash
 #    - name: Hardhat Coverage
 #      run: cd ${{ inputs.path }} && pnpm hardhat coverage
 #      shell: bash

@@ -4,6 +4,6 @@ COPY . .
 RUN cargo build --release
 
 FROM gcr.io/distroless/cc-debian12
-COPY --from=builder /app/target/release/metadata_integrator /
+COPY --from=builder /app/target/release/onchain_integrator /
 EXPOSE 8080
-CMD ["./metadata_integrator"]
+CMD ["./onchain_integrator"]

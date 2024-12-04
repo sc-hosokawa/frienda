@@ -118,19 +118,13 @@ const MessageList = () => {
                 alt={otherUser?.name}
               />
             </Avatar>
-            <span
-              className="font-medium w-48 flex-shrink-0 group-hover:text-black"
-            >
+            <span className="font-medium w-48 flex-shrink-0 group-hover:text-black">
               {otherUser?.name || "Unknown User"}
             </span>
-            <p
-              className="text-sm text-white flex-1 truncate group-hover:text-black"
-            >
+            <p className="text-sm text-white flex-1 truncate group-hover:text-black">
               {room.latestMessage || "No messages"}
             </p>
-            <span
-              className="text-sm text-gray-400 flex-shrink-0 group-hover:text-black"
-            >
+            <span className="text-sm text-gray-400 flex-shrink-0 group-hover:text-black">
               {formatDateTime(room.latestSentAt || "")}
             </span>
           </div>
