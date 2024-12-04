@@ -103,6 +103,22 @@ class UserData {
       primaryArtist: primaryArtist ?? this.primaryArtist,
     );
   }
+
+  // アーティスト名からArtistByUserを取得するメソッドを追加
+  ArtistByUser? getArtistByName(String artistName) {
+    return belongsToArtists.firstWhere(
+      (artist) => artist.name == artistName,
+      orElse: () => belongsToArtists.first,
+    );
+  }
+
+  // アーティストIDからArtistByUserを取得するメソッドを追加
+  ArtistByUser? getArtistById(String artistId) {
+    return belongsToArtists.firstWhere(
+      (artist) => artist.artistId == artistId,
+      orElse: () => belongsToArtists.first,
+    );
+  }
 }
 
 // アーティスト情報を表すクラス

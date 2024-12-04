@@ -14,6 +14,7 @@ import 'package:graphql/client.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:client/presentation/providers/fsp_balance_provider.dart';
+import 'package:intl/intl.dart';
 
 class Fsp extends ConsumerWidget {
   const Fsp({super.key});
@@ -50,7 +51,7 @@ class Fsp extends ConsumerWidget {
                     children: [
                       balanceState.when(
                         data: (balance) => Text(
-                          '${balance.fspBalance} fsp',
+                          '${NumberFormat('#,###').format(balance.fspBalance)} fsp',
                           style: Theme.of(context).textTheme.headlineLarge,
                           textAlign: TextAlign.center,
                         ),
@@ -70,7 +71,7 @@ class Fsp extends ConsumerWidget {
                           children: [
                             balanceState.when(
                               data: (balance) => Text(
-                                '期間限定 ${balance.fspBalanceTemp} fsp',
+                                '期間限定 ${NumberFormat('#,###').format(balance.fspBalanceTemp)} fsp',
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                               loading: () => const SizedBox.shrink(),
@@ -142,7 +143,7 @@ class Fsp extends ConsumerWidget {
               children: [
                 _buildMenuButton(context, '送付', Icons.send),
                 _buildMenuButton(context, '受取', Icons.call_received),
-                _buildMenuButton(context, '購入', Icons.shopping_cart),
+                //_buildMenuButton(context, '購入', Icons.shopping_cart),
                 _buildMenuButton(context, '交換', Icons.swap_horiz),
                 _buildMenuButton(context, '分配', Icons.pie_chart),
               ],
@@ -197,7 +198,8 @@ class Fsp extends ConsumerWidget {
                                       PrizeDetail(
                                         prizeId: prize.id.toString(),
                                         itemName: prize.name,
-                                        itemPrice: '${prize.point} FSP',
+                                        itemPrice:
+                                            '${NumberFormat('#,###').format(prize.point)} FSP',
                                         itemImage: prize.imgUrl ??
                                             'https://placehold.jp/150x150.png',
                                       ),
@@ -232,7 +234,7 @@ class Fsp extends ConsumerWidget {
                                                       .titleSmall,
                                                 ),
                                                 Text(
-                                                  '${prize.point} FSP',
+                                                  '${NumberFormat('#,###').format(prize.point)} FSP',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .bodySmall,
@@ -333,7 +335,7 @@ class Fsp extends ConsumerWidget {
                                     .format(
                                         DateTime.parse(transaction['txAt']))),
                                 trailing: Text(
-                                  '${isIncoming ? "+" : "-"}${transaction['amount']} fsp',
+                                  '${isIncoming ? "+" : "-"}${NumberFormat('#,###').format(transaction['amount'])} fsp',
                                   style: TextStyle(
                                     color:
                                         isIncoming ? Colors.green : Colors.red,
@@ -367,9 +369,9 @@ class Fsp extends ConsumerWidget {
             case '受取':
               destinationWidget = const Receive();
               break;
-            case '購入':
-              destinationWidget = const Purchase();
-              break;
+            //case '購入':
+            //  destinationWidget = const Purchase();
+            //  break;
             case '交換':
               destinationWidget = const Exchange();
               break;

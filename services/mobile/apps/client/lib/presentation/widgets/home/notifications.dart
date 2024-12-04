@@ -3,28 +3,7 @@ import 'package:flutter/material.dart';
 class Notifications extends StatelessWidget {
   const Notifications({super.key});
 
-  final List<Map<String, String>> _notifications = const [
-    {
-      'title': 'New follower',
-      'message': 'John Doe started following you',
-      'time': '2 hours ago'
-    },
-    {
-      'title': 'New like',
-      'message': 'Your post received a new like',
-      'time': '4 hours ago'
-    },
-    {
-      'title': 'New comment',
-      'message': 'Someone commented on your post',
-      'time': 'Yesterday'
-    },
-    {
-      'title': 'System update',
-      'message': 'New features are available',
-      'time': '2 days ago'
-    },
-  ];
+  final List<Map<String, String>> _notifications = const [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +17,49 @@ class Notifications extends StatelessWidget {
               centerTitle: true,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: _notifications.length,
-                itemBuilder: (context, index) {
-                  final notification = _notifications[index];
-                  return _buildListItem(
-                    context: context,
-                    title: notification['title']!,
-                    message: notification['message']!,
-                    time: notification['time']!,
-                  );
-                },
-              ),
+              child: _notifications.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.notifications_none,
+                            size: 64,
+                            color: Colors.grey,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            '通知がありません',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  color: Colors.grey,
+                                ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '新しい通知が来たらここに表示されます',
+                            style:
+                                Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: Colors.grey,
+                                    ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: _notifications.length,
+                      itemBuilder: (context, index) {
+                        final notification = _notifications[index];
+                        return _buildListItem(
+                          context: context,
+                          title: notification['title']!,
+                          message: notification['message']!,
+                          time: notification['time']!,
+                        );
+                      },
+                    ),
             ),
           ],
         ),

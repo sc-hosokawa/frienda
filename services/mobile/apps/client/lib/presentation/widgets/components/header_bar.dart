@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/widgets/more.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:client/presentation/providers/fsp_balance_provider.dart';
+import 'package:intl/intl.dart';
 
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
@@ -30,7 +31,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
             children: [
               balanceState.when(
                 data: (balance) => Text(
-                  '${balance.fspBalance} fsp',
+                  '${NumberFormat('#,###').format(balance.fspBalance)} fsp',
                   style: TextStyle(fontSize: 16),
                 ),
                 loading: () => const SizedBox.shrink(),
