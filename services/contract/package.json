@@ -15,7 +15,8 @@
     "lint:es": "eslint . --ext .ts,.js,.tsx,.jsx",
     "lint:sol": "solhint --config .solhint.json --ignore-path .solhintignore contracts/**/*.sol test/foundry/**/*.sol",
     "lint:fix": "eslint --fix . --ext .ts,.js,.tsx,.jsx",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy:credential-sepolia": "forge clean && forge script script/Credential.s.sol --rpc-url sepolia --broadcast --etherscan-api-key $ETHERSCAN_KEY --verify"
   },
   "keywords": [],
   "author": "Naoki Akazawa",
