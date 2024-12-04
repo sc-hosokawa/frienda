@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "../../../../../packages/ui/components/ui/button";
+import CommunityListsRow from "../../../components/community/community-lits-row";
 
 export default function MessagePage() {
   return (
@@ -31,6 +32,97 @@ export default function MessagePage() {
         </Button>
       </div>
       <hr className="mb-8 mt-24 border-[#303030]" />
+      {mockData.map((data) => (
+        <CommunityListsRow {...data} />
+      ))}
     </div>
   );
 }
+
+const mockData = [
+  {
+    id: "1",
+    name: "john_john",
+    avatar: "/logo_visualonly.jpg",
+    friendCount: "4 common friends",
+    rate: "4.5",
+    type: "Curator",
+    comment: "次のMVの時きく！",
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    lastLogin: "20分前",
+  },
+  {
+    id: "2",
+    name: "john_john",
+    avatar: "/logo_visualonly.jpg",
+    friendCount: "4 common friends",
+    rate: "4.5",
+    type: "Curator",
+    comment: "次のMVの時きく！",
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    lastLogin: "20分前",
+    isOnline: true,
+  },
+  {
+    id: "3",
+    name: "john_john",
+    avatar: "/logo_visualonly.jpg",
+    friendCount: "4 common friends",
+    rate: "4.5",
+    type: "Curator",
+    comment: "次のMVの時きく！",
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    lastLogin: "20分前",
+  },
+  {
+    id: "4",
+    name: "Sayaka Yoshida",
+    avatar: "/logo_visualonly.jpg",
+    friendCount: "4 common friends",
+    rate: "4.5",
+    type: "Curator",
+    comment: "次のMVの時きく！",
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    lastLogin: "20分前",
+  },
+  {
+    id: "5",
+    name: "john_john",
+    avatar: "/logo_visualonly.jpg",
+    friendCount: "4 common friends",
+    rate: "4.5",
+    type: "Curator",
+    comment: "次のMVの時きく！",
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    lastLogin: "20分前",
+  },
+  {
+    id: "6",
+    name: "john_john",
+    avatar: "/logo_visualonly.jpg",
+    friendCount: "4 common friends",
+    rate: "4.5",
+    type: "Curator",
+    comment: "次のMVの時きく！",
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    lastLogin: "20分前",
+  },
+];
