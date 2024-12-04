@@ -1,5 +1,5 @@
 [package]
-name = "metadata_integrator"
+name = "onchain_integrator"
 version = "0.1.0"
 edition = "2021"
 
