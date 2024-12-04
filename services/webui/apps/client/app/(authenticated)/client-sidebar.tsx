@@ -61,6 +61,14 @@ const items = [
     },
   },
   {
+    title: "Community",
+    url: "/community",
+    icon: {
+      default: "/community.svg",
+      active: "/community_line.svg",
+    },
+  },
+  {
     title: "Message",
     url: "/message",
     icon: {
