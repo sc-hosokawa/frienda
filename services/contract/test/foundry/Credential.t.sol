@@ -3,6 +3,7 @@ pragma solidity 0.8.27;
 
 import {Test, console} from "forge-std/Test.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {IAccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol";
 import {Upgrades} from "openzeppelin-foundry-upgrades/Upgrades.sol";
 import {Credential} from "../../contracts/Credential.sol";
 
@@ -69,6 +70,24 @@ contract CredentialTest is Test {
         address[] memory accounts = new address[](1);
         uint256[] memory amounts = new uint256[](1);
 
+        accounts[0] = minter;
+        amounts[0] = 100;
+
+        __mint(accounts, amounts, minter);
+        assertEq(credential.balanceOf(minter), 100);
+        
+				vm.expectEmit(true, true, true, false);
+        emit CredentialBurned(minter, 100);
+        __burn(100, minter);
+
+        // test check if the balance is correct
+        assertEq(credential.balanceOf(minter), 0);
+    }
+
+    function testBurnFrom() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
         accounts[0] = alice;
         amounts[0] = 100;
 
@@ -82,7 +101,7 @@ contract CredentialTest is Test {
 
         vm.expectEmit(true, true, true, false);
         emit CredentialBurned(alice, 100);
-        __burn(accounts, amounts, minter);
+        __burnFrom(alice, 100, minter);
 
         // test check if the balance is correct
         assertEq(credential.balanceOf(alice), 0);
@@ -111,7 +130,7 @@ contract CredentialTest is Test {
         __approve(bob, minter, 200);
         assertEq(credential.allowance(bob, minter), 200);
 
-        __burn(accounts, amounts, minter);
+        __batchBurn(accounts, amounts, minter);
 
         // test check if the balance is correct
         assertEq(credential.balanceOf(alice), 0);
@@ -125,9 +144,31 @@ contract CredentialTest is Test {
         accounts[0] = alice;
         amounts[0] = 100;
 
-        // this will revert because alice has not approved minter to burn the tokens
-        vm.expectRevert();
-        __burn(accounts, amounts, bob);
+        __mint(accounts, amounts, minter);
+
+        // this will revert because alice does not have the burner role
+        vm.expectRevert(
+            abi.encodeWithSelector(Credential.CALLER_MUST_HAVE_BURNER_ROLE.selector, alice, credential.BURNER_ROLE())
+        );
+        __burn(100, alice);
+    }
+
+    function testRevertBurnFrom() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+
+        __mint(accounts, amounts, minter);
+
+        __approve(alice, bob, 100);
+
+        // this will revert because bob does not have the burner role
+        vm.expectRevert(
+            abi.encodeWithSelector(Credential.CALLER_MUST_HAVE_BURNER_ROLE.selector, bob, credential.BURNER_ROLE())
+        );
+        __burnFrom(alice, 100, bob);
     }
 
     function testRevertInvalidBurnLength() external {
@@ -146,7 +187,7 @@ contract CredentialTest is Test {
 
         // this will revert because the length of the accounts and amounts are not the same
         vm.expectRevert(abi.encodeWithSelector(Credential.INVALID_LENGTH.selector));
-        __burn(invalidAccounts, amounts, minter);
+        __batchBurn(invalidAccounts, amounts, minter);
     }
 
     function testRevertInvalidBurner() external {
@@ -160,8 +201,13 @@ contract CredentialTest is Test {
 
         __approve(alice, minter, 100);
 
-        vm.expectRevert();
-        __burn(accounts, amounts, alice);
+        // this will revert because alice does not have the burner role
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                IAccessControl.AccessControlUnauthorizedAccount.selector, alice, credential.BURNER_ROLE()
+            )
+        );
+        __batchBurn(accounts, amounts, alice);
     }
 
     function testRevertMint() external {
@@ -171,7 +217,11 @@ contract CredentialTest is Test {
         accounts[0] = alice;
         amounts[0] = 100;
 
-        vm.expectRevert();
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                IAccessControl.AccessControlUnauthorizedAccount.selector, bob, credential.MINTER_ROLE()
+            )
+        );
         __mint(accounts, amounts, bob);
     }
 
@@ -182,7 +232,11 @@ contract CredentialTest is Test {
         accounts[0] = alice;
         amounts[0] = 100;
 
-        vm.expectRevert();
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                IAccessControl.AccessControlUnauthorizedAccount.selector, alice, credential.MINTER_ROLE()
+            )
+        );
         __mint(accounts, amounts, alice);
     }
 
@@ -227,7 +281,11 @@ contract CredentialTest is Test {
 
     function testRevertInvalidPauser() external {
         // this will revert because bob is not a pauser
-        vm.expectRevert();
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                IAccessControl.AccessControlUnauthorizedAccount.selector, alice, credential.PAUSER_ROLE()
+            )
+        );
         __pause(alice);
     }
 
@@ -251,11 +309,19 @@ contract CredentialTest is Test {
         credential.mint(accounts, amounts);
     }
 
-    function __burn(address[] memory accounts, uint256[] memory amounts, address caller)
+    function __batchBurn(address[] memory accounts, uint256[] memory amounts, address caller)
         internal
         prankception(caller)
     {
-        credential.burn(accounts, amounts);
+        credential.batchBurn(accounts, amounts);
+    }
+
+    function __burn(uint256 amount, address caller) internal prankception(caller) {
+        credential.burn(amount);
+    }
+
+    function __burnFrom(address account, uint256 amount, address caller) internal prankception(caller) {
+        credential.burnFrom(account, amount);
     }
 
     function __approve(address owner, address spender, uint256 amount) internal prankception(owner) {

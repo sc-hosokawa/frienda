@@ -40,7 +40,7 @@ contract Credential is
     error INVALID_TRANSFER(address from, address to);
 
     /// @notice Error message for caller must have burner role
-    error CALLER_MUST_HAVE_BURNER_ROLE();
+    error CALLER_MUST_HAVE_BURNER_ROLE(address caller, bytes32 role);
 
     /// @notice Event emitted when a credential is granted
     event CredentialGranted(address indexed account, uint256 amount);
@@ -99,7 +99,7 @@ contract Credential is
     /// @param amount The amount of tokens to burn
     /// @dev Overrides the burn function from ERC20BurnableUpgradeable
     function burn(uint256 amount) public virtual override {
-        require(hasRole(BURNER_ROLE, _msgSender()), CALLER_MUST_HAVE_BURNER_ROLE());
+        require(hasRole(BURNER_ROLE, _msgSender()), CALLER_MUST_HAVE_BURNER_ROLE(_msgSender(), BURNER_ROLE));
         super.burn(amount);
 
         emit CredentialBurned(_msgSender(), amount);
@@ -110,7 +110,7 @@ contract Credential is
     /// @param amount The amount of tokens to burn
     /// @dev Overrides the burnFrom function from ERC20BurnableUpgradeable
     function burnFrom(address account, uint256 amount) public virtual override {
-        require(hasRole(BURNER_ROLE, _msgSender()), CALLER_MUST_HAVE_BURNER_ROLE());
+        require(hasRole(BURNER_ROLE, _msgSender()), CALLER_MUST_HAVE_BURNER_ROLE(_msgSender(), BURNER_ROLE));
 
         super.burnFrom(account, amount);
 

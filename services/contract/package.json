@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "forge clean && forge build",
     "clean": "pnpm hardhat clean",
     "test": "GAS_REPORT=true pnpm hardhat test",
     "foundrytest": "forge clean && forge test",
