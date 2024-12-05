@@ -18,7 +18,7 @@ import {
 } from "../../../../../packages/ui/components/ui/table";
 import { ChevronDown } from "lucide-react";
 
-export default function MessagePage() {
+export default function CommunityPage() {
   return (
     <div className="bg-black text-white flex-1">
       <div className="flex items-center justify-between pt-[115px] border-gray-800">
