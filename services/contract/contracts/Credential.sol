@@ -39,6 +39,9 @@ contract Credential is
     /// @notice Error message for invalid transfer
     error INVALID_TRANSFER(address from, address to);
 
+    /// @notice Error message for caller must have burner role
+    error CALLER_MUST_HAVE_BURNER_ROLE();
+
     /// @notice Event emitted when a credential is granted
     event CredentialGranted(address indexed account, uint256 amount);
 
@@ -84,7 +87,7 @@ contract Credential is
     /// @dev The length of the `to` and `amount` arrays must be the same, otherwise the function will revert
     /// @param to The addresses to which the tokens will be minted
     /// @param amount The amount of tokens to mint to each address
-    function mint(address[] memory to, uint256[] memory amount) public onlyRole(MINTER_ROLE) {
+    function mint(address[] memory to, uint256[] memory amount) external onlyRole(MINTER_ROLE) {
         require(to.length == amount.length, INVALID_LENGTH());
         for (uint256 i = 0; i < to.length; i++) {
             _mint(to[i], amount[i]);
@@ -92,16 +95,37 @@ contract Credential is
         }
     }
 
+    /// @notice Burn tokens from the caller's address
+    /// @param amount The amount of tokens to burn
+    /// @dev Overrides the burn function from ERC20BurnableUpgradeable
+    function burn(uint256 amount) public virtual override {
+        require(hasRole(BURNER_ROLE, _msgSender()), CALLER_MUST_HAVE_BURNER_ROLE());
+        super.burn(amount);
+
+        emit CredentialBurned(_msgSender(), amount);
+    }
+
+    /// @notice Burn tokens from a specific address
+    /// @param account The address to burn tokens from
+    /// @param amount The amount of tokens to burn
+    /// @dev Overrides the burnFrom function from ERC20BurnableUpgradeable
+    function burnFrom(address account, uint256 amount) public virtual override {
+        require(hasRole(BURNER_ROLE, _msgSender()), CALLER_MUST_HAVE_BURNER_ROLE());
+
+        super.burnFrom(account, amount);
+
+        emit CredentialBurned(account, amount);
+    }
+
     /// @notice Burn tokens from the specified addresses
     /// @dev The length of the `from` and `amount` arrays must be the same, otherwise the function will revert
     /// @dev from address must have allowance for the burner to burn the tokens
     /// @param from The addresses from which the tokens will be burned
     /// @param amount The amount of tokens to burn from each address
-    function burn(address[] memory from, uint256[] memory amount) public onlyRole(BURNER_ROLE) {
+    function batchBurn(address[] memory from, uint256[] memory amount) external onlyRole(BURNER_ROLE) {
         require(from.length == amount.length, INVALID_LENGTH());
         for (uint256 i = 0; i < from.length; i++) {
             burnFrom(from[i], amount[i]);
-            emit CredentialBurned(from[i], amount[i]);
         }
     }
 
