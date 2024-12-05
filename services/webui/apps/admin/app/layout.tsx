@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@ui/components/theme-provider";
 import { Toaster } from "@ui/components/ui/toaster";
+import { ApollClientProvider } from "../provider/apollo-client";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +28,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster />
+          <ApollClientProvider>
+            {children}
+            <Toaster />
+          </ApollClientProvider>
         </ThemeProvider>
       </body>
     </html>

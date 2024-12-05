@@ -23,6 +23,27 @@ importers:
 
   apps/admin:
     dependencies:
+      '@apollo/client':
+        specifier: ^3.11.8
+        version: 3.11.8(@types/react@18.2.79)(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@apollo/experimental-nextjs-app-support':
+        specifier: ^0.11.5
+        version: 0.11.5(@apollo/client@3.11.8(@types/react@18.2.79)(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(next@14.2.2(@babel/core@7.23.5)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
+      '@firebase/app':
+        specifier: ^0.10.15
+        version: 0.10.15
+      '@firebase/auth':
+        specifier: ^1.8.0
+        version: 1.8.0(@firebase/app@0.10.15)
+      firebase:
+        specifier: ^11.0.1
+        version: 11.0.1
+      firebase-admin:
+        specifier: ^12.7.0
+        version: 12.7.0
+      graphql:
+        specifier: ^16.9.0
+        version: 16.9.0
       lucide-react:
         specifier: ^0.322.0
         version: 0.322.0(react@18.2.0)
@@ -6994,7 +7015,7 @@ snapshots:
   '@firebase/component@0.6.9':
     dependencies:
       '@firebase/util': 1.10.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@firebase/data-connect@0.1.1(@firebase/app@0.10.15)':
     dependencies:
@@ -7041,7 +7062,7 @@ snapshots:
       '@firebase/logger': 0.4.2
       '@firebase/util': 1.10.0
       faye-websocket: 0.11.4
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@firebase/database@1.0.9':
     dependencies:
@@ -7130,7 +7151,7 @@ snapshots:
 
   '@firebase/logger@0.4.2':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@firebase/logger@0.4.3':
     dependencies:
@@ -7230,7 +7251,7 @@ snapshots:
 
   '@firebase/util@1.10.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@firebase/util@1.10.1':
     dependencies:
@@ -7563,7 +7584,7 @@ snapshots:
       dataloader: 2.2.2
       dset: 3.1.4
       graphql: 16.9.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@graphql-tools/documents@1.0.1(graphql@16.9.0)':
     dependencies:
@@ -7704,7 +7725,7 @@ snapshots:
   '@graphql-tools/optimize@2.0.0(graphql@16.9.0)':
     dependencies:
       graphql: 16.9.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@graphql-tools/prisma-loader@8.0.15(@types/node@20.12.7)(graphql@16.9.0)':
     dependencies:
@@ -7747,7 +7768,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.9.0)
       '@graphql-tools/utils': 10.5.5(graphql@16.9.0)
       graphql: 16.9.0
-      tslib: 2.6.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -7956,7 +7977,7 @@ snapshots:
       is-glob: 4.0.3
       open: 9.1.0
       picocolors: 1.0.0
-      tslib: 2.6.2
+      tslib: 2.8.1
 
   '@protobufjs/aspromise@1.1.2': {}
 

@@ -28,14 +28,28 @@ import {
   SheetTrigger,
 } from "@ui/components/ui/sheet";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import { useQuery, gql } from "@apollo/client";
 
 interface Artist {
-  id: number;
+  artistId: string;
   nameJa: string;
   nameEn: string;
   nameKana: string;
   isPublic: boolean;
 }
+
+const GET_ARTISTS = gql`
+  query GetAllArtists {
+    getAllArtists {
+      artistList {
+        artistId
+        name
+        imageUrl
+        fsp
+      }
+    }
+  }
+`;
 
 export function ArtistTable() {
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -51,17 +65,28 @@ export function ArtistTable() {
   const itemsPerPage = 10;
   const { toast } = useToast();
 
-  // 仮のデータ生成（実際の実装では、APIからデータを取得します）
+  const { loading, error, data } = useQuery(GET_ARTISTS);
+
   useEffect(() => {
-    const dummyData = Array.from({ length: 1000 }, (_, i) => ({
-      id: i + 1,
-      nameJa: `アーティスト${i + 1}`,
-      nameEn: `Artist ${i + 1}`,
-      nameKana: `アーティスト${i + 1}`,
-      isPublic: Math.random() < 0.5,
-    }));
-    setArtists(dummyData);
-  }, []);
+    console.log("GraphQL Response:", data); // APIレスポンスの確認
+
+    if (data?.getAllArtists?.artistList) {
+      const formattedArtists = data.getAllArtists.artistList.map(
+        (artist: any) => {
+          const formatted = {
+            id: parseInt(artist.artistId),
+            artistId: artist.artistId,
+            nameJa: artist.name,
+            nameEn: artist.name,
+            nameKana: artist.name,
+            isPublic: true,
+          };
+          return formatted;
+        },
+      );
+      setArtists(formattedArtists);
+    }
+  }, [data]);
 
   useEffect(() => {
     const filtered = artists.filter((artist) => {
@@ -70,23 +95,22 @@ export function ArtistTable() {
         artist.nameEn.toLowerCase().includes(searchTerm.toLowerCase()) ||
         artist.nameKana.toLowerCase().includes(searchTerm.toLowerCase());
 
-      // 公開状態でのフィルタリング
       if (sortOrder === "public") return matchesSearch && artist.isPublic;
       if (sortOrder === "private") return matchesSearch && !artist.isPublic;
-      return matchesSearch; // all の場合
+      return matchesSearch;
     });
 
     setFilteredArtists(filtered);
   }, [artists, searchTerm, sortOrder]);
 
-  const handleTogglePublic = (id: number) => {
+  const handleTogglePublic = (artistId: string) => {
     setArtists(
       artists.map((artist) => {
-        if (artist.id === id) {
+        if (artist.artistId === artistId) {
           const newPublicState = !artist.isPublic;
           toast({
             title: "公開状態を変更しました",
-            description: `ID: ${id} を${newPublicState ? "公開" : "非公開"}に設定しました`,
+            description: `ID: ${artistId} を${newPublicState ? "公開" : "非公開"}に設定しました`,
             variant: "default",
           });
           return { ...artist, isPublic: newPublicState };
@@ -102,7 +126,7 @@ export function ArtistTable() {
     setIsEditing(true);
   };
 
-  const handleFormChange = (field: keyof Artist, value: string) => {
+  const handleFormChange = (field: keyof Artist, value: string | boolean) => {
     if (!editForm) return;
     setEditForm({ ...editForm, [field]: value });
   };
@@ -112,13 +136,13 @@ export function ArtistTable() {
 
     setArtists(
       artists.map((artist) =>
-        artist.id === selectedArtist.id ? editForm : artist,
+        artist.artistId === selectedArtist.artistId ? editForm : artist,
       ),
     );
 
     toast({
       title: "変更を保存しました",
-      description: `ID: ${selectedArtist.id} の情報を更新しました`,
+      description: `ID: ${selectedArtist.artistId} の情報を更新しました`,
       variant: "default",
     });
 
@@ -130,6 +154,14 @@ export function ArtistTable() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage,
   );
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="space-y-4">
@@ -163,26 +195,21 @@ export function ArtistTable() {
             <TableHead>名前（日本語）</TableHead>
             <TableHead>名前（英語）</TableHead>
             <TableHead>名前（カナ）</TableHead>
-            <TableHead>公開状態</TableHead>
             <TableHead>操作</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {paginatedArtists.map((artist) => (
-            <TableRow key={artist.id}>
-              <TableCell>{artist.id}</TableCell>
+            <TableRow key={artist.artistId}>
+              <TableCell>{artist.artistId}</TableCell>
               <TableCell>{artist.nameJa}</TableCell>
               <TableCell>{artist.nameEn}</TableCell>
               <TableCell>{artist.nameKana}</TableCell>
               <TableCell>
-                <Switch
-                  checked={artist.isPublic}
-                  onCheckedChange={() => handleTogglePublic(artist.id)}
-                />
-              </TableCell>
-              <TableCell>
                 <Sheet
-                  open={isEditing && selectedArtist?.id === artist.id}
+                  open={
+                    isEditing && selectedArtist?.artistId === artist.artistId
+                  }
                   onOpenChange={setIsEditing}
                 >
                   <SheetTrigger asChild>
@@ -219,6 +246,18 @@ export function ArtistTable() {
                             handleFormChange("nameKana", e.target.value)
                           }
                         />
+                      </div>
+                      <div className="space-y-2">
+                        <label>公開状態</label>
+                        <div className="flex items-center space-x-2">
+                          <Switch
+                            checked={editForm?.isPublic}
+                            onCheckedChange={() =>
+                              handleFormChange("isPublic", !editForm?.isPublic)
+                            }
+                          />
+                          <span>{editForm?.isPublic ? "公開" : "非公開"}</span>
+                        </div>
                       </div>
                       <div className="flex justify-end pt-4">
                         <Button onClick={handleSaveChanges}>変更を保存</Button>
