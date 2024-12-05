@@ -72,7 +72,7 @@ contract CredentialV2 is
         _grantRole(UPGRADER_ROLE, initialOwner);
     }
 
-    function version() public pure returns (string memory) {
+    function version() public pure virtual returns (string memory) {
         return "v2.0.0";
     }
 
