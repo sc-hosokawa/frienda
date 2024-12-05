@@ -34,15 +34,16 @@ export DEPLOYER_PRIVATE_KEY=
 export MNEMONIC=
 ```
 
+### Deployment
+
 after setup .env file,
 
 ```
-source .env && pnpm deploy:credential-sepolia
+source .env && pnpm run deploy:credentialProxy-sepolia
 ```
 
-**[IMPORTANT NOTE]**
-if you want to use DEPLOYER_PRIVATE_KEY instead of using MNEMONIC, then add `--private-key $DEPLOYER_PRIVATE_KEY` on package.json script like below
+### Upgrade
 
 ```
-"deploy:credential-sepolia": "forge clean && forge script script/Credential.s.sol --rpc-url sepolia --broadcast --private-key $DEPLOYER_PRIVATE_KEY --etherscan-api-key $ETHERSCAN_KEY --verify"
+source .env && pnpm run upgrade
 ```
