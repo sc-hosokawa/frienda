@@ -100,7 +100,7 @@ export default function CommunityListsRow({
           <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
             {connection?.offer}
           </span>
-          <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black/60">
+          <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black">
             {connection?.date}
           </span>
         </div>
@@ -123,17 +123,11 @@ export default function CommunityListsRow({
         <div className="flex items-center gap-2">
           <button className="w-12 h-12 rounded-full flex items-center justify-center relative">
             <div className="absolute inset-0 rounded-full border border-dashed border-white group-hover:border-black" />
-            <Upload
-              className="w-[18px] h-[18px] text-white group-hover:text-black"
-              strokeWidth={2}
-            />
+            <Upload className="w-[18px] h-[18px] text-white group-hover:text-black" />
           </button>
           <button className="w-12 h-12 rounded-full flex items-center justify-center relative">
             <div className="absolute inset-0 rounded-full border border-dashed border-white group-hover:border-black" />
-            <MoreHorizontal
-              className="w-[18px] h-[18px] text-white group-hover:text-black"
-              strokeWidth={2}
-            />
+            <MoreHorizontal className="w-[18px] h-[18px] text-white group-hover:text-black" />
           </button>
         </div>
       </TableCell>

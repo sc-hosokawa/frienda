@@ -40,7 +40,7 @@ export default function MessagePage() {
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full border border-dashed border-gray-600 w-[60px] h-[60px] flex items-center justify-center"
+          className="rounded-full border border-dashed border-white w-[60px] h-[60px] flex items-center justify-center"
         >
           <Image src="/search.svg" alt="plus" width={24} height={24} />
         </Button>
@@ -56,13 +56,13 @@ export default function MessagePage() {
           <TabsList className="bg-transparent border border-dashed border-white rounded-full p-1 w-[186px] h-[60px]">
             <TabsTrigger
               value="map"
-              className="rounded-[60px] w-[90px] text-[15px] font-[360] leading-[18px] text-center h-[52.5px] data-[state=active]:bg-white data-[state=active]:text-black"
+              className="rounded-[60px] w-[90px] text-[15px] font-[360] leading-[18px] text-center h-[52.5px] text-white data-[state=active]:bg-white data-[state=active]:text-black"
             >
               Map View
             </TabsTrigger>
             <TabsTrigger
               value="list"
-              className="rounded-[60px] w-[90px] text-[15px] font-[360] leading-[18px] text-center h-[52.5px] data-[state=active]:bg-white data-[state=active]:text-black"
+              className="rounded-[60px] w-[90px] text-[15px] font-[360] leading-[18px] text-center h-[52.5px] text-white data-[state=active]:bg-white data-[state=active]:text-black"
             >
               List View
             </TabsTrigger>
