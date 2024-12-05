@@ -34,14 +34,6 @@ export DEPLOYER_PRIVATE_KEY=
 export MNEMONIC=
 ```
 
-### Deployment
-
-after setup .env file,
-
-```
-source .env && pnpm run deploy:credentialProxy-sepolia
-```
-
 ### Upgrade
 
 ```
