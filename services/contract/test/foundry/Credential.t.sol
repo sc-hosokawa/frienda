@@ -5,9 +5,9 @@ import {Test, console} from "forge-std/Test.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IAccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol";
 import {Upgrades} from "openzeppelin-foundry-upgrades/Upgrades.sol";
-import {Credential} from "../../contracts/Credential.sol";
+import {CredentialV2} from "../../contracts/CredentialV2.sol";
 
-contract CredentialTest is Test {
+contract CredentialV2Test is Test {
     address currentPrankee;
     address admin = makeAddr("admin");
     address minter = makeAddr("minter");
@@ -16,23 +16,28 @@ contract CredentialTest is Test {
     address bob = makeAddr("bob");
     address charlie = makeAddr("charlie");
 
-    Credential public credential;
+    CredentialV2 public credential;
 
     event CredentialGranted(address indexed account, uint256 amount);
     event CredentialBurned(address indexed account, uint256 amount);
 
     function setUp() public {
         // deploy UUPS proxy and initialize the contract
-        address proxy =
-            Upgrades.deployUUPSProxy("Credential.sol", abi.encodeCall(Credential.initialize, (admin, pauser, minter)));
+        address proxy = Upgrades.deployUUPSProxy(
+            "CredentialV2.sol", abi.encodeCall(CredentialV2.initialize, (admin, pauser, minter))
+        );
 
-        credential = Credential(proxy);
+        credential = CredentialV2(proxy);
     }
 
     function testInitializations() external view {
         assertEq(credential.name(), "Credential");
         assertEq(credential.symbol(), "CRED");
         assertEq(credential.decimals(), 18);
+    }
+
+    function testVersion() external view {
+        assertEq(credential.version(), "v2.0.0");
     }
 
     function testMint() external {
@@ -75,8 +80,8 @@ contract CredentialTest is Test {
 
         __mint(accounts, amounts, minter);
         assertEq(credential.balanceOf(minter), 100);
-        
-				vm.expectEmit(true, true, true, false);
+
+        vm.expectEmit(true, true, true, false);
         emit CredentialBurned(minter, 100);
         __burn(100, minter);
 
@@ -148,7 +153,7 @@ contract CredentialTest is Test {
 
         // this will revert because alice does not have the burner role
         vm.expectRevert(
-            abi.encodeWithSelector(Credential.CALLER_MUST_HAVE_BURNER_ROLE.selector, alice, credential.BURNER_ROLE())
+            abi.encodeWithSelector(CredentialV2.CALLER_MUST_HAVE_BURNER_ROLE.selector, alice, credential.BURNER_ROLE())
         );
         __burn(100, alice);
     }
@@ -166,7 +171,7 @@ contract CredentialTest is Test {
 
         // this will revert because bob does not have the burner role
         vm.expectRevert(
-            abi.encodeWithSelector(Credential.CALLER_MUST_HAVE_BURNER_ROLE.selector, bob, credential.BURNER_ROLE())
+            abi.encodeWithSelector(CredentialV2.CALLER_MUST_HAVE_BURNER_ROLE.selector, bob, credential.BURNER_ROLE())
         );
         __burnFrom(alice, 100, bob);
     }
@@ -186,7 +191,7 @@ contract CredentialTest is Test {
         invalidAccounts[0] = alice;
 
         // this will revert because the length of the accounts and amounts are not the same
-        vm.expectRevert(abi.encodeWithSelector(Credential.INVALID_LENGTH.selector));
+        vm.expectRevert(abi.encodeWithSelector(CredentialV2.INVALID_LENGTH.selector));
         __batchBurn(invalidAccounts, amounts, minter);
     }
 
@@ -248,7 +253,7 @@ contract CredentialTest is Test {
         amounts[0] = 100;
         amounts[1] = 200;
 
-        vm.expectRevert(abi.encodeWithSelector(Credential.INVALID_LENGTH.selector));
+        vm.expectRevert(abi.encodeWithSelector(CredentialV2.INVALID_LENGTH.selector));
         __mint(accounts, amounts, minter);
     }
 
@@ -262,7 +267,7 @@ contract CredentialTest is Test {
         __mint(accounts, amounts, minter);
 
         // expect revert transfer token alice -> bob
-        vm.expectRevert(abi.encodeWithSelector(Credential.INVALID_TRANSFER.selector, alice, bob));
+        vm.expectRevert(abi.encodeWithSelector(CredentialV2.INVALID_TRANSFER.selector, alice, bob));
         __transfer(alice, bob, 100);
     }
 
