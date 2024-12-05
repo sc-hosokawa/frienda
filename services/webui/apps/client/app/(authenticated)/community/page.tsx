@@ -48,7 +48,11 @@ export default function MessagePage() {
       <hr className="mb-8 mt-24 border-[#303030]" />
 
       <Tabs defaultValue="list" className="w-full">
-        <div className="flex justify-end mb-6">
+        <div className="flex justify-between mb-6">
+          <h2 className="text-[18px] font-[360] leading-[18px] text-left">
+            {/* TODO: this should be correct number */}
+            My Connections (11)
+          </h2>
           <TabsList className="bg-transparent border border-dashed border-white rounded-full p-1 w-[186px] h-[60px]">
             <TabsTrigger
               value="map"
@@ -64,9 +68,7 @@ export default function MessagePage() {
             </TabsTrigger>
           </TabsList>
         </div>
-        <TabsContent value="map">
-          Make changes to your account here.
-        </TabsContent>
+        <TabsContent value="map">{/* TODO: add map view */}</TabsContent>
         <TabsContent value="list">
           <Table className="border-collapse">
             <TableHeader>
@@ -97,6 +99,7 @@ export default function MessagePage() {
               </TableRow>
             </TableHeader>
             <TableBody>
+              {/* TODO: this should be actual data */}
               {mockData.map((data) => (
                 <CommunityListsRow key={data.id} {...data} />
               ))}
@@ -107,16 +110,14 @@ export default function MessagePage() {
     </div>
   );
 }
-
+// TODO: remove this mock data
 const mockData = [
   {
     id: "1",
-    name: "john_john",
-
+    name: "taro_yoshida",
     friendCount: 4,
     rate: "4.5",
     type: "Curator",
-    comment: "次のMVの時きく！",
     connection: {
       offer: "Offer #123",
       date: "2024/10/23",
@@ -125,12 +126,11 @@ const mockData = [
   },
   {
     id: "2",
-    name: "john_john",
-
+    name: "sayaka_kyoda",
     friendCount: 4,
     rate: "4.5",
     type: "Curator",
-    comment: "次のMVの時きく！",
+    comment: "イベントいつも最高",
     connection: {
       offer: "Offer #123",
       date: "2024/10/23",
@@ -140,12 +140,10 @@ const mockData = [
   },
   {
     id: "3",
-    name: "john_john",
-
+    name: "photoone",
     friendCount: 4,
     rate: "4.5",
     type: "Curator",
-    comment: "次のMVの時きく！",
     connection: {
       offer: "Offer #123",
       date: "2024/10/23",
@@ -154,12 +152,10 @@ const mockData = [
   },
   {
     id: "4",
-    name: "Sayaka Yoshida",
-
+    name: "lisa_fukuda",
     friendCount: 4,
     rate: "4.5",
     type: "Curator",
-    comment: "次のMVの時きく！",
     connection: {
       offer: "Offer #123",
       date: "2024/10/23",
@@ -168,12 +164,10 @@ const mockData = [
   },
   {
     id: "5",
-    name: "john_john",
-
+    name: "minoru_kou",
     friendCount: 4,
     rate: "4.5",
     type: "Curator",
-    comment: "次のMVの時きく！",
     connection: {
       offer: "Offer #123",
       date: "2024/10/23",
@@ -183,7 +177,6 @@ const mockData = [
   {
     id: "6",
     name: "john_john",
-
     friendCount: 4,
     rate: "4.5",
     type: "Curator",
