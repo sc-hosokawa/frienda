@@ -9,6 +9,14 @@ import {
   TabsList,
   TabsTrigger,
 } from "../../../../../packages/ui/components/ui/tabs";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../../../../packages/ui/components/ui/table";
+import { ChevronDown } from "lucide-react";
 
 export default function MessagePage() {
   return (
@@ -44,13 +52,13 @@ export default function MessagePage() {
           <TabsList className="bg-transparent border border-dashed border-white rounded-full p-1 w-[186px] h-[60px]">
             <TabsTrigger
               value="map"
-              className="rounded-[60px] w-[90px] text-base h-[52.5px] data-[state=active]:bg-white data-[state=active]:text-black"
+              className="rounded-[60px] w-[90px] text-[15px] font-[360] leading-[18px] text-center h-[52.5px] data-[state=active]:bg-white data-[state=active]:text-black"
             >
               Map View
             </TabsTrigger>
             <TabsTrigger
               value="list"
-              className="rounded-[60px] w-[90px] text-base h-[52.5px] data-[state=active]:bg-white data-[state=active]:text-black"
+              className="rounded-[60px] w-[90px] text-[15px] font-[360] leading-[18px] text-center h-[52.5px] data-[state=active]:bg-white data-[state=active]:text-black"
             >
               List View
             </TabsTrigger>
@@ -60,9 +68,40 @@ export default function MessagePage() {
           Make changes to your account here.
         </TabsContent>
         <TabsContent value="list">
-          {mockData.map((data) => (
-            <CommunityListsRow key={data.id} {...data} />
-          ))}
+          <Table className="border-collapse">
+            <TableHeader>
+              <TableRow className="border-b border-[#FFFFFF73]">
+                <TableHead></TableHead>
+                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                  <div className="flex items-center gap-1">
+                    User
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </TableHead>
+                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                  Rate
+                </TableHead>
+                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                  Type
+                </TableHead>
+                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                  Comment
+                </TableHead>
+                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                  Connection
+                </TableHead>
+                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                  Last Logged in
+                </TableHead>
+                <TableHead className="w-24"></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {mockData.map((data) => (
+                <CommunityListsRow key={data.id} {...data} />
+              ))}
+            </TableBody>
+          </Table>
         </TabsContent>
       </Tabs>
     </div>
@@ -74,7 +113,7 @@ const mockData = [
     id: "1",
     name: "john_john",
 
-    friendCount: "4 common friends",
+    friendCount: 4,
     rate: "4.5",
     type: "Curator",
     comment: "次のMVの時きく！",
@@ -88,7 +127,7 @@ const mockData = [
     id: "2",
     name: "john_john",
 
-    friendCount: "4 common friends",
+    friendCount: 4,
     rate: "4.5",
     type: "Curator",
     comment: "次のMVの時きく！",
@@ -103,7 +142,7 @@ const mockData = [
     id: "3",
     name: "john_john",
 
-    friendCount: "4 common friends",
+    friendCount: 4,
     rate: "4.5",
     type: "Curator",
     comment: "次のMVの時きく！",
@@ -117,7 +156,7 @@ const mockData = [
     id: "4",
     name: "Sayaka Yoshida",
 
-    friendCount: "4 common friends",
+    friendCount: 4,
     rate: "4.5",
     type: "Curator",
     comment: "次のMVの時きく！",
@@ -131,7 +170,7 @@ const mockData = [
     id: "5",
     name: "john_john",
 
-    friendCount: "4 common friends",
+    friendCount: 4,
     rate: "4.5",
     type: "Curator",
     comment: "次のMVの時きく！",
@@ -145,7 +184,7 @@ const mockData = [
     id: "6",
     name: "john_john",
 
-    friendCount: "4 common friends",
+    friendCount: 4,
     rate: "4.5",
     type: "Curator",
     comment: "次のMVの時きく！",

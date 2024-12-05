@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Upload, MoreHorizontal } from "lucide-react";
 import heart from "../../public/heart.svg";
+import {
+  TableCell,
+  TableRow,
+} from "../../../../packages/ui/components/ui/table";
 
 interface CommunityListsRowProps {
   id: string;
   name: string;
   avatar?: string;
-  friendCount: string;
+  friendCount: number;
   rate: string;
   type: string;
   comment?: string | null;
@@ -33,33 +37,32 @@ export default function CommunityListsRow({
   const [isLiked, setIsLiked] = useState(false);
 
   return (
-    <div className="group flex items-center justify-between w-full h-16 px-4 hover:bg-[#E4DBC0] transition-colors hover:cursor-pointer">
-      <div className="flex items-center gap-4">
+    <TableRow className="group hover:bg-[#E4DBC0] transition-colors hover:cursor-pointer border-none">
+      <TableCell>
         <button
           onClick={(e) => {
             e.stopPropagation();
             setIsLiked(!isLiked);
           }}
-          className="w-[48px] h-[48px] relative flex items-center justify-center"
+          className="w-12 h-12 relative flex items-center justify-center"
         >
           <div
             className={`absolute inset-0 rounded-full border border-dashed ${isLiked ? "border-transparent" : "border-white"}`}
           />
           <div
-            className={`w-[48px] h-[48px] rounded-full flex items-center justify-center ${isLiked ? "bg-white" : "group-hover:bg-black"}`}
+            className={`w-12 h-12 rounded-full flex items-center justify-center ${isLiked ? "bg-white" : "group-hover:bg-black"}`}
           >
-            <div>
-              <Image
-                src={heart}
-                alt="heart"
-                width={18}
-                height={18}
-                className={`${isLiked ? "text-black" : "text-gray-400 group-hover:text-black"}`}
-              />
-            </div>
+            <Image
+              src={heart}
+              alt="heart"
+              width={18}
+              height={18}
+              className={`${isLiked ? "text-black" : "text-gray-400 group-hover:text-black"}`}
+            />
           </div>
         </button>
-
+      </TableCell>
+      <TableCell>
         <div className="flex items-center gap-3">
           <Image
             src={avatar || "/logo_visualonly.jpg"}
@@ -69,78 +72,71 @@ export default function CommunityListsRow({
             height={40}
           />
           <div className="flex flex-col">
-            <span className="text-sm text-white font-medium group-hover:text-black">
+            <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
               {name}
             </span>
-            <span className="text-xs text-[#777777] group-hover:text-black">
-              {friendCount}
+            <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black/70">
+              {`${friendCount} common friends`}
             </span>
           </div>
         </div>
-      </div>
+      </TableCell>
 
-      <div className="flex items-center gap-8">
-        <span className="text-base text-white group-hover:text-black">
-          {rate}
-        </span>
-        <span className="text-base text-white group-hover:text-black">
-          {type}
-        </span>
+      <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
+        {rate}
+      </TableCell>
+      <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
+        {type}
+      </TableCell>
+      <TableCell>
         {comment && (
           <span className="px-3 py-1 bg-purple-500/20 text-purple-300 group-hover:bg-purple-600/30 group-hover:text-purple-900 rounded-full text-sm transition-colors">
             {comment}
           </span>
         )}
-      </div>
-
-      <div className="flex items-center gap-4">
-        <div className="flex flex-col items-end">
-          <span className="text-sm text-white group-hover:text-black">
+      </TableCell>
+      <TableCell>
+        <div className="flex flex-col items-start">
+          <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
             {connection?.offer}
           </span>
-          <span className="text-xs text-[#777777] group-hover:text-black">
+          <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black/60">
             {connection?.date}
           </span>
         </div>
-
-        <div className="flex items-center gap-2">
+      </TableCell>
+      <TableCell>
+        {isOnline ? (
           <div className="flex items-center gap-1">
-            {isOnline ? (
-              <>
-                <div className="w-2 h-2 rounded-full bg-[#00B496]"></div>
-                <span className="text-sm group-hover:text-black">Online</span>
-              </>
-            ) : (
-              <>
-                <span className="text-sm group-hover:text-black">
-                  {lastLogin}
-                </span>
-              </>
-            )}
+            <div className="w-3 h-3 rounded-full bg-[#00B496]"></div>
+            <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
+              Online
+            </span>
           </div>
-        </div>
-
+        ) : (
+          <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
+            {lastLogin}
+          </span>
+        )}
+      </TableCell>
+      <TableCell>
         <div className="flex items-center gap-2">
-          <button className="w-[48px] h-[48px] rounded-full flex items-center justify-center relative group">
-            <div className="absolute inset-0 rounded-full border border-dashed border-white" />
-            <div className="w-[48px] h-[48px] rounded-full flex items-center justify-center ">
-              <Upload
-                className="w-[18px] h-[18px] text-white group-hover:text-black"
-                strokeWidth={2}
-              />
-            </div>
+          <button className="w-12 h-12 rounded-full flex items-center justify-center relative">
+            <div className="absolute inset-0 rounded-full border border-dashed border-white group-hover:border-black" />
+            <Upload
+              className="w-[18px] h-[18px] text-white group-hover:text-black"
+              strokeWidth={2}
+            />
           </button>
-          <button className="w-[48px] h-[48px] rounded-full flex items-center justify-center relative group">
-            <div className="absolute inset-0 rounded-full border border-dashed border-white" />
-            <div className="w-[48px] h-[48px] rounded-full flex items-center justify-center ">
-              <MoreHorizontal
-                className="w-[18px] h-[18px] text-white group-hover:text-black"
-                strokeWidth={2}
-              />
-            </div>
+          <button className="w-12 h-12 rounded-full flex items-center justify-center relative">
+            <div className="absolute inset-0 rounded-full border border-dashed border-white group-hover:border-black" />
+            <MoreHorizontal
+              className="w-[18px] h-[18px] text-white group-hover:text-black"
+              strokeWidth={2}
+            />
           </button>
         </div>
-      </div>
-    </div>
+      </TableCell>
+    </TableRow>
   );
 }
