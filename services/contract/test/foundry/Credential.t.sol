@@ -7,6 +7,13 @@ import {IAccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol"
 import {Upgrades} from "openzeppelin-foundry-upgrades/Upgrades.sol";
 import {CredentialV2} from "../../contracts/CredentialV2.sol";
 
+/// @custom:oz-upgrades-from CredentialV2
+contract CredentialV3 is CredentialV2 {
+    function version() public pure override returns (string memory) {
+        return "v3.0.0";
+    }
+}
+
 contract CredentialV2Test is Test {
     address currentPrankee;
     address admin = makeAddr("admin");
@@ -17,13 +24,14 @@ contract CredentialV2Test is Test {
     address charlie = makeAddr("charlie");
 
     CredentialV2 public credential;
+    address proxy;
 
     event CredentialGranted(address indexed account, uint256 amount);
     event CredentialBurned(address indexed account, uint256 amount);
 
     function setUp() public {
         // deploy UUPS proxy and initialize the contract
-        address proxy = Upgrades.deployUUPSProxy(
+        proxy = Upgrades.deployUUPSProxy(
             "CredentialV2.sol", abi.encodeCall(CredentialV2.initialize, (admin, pauser, minter))
         );
 
@@ -34,6 +42,27 @@ contract CredentialV2Test is Test {
         assertEq(credential.name(), "Credential");
         assertEq(credential.symbol(), "CRED");
         assertEq(credential.decimals(), 18);
+    }
+
+    function testUpgrade() external {
+        address[] memory accounts = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        accounts[0] = alice;
+        amounts[0] = 100;
+        __mint(accounts, amounts, minter);
+
+        assertEq(credential.version(), "v2.0.0");
+        assertEq(credential.balanceOf(alice), 100);
+
+        vm.startPrank(admin);
+        Upgrades.upgradeProxy(proxy, "out/Credential.t.sol/CredentialV3.json", "");
+        vm.stopPrank();
+
+        assertEq(credential.version(), "v3.0.0");
+        // check if the balance is correct
+        assertEq(credential.balanceOf(alice), 100);
+        assertEq(credential.totalSupply(), 100);
     }
 
     function testVersion() external view {
