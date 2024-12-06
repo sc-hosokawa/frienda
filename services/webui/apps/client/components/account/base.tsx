@@ -5,7 +5,7 @@ export function BaseComponent({
   title,
 }: {
   children: React.ReactNode;
-  title: string;
+  title: string | undefined;
 }) {
   return (
     <div className="flex flex-col gap-4">

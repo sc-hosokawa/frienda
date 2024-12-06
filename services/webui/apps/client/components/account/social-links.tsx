@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BaseComponent } from "./base";
 
 interface SocialLinkProps {
-  title: string;
+  title?: string;
   x?: {
     username: string;
   };

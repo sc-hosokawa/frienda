@@ -1,14 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import { SocialLink } from "../../../../components/account/social-links";
-import { Download, MoreHorizontal } from "lucide-react";
-import { Button } from "../../../../../../packages/ui/components/ui/button";
 import { Separator } from "../../../../../../packages/ui/components/ui/separator";
 import { ConnectionTypes } from "../../../../components/account/connection-type";
 import { UserType } from "../../../../utils";
 import { Offers } from "../../../../components/account/offers";
 import { Skill } from "../../../../components/community/skill";
 import { NotoSansJP } from "../../layout";
+import { BorderDash } from "../../../../components/border-dash";
+import { Works } from "../../../../components/community/works";
 
 export default function CommunityAccountPage({
   params,
@@ -59,18 +59,20 @@ export default function CommunityAccountPage({
       {/* Profile Header */}
       <div className="flex items-start justify-between p-6">
         <div className="flex items-center gap-4">
-          <Image
-            src={mockUser.avatar || "/logo_visualonly.jpg"}
-            alt={mockUser.username}
-            width={80}
-            height={80}
-            className="rounded-full"
-          />
-          <div className="flex flex-col gap-3">
+          <div>
+            <Image
+              src={mockUser.avatar || "/logo_visualonly.jpg"}
+              alt={mockUser.username}
+              width={80}
+              height={80}
+              className="rounded-full"
+            />
+          </div>
+          <div className="flex flex-col gap-3 mr-12">
             <h1 className="text-[24px] leading-[21px]">{mockUser.username}</h1>
             {mockUser.isOnline ? (
               <div className="flex items-center gap-1">
-                <div className="w-[18px] h-[18px] rounded-full bg-[#00B496]"></div>
+                <div className="w-[18px] h-[18px] rounded-full bg-[#00B496]" />
                 <span className="text-[15px] font-light leading-[15px] text-left group-hover:text-black">
                   Online
                 </span>
@@ -81,20 +83,52 @@ export default function CommunityAccountPage({
               </span>
             )}
           </div>
+          <div className="flex gap-2">
+            <BorderDash
+              imageSrc={"/x-white.svg"}
+              alt="X"
+              width={24}
+              height={24}
+              className="w-12 h-12"
+              link={`https://x.com/${mockUser.username}`}
+            />
+            <BorderDash
+              imageSrc={"/instagram-white.svg"}
+              alt="Instagram"
+              width={24}
+              height={24}
+              className="w-12 h-12"
+              link={`https://instagram.com/${mockUser.username}`}
+            />
+          </div>
         </div>
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className="w-12 h-12 rounded-full border-dashed border-white/60"
-          >
-            <Download className="w-[18px] h-[18px]" />
-          </Button>
-          <Button
-            variant="outline"
-            className="w-12 h-12 rounded-full border-dashed border-white/60"
-          >
-            <MoreHorizontal className="w-[18px] h-[18px]" />
-          </Button>
+          <BorderDash
+            imageSrc={"/share.svg"}
+            alt="share"
+            width={24}
+            height={24}
+            className="w-12 h-12"
+            link={"/"}
+          />
+
+          <BorderDash
+            imageSrc={"/mail.svg"}
+            alt="mail"
+            width={24}
+            height={24}
+            className="w-12 h-12"
+            link={"/"}
+          />
+
+          <BorderDash
+            imageSrc={"/more-horizontal.svg"}
+            alt="more"
+            width={24}
+            height={24}
+            className="w-12 h-12"
+            link={"/"}
+          />
         </div>
       </div>
 
@@ -134,6 +168,19 @@ export default function CommunityAccountPage({
             apple={{ username: "mock" }}
             youtube={{ username: "mock" }}
           />
+        </div>
+
+        <Separator className="w-full border border-dashed border-[#505050]" />
+
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <Works
+              title="The Band Super Album"
+              imageSrc="/membership.png"
+              spotify={{ username: "mock" }}
+              apple={{ username: "mock" }}
+            />
+          </div>
         </div>
       </div>
     </div>
