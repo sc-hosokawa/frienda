@@ -9,6 +9,7 @@ import { Skill } from "../../../../components/community/skill";
 import { NotoSansJP } from "../../layout";
 import { BorderDash } from "../../../../components/border-dash";
 import { Works } from "../../../../components/community/works";
+import { OfferCard } from "../../../../components/community/offer-card";
 
 export default function CommunityAccountPage({
   params,
@@ -133,7 +134,7 @@ export default function CommunityAccountPage({
       </div>
 
       {/* Content */}
-      <div className="p-6 space-y-8">
+      <div className="p-6 space-y-12">
         {/* Description */}
         <div className="space-y-4">
           <div className="w-[720px] h-[40px]">
@@ -182,7 +183,80 @@ export default function CommunityAccountPage({
             />
           </div>
         </div>
+
+        <div className="grid grid-cols-2 gap-10">
+          {sampleData.map((data, index) => (
+            <OfferCard key={index} {...data} />
+          ))}
+        </div>
       </div>
     </div>
   );
 }
+
+const sampleData = [
+  {
+    status: "In-Progress" as const,
+    offerId: "123",
+    title: "イベントに参加してくれるアーティスト募集中！",
+    lastUpdated: "2024/10/10",
+    participants: [
+      {
+        avatar: "/logo_visualonly.jpg",
+        name: "User 1",
+      },
+      {
+        avatar: "/logo_visualonly.jpg",
+        name: "User 2",
+      },
+      {
+        avatar: "/logo_visualonly.jpg",
+        name: "User 3",
+      },
+    ],
+    deadline: "2024/11/10",
+    location: "東京都",
+    target: "2 Artists",
+    borderColor: "#2D78FF",
+  },
+  {
+    status: "Offer Applied" as const,
+    offerId: "124",
+    title: "イベントに参加してくれるアーティスト募集中！",
+    lastUpdated: "2024/10/10",
+    participants: [
+      {
+        avatar: "/logo_visualonly.jpg",
+        name: "User 1",
+      },
+      {
+        avatar: "/logo_visualonly.jpg",
+        name: "User 2",
+      },
+    ],
+    deadline: "2024/11/10",
+    location: "東京都",
+    target: "2 Artists",
+    borderColor: "#00B496",
+  },
+  {
+    status: "Offer Applied" as const,
+    offerId: "124",
+    title: "イベントに参加してくれるアーティスト募集中！",
+    lastUpdated: "2024/10/10",
+    participants: [
+      {
+        avatar: "/logo_visualonly.jpg",
+        name: "User 1",
+      },
+      {
+        avatar: "/logo_visualonly.jpg",
+        name: "User 2",
+      },
+    ],
+    deadline: "2024/11/10",
+    location: "東京都",
+    target: "2 Artists",
+    borderColor: "#00B496",
+  },
+];
