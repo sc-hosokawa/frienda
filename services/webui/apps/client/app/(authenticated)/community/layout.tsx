@@ -1,22 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import CommunityListsRow from "../../../components/community/community-lits-row";
 import { Button } from "../../../../../packages/ui/components/ui/button";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../../../../../packages/ui/components/ui/tabs";
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../../../../../packages/ui/components/ui/table";
-import { ChevronDown } from "lucide-react";
 
 export default function CommunityLayout({
   children,
