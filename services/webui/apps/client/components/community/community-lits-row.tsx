@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Upload, MoreHorizontal } from "lucide-react";
 import heart from "../../public/heart.svg";
 import {
@@ -24,6 +25,7 @@ interface CommunityListsRowProps {
 }
 
 export default function CommunityListsRow({
+  id,
   name,
   avatar,
   friendCount,
@@ -62,63 +64,66 @@ export default function CommunityListsRow({
           </div>
         </button>
       </TableCell>
-      <TableCell>
-        <div className="flex items-center gap-3">
-          <Image
-            src={avatar || "/logo_visualonly.jpg"}
-            alt={name}
-            className="w-10 h-10 rounded-full object-cover"
-            width={40}
-            height={40}
-          />
-          <div className="flex flex-col">
-            <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-              {name}
-            </span>
-            <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black/70">
-              {`${friendCount} common friends`}
-            </span>
+      <Link href={`/community/${id}`} className="contents">
+        <TableCell>
+          <div className="flex items-center gap-3">
+            <Image
+              src={avatar || "/logo_visualonly.jpg"}
+              alt={name}
+              className="w-10 h-10 rounded-full object-cover"
+              width={40}
+              height={40}
+            />
+            <div className="flex flex-col">
+              <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
+                {name}
+              </span>
+              <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black/70">
+                {`${friendCount} common friends`}
+              </span>
+            </div>
           </div>
-        </div>
-      </TableCell>
+        </TableCell>
 
-      <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-        {rate}
-      </TableCell>
-      <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-        {type}
-      </TableCell>
-      <TableCell>
-        {comment && (
-          <span className="px-3 py-1 bg-purple-500/20 text-purple-300 group-hover:bg-purple-600/30 group-hover:text-purple-900 rounded-full text-sm transition-colors">
-            {comment}
-          </span>
-        )}
-      </TableCell>
-      <TableCell>
-        <div className="flex flex-col items-start">
-          <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-            {connection?.offer}
-          </span>
-          <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black">
-            {connection?.date}
-          </span>
-        </div>
-      </TableCell>
-      <TableCell>
-        {isOnline ? (
-          <div className="flex items-center gap-1">
-            <div className="w-3 h-3 rounded-full bg-[#00B496]"></div>
-            <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
-              Online
+        <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
+          {rate}
+        </TableCell>
+        <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
+          {type}
+        </TableCell>
+        <TableCell>
+          {comment && (
+            <span className="px-3 py-1 bg-purple-500/20 text-purple-300 group-hover:bg-purple-600/30 group-hover:text-purple-900 rounded-full text-sm transition-colors">
+              {comment}
+            </span>
+          )}
+        </TableCell>
+        <TableCell>
+          <div className="flex flex-col items-start">
+            <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
+              {connection?.offer}
+            </span>
+            <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black">
+              {connection?.date}
             </span>
           </div>
-        ) : (
-          <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
-            {lastLogin}
-          </span>
-        )}
-      </TableCell>
+        </TableCell>
+        <TableCell>
+          {isOnline ? (
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-[#00B496]"></div>
+              <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
+                Online
+              </span>
+            </div>
+          ) : (
+            <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
+              {lastLogin}
+            </span>
+          )}
+        </TableCell>
+      </Link>
+
       <TableCell>
         <div className="flex items-center gap-2">
           <button className="w-12 h-12 rounded-full flex items-center justify-center relative">
