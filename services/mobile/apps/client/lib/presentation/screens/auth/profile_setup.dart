@@ -26,6 +26,7 @@ class ProfileSetupScreen extends ConsumerStatefulWidget {
 class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   final _formKey = GlobalKey<FormState>();
   final _displayNameController = TextEditingController();
+  final _realNameController = TextEditingController();
   String? _photoURL;
 
   String? _selectedCategory;
@@ -142,11 +143,25 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                   },
                 ),
                 SizedBox(height: 16),
+                TextFormField(
+                  controller: _realNameController,
+                  decoration: InputDecoration(
+                    labelText: '氏名',
+                    hintText: 'あなたの本名を入力してください',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '本名を入力してください';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
                 // カテゴリー選択
                 DropdownButtonFormField<String>(
                   value: _selectedCategory,
                   decoration: InputDecoration(
-                    labelText: 'カテゴリー',
+                    labelText: '属性',
                     hintText: 'あなたの属性を選択してください',
                     errorText: _categoryError,
                   ),
@@ -165,7 +180,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'カテゴリーを選択してください';
+                      return '属性を選択してください';
                     }
                     return null;
                   },
@@ -201,14 +216,13 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'プライマリーカテゴリーを選択してください';
+                      return '属性を選択してください';
                     }
                     return null;
                   },
                 ),
 
                 SizedBox(height: 24),
-                // 保存ボタンを修正
                 result?.isLoading ?? false
                     ? Center(child: CircularProgressIndicator())
                     : ElevatedButton(
@@ -220,6 +234,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                                 'id': widget.initialData['uid'],
                                 'email': widget.initialData['email'],
                                 'name': _displayNameController.text,
+                                'realname': _realNameController.text,
                                 'imageUrl': _photoURL,
                                 'category': _selectedCategory,
                                 'primaryCategory': _selectedPrimaryCategory,
@@ -326,6 +341,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   @override
   void dispose() {
     _displayNameController.dispose();
+    _realNameController.dispose();
     super.dispose();
   }
 }

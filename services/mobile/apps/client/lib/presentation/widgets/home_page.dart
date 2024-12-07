@@ -282,6 +282,15 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget _buildTrendingSection() {
     final userState = ref.watch(userProvider);
 
+    if (userState == null || userState.belongsToArtists.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Center(
+          child: Text('アーティストに所属していません'),
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -316,8 +325,8 @@ class _HomePageState extends ConsumerState<HomePage> {
               }
             '''),
             variables: {
-              'artistId': userState?.belongsToArtists[0].artistId ?? '',
-              'userId': userState?.id ?? '',
+              'artistId': userState.belongsToArtists[0].artistId,
+              'userId': userState.id,
             },
             fetchPolicy: FetchPolicy.networkOnly,
           ),
@@ -338,7 +347,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               return const Center(
                 child: Padding(
                   padding: EdgeInsets.all(32.0),
-                  child: Text('No trending tracks available'),
+                  child: Text('トレンドデータが�りません'),
                 ),
               );
             }
