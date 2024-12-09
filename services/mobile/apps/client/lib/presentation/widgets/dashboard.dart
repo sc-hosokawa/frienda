@@ -26,98 +26,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
   static const _borderColor = Color(0xff37434d);
   static const _textColor = Color(0xff67727d);
 
-  LineChartData _createChartData() {
-    return LineChartData(
-      gridData: FlGridData(
-        show: true,
-        drawVerticalLine: false,
-        horizontalInterval: 1,
-        verticalInterval: 1,
-        getDrawingHorizontalLine: (_) => FlLine(
-          color: _gridColor,
-          strokeWidth: 0.5,
-        ),
-      ),
-      titlesData: FlTitlesData(
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            interval: 1,
-            getTitlesWidget: (value, _) => Text(
-              value.toInt().toString(),
-              style: const TextStyle(
-                color: _textColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
-            ),
-          ),
-        ),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 22,
-            interval: 1,
-            getTitlesWidget: (value, _) {
-              // データポイントに合わせてラベルを設定
-              switch (value.toInt()) {
-                case 0:
-                  return _buildBottomTitleWidget('Day 1');
-                case 2:
-                  return _buildBottomTitleWidget('Day 2');
-                case 4:
-                  return _buildBottomTitleWidget('Day 3');
-                case 6:
-                  return _buildBottomTitleWidget('Day 4');
-                case 8:
-                  return _buildBottomTitleWidget('Day 5');
-                case 10:
-                  return _buildBottomTitleWidget('Day 6');
-                default:
-                  return const SizedBox.shrink();
-              }
-            },
-          ),
-        ),
-        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: const Border(
-          left: BorderSide(color: _borderColor, width: 1),
-          bottom: BorderSide(color: _borderColor, width: 1),
-        ),
-      ),
-      minX: 0,
-      maxX: 11,
-      minY: 0,
-      maxY: 6,
-      lineBarsData: [
-        LineChartBarData(
-          spots: [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
-          isCurved: true,
-          color: Colors.green,
-          barWidth: 3,
-          isStrokeCapRound: true,
-          dotData: FlDotData(show: false),
-          belowBarData: BarAreaData(
-            show: true,
-            color: Colors.green.withOpacity(0.3),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildBottomTitleWidget(String title) {
     return Text(
       title,
@@ -175,7 +83,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    // アーティストが選択されていない場合の表示
     if (_selectedArtist == null || _selectedArtist!.isEmpty) {
       return Center(
         child: Column(
@@ -296,6 +203,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
 
   Widget _buildTrendingSection() {
     final userState = ref.watch(userProvider);
+    print('userState: ${userState?.belongsToArtists[0].status}');
 
     if (_selectedArtist == null) {
       return const SizedBox.shrink();
@@ -422,6 +330,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
               image: imageUrl != null
                   ? DecorationImage(
                       image: NetworkImage(imageUrl),
@@ -451,10 +360,12 @@ class _DashboardState extends ConsumerState<Dashboard> {
                 'Total: ${numberFormat.format(totalCount)}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
+              /*
               Text(
                 'Week: ${numberFormat.format(weeklyCount)}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
+              */
             ],
           ),
         ],

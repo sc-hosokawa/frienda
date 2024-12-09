@@ -72,6 +72,14 @@ class ProductTrendTab extends ConsumerWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
+              Text(
+                '以下のデータは現在LINE Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 16),
               _buildGenderPlayCountSection(genderRates),
               const SizedBox(height: 20),
               _buildGenerationSection(generationRates),
@@ -91,14 +99,15 @@ class ProductTrendTab extends ConsumerWidget {
     final total = maleCount + femaleCount;
 
     if (total == 0) {
-      return const Card(
-        color: Colors.black,
-        child: Padding(
+      return Card(
+        color: Colors.grey[850],
+        child: const Padding(
           padding: EdgeInsets.all(16.0),
           child: Center(
             child: Text(
-              'データがありません',
+              '算出に必要なデータが収集できませんでした。\n今後十分な再生数がある場合に算出できるようになります。',
               style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
             ),
           ),
         ),
@@ -164,6 +173,24 @@ class ProductTrendTab extends ConsumerWidget {
   Widget _buildGenerationSection(Map<String, dynamic>? generationRates) {
     print('Building generation section with data: $generationRates');
     if (generationRates == null) return const SizedBox.shrink();
+
+    bool hasNoData = generationRates.values.every((value) => value == 0);
+
+    if (hasNoData) {
+      return Card(
+        color: Colors.grey[850],
+        child: const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Center(
+            child: Text(
+              '算出に必要なデータが収集できませんでした。\n今後十分な再生数がある場合に算出できるようになります。',
+              style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      );
+    }
 
     return Card(
       color: Colors.grey[850],

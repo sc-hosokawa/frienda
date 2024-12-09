@@ -11,16 +11,16 @@ class WalkthroughPage3 extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.asset(
-            'assets/tutorial-community.gif',
+            'assets/tutorial-services.gif',
             height: 350,
             fit: BoxFit.contain,
           ),
         ),
-        const SizedBox(height: 120),
+        const SizedBox(height: 60),
         SizedBox(
           width: 350,
           child: const Text(
-            'そうしてさまざまな人と繋がり、蓄積した信頼がさらにあなたの力になります',
+            'OffersやDashboardのサマリーを確認できます。また、あなたの活動や音楽の視聴数などに応じて、アクションの提案をおすすめします。',
             style: TextStyle(fontSize: 14),
             textAlign: TextAlign.center,
           ),

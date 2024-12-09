@@ -180,6 +180,7 @@ class _ProductListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color(0xFF1C1C1C),
       margin: const EdgeInsets.only(bottom: 8),
       child: InkWell(
         onTap: onTap,

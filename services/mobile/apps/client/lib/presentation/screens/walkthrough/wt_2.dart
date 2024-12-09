@@ -11,16 +11,16 @@ class WalkthroughPage2 extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: Image.asset(
-            'assets/tutorial-offer.gif',
+            'assets/tutorial-welcome.gif',
             height: 350,
             fit: BoxFit.contain,
           ),
         ),
-        const SizedBox(height: 120),
+        const SizedBox(height: 30),
         SizedBox(
           width: 350,
           child: const Text(
-            '音楽活動の中で、あなたがやりたいことを募集したり、誰かの力になったりできます',
+            'Welcome to FRIENDSHIP. DAO!',
             style: TextStyle(fontSize: 14),
             textAlign: TextAlign.center,
           ),

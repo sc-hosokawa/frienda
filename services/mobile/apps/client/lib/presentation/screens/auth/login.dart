@@ -68,18 +68,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           throw Exception('認証情報が見つかりません');
         }
 
-        print('Firebase再認証を開始します');
         // 現在のユーザーの状態を確認
         final currentUser = FirebaseAuth.instance.currentUser;
         if (currentUser == null) {
-          // ここでメールアドレスとパスワードを使用した認証、または
-          // 他の認証方法を実装する必要があります
+          // セッションが切れている場合は、保存されているトークンを削除
+          await _biometricAuth.deleteAuthToken();
           throw Exception('認証セッションが切れています。再度ログインしてください。');
         }
 
-        // 既存のセッションを使用して新しいIDトークンを取得
-        final newToken = await currentUser.getIdToken(true);
-        print('新しいトークンを取得: ${newToken?.substring(0, 10)}...');
+        try {
+          // 既存のセッションを使用して新しいIDトークンを取得
+          final newToken = await currentUser.getIdToken(true);
+          print('新しいトークンを取得: ${newToken?.substring(0, 10)}...');
+        } catch (e) {
+          // トークンの更新に失敗した場合は、保存されているトークンを削除
+          await _biometricAuth.deleteAuthToken();
+          throw Exception('認証の更新に失敗しました。再度ログインしてください。');
+        }
 
         final user = FirebaseAuth.instance.currentUser;
         print('Firebase認証結果: ${user?.uid}');
@@ -152,10 +157,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         if (e is FirebaseAuthException) {
           print('Firebase Error Code: ${e.code}');
           print('Firebase Error Message: ${e.message}');
+          // Firebase認証エラーの場合は保存されているトークンを削除
+          await _biometricAuth.deleteAuthToken();
         }
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('生体認証でのログインに失敗しました: $e')),
+          SnackBar(
+            content: Text('生体認証でのログインに失敗しました。\n再度メールアドレスとパスワードでログインしてください。'),
+          ),
         );
       } finally {
         if (!mounted) return;
@@ -273,7 +282,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           MaterialPageRoute(builder: (_) => const MainScreen()),
         );
 
-        // ログイン��功後に生体認証の設定を提案
+        // ログイン成功後に生体認証の設定を提案
         await _showBiometricEnableDialog();
       } on FirebaseAuthException catch (e) {
         String message;

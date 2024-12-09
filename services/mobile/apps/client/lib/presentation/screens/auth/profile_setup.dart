@@ -8,6 +8,7 @@ import 'package:client/presentation/providers/user_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
+// import 'package:client/services/biometric_auth_service.dart';  // コメントアウト
 
 class ProfileSetupScreen extends ConsumerStatefulWidget {
   final User user;
@@ -33,7 +34,8 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   String? _selectedPrimaryCategory;
   String? _categoryError;
 
-  // カテゴリーの選択肢
+  // final _biometricAuthService = BiometricAuthService();  // コメントアウト
+
   final List<Map<String, String>> _categories = [
     {'id': 'Musician', 'name': 'ミュージシャン'},
     {'id': 'Curator', 'name': 'キュレーター'},
@@ -41,7 +43,6 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
     {'id': 'Supporter', 'name': 'サポーター'},
   ];
 
-  // Mutation 文字列を定数として定義
   static const String CREATE_USER_MUTATION = r'''
     mutation CreateNewUserData($input: CreateNewUserDataInput!) {
       createNewUserData(input: $input) {
@@ -74,7 +75,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                     fspBalance: 0,
                     credentialBalance: 0,
                     role: _selectedCategory ?? '',
-                    primaryRole: _selectedPrimaryCategory ?? '',
+                    primaryRole: 'Supporter',
                     greeting: null,
                     skill: null,
                     xHandle: null,
@@ -85,6 +86,41 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                     primaryArtist: null,
                   ),
                 );
+
+            /* コメントアウト開始
+            final isBiometricAvailable =
+                await _biometricAuthService.isBiometricAvailable();
+            if (isBiometricAvailable && mounted) {
+              final shouldEnableBiometric = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('生体認証の設定'),
+                      content: Text('生体認証でログインを有効にしますか？'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Text('スキップ'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: Text('設定する'),
+                        ),
+                      ],
+                    ),
+                  ) ??
+                  false;
+
+              if (shouldEnableBiometric) {
+                final success = await _biometricAuthService.authenticate();
+                if (success) {
+                  final token = await widget.user.getIdToken();
+                  if (token != null) {
+                    await _biometricAuthService.saveAuthToken(token);
+                  }
+                }
+              }
+            }
+            コメントアウト終了 */
 
             await widget.user.reload();
 
@@ -186,9 +222,10 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                   },
                 ),
 
-                SizedBox(height: 16),
+                // SizedBox(height: 16),
 
                 // プライマリーカテゴリー選択
+                /*
                 DropdownButtonFormField<String>(
                   value: _selectedPrimaryCategory,
                   decoration: InputDecoration(
@@ -221,6 +258,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                     return null;
                   },
                 ),
+                */
 
                 SizedBox(height: 24),
                 result?.isLoading ?? false
@@ -237,7 +275,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                                 'realname': _realNameController.text,
                                 'imageUrl': _photoURL,
                                 'category': _selectedCategory,
-                                'primaryCategory': _selectedPrimaryCategory,
+                                'primaryCategory': 'Supporter',
                               }
                             };
 
@@ -309,7 +347,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
       final storageRef = FirebaseStorage.instance
           .ref()
           .child('user_images')
-          .child(widget.user.uid) // ユーザーIDのフォルダを作成
+          .child(widget.user.uid)
           .child(filename);
 
       // Upload with metadata
