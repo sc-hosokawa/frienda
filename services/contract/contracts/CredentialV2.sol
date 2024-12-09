@@ -13,7 +13,8 @@ import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/U
 /// @title Credential contract
 /// @notice ERC20 token representing a credential
 /// @dev The contract is upgradeable using the UUPS pattern
-contract Credential is
+/// @custom:oz-upgrades-from Credential
+contract CredentialV2 is
     Initializable,
     ERC20Upgradeable,
     ERC20BurnableUpgradeable,
@@ -61,6 +62,7 @@ contract Credential is
         __ERC20_init("Credential", "CRED");
         __ERC20Burnable_init();
         __ERC20Pausable_init();
+        __AccessControl_init();
         __UUPSUpgradeable_init();
 
         _grantRole(DEFAULT_ADMIN_ROLE, initialOwner);
@@ -68,6 +70,10 @@ contract Credential is
         _grantRole(MINTER_ROLE, minter);
         _grantRole(BURNER_ROLE, minter);
         _grantRole(UPGRADER_ROLE, initialOwner);
+    }
+
+    function version() public pure virtual returns (string memory) {
+        return "v2.0.0";
     }
 
     /// @notice See {UUPSUpgradeable-_authorizeUpgrade}

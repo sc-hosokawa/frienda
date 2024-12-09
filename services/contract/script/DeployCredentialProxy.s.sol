@@ -6,7 +6,7 @@ import {Upgrades} from "openzeppelin-foundry-upgrades/Upgrades.sol";
 import {BaseScript} from "./Base.s.sol";
 import {Credential} from "../contracts/Credential.sol";
 
-contract CredentialScript is BaseScript {
+contract DeployCredentialProxyScript is BaseScript {
     address admin = 0x67Df9d563032dAA77273a689041bC9cFC1B35911;
     address minter = 0x67Df9d563032dAA77273a689041bC9cFC1B35911;
     address pauser = 0x67Df9d563032dAA77273a689041bC9cFC1B35911;
