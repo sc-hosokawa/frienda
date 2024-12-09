@@ -31,8 +31,10 @@ class PrizeDetail extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(
-                  itemImage,
+                Image(
+                  image: itemImage.startsWith('asset:')
+                      ? AssetImage(itemImage.substring(6))
+                      : NetworkImage(itemImage) as ImageProvider,
                   width: double.infinity,
                   height: 300,
                   fit: BoxFit.cover,
@@ -62,7 +64,7 @@ class PrizeDetail extends ConsumerWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'アイテムの詳細説明がここに入ります。実際のアプリケーションでは、このテキストをサーバーから取得するか、アイテムごとに適切な説明を用意する必要があります。',
+                        'アイテムの詳細がここに入ります。実際のアプリケーションでは、このテキストをサーバーから取得するか、アイテムごとに適切な説明を用意する必要があります。',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       const SizedBox(height: 24),

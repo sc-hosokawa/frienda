@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/client_provider.dart';
-import 'package:client/presentation/widgets/message/message_list.dart';
-import 'package:client/presentation/widgets/message/message_room.dart';
 import 'package:client/presentation/providers/auth_provider.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:graphql/client.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/number_symbols_data.dart';
+import 'package:contentful_flutter/contentful_flutter.dart';
+import 'package:client/presentation/widgets/news/detail.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -33,10 +34,10 @@ class _HomePageState extends ConsumerState<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // _buildActionsSection(),
-          // const Divider(height: 1, thickness: 1, color: Colors.black12),
-          // _buildNewsSection(),
-          _buildMessagesSection(key: UniqueKey()),
+          _buildActionsSection(),
+          const SizedBox(height: 24),
+          _buildNewsSection(),
+          /*
           const SizedBox(height: 4),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -46,51 +47,16 @@ class _HomePageState extends ConsumerState<HomePage> {
               color: Color.fromARGB(255, 50, 50, 50),
             ),
           ),
-          const SizedBox(height: 4),
-          _buildTrendingSection(),
-          const SizedBox(height: 16),
+          */
+          // const SizedBox(height: 4),
+          // _buildTrendingSection(),
+          // const SizedBox(height: 16),
         ],
       ),
     );
   }
 
   Widget _buildActionsSection() {
-    final List<String> actions = [];
-
-    if (actions.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text('Actions', style: Theme.of(context).textTheme.titleSmall),
-        ),
-        SizedBox(
-          height: 120,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: actions.length,
-            itemBuilder: (context, index) {
-              return Card(
-                margin: EdgeInsets.only(
-                    left: 16, right: index == actions.length - 1 ? 16 : 0),
-                child: SizedBox(
-                  width: 240,
-                  child: Center(child: Text(actions[index])),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  // TODO: Unreadを最大5件表示、5ない場合は最新のメッセを全体で5件になるまで取得。なお未読のメッセはハイライトする。
-  Widget _buildMessagesSection({Key? key}) {
     final userState = ref.watch(userProvider);
 
     return Column(
@@ -99,53 +65,23 @@ class _HomePageState extends ConsumerState<HomePage> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    'assets/message.svg',
-                    width: 20,
-                    height: 20,
-                  ),
-                  const SizedBox(width: 8),
-                  Text('Active Message Rooms',
-                      style: Theme.of(context).textTheme.titleMedium),
-                ],
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MessageList()),
-                  );
-                },
-                child: Text('View all'),
-              ),
+              Text('Actions', style: Theme.of(context).textTheme.titleMedium),
             ],
           ),
         ),
         Query(
           options: QueryOptions(
             document: gql('''
-              query GetMessageRooms(\$userId: String!) {
-                getMessageRooms(userId: \$userId) {
-                  messageRoomList {
-                    id
-                    category
-                    latestMessage
-                    latestSentAt
-                    isRead
-                    users {
-                      id
-                      name
-                      imageUrl
-                    }
-                  }
-                  countOfMessageRooms
-                }
+            query GetQuests(\$userId: String!) {
+              getQuestByUserId(userId: \$userId) {
+                id
+                name
+                description
+                category
               }
-            '''),
+            }
+          '''),
             variables: {
               'userId': userState?.id ?? '',
             },
@@ -153,95 +89,100 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
           builder: (result, {refetch, fetchMore}) {
             if (result.hasException) {
-              return Center(child: Text('Error loading messages'));
+              return Center(child: Text('Error loading quests'));
             }
 
             if (result.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
 
-            final messageRooms = result.data?['getMessageRooms']
-                    ['messageRoomList'] as List<dynamic>? ??
-                [];
+            final quests =
+                result.data?['getQuestByUserId'] as List<dynamic>? ?? [];
 
-            // Sort messages by latestSentAt in descending order (newest first)
-            messageRooms.sort((a, b) {
-              try {
-                final aTime = a['latestSentAt'] != null
-                    ? DateTime.parse(a['latestSentAt'])
-                    : DateTime(1900);
-                final bTime = b['latestSentAt'] != null
-                    ? DateTime.parse(b['latestSentAt'])
-                    : DateTime(1900);
-                return bTime.compareTo(aTime);
-              } catch (e) {
-                print('Date parsing error: ${e.toString()}');
-                return 0;
-              }
-            });
-
-            // Take only the first 5 messages
-            final displayMessages = messageRooms.take(5).toList();
-
-            if (displayMessages.isEmpty) {
+            if (quests.isEmpty) {
               return const Center(
                 child: Padding(
                   padding: EdgeInsets.all(32.0),
-                  child: Text('No messages yet'),
+                  child: Text('No quests available'),
                 ),
               );
             }
 
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: displayMessages.length,
-              itemBuilder: (context, index) {
-                final room = displayMessages[index];
-                final isUnread = room['isRead'] != true;
-
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: room['users']?[0]['imageUrl'] != null
-                        ? NetworkImage(room['users'][0]['imageUrl'] as String)
-                        : null,
-                    child: room['users']?[0]['imageUrl'] == null
-                        ? const Icon(Icons.person)
-                        : null,
-                  ),
-                  title: Text(
-                    room['users']?[0]['name'] as String? ?? 'Unknown User',
-                    style: TextStyle(
-                      fontWeight:
-                          isUnread ? FontWeight.bold : FontWeight.normal,
+            return SizedBox(
+              height: 140,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: quests.length,
+                itemBuilder: (context, index) {
+                  final quest = quests[index];
+                  return Card(
+                    margin: EdgeInsets.only(
+                      left: 16,
+                      right: index == quests.length - 1 ? 16 : 0,
                     ),
-                  ),
-                  subtitle: Text(
-                    room['latestMessage'] as String? ?? 'No messages',
-                    style: TextStyle(
-                      fontWeight:
-                          isUnread ? FontWeight.bold : FontWeight.normal,
-                    ),
-                  ),
-                  trailing: Text(
-                    _formatDateTime(room['latestSentAt'] as String?),
-                    style: TextStyle(
-                      fontWeight:
-                          isUnread ? FontWeight.bold : FontWeight.normal,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MessageRoom(
-                          roomId: room['id'] as String,
-                        ),
+                    color: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: const BorderSide(
+                        color: Color(0xFF707070),
+                        width: 1,
                       ),
-                    );
-                  },
-                );
-              },
+                    ),
+                    child: Container(
+                      width: 240,
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              quest['category']?.toString() ?? '',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            quest['name'] ?? '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            quest['description'] ?? '',
+                            style: Theme.of(context).textTheme.bodySmall,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
             );
           },
         ),
@@ -249,27 +190,185 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-/*
   Widget _buildNewsSection() {
+    const repository = ContentfulDeliveryAPIRepository(
+      client: ContentfulClient(
+        spaceId: 'ihpc1xwibnxu',
+        accessToken: 'YWRJHfNEmCWVL126zO-UHS-lKwx1oUBstPw5X8KtOxs',
+      ),
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text('News', style: Theme.of(context).textTheme.titleSmall),
+          child: Row(
+            children: [
+              SvgPicture.asset(
+                'assets/news.svg',
+                width: 20,
+                height: 20,
+              ),
+              const SizedBox(width: 8),
+              Text('News', style: Theme.of(context).textTheme.titleMedium),
+            ],
+          ),
         ),
         SizedBox(
-          height: 200,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 5, // 仮のアイテム数
-            itemBuilder: (context, index) {
-              return Card(
-                margin: EdgeInsets.only(left: 16, right: index == 4 ? 16 : 0),
-                child: SizedBox(
-                  width: 300,
-                  child: Center(child: Text('News ${index + 1}')),
-                ),
+          height: 300,
+          child: FutureBuilder(
+            future: repository.getEntries<Entry<dynamic>>(
+              fromJsonT: (json) => Entry.fromJson(
+                json as Map<String, dynamic>,
+                (fields) => fields as Map<String, dynamic>,
+              ),
+              query: {
+                'include': '10',
+              },
+            ),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              }
+
+              if (!snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              final data =
+                  snapshot.data as ContentfulDeliveryDataModel<Entry<dynamic>>;
+              final newsItems = data.items;
+
+              // 各記事のサムネイルURLを取得
+              for (final newsItem in newsItems) {
+                final thumbnailSys = newsItem.fields['thumbnail']['sys'];
+                final imageUrl = repository.getAssetUrlFromSys(
+                  sys: Sys.fromJson(thumbnailSys),
+                  includes: data.includes,
+                );
+              }
+
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: newsItems.length,
+                itemBuilder: (context, index) {
+                  final newsItem = newsItems[index];
+                  final thumbnailSys = newsItem.fields['thumbnail']['sys'];
+                  final imageUrl = repository.getAssetUrlFromSys(
+                    sys: Sys.fromJson(thumbnailSys),
+                    includes: data.includes,
+                  );
+
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewsDetailPage(),
+                          settings: RouteSettings(
+                            arguments: {
+                              'id': newsItem.sys?.id,
+                              'title': newsItem.fields['title']?.toString(),
+                              'body': newsItem.fields['body'],
+                              'imageUrl': imageUrl,
+                              'category':
+                                  newsItem.fields['category']?.toString(),
+                              'date': newsItem.fields['date']?.toString(),
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      margin: EdgeInsets.only(
+                        left: 16,
+                        right: index == newsItems.length - 1 ? 16 : 0,
+                      ),
+                      color: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        side: const BorderSide(
+                          color: Color(0xFF707070),
+                          width: 1,
+                        ),
+                      ),
+                      child: Container(
+                        width: 360,
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 180,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                image: imageUrl != null
+                                    ? DecorationImage(
+                                        image: NetworkImage(imageUrl),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : null,
+                                color: Colors.grey[300],
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: _getCategoryColor(newsItem
+                                            .fields['category']
+                                            ?.toString() ??
+                                        '')
+                                    .withOpacity(0.8),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: Text(
+                                newsItem.fields['category']
+                                        ?.toString()
+                                        ?.toUpperCase() ??
+                                    '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              newsItem.fields['title']?.toString() ??
+                                  'No Title',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              newsItem.fields['date'] != null
+                                  ? DateFormat('yyyy/MM/dd HH:mm').format(
+                                      DateTime.parse(newsItem.fields['date']
+                                              .toString())
+                                          .toLocal())
+                                  : '',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
               );
             },
           ),
@@ -277,9 +376,19 @@ class _HomePageState extends ConsumerState<HomePage> {
       ],
     );
   }
-*/
 
   Widget _buildTrendingSection() {
+    final userState = ref.watch(userProvider);
+
+    if (userState == null || userState.belongsToArtists.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Center(
+          child: Text('アーティストに所属していません'),
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -297,23 +406,75 @@ class _HomePageState extends ConsumerState<HomePage> {
             ],
           ),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return _buildTrendingItem(index);
+        Query(
+          options: QueryOptions(
+            document: gql('''
+              query GetTrending(\$artistId: String!, \$userId: String!) {
+                getTrending(artistId: \$artistId, userId: \$userId) {
+                  trendingTracks {
+                    isrc
+                    trackTitle
+                    upcTitle
+                    imageUrl
+                    totalPlayCount
+                    weeklyPlayCount
+                  }
+                }
+              }
+            '''),
+            variables: {
+              'artistId': userState.belongsToArtists[0].artistId,
+              'userId': userState.id,
+            },
+            fetchPolicy: FetchPolicy.networkOnly,
+          ),
+          builder: (result, {refetch, fetchMore}) {
+            if (result.hasException) {
+              return Center(child: Text('Error loading trending data'));
+            }
+
+            if (result.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            final tracks = result.data?['getTrending']?['trendingTracks']
+                    as List<dynamic>? ??
+                [];
+
+            if (tracks.isEmpty) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(32.0),
+                  child: Text('トレンドデータが�りません'),
+                ),
+              );
+            }
+
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: tracks.length,
+              itemBuilder: (context, index) {
+                final track = tracks[index];
+                return _buildTrendingItem(
+                  index,
+                  track['trackTitle'] ?? 'Unknown Track',
+                  track['imageUrl'],
+                  track['totalPlayCount'] ?? 0,
+                  track['weeklyPlayCount'] ?? 0,
+                );
+              },
+            );
           },
         ),
       ],
     );
   }
 
-  Widget _buildTrendingItem(int index) {
+  Widget _buildTrendingItem(int index, String title, String? imageUrl,
+      int totalCount, int weeklyCount) {
     final rank = index + 1;
-    final isUp = index % 2 == 0;
-    final changeIcon = isUp ? Icons.arrow_upward : Icons.arrow_downward;
-    final changeColor = isUp ? Colors.green : Colors.red;
+    final numberFormat = NumberFormat('#,###');
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -326,18 +487,18 @@ class _HomePageState extends ConsumerState<HomePage> {
               style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
-          Icon(changeIcon, color: changeColor),
-          const SizedBox(width: 10),
           Container(
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://ogre.natalie.mu/media/news/music/2024/0913/Thefin_jkt2014.jpg?imwidth=750&imdensity=1'),
-                fit: BoxFit.cover,
-              ),
+              image: imageUrl != null
+                  ? DecorationImage(
+                      image: NetworkImage(imageUrl),
+                      fit: BoxFit.cover,
+                    )
+                  : null,
             ),
+            child: imageUrl == null ? const Icon(Icons.music_note) : null,
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -345,7 +506,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Song name $rank',
+                  title,
                   style: Theme.of(context).textTheme.titleMedium,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -356,11 +517,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'Total: ${1000000 - index * 100000}',
+                'Total: ${numberFormat.format(totalCount)}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               Text(
-                'Week: ${100000 - index * 10000}',
+                'Week: ${numberFormat.format(weeklyCount)}',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
             ],
@@ -370,35 +531,16 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // Add this method to check if a message is unread
-  bool _isMessageUnread(int index) {
-    // TODO: Implement actual logic to check if the message is unread
-    return index % 2 == 0; // For demonstration, every other message is unread
-  }
-
-  String _formatDateTime(String? dateTimeStr) {
-    if (dateTimeStr == null || dateTimeStr.isEmpty) return '';
-
-    try {
-      final dateTime = DateTime.parse(dateTimeStr).toLocal();
-      final now = DateTime.now();
-      final today = DateTime(now.year, now.month, now.day);
-      final messageDate = DateTime(dateTime.year, dateTime.month, dateTime.day);
-
-      // 今日の場合は時刻のみ
-      if (messageDate == today) {
-        return DateFormat('HH:mm').format(dateTime);
-      }
-      // 今年の場合は月日と時刻
-      else if (dateTime.year == now.year) {
-        return DateFormat('M/d HH:mm').format(dateTime);
-      }
-      // そ��以外は年月日と時刻
-      return DateFormat('yyyy/M/d HH:mm').format(dateTime);
-    } catch (e) {
-      print('Date formatting error: ${e.toString()}');
-      print('Input dateTimeStr: $dateTimeStr');
-      return dateTimeStr; // エラーの場合は元の文字列を返す
+  Color _getCategoryColor(String category) {
+    switch (category.toUpperCase()) {
+      case 'INFO':
+        return Color(0xFFB487FF); // 薄い紫 (#E6B3FF)
+      case 'FRIENDSHIP. DAO':
+        return Color(0xFF00B496); // 薄い緑 (#B3FFB3)
+      case 'FRIENDSHIP.':
+        return Color(0xFF2D78FF); // 薄い青 (#B3E0FF)
+      default:
+        return Theme.of(context).colorScheme.primary;
     }
   }
 }

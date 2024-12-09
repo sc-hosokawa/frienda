@@ -106,6 +106,6 @@ class More extends StatelessWidget {
 
   bool _hasUnreadNotifications() {
     // TODO: Implement logic to check for unread notifications
-    return true; // Temporary return value for demonstration
+    return false; // Temporary return value for demonstration
   }
 }

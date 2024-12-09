@@ -16,7 +16,7 @@ class WalkthroughPage1 extends StatelessWidget {
             fit: BoxFit.contain,
           ),
         ),
-        const SizedBox(height: 240),
+        const SizedBox(height: 30),
         const Text(
           '<< Swipe to Start',
           style: TextStyle(fontSize: 20),

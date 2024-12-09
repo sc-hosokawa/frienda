@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:client/presentation/widgets/more/faq.dart';
+import 'package:client/presentation/widgets/more/webview_page.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
@@ -64,9 +65,21 @@ class About extends StatelessWidget {
       title: Text(title),
       subtitle: Text(description),
       onTap: () {
-        {
-          // TODO: Implement other item tap logic
+        String url;
+        if (title == '利用規約') {
+          url = 'https://app.friendshipdao.xyz/termofservice';
+        } else if (title == 'プライバシーポリシー') {
+          url = 'https://app.friendshipdao.xyz/privacypolicy';
+        } else {
+          return;
         }
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WebViewPage(url: url, title: title),
+          ),
+        );
       },
     );
   }

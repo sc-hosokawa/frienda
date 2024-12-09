@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:client/presentation/widgets/home_page.dart';
 import 'package:client/presentation/widgets/dashboard.dart';
 import 'package:client/presentation/widgets/offer.dart';
-import 'package:client/presentation/widgets/fsp_wallet.dart';
+import 'package:client/presentation/widgets/message/message_list.dart';
 import 'package:client/presentation/widgets/community.dart';
 import 'package:client/presentation/widgets/components/bottom_bar.dart';
 import 'package:client/presentation/widgets/components/header_bar.dart';
@@ -25,11 +25,11 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   final List<String> _sectionTitles = [
-    'FRIENDSHIP.',
-    'Dashboard',
-    'Offer',
-    'FSP',
-    'Community',
+    'HOME',
+    'DASHBOARD',
+    'OFFERS',
+    'MESSAGE',
+    'COMMUNITY',
   ];
 
   final List<bool> _hasHistory = List.filled(5, false);
@@ -134,7 +134,7 @@ class _MainScreenState extends State<MainScreen> {
                   page = Offer();
                   break;
                 case 3:
-                  page = Fsp();
+                  page = MessageList();
                   break;
                 case 4:
                   page = Community();

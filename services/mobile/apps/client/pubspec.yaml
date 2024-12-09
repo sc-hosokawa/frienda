@@ -2,7 +2,7 @@ name: client
 description: "A FRIENDSHIP. App"
 publish_to: 'none'
 
-version: 1.0.1+16
+version: 1.0.2+11
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
@@ -44,6 +44,11 @@ dependencies:
   path_provider: ^2.1.5
   dio: ^5.7.0
   permission_handler: ^11.3.1
+  local_auth: ^2.3.0
+  firebase_messaging: ^15.1.6
+  contentful_flutter: ^0.0.13
+  contentful_rich_text: ^2.2.2
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +67,9 @@ flutter:
     - assets/logo_visualonly_dark.jpg
     - assets/tutorial-offer.gif
     - assets/tutorial-community.gif
+    - assets/tutorial-services.gif
+    - assets/tutorial-dashboard.gif
+    - assets/tutorial-welcome.gif
     - assets/notification.svg
     - assets/news.svg
     - assets/message.svg
@@ -74,6 +82,8 @@ flutter:
     - assets/current.svg
     - assets/total_point_earn.svg
     - assets/total.svg
+    - assets/offer.svg
+    - assets/offer_line.svg
   fonts:
     - family: Noto Sans JP
       fonts:

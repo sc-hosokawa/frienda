@@ -275,11 +275,15 @@ class _MessageListState extends ConsumerState<MessageList> {
                   final currentUserId = ref.read(userProvider)?.id;
                   if (currentUserId == null) return;
 
-                  await _markAsRead(
-                    roomId: room['id'] as String,
-                    userId: currentUserId,
-                    messageId: room['latestMessageId'] as String,
-                  );
+                  // latestMessageIdが存在する場合のみ既読処理を実行
+                  final latestMessageId = room['latestMessageId'] as String?;
+                  if (latestMessageId != null) {
+                    await _markAsRead(
+                      roomId: room['id'] as String,
+                      userId: currentUserId,
+                      messageId: latestMessageId,
+                    );
+                  }
 
                   Navigator.push(
                     context,

@@ -79,6 +79,10 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
               title: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -223,7 +227,7 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
 
       UploadTask uploadTask = ref.putFile(imageFile, metadata);
 
-      // アップロード完了を待機
+      // アップロー��完了を待機
       await uploadTask;
 
       // アップロードされた画像のURLを取得
@@ -442,7 +446,7 @@ class MessageBubble extends StatelessWidget {
           ? '${DateTime.now().millisecondsSinceEpoch}${isImage ? '.jpg' : ''}'
           : path.basename(url);
 
-      // 保存先ディレクトリを取得
+      // 保存先ディレク���リを取得
       final directory = Platform.isAndroid
           ? Directory('/storage/emulated/0/Download')
           : await getApplicationDocumentsDirectory();

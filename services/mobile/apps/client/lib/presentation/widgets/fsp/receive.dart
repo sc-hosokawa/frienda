@@ -35,77 +35,79 @@ class _ReceiveState extends ConsumerState<Receive> {
     final user = ref.watch(userProvider);
     final auth = ref.watch(authProvider);
 
-    return Column(
-      children: [
-        SafeArea(
-          child: AppBar(
-            title: const Text('受取'),
-            titleTextStyle: Theme.of(context).textTheme.titleMedium,
-            centerTitle: true,
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildUserInfo('ユーザー名', user?.name ?? ''),
-                _buildUserInfo('メールアドレス', auth.email ?? ''),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _pointsController,
-                        decoration: const InputDecoration(
-                          labelText: '請求ポイント',
-                          border: OutlineInputBorder(),
-                        ),
-                        keyboardType: TextInputType.number,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    IconButton(
-                      icon: const Icon(Icons.qr_code),
-                      onPressed: () {
-                        // キーボードを閉じる
-                        FocusScope.of(context).unfocus();
-                        setState(() {
-                          _qrData = _generateQRData();
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                TextField(
-                  controller: _notesController,
-                  decoration: const InputDecoration(
-                    labelText: 'メモ',
-                    border: OutlineInputBorder(),
-                  ),
-                  maxLines: 3,
-                ),
-                if (_qrData.isNotEmpty) ...[
-                  const SizedBox(height: 20),
-                  Center(
-                    child: Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.all(10),
-                      child: QrImageView(
-                        data: _qrData,
-                        version: QrVersions.auto,
-                        size: 200.0,
-                      ),
-                    ),
-                  ),
-                ],
-              ],
+    return Scaffold(
+      body: Column(
+        children: [
+          SafeArea(
+            child: AppBar(
+              title: const Text('受取'),
+              titleTextStyle: Theme.of(context).textTheme.titleMedium,
+              centerTitle: true,
             ),
           ),
-        ),
-      ],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildUserInfo('ユーザー名', user?.name ?? ''),
+                  _buildUserInfo('メールアドレス', auth.email ?? ''),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _pointsController,
+                          decoration: const InputDecoration(
+                            labelText: '請求ポイント',
+                            border: OutlineInputBorder(),
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      IconButton(
+                        icon: const Icon(Icons.qr_code),
+                        onPressed: () {
+                          // キーボードを閉じる
+                          FocusScope.of(context).unfocus();
+                          setState(() {
+                            _qrData = _generateQRData();
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  TextField(
+                    controller: _notesController,
+                    decoration: const InputDecoration(
+                      labelText: 'メモ',
+                      border: OutlineInputBorder(),
+                    ),
+                    maxLines: 3,
+                  ),
+                  if (_qrData.isNotEmpty) ...[
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.all(10),
+                        child: QrImageView(
+                          data: _qrData,
+                          version: QrVersions.auto,
+                          size: 200.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
