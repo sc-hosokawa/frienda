@@ -1,4 +1,6 @@
-import CommunityListsRow from "../../../components/community/community-lits-row";
+import CommunityListsRow, {
+  CommunityListsRowProps,
+} from "../../../components/community/community-lits-row";
 import {
   Tabs,
   TabsContent,
@@ -13,7 +15,6 @@ import {
   TableRow,
 } from "../../../../../packages/ui/components/ui/table";
 import { ChevronDown } from "lucide-react";
-import { UserType } from "../../../utils";
 
 export default function CommunityPage() {
   return (
@@ -82,27 +83,6 @@ export default function CommunityPage() {
   );
 }
 
-interface CommunityListsRowProps {
-  id: string;
-  name: string;
-  friendCount: number;
-  rate: string;
-  type: string;
-  comment?: string;
-  connection: {
-    offer: string;
-    date: string;
-  };
-  isOnline: boolean;
-  description: string;
-  connectedSince: string;
-  avatar: string;
-  skill: string;
-  members: { name: string; role: string }[];
-  lastLogin: string;
-  offers?: string[] | undefined;
-  connections?: UserType[] | undefined;
-}
 // TODO: remove this mock data
 export const mockData: CommunityListsRowProps[] = [
   {
@@ -110,7 +90,10 @@ export const mockData: CommunityListsRowProps[] = [
     name: "taro_yoshida",
     friendCount: 4,
     rate: "4.5",
-    type: "artist",
+    type: {
+      title: "artist",
+      role: "Vocal",
+    },
     connection: {
       offer: "Offer #123",
       date: "2024/10/23",
@@ -122,9 +105,9 @@ export const mockData: CommunityListsRowProps[] = [
     avatar: "",
     skill: "バンド、ベース（サポートもできます！）",
     members: [
-      { name: "Tetsuo Yoshida", role: "Vocal" },
-      { name: "Kei Minami", role: "Owner" },
-      { name: "Shinya Fukuda", role: "Drums" },
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
@@ -135,7 +118,10 @@ export const mockData: CommunityListsRowProps[] = [
     name: "sayaka_kyoda",
     friendCount: 4,
     rate: "4.5",
-    type: "producer",
+    type: {
+      title: "artist",
+      role: "Vocal",
+    },
     comment: "イベントいつも最高",
     connection: {
       offer: "Offer #123",
@@ -148,9 +134,9 @@ export const mockData: CommunityListsRowProps[] = [
     avatar: "",
     skill: "バンド、ベース（サポートもできます！）",
     members: [
-      { name: "Tetsuo Yoshida", role: "Vocal" },
-      { name: "Kei Minami", role: "Owner" },
-      { name: "Shinya Fukuda", role: "Drums" },
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
@@ -161,7 +147,10 @@ export const mockData: CommunityListsRowProps[] = [
     name: "photoone",
     friendCount: 4,
     rate: "4.5",
-    type: "promoter",
+    type: {
+      title: "promoter",
+      role: "Photographer",
+    },
     connection: {
       offer: "Offer #123",
       date: "2024/10/23",
@@ -173,9 +162,9 @@ export const mockData: CommunityListsRowProps[] = [
     avatar: "",
     skill: "バンド、ベース（サポートもできます！）",
     members: [
-      { name: "Tetsuo Yoshida", role: "Vocal" },
-      { name: "Kei Minami", role: "Owner" },
-      { name: "Shinya Fukuda", role: "Drums" },
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
@@ -186,7 +175,10 @@ export const mockData: CommunityListsRowProps[] = [
     name: "lisa_fukuda",
     friendCount: 4,
     rate: "4.5",
-    type: "curator",
+    type: {
+      title: "curator",
+      role: "manager",
+    },
     connection: {
       offer: "Offer #123",
       date: "2024/10/23",
@@ -198,9 +190,9 @@ export const mockData: CommunityListsRowProps[] = [
     avatar: "",
     skill: "バンド、ベース（サポートもできます！）",
     members: [
-      { name: "Tetsuo Yoshida", role: "Vocal" },
-      { name: "Kei Minami", role: "Owner" },
-      { name: "Shinya Fukuda", role: "Drums" },
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
@@ -211,7 +203,10 @@ export const mockData: CommunityListsRowProps[] = [
     name: "minoru_kou",
     friendCount: 4,
     rate: "4.5",
-    type: "curator",
+    type: {
+      title: "curator",
+      role: "manager",
+    },
     connection: {
       offer: "Offer #123",
       date: "2024/10/23",
@@ -223,9 +218,9 @@ export const mockData: CommunityListsRowProps[] = [
     avatar: "",
     skill: "バンド、ベース（サポートもできます！）",
     members: [
-      { name: "Tetsuo Yoshida", role: "Vocal" },
-      { name: "Kei Minami", role: "Owner" },
-      { name: "Shinya Fukuda", role: "Drums" },
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
@@ -236,7 +231,10 @@ export const mockData: CommunityListsRowProps[] = [
     name: "john_john",
     friendCount: 4,
     rate: "4.5",
-    type: "curator",
+    type: {
+      title: "artist",
+      role: "Vocal",
+    },
     comment: "次のMVの時きく!",
     connection: {
       offer: "Offer #123",
@@ -249,9 +247,9 @@ export const mockData: CommunityListsRowProps[] = [
     avatar: "",
     skill: "バンド、ベース（サポートもできます！）",
     members: [
-      { name: "Tetsuo Yoshida", role: "Vocal" },
-      { name: "Kei Minami", role: "Owner" },
-      { name: "Shinya Fukuda", role: "Drums" },
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],

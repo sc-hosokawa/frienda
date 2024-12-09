@@ -9,20 +9,29 @@ import {
 } from "../../../../packages/ui/components/ui/table";
 import { getBgClassByType, UserType } from "../../utils";
 
-interface CommunityListsRowProps {
+export interface CommunityListsRowProps {
   id: string;
   name: string;
-  avatar?: string;
   friendCount: number;
   rate: string;
-  type: string;
-  comment?: string | null;
+  type: {
+    title: string;
+    role?: string;
+  };
+  comment?: string;
   connection: {
     offer: string;
     date: string;
   };
-  isOnline?: boolean;
-  lastLogin?: string;
+  isOnline: boolean;
+  description: string;
+  connectedSince: string;
+  avatar: string;
+  skill: string;
+  members: { title: string; role?: string }[];
+  lastLogin: string;
+  offers?: string[] | undefined;
+  connections?: UserType[] | undefined;
 }
 
 export default function CommunityListsRow({
@@ -65,7 +74,7 @@ export default function CommunityListsRow({
             <Image
               src={avatar || "/logo_visualonly.jpg"}
               alt={name}
-              className={`p-1 rounded-full object-cover ${getBgClassByType(type as UserType)}`}
+              className={`p-1 rounded-full object-cover ${getBgClassByType(type.title as UserType)}`}
               width={48}
               height={48}
             />
@@ -84,13 +93,13 @@ export default function CommunityListsRow({
           {rate}
         </TableCell>
         <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-          {type}
+          {type.title}
         </TableCell>
         <TableCell>
           {comment && (
             <span
               className={`px-3 py-1 ${getBgClassByType(
-                type as UserType
+                type.title as UserType
               )} text-black group-hover:bg-white rounded-full text-sm transition-colors`}
             >
               {comment}

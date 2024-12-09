@@ -11,6 +11,8 @@ import { BorderDash } from "../../../../components/border-dash";
 import { Works } from "../../../../components/community/works";
 import { OfferCard } from "../../../../components/community/offer-card";
 import { mockData } from "../page";
+import { List } from "../../../../components/account/list";
+import { BaseComponent } from "../../../../components/account/base";
 
 export default function CommunityAccountPage({
   params,
@@ -26,7 +28,7 @@ export default function CommunityAccountPage({
     return mockData[parseInt(id) - 1];
   }
   const user = getuser(params.id);
-  const bgColor = getBgClassByType(user?.type as UserType);
+  const bgColor = getBgClassByType(user?.type.title as UserType);
 
   return (
     <div className="min-h-screen text-white">
@@ -39,7 +41,7 @@ export default function CommunityAccountPage({
               alt="avatar"
               width={80}
               height={80}
-              className={`p-1 rounded-full object-cover ${getBgClassByType(user?.type as UserType)}`}
+              className={`p-1 rounded-full object-cover ${getBgClassByType(user?.type.title as UserType)}`}
             />
           </div>
           <div className="flex flex-col gap-3 mr-12">
@@ -134,6 +136,30 @@ export default function CommunityAccountPage({
           <Skill title="Skill" skill={user?.skill} />
           <ConnectionTypes title={"繋がり"} types={user?.connections} />
           <Offers title={"興味のあるオファー"} offers={user?.offers} />
+        </div>
+
+        <Separator className="w-full border border-dashed border-[#505050]" />
+
+        <div className="grid grid-cols-3 ">
+          <BaseComponent title={"Type"}>
+            <div className="flex flex-wrap gap-2">
+              <div className="flex flex-col text-white">
+                <div>
+                  {user?.type.title}
+                  {user?.type?.role && (
+                    <span className="text-white">
+                      {" "}
+                      {` / ${user?.type.role}`}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </BaseComponent>
+
+          <div>
+            <List title="Members" lists={user?.members!} />
+          </div>
         </div>
 
         <Separator className="w-full border border-dashed border-[#505050]" />
