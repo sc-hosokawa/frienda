@@ -13,7 +13,6 @@ pub mod login_usecase;
 pub mod logout_usecase;
 pub mod rate_content_usecase;
 pub mod revoke_role_usecase;
-pub mod search_content_usecase;
 pub mod search_users_usecase;
 pub mod share_content_usecase;
 pub mod unfollow_user_usecase;

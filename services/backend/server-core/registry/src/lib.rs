@@ -13,6 +13,7 @@ use application::usecases::basic::{
     create_user_usecase::{CreateUserUsecase, CreateUserUsecaseTrait},
     get_all_users_usecase::{GetAllUsersUsecase, GetAllUsersUsecaseTrait},
     get_user_basic_info_usecase::{GetUserBasicInfoUsecase, GetUserBasicInfoUsecaseTrait},
+    search_users_usecase::{SearchUsersUsecase, SearchUsersUsecaseTrait},
     update_user_profile_usecase::{UpdateUserProfileUsecase, UpdateUserProfileUsecaseTrait},
 };
 use application::usecases::credit::{
@@ -153,6 +154,7 @@ pub struct Usecases {
     pub register_credit: Arc<dyn RegisterUsecaseTrait>,
     pub get_credits: Arc<dyn GetCreditsUsecaseTrait>,
     pub get_products: Arc<dyn GetProductsUsecaseTrait>,
+    pub search_users: Arc<dyn SearchUsersUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -188,6 +190,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        search_users: Arc::new(SearchUsersUsecase::new(repos.users.clone())),
         get_products: Arc::new(GetProductsUsecase::new(
             repos.products.clone(),
             repos.tracks.clone(),
