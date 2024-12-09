@@ -3,7 +3,13 @@ import React from "react";
 import { BaseComponent } from "../account/base";
 import { NotoSansJP } from "../../app/(authenticated)/layout";
 
-export function Skill({ title, skill }: { title: string; skill: string }) {
+export function Skill({
+  title,
+  skill,
+}: {
+  title: string;
+  skill: string | undefined;
+}) {
   return (
     <BaseComponent title={title}>
       <p

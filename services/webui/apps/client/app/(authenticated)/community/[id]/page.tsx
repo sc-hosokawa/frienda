@@ -3,13 +3,14 @@ import Image from "next/image";
 import { SocialLink } from "../../../../components/account/social-links";
 import { Separator } from "../../../../../../packages/ui/components/ui/separator";
 import { ConnectionTypes } from "../../../../components/account/connection-type";
-import { UserType } from "../../../../utils";
+import { getBgClassByType, UserType } from "../../../../utils";
 import { Offers } from "../../../../components/account/offers";
 import { Skill } from "../../../../components/community/skill";
 import { NotoSansJP } from "../../layout";
 import { BorderDash } from "../../../../components/border-dash";
 import { Works } from "../../../../components/community/works";
 import { OfferCard } from "../../../../components/community/offer-card";
+import { mockData } from "../page";
 
 export default function CommunityAccountPage({
   params,
@@ -21,57 +22,29 @@ export default function CommunityAccountPage({
    * e.g.:
    * const { data, error } = useQuery(["user", params.id], () => getUser(params.id));
    */
-  const mockUser = {
-    avatar: "",
-    username: "john_john",
-    lastLogin: "2023/7/23",
-    isOnline: true,
-    description:
-      "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
-    connectedSince: "2023/7/23",
-    skill: "バンド、ベース（サポートもできます！）",
-
-    members: [
-      { name: "Tetsuo Yoshida", role: "Vocal" },
-      { name: "Kei Minami", role: "Owner" },
-      { name: "Shinya Fukuda", role: "Drums" },
-    ],
-    totalPoint: 1234,
-  };
-
-  const connections: UserType[] = [
-    "artist",
-    "curator",
-    "producer",
-    "designer",
-    "filmMaker",
-  ];
-
-  const mockOffer: string[] = [
-    "Event",
-    "Live",
-    "Recording",
-    "Promoting",
-    "Support Musician",
-  ];
+  function getuser(id: string) {
+    return mockData[parseInt(id) - 1];
+  }
+  const user = getuser(params.id);
+  const bgColor = getBgClassByType(user?.type as UserType);
 
   return (
     <div className="min-h-screen text-white">
       {/* Profile Header */}
-      <div className="flex items-start justify-between p-6">
+      <div className="flex items-center justify-between p-6">
         <div className="flex items-center gap-4">
           <div>
             <Image
-              src={mockUser.avatar || "/logo_visualonly.jpg"}
-              alt={mockUser.username}
+              src={user?.avatar || "/logo_visualonly.jpg"}
+              alt="avatar"
               width={80}
               height={80}
               className="rounded-full"
             />
           </div>
           <div className="flex flex-col gap-3 mr-12">
-            <h1 className="text-[24px] leading-[21px]">{mockUser.username}</h1>
-            {mockUser.isOnline ? (
+            <h1 className="text-[24px] leading-[21px]">{user?.name}</h1>
+            {user?.isOnline ? (
               <div className="flex items-center gap-1">
                 <div className="w-[18px] h-[18px] rounded-full bg-[#00B496]" />
                 <span className="text-[15px] font-light leading-[15px] text-left group-hover:text-black">
@@ -80,7 +53,7 @@ export default function CommunityAccountPage({
               </div>
             ) : (
               <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
-                {mockUser.lastLogin}
+                {user?.lastLogin}
               </span>
             )}
           </div>
@@ -91,7 +64,7 @@ export default function CommunityAccountPage({
               width={24}
               height={24}
               className="w-12 h-12"
-              link={`https://x.com/${mockUser.username}`}
+              link={`https://x.com/${user?.name}`}
             />
             <BorderDash
               imageSrc={"/instagram-white.svg"}
@@ -99,11 +72,20 @@ export default function CommunityAccountPage({
               width={24}
               height={24}
               className="w-12 h-12"
-              link={`https://instagram.com/${mockUser.username}`}
+              link={`https://instagram.com/${user?.name}`}
             />
           </div>
         </div>
-        <div className="flex gap-2">
+        <div>
+          {user?.comment && (
+            <span
+              className={`px-3 py-1 ${bgColor} text-black rounded-full text-sm transition-colors`}
+            >
+              {user?.comment}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
           <BorderDash
             imageSrc={"/share.svg"}
             alt="share"
@@ -141,7 +123,7 @@ export default function CommunityAccountPage({
             <p
               className={`${NotoSansJP.className} text-[14px] font-[350] leading-[24px] text-left`}
             >
-              {mockUser.description}
+              {user?.description}
             </p>
           </div>
         </div>
@@ -149,9 +131,9 @@ export default function CommunityAccountPage({
         <Separator className="w-full border border-dashed border-[#505050]" />
 
         <div className="grid grid-cols-3 ">
-          <Skill title="Skill" skill={mockUser.skill} />
-          <ConnectionTypes title={"繋がり"} types={connections} />
-          <Offers title={"興味のあるオファー"} offers={mockOffer} />
+          <Skill title="Skill" skill={user?.skill} />
+          <ConnectionTypes title={"繋がり"} types={user?.connections} />
+          <Offers title={"興味のあるオファー"} offers={user?.offers} />
         </div>
 
         <Separator className="w-full border border-dashed border-[#505050]" />

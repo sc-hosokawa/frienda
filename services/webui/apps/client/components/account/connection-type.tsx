@@ -5,7 +5,7 @@ import { BaseComponent } from "./base";
 
 interface ConnectionTypesProps {
   title: string;
-  types?: UserType[];
+  types?: UserType[] | undefined;
 }
 
 export function ConnectionTypes({ title, types }: ConnectionTypesProps) {

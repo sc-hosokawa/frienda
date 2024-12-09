@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Upload, MoreHorizontal } from "lucide-react";
@@ -7,6 +7,7 @@ import {
   TableCell,
   TableRow,
 } from "../../../../packages/ui/components/ui/table";
+import { getBgClassByType, UserType } from "../../utils";
 
 interface CommunityListsRowProps {
   id: string;
@@ -36,18 +37,12 @@ export default function CommunityListsRow({
   isOnline,
   lastLogin,
 }: CommunityListsRowProps) {
-  const [isLiked, setIsLiked] = useState(false);
-
+  // TODO: this should be handled by the backend
+  const isLiked = false;
   return (
     <TableRow className="group hover:bg-[#E4DBC0] transition-colors hover:cursor-pointer border-none">
       <TableCell>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsLiked(!isLiked);
-          }}
-          className="w-12 h-12 relative flex items-center justify-center"
-        >
+        <button className="w-12 h-12 relative flex items-center justify-center">
           <div
             className={`absolute inset-0 rounded-full border border-dashed ${isLiked ? "border-transparent" : "border-white"}`}
           />
@@ -70,9 +65,9 @@ export default function CommunityListsRow({
             <Image
               src={avatar || "/logo_visualonly.jpg"}
               alt={name}
-              className="w-10 h-10 rounded-full object-cover"
-              width={40}
-              height={40}
+              className={`p-1 rounded-full object-cover ${getBgClassByType(type as UserType)}`}
+              width={48}
+              height={48}
             />
             <div className="flex flex-col">
               <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
@@ -93,7 +88,11 @@ export default function CommunityListsRow({
         </TableCell>
         <TableCell>
           {comment && (
-            <span className="px-3 py-1 bg-purple-500/20 text-purple-300 group-hover:bg-purple-600/30 group-hover:text-purple-900 rounded-full text-sm transition-colors">
+            <span
+              className={`px-3 py-1 ${getBgClassByType(
+                type as UserType
+              )} text-black group-hover:bg-white rounded-full text-sm transition-colors`}
+            >
               {comment}
             </span>
           )}
