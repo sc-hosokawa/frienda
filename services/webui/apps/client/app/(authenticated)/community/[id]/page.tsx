@@ -39,7 +39,7 @@ export default function CommunityAccountPage({
               alt="avatar"
               width={80}
               height={80}
-              className="rounded-full"
+              className={`p-1 rounded-full object-cover ${getBgClassByType(user?.type as UserType)}`}
             />
           </div>
           <div className="flex flex-col gap-3 mr-12">
