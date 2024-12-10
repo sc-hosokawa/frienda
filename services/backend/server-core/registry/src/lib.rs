@@ -67,6 +67,7 @@ use application::usecases::prize::{
 use application::usecases::quest::{
     create_quest_usecase::{CreateQuestUsecase, CreateQuestUsecaseTrait},
     get_quests_usecase::{GetQuestsUsecase, GetQuestsUsecaseTrait},
+    login_reward_usecase::{LoginRewardUsecase, LoginRewardUsecaseTrait},
     mark_as_done_usecase::{MarkAsDoneUsecase, MarkAsDoneUsecaseTrait},
 };
 use infrastracture::persistences::health_check_repo_impl::HealthCheckRepoImpl;
@@ -155,6 +156,7 @@ pub struct Usecases {
     pub get_credits: Arc<dyn GetCreditsUsecaseTrait>,
     pub get_products: Arc<dyn GetProductsUsecaseTrait>,
     pub search_users: Arc<dyn SearchUsersUsecaseTrait>,
+    pub login_reward: Arc<dyn LoginRewardUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -191,6 +193,7 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
         search_users: Arc::new(SearchUsersUsecase::new(repos.users.clone())),
+        login_reward: Arc::new(LoginRewardUsecase::new(repos.users.clone())),
         get_products: Arc::new(GetProductsUsecase::new(
             repos.products.clone(),
             repos.tracks.clone(),
