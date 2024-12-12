@@ -50,6 +50,7 @@ fn test_user_entity() {
         interest_offer,
         email: email.clone(),
         id_token: id_token.clone(),
+        fcm_token: Some("fcm_token".to_string()),
         publicity: true,
         is_superadmin: Some(is_superadmin),
         last_login_at: None,
@@ -70,7 +71,7 @@ fn test_user_entity() {
     assert_eq!(user.primary_category, primary_category);
     assert_eq!(user.email, email);
     assert_eq!(user.id_token, id_token);
-
+    assert_eq!(user.fcm_token, Some("fcm_token".to_string()));
     // ステータス変更のテスト
     let mut updated_user = user.clone();
     updated_user.status = UserStatus::Rejected;
@@ -119,6 +120,7 @@ fn test_user_entity() {
         interest_offer: None,
         email: "".to_string(),
         id_token: None,
+        fcm_token: None,
         publicity: true,
         is_superadmin: Some(false),
         last_login_at: None,

@@ -34,6 +34,7 @@ use application::usecases::messaging::{
     get_messages_usecase::{GetMessagesUsecase, GetMessagesUsecaseTrait},
     get_room_list_usecase::{GetRoomListUsecase, GetRoomListUsecaseTrait},
     mark_as_read_usecase::{MarkAsReadUsecase, MarkAsReadUsecaseTrait},
+    request_llm_usecase::{RequestLlmUsecase, RequestLlmUsecaseTrait},
     send_message_usecase::{SendMessageUsecase, SendMessageUsecaseTrait},
 };
 use application::usecases::offer::{
@@ -87,6 +88,12 @@ use infrastracture::persistences::{
     users_repo_impl::UsersRepoImpl,
 };
 
+use application::services::{
+    push_notification::{PushNotificationService, PushNotificationServiceTrait},
+    request_llm::{LlmService, LlmServiceTrait},
+};
+use infrastracture::services::{fcm::FcmNotificationService, gemini::GeminiService};
+
 pub struct RepositoriesImpl {
     pub health_check: Arc<HealthCheckRepoImpl>,
     pub users: Arc<UsersRepoImpl>,
@@ -112,6 +119,12 @@ pub struct RepositoriesImpl {
     pub gender_gen_playback: Arc<GenderGenPlaybackRepoImpl>,
     pub track_credits: Arc<TrackCreditsRepoImpl>,
 }
+
+pub struct ServicesImpl {
+    pub llm_service: Arc<dyn LlmServiceTrait>,
+    pub push_notification_service: Arc<dyn PushNotificationServiceTrait>,
+}
+
 pub struct Usecases {
     pub health_check: Arc<dyn HealthCheckUseCase>,
     pub create_user: Arc<dyn CreateUserUsecaseTrait>,
@@ -157,6 +170,7 @@ pub struct Usecases {
     pub get_products: Arc<dyn GetProductsUsecaseTrait>,
     pub search_users: Arc<dyn SearchUsersUsecaseTrait>,
     pub login_reward: Arc<dyn LoginRewardUsecaseTrait>,
+    pub request_llm: Arc<dyn RequestLlmUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -188,7 +202,21 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
     }
 }
 
-pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
+pub async fn create_services() -> ServicesImpl {
+    tracing::info!("Setup Services...");
+    let gemini_service = GeminiService::new().expect("Failed to create GeminiService");
+    let llm_service = LlmService::new(Arc::new(gemini_service));
+    let push_notification_service = FcmNotificationService::new()
+        .await
+        .expect("Failed to create FcmNotificationService");
+
+    ServicesImpl {
+        llm_service: Arc::new(llm_service),
+        push_notification_service: Arc::new(push_notification_service),
+    }
+}
+
+pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Usecases {
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
@@ -277,6 +305,9 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
             repos.messages.clone(),
             repos.message_attach.clone(),
             repos.rooms.clone(),
+            services.push_notification_service.clone(),
+            repos.users.clone(),
+            repos.room_user.clone(),
         )),
         get_room_list: Arc::new(GetRoomListUsecase::new(
             repos.room_user.clone(),
@@ -288,6 +319,10 @@ pub fn create_usecases(repos: RepositoriesImpl) -> Usecases {
             repos.users.clone(),
             repos.room_user.clone(),
             repos.message_attach.clone(),
+        )),
+        request_llm: Arc::new(RequestLlmUsecase::new(
+            services.llm_service.clone(),
+            repos.users.clone(),
         )),
         get_available_offer: Arc::new(GetAvailableOfferUsecase::new(repos.offers.clone())),
         get_offer_by_owner: Arc::new(GetOfferByOwnerUsecase::new(repos.offers.clone())),

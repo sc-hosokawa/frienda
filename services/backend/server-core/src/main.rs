@@ -38,7 +38,8 @@ async fn bootstrap() -> Result<(), std::io::Error> {
         .expect("Failed to connect to database");
 
     let repos = create_repositories(db.clone());
-    let usecases = create_usecases(repos);
+    let services = create_services().await;
+    let usecases = create_usecases(repos, services);
 
     let schema = Schema::build(
         QueryRoot::default(),

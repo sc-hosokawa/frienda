@@ -11,6 +11,7 @@ pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: String,
     pub id_token: Option<String>,
+    pub fcm_token: Option<String>,
     pub username: String,
     pub realname: String,
     pub email: String,

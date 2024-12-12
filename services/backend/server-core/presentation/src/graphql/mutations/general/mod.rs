@@ -19,6 +19,7 @@ impl GeneralMutation {
             .create(
                 application::usecases::basic::create_user_usecase::CreateUserInput {
                     id: input.id.clone(),
+                    fcm_token: input.fcm_token.clone(),
                     email: input.email.clone(),
                     name: input.name.clone(),
                     realname: input.realname.clone(),

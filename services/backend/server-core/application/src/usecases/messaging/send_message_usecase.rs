@@ -10,7 +10,12 @@ use domain::entities::messages::Model as Message;
 use domain::entities::rooms::ActiveModel as RoomActiveModel;
 use domain::repositories::message_attach_repo::MessageAttachRepository;
 use domain::repositories::messages_repo::MessagesRepository;
+use domain::repositories::room_user_repo::RoomUserRepository;
 use domain::repositories::rooms_repo::RoomsRepository;
+use domain::repositories::users_repo::UsersRepository;
+
+use crate::services::push_notification::PushNotificationServiceTrait;
+use domain::services::notification::PushNotification;
 
 //
 // Define the input for the usecase
@@ -48,6 +53,9 @@ pub struct SendMessageUsecase {
     messages_repo: Arc<dyn MessagesRepository>,
     message_attach_repo: Arc<dyn MessageAttachRepository>,
     rooms_repo: Arc<dyn RoomsRepository>,
+    push_notification_service: Arc<dyn PushNotificationServiceTrait>,
+    users_repo: Arc<dyn UsersRepository>,
+    room_user_repo: Arc<dyn RoomUserRepository>,
 }
 
 impl SendMessageUsecase {
@@ -55,11 +63,17 @@ impl SendMessageUsecase {
         messages_repo: Arc<dyn MessagesRepository>,
         message_attach_repo: Arc<dyn MessageAttachRepository>,
         rooms_repo: Arc<dyn RoomsRepository>,
+        push_notification_service: Arc<dyn PushNotificationServiceTrait>,
+        users_repo: Arc<dyn UsersRepository>,
+        room_user_repo: Arc<dyn RoomUserRepository>,
     ) -> Self {
         Self {
             messages_repo,
             message_attach_repo,
             rooms_repo,
+            push_notification_service,
+            users_repo,
+            room_user_repo,
         }
     }
 }
@@ -75,7 +89,7 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
     ) -> Result<SendMessageOutput, anyhow::Error> {
         let message_active_model: MessageActiveModel = MessageActiveModel {
             room_id: ActiveValue::Set(message.room_id),
-            send_by: ActiveValue::Set(message.sent_by),
+            send_by: ActiveValue::Set(message.sent_by.clone()),
             message: ActiveValue::Set(message.message),
             ..Default::default()
         };
@@ -113,6 +127,40 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
 
         if !attachments.is_empty() {
             self.message_attach_repo.create_many(attachments).await?;
+        }
+
+        let room_users = self.room_user_repo.get_by_room_id(message.room_id).await?;
+
+        let sent_by = &message.sent_by;
+        let other_users = room_users
+            .iter()
+            .filter(|room_user| &room_user.user_id != sent_by)
+            .collect::<Vec<_>>();
+
+        let sender = self
+            .users_repo
+            .find_by_id(&message.sent_by)
+            .await?
+            .ok_or(anyhow::anyhow!("User not found"))?;
+        let sender_name = sender.username;
+
+        for room_user in other_users {
+            if let Ok(user) = self.users_repo.find_by_id(&room_user.user_id).await {
+                if let Some(fcm_token) = user.unwrap().fcm_token {
+                    let push_notification = PushNotification {
+                        token: fcm_token,
+                        title: "新着メッセージがあります".to_string(),
+                        body: format!("{}さんからメッセージが届きました", sender_name),
+                    };
+                    if let Err(e) = self
+                        .push_notification_service
+                        .send_push_notification(push_notification)
+                        .await
+                    {
+                        tracing::info!("Failed to send push notification: {}", e);
+                    }
+                }
+            }
         }
 
         Ok(SendMessageOutput {

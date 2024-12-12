@@ -1,27 +1,36 @@
 use async_trait::async_trait;
+use std::sync::Arc;
 
-#[derive(Debug)]
-pub struct PushNotification {
-    pub token: String,
-    pub title: String,
-    pub body: String,
-}
+use domain::services::notification::PushNotification;
 
 #[async_trait]
-pub trait NotificationServiceTrait: Send + Sync {
-    async fn send_notification(&self, notification: PushNotification) -> Result<String, anyhow::Error>;
+pub trait PushNotificationServiceTrait: Send + Sync {
+    async fn send_push_notification(
+        &self,
+        notification: PushNotification,
+    ) -> Result<String, anyhow::Error>;
 }
 
-pub struct NotificationServiceImpl {}
+pub struct PushNotificationService {
+    notification_service: Arc<dyn PushNotificationServiceTrait>,
+}
 
-impl NotificationServiceTrait for NotificationServiceImpl {
-    async fn send_notification(&self, notification: PushNotification) -> Result<String, anyhow::Error> {
-        Ok(format!("Notification sent to token: {}", notification.token))
+impl PushNotificationService {
+    pub fn new(notification_service: Arc<dyn PushNotificationServiceTrait>) -> Self {
+        Self {
+            notification_service,
+        }
     }
 }
 
-impl NotificationServiceImpl {
-    pub fn new() -> Self {
-        Self {}
+#[async_trait]
+impl PushNotificationServiceTrait for PushNotificationService {
+    async fn send_push_notification(
+        &self,
+        notification: PushNotification,
+    ) -> Result<String, anyhow::Error> {
+        self.notification_service
+            .send_push_notification(notification)
+            .await
     }
 }

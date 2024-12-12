@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "frienda-auth-test1",
+  "private_key_id": "a490c287d01b9ca58f8df6428e4424190a98e994",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsklqi12UKeT3L\nQN/wP8y7WG1+5hr22xyLPPXLptTKva/HJbZRW7R/bjL8qwAVT8b/Wv/ITizbVpFm\n5SFcjnG7knKIKigD3Xjd8V0dMbwvw4lGXRF6pv13bZ2dCcSZIyaVFteC1KODdjHE\ntaZbo/8bQSyPbT4wKbZDV9I2TYI80ZYZSebR90obUCfENPBu55r2GaP4HhgBu5Os\n/j86V0vZnwjOJBfc0HDL0kBiqnIZsnw1arrWvRHYMjLJtF/1PjV/IpYQFM4HCMIk\n3EKs8rtgQkk3rGJU9tQ0XvhOUBciBQoGvQYdnbLsWRsgzbpPArCMvAPTt4n+aGRg\nSTGU2nLTAgMBAAECggEAAXIUakrNoOHVH6/CcHvIVkVuXWLGFQ1O1ufC01rpa21d\nXJi3R0UyZOLicHVqQcNyUk9L1zy4aXn3K9p9hg33a+/VH8jinu2rBojwE7+H6QqF\nSt6at+FQPEDh0h/z0qiVuSgA1Cq91+sUjaZL53afO3Y3TlhG7hZbXYMN0sChd6ry\nPHuafGHtw7/USBLPxvmDy28DijrJe3RgGM2OrNtfTgUsaBIf5Iun1GVYVFkW8WWf\nduSW+bDJs7ttTuFuhIJLpNPfuPPbzO9mm0xZudQ+krqFq4f8V5+0e28H5ETu67Af\nQJMeniGnFaDReCMTaA0Q/hnT46USsaMdVZIEfTvbqQKBgQDz1oR+gHq5PeDzj7l4\nphovc4WltuHKtgR53oHpRv3eeGTltJ8KCpJCun+ZlsXDa++DOuc1SH8i2e3xrYnz\ngck3X0DECNxAGXh8OnbCa9o7+NXDZOv/3GJ4JBHSjNj+gBGeZd5Ux7IEKhzocEoe\nQ0phuleyqkaRPEPnKbmZNIXSbwKBgQC1Ldy8ub62UbupwjHcmvf2BqGHO/Qoz77F\nUpxJojDIl4+83ZXbnUuHG4ACzRjFxFi4Y2gSP4wW2k0YZfZ6d72qIfjhB+Hv8plY\ntUIM/m2kuIQeR3zUbkx/535sfmY4hI3LXJ3Jd15K1sw9b3Gi+y3Ltn9d/33ex9PV\nBl4jrvlH3QKBgHZ6sX5WJ0uDCZ7PIyvAadDMrQ/MQQIiVyJwP2d+GzTSAxSqIuza\nHh9WR1H1tLoz4/k70cROKZhhlABudi1fzsmc+vdF5t8ugSC7t6DYjv289wEuNI3q\nI96EiDRqQ7XFvMnebZ18Or9TRyCaDymNQMMjrCEgI5HGWqgj2g7bOnr5AoGAO2HU\nv2aBw2/2eiVUAmIoc1KpDpHv7JBqjnINF3U5WAWU7uoRe/GKF7ZDtqdSPz+jdIvg\nSFrbp4HVUvHYXztvxptr3xWeT+7Lo++Evo2Fkj+HzgTQPTAJksJlBVpIVq3ba5Pn\ng2jEVvMf7eLg8/IviF1AUaazspj8LQ3xPPDUc2ECgYEA7VTaPUi+vpOB1oOYj6SX\nf5h2/dg5IUhr4AKSgNRBCIATgPBHcMTpDJi5rO6nLaB9qYt5M+mqzccSqkN/7NqM\nRcSt64X/j9Ux4U/1HL82rmSrdt6W0sIWoXG3grZ5i6is6mlebGfEy+JuYiVyxYfv\nL+uqTr2FRRf4i4I7ybzLz6k=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-9682x@frienda-auth-test1.iam.gserviceaccount.com",
+  "client_id": "108739419770137846483",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-9682x%40frienda-auth-test1.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
