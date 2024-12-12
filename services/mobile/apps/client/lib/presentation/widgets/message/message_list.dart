@@ -6,6 +6,7 @@ import 'package:graphql/client.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:client/presentation/widgets/message/concierge_bottom_sheet.dart';
 
 class MessageList extends ConsumerStatefulWidget {
   const MessageList({super.key});
@@ -308,6 +309,8 @@ class _MessageListState extends ConsumerState<MessageList> {
                   style: TextStyle(
                     fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Text(
                   _formatDateTime(room['latestSentAt'] as String?),
@@ -342,6 +345,17 @@ class _MessageListState extends ConsumerState<MessageList> {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => ConciergeBottomSheet(userId: userId),
+          );
+        },
+        shape: const CircleBorder(),
+        child: const Icon(Icons.notifications_active),
       ),
     );
   }
