@@ -205,11 +205,6 @@ class Fsp extends ConsumerWidget {
                                         context,
                                         PrizeDetail(
                                           prizeId: prizeMap['id'].toString(),
-                                          itemName: prizeMap['name'],
-                                          itemPrice:
-                                              '${NumberFormat('#,###').format(prizeMap['point'])} FSP',
-                                          itemImage: prizeMap['imgUrl'] ??
-                                              'asset:assets/logo_visualonly.jpg',
                                         ),
                                       );
                                     },
@@ -245,17 +240,27 @@ class Fsp extends ConsumerWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    prizeMap['name'],
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleSmall,
+                                                  SizedBox(
+                                                    height: 40,
+                                                    child: Text(
+                                                      prizeMap['name'],
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall,
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
                                                   ),
-                                                  Text(
-                                                    '${NumberFormat('#,###').format(prizeMap['point'])} FSP',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall,
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Text(
+                                                      '${NumberFormat('#,###').format(prizeMap['point'])} FSP',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -480,6 +485,8 @@ final popularPrizesProvider =
 
   final prizes = (result.data!['getPopularPrizes'] as List)
       .map((prize) => prize as Map<String, dynamic>)
-      .toList();
+      .toList()
+    ..sort((a, b) => (a['point'] as int).compareTo(b['point'] as int));
+
   return prizes;
 });

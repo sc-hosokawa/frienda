@@ -147,12 +147,14 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.add),
+                        icon: Icon(Icons.add, color: Colors.white),
                         onPressed: _attachFile,
                       ),
                       Expanded(
                         child: TextField(
                           controller: _messageController,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
                           decoration: InputDecoration(
                             hintText: 'メッセージを入力...',
                             border: OutlineInputBorder(
@@ -167,7 +169,7 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                       ),
                       SizedBox(width: 8),
                       IconButton(
-                        icon: Icon(Icons.send),
+                        icon: Icon(Icons.send, color: Colors.white),
                         onPressed: _sendMessage,
                       ),
                     ],
@@ -227,7 +229,7 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
 
       UploadTask uploadTask = ref.putFile(imageFile, metadata);
 
-      // アップロー��完了を待機
+      // アップロード完了を待機
       await uploadTask;
 
       // アップロードされた画像のURLを取得
@@ -446,7 +448,7 @@ class MessageBubble extends StatelessWidget {
           ? '${DateTime.now().millisecondsSinceEpoch}${isImage ? '.jpg' : ''}'
           : path.basename(url);
 
-      // 保存先ディレク���リを取得
+      // 保存先ディレクトリを取得
       final directory = Platform.isAndroid
           ? Directory('/storage/emulated/0/Download')
           : await getApplicationDocumentsDirectory();
@@ -488,7 +490,8 @@ class MessageBubble extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: isMyMessage ? Colors.green[300] : Colors.grey[300],
+                  color:
+                      isMyMessage ? const Color(0xFFE4DBC0) : Colors.grey[300],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -506,7 +509,9 @@ class MessageBubble extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: isMyMessage ? Colors.green[100] : Colors.grey[100],
+                  color: isMyMessage
+                      ? const Color(0xFFE4DBC0).withOpacity(0.7)
+                      : Colors.grey[100],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(

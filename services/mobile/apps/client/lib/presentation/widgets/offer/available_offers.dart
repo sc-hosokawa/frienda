@@ -45,6 +45,15 @@ class AvailableOffers extends StatelessWidget {
           final offers =
               result.data?['getOffers']['offerList'] as List<dynamic>? ?? [];
 
+          if (offers.isEmpty) {
+            return const Center(
+              child: Text(
+                '利用可能なOfferはありません',
+                style: TextStyle(fontSize: 16),
+              ),
+            );
+          }
+
           return ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: offers.length,
@@ -52,6 +61,9 @@ class AvailableOffers extends StatelessWidget {
               final offer = offers[index];
               return Card(
                 margin: const EdgeInsets.only(bottom: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: ListTile(
                   leading: offer['imageUrl'] != null
                       ? Image.network(

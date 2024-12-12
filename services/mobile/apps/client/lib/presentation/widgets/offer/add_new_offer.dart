@@ -33,6 +33,21 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
   bool _isUploading = false;
   List<PlatformFile> _selectedFiles = [];
 
+  // 共通のInputDecorationを定義
+  final _inputDecoration = InputDecoration(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16.0), // 角の丸みを設定
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16.0),
+      borderSide: BorderSide(color: Colors.grey),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16.0),
+      borderSide: BorderSide(color: Colors.white),
+    ),
+  );
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -258,7 +273,7 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('リクエ��トがタイムアウト���ました。もう一度お試しください。'),
+            content: Text('リクエストがタイムアウトしました。もう一度お試しください。'),
             backgroundColor: Colors.orange,
           ),
         );
@@ -303,9 +318,8 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                       children: [
                         TextFormField(
                           controller: _titleController,
-                          decoration: const InputDecoration(
+                          decoration: _inputDecoration.copyWith(
                             labelText: 'タイトル',
-                            border: OutlineInputBorder(),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -317,9 +331,8 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: _descriptionController,
-                          decoration: const InputDecoration(
+                          decoration: _inputDecoration.copyWith(
                             labelText: '説明',
-                            border: OutlineInputBorder(),
                           ),
                           maxLines: 5,
                           validator: (value) {
@@ -332,9 +345,8 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: _feeController,
-                          decoration: const InputDecoration(
+                          decoration: _inputDecoration.copyWith(
                             labelText: '報酬 (FSP)',
-                            border: OutlineInputBorder(),
                           ),
                           keyboardType: TextInputType.number,
                           validator: (value) {
@@ -347,9 +359,8 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: _deadlineController,
-                          decoration: const InputDecoration(
+                          decoration: _inputDecoration.copyWith(
                             labelText: '締切日',
-                            border: OutlineInputBorder(),
                             hintText: '例: 2024/12/31 23:59', // 入力形式のヒントを追加
                           ),
                           validator: (value) {
@@ -362,9 +373,8 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: _placeController,
-                          decoration: const InputDecoration(
+                          decoration: _inputDecoration.copyWith(
                             labelText: '場所',
-                            border: OutlineInputBorder(),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -378,9 +388,8 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                           value: _categoryController.text.isEmpty
                               ? null
                               : _categoryController.text,
-                          decoration: const InputDecoration(
+                          decoration: _inputDecoration.copyWith(
                             labelText: 'カテゴリー',
-                            border: OutlineInputBorder(),
                           ),
                           items: const [
                             DropdownMenuItem(
@@ -401,18 +410,16 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: _attentionController,
-                          decoration: const InputDecoration(
+                          decoration: _inputDecoration.copyWith(
                             labelText: '注意事項',
-                            border: OutlineInputBorder(),
                           ),
                           maxLines: 3,
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: _requiredSkillController,
-                          decoration: const InputDecoration(
+                          decoration: _inputDecoration.copyWith(
                             labelText: '必要なスキル',
-                            border: OutlineInputBorder(),
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -420,9 +427,8 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                           value: _targetRoleController.text.isEmpty
                               ? null
                               : _targetRoleController.text,
-                          decoration: const InputDecoration(
+                          decoration: _inputDecoration.copyWith(
                             labelText: '対象ユーザー',
-                            border: OutlineInputBorder(),
                           ),
                           items: const [
                             DropdownMenuItem(
