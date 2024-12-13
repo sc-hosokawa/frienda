@@ -4,6 +4,7 @@ import { Jost } from "next/font/google";
 import { ThemeProvider } from "@ui/components/theme-provider";
 import { Toaster } from "@ui/components/ui/toaster";
 import { Header } from "../components/header";
+import Providers from "./providers";
 
 const JostFont = Jost({
   subsets: ["latin"],
@@ -33,9 +34,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          {children}
-          <Toaster />
+          <Providers>
+            <Header />
+            {children}
+            <Toaster />
+          </Providers>
         </ThemeProvider>
       </body>
     </html>
