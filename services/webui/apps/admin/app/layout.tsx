@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import { ThemeProvider } from "@ui/components/theme-provider";
 import { Toaster } from "@ui/components/ui/toaster";
-import { Header } from "./components/header";
+import { Header } from "../components/header";
 
 const JostFont = Jost({
   subsets: ["latin"],

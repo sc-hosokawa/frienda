@@ -1,4 +1,4 @@
-import { ArtistManagement } from "../components/artist-management";
+import { ArtistManagement } from "../../components/artist-management";
 
 export default function ManagementPage() {
   return (
