@@ -66,7 +66,6 @@ const DELETE_OFFER_MUTATION = gql`
   }
 `;
 
-// カテゴリーに応じた背景色を返す関数
 const getCategoryBackgroundColor = (category: string | undefined | null) => {
   switch (category) {
     case "Creation":
@@ -78,7 +77,7 @@ const getCategoryBackgroundColor = (category: string | undefined | null) => {
     case "Other":
       return "bg-gray-400";
     default:
-      return "bg-zinc-800"; // デフォルトの背景色
+      return "bg-zinc-800";
   }
 };
 
@@ -118,24 +117,27 @@ export default function OfferDetailPage({
     },
   );
 
-  const [deleteOffer, { loading: isDeleting }] = useMutation(DELETE_OFFER_MUTATION, {
-    onCompleted: () => {
-      setShowCancelModal(false);
-      router.push("/offer");
+  const [deleteOffer, { loading: isDeleting }] = useMutation(
+    DELETE_OFFER_MUTATION,
+    {
+      onCompleted: () => {
+        setShowCancelModal(false);
+        router.push("/offer");
+      },
+      onError: (error) => {
+        console.error("Delete offer error:", error);
+      },
     },
-    onError: (error) => {
-      console.error("Delete offer error:", error);
-    },
-  });
+  );
 
   const handleCancel = async () => {
     try {
       await deleteOffer({
         variables: {
           input: {
-            id: parseInt(params.id)
-          }
-        }
+            id: parseInt(params.id),
+          },
+        },
       });
     } catch (error) {
       console.error("Delete error:", error);
@@ -213,7 +215,7 @@ export default function OfferDetailPage({
               <>
                 {data?.getOffersById?.status === "Reject" ? null : (
                   <Button
-                    className="bg-teal-500 hover:bg-teal-600 text-white"
+                    className="bg-[#E4DBC0] hover:bg-white text-black rounded-full"
                     onClick={showConfirmationDialog}
                     disabled={[
                       "Applied",

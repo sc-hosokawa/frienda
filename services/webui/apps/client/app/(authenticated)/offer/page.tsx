@@ -17,7 +17,6 @@ import {
 
 export default function OfferPage() {
   const { user } = useUserStore();
-  console.log(user?.fspBalance);
 
   return (
     <div className="p-4 min-h-screen">

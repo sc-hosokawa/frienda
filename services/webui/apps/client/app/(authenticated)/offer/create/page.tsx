@@ -85,6 +85,7 @@ type FormErrors = {
   description?: string;
   place?: string;
   coverImage?: string;
+  fee?: string;
 };
 
 export default function OfferCreatePage() {
@@ -147,6 +148,12 @@ export default function OfferCreatePage() {
     if (!selectedImage) {
       newErrors.coverImage = "カバー画像は必須です";
     }
+    if (!formData.fee || formData.fee <= 0) {
+      newErrors.fee = "FSPは1以上を指定してください";
+    }
+    if (formData.fee > (user?.fspBalance || 0)) {
+      newErrors.fee = `保有FSP（${user?.fspBalance}）を超えて指定することはできません`;
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -180,7 +187,7 @@ export default function OfferCreatePage() {
           owner: user?.id,
           ...formData,
           imageUrl,
-          fee: 10,
+          fee: formData.fee,
           publicity: formData.isPublic,
           attachedImgs: attachedImageUrls.length > 0 ? attachedImageUrls : null,
           attachedFiles: fileUrls.length > 0 ? fileUrls : null,
@@ -244,6 +251,15 @@ export default function OfferCreatePage() {
       attachedImages.forEach((img) => URL.revokeObjectURL(img.previewUrl));
     };
   }, [selectedImagePreview, attachedImages]);
+
+  // オファー対象の選択肢を定義
+  const targetRoles = [
+    "Musician",
+    "Curator",
+    "Creator",
+    "Supporter",
+    "特になし",
+  ];
 
   return (
     <>
@@ -387,26 +403,52 @@ export default function OfferCreatePage() {
                 </div>
               </div>
 
-              <div className="space-y-4 mt-12">
+              <div className="grid grid-cols-2 gap-6 mt-12">
+                <div className="h-[90px]">
+                  <Label htmlFor="fee">
+                    Fee
+                    <span className="text-red-500 ml-1">*</span>
+                  </Label>
+                  <Input
+                    id="fee"
+                    type="number"
+                    min="1"
+                    max={user?.fspBalance || 0}
+                    placeholder={`1 ~ ${user?.fspBalance || 0}`}
+                    className={`border-[#707070] rounded-2xl h-[calc(90px-24px)] ${
+                      errors.fee ? "border-red-500" : ""
+                    }`}
+                    value={formData.fee || ""}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        fee: parseInt(e.target.value) || 0,
+                      }))
+                    }
+                    required
+                  />
+                  {errors.fee && (
+                    <p className="text-red-500 text-sm mt-1">{errors.fee}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="mt-12">
                 <Label>オファー対象</Label>
+                <span className="text-red-500 ml-1">*</span>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    "Musician",
-                    "Curator",
-                    "Creator",
-                    "Supporter",
-                    "特になし",
-                  ].map((role) => (
+                  {targetRoles.map((role) => (
                     <button
                       key={role}
                       onClick={() =>
                         setFormData((prev) => ({ ...prev, targetRole: role }))
                       }
-                      className={`h-[48px] w-[180px] rounded-full text-[18px] transition-colors ${
+                      className={`h-[48px] w-[160px] rounded-full text-[18px] transition-colors ${
                         formData.targetRole === role
                           ? "bg-white text-black"
-                          : "bg-black text-white border border-dashed border-white hover:bg-gray-100 hover:text-black"
+                          : "bg-black text-white border-dashed border border-white hover:bg-gray-100 hover:text-black"
                       }`}
+                      type="button"
                     >
                       {role}
                     </button>
@@ -452,7 +494,7 @@ export default function OfferCreatePage() {
               ( File Upload )
             </h2>
             <p className="text-sm">
-              オファー画像をアップロードするとオファーページのメイン画像、サムネイルに使用���れます。
+              オファー画像をアップロードするとオファーページのメイン画像、サムネイルに使用されます。
             </p>
             <p className="mb-6 text-sm">
               メディアはオファーに関連する曲、PDF、画像などアップロードするとオファーページに表示されます。
@@ -642,11 +684,11 @@ export default function OfferCreatePage() {
       </div>
 
       <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
-        <DialogContent className="sm:max-w-[600px]">
+        <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>入力内容の確認</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <div className="space-y-4 flex-1 overflow-y-auto">
             {/* メイン画像のプレビュー */}
             {selectedImagePreview && (
               <div>
@@ -689,6 +731,18 @@ export default function OfferCreatePage() {
             <div>
               <h3 className="">オファー対象</h3>
               <p>{formData.targetRole || "未選択"}</p>
+            </div>
+            <div>
+              <h3 className="">補足項目</h3>
+              <p>{formData.attention}</p>
+            </div>
+            <div>
+              <h3 className="">対象となるスキル</h3>
+              <p>{formData.requiredSkill}</p>
+            </div>
+            <div>
+              <h3 className="">Fee</h3>
+              <p>{formData.fee}</p>
             </div>
             <div>
               <h3 className="">公開設定</h3>

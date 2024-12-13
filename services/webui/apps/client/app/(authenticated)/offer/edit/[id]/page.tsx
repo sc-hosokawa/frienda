@@ -92,11 +92,21 @@ type FormData = {
   targetRole: string;
 };
 
+// エラー型定義を追加
+type FormErrors = {
+  title?: string;
+  description?: string;
+  place?: string;
+  coverImage?: string;
+  fee?: string;
+};
+
 export default function OfferEditPage() {
   const { user } = useUserStore();
   const router = useRouter();
   const params = useParams();
   const offerId = parseInt(params.id as string);
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const [formData, setFormData] = useState<FormData>({
     title: "",
@@ -189,7 +199,6 @@ export default function OfferEditPage() {
     setAttachedFiles((prev) => [...prev, ...fileUrls]);
   };
 
-  // クリーンアップ��のuseEffect
   useEffect(() => {
     return () => {
       if (selectedImagePreview) {
@@ -378,6 +387,36 @@ export default function OfferEditPage() {
                 </div>
               </div>
 
+              <div className="grid grid-cols-2 gap-6 mt-12">
+                <div className="h-[90px]">
+                  <Label htmlFor="fee">
+                    Fee
+                    <span className="text-red-500 ml-1">*</span>
+                  </Label>
+                  <Input
+                    id="fee"
+                    type="number"
+                    min="1"
+                    max={user?.fspBalance || 0}
+                    placeholder={`1 ~ ${user?.fspBalance || 0}`}
+                    className={`border-[#707070] rounded-2xl h-[calc(90px-24px)] ${
+                      errors.fee ? "border-red-500" : ""
+                    }`}
+                    value={formData.fee || ""}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        fee: parseInt(e.target.value) || 0,
+                      }))
+                    }
+                    required
+                  />
+                  {errors.fee && (
+                    <p className="text-red-500 text-sm mt-1">{errors.fee}</p>
+                  )}
+                </div>
+              </div>
+
               <div className="space-y-4 mt-12">
                 <Label>オファー対象</Label>
                 <div className="flex flex-wrap gap-2">
@@ -393,7 +432,7 @@ export default function OfferEditPage() {
                       onClick={() =>
                         setFormData((prev) => ({ ...prev, targetRole: role }))
                       }
-                      className={`h-[48px] w-[180px] rounded-full text-[18px] transition-colors ${
+                      className={`h-[48px] w-[160px] rounded-full text-[18px] transition-colors ${
                         formData.targetRole === role
                           ? "bg-white text-black"
                           : "bg-black text-white border border-dashed border-white hover:bg-gray-100 hover:text-black"
@@ -587,11 +626,11 @@ export default function OfferEditPage() {
       </div>
 
       <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
-        <DialogContent className="sm:max-w-[600px]">
+        <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>変更内容の確認</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <div className="space-y-4 flex-1 overflow-y-auto">
             {selectedImagePreview && (
               <div>
                 <h3 className="text-sm text-white mb-2">カバー画像</h3>
@@ -640,6 +679,10 @@ export default function OfferEditPage() {
             <div>
               <h3 className="text-sm font-medium">対象となるスキル</h3>
               <p>{formData.requiredSkill || "なし"}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium">Fee</h3>
+              <p>{formData.fee} FSP</p>
             </div>
             <div>
               <h3 className="text-sm font-medium">公開設定</h3>
