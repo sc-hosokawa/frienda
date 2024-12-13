@@ -14,3 +14,29 @@ export const GET_HISTORICAL = gql`
     }
   }
 `;
+
+export const GET_ALL_ARTISTS = gql`
+  query GetAllArtists {
+    getAllArtists {
+      artistList {
+        id
+        artistId
+        name
+        imageUrl
+        fsp
+      }
+    }
+  }
+`;
+
+export const GET_ARTIST_BY_ID = gql`
+  query GetArtistById($artistId: String!) {
+    getArtistById(artistId: $artistId) {
+      id
+      artistId
+      name
+      fsp
+      imgUrl
+    }
+  }
+`;
