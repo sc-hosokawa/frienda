@@ -77,9 +77,6 @@ export default function OfferList() {
                   {offer.title}
                 </h3>
               </div>
-              <button className="text-zinc-400 hover:text-zinc-300">
-                <MoreHorizontal className="w-5 h-5" />
-              </button>
             </div>
 
             <div className="text-sm text-zinc-500 mb-4 line-clamp-2">
