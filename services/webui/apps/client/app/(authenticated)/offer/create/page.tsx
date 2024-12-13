@@ -22,6 +22,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { storage } from "../../../../config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ApolloError } from "@apollo/client";
 
 const CREATE_NEW_OFFER = gql`
   mutation CreateNewOffer(
@@ -69,6 +70,7 @@ const CREATE_NEW_OFFER = gql`
 type UploadedFile = {
   file: File;
   type: "pdf" | "mp4";
+  url: string;
 };
 
 export default function OfferCreatePage() {
@@ -87,7 +89,8 @@ export default function OfferCreatePage() {
     targetRole: "",
   });
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [selectedFiles, setSelectedFiles] = useState<UploadedFile[]>([]);
+  const [attachedImages, setAttachedImages] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const [createNewOffer] = useMutation(CREATE_NEW_OFFER);
@@ -115,38 +118,77 @@ export default function OfferCreatePage() {
     setIsLoading(true);
 
     try {
+      // メイン画像のアップロード
       let imageUrl = null;
-      let fileUrls: string[] = [];
-
       if (selectedImage) {
         imageUrl = await handleImageUpload(selectedImage);
       }
 
-      if (selectedFiles.length > 0) {
-        fileUrls = await handleFilesUpload(
-          selectedFiles.map((file) => file.file),
-        );
-      }
+      // 添付画像のアップロード
+      const attachedImageUrls = await Promise.all(
+        attachedImages.map(file => handleImageUpload(file))
+      );
 
+      // 添付ファイルのアップロード
+      const fileUrls = await handleFilesUpload(selectedFiles);
+      console.log(fileUrls);
+      console.log(attachedImageUrls);
+      console.log(imageUrl);
+      console.log(formData);
+
+
+
+      // オファーの作成
       const result = await createNewOffer({
         variables: {
           owner: user?.id,
           ...formData,
           imageUrl,
-          attachedImgs: imageUrl ? [imageUrl] : [],
-          attachedFiles: fileUrls,
+          fee: 10,
+          publicity: true,
+          attachedImgs: attachedImageUrls.length > 0 ? attachedImageUrls : null,
+          attachedFiles: fileUrls.length > 0 ? fileUrls : null,
         },
       });
 
-      router.push("/offers");
+      router.push("/offer");
     } catch (error) {
-      console.error("Error creating offer:", error);
+      if (error instanceof ApolloError) {
+        console.error("GraphQL Error:", error.message);
+        console.error("Network Error:", error.networkError);
+        console.error("GraphQL Errors:", error.graphQLErrors);
+      } else {
+        console.error("Unexpected error:", error);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   const categories = ["Creation", "Event", "Promotion", "Other"];
+
+  const handleMainImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type.startsWith('image/')) {
+      setSelectedImage(file);
+    }
+  };
+
+  const handleAttachedImagesSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const imageFiles = files.filter(file => file.type.startsWith('image/'));
+    setAttachedImages(prev => [...prev, ...imageFiles]);
+  };
+
+  const handleMediaFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const validFiles = files.filter(file => {
+      const isPDF = file.type === 'application/pdf';
+      const isMP4 = file.type === 'video/mp4';
+      return isPDF || isMP4;
+    });
+    setSelectedFiles(prev => [...prev, ...validFiles]);
+  };
 
   return (
     <>
@@ -292,7 +334,7 @@ export default function OfferCreatePage() {
 
               <div className="grid gap-6 md:grid-cols-2 mt-12">
                 <div className="h-[180px]">
-                  <Label>オファー詳細についての補足事項</Label>
+                  <Label>オファー詳細についての補足項</Label>
                   <Textarea
                     placeholder="追加事項が入ります。"
                     className="border-[#707070] h-[calc(180px-24px)] rounded-2xl"
@@ -337,29 +379,43 @@ export default function OfferCreatePage() {
             <div className="space-y-12">
               {/* カバー画像セクション */}
               <div>
-                <Label className="text-lg mt-12">オファー画像</Label>
-                <div className="mt-2 border-2 border-dashed border-gray-400 rounded-lg p-4 h-24">
-                  <Plus className="h-6 w-6 text-gray-600" />
-                  <span className="text-sm text-gray-600 mt-2">画像を追加</span>
-                </div>
+                <Label className="text-lg mt-12">カバー画像</Label>
+                <label className="mt-2 border border-dashed border-white rounded-lg p-4 h-24 flex flex-col items-center justify-center cursor-pointer">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleMainImageSelect}
+                  />
+                  {selectedImage ? (
+                    <div className="text-sm text-gray-600">{selectedImage.name}</div>
+                  ) : (
+                    <>
+                      <Plus className="h-6 w-6 text-white" />
+                      <span className="text-sm text-white mt-2">画像を追加</span>
+                    </>
+                  )}
+                </label>
               </div>
 
               {/* 添付画像セクション */}
               <div>
-                <Label className="text-lg">
-                  メディア（複数アップロード可能）
-                </Label>
+                <Label className="text-lg">添付画像</Label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
                   {[1, 2, 3, 4].map((i) => (
-                    <div
+                    <label
                       key={i}
-                      className="aspect-square border-2 border-dashed border-gray-400 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gray-500"
+                      className="aspect-square border border-dashed border-white rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gray-500"
                     >
-                      <Plus className="h-6 w-6 text-gray-600" />
-                      <span className="text-sm text-gray-600 mt-2">
-                        画像を追加
-                      </span>
-                    </div>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleAttachedImagesSelect}
+                      />
+                      <Plus className="h-6 w-6 text-white" />
+                      <span className="text-sm text-white mt-2">画像を追加</span>
+                    </label>
                   ))}
                 </div>
               </div>
@@ -367,30 +423,41 @@ export default function OfferCreatePage() {
               {/* 添付メディアセクション */}
               <div>
                 <Label className="text-lg font-semibold">添付メディア</Label>
-                <p className="text-sm text-gray-600 mb-2">
-                  PDFファイルや動画ファイル（MP4）をアップロードできます
-                </p>
-
-                {/* PDFアップロード */}
-                <div className="mb-4">
-                  <Label className="text-sm font-medium">メディア</Label>
-                  <div className="mt-2 border-2 border-dashed border-gray-400 rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-gray-500">
-                    <Plus className="h-6 w-6 text-gray-600 mb-2" />
-                    <span className="text-sm text-gray-600">
-                      クリックしてメディアをアップロード
-                    </span>
-                    <span className="text-xs text-gray-500 mt-1">
-                      または、ファイルをドラッグ＆ドロップ
-                    </span>
+                <p className="text-sm text-white mb-2">PDFファイルや動画ファイル（MP4）をアップロードできます</p>
+                <label className="mt-2 border border-dashed border-white rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer">
+                  <input
+                    type="file"
+                    accept=".pdf,.mp4"
+                    multiple
+                    className="hidden"
+                    onChange={handleMediaFileSelect}
+                  />
+                  <Plus className="h-6 w-6 text-white mb-2" />
+                  <span className="text-sm text-white">クリックしてメディアをアップロード</span>
+                </label>
+                {/* 選択されたファイルの一覧表示 */}
+                {selectedFiles.length > 0 && (
+                  <div className="mt-4 space-y-2">
+                    {selectedFiles.map((file, index) => (
+                      <div key={index} className="flex items-center gap-2 text-sm">
+                        <span>{file.name}</span>
+                        <button
+                          onClick={() => setSelectedFiles(files => files.filter((_, i) => i !== index))}
+                          className="text-red-500"
+                        >
+                          削除
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
 
           <div>
             <h2 className="text-xl mt-20">( Publicity )</h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-white mb-4">
               非公開にすると、指定したユーザーのみ閲覧できるようになります。
             </p>
             <div className="flex items-center justify-between py-4">
