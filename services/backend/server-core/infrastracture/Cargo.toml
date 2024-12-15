@@ -25,3 +25,4 @@ chrono = { workspace = true }
 google-generative-ai-rs = { workspace = true }
 fcm-rs = { workspace = true }
 lettre = { workspace = true }
+tempfile = { workspace = true }
