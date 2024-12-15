@@ -7,6 +7,7 @@ final graphQLClientProvider = Provider<GraphQLClient>((ref) {
   // final token = ref.watch(authTokenProvider);
 
   final httpLink = HttpLink(
+    //'http://127.0.0.1:8080/graphql',
     'https://frienda-server-962498306731.asia-northeast1.run.app/graphql',
     defaultHeaders: {
       'Content-Type': 'application/json',

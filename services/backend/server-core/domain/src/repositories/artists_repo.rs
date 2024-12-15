@@ -8,6 +8,7 @@ pub trait ArtistsRepository: Send + Sync {
     async fn create(&self, artist: ArtistActiveModel) -> Result<Artist, DomainError>;
     async fn update(&self, artist: ArtistActiveModel) -> Result<Artist, DomainError>;
 
+    async fn find_latest(&self) -> Result<Option<Artist>, DomainError>;
     async fn find_by_id(&self, id: &str) -> Result<Option<Artist>, DomainError>;
     async fn find_by_ids(&self, ids: Vec<&str>) -> Result<Vec<Artist>, DomainError>;
     async fn find_by_name(&self, name: &str) -> Result<Vec<Artist>, DomainError>;

@@ -6,6 +6,7 @@ use application::health_check::*;
 use application::usecases::artist::{
     get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait},
     get_members_usecase::{GetMembersUsecase, GetMembersUsecaseTrait},
+    manage_artists_usecase::{ManageArtistsUsecase, ManageArtistsUsecaseTrait},
     mark_as_member_usecase::{MarkAsMemberUsecase, MarkAsMemberUsecaseTrait},
     request_to_access_usecase::{RequestToAccessUsecase, RequestToAccessUsecaseTrait},
 };
@@ -15,6 +16,10 @@ use application::usecases::basic::{
     get_user_basic_info_usecase::{GetUserBasicInfoUsecase, GetUserBasicInfoUsecaseTrait},
     search_users_usecase::{SearchUsersUsecase, SearchUsersUsecaseTrait},
     update_user_profile_usecase::{UpdateUserProfileUsecase, UpdateUserProfileUsecaseTrait},
+};
+use application::usecases::community::{
+    add_shortnote_usecase::{AddShortnoteUsecase, AddShortnoteUsecaseTrait},
+    mark_favorite_usecase::{MarkFavoriteUsecase, MarkFavoriteUsecaseTrait},
 };
 use application::usecases::credit::{
     get_credits_usecase::{GetCreditsUsecase, GetCreditsUsecaseTrait},
@@ -75,6 +80,7 @@ use infrastracture::persistences::health_check_repo_impl::HealthCheckRepoImpl;
 use infrastracture::persistences::{
     artists_repo_impl::ArtistsRepoImpl,
     exchange_prize_history_repo_impl::ExchangePrizeHistoryRepoImpl,
+    favorites_repo_impl::FavoritesRepoImpl,
     gender_gen_playback_repo_impl::GenderGenPlaybackRepoImpl,
     message_attach_repo_impl::MessageAttachRepoImpl, messages_repo_impl::MessagesRepoImpl,
     offer_attach_repo_impl::OfferAttachRepoImpl, offer_user_repo_impl::OfferUserRepoImpl,
@@ -83,16 +89,19 @@ use infrastracture::persistences::{
     product_track_repo_impl::ProductTrackRepoImpl, products_repo_impl::ProductsRepoImpl,
     quest_user_repo_impl::QuestUserRepoImpl, quests_repo_impl::QuestsRepoImpl,
     room_user_repo_impl::RoomUserRepoImpl, rooms_repo_impl::RoomsRepoImpl,
-    track_credits_repo_impl::TrackCreditsRepoImpl, tracks_repo_impl::TracksRepoImpl,
-    txs_fsp_repo_impl::TxsFspRepoImpl, user_artist_repo_impl::UserArtistRepoImpl,
-    users_repo_impl::UsersRepoImpl,
+    short_notes_repo_impl::ShortNotesRepoImpl, track_credits_repo_impl::TrackCreditsRepoImpl,
+    tracks_repo_impl::TracksRepoImpl, txs_fsp_repo_impl::TxsFspRepoImpl,
+    user_artist_repo_impl::UserArtistRepoImpl, users_repo_impl::UsersRepoImpl,
 };
 
 use application::services::{
     push_notification::{PushNotificationService, PushNotificationServiceTrait},
     request_llm::{LlmService, LlmServiceTrait},
+    send_email::{EmailService, EmailServiceTrait},
 };
-use infrastracture::services::{fcm::FcmNotificationService, gemini::GeminiService};
+use infrastracture::services::{
+    fcm::FcmNotificationService, gemini::GeminiService, sendgrid::SendGridService,
+};
 
 pub struct RepositoriesImpl {
     pub health_check: Arc<HealthCheckRepoImpl>,
@@ -118,11 +127,14 @@ pub struct RepositoriesImpl {
     pub plays_daily: Arc<PlaysDailyRepoImpl>,
     pub gender_gen_playback: Arc<GenderGenPlaybackRepoImpl>,
     pub track_credits: Arc<TrackCreditsRepoImpl>,
+    pub favorites: Arc<FavoritesRepoImpl>,
+    pub short_notes: Arc<ShortNotesRepoImpl>,
 }
 
 pub struct ServicesImpl {
     pub llm_service: Arc<dyn LlmServiceTrait>,
     pub push_notification_service: Arc<dyn PushNotificationServiceTrait>,
+    pub email_service: Arc<dyn EmailServiceTrait>,
 }
 
 pub struct Usecases {
@@ -171,6 +183,9 @@ pub struct Usecases {
     pub search_users: Arc<dyn SearchUsersUsecaseTrait>,
     pub login_reward: Arc<dyn LoginRewardUsecaseTrait>,
     pub request_llm: Arc<dyn RequestLlmUsecaseTrait>,
+    pub mark_favorite: Arc<dyn MarkFavoriteUsecaseTrait>,
+    pub add_shortnote: Arc<dyn AddShortnoteUsecaseTrait>,
+    pub manage_artists: Arc<dyn ManageArtistsUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -199,6 +214,8 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
         plays_daily: Arc::new(PlaysDailyRepoImpl::new(db.clone())),
         gender_gen_playback: Arc::new(GenderGenPlaybackRepoImpl::new(db.clone())),
         track_credits: Arc::new(TrackCreditsRepoImpl::new(db.clone())),
+        favorites: Arc::new(FavoritesRepoImpl::new(db.clone())),
+        short_notes: Arc::new(ShortNotesRepoImpl::new(db.clone())),
     }
 }
 
@@ -209,10 +226,12 @@ pub async fn create_services() -> ServicesImpl {
     let push_notification_service = FcmNotificationService::new()
         .await
         .expect("Failed to create FcmNotificationService");
+    let sendgrid_service = SendGridService::new().expect("Failed to create SendGridService");
 
     ServicesImpl {
         llm_service: Arc::new(llm_service),
         push_notification_service: Arc::new(push_notification_service),
+        email_service: Arc::new(sendgrid_service),
     }
 }
 
@@ -220,8 +239,11 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        mark_favorite: Arc::new(MarkFavoriteUsecase::new(repos.favorites.clone())),
+        add_shortnote: Arc::new(AddShortnoteUsecase::new(repos.short_notes.clone())),
         search_users: Arc::new(SearchUsersUsecase::new(repos.users.clone())),
         login_reward: Arc::new(LoginRewardUsecase::new(repos.users.clone())),
+        manage_artists: Arc::new(ManageArtistsUsecase::new(repos.artists.clone())),
         get_products: Arc::new(GetProductsUsecase::new(
             repos.products.clone(),
             repos.tracks.clone(),
@@ -308,6 +330,7 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             services.push_notification_service.clone(),
             repos.users.clone(),
             repos.room_user.clone(),
+            services.email_service.clone(),
         )),
         get_room_list: Arc::new(GetRoomListUsecase::new(
             repos.room_user.clone(),

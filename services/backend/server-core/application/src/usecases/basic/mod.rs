@@ -1,17 +1,5 @@
-pub mod change_password_usecase;
-pub mod comment_on_content_usecase;
 pub mod create_user_usecase;
-pub mod delete_user_usecase;
-pub mod download_file_usecase;
-pub mod follow_user_usecase;
 pub mod get_all_users_usecase;
-pub mod get_settings_usecase;
 pub mod get_user_basic_info_usecase;
-pub mod get_user_profile_usecase;
-pub mod grant_role_usecase;
-pub mod rate_content_usecase;
-pub mod revoke_role_usecase;
 pub mod search_users_usecase;
-pub mod share_content_usecase;
-pub mod unfollow_user_usecase;
 pub mod update_user_profile_usecase;

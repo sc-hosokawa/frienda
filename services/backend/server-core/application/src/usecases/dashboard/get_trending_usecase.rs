@@ -1,8 +1,10 @@
 use async_trait::async_trait;
+use chrono::{Duration, Utc};
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::sync::Arc;
 
+use domain::entities::plays_daily::Model as PlaysDaily;
 use domain::entities::plays_monthly::Model as PlaysMonthly;
 use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Products;
@@ -125,21 +127,38 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             .collect();
         tracing::info!("top_5_isrcs: {:?}", top_5_isrcs);
 
-        // 上位5曲の詳細情報を取得
+        // 過去7日間の再生数を取得
+        let today = Utc::now().date_naive();
+        let seven_days_ago = today - Duration::days(9);
+        let two_days_ago = today - Duration::days(2);
+
+        let plays_daily_in_top5: Vec<PlaysDaily> = self
+            .plays_daily_repo
+            .find_by_isrcs(top_5_isrcs.clone())
+            .await?;
+
+        let mut plays_by_isrc_daily: HashMap<String, i32> = HashMap::new();
+        for play in plays_daily_in_top5 {
+            if let Some(date) = play.date {
+                if date <= two_days_ago && date >= seven_days_ago {
+                    *plays_by_isrc_daily
+                        .entry(play.isrc.clone().unwrap())
+                        .or_insert(0) += play.sum.unwrap_or(0);
+                }
+            }
+        }
+        tracing::info!("weekly_plays: {:?}", plays_by_isrc_daily);
+
         let tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(top_5_isrcs).await?;
-        tracing::info!("tracks: {:?}", tracks);
 
         let mut trending: Vec<TrendTrack> = vec![];
 
         for track in tracks {
             let mapping: Vec<ProductTrack> =
                 self.product_track_repo.get_by_isrc(&track.isrc).await?;
-            tracing::info!("mapping: {:?}", mapping);
             let product_in_top5: Option<ProductTrack> = mapping.first().cloned();
-            tracing::info!("product_in_top5: {:?}", product_in_top5);
             let product_upc_in_top5 = product_in_top5.unwrap().upc;
             let product_info = products.iter().find(|p| p.upc == product_upc_in_top5);
-            tracing::info!("product_info: {:?}", product_info);
             let product_title = product_info.map(|p| p.title.clone());
             let product_img_url = product_info.map(|p| p.img_url.clone().unwrap());
             trending.push(TrendTrack {
@@ -152,7 +171,7 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                     .find(|(isrc, _)| isrc == &track.isrc)
                     .map(|(_, count)| *count)
                     .unwrap_or(0),
-                weekly_play_count: 0,
+                weekly_play_count: plays_by_isrc_daily.get(&track.isrc).copied().unwrap_or(0),
             });
         }
 
@@ -182,13 +201,23 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             .plays_monthly_repo
             .find_by_isrcs(isrcs_in_upc.clone())
             .await?;
-
         let mut plays_by_isrc: HashMap<String, i32> = HashMap::new();
-
-        // [TODO] ISRCの再生数が取れていない
         for play in plays_monthly {
             *plays_by_isrc.entry(play.isrc.clone().unwrap()).or_insert(0) += play.sum.unwrap_or(0);
         }
+        tracing::info!("monthly_plays: {:?} in {}", plays_by_isrc, input.upc);
+
+        let plays_daily: Vec<PlaysDaily> = self
+            .plays_daily_repo
+            .find_by_isrcs(isrcs_in_upc.clone())
+            .await?;
+        let mut plays_by_isrc_daily: HashMap<String, i32> = HashMap::new();
+        for play in plays_daily {
+            *plays_by_isrc_daily
+                .entry(play.isrc.clone().unwrap())
+                .or_insert(0) += play.sum.unwrap_or(0);
+        }
+        tracing::info!("weekly_plays: {:?} in {}", plays_by_isrc_daily, input.upc);
 
         let mut tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(isrcs_in_upc).await?;
 
@@ -210,7 +239,7 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                 upc_title: None,
                 image_url: None,
                 total_play_count: plays_by_isrc.get(&track.isrc).unwrap_or(&0).clone(),
-                weekly_play_count: 0,
+                weekly_play_count: plays_by_isrc_daily.get(&track.isrc).unwrap_or(&0).clone(),
             });
         }
 

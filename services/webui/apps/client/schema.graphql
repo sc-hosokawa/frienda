@@ -1,9 +1,5 @@
-input AddNewConnectionByUserInput {
-	userId: String!
-}
-
-type AddNewConnectionResponse {
-	mapId: String!
+type AddShortnoteResponse {
+	id: String!
 }
 
 type AllPendingMember {
@@ -45,6 +41,8 @@ type ArtistData {
 	id: String!
 	artistId: String!
 	name: String!
+	displayNameEn: String!
+	displayNameKana: String
 	fsp: Int!
 	imageUrl: String
 }
@@ -104,10 +102,17 @@ type ContactToAdminResponse {
 	id: String!
 }
 
+type CreateNewArtistData {
+	artistId: String!
+	displayNameJp: String!
+}
+
 input CreateNewArtistInput {
-	name: String!
+	displayNameJp: String!
+	displayNameEn: String!
+	displayNameKana: String
 	imgUrl: String
-	fsp: Int!
+	fsp: Int
 	status: String
 	since: String
 	universalId: String
@@ -118,9 +123,8 @@ input CreateNewArtistInput {
 	youtubeKey: String
 }
 
-type CreateNewArtistResponse {
-	artistId: String!
-	name: String!
+type CreateNewArtistsResponse {
+	addedArtists: [CreateNewArtistData!]!
 }
 
 input CreateNewMessageRoomInput {
@@ -193,6 +197,7 @@ type CreateNewTransactionResponse {
 
 input CreateNewUserDataInput {
 	id: String!
+	fcmToken: String
 	email: String!
 	name: String!
 	realname: String!
@@ -325,6 +330,10 @@ type MarkAsReadResponse {
 	isSuccess: Boolean!
 }
 
+type MarkFavoriteResponse {
+	id: String!
+}
+
 type MessageRoomData {
 	id: String!
 	category: String
@@ -356,7 +365,8 @@ type MessagesByRoomIdByUserData {
 }
 
 type MutationRoot {
-	addNewConnection(input: AddNewConnectionByUserInput!): AddNewConnectionResponse!
+	addShortnote(favoriteId: String!, comment: String!): AddShortnoteResponse!
+	markFavorite(targetUserId: String!, likedBy: String!): MarkFavoriteResponse!
 	createNewUserData(input: CreateNewUserDataInput!): CreateNewUserDataResponse!
 	updateUserData(input: UpdateUserDataInput!): UpdateUserDataResponse!
 	updateBelongsToArtistStatus(input: UpdateBelongsToArtistStatusInput!): UpdateBelongsToArtistStatusResponse!
@@ -379,7 +389,8 @@ type MutationRoot {
 	exchangePrize(input: ExchangePrizeInput!): ExchangePrizeResponse!
 	questMarkAsDone(questId: Int!, userId: String!): MarkAsDoneResponse!
 	createQuest(input: CreateQuestInput!): CreateQuestResponse!
-	createNewArtist(input: CreateNewArtistInput!): CreateNewArtistResponse!
+	createNewArtist(input: [CreateNewArtistInput!]!): CreateNewArtistsResponse!
+	updateArtist(input: UpdateArtistInput!): UpdateArtistResponse!
 	requestToAccessArtist(input: RequestToAccessArtistInput!): RequestToAccessArtistResponse!
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
@@ -509,6 +520,7 @@ type QueryRoot {
 	getMessageRooms(userId: String!): MessageRoomsByUserData!
 	getMessagesInProgress(userId: String!): MessageRoomsByUserData!
 	getMessagesByMessageRoomId(userId: String!, messageRoomId: String!): MessagesByRoomIdByUserData!
+	askLlm(userId: String!, question: String!): String!
 	getNotifications(count: Int!, offset: Int!): NotificationsData!
 	getAllNotifications: NotificationsData!
 	getAllUsers: AllUsersData!
@@ -517,6 +529,7 @@ type QueryRoot {
 	getBelongedArtists(userId: String!): ArtistByUserDataList!
 	getUserDetailProfile(userId: String!): UserDetailData!
 	getUserPointBalance(userId: String!): UserPointBalanceData!
+	searchUsers(username: String!): [UserSimpleData!]!
 	getAllArtists: ArtistsData!
 	getArtistById(artistId: String!): ArtistFullData!
 	getArtistsByIds(artistIds: [String!]!): ArtistsData!
@@ -531,6 +544,7 @@ type QueryRoot {
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
 	getQuestByUserId(userId: String!): [QuestData!]!
+	loginReward(userId: String!): Int!
 	getCredits(userId: String!, artistId: String!, isrc: String!): [TrackCredit!]!
 	getAllCredits(userId: String!): GetAllCreditsOutput!
 }
@@ -673,6 +687,27 @@ type TrendingByUPCData {
 
 type TrendingData {
 	trendingTracks: [TrendTrack!]!
+}
+
+input UpdateArtistInput {
+	artistId: String!
+	displayNameJp: String
+	displayNameEn: String
+	displayNameKana: String
+	imgUrl: String
+	fsp: Int
+	status: String
+	since: String
+	universalId: String
+	appleKey: String
+	spotifyKey: String
+	lineKey: String
+	amazonKey: String
+	youtubeKey: String
+}
+
+type UpdateArtistResponse {
+	artistId: String!
 }
 
 input UpdateBelongsToArtistStatusInput {

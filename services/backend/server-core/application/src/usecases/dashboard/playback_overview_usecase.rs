@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use chrono::{Duration, Local};
 use std::sync::Arc;
 
 use domain::entities::plays_daily::Model as PlaysDaily;
@@ -77,12 +78,32 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
 
         let all_month_play_count: i32 = plays_monthly.iter().map(|p| p.sum.unwrap_or(0)).sum();
         let all_day_play_count: i32 = plays_daily.iter().map(|p| p.sum.unwrap_or(0)).sum();
-        let weekly_play_count: i32 = plays_daily
-            .iter()
-            .rev()
-            .take(7)
-            .map(|p| p.sum.unwrap_or(0))
-            .sum();
+        let weekly_play_count: i32 = {
+            let today = Local::now().date_naive();
+            // 集計開始日（9日前）と終了日（2日前）を設定
+            let start_date = today - Duration::days(9);
+            let end_date = today - Duration::days(2);
+
+            isrcs
+                .iter()
+                .map(|isrc| {
+                    plays_daily
+                        .iter()
+                        .filter(|p| {
+                            if let Some(date) = p.date {
+                                // 日付が範囲内かつISRCが一致するものをフィルタリング
+                                date >= start_date
+                                    && date <= end_date
+                                    && p.isrc.as_ref().unwrap() == isrc
+                            } else {
+                                false
+                            }
+                        })
+                        .map(|p| p.sum.unwrap_or(0))
+                        .sum::<i32>()
+                })
+                .sum()
+        };
 
         Ok(PlaybackOverviewUsecaseOutput {
             total_play_count: all_month_play_count + all_day_play_count,
@@ -105,12 +126,32 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
 
             let all_month_play_count: i32 = plays_monthly.iter().map(|p| p.sum.unwrap_or(0)).sum();
             let all_day_play_count: i32 = plays_daily.iter().map(|p| p.sum.unwrap_or(0)).sum();
-            let weekly_play_count: i32 = plays_daily
-                .iter()
-                .rev()
-                .take(7)
-                .map(|p| p.sum.unwrap_or(0))
-                .sum();
+            let weekly_play_count: i32 = {
+                let today = Local::now().date_naive();
+                // 集計開始日（9日前）と終了日（2日前）を設定
+                let start_date = today - Duration::days(9);
+                let end_date = today - Duration::days(2);
+
+                isrcs
+                    .iter()
+                    .map(|isrc| {
+                        plays_daily
+                            .iter()
+                            .filter(|p| {
+                                if let Some(date) = p.date {
+                                    // 日付が範囲内かつISRCが一致するものをフィルタリング
+                                    date >= start_date
+                                        && date <= end_date
+                                        && p.isrc.as_ref().unwrap() == isrc
+                                } else {
+                                    false
+                                }
+                            })
+                            .map(|p| p.sum.unwrap_or(0))
+                            .sum::<i32>()
+                    })
+                    .sum()
+            };
 
             Ok(PlaybackOverviewUsecaseOutput {
                 total_play_count: all_month_play_count + all_day_play_count,

@@ -34,7 +34,7 @@ impl LoginRewardUsecaseTrait for LoginRewardUsecase {
         let now: chrono::NaiveDateTime = Utc::now().with_timezone(&jst_offset).naive_local();
 
         let user: Option<User> = self.users_repo.find_by_id(&user_id).await?;
-        let user: User = user.unwrap();
+        let user: User = user.ok_or_else(|| anyhow::anyhow!("User not found"))?;
         let mut user_update: UserActiveModel = user.clone().into();
 
         // last_login_atがない場合は、現在のfspを返す
