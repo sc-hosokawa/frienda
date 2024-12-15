@@ -371,7 +371,11 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.txs_fsp.clone(),
             repos.users.clone(),
         )),
-        delete_offer: Arc::new(DeleteOfferUsecase::new(repos.offers.clone())),
+        delete_offer: Arc::new(DeleteOfferUsecase::new(
+            repos.offers.clone(),
+            repos.offer_attach.clone(),
+            repos.offer_user.clone(),
+        )),
         create_prize: Arc::new(CreatePrizeUsecase::new(repos.prizes.clone())),
         delete_prize: Arc::new(DeletePrizeUsecase::new(repos.prizes.clone())),
         exchange_prize: Arc::new(ExchangePrizeUsecase::new(

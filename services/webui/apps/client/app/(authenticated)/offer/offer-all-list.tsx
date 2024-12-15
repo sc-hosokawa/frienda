@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Card, CardContent, CardFooter } from "@ui/components/ui/card";
 import { Badge } from "@ui/components/ui/badge";
-import { MoreHorizontal } from "lucide-react";
 import { Skeleton } from "@ui/components/ui/skeleton";
 import { gql, useQuery } from "@apollo/client";
 import { OffersData } from "../../../generated/graphql";
@@ -49,6 +48,21 @@ const GET_OFFERS_BY_STATUS = gql`
   }
 `;
 
+const getCategoryBackgroundColor = (category: string | undefined | null) => {
+  switch (category) {
+    case "Creation":
+      return "bg-orange-500";
+    case "Event":
+      return "bg-green-500";
+    case "Promotion":
+      return "bg-yellow-500";
+    case "Other":
+      return "bg-gray-400";
+    default:
+      return "bg-zinc-800";
+  }
+};
+
 // OfferCard component
 const OfferCard = ({ offer }: { offer: Offer }) => {
   const router = useRouter();
@@ -66,14 +80,11 @@ const OfferCard = ({ offer }: { offer: Offer }) => {
         <img src={offer.imageUrl} alt="" className="w-full h-48 object-cover" />
         <div className="p-4">
           <div className="flex gap-2 mb-3">
-            <Badge className="bg-cyan-500 text-white">{offer.category}</Badge>
-            <div className="ml-auto flex gap-1">
-              <MoreHorizontal className="h-4 w-4" />
-            </div>
+            <Badge className={`text-black font-medium ${getCategoryBackgroundColor(offer.category)}`}>{offer.category}</Badge>
           </div>
           <p className="text-sm mb-3 line-clamp-2">{offer.title}</p>
           <div className="flex items-center gap-4 text-sm mb-3">
-            <div>獲得ポイント {offer.fee} FSP</div>
+            <div>Fee: {offer.fee} FSP</div>
           </div>
           <div className="flex items-center gap-4 text-sm text-gray-400 line-clamp-2">
             <div>{offer.description}</div>
@@ -123,12 +134,16 @@ const SkeletonCard = () => (
 // OfferList component with SWR
 const OfferListClient = () => {
   const user = useUserStore((state) => state.user);
-  const { data, loading, error } = useQuery<{
+  const { data, loading, error, refetch } = useQuery<{
     getOffersByStatus: OffersByStatus;
   }>(GET_OFFERS_BY_STATUS, {
     variables: { userId: user?.id },
     skip: !user?.id,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (loading) return null;
   if (error) return <div>Error: {error.message}</div>;
@@ -190,7 +205,6 @@ const OfferListClient = () => {
   );
 };
 
-// Rename OfferListFallback to OfferAllListSkeleton and export it
 export const OfferAllListSkeleton = () => (
   <div className="min-h-screen bg-black text-white py-6">
     <div className="">

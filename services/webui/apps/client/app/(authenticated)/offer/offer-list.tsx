@@ -1,8 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
 import { Card, CardContent } from "@ui/components/ui/card";
-import { Avatar, AvatarFallback } from "@ui/components/ui/avatar";
-import { MoreHorizontal } from "lucide-react";
 import { gql, useQuery } from "@apollo/client";
 import useUserStore from "../../../store/user";
 import { OffersData } from "../../../generated/graphql";
@@ -27,14 +26,36 @@ interface ResData {
   getOffersByOwner: OffersData;
 }
 
+const getCategoryBackgroundColor = (category: string | undefined | null) => {
+  switch (category) {
+    case "Creation":
+      return "bg-orange-500";
+    case "Event":
+      return "bg-green-500";
+    case "Promotion":
+      return "bg-yellow-500";
+    case "Other":
+      return "bg-gray-400";
+    default:
+      return "bg-zinc-800";
+  }
+};
+
 export default function OfferList() {
   const { user } = useUserStore();
   const router = useRouter();
 
-  const { data, loading, error } = useQuery<ResData>(GET_OFFERS_BY_OWNER, {
-    variables: { userId: user?.id },
-    skip: !user?.id,
-  });
+  const { data, loading, error, refetch } = useQuery<ResData>(
+    GET_OFFERS_BY_OWNER,
+    {
+      variables: { userId: user?.id },
+      skip: !user?.id,
+    },
+  );
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -77,18 +98,17 @@ export default function OfferList() {
                   {offer.title}
                 </h3>
               </div>
-              <button className="text-zinc-400 hover:text-zinc-300">
-                <MoreHorizontal className="w-5 h-5" />
-              </button>
             </div>
 
-            <div className="text-sm text-zinc-500 mb-4 line-clamp-2">
+            <div className="text-sm text-zinc-500 mb-4 line-clamp-2 min-h-[3em]">
               {offer.description}
             </div>
 
             <div className="flex justify-between items-center pt-4 border-t border-zinc-800">
-              <div className="text-sm text-zinc-300">{offer.category}</div>
-              <div className="text-sm font-medium text-blue-500">
+              <div className={`text-sm text-black px-2 py-0.5 rounded-full inline-block ${getCategoryBackgroundColor(offer.category)}`}>
+                {offer.category}
+              </div>
+              <div className="text-sm font-medium text-white">
                 {offer.fee} FSP
               </div>
             </div>

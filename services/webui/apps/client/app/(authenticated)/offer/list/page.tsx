@@ -33,6 +33,22 @@ interface Offer {
   category: string;
 }
 
+// カテゴリーに応じた背景色を返す関数を定義
+const getCategoryBackgroundColor = (category: string | undefined | null) => {
+  switch (category) {
+    case "Creation":
+      return "bg-orange-500";
+    case "Event":
+      return "bg-green-500";
+    case "Promotion":
+      return "bg-yellow-500";
+    case "Other":
+      return "bg-gray-400";
+    default:
+      return "bg-blue-500";
+  }
+};
+
 export default function OfferList() {
   const { loading, error, data } = useQuery(GET_OFFERS);
   const offers = data?.getOffers?.offerList ?? [];
@@ -44,13 +60,6 @@ export default function OfferList() {
       </div>
     );
   }
-
-  const categories = [
-    { name: "All", count: 48 },
-    { name: "Category A", count: 16 },
-    { name: "Category B", count: 16 },
-    { name: "Category C", count: 16 },
-  ];
 
   return (
     <>
@@ -157,7 +166,9 @@ function OfferCard({ offer }: { offer: Offer }) {
 
         <div className="flex-1 min-w-0">
           <div className="flex justify-between items-start mb-2">
-            <span className="px-2 py-1 rounded text-xs bg-blue-500/20 text-blue-400">
+            <span
+              className={`px-2 py-1 rounded-full text-black text-xs ${getCategoryBackgroundColor(offer.category)}`}
+            >
               {offer.category}
             </span>
             {/*

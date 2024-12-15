@@ -40,6 +40,14 @@ impl OfferUserRepository for OfferUserRepoImpl {
         Ok(())
     }
 
+    async fn delete_by_offer_id(&self, offer_id: i32) -> Result<(), DomainError> {
+        let _res = OfferUserEntity::delete_many()
+            .filter(Column::OfferId.eq(offer_id))
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
+
     async fn get_by_id(&self, id: i32) -> Result<Option<OfferUser>, DomainError> {
         let offer_user = OfferUserEntity::find_by_id(id).one(&self.db).await?;
         Ok(offer_user)
