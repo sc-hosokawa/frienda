@@ -26,3 +26,13 @@ pub struct AddNewConnectionByUserInput {
 pub struct AddNewConnectionResponse {
     pub map_id: String, // uuid
 }
+
+#[derive(SimpleObject)]
+pub struct AddShortnoteResponse {
+    pub id: String, // uuid
+}
+
+#[derive(SimpleObject)]
+pub struct MarkFavoriteResponse {
+    pub id: String, // uuid
+}

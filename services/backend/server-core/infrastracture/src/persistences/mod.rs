@@ -1,5 +1,6 @@
 pub mod artists_repo_impl;
 pub mod exchange_prize_history_repo_impl;
+pub mod favorites_repo_impl;
 pub mod gender_gen_playback_repo_impl;
 pub mod health_check_repo_impl;
 pub mod message_attach_repo_impl;
@@ -16,6 +17,7 @@ pub mod quest_user_repo_impl;
 pub mod quests_repo_impl;
 pub mod room_user_repo_impl;
 pub mod rooms_repo_impl;
+pub mod short_notes_repo_impl;
 pub mod track_credits_repo_impl;
 pub mod tracks_repo_impl;
 pub mod txs_fsp_repo_impl;

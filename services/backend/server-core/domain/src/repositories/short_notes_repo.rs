@@ -4,9 +4,9 @@ use shared::error::domain_err::DomainError;
 use uuid::Uuid;
 
 #[async_trait]
-pub trait ShortNotesRepository {
-    async fn create(&self, short_note: &ShortNoteActiveModel) -> Result<ShortNote, DomainError>;
-    async fn update(&self, short_note: &ShortNoteActiveModel) -> Result<ShortNote, DomainError>;
+pub trait ShortNotesRepository: Send + Sync {
+    async fn create(&self, short_note: ShortNoteActiveModel) -> Result<ShortNote, DomainError>;
+    async fn update(&self, short_note: ShortNoteActiveModel) -> Result<ShortNote, DomainError>;
 
-    async fn delete(&self, id: &Uuid) -> Result<(), DomainError>;
+    async fn delete(&self, id: Uuid) -> Result<(), DomainError>;
 }

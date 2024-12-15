@@ -8,6 +8,8 @@ import 'package:client/presentation/providers/user_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
+
 // import 'package:client/services/biometric_auth_service.dart';  // コメントアウト
 
 class ProfileSetupScreen extends ConsumerStatefulWidget {
@@ -264,9 +266,12 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                 result?.isLoading ?? false
                     ? Center(child: CircularProgressIndicator())
                     : ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate() &&
                               _validateBeforeSave()) {
+                            final prefs = await SharedPreferences.getInstance();
+                            final fcmToken = prefs.getString('fcm_token');
+
                             final variables = {
                               'input': {
                                 'id': widget.initialData['uid'],
@@ -276,6 +281,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                                 'imageUrl': _photoURL,
                                 'category': _selectedCategory,
                                 'primaryCategory': 'Supporter',
+                                'fcmToken': fcmToken,
                               }
                             };
 

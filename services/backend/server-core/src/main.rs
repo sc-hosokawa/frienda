@@ -11,6 +11,7 @@ use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSche
 use shared::db::connect::establish_db_connection;
 use shared::logger::init_logger;
 use std::env;
+use std::time::Duration;
 use tracing_actix_web::TracingLogger;
 
 use registry::*;
@@ -38,7 +39,8 @@ async fn bootstrap() -> Result<(), std::io::Error> {
         .expect("Failed to connect to database");
 
     let repos = create_repositories(db.clone());
-    let usecases = create_usecases(repos);
+    let services = create_services().await;
+    let usecases = create_usecases(repos, services);
 
     let schema = Schema::build(
         QueryRoot::default(),
@@ -53,7 +55,6 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     tracing::info!("GraphiQL IDE: http://{}:{}/graphql", host, port);
 
     HttpServer::new(move || {
-        // TODO: Middlewareに追加すること！
         // let auth = HttpAuthentication::bearer(validator);
         let cors = Cors::default()
             .allow_any_origin()
@@ -79,6 +80,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
                 web::post().to(handlers::stripe_webhook::webhook_handler),
             )
     })
+    .client_request_timeout(Duration::from_secs(30))
     .bind((host, port))?
     .run()
     .await?;

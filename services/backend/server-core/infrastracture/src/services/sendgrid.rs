@@ -1,0 +1,37 @@
+use application::services::send_email::EmailServiceTrait;
+use async_trait::async_trait;
+use domain::services::email::Email;
+use lettre::{transport::smtp::authentication::Credentials, Message, SmtpTransport, Transport};
+use std::env;
+
+pub struct SendGridService {
+    mailer: SmtpTransport,
+}
+
+impl SendGridService {
+    pub fn new() -> Result<Self, anyhow::Error> {
+        let api_key: String = env::var("SENDGRID_API_KEY")?;
+        let creds: Credentials = Credentials::new("apikey".to_string(), api_key);
+
+        let mailer: SmtpTransport = SmtpTransport::relay("smtp.sendgrid.net")?
+            .credentials(creds)
+            .build();
+
+        Ok(Self { mailer })
+    }
+}
+
+#[async_trait]
+impl EmailServiceTrait for SendGridService {
+    async fn send_email(&self, email: Email) -> Result<(), anyhow::Error> {
+        let email_message: Message = Message::builder()
+            .from(email.from.parse()?)
+            .to(email.to.parse()?)
+            .subject(email.subject)
+            .body(email.body)?;
+
+        self.mailer.send(&email_message)?;
+
+        Ok(())
+    }
+}

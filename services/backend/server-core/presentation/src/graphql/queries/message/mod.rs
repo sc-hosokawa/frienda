@@ -65,4 +65,23 @@ impl MessageQuery {
 
         Ok(result.into())
     }
+
+    async fn ask_llm(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+        question: String,
+    ) -> Result<String> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .request_llm
+            .request_llm(
+                application::usecases::messaging::request_llm_usecase::RequestLlmInput {
+                    user_id,
+                    question,
+                },
+            )
+            .await?;
+        Ok(result.answer)
+    }
 }

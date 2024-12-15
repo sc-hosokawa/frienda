@@ -13,10 +13,74 @@ impl ArtistMutation {
     async fn create_new_artist(
         &self,
         ctx: &Context<'_>,
-        input: models::artists::CreateNewArtistInput,
-    ) -> Result<models::artists::CreateNewArtistResponse> {
-        let usecases = ctx.data_unchecked::<Usecases>();
-        todo!();
+        input: Vec<models::artists::CreateNewArtistInput>,
+    ) -> Result<models::artists::CreateNewArtistsResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .manage_artists
+            .add_artists(
+                application::usecases::artist::manage_artists_usecase::AddArtistsInput {
+                    artists: input
+                        .into_iter()
+                        .map(|input| {
+                            application::usecases::artist::manage_artists_usecase::AddArtistInput {
+                                display_name_jp: input.display_name_jp,
+                                display_name_en: input.display_name_en,
+                                display_name_kana: input.display_name_kana,
+                                img_url: input.img_url,
+                                fsp: input.fsp.unwrap_or(0),
+                                status: input.status.unwrap_or("visible".to_string()),
+                                universal_id: input.universal_id,
+                                apple_key: input.apple_key,
+                                spotify_key: input.spotify_key,
+                                line_key: input.line_key,
+                                amazon_key: input.amazon_key,
+                                youtube_key: input.youtube_key,
+                            }
+                        })
+                        .collect(),
+                },
+            )
+            .await?;
+        Ok(models::artists::CreateNewArtistsResponse {
+            added_artists: res
+                .added_artists
+                .into_iter()
+                .map(|artist| models::artists::CreateNewArtistData {
+                    artist_id: artist.artist_id,
+                    display_name_jp: artist.display_name_jp,
+                })
+                .collect(),
+        })
+    }
+
+    async fn update_artist(
+        &self,
+        ctx: &Context<'_>,
+        input: models::artists::UpdateArtistInput,
+    ) -> Result<models::artists::UpdateArtistResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .manage_artists
+            .update_artists(
+                application::usecases::artist::manage_artists_usecase::UpdateArtistsInput {
+                    artist_id: input.artist_id,
+                    display_name_jp: input.display_name_jp,
+                    display_name_en: input.display_name_en,
+                    display_name_kana: input.display_name_kana,
+                    img_url: input.img_url,
+                    fsp: input.fsp,
+                    status: input.status,
+                    universal_id: input.universal_id,
+                    apple_key: input.apple_key,
+                    spotify_key: input.spotify_key,
+                    line_key: input.line_key,
+                    amazon_key: input.amazon_key,
+                    youtube_key: input.youtube_key,
+                },
+            )
+            .await?;
+        Ok(models::artists::UpdateArtistResponse { artist_id: res })
     }
 
     async fn request_to_access_artist(
