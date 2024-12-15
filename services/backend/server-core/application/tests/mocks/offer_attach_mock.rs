@@ -21,6 +21,7 @@ pub trait MockOfferAttachRepo {
         offer_attaches: Vec<OfferAttachActiveModel>,
     ) -> Result<(), DomainError>;
     async fn mock_delete(&self, id: i32) -> Result<(), DomainError>;
+    async fn mock_delete_by_offer_id(&self, offer_id: i32) -> Result<(), DomainError>;
     async fn mock_get_by_id(&self, id: i32) -> Result<Option<OfferAttach>, DomainError>;
     async fn mock_get_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferAttach>, DomainError>;
     async fn mock_get_images_by_offer_id(
@@ -58,6 +59,10 @@ impl OfferAttachRepository for MockMockOfferAttachRepo {
 
     async fn delete(&self, id: i32) -> Result<(), DomainError> {
         self.mock_delete(id).await
+    }
+
+    async fn delete_by_offer_id(&self, offer_id: i32) -> Result<(), DomainError> {
+        self.mock_delete_by_offer_id(offer_id).await
     }
 
     async fn get_by_id(&self, id: i32) -> Result<Option<OfferAttach>, DomainError> {

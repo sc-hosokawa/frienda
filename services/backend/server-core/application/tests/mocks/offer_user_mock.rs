@@ -14,6 +14,7 @@ pub trait MockOfferUserRepo {
     async fn mock_update(&self, offer_user: OfferUserActiveModel)
         -> Result<OfferUser, DomainError>;
     async fn mock_delete(&self, id: i32) -> Result<(), DomainError>;
+    async fn mock_delete_by_offer_id(&self, offer_id: i32) -> Result<(), DomainError>;
     async fn mock_get_by_id(&self, id: i32) -> Result<Option<OfferUser>, DomainError>;
     async fn mock_get_by_user_id(&self, user_id: String) -> Result<Vec<OfferUser>, DomainError>;
     async fn mock_get_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferUser>, DomainError>;
@@ -41,6 +42,10 @@ impl OfferUserRepository for MockMockOfferUserRepo {
 
     async fn delete(&self, id: i32) -> Result<(), DomainError> {
         self.mock_delete(id).await
+    }
+
+    async fn delete_by_offer_id(&self, offer_id: i32) -> Result<(), DomainError> {
+        self.mock_delete_by_offer_id(offer_id).await
     }
 
     async fn get_by_id(&self, id: i32) -> Result<Option<OfferUser>, DomainError> {
