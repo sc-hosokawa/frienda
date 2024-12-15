@@ -16,11 +16,13 @@ pub struct FcmNotificationService {
 impl FcmNotificationService {
     pub async fn new() -> Result<Self, anyhow::Error> {
         tracing::info!("Setting up FcmNotificationService...");
-        let service_account_json = env::var("FCM_SERVICE_ACCOUNT")?;
-        let temp_file = tempfile::NamedTempFile::new()?;
-        println!("temp_file: {:?}", temp_file);
-        std::fs::write(&temp_file, service_account_json)?;
-        let client = FcmClient::new(temp_file.path().to_str().unwrap()).await?;
+        // let service_account_json = env::var("FCM_SERVICE_ACCOUNT")?;
+        // let temp_file = tempfile::NamedTempFile::new()?;
+        // println!("temp_file: {:?}", temp_file);
+        // std::fs::write(&temp_file, service_account_json)?;
+        // let client = FcmClient::new(temp_file.path().to_str().unwrap()).await?;
+        let service_account_path = "frienda-auth-test1-a490c287d01b.json";
+        let client = FcmClient::new(service_account_path).await?;
         Ok(Self { client })
     }
 }
