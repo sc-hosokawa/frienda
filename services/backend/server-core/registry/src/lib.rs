@@ -42,6 +42,12 @@ use application::usecases::messaging::{
     request_llm_usecase::{RequestLlmUsecase, RequestLlmUsecaseTrait},
     send_message_usecase::{SendMessageUsecase, SendMessageUsecaseTrait},
 };
+use application::usecases::notification::{
+    get_notifications_usecase::{GetNotificationsUsecase, GetNotificationsUsecaseTrait},
+    mark_notification_as_read_usecase::{
+        MarkNotificationAsReadUsecase, MarkNotificationAsReadUsecaseTrait,
+    },
+};
 use application::usecases::offer::{
     change_status_usecase::{ChangeStatusUsecase, ChangeStatusUsecaseTrait},
     delete_offer_usecase::{DeleteOfferUsecase, DeleteOfferUsecaseTrait},
@@ -83,15 +89,17 @@ use infrastracture::persistences::{
     favorites_repo_impl::FavoritesRepoImpl,
     gender_gen_playback_repo_impl::GenderGenPlaybackRepoImpl,
     message_attach_repo_impl::MessageAttachRepoImpl, messages_repo_impl::MessagesRepoImpl,
-    offer_attach_repo_impl::OfferAttachRepoImpl, offer_user_repo_impl::OfferUserRepoImpl,
-    offers_repo_impl::OffersRepoImpl, plays_daily_repo_impl::PlaysDailyRepoImpl,
-    plays_monthly_repo_impl::PlaysMonthlyRepoImpl, prizes_repo_impl::PrizesRepoImpl,
-    product_track_repo_impl::ProductTrackRepoImpl, products_repo_impl::ProductsRepoImpl,
-    quest_user_repo_impl::QuestUserRepoImpl, quests_repo_impl::QuestsRepoImpl,
-    room_user_repo_impl::RoomUserRepoImpl, rooms_repo_impl::RoomsRepoImpl,
-    short_notes_repo_impl::ShortNotesRepoImpl, track_credits_repo_impl::TrackCreditsRepoImpl,
-    tracks_repo_impl::TracksRepoImpl, txs_fsp_repo_impl::TxsFspRepoImpl,
-    user_artist_repo_impl::UserArtistRepoImpl, users_repo_impl::UsersRepoImpl,
+    notification_user_repo_impl::NotificationUserRepoImpl,
+    notifications_repo_impl::NotificationsRepoImpl, offer_attach_repo_impl::OfferAttachRepoImpl,
+    offer_user_repo_impl::OfferUserRepoImpl, offers_repo_impl::OffersRepoImpl,
+    plays_daily_repo_impl::PlaysDailyRepoImpl, plays_monthly_repo_impl::PlaysMonthlyRepoImpl,
+    prizes_repo_impl::PrizesRepoImpl, product_track_repo_impl::ProductTrackRepoImpl,
+    products_repo_impl::ProductsRepoImpl, quest_user_repo_impl::QuestUserRepoImpl,
+    quests_repo_impl::QuestsRepoImpl, room_user_repo_impl::RoomUserRepoImpl,
+    rooms_repo_impl::RoomsRepoImpl, short_notes_repo_impl::ShortNotesRepoImpl,
+    track_credits_repo_impl::TrackCreditsRepoImpl, tracks_repo_impl::TracksRepoImpl,
+    txs_fsp_repo_impl::TxsFspRepoImpl, user_artist_repo_impl::UserArtistRepoImpl,
+    users_repo_impl::UsersRepoImpl,
 };
 
 use application::services::{
@@ -129,6 +137,8 @@ pub struct RepositoriesImpl {
     pub track_credits: Arc<TrackCreditsRepoImpl>,
     pub favorites: Arc<FavoritesRepoImpl>,
     pub short_notes: Arc<ShortNotesRepoImpl>,
+    pub notifications: Arc<NotificationsRepoImpl>,
+    pub notification_user: Arc<NotificationUserRepoImpl>,
 }
 
 pub struct ServicesImpl {
@@ -186,6 +196,8 @@ pub struct Usecases {
     pub mark_favorite: Arc<dyn MarkFavoriteUsecaseTrait>,
     pub add_shortnote: Arc<dyn AddShortnoteUsecaseTrait>,
     pub manage_artists: Arc<dyn ManageArtistsUsecaseTrait>,
+    pub get_notifications: Arc<dyn GetNotificationsUsecaseTrait>,
+    pub mark_notification_as_read: Arc<dyn MarkNotificationAsReadUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -216,6 +228,8 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
         track_credits: Arc::new(TrackCreditsRepoImpl::new(db.clone())),
         favorites: Arc::new(FavoritesRepoImpl::new(db.clone())),
         short_notes: Arc::new(ShortNotesRepoImpl::new(db.clone())),
+        notifications: Arc::new(NotificationsRepoImpl::new(db.clone())),
+        notification_user: Arc::new(NotificationUserRepoImpl::new(db.clone())),
     }
 }
 
@@ -399,5 +413,12 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.artists.clone(),
         )),
         mark_as_read: Arc::new(MarkAsReadUsecase::new(repos.room_user.clone())),
+        get_notifications: Arc::new(GetNotificationsUsecase::new(
+            repos.notification_user.clone(),
+            repos.notifications.clone(),
+        )),
+        mark_notification_as_read: Arc::new(MarkNotificationAsReadUsecase::new(
+            repos.notification_user.clone(),
+        )),
     }
 }

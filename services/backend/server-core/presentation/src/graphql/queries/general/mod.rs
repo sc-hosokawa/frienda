@@ -149,4 +149,27 @@ impl GeneralQuery {
             })
             .collect())
     }
+
+    async fn get_notifications(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<Vec<models::notifications::NotificationData>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_notifications
+            .get_notifications(&user_id)
+            .await?;
+        Ok(result
+            .notifications
+            .into_iter()
+            .map(|n| models::notifications::NotificationData {
+                id: n.id.to_string(),
+                title: n.title,
+                content: n.content,
+                is_read: n.is_read,
+                created_at: n.created_at.to_string(),
+            })
+            .collect())
+    }
 }
