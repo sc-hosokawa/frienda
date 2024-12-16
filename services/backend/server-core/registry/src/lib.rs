@@ -95,9 +95,9 @@ use infrastracture::persistences::{
 };
 
 use application::services::{
-    push_notification::{PushNotificationService, PushNotificationServiceTrait},
+    push_notification::PushNotificationServiceTrait,
     request_llm::{LlmService, LlmServiceTrait},
-    send_email::{EmailService, EmailServiceTrait},
+    send_email::EmailServiceTrait,
 };
 use infrastracture::services::{
     fcm::FcmNotificationService, gemini::GeminiService, sendgrid::SendGridService,
@@ -346,6 +346,9 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         request_llm: Arc::new(RequestLlmUsecase::new(
             services.llm_service.clone(),
             repos.users.clone(),
+            repos.artists.clone(),
+            repos.user_artist.clone(),
+            repos.offers.clone(),
         )),
         get_available_offer: Arc::new(GetAvailableOfferUsecase::new(repos.offers.clone())),
         get_offer_by_owner: Arc::new(GetOfferByOwnerUsecase::new(repos.offers.clone())),
