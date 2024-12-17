@@ -2,11 +2,17 @@
 import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import React from "react";
-import { GET_ALL_ARTISTS, GET_HISTORICAL } from "../../utils/query";
+import {
+  GET_ALL_ARTISTS,
+  GET_GENDER_GEN_RATE,
+  GET_HISTORICAL,
+} from "../../utils/query";
 import { ChartCard } from "../../components/analytics/chart-card";
 import { SearchArtist } from "../../components/analytics/search-artist";
+import GenderGenView from "../../components/analytics/gender-gen-chart";
 
 const endpoint = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT!;
+const admin = "admin_0000000000000000000000";
 
 export default function AnalyticsPage() {
   const [selectedPeriod, setSelectedPeriod] = React.useState(12);
@@ -27,6 +33,17 @@ export default function AnalyticsPage() {
     },
   });
 
+  const { data: genderGenData, isLoading: isLoadingGenderGenData } = useQuery({
+    queryKey: ["genderGenData", selectedArtistId],
+    queryFn: async () => {
+      return await request(endpoint, GET_GENDER_GEN_RATE, {
+        artistId: selectedArtistId,
+        userId: admin,
+      }).then((data: any) => data.getGenderGenRateByArtist);
+    },
+    enabled: !!selectedArtistId,
+  });
+
   const {
     data: chartData,
     isLoading: isLoadingChart,
@@ -34,11 +51,9 @@ export default function AnalyticsPage() {
   } = useQuery({
     queryKey: ["analytics", selectedPeriod, selectedArtistId],
     queryFn: async () => {
-      if (!selectedArtistId) return null;
-
       const response = await request(endpoint, GET_HISTORICAL, {
         artistId: selectedArtistId,
-        userId: "admin_0000000000000000000000",
+        userId: admin,
         period: selectedPeriod,
       });
       return response;
@@ -65,6 +80,8 @@ export default function AnalyticsPage() {
         isLoading={isLoadingChart}
         isError={isErrorLoadingChart}
       />
+
+      <GenderGenView data={genderGenData} isLoading={isLoadingGenderGenData} />
     </div>
   );
 }
