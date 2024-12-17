@@ -42,7 +42,6 @@ class _EditOfferPageState extends ConsumerState<EditOfferPage> {
     'Curator',
     'Creator',
     'Supporter',
-    '特になし'
   ];
 
   static const String getOfferQuery = '''
@@ -150,16 +149,19 @@ class _EditOfferPageState extends ConsumerState<EditOfferPage> {
         variables: {
           'input': {
             'id': widget.offerId,
-            'title': _titleController.text,
-            'description': _descriptionController.text,
-            'fee': int.tryParse(_feeController.text) ?? 0,
+            'title': _titleController.text.trim(),
+            'description': _descriptionController.text.trim(),
+            'fee': int.tryParse(_feeController.text.trim()) ?? 0,
             'category': _selectedCategory,
-            'place': _placeController.text,
+            'place': _placeController.text.trim(),
             'targetRole': _selectedTargetRole,
             'publicity': _isPublic,
-            'attention': _attentionController.text,
-            'requiredSkill': _requiredSkillController.text,
+            'attention': _attentionController.text.trim(),
+            'requiredSkill': _requiredSkillController.text.trim(),
           },
+        },
+        onError: (error) {
+          print('GraphQL Error: ${error.toString()}');
         },
       );
 
@@ -167,13 +169,15 @@ class _EditOfferPageState extends ConsumerState<EditOfferPage> {
           await GraphQLProvider.of(context).value.mutate(options);
 
       if (result.hasException) {
+        print('GraphQL Exception: ${result.exception.toString()}');
         throw result.exception!;
       }
 
       Navigator.pop(context, true);
     } catch (e) {
+      print('Error details: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error updating offer: $e')),
+        SnackBar(content: Text('オファーの更新に失敗しました。もう一度お試しください。')),
       );
     } finally {
       setState(() => _isLoading = false);

@@ -21,6 +21,14 @@ class _MessageListState extends ConsumerState<MessageList> {
   void Function()? _refetch;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _refetch?.call();
+    });
+  }
+
+  @override
   void dispose() {
     _recipientController.dispose();
     super.dispose();
@@ -188,6 +196,10 @@ class _MessageListState extends ConsumerState<MessageList> {
           builder: (context) => MessageRoom(roomId: roomId),
         ),
       );
+      final client = ref.read(graphQLClientProvider);
+      await client.resetStore();
+      await Future.delayed(const Duration(milliseconds: 100));
+      _refetch?.call();
     }
   }
 
@@ -246,10 +258,19 @@ class _MessageListState extends ConsumerState<MessageList> {
           variables: {
             'userId': userId,
           },
+          fetchPolicy: FetchPolicy.networkOnly,
+          cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
         ),
         builder: (QueryResult result,
             {VoidCallback? refetch, FetchMore? fetchMore}) {
+          print('Query execution time: ${DateTime.now()}');
+          print('Cache status: ${result.source}');
+          print('Has data: ${result.data != null}');
+          print('Network status: ${result.isLoading}');
+
           _refetch = refetch;
+
+          print('result: ${result.data}');
           if (result.hasException) {
             return Center(child: Text(result.exception.toString()));
           }
@@ -322,7 +343,6 @@ class _MessageListState extends ConsumerState<MessageList> {
                   final currentUserId = ref.read(userProvider)?.id;
                   if (currentUserId == null) return;
 
-                  // latestMessageIdが存在する場合のみ既読処理を実行
                   final latestMessageId = room['latestMessageId'] as String?;
                   if (latestMessageId != null) {
                     await _markAsRead(
@@ -332,13 +352,16 @@ class _MessageListState extends ConsumerState<MessageList> {
                     );
                   }
 
-                  Navigator.push(
+                  if (!context.mounted) return;
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
                           MessageRoom(roomId: room['id'] as String),
                     ),
                   );
+
+                  _refetch?.call();
                 },
               );
             },
