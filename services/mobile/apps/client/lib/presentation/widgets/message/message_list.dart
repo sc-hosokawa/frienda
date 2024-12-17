@@ -109,7 +109,6 @@ class _MessageListState extends ConsumerState<MessageList> {
                                     : null,
                               ),
                               title: Text(user['name'] as String),
-                              subtitle: Text(user['realname'] as String? ?? ''),
                               onTap: () async {
                                 print(
                                     'Selected user: ${user['id']} - ${user['name']}');
