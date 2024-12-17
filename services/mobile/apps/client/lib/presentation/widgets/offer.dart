@@ -18,7 +18,8 @@ class Offer extends ConsumerStatefulWidget {
 class _OfferState extends ConsumerState<Offer> {
   bool _isTransitioning = false;
 
-  void _navigateToOfferDetail(BuildContext context, int offerId) async {
+  void _navigateToOfferDetail(
+      BuildContext context, int offerId, Function? refetch) async {
     setState(() {
       _isTransitioning = true;
     });
@@ -27,6 +28,10 @@ class _OfferState extends ConsumerState<Offer> {
       context,
       OfferDetailPage(offerId: offerId),
     );
+
+    if (refetch != null) {
+      await refetch();
+    }
 
     if (mounted) {
       setState(() {
@@ -144,7 +149,8 @@ class _OfferState extends ConsumerState<Offer> {
                     child: _buildOfferCarousel(
                       context: context,
                       offers: inprogressOffers,
-                      height: 150,
+                      height: 180,
+                      refetch: refetch,
                     ),
                   ),
                   SliverToBoxAdapter(child: _buildSectionTitle('応募中')),
@@ -152,7 +158,8 @@ class _OfferState extends ConsumerState<Offer> {
                     child: _buildOfferCarousel(
                       context: context,
                       offers: appliedOffers,
-                      height: 150,
+                      height: 180,
+                      refetch: refetch,
                     ),
                   ),
                 ],
@@ -413,7 +420,7 @@ class _OfferState extends ConsumerState<Offer> {
                 'No owned offers',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -421,7 +428,7 @@ class _OfferState extends ConsumerState<Offer> {
         }
 
         return SizedBox(
-          height: 150,
+          height: 180,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: offers.length,
@@ -431,9 +438,17 @@ class _OfferState extends ConsumerState<Offer> {
                 width: 150,
                 margin: const EdgeInsets.all(8),
                 child: GestureDetector(
-                  onTap: () => _navigateToOfferDetail(context, offer['id']),
+                  onTap: () =>
+                      _navigateToOfferDetail(context, offer['id'], refetch),
                   child: Card(
-                    color: Colors.grey[500],
+                    color: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: const BorderSide(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -447,22 +462,25 @@ class _OfferState extends ConsumerState<Offer> {
                               fit: BoxFit.cover,
                             ),
                           const SizedBox(height: 8),
-                          Text(
-                            offer['title'],
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[800],
+                          SizedBox(
+                            height: 40,
+                            child: Text(
+                              offer['title'],
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
                           ),
                           const Spacer(),
                           Text(
                             '${offer['fee']} FSP',
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -482,6 +500,7 @@ class _OfferState extends ConsumerState<Offer> {
     required BuildContext context,
     required List<dynamic> offers,
     required double height,
+    required Function? refetch,
   }) {
     if (offers.isEmpty) {
       return SizedBox(
@@ -509,8 +528,17 @@ class _OfferState extends ConsumerState<Offer> {
             width: 150,
             margin: const EdgeInsets.all(8),
             child: GestureDetector(
-              onTap: () => _navigateToOfferDetail(context, offer['id']),
+              onTap: () =>
+                  _navigateToOfferDetail(context, offer['id'], refetch),
               child: Card(
+                color: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: const BorderSide(
+                    color: Colors.white,
+                    width: 1,
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -528,7 +556,8 @@ class _OfferState extends ConsumerState<Offer> {
                         offer['title'],
                         style: const TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -538,7 +567,7 @@ class _OfferState extends ConsumerState<Offer> {
                         '${offer['fee']} FSP',
                         style: const TextStyle(
                           fontSize: 12,
-                          color: Colors.blue,
+                          color: Colors.white,
                         ),
                       ),
                     ],

@@ -22,6 +22,51 @@ class _HomePageState extends ConsumerState<HomePage> {
   final _isLoading = ValueNotifier<bool>(false);
 
   @override
+  void initState() {
+    super.initState();
+    // ウィジェットがビルドされた後にクエリを実行
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _queryLoginReward();
+    });
+  }
+
+  Future<void> _queryLoginReward() async {
+    final userState = ref.read(userProvider);
+    if (userState?.id == null) return;
+
+    final client = ref.read(graphQLClientProvider);
+    try {
+      final result = await client.query(
+        QueryOptions(
+          document: gql('''
+            query LoginReward(\$userId: String!) {
+              loginReward(userId: \$userId)
+            }
+          '''),
+          variables: {
+            'userId': userState!.id,
+          },
+        ),
+      );
+
+      print('Login reward result: ${result.data}');
+
+      if (result.hasException) {
+        print('Login reward query failed: ${result.exception}');
+        return;
+      }
+
+      // 必要に応じて結果を処理
+      final rewardPoints = result.data?['loginReward'] as int?;
+      if (rewardPoints != null) {
+        print('Login reward points: $rewardPoints');
+      }
+    } catch (e) {
+      print('Error querying login reward: $e');
+    }
+  }
+
+  @override
   void dispose() {
     _isLoading.dispose();
     super.dispose();
