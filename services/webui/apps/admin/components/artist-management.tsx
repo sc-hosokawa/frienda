@@ -9,12 +9,10 @@ import {
 import { MetadataUpload } from "./metadata-upload";
 import { NewArtistForm } from "./new-artist-form";
 import { ArtistTable } from "./artist-table";
-import { Header } from "./header";
 
 export function ArtistManagement() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <div className="flex-grow container mx-auto p-4">
         <Tabs defaultValue="metadata" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
