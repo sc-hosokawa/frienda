@@ -11,11 +11,15 @@ pub struct SendGridService {
 impl SendGridService {
     pub fn new() -> Result<Self, anyhow::Error> {
         let api_key: String = env::var("SENDGRID_API_KEY")?;
-        let creds: Credentials = Credentials::new("apikey".to_string(), api_key);
+        let creds: Credentials = Credentials::new("apikey".to_string(), api_key.clone());
 
         let mailer: SmtpTransport = SmtpTransport::relay("smtp.sendgrid.net")?
-            .credentials(creds)
+            .credentials(creds.clone())
             .build();
+
+        tracing::debug!("SendGridApiKey: {}", api_key);
+        tracing::debug!("SendGridCreds: {:?}", creds);
+        tracing::debug!("SendGridMailer: {:?}", mailer);
 
         /*
         // テストメールの送信
