@@ -5,17 +5,17 @@ use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
 #[async_trait]
-pub trait NotificationUserRepository {
+pub trait NotificationUserRepository: Send + Sync {
     async fn create(
         &self,
-        notification_user: &NotificationUserActiveModel,
+        notification_user: NotificationUserActiveModel,
     ) -> Result<NotificationUser, DomainError>;
     async fn update(
         &self,
-        notification_user: &NotificationUserActiveModel,
+        notification_user: NotificationUserActiveModel,
     ) -> Result<NotificationUser, DomainError>;
 
-    async fn delete(&self, id: i32) -> Result<(), DomainError>;
+    async fn delete(&self, id: i32) -> Result<i32, DomainError>;
     async fn get_by_id(&self, id: i32) -> Result<Option<NotificationUser>, DomainError>;
     async fn get_by_user_id(&self, user_id: &str) -> Result<Vec<NotificationUser>, DomainError>;
     async fn get_by_user_id_and_status(
@@ -27,4 +27,9 @@ pub trait NotificationUserRepository {
         &self,
         notification_id: i32,
     ) -> Result<Vec<NotificationUser>, DomainError>;
+    async fn get_by_user_id_and_notification_id(
+        &self,
+        user_id: &str,
+        notification_id: i32,
+    ) -> Result<Option<NotificationUser>, DomainError>;
 }

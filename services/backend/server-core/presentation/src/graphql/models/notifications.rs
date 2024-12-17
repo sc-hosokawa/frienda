@@ -7,8 +7,8 @@ pub struct NotificationData {
     pub id: String,
     pub title: String,
     pub content: String,
+    pub is_read: bool,
     pub created_at: String,
-    pub updated_at: String,
 }
 
 #[derive(SimpleObject)]
