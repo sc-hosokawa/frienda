@@ -6,10 +6,12 @@ import {
   GET_ALL_ARTISTS,
   GET_GENDER_GEN_RATE,
   GET_HISTORICAL,
+  GET_TRENDING,
 } from "../../utils/query";
 import { ChartCard } from "../../components/analytics/chart-card";
 import { SearchArtist } from "../../components/analytics/search-artist";
 import GenderGenView from "../../components/analytics/gender-gen-chart";
+import { Trending } from "../../components/analytics/trending";
 
 const endpoint = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT!;
 const admin = "admin_0000000000000000000000";
@@ -31,6 +33,17 @@ export default function AnalyticsPage() {
         (data: any) => data.getAllArtists.artistList
       );
     },
+  });
+
+  const { data: trendingData, isLoading: isLoadingTrendingData } = useQuery({
+    queryKey: ["trendingData", selectedArtistId],
+    queryFn: async () => {
+      return await request(endpoint, GET_TRENDING, {
+        artistId: selectedArtistId,
+        userId: admin,
+      }).then((data: any) => data.getTrending);
+    },
+    enabled: !!selectedArtistId,
   });
 
   const { data: genderGenData, isLoading: isLoadingGenderGenData } = useQuery({
@@ -62,26 +75,34 @@ export default function AnalyticsPage() {
   });
 
   return (
-    <div className="flex flex-col mx-auto max-w-6xl gap-6">
-      <SearchArtist
-        value={selectedArtistId}
-        setValue={setSelectedArtistId}
-        artists={artistData}
-        open={open}
-        setOpen={setOpen}
-        isLoading={isLoadingArtist}
-        isError={isErrorLoadingArtist}
-      />
+    <div className="flex flex-col lg:flex-row mx-auto max-w-2xl lg:max-w-max gap-6 p-8">
+      <div className="flex flex-col gap-6 lg:w-1/3 w-full">
+        <SearchArtist
+          value={selectedArtistId}
+          setValue={setSelectedArtistId}
+          artists={artistData}
+          open={open}
+          setOpen={setOpen}
+          isLoading={isLoadingArtist}
+          isError={isErrorLoadingArtist}
+        />
 
-      <ChartCard
-        data={chartData}
-        selectedPeriod={selectedPeriod}
-        setSelectedPeriod={setSelectedPeriod}
-        isLoading={isLoadingChart}
-        isError={isErrorLoadingChart}
-      />
+        <Trending data={trendingData} isLoading={isLoadingTrendingData} />
+      </div>
+      <div className="flex flex-col gap-6 lg:w-2/3 w-full">
+        <ChartCard
+          data={chartData}
+          selectedPeriod={selectedPeriod}
+          setSelectedPeriod={setSelectedPeriod}
+          isLoading={isLoadingChart}
+          isError={isErrorLoadingChart}
+        />
 
-      <GenderGenView data={genderGenData} isLoading={isLoadingGenderGenData} />
+        <GenderGenView
+          data={genderGenData}
+          isLoading={isLoadingGenderGenData}
+        />
+      </div>
     </div>
   );
 }

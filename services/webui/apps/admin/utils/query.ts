@@ -61,3 +61,18 @@ export const GET_GENDER_GEN_RATE = gql`
     }
   }
 `;
+
+export const GET_TRENDING = gql`
+  query GetTrending($artistId: String!, $userId: String!) {
+    getTrending(artistId: $artistId, userId: $userId) {
+      trendingTracks {
+        isrc
+        trackTitle
+        upcTitle
+        imageUrl
+        totalPlayCount
+        weeklyPlayCount
+      }
+    }
+  }
+`;
