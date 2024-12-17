@@ -17,6 +17,7 @@ impl SendGridService {
             .credentials(creds)
             .build();
 
+        /*
         // テストメールの送信
         let test_email: Message = Message::builder()
             .from("info@friendshipdao.xyz".parse()?)
@@ -28,6 +29,7 @@ impl SendGridService {
 
         mailer.send(&test_email)?;
         tracing::info!("Test email sent successfully");
+        */
 
         Ok(Self { mailer })
     }

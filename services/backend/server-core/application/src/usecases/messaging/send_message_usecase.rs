@@ -156,11 +156,11 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                     let email_service = Arc::clone(&self.email_service);
                     tracing::debug!(
                         "message::fcm_token: {}",
-                        user.fcm_token.unwrap_or("fcm_token not found".to_string())
+                        user.fcm_token
+                            .clone()
+                            .unwrap_or("fcm_token not found".to_string())
                     );
                     tracing::debug!("message::email: {}", user.email);
-
-                    /*
 
                     // プッシュ通知
                     if let Some(fcm_token) = user.fcm_token.clone() {
@@ -175,11 +175,12 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                                 .send_push_notification(push_notification)
                                 .await
                             {
-                                tracing::warn!("Failed to send push notification: {}", e);
+                                tracing::error!("Failed to send push notification: {}", e);
                             }
                         });
                     }
 
+                    /*
                     // メール通知
                     let email = user.email.clone();
                     let sender_name = sender_name.clone();
