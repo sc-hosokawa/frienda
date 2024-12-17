@@ -124,6 +124,7 @@ async fn test_update_user_profile_success() {
         x_handle: Some("x_handle".to_string()),
         instagram_handle: Some("instagram_handle".to_string()),
         fb_handle: Some("fb_handle".to_string()),
+        fcm_token: Some("fcm_token".to_string()),
     };
 
     let result = usecase.update(input).await;
