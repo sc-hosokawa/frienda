@@ -64,6 +64,7 @@ impl GeneralMutation {
                         models::users::from_string_to_user_category(category).unwrap()
                     }),
                     evm_addr: input.evm_addr,
+                    fcm_token: input.fcm_token,
                 },
             )
             .await?;

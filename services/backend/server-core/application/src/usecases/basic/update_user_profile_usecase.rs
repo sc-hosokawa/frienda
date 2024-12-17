@@ -23,6 +23,7 @@ pub struct UpdateUserProfileInput {
     pub x_handle: Option<String>,
     pub instagram_handle: Option<String>,
     pub fb_handle: Option<String>,
+    pub fcm_token: Option<String>,
     // pub status: Option<UserStatus>,
 }
 
@@ -132,6 +133,9 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
         }
         if let Some(fb_handle) = input.fb_handle {
             updated_user.fb_handle = ActiveValue::Set(Some(fb_handle));
+        }
+        if let Some(fcm_token) = input.fcm_token {
+            updated_user.fcm_token = ActiveValue::Set(Some(fcm_token));
         }
 
         let updated_user = self.users_repo.update(updated_user).await?;

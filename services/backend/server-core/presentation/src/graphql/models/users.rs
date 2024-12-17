@@ -118,6 +118,7 @@ pub struct UpdateUserDataInput {
     pub x_handle: Option<String>,
     pub instagram_handle: Option<String>,
     pub fb_handle: Option<String>,
+    pub fcm_token: Option<String>,
 }
 
 #[derive(SimpleObject)]
