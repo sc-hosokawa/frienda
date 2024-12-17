@@ -137,12 +137,12 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
         let room_users = self.room_user_repo.get_by_room_id(message.room_id).await?;
 
         let sent_by = &message.sent_by;
-        let other_users = room_users
+        let other_users: Vec<&domain::entities::room_user::Model> = room_users
             .iter()
             .filter(|room_user| &room_user.user_id != sent_by)
             .collect::<Vec<_>>();
 
-        let sender = self
+        let sender: domain::entities::users::Model = self
             .users_repo
             .find_by_id(&message.sent_by)
             .await?
@@ -154,6 +154,13 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                 Ok(Some(user)) => {
                     let push_notification_service = Arc::clone(&self.push_notification_service);
                     let email_service = Arc::clone(&self.email_service);
+                    tracing::debug!(
+                        "message::fcm_token: {}",
+                        user.fcm_token.unwrap_or("fcm_token not found".to_string())
+                    );
+                    tracing::debug!("message::email: {}", user.email);
+
+                    /*
 
                     // プッシュ通知
                     if let Some(fcm_token) = user.fcm_token.clone() {
@@ -190,6 +197,7 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                             tracing::warn!("Failed to send email notification: {}", e);
                         }
                     });
+                    */
                 }
                 Ok(None) => {
                     tracing::warn!("User not found: {}", room_user.user_id);

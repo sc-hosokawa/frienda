@@ -17,6 +17,18 @@ impl SendGridService {
             .credentials(creds)
             .build();
 
+        // テストメールの送信
+        let test_email: Message = Message::builder()
+            .from("info@friendshipdao.xyz".parse()?)
+            .to("naoki@fracton.ventures".parse()?)
+            .subject("SendGrid Test Email")
+            .body(String::from(
+                "SendGrid service has been initialized successfully.",
+            ))?;
+
+        mailer.send(&test_email)?;
+        tracing::info!("Test email sent successfully");
+
         Ok(Self { mailer })
     }
 }
