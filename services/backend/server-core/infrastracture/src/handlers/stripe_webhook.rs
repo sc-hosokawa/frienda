@@ -36,6 +36,8 @@ pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
         }
     };
 
+    info!("body: {:?}", body);
+
     let event: StripeEvent = match serde_json::from_str(&body) {
         Ok(event) => event,
         Err(e) => {
@@ -43,6 +45,8 @@ pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
             return HttpResponse::BadRequest().finish();
         }
     };
+
+    info!("event: {:?}", event);
 
     match event.event_type.as_str() {
         "payment_intent.succeeded" => {

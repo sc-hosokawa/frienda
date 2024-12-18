@@ -23,12 +23,12 @@ export default function Header() {
   const { data } = useQuery(LOGIN_REWARD_QUERY, {
     variables: { userId: user?.id },
     skip: !user?.id,
-    fetchPolicy: 'no-cache'
+    fetchPolicy: "no-cache",
   });
 
   useEffect(() => {
     if (data?.loginReward) {
-      console.log('Login reward received:', data.loginReward);
+      console.log("Login reward received:", data.loginReward);
     }
   }, [data]);
 

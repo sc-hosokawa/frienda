@@ -105,7 +105,9 @@ export default function OfferList() {
             </div>
 
             <div className="flex justify-between items-center pt-4 border-t border-zinc-800">
-              <div className={`text-sm text-black px-2 py-0.5 rounded-full inline-block ${getCategoryBackgroundColor(offer.category)}`}>
+              <div
+                className={`text-sm text-black px-2 py-0.5 rounded-full inline-block ${getCategoryBackgroundColor(offer.category)}`}
+              >
                 {offer.category}
               </div>
               <div className="text-sm font-medium text-white">
