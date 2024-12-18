@@ -294,7 +294,7 @@ export default function Component() {
       </Link>
 
       <h1 className="text-[36px] font-light">Messages</h1>
-      <hr className="mb-8 mt-24 border-[#303030]" />
+      <hr className="mb-8 mt-4 border-[#303030]" />
 
       <header className="flex-none items-center justify-between p-4 sticky top-0">
         <div className="flex items-center gap-2">
