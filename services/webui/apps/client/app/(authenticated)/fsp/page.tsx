@@ -33,7 +33,6 @@ dayjs.extend(timezone);
 dayjs.locale("ja");
 dayjs.tz.setDefault("Asia/Tokyo");
 
-// 商品データの型定義
 type Product = {
   id: number;
   name: string;
@@ -41,7 +40,6 @@ type Product = {
   imageUrl: string;
 };
 
-// 取引履歴の型定義
 type Transaction = {
   id: number;
   type: "send" | "receive" | "exchange";
@@ -72,6 +70,7 @@ const GET_FSP_HISTORY = gql`
           name
         }
         txAt
+        note
       }
     }
   }
@@ -171,6 +170,7 @@ export default function FspPage() {
                   <TableHead>種類</TableHead>
                   <TableHead>金額</TableHead>
                   <TableHead>相手</TableHead>
+                  <TableHead>内容</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -215,6 +215,7 @@ export default function FspPage() {
                         >
                           {transaction.counterParty.name}
                         </TableCell>
+                        <TableCell>{transaction.note}</TableCell>
                       </TableRow>
                     ),
                   )

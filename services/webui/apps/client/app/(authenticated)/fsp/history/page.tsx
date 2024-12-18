@@ -23,6 +23,7 @@ interface Transaction {
   direction: string;
   counterParty: { name: string };
   txAt: string;
+  note: string | null;
 }
 
 const GET_FSP_HISTORY = gql`
@@ -36,6 +37,7 @@ const GET_FSP_HISTORY = gql`
           name
         }
         txAt
+        note
       }
     }
   }
@@ -144,6 +146,7 @@ export default function HistoryPage() {
                         </span>
                       </div>
                     </TableCell>
+                    <TableCell>{transaction.note}</TableCell>
                     <TableCell
                       className={`text-right ${
                         transaction.direction === "IN"
