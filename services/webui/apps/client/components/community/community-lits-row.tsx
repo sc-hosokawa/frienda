@@ -3,10 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Upload, MoreHorizontal } from "lucide-react";
 import heart from "../../public/heart.svg";
-import {
-  TableCell,
-  TableRow,
-} from "../../../../packages/ui/components/ui/table";
+import { TableCell, TableRow } from "@ui/components/ui/table";
 import { getBgClassByType, UserType } from "../../utils";
 
 export interface CommunityListsRowProps {

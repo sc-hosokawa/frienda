@@ -5,11 +5,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../../../../packages/ui/components/ui/alert-dialog";
-import { Button } from "../../../../packages/ui/components/ui/button";
+} from "@ui/components/ui/alert-dialog";
+import { Button } from "@ui/components/ui/button";
 import Image from "next/image";
 
-import { Separator } from "../../../../packages/ui/components/ui/separator";
+import { Separator } from "@ui/components/ui/separator";
 
 export function ConciergeDialog({ children }: { children: React.ReactNode }) {
   return (

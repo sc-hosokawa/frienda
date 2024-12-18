@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { SocialLink } from "../../../../components/account/social-links";
-import { Separator } from "../../../../../../packages/ui/components/ui/separator";
+import { Separator } from "@ui/components/ui/separator";
 import { ConnectionTypes } from "../../../../components/account/connection-type";
 import { getBgClassByType, UserType } from "../../../../utils";
 import { Offers } from "../../../../components/account/offers";

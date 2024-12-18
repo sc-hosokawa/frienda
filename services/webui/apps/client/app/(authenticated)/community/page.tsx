@@ -6,14 +6,14 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "../../../../../packages/ui/components/ui/tabs";
+} from "@ui/components/ui/tabs";
 import {
   Table,
   TableBody,
   TableHead,
   TableHeader,
   TableRow,
-} from "../../../../../packages/ui/components/ui/table";
+} from "@ui/components/ui/table";
 import { ChevronDown } from "lucide-react";
 
 export default function CommunityPage() {
