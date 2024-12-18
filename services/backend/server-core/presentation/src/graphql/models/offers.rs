@@ -66,6 +66,21 @@ pub struct OfferByStatusData {
     pub applied_offers: Vec<OfferData>,
 }
 
+#[derive(SimpleObject)]
+pub struct UsersInOfferData {
+    pub users: Vec<UserInOfferData>,
+}
+
+#[derive(SimpleObject)]
+pub struct UserInOfferData {
+    pub user_id: String,
+    pub username: String,
+    pub img_url: String,
+    pub email: String,
+    pub category: String,
+    pub status_in_offer: String,
+}
+
 // ===== Mutation =====
 
 #[derive(InputObject)]
@@ -259,6 +274,35 @@ impl From<domain::entities::offers::Model> for OfferData {
                 OfferCategory::Promotion => "Promotion".to_string(),
                 OfferCategory::Other => "Other".to_string(),
             }),
+        }
+    }
+}
+
+impl From<application::usecases::offer::manage_users_in_offer_usecase::GetUsersInOfferOutput>
+    for UserInOfferData
+{
+    fn from(
+        output: application::usecases::offer::manage_users_in_offer_usecase::GetUsersInOfferOutput,
+    ) -> Self {
+        UserInOfferData {
+            user_id: output.user_id,
+            username: output.username,
+            img_url: output.img_url.unwrap_or("".to_string()),
+            email: output.email,
+            category: match output.category {
+                UserCategory::Musician => "Musician".to_string(),
+                UserCategory::Creator => "Creator".to_string(),
+                UserCategory::Curator => "Curator".to_string(),
+                UserCategory::Supporter => "Supporter".to_string(),
+            },
+            status_in_offer: match output.status_in_offer {
+                OfferStatus::Applied => "Applied".to_string(),
+                OfferStatus::Finished => "Finished".to_string(),
+                OfferStatus::Canceled => "Canceled".to_string(),
+                OfferStatus::Ongoing => "Ongoing".to_string(),
+                OfferStatus::Rejected => "Rejected".to_string(),
+                OfferStatus::Suspend => "Suspend".to_string(),
+            },
         }
     }
 }

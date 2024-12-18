@@ -56,6 +56,7 @@ use application::usecases::offer::{
     get_offer_by_status_usecase::{GetOfferByStatusUsecase, GetOfferByStatusUsecaseTrait},
     get_offer_details_usecase::{GetOfferDetailsUsecase, GetOfferDetailsUsecaseTrait},
     get_offer_stats_usecase::{GetOfferStatsUsecase, GetOfferStatsUsecaseTrait},
+    manage_users_in_offer_usecase::{ManageUsersInOfferUsecase, ManageUsersInOfferUsecaseTrait},
     register_task_usecase::{RegisterTaskUsecase, RegisterTaskUsecaseTrait},
     update_task_usecase::{UpdateTaskUsecase, UpdateTaskUsecaseTrait},
 };
@@ -198,6 +199,7 @@ pub struct Usecases {
     pub manage_artists: Arc<dyn ManageArtistsUsecaseTrait>,
     pub get_notifications: Arc<dyn GetNotificationsUsecaseTrait>,
     pub mark_notification_as_read: Arc<dyn MarkNotificationAsReadUsecaseTrait>,
+    pub manage_users_in_offer: Arc<dyn ManageUsersInOfferUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -257,6 +259,11 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         add_shortnote: Arc::new(AddShortnoteUsecase::new(repos.short_notes.clone())),
         search_users: Arc::new(SearchUsersUsecase::new(repos.users.clone())),
         login_reward: Arc::new(LoginRewardUsecase::new(repos.users.clone())),
+        manage_users_in_offer: Arc::new(ManageUsersInOfferUsecase::new(
+            repos.offers.clone(),
+            repos.users.clone(),
+            repos.offer_user.clone(),
+        )),
         manage_artists: Arc::new(ManageArtistsUsecase::new(repos.artists.clone())),
         get_products: Arc::new(GetProductsUsecase::new(
             repos.products.clone(),
