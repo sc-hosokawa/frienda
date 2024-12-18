@@ -2,12 +2,12 @@ use actix_web::{web, HttpResponse, Responder};
 use futures::StreamExt;
 use serde::Deserialize;
 use serde_json::json;
-use tracing::{error, info, instrument};
+use tracing::{debug, error, info, instrument};
 
 #[derive(Deserialize, Debug)]
 struct StripeEvent {
     #[serde(rename = "type")]
-    event_type: String,
+    type_: String,
     data: StripeEventData,
 }
 
@@ -44,7 +44,9 @@ pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
         }
     };
 
-    match event.event_type.as_str() {
+    info!("event: {:?}", event.type_);
+
+    match event.type_.as_str() {
         "payment_intent.succeeded" => {
             let payment_intent: serde_json::Value = match serde_json::from_value(event.data.object)
             {
@@ -54,8 +56,17 @@ pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
                     return HttpResponse::BadRequest().finish();
                 }
             };
-            // handle_payment_intent_succeeded(payment_intent)
-            info!("payment_intent.succeeded: {:?}", payment_intent);
+            info!("RESULT: payment_intent.succeeded: {:?}", payment_intent);
+        }
+        "charge.succeeded" => {
+            let charge: serde_json::Value = match serde_json::from_value(event.data.object) {
+                Ok(charge) => charge,
+                Err(e) => {
+                    error!("Error parsing webhook JSON: {}", e);
+                    return HttpResponse::BadRequest().finish();
+                }
+            };
+            info!("RESULT: charge.succeeded: {:?}", charge);
         }
         "payment_method.attached" => {
             let payment_method: serde_json::Value = match serde_json::from_value(event.data.object)
@@ -69,8 +80,19 @@ pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
             // handle_payment_method_attached(payment_method)
             info!("payment_method.attached: {:?}", payment_method);
         }
+        "checkout.session.completed" => {
+            let session: serde_json::Value = match serde_json::from_value(event.data.object) {
+                Ok(session) => session,
+                Err(e) => {
+                    error!("Error parsing webhook JSON: {}", e);
+                    return HttpResponse::BadRequest().finish();
+                }
+            };
+            info!("RESULT: checkout.session.completed: {:?}", session);
+            // ここでチェックアウト完了時の処理を追加
+        }
         _ => {
-            error!("Unhandled event type: {}", event.event_type);
+            debug!("Unhandled event type: {}", event.type_);
         }
     }
 

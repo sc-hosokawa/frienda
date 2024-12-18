@@ -80,7 +80,11 @@ const OfferCard = ({ offer }: { offer: Offer }) => {
         <img src={offer.imageUrl} alt="" className="w-full h-48 object-cover" />
         <div className="p-4">
           <div className="flex gap-2 mb-3">
-            <Badge className={`text-black font-medium ${getCategoryBackgroundColor(offer.category)}`}>{offer.category}</Badge>
+            <Badge
+              className={`text-black font-medium ${getCategoryBackgroundColor(offer.category)}`}
+            >
+              {offer.category}
+            </Badge>
           </div>
           <p className="text-sm mb-3 line-clamp-2">{offer.title}</p>
           <div className="flex items-center gap-4 text-sm mb-3">

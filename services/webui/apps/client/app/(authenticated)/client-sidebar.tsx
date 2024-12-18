@@ -78,6 +78,14 @@ const items = [
       active: "/message_line.svg",
     },
   },
+  {
+    title: "Notification",
+    url: "/notification",
+    icon: {
+      default: "/notification.svg",
+      active: "/notification_line.svg",
+    },
+  },
 ];
 
 export function ClientSidebar() {

@@ -30,13 +30,34 @@ export function PurchaseDialog() {
     { points: 5000, price: 7500 },
   ];
 
+  const handlePayment = async () => {
+    try {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          points: selectedOption.points,
+          amount: selectedOption.price,
+        }),
+      });
+
+      const { url } = await response.json();
+
+      if (url) {
+        window.location.href = url;
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      // エラー処理を追加することをお勧めします
+    }
+  };
+
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
-        <Button
-          className="w-full cursor-not-allowed opacity-60 hover:opacity-60"
-          disabled
-        >
+        <Button className="w-full opacity-60 hover:opacity-60">
           <ShoppingCart className="mr-2 h-4 w-4" />
           購入(近日公開)
         </Button>
@@ -92,7 +113,7 @@ export function PurchaseDialog() {
             </Button>
             <Button
               className="bg-[#E6DFD3] text-black hover:bg-[#d6cfb3] transition-colors"
-              onClick={() => console.log("Processing payment...")}
+              onClick={handlePayment}
             >
               お支払いにすすむ
             </Button>

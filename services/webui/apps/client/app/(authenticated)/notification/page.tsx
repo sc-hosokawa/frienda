@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Bell } from "lucide-react";
 import { Card } from "@ui/components/ui/card";
@@ -24,25 +24,26 @@ export default function NotificationList() {
   const { user } = useUserStore();
   const { loading, error, data } = useQuery(GET_NOTIFICATIONS, {
     variables: {
-      userId: user?.id
-    }
+      userId: user?.id,
+    },
   });
 
-  console.log(data);  
+  console.log(data);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  const notifications = data?.getNotifications.map((notification: any) => ({
-    id: notification.id,
-    category: "Notification",
-    color: "bg-[#e8ff26]",
-    textColor: "text-black",
-    highlighted: !notification.isRead,
-    title: notification.title,
-    content: notification.content,
-    createdAt: notification.createdAt,
-  })) || [];
+  const notifications =
+    data?.getNotifications.map((notification: any) => ({
+      id: notification.id,
+      category: "Notification",
+      color: "bg-[#e8ff26]",
+      textColor: "text-black",
+      highlighted: !notification.isRead,
+      title: notification.title,
+      content: notification.content,
+      createdAt: notification.createdAt,
+    })) || [];
 
   return (
     <div className="container max-w-6xl mx-auto">
@@ -87,9 +88,7 @@ export default function NotificationList() {
               <div className="p-4 flex flex-col h-[240px]">
                 <div className="flex items-center justify-between mb-2">
                   <span
-                    className={`text-sm my-2 px-4 py-2 rounded-full ${
-                      notification.color
-                    } ${notification.textColor}`}
+                    className={`text-sm my-2 px-4 py-2 rounded-full ${notification.color} ${notification.textColor}`}
                   >
                     {notification.category}
                   </span>
@@ -103,13 +102,15 @@ export default function NotificationList() {
                 <span className="text-xs mt-4 text-muted-foreground">
                   {(() => {
                     const date = new Date(notification.createdAt);
-                    const jstDate = new Date(date.getTime() + (9 * 60 * 60 * 1000));
-                    return jstDate.toLocaleString('ja-JP', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
+                    const jstDate = new Date(
+                      date.getTime() + 9 * 60 * 60 * 1000,
+                    );
+                    return jstDate.toLocaleString("ja-JP", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
                     });
                   })()}
                 </span>
