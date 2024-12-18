@@ -61,9 +61,9 @@ export function PurchaseDialog() {
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
-        <Button className="w-full opacity-60 hover:opacity-60">
+        <Button className="w-full">
           <ShoppingCart className="mr-2 h-4 w-4" />
-          購入(近日公開)
+          購入
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-black text-white border-zinc-800">
