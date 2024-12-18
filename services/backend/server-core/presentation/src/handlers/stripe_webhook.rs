@@ -2,7 +2,10 @@ use actix_web::{web, HttpResponse, Responder};
 use futures::StreamExt;
 use serde::Deserialize;
 use serde_json::json;
+use std::sync::Arc;
 use tracing::{debug, error, info, instrument};
+
+use registry::Usecases;
 
 #[derive(Deserialize, Debug)]
 struct StripeEvent {
@@ -16,8 +19,10 @@ struct StripeEventData {
     object: serde_json::Value,
 }
 
-#[instrument(name = "stripe_webhook", skip(payload))]
-pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
+pub async fn webhook_handler(
+    mut payload: web::Payload,
+    usecases: web::Data<Arc<Usecases>>,
+) -> impl Responder {
     let body = match payload.next().await {
         Some(Ok(bytes)) => match String::from_utf8(bytes.to_vec()) {
             Ok(string) => string,
@@ -88,10 +93,24 @@ pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
                     return HttpResponse::BadRequest().finish();
                 }
             };
-            info!(
-                "RESULT: checkout.session.completed: {:?}",
-                session.get("object").unwrap().get("metadata")
-            );
+            
+            if let Some(metadata) = session.get("metadata") {
+                info!("Session metadata: {:?}", metadata);
+            } else {
+                error!("No metadata found in session");
+            }
+
+            // info!("RESULT: checkout.session.completed: {:?}", session);
+
+            /* 
+            let result = usecases.transfer_point_between_accounts.transfer(application::usecases::point::transfer_point_between_accounts_usecase::TransferPointBetweenAccountsInput {
+                from: None,
+                to: metadata.get("user_id").unwrap().to_string(),
+                amount: metadata.get("amount").unwrap().as_i64().unwrap() as i32,
+                notes: Some("Stripeにより購入".to_string()),
+            }).await.unwrap();
+            info!("RESULT: transfer_point_between_accounts: {:?}", result);
+            */
         }
         _ => {
             debug!("Unhandled event type: {}", event.type_);

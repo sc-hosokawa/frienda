@@ -27,9 +27,9 @@ export async function POST(request: Request) {
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/fsp/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/fsp`,
       metadata: {
-        points: points,
-        amount: amount,
-        userId: userId,
+        points: points.toString(),
+        amount: amount.toString(),
+        user_id: userId.toString(),
       },
     });
 
