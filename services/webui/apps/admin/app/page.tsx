@@ -17,7 +17,7 @@ export default function Home() {
               <p>View analytics</p>
             </div>
           </Link>
-          <Link href="/manage">
+          <Link href="/system">
             <div className="p-4 bg-gray-900 rounded-lg shadow-md hover:shadow-lg cursor-pointer">
               <h2 className="text-lg font-bold">システム管理</h2>
               <p>settings</p>
