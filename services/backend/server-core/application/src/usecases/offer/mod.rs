@@ -8,6 +8,7 @@ pub mod get_offer_by_status_usecase;
 pub mod get_offer_details_usecase;
 pub mod get_offer_stats_usecase;
 pub mod get_user_task_history_usecase;
+pub mod manage_users_in_offer_usecase;
 pub mod recommend_tasks_for_user_usecase;
 pub mod register_task_usecase;
 pub mod report_task_issue_usecase;

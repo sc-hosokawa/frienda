@@ -93,37 +93,61 @@ async fn test_apply_success() {
 #[tokio::test]
 async fn test_change_status_success() {
     // Arrange
-    let mock_offers_repo = MockMockOffersRepo::new();
-    let mut mock_offer_user_repo = MockMockOfferUserRepo::new();
-    let mock_txs_fsp_repo = MockMockTxsFspRepo::new();
-    let mock_users_repo = MockMockUsersRepo::new();
+    let mut offers_repo = MockMockOffersRepo::new();
+    let mut offer_user_repo = MockMockOfferUserRepo::new();
+    let mut txs_fsp_repo = MockMockTxsFspRepo::new();
+    let mut users_repo = MockMockUsersRepo::new();
 
-    let existing_offer_user = create_test_offer_user(1, 1, "user123", OfferStatus::Applied);
-    let updated_offer_user = create_test_offer_user(1, 1, "user123", OfferStatus::Ongoing);
+    let offer_id = 1;
+    let owner_id = "owner123";
+    let user_id = "user123";
+    let test_offer = create_test_offer(offer_id, owner_id, 100);
+    let test_offer_user = create_test_offer_user(1, offer_id, user_id, OfferStatus::Applied);
+    let new_status = OfferStatus::Ongoing;
 
-    mock_offer_user_repo
+    // Mock設定
+    offers_repo
+        .expect_mock_get_by_id()
+        .with(eq(offer_id))
+        .returning(move |_| Ok(Some(test_offer.clone())));
+
+    let test_offer_user_clone = test_offer_user.clone();
+    offer_user_repo
         .expect_mock_get_by_user_id_and_offer_id()
-        .returning(move |_, _| Ok(Some(existing_offer_user.clone())));
+        .with(eq(user_id.to_string()), eq(offer_id))
+        .returning(move |_, _| Ok(Some(test_offer_user_clone.clone())));
 
-    mock_offer_user_repo
+    let test_offer_user_clone2 = test_offer_user.clone();
+    offer_user_repo
         .expect_mock_update()
-        .returning(move |_| Ok(updated_offer_user.clone()));
+        .returning(move |offer_user| {
+            Ok(OfferUser {
+                status: offer_user.status.unwrap(),
+                ..test_offer_user_clone2.clone()
+            })
+        });
+
+    offer_user_repo
+        .expect_mock_cancel_other_applications()
+        .with(eq(offer_id), eq(user_id))
+        .times(1)
+        .returning(|_, _| Ok(()));
 
     let usecase = ChangeStatusUsecase::new(
-        Arc::new(mock_offers_repo),
-        Arc::new(mock_offer_user_repo),
-        Arc::new(mock_txs_fsp_repo),
-        Arc::new(mock_users_repo),
+        Arc::new(offers_repo),
+        Arc::new(offer_user_repo),
+        Arc::new(txs_fsp_repo),
+        Arc::new(users_repo),
     );
 
-    let input = ChangeStatusInput {
-        id: 1,
-        user_id: "user123".to_string(),
-        status: OfferStatus::Ongoing,
-    };
-
     // Act
-    let result = usecase.change_status(input).await;
+    let result = usecase
+        .change_status(ChangeStatusInput {
+            id: offer_id,
+            user_id: user_id.to_string(),
+            status: new_status,
+        })
+        .await;
 
     // Assert
     assert!(result.is_ok());

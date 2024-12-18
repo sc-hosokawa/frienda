@@ -84,12 +84,19 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
     async fn change_status(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error> {
         info!("Changing offer status");
         match input.status {
-            OfferStatus::Rejected | OfferStatus::Ongoing => {}
+            OfferStatus::Rejected | OfferStatus::Ongoing | OfferStatus::Canceled => {}
             _ => {
                 return Err(anyhow::anyhow!(
-                    "Invalid status. Only Rejected or Ongoing are allowed."
+                    "Invalid status. Only Rejected, Ongoing, or Canceled are allowed."
                 ))
             }
+        }
+
+        if input.status == OfferStatus::Ongoing {
+            info!("Canceling other users' applications for the same offer");
+            self.offer_user_repo
+                .cancel_other_applications(input.id, &input.user_id)
+                .await?;
         }
 
         let offer_user_mapping = self
@@ -113,7 +120,7 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
             OfferStatus::Finished => {}
             _ => {
                 return Err(anyhow::anyhow!(
-                    "Invalid status. Only Rejected or Ongoing are allowed."
+                    "Invalid status. Only Finished are allowed."
                 ))
             }
         }

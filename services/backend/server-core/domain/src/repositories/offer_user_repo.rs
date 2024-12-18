@@ -23,4 +23,9 @@ pub trait OfferUserRepository: Send + Sync {
         user_id: &str,
         status: OfferStatus,
     ) -> Result<Vec<OfferUser>, DomainError>;
+    async fn cancel_other_applications(
+        &self,
+        offer_id: i32,
+        except_user_id: &str,
+    ) -> Result<(), DomainError>;
 }
