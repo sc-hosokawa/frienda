@@ -1,4 +1,5 @@
 import { gql } from "graphql-request";
+export const endpoint = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT!;
 
 export const GET_HISTORICAL = gql`
   query GetHistorical($artistId: String!, $userId: String!, $period: Int!) {

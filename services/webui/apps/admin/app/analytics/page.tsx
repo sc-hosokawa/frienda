@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import React from "react";
 import {
+  endpoint,
   GET_ALL_ARTISTS,
   GET_GENDER_GEN_RATE,
   GET_HISTORICAL,
@@ -13,7 +14,6 @@ import { SearchArtist } from "../../components/analytics/search-artist";
 import GenderGenView from "../../components/analytics/gender-gen-chart";
 import { Trending } from "../../components/analytics/trending";
 
-const endpoint = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT!;
 const admin = "admin_0000000000000000000000";
 
 export default function AnalyticsPage() {
