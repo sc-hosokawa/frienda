@@ -1,17 +1,69 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
-import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
+import {ERC721Upgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
+import {ERC721URIStorageUpgradeable} from
+    "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
+import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-contract MembershipNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable {
-    function initialize() initializer public {
-        __ERC721_init("MembershipNFT", "MNFT");
-        __Ownable_init(msg.sender);
+contract MembershipNFT is
+    Initializable,
+    ERC721Upgradeable,
+    ERC721URIStorageUpgradeable,
+    AccessControlUpgradeable,
+    UUPSUpgradeable
+{
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    uint256 private _nextTokenId;
+    bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
+
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
     }
 
-    function mint(address to, uint256 tokenId) public onlyOwner {
-        _mint(to, tokenId);
+    function version() public pure virtual returns (string memory) {
+        return "v1.0.0";
+    }
+
+    function initialize(address defaultAdmin, address minter, address upgrader) public initializer {
+        __ERC721_init("MembershipNFT", "MNFT");
+        __ERC721URIStorage_init();
+        __AccessControl_init();
+        __UUPSUpgradeable_init();
+
+        _grantRole(DEFAULT_ADMIN_ROLE, defaultAdmin);
+        _grantRole(MINTER_ROLE, minter);
+        _grantRole(UPGRADER_ROLE, upgrader);
+    }
+
+    function safeMint(address to, string memory uri) public onlyRole(MINTER_ROLE) {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+    }
+
+    function _authorizeUpgrade(address newImplementation) internal override onlyRole(UPGRADER_ROLE) {}
+
+    // The following functions are overrides required by Solidity.
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721Upgradeable, ERC721URIStorageUpgradeable)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721Upgradeable, ERC721URIStorageUpgradeable, AccessControlUpgradeable)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 }
