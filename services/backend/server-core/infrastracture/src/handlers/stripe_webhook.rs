@@ -88,7 +88,10 @@ pub async fn webhook_handler(mut payload: web::Payload) -> impl Responder {
                     return HttpResponse::BadRequest().finish();
                 }
             };
-            info!("RESULT: checkout.session.completed: {:?}", session.get("object").unwrap().get("metadata"));
+            info!(
+                "RESULT: checkout.session.completed: {:?}",
+                session.get("object").unwrap().get("metadata")
+            );
         }
         _ => {
             debug!("Unhandled event type: {}", event.type_);
