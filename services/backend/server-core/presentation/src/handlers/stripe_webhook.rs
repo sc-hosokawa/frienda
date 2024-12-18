@@ -93,24 +93,35 @@ pub async fn webhook_handler(
                     return HttpResponse::BadRequest().finish();
                 }
             };
-            
+
             if let Some(metadata) = session.get("metadata") {
                 info!("Session metadata: {:?}", metadata);
+
+                if let (Some(user_id), Some(points)) = (
+                    metadata.get("user_id").and_then(|v| v.as_str()),
+                    metadata
+                        .get("points")
+                        .and_then(|v| v.as_str().and_then(|s| s.parse::<i32>().ok())),
+                ) {
+                    info!("user_id: {:?}, points: {:?}", user_id, points);
+                    let result = usecases.transfer_point_between_accounts.transfer(
+                        application::usecases::point::transfer_point_between_accounts_usecase::TransferPointBetweenAccountsInput {
+                            from: None,
+                            to: user_id.to_string(),
+                            amount: points,
+                            notes: Some("Stripeにより購入".to_string()),
+                        }
+                    ).await.unwrap();
+
+                    info!("RESULT: transfer_point_between_accounts: {:?}", result);
+                } else {
+                    error!("Required metadata fields are missing or invalid");
+                    return HttpResponse::BadRequest().finish();
+                }
             } else {
                 error!("No metadata found in session");
+                return HttpResponse::BadRequest().finish();
             }
-
-            // info!("RESULT: checkout.session.completed: {:?}", session);
-
-            /* 
-            let result = usecases.transfer_point_between_accounts.transfer(application::usecases::point::transfer_point_between_accounts_usecase::TransferPointBetweenAccountsInput {
-                from: None,
-                to: metadata.get("user_id").unwrap().to_string(),
-                amount: metadata.get("amount").unwrap().as_i64().unwrap() as i32,
-                notes: Some("Stripeにより購入".to_string()),
-            }).await.unwrap();
-            info!("RESULT: transfer_point_between_accounts: {:?}", result);
-            */
         }
         _ => {
             debug!("Unhandled event type: {}", event.type_);
