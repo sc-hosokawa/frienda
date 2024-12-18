@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@ui/components/ui/dialog";
+import { ApplicantsList } from "./applications-list";
 
 const GET_OFFER_QUERY = gql`
   query GetOfferDetail($offerId: Int!, $userId: String!) {
@@ -233,7 +234,7 @@ export default function OfferDetailPage({
                           return "進行中";
                         case "Suspend":
                         case "Canceled":
-                          return "停止中";
+                          return "募集終了";
                         case "Finished":
                           return "完了";
                         default:
@@ -345,6 +346,17 @@ export default function OfferDetailPage({
         <div className="mt-4 text-right text-gray-400 text-sm">
           Last Updated: {new Date(offer?.updatedAt || "").toLocaleDateString()}
         </div>
+
+
+        {isOwner && (
+          <>
+            <hr className="mb-8 mt-12 border-[#303030]" />
+            <ApplicantsList
+              offerId={parseInt(params.id)}
+              userId={user?.id || ""}
+            />
+          </>
+        )}
       </div>
 
       <Dialog open={showCancelModal} onOpenChange={setShowCancelModal}>

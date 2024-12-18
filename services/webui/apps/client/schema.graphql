@@ -496,6 +496,7 @@ type QueryRoot {
 	getOffersByStatus(userId: String!): OfferByStatusData!
 	getOffers: OffersData!
 	getOffersById(offerId: Int!, userId: String!): OfferDetailData!
+	getUsersInOffer(offerId: Int!, userId: String!): UsersInOfferData!
 	getMessageRooms(userId: String!): MessageRoomsByUserData!
 	getMessagesInProgress(userId: String!): MessageRoomsByUserData!
 	getMessagesByMessageRoomId(userId: String!, messageRoomId: String!): MessagesByRoomIdByUserData!
@@ -742,6 +743,7 @@ input UpdateUserDataInput {
 	xHandle: String
 	instagramHandle: String
 	fbHandle: String
+	fcmToken: String
 }
 
 type UpdateUserDataResponse {
@@ -796,6 +798,15 @@ type UserDetailData {
 	primaryArtist: ArtistByUserData
 }
 
+type UserInOfferData {
+	userId: String!
+	username: String!
+	imgUrl: String!
+	email: String!
+	category: String!
+	statusInOffer: String!
+}
+
 type UserPointBalanceData {
 	fspBalance: Int!
 	fspBalanceTemp: Int!
@@ -807,6 +818,10 @@ type UserSimpleData {
 	name: String!
 	realname: String!
 	imageUrl: String
+}
+
+type UsersInOfferData {
+	users: [UserInOfferData!]!
 }
 
 directive @include(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
