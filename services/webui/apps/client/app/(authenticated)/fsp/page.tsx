@@ -93,6 +93,8 @@ export default function FspPage() {
     e.currentTarget.src = "/logo_visualonly.jpg";
   };
 
+  console.log(fspHistoryData);
+
   return (
     <div className="container mx-auto p-4">
       <Card className="mb-6">
@@ -168,7 +170,7 @@ export default function FspPage() {
                   <TableHead>日付</TableHead>
                   <TableHead>種類</TableHead>
                   <TableHead>金額</TableHead>
-                  <TableHead>説明</TableHead>
+                  <TableHead>相手</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -188,8 +190,8 @@ export default function FspPage() {
                     (transaction: any) => (
                       <TableRow key={transaction.id}>
                         <TableCell>
-                          {dayjs(transaction.txAt)
-                            .tz()
+                          {dayjs.utc(transaction.txAt)
+                            .tz("Asia/Tokyo")
                             .format("YYYY/MM/DD HH:mm:ss")}
                         </TableCell>
                         <TableCell

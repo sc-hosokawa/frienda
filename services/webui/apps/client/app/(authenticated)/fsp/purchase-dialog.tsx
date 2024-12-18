@@ -10,16 +10,19 @@ import {
 } from "@ui/components/ui/dialog";
 import { Button } from "@ui/components/ui/button";
 import { ShoppingCart } from "lucide-react";
+import useUserStore from "../../../store/user";
+
 interface PointOption {
   points: number;
   price: number;
 }
 
 export function PurchaseDialog() {
+  const { user } = useUserStore();
   const [showDialog, setShowDialog] = useState(false);
   const [selectedOption, setSelectedOption] = useState<PointOption>({
-    points: 500,
-    price: 5000,
+    points: 100,
+    price: 150,
   });
 
   const pointOptions: PointOption[] = [
@@ -40,6 +43,7 @@ export function PurchaseDialog() {
         body: JSON.stringify({
           points: selectedOption.points,
           amount: selectedOption.price,
+          userId: user?.id,
         }),
       });
 
