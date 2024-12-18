@@ -67,9 +67,8 @@ export function SearchArtist({
               {artists.map((artist: any) => (
                 <CommandItem
                   key={artist.artistId}
-                  value={artist.artistId}
+                  value={artist.name}
                   onSelect={(currentValue) => {
-                    console.log("currentValue", currentValue);
                     setValue(
                       !value || value !== currentValue ? currentValue : ""
                     );
