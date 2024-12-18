@@ -6,7 +6,7 @@ use actix_web_httpauth::middleware::HttpAuthentication;
 use async_graphql::{http::GraphiQLSource, EmptySubscription, Schema};
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
 use dotenvy::dotenv;
-use infrastracture::handlers;
+use presentation::handlers;
 use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSchema};
 use shared::db::connect::establish_db_connection;
 use shared::logger::init_logger;
@@ -40,14 +40,14 @@ async fn bootstrap() -> Result<(), std::io::Error> {
 
     let repos = create_repositories(db.clone());
     let services = create_services().await;
-    let usecases = create_usecases(repos, services);
+    let usecases = std::sync::Arc::new(create_usecases(repos, services));
 
     let schema = Schema::build(
         QueryRoot::default(),
         MutationRoot::default(),
         EmptySubscription,
     )
-    .data(std::sync::Arc::new(usecases))
+    .data(usecases.clone())
     .data(db.clone())
     .finish();
 
@@ -65,6 +65,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
             .wrap(cors)
             .wrap(TracingLogger::default())
             .app_data(web::Data::new(schema.clone()))
+            .app_data(web::Data::new(usecases.clone()))
             .service(web::resource("/graphql").guard(guard::Post()).to(index))
             .service(
                 web::resource("/graphql")
