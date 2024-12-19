@@ -488,14 +488,17 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
             style: ElevatedButton.styleFrom(
               backgroundColor: isOwner
                   ? const Color(0xFFE4DBC0)
-                  : (_isApplied ? Colors.white : const Color(0xFFE4DBC0)),
+                  : (_isApplied ? Colors.grey : const Color(0xFFE4DBC0)),
               padding: EdgeInsets.symmetric(vertical: 12),
             ),
             child: Text(
               isOwner
                   ? 'Offerを編集する'
                   : (_isApplied ? 'Applied' : 'このOfferに申し込む'),
-              style: TextStyle(fontSize: 16, color: Colors.black),
+              style: TextStyle(
+                fontSize: 16,
+                color: _isApplied ? Colors.white : Colors.black,
+              ),
             ),
           ),
         ),

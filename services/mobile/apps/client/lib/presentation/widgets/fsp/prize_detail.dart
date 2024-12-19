@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/client_provider.dart';
+import 'package:client/presentation/providers/user_provider.dart';
 import 'package:intl/intl.dart';
 
 class PrizeDetail extends ConsumerWidget {
@@ -47,8 +48,6 @@ class PrizeDetail extends ConsumerWidget {
             body: Center(child: CircularProgressIndicator()),
           );
         }
-
-        print(result.data);
 
         final prizeDetail = result.data!['getPrizeDetail'];
         final imageUrl = prizeDetail['imageUrl'] as String?;
@@ -171,6 +170,7 @@ class PrizeDetail extends ConsumerWidget {
       BuildContext context, WidgetRef ref, String itemName) async {
     try {
       final client = ref.read(graphQLClientProvider);
+      final user = ref.read(userProvider);
       final result = await client.mutate(
         MutationOptions(
           document: gql('''
@@ -183,11 +183,15 @@ class PrizeDetail extends ConsumerWidget {
           '''),
           variables: {
             'input': {
+              'userId': user?.id ?? '',
               'prizeId': int.parse(prizeId),
+              'amount': 1,
             },
           },
         ),
       );
+
+      print(result.data);
 
       if (result.hasException) {
         throw result.exception!;
@@ -196,7 +200,7 @@ class PrizeDetail extends ConsumerWidget {
       if (!context.mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('$itemNameを交換しました')),
+        SnackBar(content: Text('$itemNameを交換しました。確認メールをご確認ください。')),
       );
     } catch (e) {
       if (!context.mounted) return;

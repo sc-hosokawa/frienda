@@ -321,13 +321,15 @@ class _MessageListState extends ConsumerState<MessageList> {
                 title: Text(
                   otherUser?['name'] as String? ?? 'Unknown User',
                   style: TextStyle(
-                    fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isUnread ? FontWeight.normal : FontWeight.normal,
                   ),
                 ),
                 subtitle: Text(
                   room['latestMessage'] as String? ?? 'No messages',
                   style: TextStyle(
-                    fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isUnread ? FontWeight.normal : FontWeight.normal,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -335,10 +337,11 @@ class _MessageListState extends ConsumerState<MessageList> {
                 trailing: Text(
                   _formatDateTime(room['latestSentAt'] as String?),
                   style: TextStyle(
-                    fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isUnread ? FontWeight.normal : FontWeight.normal,
                   ),
                 ),
-                tileColor: isUnread ? Colors.grey[800] : null,
+                tileColor: isUnread ? null : null,
                 onTap: () async {
                   final currentUserId = ref.read(userProvider)?.id;
                   if (currentUserId == null) return;
