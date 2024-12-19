@@ -58,6 +58,7 @@ CREATE TYPE "message_room_type" AS ENUM (
 CREATE TABLE "users" (
   "id" varchar(28) PRIMARY KEY NOT NULL,
   "id_token" varchar,
+  "fcm_token" varchar,
   "username" varchar NOT NULL,
   "realname" varchar NOT NULL,
   "email" varchar NOT NULL,

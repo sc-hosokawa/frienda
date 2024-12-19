@@ -19,7 +19,7 @@ export default function CommunityLayout({
           />
           <div className="flex flex-col">
             <h1 className="text-[90px] font-light tracking-tight leading-none">
-              Community
+              COMMUNITY
             </h1>
             <p className="text-sm">コミュニティ</p>
           </div>

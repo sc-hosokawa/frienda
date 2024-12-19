@@ -75,6 +75,14 @@ impl OfferAttachRepository for OfferAttachRepoImpl {
         Ok(())
     }
 
+    async fn delete_by_offer_id(&self, offer_id: i32) -> Result<(), DomainError> {
+        let _res = OfferAttachEntity::delete_many()
+            .filter(Column::OfferId.eq(offer_id))
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
+
     async fn get_images_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferAttach>, DomainError> {
         let offer_attaches = self.get_by_offer_id(offer_id).await?;
         let images = offer_attaches

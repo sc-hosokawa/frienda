@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/widgets/fsp/prize_detail.dart';
+import 'package:intl/intl.dart';
 
 class Exchange extends StatelessWidget {
   const Exchange({super.key});
@@ -50,6 +51,9 @@ class Exchange extends StatelessWidget {
                   return const Center(child: Text('交換可能なアイテムがありません'));
                 }
 
+                prizes.sort(
+                    (a, b) => (a['point'] as int).compareTo(b['point'] as int));
+
                 return GridView.builder(
                   padding: const EdgeInsets.all(16),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -67,11 +71,7 @@ class Exchange extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => PrizeDetail(
-                              prizeId: prize['id'],
-                              itemName: prize['name'],
-                              itemPrice: '${prize['point']} FSP',
-                              itemImage: prize['imgUrl'] ??
-                                  'https://placehold.jp/150x150.png',
+                              prizeId: prize['id'].toString(),
                             ),
                           ),
                         );
@@ -81,10 +81,21 @@ class Exchange extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
-                              child: Image.network(
-                                prize['imgUrl'] ??
-                                    'https://placehold.jp/150x150.png',
-                                fit: BoxFit.cover,
+                              child: Center(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: prize['imgUrl'] != null
+                                      ? Image.network(
+                                          prize['imgUrl'],
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                        )
+                                      : Image.asset(
+                                          'assets/logo_visualonly.jpg',
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                        ),
+                                ),
                               ),
                             ),
                             Padding(
@@ -96,11 +107,17 @@ class Exchange extends StatelessWidget {
                                     prize['name'],
                                     style:
                                         Theme.of(context).textTheme.titleMedium,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                   Text(
-                                    '${prize['point']} FSP',
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
+                                    '${NumberFormat('#,###').format(prize['point'])} FSP',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
                                 ],
                               ),

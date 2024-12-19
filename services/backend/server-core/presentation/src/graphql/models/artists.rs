@@ -1,4 +1,3 @@
-use crate::graphql::models::users::UserSimpleData;
 use async_graphql::{InputObject, SimpleObject};
 use domain::entities::sea_orm_active_enums::{ArtistStatus, UserArtistStatus};
 
@@ -9,6 +8,8 @@ pub struct ArtistData {
     pub id: String,
     pub artist_id: String,
     pub name: String,
+    pub display_name_en: String,
+    pub display_name_kana: Option<String>,
     pub fsp: i32,
     pub image_url: Option<String>,
 }
@@ -67,9 +68,11 @@ pub struct ArtistFullData {
 
 #[derive(InputObject)]
 pub struct CreateNewArtistInput {
-    pub name: String,
+    pub display_name_jp: String,
+    pub display_name_en: String,
+    pub display_name_kana: Option<String>,
     pub img_url: Option<String>,
-    pub fsp: i32,
+    pub fsp: Option<i32>,
     pub status: Option<String>, // hiden, visible
     pub since: Option<String>,
     pub universal_id: Option<String>,
@@ -81,9 +84,14 @@ pub struct CreateNewArtistInput {
 }
 
 #[derive(SimpleObject)]
-pub struct CreateNewArtistResponse {
+pub struct CreateNewArtistData {
     pub artist_id: String, // varchar(28)
-    pub name: String,
+    pub display_name_jp: String,
+}
+
+#[derive(SimpleObject)]
+pub struct CreateNewArtistsResponse {
+    pub added_artists: Vec<CreateNewArtistData>,
 }
 
 #[derive(InputObject)]
@@ -98,8 +106,10 @@ pub struct DeleteArtistResponse {
 
 #[derive(InputObject)]
 pub struct UpdateArtistInput {
-    pub artist_id: String, // varchar(28)
-    pub name: Option<String>,
+    pub artist_id: String,
+    pub display_name_jp: Option<String>,
+    pub display_name_en: Option<String>,
+    pub display_name_kana: Option<String>,
     pub img_url: Option<String>,
     pub fsp: Option<i32>,
     pub status: Option<String>, // hiden, visible
@@ -219,6 +229,8 @@ impl ArtistData {
             id: domain.id.to_string(),
             artist_id: domain.artist_id,
             name: domain.display_name_jp,
+            display_name_en: domain.display_name_en,
+            display_name_kana: domain.display_name_kana,
             fsp: domain.fsp,
             image_url: domain.img_url,
         })

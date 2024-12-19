@@ -88,6 +88,7 @@ pub struct UsersInput {
 #[derive(InputObject)]
 pub struct CreateNewUserDataInput {
     pub id: String,
+    pub fcm_token: Option<String>,
     pub email: String,
     pub name: String,
     pub realname: String,
@@ -117,6 +118,7 @@ pub struct UpdateUserDataInput {
     pub x_handle: Option<String>,
     pub instagram_handle: Option<String>,
     pub fb_handle: Option<String>,
+    pub fcm_token: Option<String>,
 }
 
 #[derive(SimpleObject)]
@@ -162,6 +164,7 @@ impl CreateNewUserDataInput {
     pub fn into_usecase_input(self) -> Result<create_user_usecase::CreateUserInput, Error> {
         Ok(create_user_usecase::CreateUserInput {
             id: self.id,
+            fcm_token: self.fcm_token,
             email: self.email,
             name: self.name,
             realname: self.realname,

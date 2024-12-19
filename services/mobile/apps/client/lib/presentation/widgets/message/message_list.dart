@@ -6,6 +6,7 @@ import 'package:graphql/client.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:client/presentation/widgets/message/concierge_bottom_sheet.dart';
 
 class MessageList extends ConsumerStatefulWidget {
   const MessageList({super.key});
@@ -20,75 +21,121 @@ class _MessageListState extends ConsumerState<MessageList> {
   void Function()? _refetch;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _refetch?.call();
+    });
+  }
+
+  @override
   void dispose() {
     _recipientController.dispose();
     super.dispose();
   }
 
   void _showUserListDialog() {
+    final searchController = TextEditingController();
+    final searchNotifier = ValueNotifier<String>('');
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('ユーザーを選択'),
         content: SizedBox(
-          width: double.maxFinite,
-          child: Query(
-            options: QueryOptions(
-              document: gql('''
-                query GetAllUsers {
-                  getAllUsers {
-                    users {
-                      id
-                      name
-                      imageUrl
+          width: 300,
+          height: 400,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: searchController,
+                decoration: const InputDecoration(
+                  hintText: 'ユーザー名を入力',
+                  prefixIcon: Icon(Icons.search),
+                ),
+                onChanged: (value) => searchNotifier.value = value,
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: ValueListenableBuilder(
+                  valueListenable: searchNotifier,
+                  builder: (context, String searchText, _) {
+                    if (searchText.isEmpty) {
+                      return const Center(child: Text('ユーザー名を入力してください'));
                     }
-                  }
-                }
-              '''),
-            ),
-            builder: (result, {refetch, fetchMore}) {
-              if (result.hasException) {
-                return Center(child: Text(result.exception.toString()));
-              }
 
-              if (result.isLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
+                    return Query(
+                      options: QueryOptions(
+                        document: gql('''
+                          query SearchUsers(\$username: String!) {
+                            searchUsers(username: \$username) {
+                              id
+                              name
+                              realname
+                              imageUrl
+                            }
+                          }
+                        '''),
+                        variables: {'username': searchText},
+                      ),
+                      builder: (result, {refetch, fetchMore}) {
+                        if (result.hasException) {
+                          return Center(
+                              child: Text(result.exception.toString()));
+                        }
 
-              final users = result.data?['getAllUsers']['users'];
-              if (users == null || users.isEmpty) {
-                return const Center(child: Text('ユーザーデータを取得できませんでした'));
-              }
+                        if (result.isLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
 
-              final currentUserId = ref.read(userProvider)?.id;
+                        final users =
+                            result.data?['searchUsers'] as List<dynamic>? ?? [];
+                        if (users.isEmpty) {
+                          return const Center(child: Text('ユーザーが見つかりません'));
+                        }
 
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: users.length,
-                itemBuilder: (context, index) {
-                  final user = users[index];
-                  // Skip current user
-                  if (user['id'] == currentUserId)
-                    return const SizedBox.shrink();
+                        final currentUserId = ref.read(userProvider)?.id;
 
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: user['imageUrl'] != null
-                          ? NetworkImage(user['imageUrl']!)
-                          : null,
-                      child: user['imageUrl'] == null
-                          ? const Icon(Icons.person)
-                          : null,
-                    ),
-                    title: Text(user['name'] as String),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _createRoom(user['id'] as String);
-                    },
-                  );
-                },
-              );
-            },
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: users.length,
+                          itemBuilder: (context, index) {
+                            final user = users[index];
+                            if (user['id'] == currentUserId) {
+                              return const SizedBox.shrink();
+                            }
+
+                            return ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: user['imageUrl'] != null
+                                    ? NetworkImage(user['imageUrl'] as String)
+                                    : null,
+                                child: user['imageUrl'] == null
+                                    ? const Icon(Icons.person)
+                                    : null,
+                              ),
+                              title: Text(user['name'] as String),
+                              onTap: () async {
+                                print(
+                                    'Selected user: ${user['id']} - ${user['name']}');
+
+                                if (!context.mounted) return;
+                                Navigator.of(context).pop();
+
+                                if (!context.mounted) return;
+                                await _createRoom(user['id'] as String);
+                              },
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
         actions: [
@@ -102,6 +149,11 @@ class _MessageListState extends ConsumerState<MessageList> {
   }
 
   Future<void> _createRoom(String recipientId) async {
+    print('Creating room with recipient: $recipientId');
+
+    final currentUserId = ref.read(userProvider)?.id;
+    print('Current user ID: $currentUserId');
+
     final result = await ref.read(graphQLClientProvider).mutate(
           MutationOptions(
             document: gql('''
@@ -113,15 +165,17 @@ class _MessageListState extends ConsumerState<MessageList> {
         '''),
             variables: {
               'input': {
-                'createdBy': ref.read(userProvider)?.id ?? '',
-                'userList': [ref.read(userProvider)?.id ?? '', recipientId],
+                'createdBy': currentUserId ?? '',
+                'userList': [currentUserId ?? '', recipientId],
                 'category': 'dm',
               },
             },
           ),
         );
 
+    print('Mutation result: ${result.data}');
     if (result.hasException) {
+      print('Mutation error: ${result.exception}');
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(result.exception.toString())),
@@ -130,19 +184,22 @@ class _MessageListState extends ConsumerState<MessageList> {
       return;
     }
 
-    if (context.mounted) {
-      Navigator.pop(context);
-      _refetch?.call();
+    if (!context.mounted) return;
+    _refetch?.call();
 
-      final roomId = result.data?['createNewMessageRoom']['id'] as String?;
-      if (roomId != null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MessageRoom(roomId: roomId),
-          ),
-        );
-      }
+    final roomId = result.data?['createNewMessageRoom']['id'] as String?;
+    print('Created room ID: $roomId');
+
+    if (roomId != null && context.mounted) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => MessageRoom(roomId: roomId),
+        ),
+      );
+      final client = ref.read(graphQLClientProvider);
+      await client.resetStore();
+      await Future.delayed(const Duration(milliseconds: 100));
+      _refetch?.call();
     }
   }
 
@@ -201,10 +258,19 @@ class _MessageListState extends ConsumerState<MessageList> {
           variables: {
             'userId': userId,
           },
+          fetchPolicy: FetchPolicy.networkOnly,
+          cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
         ),
         builder: (QueryResult result,
             {VoidCallback? refetch, FetchMore? fetchMore}) {
+          print('Query execution time: ${DateTime.now()}');
+          print('Cache status: ${result.source}');
+          print('Has data: ${result.data != null}');
+          print('Network status: ${result.isLoading}');
+
           _refetch = refetch;
+
+          print('result: ${result.data}');
           if (result.hasException) {
             return Center(child: Text(result.exception.toString()));
           }
@@ -255,27 +321,31 @@ class _MessageListState extends ConsumerState<MessageList> {
                 title: Text(
                   otherUser?['name'] as String? ?? 'Unknown User',
                   style: TextStyle(
-                    fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isUnread ? FontWeight.normal : FontWeight.normal,
                   ),
                 ),
                 subtitle: Text(
                   room['latestMessage'] as String? ?? 'No messages',
                   style: TextStyle(
-                    fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isUnread ? FontWeight.normal : FontWeight.normal,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Text(
                   _formatDateTime(room['latestSentAt'] as String?),
                   style: TextStyle(
-                    fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isUnread ? FontWeight.normal : FontWeight.normal,
                   ),
                 ),
-                tileColor: isUnread ? Colors.grey[800] : null,
+                tileColor: isUnread ? null : null,
                 onTap: () async {
                   final currentUserId = ref.read(userProvider)?.id;
                   if (currentUserId == null) return;
 
-                  // latestMessageIdが存在する場合のみ既読処理を実行
                   final latestMessageId = room['latestMessageId'] as String?;
                   if (latestMessageId != null) {
                     await _markAsRead(
@@ -285,18 +355,32 @@ class _MessageListState extends ConsumerState<MessageList> {
                     );
                   }
 
-                  Navigator.push(
+                  if (!context.mounted) return;
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
                           MessageRoom(roomId: room['id'] as String),
                     ),
                   );
+
+                  _refetch?.call();
                 },
               );
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => ConciergeBottomSheet(userId: userId),
+          );
+        },
+        shape: const CircleBorder(),
+        child: const Icon(Icons.notifications_active),
       ),
     );
   }

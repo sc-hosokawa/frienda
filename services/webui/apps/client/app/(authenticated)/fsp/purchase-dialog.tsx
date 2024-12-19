@@ -10,16 +10,19 @@ import {
 } from "@ui/components/ui/dialog";
 import { Button } from "@ui/components/ui/button";
 import { ShoppingCart } from "lucide-react";
+import useUserStore from "../../../store/user";
+
 interface PointOption {
   points: number;
   price: number;
 }
 
 export function PurchaseDialog() {
+  const { user } = useUserStore();
   const [showDialog, setShowDialog] = useState(false);
   const [selectedOption, setSelectedOption] = useState<PointOption>({
-    points: 500,
-    price: 5000,
+    points: 100,
+    price: 150,
   });
 
   const pointOptions: PointOption[] = [
@@ -30,15 +33,37 @@ export function PurchaseDialog() {
     { points: 5000, price: 7500 },
   ];
 
+  const handlePayment = async () => {
+    try {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          points: selectedOption.points,
+          amount: selectedOption.price,
+          userId: user?.id,
+        }),
+      });
+
+      const { url } = await response.json();
+
+      if (url) {
+        window.location.href = url;
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      // エラー処理を追加することをお勧めします
+    }
+  };
+
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
-        <Button
-          className="w-full cursor-not-allowed opacity-60 hover:opacity-60"
-          disabled
-        >
+        <Button className="w-full">
           <ShoppingCart className="mr-2 h-4 w-4" />
-          購入(近日公開)
+          購入
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-black text-white border-zinc-800">
@@ -92,7 +117,7 @@ export function PurchaseDialog() {
             </Button>
             <Button
               className="bg-[#E6DFD3] text-black hover:bg-[#d6cfb3] transition-colors"
-              onClick={() => console.log("Processing payment...")}
+              onClick={handlePayment}
             >
               お支払いにすすむ
             </Button>

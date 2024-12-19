@@ -11,6 +11,7 @@ use domain::repositories::users_repo::UsersRepository;
 //
 pub struct CreateUserInput {
     pub id: String,
+    pub fcm_token: Option<String>,
     pub email: String,
     pub name: String,
     pub realname: String,
@@ -49,6 +50,7 @@ impl CreateUserUsecaseTrait for CreateUserUsecase {
     async fn create(&self, input: CreateUserInput) -> Result<User, anyhow::Error> {
         let user: UserActiveModel = UserActiveModel {
             id: ActiveValue::Set(input.id),
+            fcm_token: ActiveValue::Set(input.fcm_token),
             email: ActiveValue::Set(input.email),
             username: ActiveValue::Set(input.name),
             realname: ActiveValue::Set(input.realname),

@@ -173,4 +173,18 @@ impl UsersRepository for UsersRepoImpl {
             .await?;
         Ok(user)
     }
+
+    async fn search_users(&self, username: &str) -> Result<Vec<User>, DomainError> {
+        let search_pattern = format!("%{}%", username);
+        let users = UserEntity::find()
+            .filter(
+                Condition::any()
+                    .add(Column::Username.like(&search_pattern))
+                    .add(Column::Email.like(&search_pattern)),
+            )
+            .order_by_desc(Column::UpdatedAt)
+            .all(&self.db)
+            .await?;
+        Ok(users)
+    }
 }

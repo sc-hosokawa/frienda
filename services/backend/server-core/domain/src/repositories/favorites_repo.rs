@@ -4,9 +4,9 @@ use shared::error::domain_err::DomainError;
 use uuid::Uuid;
 
 #[async_trait]
-pub trait FavoritesRepository {
-    async fn create(&self, favorite: &FavoriteActiveModel) -> Result<Favorite, DomainError>;
-    async fn update(&self, favorite: &FavoriteActiveModel) -> Result<Favorite, DomainError>;
+pub trait FavoritesRepository: Send + Sync {
+    async fn create(&self, favorite: FavoriteActiveModel) -> Result<Favorite, DomainError>;
+    async fn update(&self, favorite: FavoriteActiveModel) -> Result<Favorite, DomainError>;
 
-    async fn delete(&self, id: &Uuid) -> Result<(), DomainError>;
+    async fn delete(&self, id: Uuid) -> Result<(), DomainError>;
 }

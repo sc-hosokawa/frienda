@@ -408,6 +408,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                 'artistId': selectedArtistData.artistId,
                 'userId': user.id,
               },
+              fetchPolicy: FetchPolicy.cacheAndNetwork,
             ),
           );
 

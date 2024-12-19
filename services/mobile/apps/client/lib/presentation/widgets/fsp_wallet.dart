@@ -36,7 +36,6 @@ class Fsp extends ConsumerWidget {
           ]);
         },
         child: SingleChildScrollView(
-          // Add physics to enable refresh on iOS
           physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
@@ -205,11 +204,6 @@ class Fsp extends ConsumerWidget {
                                         context,
                                         PrizeDetail(
                                           prizeId: prizeMap['id'].toString(),
-                                          itemName: prizeMap['name'],
-                                          itemPrice:
-                                              '${NumberFormat('#,###').format(prizeMap['point'])} FSP',
-                                          itemImage: prizeMap['imgUrl'] ??
-                                              'asset:assets/logo_visualonly.jpg',
                                         ),
                                       );
                                     },
@@ -245,17 +239,27 @@ class Fsp extends ConsumerWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    prizeMap['name'],
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleSmall,
+                                                  SizedBox(
+                                                    height: 40,
+                                                    child: Text(
+                                                      prizeMap['name'],
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall,
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
                                                   ),
-                                                  Text(
-                                                    '${NumberFormat('#,###').format(prizeMap['point'])} FSP',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall,
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Text(
+                                                      '${NumberFormat('#,###').format(prizeMap['point'])} FSP',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -342,7 +346,12 @@ class Fsp extends ConsumerWidget {
                                         child: transaction['counterParty']
                                                     ?['imageUrl'] ==
                                                 null
-                                            ? const Icon(Icons.person, size: 20)
+                                            ? ClipOval(
+                                                child: Image.asset(
+                                                  'assets/logo_visualonly.jpg',
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )
                                             : null,
                                       ),
                                     ],
@@ -451,6 +460,7 @@ final transactionsProvider =
             'userId': user.id,
             'count': 5,
           },
+          fetchPolicy: FetchPolicy.noCache,
         ),
       );
 
@@ -480,6 +490,8 @@ final popularPrizesProvider =
 
   final prizes = (result.data!['getPopularPrizes'] as List)
       .map((prize) => prize as Map<String, dynamic>)
-      .toList();
+      .toList()
+    ..sort((a, b) => (a['point'] as int).compareTo(b['point'] as int));
+
   return prizes;
 });

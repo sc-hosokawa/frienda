@@ -96,7 +96,7 @@ export default function CommunityListsRow({
           {comment && (
             <span
               className={`px-3 py-1 ${getBgClassByType(
-                type.title as UserType
+                type.title as UserType,
               )} text-black group-hover:bg-white rounded-full text-sm transition-colors`}
             >
               {comment}

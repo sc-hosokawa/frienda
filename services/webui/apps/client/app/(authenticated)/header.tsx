@@ -1,16 +1,36 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import useUserStore from "../../store/user";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { useUserBalance } from "../../store/user";
+import { gql, useQuery } from "@apollo/client";
+
+const LOGIN_REWARD_QUERY = gql`
+  query LoginReward($userId: String!) {
+    loginReward(userId: $userId)
+  }
+`;
 
 export default function Header() {
   const { user, clearUser } = useUserStore();
-  const { loading } = useUserBalance();
+  const { loading: balanceLoading } = useUserBalance();
   const router = useRouter();
+
+  const { data } = useQuery(LOGIN_REWARD_QUERY, {
+    variables: { userId: user?.id },
+    skip: !user?.id,
+    fetchPolicy: "no-cache",
+  });
+
+  useEffect(() => {
+    if (data?.loginReward) {
+      console.log("Login reward received:", data.loginReward);
+    }
+  }, [data]);
 
   const handleLogout = async () => {
     try {
@@ -49,7 +69,7 @@ export default function Header() {
           <span className="text-xs flex gap-8 items-center">
             <Image src="/disc.svg" alt="header" width={24} height={24} />
             Total Point:{" "}
-            {loading
+            {balanceLoading
               ? "---"
               : user?.fspBalance === undefined
                 ? "0"

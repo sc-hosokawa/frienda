@@ -125,4 +125,51 @@ impl GeneralQuery {
             credential_balance: result.credential_balance,
         })
     }
+
+    async fn search_users(
+        &self,
+        ctx: &Context<'_>,
+        username: String,
+    ) -> Result<Vec<models::users::UserSimpleData>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .search_users
+            .search_users(
+                application::usecases::basic::search_users_usecase::SearchUsersInput { username },
+            )
+            .await?;
+        Ok(result
+            .users
+            .into_iter()
+            .map(|user| models::users::UserSimpleData {
+                id: user.id,
+                name: user.username,
+                realname: user.realname,
+                image_url: user.img_url,
+            })
+            .collect())
+    }
+
+    async fn get_notifications(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<Vec<models::notifications::NotificationData>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_notifications
+            .get_notifications(&user_id)
+            .await?;
+        Ok(result
+            .notifications
+            .into_iter()
+            .map(|n| models::notifications::NotificationData {
+                id: n.id.to_string(),
+                title: n.title,
+                content: n.content,
+                is_read: n.is_read,
+                created_at: n.created_at.to_string(),
+            })
+            .collect())
+    }
 }

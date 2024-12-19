@@ -29,4 +29,5 @@ pub trait UsersRepository: Send + Sync {
         &self,
         username_or_email: &str,
     ) -> Result<Option<User>, DomainError>;
+    async fn search_users(&self, username: &str) -> Result<Vec<User>, DomainError>;
 }

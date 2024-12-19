@@ -8,6 +8,15 @@ import { useState } from "react";
 import useUserStore from "../../../../store/user";
 import { OfferDetailData } from "../../../../generated/graphql";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@ui/components/ui/dialog";
+import { ApplicantsList } from "./applications-list";
 
 const GET_OFFER_QUERY = gql`
   query GetOfferDetail($offerId: Int!, $userId: String!) {
@@ -50,6 +59,29 @@ const UPDATE_OFFER_STATUS = gql`
   }
 `;
 
+const DELETE_OFFER_MUTATION = gql`
+  mutation DeleteOffer($input: DeleteOfferInput!) {
+    deleteOffer(input: $input) {
+      id
+    }
+  }
+`;
+
+const getCategoryBackgroundColor = (category: string | undefined | null) => {
+  switch (category) {
+    case "Creation":
+      return "bg-orange-500";
+    case "Event":
+      return "bg-green-500";
+    case "Promotion":
+      return "bg-yellow-500";
+    case "Other":
+      return "bg-gray-400";
+    default:
+      return "bg-zinc-800";
+  }
+};
+
 export default function OfferDetailPage({
   params,
 }: {
@@ -69,10 +101,54 @@ export default function OfferDetailPage({
 
   const isOwner = user?.id === data?.getOffersById?.owner?.id;
 
+  const router = useRouter();
+
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
+  const [updateOfferStatus, { loading: isUpdating }] = useMutation(
+    UPDATE_OFFER_STATUS,
+    {
+      onCompleted: () => {
+        setShowCancelModal(false);
+        router.push("/offer");
+      },
+      onError: (error) => {
+        console.error("Update status error:", error);
+      },
+    },
+  );
+
+  const [deleteOffer, { loading: isDeleting }] = useMutation(
+    DELETE_OFFER_MUTATION,
+    {
+      onCompleted: () => {
+        setShowCancelModal(false);
+        router.push("/offer");
+      },
+      onError: (error) => {
+        console.error("Delete offer error:", error);
+      },
+    },
+  );
+
+  const handleCancel = async () => {
+    try {
+      await deleteOffer({
+        variables: {
+          input: {
+            id: parseInt(params.id),
+          },
+        },
+      });
+    } catch (error) {
+      console.error("Delete error:", error);
+    }
+  };
+
   if (loading)
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="animate-spin">Loading...</div>
+        <div className="">Loading...</div>
       </div>
     );
 
@@ -110,48 +186,66 @@ export default function OfferDetailPage({
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="p-6">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Link href="/offer" className="hover:opacity-80">
-              <ArrowLeft className="w-6 h-6" />
-            </Link>
-            <h1 className="text-6xl font-light my-6">Offer Details</h1>
-          </div>
-          {isOwner ? (
-            <Button className="">編集する</Button>
-          ) : (
-            <>
-              {data?.getOffersById?.status === "Reject" ? null : (
+        <div className="mb-8">
+          <Link href="/offer" className="block mb-2">
+            <div className="flex items-center gap-2">
+              <Image
+                src="/arrow-left.svg"
+                alt="arrow-left"
+                width={60}
+                height={60}
+              />
+            </div>
+          </Link>
+          <div className="flex items-center justify-between">
+            <h1 className="text-[42px] font-light">Offer Details</h1>
+            {isOwner ? (
+              <div className="flex gap-4">
+                <Link href={`/offer/edit/${params.id}`}>
+                  <Button className="">編集</Button>
+                </Link>
                 <Button
-                  className="bg-teal-500 hover:bg-teal-600 text-white"
-                  onClick={showConfirmationDialog}
-                  disabled={[
-                    "Applied",
-                    "Ongoing",
-                    "Suspend",
-                    "Canceled",
-                    "Finished",
-                  ].includes(data?.getOffersById?.status ?? "")}
+                  variant="outline"
+                  className="bg-black text-red-500 border-red-500 hover:bg-red-950"
+                  onClick={() => setShowCancelModal(true)}
                 >
-                  {(() => {
-                    switch (data?.getOffersById?.status) {
-                      case "Applied":
-                        return "応募済み";
-                      case "Ongoing":
-                        return "進行中";
-                      case "Suspend":
-                      case "Canceled":
-                        return "停止中";
-                      case "Finished":
-                        return "完了";
-                      default:
-                        return "このオファーに応募する";
-                    }
-                  })()}
+                  削除
                 </Button>
-              )}
-            </>
-          )}
+              </div>
+            ) : (
+              <>
+                {data?.getOffersById?.status === "Reject" ? null : (
+                  <Button
+                    className="bg-[#E4DBC0] hover:bg-white text-black rounded-full"
+                    onClick={showConfirmationDialog}
+                    disabled={[
+                      "Applied",
+                      "Ongoing",
+                      "Suspend",
+                      "Canceled",
+                      "Finished",
+                    ].includes(data?.getOffersById?.status ?? "")}
+                  >
+                    {(() => {
+                      switch (data?.getOffersById?.status) {
+                        case "Applied":
+                          return "応募済";
+                        case "Ongoing":
+                          return "進行中";
+                        case "Suspend":
+                        case "Canceled":
+                          return "募集終了";
+                        case "Finished":
+                          return "完了";
+                        default:
+                          return "このオファーに応募する";
+                      }
+                    })()}
+                  </Button>
+                )}
+              </>
+            )}
+          </div>
         </div>
 
         <div className="grid md:grid-cols-[300px,1fr] gap-8">
@@ -165,29 +259,14 @@ export default function OfferDetailPage({
 
           <div className="space-y-6 overflow-hidden">
             <div className="space-y-2 w-full">
-              <p className="text-lg mb-2 text-white">{offer?.title}</p>
-              <p className="text-gray-400 whitespace-pre-wrap break-words">
-                {offer?.description}
-              </p>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <span className="px-3 py-1 rounded bg-zinc-800 text-sm text-white">
-                {offer?.category}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Image
-                  src={offer?.owner?.imageUrl || "/placeholder.svg"}
-                  alt="Profile"
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-                <span className="text-sm">{offer?.owner?.name}</span>
+              <div className="flex items-center gap-4">
+                <span
+                  className={`px-3 py-1 rounded-full text-sm text-black ${getCategoryBackgroundColor(offer?.category)}`}
+                >
+                  {offer?.category}
+                </span>
               </div>
+              <p className="text-lg mb-2 text-white">{offer?.title}</p>
             </div>
 
             <div className="flex gap-8 text-sm">
@@ -209,12 +288,30 @@ export default function OfferDetailPage({
               </div>
             </div>
 
-            <p className="text-gray-400 text-sm">{offer?.attention}</p>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Image
+                  src={offer?.owner?.imageUrl || "/placeholder.svg"}
+                  alt="Profile"
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                />
+                <span className="text-sm">{offer?.owner?.name}</span>
+              </div>
+            </div>
+
+            <p className="text-gray-100 whitespace-pre-wrap break-words">
+              {offer?.description}
+            </p>
+            <p className="text-gray-100 whitespace-pre-wrap break-words">
+              {offer?.attention}
+            </p>
           </div>
         </div>
 
         <div className="mt-12">
-          <h2 className="text-xl mb-4">Attachments</h2>
+          <h2 className="mb-4">( Attachments )</h2>
           <div className="grid grid-cols-4 gap-4 mb-4">
             {offer?.attachedImgs?.map((img, i) => (
               <Image
@@ -249,7 +346,45 @@ export default function OfferDetailPage({
         <div className="mt-4 text-right text-gray-400 text-sm">
           Last Updated: {new Date(offer?.updatedAt || "").toLocaleDateString()}
         </div>
+
+
+        {isOwner && (
+          <>
+            <hr className="mb-8 mt-12 border-[#303030]" />
+            <ApplicantsList
+              offerId={parseInt(params.id)}
+              userId={user?.id || ""}
+            />
+          </>
+        )}
       </div>
+
+      <Dialog open={showCancelModal} onOpenChange={setShowCancelModal}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>オファーの削除確認</DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <p>このオファーを削除しますか？</p>
+            <p className="text-sm text-gray-500 mt-2">
+              削除されたオファーは元に戻すことができません。
+            </p>
+          </div>
+          <DialogFooter className="flex gap-2">
+            <Button variant="outline" onClick={() => setShowCancelModal(false)}>
+              戻る
+            </Button>
+            <Button
+              variant="destructive"
+              className="bg-red-500 hover:bg-red-600"
+              onClick={handleCancel}
+              disabled={isDeleting}
+            >
+              {isDeleting ? "削除中..." : "削除する"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

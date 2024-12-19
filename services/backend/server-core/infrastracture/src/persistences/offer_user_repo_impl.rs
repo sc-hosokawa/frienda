@@ -1,5 +1,6 @@
 use async_trait::async_trait;
 use derive_new::new;
+use sea_orm::prelude::Expr;
 use sea_orm::*;
 
 use domain::entities::offer_user::{
@@ -35,6 +36,14 @@ impl OfferUserRepository for OfferUserRepoImpl {
     async fn delete(&self, id: i32) -> Result<(), DomainError> {
         let _res = OfferUserEntity::delete_many()
             .filter(Column::Id.eq(id))
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
+
+    async fn delete_by_offer_id(&self, offer_id: i32) -> Result<(), DomainError> {
+        let _res = OfferUserEntity::delete_many()
+            .filter(Column::OfferId.eq(offer_id))
             .exec(&self.db)
             .await?;
         Ok(())
@@ -92,5 +101,29 @@ impl OfferUserRepository for OfferUserRepoImpl {
             .await?;
 
         Ok(offer_users)
+    }
+
+    async fn cancel_other_applications(
+        &self,
+        offer_id: i32,
+        except_user_id: &str,
+    ) -> Result<(), DomainError> {
+        let condition = Condition::all()
+            .add(Column::OfferId.eq(offer_id))
+            .add(Column::UserId.ne(except_user_id))
+            .add(Column::Status.ne(OfferStatus::Canceled))
+            .add(Column::Status.ne(OfferStatus::Finished))
+            .add(Column::Status.ne(OfferStatus::Rejected));
+
+        OfferUserEntity::update_many()
+            .set(OfferUserActiveModel {
+                status: ActiveValue::Set(OfferStatus::Canceled),
+                ..Default::default()
+            })
+            .filter(condition)
+            .exec(&self.db)
+            .await?;
+
+        Ok(())
     }
 }

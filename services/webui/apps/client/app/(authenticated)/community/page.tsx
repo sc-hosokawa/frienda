@@ -23,7 +23,7 @@ export default function CommunityPage() {
         <div className="flex justify-between mb-6">
           <h2 className="text-[18px] font-[360] leading-[18px] text-left">
             {/* TODO: this should be correct number */}
-            My Connections (11)
+            My Connections ({mockData.length})
           </h2>
           <TabsList className="bg-transparent border border-dashed border-white rounded-full p-1 w-[186px] h-[60px]">
             <TabsTrigger
@@ -40,43 +40,61 @@ export default function CommunityPage() {
             </TabsTrigger>
           </TabsList>
         </div>
-        <TabsContent value="map">{/* TODO: add map view */}</TabsContent>
+        <TabsContent value="map">
+          {mockData.length === 0 ? (
+            <div className="text-center py-8 text-white">No Connection</div>
+          ) : (
+            /* TODO: add map view */
+            <></>
+          )}
+        </TabsContent>
         <TabsContent value="list">
-          <Table className="border-collapse">
-            <TableHeader>
-              <TableRow className="border-b border-[#FFFFFF73]">
-                <TableHead></TableHead>
-                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
-                  <div className="flex items-center gap-1">
-                    User
-                    <ChevronDown className="w-4 h-4" />
-                  </div>
-                </TableHead>
-                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
-                  Rate
-                </TableHead>
-                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
-                  Type
-                </TableHead>
-                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
-                  Comment
-                </TableHead>
-                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
-                  Connection
-                </TableHead>
-                <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
-                  Last Logged in
-                </TableHead>
-                <TableHead className="w-24"></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {/* TODO: this should be actual data */}
-              {mockData.map((data) => (
-                <CommunityListsRow key={data.id} {...data} />
-              ))}
-            </TableBody>
-          </Table>
+          {mockData.length === 0 ? (
+            <div className="text-center py-8 text-white">No Connection</div>
+          ) : (
+            <Table className="border-collapse">
+              <TableHeader>
+                <TableRow className="border-b border-[#FFFFFF73]">
+                  <TableHead></TableHead>
+                  <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <div className="flex items-center gap-1">
+                      User
+                      <ChevronDown className="w-4 h-4" />
+                    </div>
+                  </TableHead>
+                  <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    Rate
+                  </TableHead>
+                  <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    Type
+                  </TableHead>
+                  <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    Comment
+                  </TableHead>
+                  <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    Connection
+                  </TableHead>
+                  <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    Last Logged in
+                  </TableHead>
+                  <TableHead className="w-24"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {mockData.length === 0 ? (
+                  <TableRow>
+                    <td colSpan={8} className="text-center py-8 text-white">
+                      No Connection
+                    </td>
+                  </TableRow>
+                ) : (
+                  mockData.map((data) => (
+                    <CommunityListsRow key={data.id} {...data} />
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          )}
         </TabsContent>
       </Tabs>
     </>
@@ -84,9 +102,12 @@ export default function CommunityPage() {
 }
 
 // TODO: remove this mock data
+export const mockData: CommunityListsRowProps[] = [];
+
+/*
 export const mockData: CommunityListsRowProps[] = [
-  {
-    id: "1",
+   {
+     id: "1",
     name: "taro_yoshida",
     friendCount: 4,
     rate: "4.5",
@@ -256,3 +277,4 @@ export const mockData: CommunityListsRowProps[] = [
     connections: ["artist", "curator", "producer", "designer", "filmMaker"],
   },
 ];
+*/

@@ -35,6 +35,7 @@ class Transactions extends ConsumerWidget {
                           name
                         }
                         txAt
+                        note
                       }
                     }
                   }
@@ -86,8 +87,13 @@ class Transactions extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      title: Text(transaction['counterParty']['name']),
-                      subtitle: Text(formattedDate),
+                      title: Text(transaction['note']),
+                      subtitle: Text(
+                          '${transaction['counterParty']['name']} at $formattedDate',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: Colors.grey,
+                                  )),
                       trailing: Text(
                         '${isIncoming ? "+" : "-"}${transaction['amount']} FSP',
                         style: TextStyle(

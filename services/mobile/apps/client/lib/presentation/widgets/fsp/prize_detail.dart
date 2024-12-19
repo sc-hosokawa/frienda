@@ -2,86 +2,175 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/client_provider.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'package:intl/intl.dart';
 
 class PrizeDetail extends ConsumerWidget {
-  final String itemName;
-  final String itemPrice;
-  final String itemImage;
   final String prizeId;
 
   const PrizeDetail({
     super.key,
-    required this.itemName,
-    required this.itemPrice,
-    required this.itemImage,
     required this.prizeId,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      children: [
-        SafeArea(
-          child: AppBar(
-            title: Text(itemName),
-          ),
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image(
-                  image: itemImage.startsWith('asset:')
-                      ? AssetImage(itemImage.substring(6))
-                      : NetworkImage(itemImage) as ImageProvider,
-                  width: double.infinity,
-                  height: 300,
-                  fit: BoxFit.cover,
+    return Query(
+      options: QueryOptions(
+        document: gql('''
+          query GetPrizeDetail(\$prizeId: Int!) {
+            getPrizeDetail(prizeId: \$prizeId) {
+              id
+              imgUrl
+              name
+              point
+              description
+              representation
+              condition
+            }
+          }
+        '''),
+        variables: {
+          'prizeId': int.parse(prizeId),
+        },
+      ),
+      builder: (QueryResult result,
+          {VoidCallback? refetch, FetchMore? fetchMore}) {
+        if (result.hasException) {
+          return Scaffold(
+            body: Center(
+                child: Text('エラーが発生しました: ${result.exception.toString()}')),
+          );
+        }
+
+        if (result.isLoading) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        final prizeDetail = result.data!['getPrizeDetail'];
+        final imageUrl = prizeDetail['imageUrl'] as String?;
+
+        return Scaffold(
+          body: Column(
+            children: [
+              SafeArea(
+                child: AppBar(
+                  title: Text(prizeDetail['name'] ?? ''),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            itemName,
-                            style: Theme.of(context).textTheme.titleMedium,
+                      if (imageUrl != null)
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image(
+                            image: imageUrl.startsWith('asset:')
+                                ? AssetImage(imageUrl.substring(6))
+                                : NetworkImage(imageUrl) as ImageProvider,
+                            width: double.infinity,
+                            height: 300,
+                            fit: BoxFit.cover,
                           ),
-                          ElevatedButton(
-                            onPressed: () => _exchangePrize(context, ref),
-                            child: const Text('交換する'),
+                        )
+                      else
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            'assets/logo_visualonly.jpg',
+                            fit: BoxFit.cover,
                           ),
-                        ],
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              prizeDetail['name'],
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '${NumberFormat('#,###').format(prizeDetail['point'])} fsp',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: Colors.black,
+                                  ),
+                                  onPressed: () => _exchangePrize(
+                                      context, ref, prizeDetail['name']),
+                                  child: const Text('交換する'),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Card(
+                              margin: EdgeInsets.zero,
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      '説明',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      prizeDetail['description'] ?? '説明がありません',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    const Text(
+                                      '条件',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      prizeDetail['condition'] ?? '',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        itemPrice,
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'アイテムの詳細がここに入ります。実際のアプリケーションでは、このテキストをサーバーから取得するか、アイテムごとに適切な説明を用意する必要があります。',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      const SizedBox(height: 24),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 
-  Future<void> _exchangePrize(BuildContext context, WidgetRef ref) async {
+  Future<void> _exchangePrize(
+      BuildContext context, WidgetRef ref, String itemName) async {
     try {
       final client = ref.read(graphQLClientProvider);
+      final user = ref.read(userProvider);
       final result = await client.mutate(
         MutationOptions(
           document: gql('''
@@ -94,11 +183,15 @@ class PrizeDetail extends ConsumerWidget {
           '''),
           variables: {
             'input': {
-              'prizeId': prizeId,
+              'userId': user?.id ?? '',
+              'prizeId': int.parse(prizeId),
+              'amount': 1,
             },
           },
         ),
       );
+
+      print(result.data);
 
       if (result.hasException) {
         throw result.exception!;
@@ -107,7 +200,7 @@ class PrizeDetail extends ConsumerWidget {
       if (!context.mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('$itemNameを交換しました')),
+        SnackBar(content: Text('$itemNameを交換しました。確認メールをご確認ください。')),
       );
     } catch (e) {
       if (!context.mounted) return;

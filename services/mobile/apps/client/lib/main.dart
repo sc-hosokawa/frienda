@@ -87,25 +87,9 @@ void main() async {
 
 Future<void> _updateFcmToken(String fcmToken) async {
   debugPrint('FCM Token: $fcmToken');
-
-  // TODO: GraphQLまたはREST APIを使用してサーバーにトークンを送信
-  // 例: GraphQLミューテーションの場合
-  /*
-  final result = await client.mutate(
-    MutationOptions(
-      document: gql('''
-        mutation UpdateFcmToken(\$token: String!) {
-          updateFcmToken(token: \$token) {
-            success
-          }
-        }
-      '''),
-      variables: {
-        'token': fcmToken,
-      },
-    ),
-  );
-  */
+  // FCMトークンをローカルに保存
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('fcm_token', fcmToken);
 }
 
 class MyApp extends StatelessWidget {
