@@ -166,6 +166,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 variables: {
                   'userId': user.uid,
                 },
+                fetchPolicy: FetchPolicy.noCache,
               ),
             );
 
@@ -324,6 +325,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 variables: {
                   'userId': userCredential.user!.uid,
                 },
+                fetchPolicy: FetchPolicy.noCache,
               ),
             );
 

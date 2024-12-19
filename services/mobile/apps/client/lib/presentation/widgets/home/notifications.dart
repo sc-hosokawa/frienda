@@ -46,9 +46,6 @@ class _NotificationsState extends ConsumerState<Notifications> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            print(user?.id);
-            print(result.data);
-
             final notifications = result.data?['getNotifications'] ?? [];
 
             return Column(

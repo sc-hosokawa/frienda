@@ -77,6 +77,7 @@ class AllTracksScreen extends ConsumerWidget {
             variables: {
               'artistId': artistId,
             },
+            fetchPolicy: FetchPolicy.cacheAndNetwork,
           ),
           builder: (result, {refetch, fetchMore}) {
             if (result.hasException) {
