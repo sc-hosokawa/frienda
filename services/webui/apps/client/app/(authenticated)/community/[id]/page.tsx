@@ -10,9 +10,206 @@ import { NotoSansJP } from "../../layout";
 import { BorderDash } from "../../../../components/border-dash";
 import { Works } from "../../../../components/community/works";
 import { OfferCard } from "../../../../components/community/offer-card";
-import { mockData } from "../page";
 import { List } from "../../../../components/account/list";
 import { BaseComponent } from "../../../../components/account/base";
+
+export interface CommunityListsRowProps {
+  id: string;
+  name: string;
+  friendCount: number;
+  rate: string;
+  type: {
+    title: string;
+    role?: string;
+  };
+  comment?: string;
+  connection: {
+    offer: string;
+    date: string;
+  };
+  isOnline: boolean;
+  description: string;
+  connectedSince: string;
+  avatar: string;
+  skill: string;
+  members: { title: string; role?: string }[];
+  lastLogin: string;
+  offers?: string[] | undefined;
+  connections?: UserType[] | undefined;
+}
+
+export const mockData: CommunityListsRowProps[] = [
+  {
+    id: "1",
+   name: "taro_yoshida",
+   friendCount: 4,
+   rate: "4.5",
+   type: {
+     title: "artist",
+     role: "Vocal",
+   },
+   connection: {
+     offer: "Offer #123",
+     date: "2024/10/23",
+   },
+   isOnline: true,
+   description:
+     "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+   connectedSince: "2023/7/23",
+   avatar: "",
+   skill: "バンド、ベース（サポートもできます！）",
+   members: [
+     { title: "Tetsuo Yoshida", role: "Vocal" },
+     { title: "Kei Minami", role: "Owner" },
+     { title: "Shinya Fukuda", role: "Drums" },
+   ],
+   lastLogin: "20分前",
+   offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+   connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+ },
+ {
+   id: "2",
+   name: "sayaka_kyoda",
+   friendCount: 4,
+   rate: "4.5",
+   type: {
+     title: "artist",
+     role: "Vocal",
+   },
+   comment: "イベントいつも最高",
+   connection: {
+     offer: "Offer #123",
+     date: "2024/10/23",
+   },
+   isOnline: true,
+   description:
+     "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+   connectedSince: "2023/7/23",
+   avatar: "",
+   skill: "バンド、ベース（サポートもできます！）",
+   members: [
+     { title: "Tetsuo Yoshida", role: "Vocal" },
+     { title: "Kei Minami", role: "Owner" },
+     { title: "Shinya Fukuda", role: "Drums" },
+   ],
+   lastLogin: "20分前",
+   offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+   connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+ },
+ {
+   id: "3",
+   name: "photoone",
+   friendCount: 4,
+   rate: "4.5",
+   type: {
+     title: "promoter",
+     role: "Photographer",
+   },
+   connection: {
+     offer: "Offer #123",
+     date: "2024/10/23",
+   },
+   isOnline: true,
+   description:
+     "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+   connectedSince: "2023/7/23",
+   avatar: "",
+   skill: "バンド、ベース（サポートもできます！）",
+   members: [
+     { title: "Tetsuo Yoshida", role: "Vocal" },
+     { title: "Kei Minami", role: "Owner" },
+     { title: "Shinya Fukuda", role: "Drums" },
+   ],
+   lastLogin: "20分前",
+   offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+   connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+ },
+ {
+   id: "4",
+   name: "lisa_fukuda",
+   friendCount: 4,
+   rate: "4.5",
+   type: {
+     title: "curator",
+     role: "manager",
+   },
+   connection: {
+     offer: "Offer #123",
+     date: "2024/10/23",
+   },
+   isOnline: true,
+   description:
+     "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+   connectedSince: "2023/7/23",
+   avatar: "",
+   skill: "バンド、ベース（サポートもできます！）",
+   members: [
+     { title: "Tetsuo Yoshida", role: "Vocal" },
+     { title: "Kei Minami", role: "Owner" },
+     { title: "Shinya Fukuda", role: "Drums" },
+   ],
+   lastLogin: "20分前",
+   offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+   connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+ },
+ {
+   id: "5",
+   name: "minoru_kou",
+   friendCount: 4,
+   rate: "4.5",
+   type: {
+     title: "curator",
+     role: "manager",
+   },
+   connection: {
+     offer: "Offer #123",
+     date: "2024/10/23",
+   },
+   isOnline: true,
+   description:
+     "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+   connectedSince: "2023/7/23",
+   avatar: "",
+   skill: "バンド、ベース（サポートもできます！）",
+   members: [
+     { title: "Tetsuo Yoshida", role: "Vocal" },
+     { title: "Kei Minami", role: "Owner" },
+     { title: "Shinya Fukuda", role: "Drums" },
+   ],
+   lastLogin: "20分前",
+   offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+   connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+ },
+ {
+   id: "6",
+   name: "john_john",
+   friendCount: 4,
+   rate: "4.5",
+   type: {
+     title: "artist",
+     role: "Vocal",
+   },
+   comment: "次のMVの時きく!",
+   connection: {
+     offer: "Offer #123",
+     date: "2024/10/23",
+   },
+   isOnline: true,
+   description:
+     "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+   connectedSince: "2023/7/23",
+   avatar: "",
+   skill: "バンド、ベース（サポートもできます！）",
+   members: [
+     { title: "Tetsuo Yoshida", role: "Vocal" },
+     { title: "Kei Minami", role: "Owner" },
+     { title: "Shinya Fukuda", role: "Drums" },
+   ],
+   lastLogin: "20分前",
+   offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+   connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+ },
+];
 
 export default function CommunityAccountPage({
   params,
