@@ -107,18 +107,18 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
               const angle = Math.atan2(dy, dx);
               const moveDistance = (minDistance - distance) / 2;
 
-              if (nodes[index2]) {
-                nodes[index2].x += Math.cos(angle) * moveDistance;
-                nodes[index2].y += Math.sin(angle) * moveDistance;
-              }
-              if (nodes[index1]) {
-                nodes[index1].x -= Math.cos(angle) * moveDistance;
-                nodes[index1].y -= Math.sin(angle) * moveDistance;
-              }
+              nodes[index2]?.x &&
+                (nodes[index2]!.x += Math.cos(angle) * moveDistance);
+              nodes[index2]?.y &&
+                (nodes[index2]!.y += Math.sin(angle) * moveDistance);
+              nodes[index1]?.x &&
+                (nodes[index1]!.x -= Math.cos(angle) * moveDistance);
+              nodes[index1]?.y &&
+                (nodes[index1]!.y -= Math.sin(angle) * moveDistance);
 
               [index1, index2].forEach((index) => {
                 const node = nodes[index];
-                if (!node) return;
+                if (!node?.x || !node?.y) return;
                 const centerDistance = Math.sqrt(
                   Math.pow(node.x - centerX, 2) + Math.pow(node.y - centerY, 2),
                 );
