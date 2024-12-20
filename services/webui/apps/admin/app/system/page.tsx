@@ -4,7 +4,7 @@ import { StatsCard } from "../../components/stats-card";
 import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import { endpoint, GET_ALL_ARTISTS } from "../../utils/query";
-import { Activity, Disc, Users } from "lucide-react";
+import { Activity, Disc, JapaneseYen, Users } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -40,7 +40,7 @@ export default function SettingPage() {
     <main>
       <div className="flex flex-col min-h-screen gap-10">
         {/* Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 mx-auto">
           <StatsCard
             title="総アーティスト数"
             amount={artistData?.length}
@@ -54,6 +54,18 @@ export default function SettingPage() {
             amount={0}
             image={<Disc />}
             unit="fsp"
+          />
+          <StatsCard
+            title="総登録者"
+            amount={0}
+            image={<Users />}
+            unit="users"
+          />
+          <StatsCard
+            title="総売上"
+            amount={0}
+            image={<JapaneseYen />}
+            unit="円"
           />
         </div>
         {/* Tables */}
