@@ -1,0 +1,296 @@
+import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { Card, CardContent } from "@ui/components/ui/card";
+import { Heart } from "lucide-react";
+import { gql, useQuery } from "@apollo/client";
+import useUserStore from "../../store/user";
+
+type category = "musician" | "curator" | "creator" | "supporter";
+
+export interface CommunityMapProps {
+  id: string;
+  name: string;
+  imageUrl: string;
+  category: string;
+  favoriteId: string;
+  shortNote: string;
+  lastLoggedIn: string;
+  connections: string[];
+  weight: number;
+  refetch: () => void;
+}
+
+const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
+  const { user } = useUserStore();
+  const [nodes, setNodes] = useState([]);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const categoryColors: Record<category, string> = {
+    musician: "#f87171",
+    curator: "#fb923c",
+    creator: "#34d399",
+    supporter: "#818cf8",
+  };
+
+  const filterItems: {
+    category: category;
+    label: string;
+  }[] = [
+    { category: "musician", label: "Musician" },
+    { category: "curator", label: "Curator" },
+    { category: "creator", label: "Creator" },
+    { category: "supporter", label: "Supporter" },
+  ];
+
+  const centerProfile = {
+    id: user?.id,
+    image: user?.imageUrl || "/logo_visualonly.jpg",
+    category: user?.role,
+    name: "You",
+  };
+
+  const calculateLayoutParameters = () => {
+    const container = containerRef.current;
+    if (!container) return { width: 800, height: 600, radius: 200 };
+
+    const width = container.clientWidth;
+    const height = Math.max(600, width * 0.75);
+    const radius = Math.min(width, height) * 0.3;
+
+    return { width, height, radius };
+  };
+
+  const optimizeNodePositions = () => {
+    const { width, height, radius } = calculateLayoutParameters();
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const nodeRadius = 35;
+    const spacing = (2 * Math.PI) / items.length;
+
+    const nodes = items.map((item, index) => {
+      const angle = spacing * index;
+      const radiusWithVariation = radius + (Math.random() * 50 - 25);
+
+      return {
+        ...item,
+        x: centerX + radiusWithVariation * Math.cos(angle),
+        y: centerY + radiusWithVariation * Math.sin(angle),
+      };
+    });
+
+    for (let i = 0; i < 50; i++) {
+      nodes.forEach((node1, index1) => {
+        nodes.forEach((node2, index2) => {
+          if (index1 < index2) {
+            const dx = node2.x - node1.x;
+            const dy = node2.y - node1.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const minDistance = nodeRadius * 3;
+
+            if (distance < minDistance) {
+              const angle = Math.atan2(dy, dx);
+              const moveDistance = (minDistance - distance) / 2;
+
+              if (nodes[index2]) {
+                nodes[index2].x += Math.cos(angle) * moveDistance;
+                nodes[index2].y += Math.sin(angle) * moveDistance;
+              }
+              if (nodes[index1]) {
+                nodes[index1].x -= Math.cos(angle) * moveDistance;
+                nodes[index1].y -= Math.sin(angle) * moveDistance;
+              }
+
+              [index1, index2].forEach((index) => {
+                const node = nodes[index];
+                if (!node) return;
+                const centerDistance = Math.sqrt(
+                  Math.pow(node.x - centerX, 2) + Math.pow(node.y - centerY, 2),
+                );
+                if (centerDistance > radius * 1.5) {
+                  const centerAngle = Math.atan2(
+                    node.y - centerY,
+                    node.x - centerX,
+                  );
+                  nodes[index]!.x =
+                    centerX + radius * 1.5 * Math.cos(centerAngle);
+                  nodes[index]!.y =
+                    centerY + radius * 1.5 * Math.sin(centerAngle);
+                }
+              });
+            }
+          }
+        });
+      });
+    }
+
+    return { nodes, centerX, centerY };
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const { nodes, centerX, centerY } = optimizeNodePositions();
+      setNodes(nodes as any);
+
+      if (svgRef.current) {
+        const { width, height } = calculateLayoutParameters();
+        svgRef.current.setAttribute("width", width.toString());
+        svgRef.current.setAttribute("height", height.toString());
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const { width, height } = calculateLayoutParameters();
+  const centerX = width / 2;
+  const centerY = height / 2;
+
+  return (
+    <div className="min-h-screen bg-black">
+      <div className="bg-black text-white p-8">
+        <div className="flex gap-8">
+          <div className="w-24 flex-shrink-0">
+            <div className="text-xl mb-4">Filter</div>
+            <div className="flex flex-col gap-2">
+              {filterItems.map((item) => (
+                <div
+                  key={item.category}
+                  className="flex items-center gap-2 font-light"
+                >
+                  <div
+                    className="w-4 h-4 rounded-full"
+                    style={{ backgroundColor: categoryColors[item.category] }}
+                  />
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* TODO: add common friends 
+            <div className="mt-8">
+              <div className="text-lg mb-4">共通のフレンド</div>
+              <div className="flex gap-2">
+                {sampleConnections.slice(0, 4).map((connection, i) => (
+                  <div key={i} className="w-12 h-12 rounded-full bg-gray-700" />
+                ))}
+              </div>
+              <div className="text-sm text-gray-400 mt-2">
+                {sampleConnections.length} common connections
+              </div>
+            </div>
+						*/}
+          </div>
+
+          <Card className="bg-black border-none shadow-none flex-grow">
+            <CardContent className="bg-black p-0" ref={containerRef}>
+              <svg ref={svgRef} className="bg-black w-full">
+                <defs>
+                  <clipPath id="circle-clip">
+                    <circle r="32" cx="0" cy="0" />
+                  </clipPath>
+                  <clipPath id="circle-clip-center">
+                    <circle r="37" cx="0" cy="0" />
+                  </clipPath>
+                </defs>
+
+                {nodes.map(
+                  (node: {
+                    category: any;
+                    id: string;
+                    x: number;
+                    y: number;
+                  }) => (
+                    <line
+                      key={`line-${node.id}`}
+                      x1={centerX}
+                      y1={centerY}
+                      x2={node.x}
+                      y2={node.y}
+                      stroke={`${categoryColors[node.category as category]}99`}
+                      strokeWidth="2"
+                      strokeDasharray="4"
+                    />
+                  ),
+                )}
+                {nodes.map(
+                  (node: {
+                    name: string;
+                    imageUrl: string | undefined;
+                    id: string;
+                    x: number;
+                    y: number;
+                    category: category;
+                  }) => (
+                    <Link href={`/community/${node.id}`}>
+                      <g
+                        key={node.id}
+                        transform={`translate(${node.x},${node.y})`}
+                      >
+                        <circle
+                          r="38"
+                          fill={categoryColors[node.category]}
+                          className="cursor-pointer"
+                        />
+                        <g clipPath="url(#circle-clip)">
+                          <image
+                            href={node.imageUrl || "/logo_visualonly.jpg"}
+                            x="-32"
+                            y="-32"
+                            width="64"
+                            height="64"
+                            className="rounded-full"
+                          />
+                        </g>
+                        <text
+                          y="50"
+                          textAnchor="middle"
+                          fill="white"
+                          className="text-sm"
+                        >
+                          {node.name}
+                        </text>
+                      </g>
+                    </Link>
+                  ),
+                )}
+
+                <g transform={`translate(${centerX},${centerY})`}>
+                  <circle
+                    r="43"
+                    fill={categoryColors[centerProfile.category as category]}
+                  />
+                  <g clipPath="url(#circle-clip-center)">
+                    <image
+                      href={centerProfile.image}
+                      x="-37"
+                      y="-37"
+                      width="74"
+                      height="74"
+                      className="rounded-full"
+                    />
+                  </g>
+                  <text
+                    y="60"
+                    textAnchor="middle"
+                    fill="white"
+                    className="text-sm"
+                  >
+                    {centerProfile.name}
+                  </text>
+                </g>
+              </svg>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CommunityMap;

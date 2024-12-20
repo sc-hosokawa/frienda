@@ -8,6 +8,10 @@ import {
   TableRow,
 } from "../../../../packages/ui/components/ui/table";
 import { getBgClassByType, UserType } from "../../utils";
+import { formatDistanceToNow } from "date-fns";
+import { ja } from "date-fns/locale";
+import { gql, useMutation } from "@apollo/client";
+import useUserStore from "../../store/user";
 
 export interface CommunityListsRowProps {
   id: string;
@@ -19,7 +23,33 @@ export interface CommunityListsRowProps {
   lastLoggedIn: string;
   connections: string[];
   weight: number;
+  refetch: () => void;
 }
+
+const formatRelativeTime = (dateString: string) => {
+  try {
+    const date = new Date(dateString);
+    return formatDistanceToNow(date, { addSuffix: true, locale: ja });
+  } catch (error) {
+    return dateString; // 日付のパースに失敗した場合は元の文字列を返す
+  }
+};
+
+const MARK_FAVORITE = gql`
+  mutation MarkFavorite($targetUserId: String!, $likedBy: String!) {
+    markFavorite(targetUserId: $targetUserId, likedBy: $likedBy) {
+      id
+    }
+  }
+`;
+
+const UNMARK_FAVORITE = gql`
+  mutation UnmarkFavorite($favoriteId: String!) {
+    unmarkFavorite(favoriteId: $favoriteId) {
+      id
+    }
+  }
+`;
 
 export default function CommunityListsRow({
   id,
@@ -31,13 +61,45 @@ export default function CommunityListsRow({
   lastLoggedIn,
   connections,
   weight,
+  refetch,
 }: CommunityListsRowProps) {
-  // TODO: this should be handled by the backend
+  const { user } = useUserStore();
+  const [markFavorite] = useMutation(MARK_FAVORITE);
+  const [unmarkFavorite] = useMutation(UNMARK_FAVORITE);
   const isLiked = favoriteId !== null;
+
+  const handleFavoriteClick = async (e: React.MouseEvent) => {
+    e.preventDefault(); // Link内部のボタンなのでイベントの伝播を止める
+
+    try {
+      if (isLiked) {
+        await unmarkFavorite({
+          variables: {
+            favoriteId: favoriteId,
+          },
+        });
+      } else {
+        await markFavorite({
+          variables: {
+            targetUserId: id,
+            likedBy: user?.id,
+          },
+        });
+      }
+      console.log("refetch");
+      refetch();
+    } catch (error) {
+      console.error("Favorite operation failed:", error);
+    }
+  };
+
   return (
     <TableRow className="group hover:bg-[#E4DBC0] transition-colors hover:cursor-pointer border-none">
       <TableCell>
-        <button className="w-12 h-12 relative flex items-center justify-center">
+        <button
+          onClick={handleFavoriteClick}
+          className="w-12 h-12 relative flex items-center justify-center"
+        >
           <div
             className={`absolute inset-0 rounded-full border border-dashed ${isLiked ? "border-transparent" : "border-white"}`}
           />
@@ -69,26 +131,25 @@ export default function CommunityListsRow({
                 {name}
               </span>
               <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black/70">
-                {`${connections.length} common friends`}
+                {`${weight}`}
               </span>
             </div>
           </div>
         </TableCell>
-
         <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-          {weight}
+          {category}
         </TableCell>
+
         <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
           {shortNote}
         </TableCell>
-        <TableCell>{lastLoggedIn}</TableCell>
+        <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
+          {connections.join(", ")}
+        </TableCell>
         <TableCell>
           <div className="flex flex-col items-start">
-            <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-              {connections.join(", ")}
-            </span>
-            <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black">
-              {lastLoggedIn}
+            <span className="text-[15px] font-semibold leading-[16px] text-left group-hover:text-black">
+              {lastLoggedIn ? formatRelativeTime(lastLoggedIn) : ""}
             </span>
           </div>
         </TableCell>
