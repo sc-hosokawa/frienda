@@ -7,7 +7,7 @@ import {
   TableCell,
   TableRow,
 } from "../../../../packages/ui/components/ui/table";
-import { getBgClassByType, UserType } from "../../utils";
+import { getBgClassByType, category } from "../../utils";
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 import { gql, useMutation } from "@apollo/client";
@@ -86,7 +86,6 @@ export default function CommunityListsRow({
           },
         });
       }
-      console.log("refetch");
       refetch();
     } catch (error) {
       console.error("Favorite operation failed:", error);
@@ -119,13 +118,15 @@ export default function CommunityListsRow({
       <Link href={`/community/${id}`} className="contents">
         <TableCell>
           <div className="flex items-center gap-3">
-            <Image
-              src={imageUrl || "/logo_visualonly.jpg"}
-              alt={name}
-              className={`p-1 rounded-full object-cover ${getBgClassByType(category as UserType)}`}
-              width={48}
-              height={48}
-            />
+            <div className="relative w-12 h-12">
+              <Image
+                src={imageUrl || "/logo_visualonly.jpg"}
+                alt={name}
+                className="p-1 rounded-full object-cover border-2"
+                style={getBgClassByType(category as category)}
+                fill
+              />
+            </div>
             <div className="flex flex-col">
               <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
                 {name}

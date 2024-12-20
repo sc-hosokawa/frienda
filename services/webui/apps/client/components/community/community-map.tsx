@@ -26,11 +26,26 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const categoryColors: Record<category, string> = {
-    musician: "#f87171",
-    curator: "#fb923c",
-    creator: "#34d399",
-    supporter: "#818cf8",
+  const categoryColors: Record<
+    category,
+    { border: string; background: string }
+  > = {
+    musician: {
+      border: "#FF7178",
+      background: "#562C2E",
+    },
+    curator: {
+      border: "#FF692D",
+      background: "#6E321A",
+    },
+    creator: {
+      border: "#E1F000",
+      background: "#4D520A",
+    },
+    supporter: {
+      border: "#E4DBC0",
+      background: "#4E4C43",
+    },
   };
 
   const filterItems: {
@@ -46,7 +61,7 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
   const centerProfile = {
     id: user?.id,
     image: user?.imageUrl || "/logo_visualonly.jpg",
-    category: user?.role,
+    category: (user?.role || "supporter") as category,
     name: "You",
   };
 
@@ -164,8 +179,11 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
                   className="flex items-center gap-2 font-light"
                 >
                   <div
-                    className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: categoryColors[item.category] }}
+                    className="w-4 h-4 rounded-full border-2"
+                    style={{
+                      backgroundColor: categoryColors[item.category].background,
+                      borderColor: categoryColors[item.category].border,
+                    }}
                   />
                   <span>{item.label}</span>
                 </div>
@@ -205,18 +223,34 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
                     id: string;
                     x: number;
                     y: number;
-                  }) => (
-                    <line
-                      key={`line-${node.id}`}
-                      x1={centerX}
-                      y1={centerY}
-                      x2={node.x}
-                      y2={node.y}
-                      stroke={`${categoryColors[node.category as category]}99`}
-                      strokeWidth="2"
-                      strokeDasharray="4"
-                    />
-                  ),
+                  }) => {
+                    const midX = (centerX + node.x) / 2;
+                    const midY = (centerY + node.y) / 2;
+                    const offset = 30;
+                    const controlX =
+                      midX -
+                      ((node.y - centerY) * offset) /
+                        Math.sqrt(
+                          (node.x - centerX) ** 2 + (node.y - centerY) ** 2,
+                        );
+                    const controlY =
+                      midY +
+                      ((node.x - centerX) * offset) /
+                        Math.sqrt(
+                          (node.x - centerX) ** 2 + (node.y - centerY) ** 2,
+                        );
+
+                    return (
+                      <path
+                        key={`line-${node.id}`}
+                        d={`M ${centerX} ${centerY} Q ${controlX} ${controlY} ${node.x} ${node.y}`}
+                        fill="none"
+                        stroke={`${categoryColors[node.category as category].border}99`}
+                        strokeWidth="2"
+                        strokeDasharray="4"
+                      />
+                    );
+                  },
                 )}
                 {nodes.map(
                   (node: {
@@ -234,7 +268,9 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
                       >
                         <circle
                           r="38"
-                          fill={categoryColors[node.category]}
+                          fill={categoryColors[node.category].background}
+                          stroke={categoryColors[node.category].border}
+                          strokeWidth="2"
                           className="cursor-pointer"
                         />
                         <g clipPath="url(#circle-clip)">
@@ -263,7 +299,15 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
                 <g transform={`translate(${centerX},${centerY})`}>
                   <circle
                     r="43"
-                    fill={categoryColors[centerProfile.category as category]}
+                    fill={
+                      categoryColors[centerProfile.category as category]
+                        ?.background || categoryColors.supporter.background
+                    }
+                    stroke={
+                      categoryColors[centerProfile.category as category]
+                        ?.border || categoryColors.supporter.border
+                    }
+                    strokeWidth="2"
                   />
                   <g clipPath="url(#circle-clip-center)">
                     <image
