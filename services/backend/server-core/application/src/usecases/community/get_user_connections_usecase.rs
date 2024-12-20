@@ -235,6 +235,9 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
             community.push(user_connection);
         }
 
+        // ここでcommunityをuser_idで昇順ソート
+        community.sort_by(|a, b| a.id.cmp(&b.id));
+
         Ok(UserConnectionsOutput { community })
     }
 
@@ -391,6 +394,9 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
             };
             community.push(user_connection);
         }
+
+        // ここでcommunityをuser_idで昇順ソート
+        community.sort_by(|a, b| a.id.cmp(&b.id));
 
         Ok(UserConnectionsOutput { community })
     }

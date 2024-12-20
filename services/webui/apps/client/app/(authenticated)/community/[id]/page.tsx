@@ -3,7 +3,7 @@ import Image from "next/image";
 import { SocialLink } from "../../../../components/account/social-links";
 import { Separator } from "../../../../../../packages/ui/components/ui/separator";
 import { ConnectionTypes } from "../../../../components/account/connection-type";
-import { getBgClassByType, UserType } from "../../../../utils";
+import { getBgClassByType, category } from "../../../../utils";
 import { Offers } from "../../../../components/account/offers";
 import { Skill } from "../../../../components/community/skill";
 import { NotoSansJP } from "../../layout";
@@ -35,7 +35,7 @@ interface CommunityListsRowProps {
   members: { title: string; role?: string }[];
   lastLogin: string;
   offers?: string[] | undefined;
-  connections?: UserType[] | undefined;
+  connections?: category[] | undefined;
 }
 
 const mockData: CommunityListsRowProps[] = [
@@ -65,7 +65,7 @@ const mockData: CommunityListsRowProps[] = [
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
-    connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+    connections: ["musician", "curator", "creator", "supporter"],
   },
   {
     id: "2",
@@ -94,7 +94,7 @@ const mockData: CommunityListsRowProps[] = [
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
-    connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+    connections: ["musician", "curator", "creator", "supporter"],
   },
   {
     id: "3",
@@ -122,7 +122,7 @@ const mockData: CommunityListsRowProps[] = [
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
-    connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+    connections: ["musician", "curator", "creator", "supporter"],
   },
   {
     id: "4",
@@ -150,7 +150,7 @@ const mockData: CommunityListsRowProps[] = [
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
-    connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+    connections: ["musician", "curator", "creator", "supporter"],
   },
   {
     id: "5",
@@ -178,7 +178,7 @@ const mockData: CommunityListsRowProps[] = [
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
-    connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+    connections: ["musician", "curator", "creator", "supporter"],
   },
   {
     id: "6",
@@ -207,7 +207,7 @@ const mockData: CommunityListsRowProps[] = [
     ],
     lastLogin: "20分前",
     offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
-    connections: ["artist", "curator", "producer", "designer", "filmMaker"],
+    connections: ["musician", "curator", "creator", "supporter"],
   },
 ];
 
@@ -225,7 +225,7 @@ export default function CommunityAccountPage({
     return mockData[parseInt(id) - 1];
   }
   const user = getuser(params.id);
-  const bgColor = getBgClassByType(user?.type.title as UserType);
+  const bgColor = getBgClassByType(user?.type.title as category);
 
   return (
     <div className="min-h-screen text-white">
@@ -238,7 +238,7 @@ export default function CommunityAccountPage({
               alt="avatar"
               width={80}
               height={80}
-              className={`p-1 rounded-full object-cover ${getBgClassByType(user?.type.title as UserType)}`}
+              className={`p-1 rounded-full object-cover ${getBgClassByType(user?.type.title as category)}`}
             />
           </div>
           <div className="flex flex-col gap-3 mr-12">

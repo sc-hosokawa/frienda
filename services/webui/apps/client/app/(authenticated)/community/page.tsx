@@ -1,8 +1,7 @@
 "use client";
 
-import CommunityListsRow, {
-  CommunityListsRowProps,
-} from "../../../components/community/community-lits-row";
+import CommunityListsRow from "../../../components/community/community-lits-row";
+import CommunityMap from "../../../components/community/community-map";
 import {
   Tabs,
   TabsContent,
@@ -41,7 +40,7 @@ const GET_OWN_COMMUNITY = gql`
 export default function CommunityPage() {
   const { user } = useUserStore();
 
-  const { data, error, loading } = useQuery(GET_OWN_COMMUNITY, {
+  const { data, error, loading, refetch } = useQuery(GET_OWN_COMMUNITY, {
     variables: { userId: user?.id || "" },
     skip: !user?.id,
   });
@@ -49,8 +48,6 @@ export default function CommunityPage() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  console.log(user?.id);
-  console.log(data);
   const communityData = data?.getOwnCommunity?.community || [];
 
   return (
@@ -79,8 +76,7 @@ export default function CommunityPage() {
           {communityData.length === 0 ? (
             <div className="text-center py-8 text-white">No Connection</div>
           ) : (
-            /* TODO: add map view */
-            <></>
+            <CommunityMap items={communityData} />
           )}
         </TabsContent>
         <TabsContent value="list">
@@ -99,9 +95,6 @@ export default function CommunityPage() {
                   </TableHead>
                   <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
                     Category
-                  </TableHead>
-                  <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
-                    Weight
                   </TableHead>
                   <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
                     Comment
@@ -124,7 +117,11 @@ export default function CommunityPage() {
                   </TableRow>
                 ) : (
                   communityData.map((data: any) => (
-                    <CommunityListsRow key={data.id} {...data} />
+                    <CommunityListsRow
+                      key={data.id}
+                      {...data}
+                      refetch={refetch}
+                    />
                   ))
                 )}
               </TableBody>

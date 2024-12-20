@@ -49,15 +49,17 @@ export default function Header() {
           href="/profile"
           className="flex items-center gap-2 pl-1 pr-2 py-2 mr-2 hover:bg-black/10"
         >
-          <Image
-            src={user?.imageUrl || "/logo_visualonly.jpg"}
-            alt="Profile picture"
-            width={36}
-            height={36}
-            className="rounded-full"
-          />
+          <div className="relative w-9 h-9">
+            <Image
+              src={user?.imageUrl || "/logo_visualonly.jpg"}
+              alt="Profile picture"
+              className="rounded-full object-cover"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
           <div className="flex flex-col px-2">
-            <span className="text-sm">@{user?.name}</span>
+            <span className="text-sm">{user?.name}</span>
             <span className="text-xs text-gray-600">{user?.realname}</span>
           </div>
         </Link>
