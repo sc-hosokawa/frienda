@@ -216,8 +216,7 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
             } else {
                 None
             };
-            let last_logged_in: Option<String> =
-                Some(connected_user.last_login_at.unwrap().to_string());
+            let last_logged_in: Option<String> = connected_user.last_login_at.map(|date| date.to_string());
             let connections: Vec<String> = reasons;
             let weight: i32 = connections.len() as i32;
 
@@ -373,8 +372,7 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
             } else {
                 None
             };
-            let last_logged_in: Option<String> =
-                Some(connected_user.last_login_at.unwrap().to_string());
+            let last_logged_in: Option<String> = connected_user.last_login_at.map(|date| date.to_string());
             let connections: Vec<String> = reasons;
             let weight: i32 = connections.len() as i32;
 

@@ -12,42 +12,28 @@ import { getBgClassByType, UserType } from "../../utils";
 export interface CommunityListsRowProps {
   id: string;
   name: string;
-  friendCount: number;
-  rate: string;
-  type: {
-    title: string;
-    role?: string;
-  };
-  comment?: string;
-  connection: {
-    offer: string;
-    date: string;
-  };
-  isOnline: boolean;
-  description: string;
-  connectedSince: string;
-  avatar: string;
-  skill: string;
-  members: { title: string; role?: string }[];
-  lastLogin: string;
-  offers?: string[] | undefined;
-  connections?: UserType[] | undefined;
+  imageUrl: string;
+  category: string;
+  favoriteId: string;
+  shortNote: string;
+  lastLoggedIn: string;
+  connections: string[];
+  weight: number;
 }
 
 export default function CommunityListsRow({
   id,
   name,
-  avatar,
-  friendCount,
-  rate,
-  type,
-  comment,
-  connection,
-  isOnline,
-  lastLogin,
+  imageUrl,
+  category,
+  favoriteId,
+  shortNote,
+  lastLoggedIn,
+  connections,
+  weight,
 }: CommunityListsRowProps) {
   // TODO: this should be handled by the backend
-  const isLiked = false;
+  const isLiked = favoriteId !== null;
   return (
     <TableRow className="group hover:bg-[#E4DBC0] transition-colors hover:cursor-pointer border-none">
       <TableCell>
@@ -72,9 +58,9 @@ export default function CommunityListsRow({
         <TableCell>
           <div className="flex items-center gap-3">
             <Image
-              src={avatar || "/logo_visualonly.jpg"}
+              src={imageUrl || "/logo_visualonly.jpg"}
               alt={name}
-              className={`p-1 rounded-full object-cover ${getBgClassByType(type.title as UserType)}`}
+              className={`p-1 rounded-full object-cover ${getBgClassByType(category as UserType)}`}
               width={48}
               height={48}
             />
@@ -83,52 +69,28 @@ export default function CommunityListsRow({
                 {name}
               </span>
               <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black/70">
-                {`${friendCount} common friends`}
+                {`${connections.length} common friends`}
               </span>
             </div>
           </div>
         </TableCell>
 
         <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-          {rate}
+          {weight}
         </TableCell>
         <TableCell className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-          {type.title}
+          {shortNote}
         </TableCell>
-        <TableCell>
-          {comment && (
-            <span
-              className={`px-3 py-1 ${getBgClassByType(
-                type.title as UserType,
-              )} text-black group-hover:bg-white rounded-full text-sm transition-colors`}
-            >
-              {comment}
-            </span>
-          )}
-        </TableCell>
+        <TableCell>{lastLoggedIn}</TableCell>
         <TableCell>
           <div className="flex flex-col items-start">
             <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
-              {connection?.offer}
+              {connections.join(", ")}
             </span>
             <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black">
-              {connection?.date}
+              {lastLoggedIn}
             </span>
           </div>
-        </TableCell>
-        <TableCell>
-          {isOnline ? (
-            <div className="flex items-center gap-1">
-              <div className="w-3 h-3 rounded-full bg-[#00B496]"></div>
-              <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
-                Online
-              </span>
-            </div>
-          ) : (
-            <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
-              {lastLogin}
-            </span>
-          )}
         </TableCell>
       </Link>
 
