@@ -19,6 +19,7 @@ use application::usecases::basic::{
 };
 use application::usecases::community::{
     add_shortnote_usecase::{AddShortnoteUsecase, AddShortnoteUsecaseTrait},
+    get_user_connections_usecase::{GetUserConnectionsUsecase, GetUserConnectionsUsecaseTrait},
     mark_favorite_usecase::{MarkFavoriteUsecase, MarkFavoriteUsecaseTrait},
 };
 use application::usecases::credit::{
@@ -200,6 +201,7 @@ pub struct Usecases {
     pub get_notifications: Arc<dyn GetNotificationsUsecaseTrait>,
     pub mark_notification_as_read: Arc<dyn MarkNotificationAsReadUsecaseTrait>,
     pub manage_users_in_offer: Arc<dyn ManageUsersInOfferUsecaseTrait>,
+    pub get_user_connections: Arc<dyn GetUserConnectionsUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -255,6 +257,16 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        get_user_connections: Arc::new(GetUserConnectionsUsecase::new(
+            repos.users.clone(),
+            repos.txs_fsp.clone(),
+            repos.offer_user.clone(),
+            repos.user_artist.clone(),
+            repos.track_credits.clone(),
+            repos.favorites.clone(),
+            repos.short_notes.clone(),
+            repos.offers.clone(),
+        )),
         mark_favorite: Arc::new(MarkFavoriteUsecase::new(repos.favorites.clone())),
         add_shortnote: Arc::new(AddShortnoteUsecase::new(repos.short_notes.clone())),
         search_users: Arc::new(SearchUsersUsecase::new(repos.users.clone())),
@@ -352,6 +364,8 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.users.clone(),
             repos.room_user.clone(),
             services.email_service.clone(),
+            repos.notifications.clone(),
+            repos.notification_user.clone(),
         )),
         get_room_list: Arc::new(GetRoomListUsecase::new(
             repos.room_user.clone(),
@@ -391,6 +405,10 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.offer_user.clone(),
             repos.txs_fsp.clone(),
             repos.users.clone(),
+            repos.notifications.clone(),
+            repos.notification_user.clone(),
+            services.push_notification_service.clone(),
+            services.email_service.clone(),
         )),
         delete_offer: Arc::new(DeleteOfferUsecase::new(
             repos.offers.clone(),
@@ -418,6 +436,10 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.txs_fsp.clone(),
             repos.users.clone(),
             repos.artists.clone(),
+            repos.notifications.clone(),
+            repos.notification_user.clone(),
+            services.push_notification_service.clone(),
+            services.email_service.clone(),
         )),
         mark_as_read: Arc::new(MarkAsReadUsecase::new(repos.room_user.clone())),
         get_notifications: Arc::new(GetNotificationsUsecase::new(

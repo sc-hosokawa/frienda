@@ -14,6 +14,7 @@ pub trait MockShortNotesRepo {
     async fn mock_update(&self, short_note: ShortNoteActiveModel)
         -> Result<ShortNote, DomainError>;
     async fn mock_delete(&self, id: Uuid) -> Result<(), DomainError>;
+    async fn mock_get_by_id(&self, id: Uuid) -> Result<Option<ShortNote>, DomainError>;
 }
 
 #[async_trait]
@@ -28,5 +29,9 @@ impl ShortNotesRepository for MockMockShortNotesRepo {
 
     async fn delete(&self, id: Uuid) -> Result<(), DomainError> {
         self.mock_delete(id).await
+    }
+
+    async fn get_by_id(&self, id: Uuid) -> Result<Option<ShortNote>, DomainError> {
+        self.mock_get_by_id(id).await
     }
 }

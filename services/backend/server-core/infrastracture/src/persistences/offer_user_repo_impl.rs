@@ -74,6 +74,15 @@ impl OfferUserRepository for OfferUserRepoImpl {
         Ok(offer_users)
     }
 
+    async fn get_by_offer_ids(&self, offer_ids: Vec<i32>) -> Result<Vec<OfferUser>, DomainError> {
+        let offer_users = OfferUserEntity::find()
+            .filter(Column::OfferId.is_in(offer_ids))
+            .order_by_desc(Column::Id)
+            .all(&self.db)
+            .await?;
+        Ok(offer_users)
+    }
+
     async fn get_by_user_id_and_offer_id(
         &self,
         user_id: &str,

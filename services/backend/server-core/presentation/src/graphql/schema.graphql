@@ -81,14 +81,8 @@ type ChartDataByUPC {
 	lineChartData: [ChartDataByISRC!]!
 }
 
-type ConnectedUserByUserData {
-	id: String!
-	connectedUser: UserBasicData!
-}
-
 type ConnectedUsersData {
-	connectedUserList: [ConnectedUserByUserData!]!
-	countOfUsers: Int
+	community: [UserConnectionData!]!
 }
 
 input ContactToAdminInput {
@@ -219,6 +213,14 @@ type DeleteOfferResponse {
 	id: Int!
 }
 
+type DeleteShortnoteResponse {
+	id: String!
+}
+
+type EditShortnoteResponse {
+	id: String!
+}
+
 input ExchangePrizeInput {
 	userId: String!
 	prizeId: Int!
@@ -347,7 +349,10 @@ type MessagesByRoomIdByUserData {
 
 type MutationRoot {
 	addShortnote(favoriteId: String!, comment: String!): AddShortnoteResponse!
+	editShortnote(shortnoteId: String!, comment: String!): EditShortnoteResponse!
+	deleteShortnote(shortnoteId: String!): DeleteShortnoteResponse!
 	markFavorite(targetUserId: String!, likedBy: String!): MarkFavoriteResponse!
+	unmarkFavorite(favoriteId: String!): MarkFavoriteResponse!
 	createNewUserData(input: CreateNewUserDataInput!): CreateNewUserDataResponse!
 	updateUserData(input: UpdateUserDataInput!): UpdateUserDataResponse!
 	updateBelongsToArtistStatus(input: UpdateBelongsToArtistStatusInput!): UpdateBelongsToArtistStatusResponse!
@@ -490,7 +495,8 @@ type QueryRoot {
 	getGenderGenRateByUpc(artistId: String!, userId: String!, upc: String!): GenderGenRateData!
 	getProducts(artistId: String!): ProductsData!
 	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
-	getCommunities: ConnectedUsersData!
+	getOwnCommunity(userId: String!): ConnectedUsersData!
+	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
 	getOfferStatsByUser(userId: String!): OfferStatsByUserData!
 	getOffersByOwner(userId: String!): OffersData!
 	getOffersByStatus(userId: String!): OfferByStatusData!
@@ -626,6 +632,7 @@ type TransactionByUserData {
 	direction: TransactionDirection!
 	counterParty: UserSimpleData!
 	txAt: String!
+	note: String
 }
 
 type TransactionData {
@@ -768,13 +775,16 @@ type UpdateUserDetailProfileResponse {
 	userInfo: UserDetailData!
 }
 
-type UserBasicData {
+type UserConnectionData {
 	id: String!
 	name: String!
 	imageUrl: String
-	role: String!
-	primaryRole: String!
-	primaryArtist: ArtistByUserData
+	category: String!
+	favoriteId: String
+	shortNote: String
+	lastLoggedIn: String
+	connections: [String!]!
+	weight: Int!
 }
 
 type UserDetailData {

@@ -33,6 +33,10 @@ pub trait MockUserArtistRepo {
         user_id: String,
     ) -> Result<Option<UserArtist>, DomainError>;
     async fn mock_exists(&self, user_id: String, artist_id: String) -> Result<bool, DomainError>;
+    async fn mock_find_by_artist_ids(
+        &self,
+        artist_ids: Vec<String>,
+    ) -> Result<Vec<UserArtist>, DomainError>;
 }
 
 #[async_trait]
@@ -79,6 +83,14 @@ impl UserArtistRepository for MockMockUserArtistRepo {
 
     async fn exists(&self, user_id: &str, artist_id: &str) -> Result<bool, DomainError> {
         self.mock_exists(user_id.to_string(), artist_id.to_string())
+            .await
+    }
+
+    async fn find_by_artist_ids(
+        &self,
+        artist_ids: Vec<&str>,
+    ) -> Result<Vec<UserArtist>, DomainError> {
+        self.mock_find_by_artist_ids(artist_ids.iter().map(|s| s.to_string()).collect())
             .await
     }
 }
