@@ -347,7 +347,6 @@ export default function OfferDetailPage({
           Last Updated: {new Date(offer?.updatedAt || "").toLocaleDateString()}
         </div>
 
-
         {isOwner && (
           <>
             <hr className="mb-8 mt-12 border-[#303030]" />

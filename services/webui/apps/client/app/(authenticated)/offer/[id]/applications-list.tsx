@@ -71,7 +71,7 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
   const [updateStatus] = useMutation(UPDATE_OFFER_STATUS);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-  const [modalType, setModalType] = useState<'ongoing' | 'finished'>('ongoing');
+  const [modalType, setModalType] = useState<"ongoing" | "finished">("ongoing");
 
   const {
     data: usersData,
@@ -96,7 +96,7 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
   );
 
   const finishedUser = usersData?.getUsersInOffer.users.find(
-    (user) => user.statusInOffer === "Finished"
+    (user) => user.statusInOffer === "Finished",
   );
 
   if (finishedUser) {
@@ -105,16 +105,14 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
         <h2 className="mb-4">Offer Management</h2>
         <div className="p-6 bg-zinc-900 rounded-lg text-center">
           <p className="text-lg">このOfferは終了しました</p>
-          <p className="text-sm text-gray-400 mt-2">
-            貢献したユーザー
-          </p>
+          <p className="text-sm text-gray-400 mt-2">貢献したユーザー</p>
           <div className="flex items-center justify-center gap-2 mt-4">
-            <Image 
-              src={finishedUser.imgUrl} 
-              alt={finishedUser.username} 
-              width={40} 
-              height={40} 
-              className="rounded-full" 
+            <Image
+              src={finishedUser.imgUrl}
+              alt={finishedUser.username}
+              width={40}
+              height={40}
+              className="rounded-full"
             />
             <span>{finishedUser.username}</span>
           </div>
@@ -145,13 +143,13 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
 
   const handleRequestClick = async (targetUserId: string) => {
     setSelectedUserId(targetUserId);
-    setModalType('ongoing');
+    setModalType("ongoing");
     setIsModalOpen(true);
   };
 
   const handleFinishClick = async (targetUserId: string) => {
     setSelectedUserId(targetUserId);
-    setModalType('finished');
+    setModalType("finished");
     setIsModalOpen(true);
   };
 
@@ -159,15 +157,15 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
     if (!selectedUserId) return;
 
     try {
-      const status = modalType === 'ongoing' ? 'Ongoing' : 'Finished';
+      const status = modalType === "ongoing" ? "Ongoing" : "Finished";
       const result = await updateStatus({
         variables: {
           input: {
             id: offerId,
             userId: selectedUserId,
-            status
-          }
-        }
+            status,
+          },
+        },
       });
 
       if (result.data?.updateOfferStatus?.id) {
@@ -180,19 +178,20 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
   };
 
   const getModalContent = () => {
-    if (modalType === 'ongoing') {
+    if (modalType === "ongoing") {
       return {
-        title: '依頼の確認',
-        message: 'このユーザーに依頼を送信しますか？',
-        description: '依頼を送信すると、このユーザーとのみ作業を進めることになります。',
-        buttonText: '依頼する'
+        title: "依頼の確認",
+        message: "このユーザーに依頼を送信しますか？",
+        description:
+          "依頼を送信すると、このユーザーとのみ作業を進めることになります。",
+        buttonText: "依頼する",
       };
     }
     return {
-      title: '完了の確認',
-      message: 'この依頼を完了としてよろしいですか？',
-      description: '完了すると、この依頼は終了となります。',
-      buttonText: '完了する'
+      title: "完了の確認",
+      message: "この依頼を完了としてよろしいですか？",
+      description: "完了すると、この依頼は終了となります。",
+      buttonText: "完了する",
     };
   };
 
@@ -275,12 +274,12 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="sm:max-w-[425px] bg-zinc-900 border-zinc-800">
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold">{getModalContent().title}</DialogTitle>
+            <DialogTitle className="text-xl font-semibold">
+              {getModalContent().title}
+            </DialogTitle>
           </DialogHeader>
           <div className="py-4">
-            <p className="text-sm text-gray-300">
-              {getModalContent().message}
-            </p>
+            <p className="text-sm text-gray-300">{getModalContent().message}</p>
             <p className="mt-2 text-xs text-gray-400">
               {getModalContent().description}
             </p>

@@ -190,7 +190,8 @@ export default function FspPage() {
                     (transaction: any) => (
                       <TableRow key={transaction.id}>
                         <TableCell>
-                          {dayjs.utc(transaction.txAt)
+                          {dayjs
+                            .utc(transaction.txAt)
                             .tz("Asia/Tokyo")
                             .format("YYYY/MM/DD HH:mm:ss")}
                         </TableCell>
