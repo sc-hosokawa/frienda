@@ -244,7 +244,9 @@ pub async fn create_services() -> ServicesImpl {
     let push_notification_service = FcmNotificationService::new()
         .await
         .expect("Failed to create FcmNotificationService");
-    let sendgrid_service = SendGridService::new().expect("Failed to create SendGridService");
+    let sendgrid_service = SendGridService::new()
+        .await
+        .expect("Failed to create SendGridService");
 
     ServicesImpl {
         llm_service: Arc::new(llm_service),
