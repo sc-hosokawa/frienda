@@ -13,6 +13,15 @@ use domain::repositories::offers_repo::OffersRepository;
 use domain::repositories::txs_fsp_repo::TxsFspRepository;
 use domain::repositories::users_repo::UsersRepository;
 
+use crate::services::push_notification::PushNotificationServiceTrait;
+use crate::services::send_email::EmailServiceTrait;
+use domain::entities::notification_user::ActiveModel as NotificationUserActiveModel;
+use domain::entities::notifications::ActiveModel as NotificationActiveModel;
+use domain::repositories::notification_user_repo::NotificationUserRepository;
+use domain::repositories::notifications_repo::NotificationsRepository;
+use domain::services::notification::PushNotification;
+use shared::error::domain_err::DomainError;
+
 //
 // Define the input for the usecase
 //
@@ -31,6 +40,12 @@ pub trait ChangeStatusUsecaseTrait: Send + Sync {
     async fn apply(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error>;
     async fn change_status(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error>;
     async fn complete(&self, input: ChangeStatusInput) -> Result<(i32, i32), anyhow::Error>;
+    async fn _send_notifications(
+        &self,
+        user_id: String,
+        title: String,
+        body: String,
+    ) -> Result<(), DomainError>;
 }
 
 //
@@ -41,6 +56,10 @@ pub struct ChangeStatusUsecase {
     offer_user_repo: Arc<dyn OfferUserRepository>,
     txs_fsp_repo: Arc<dyn TxsFspRepository>,
     users_repo: Arc<dyn UsersRepository>,
+    notifications_repo: Arc<dyn NotificationsRepository>,
+    notification_user_repo: Arc<dyn NotificationUserRepository>,
+    push_notification_service: Arc<dyn PushNotificationServiceTrait>,
+    email_service: Arc<dyn EmailServiceTrait>,
 }
 
 impl ChangeStatusUsecase {
@@ -49,12 +68,20 @@ impl ChangeStatusUsecase {
         offer_user_repo: Arc<dyn OfferUserRepository>,
         txs_fsp_repo: Arc<dyn TxsFspRepository>,
         users_repo: Arc<dyn UsersRepository>,
+        notifications_repo: Arc<dyn NotificationsRepository>,
+        notification_user_repo: Arc<dyn NotificationUserRepository>,
+        push_notification_service: Arc<dyn PushNotificationServiceTrait>,
+        email_service: Arc<dyn EmailServiceTrait>,
     ) -> Self {
         Self {
             offers_repo,
             offer_user_repo,
             txs_fsp_repo,
             users_repo,
+            notifications_repo,
+            notification_user_repo,
+            push_notification_service,
+            email_service,
         }
     }
 }
@@ -76,6 +103,14 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
 
         let res = self.offer_user_repo.create(new_status).await?;
         info!("Successfully applied for offer");
+
+        let offer = self.offers_repo.get_by_id(input.id).await?.unwrap();
+        self._send_notifications(
+            offer.owner,
+            "オファーへの申し込みがありました".to_string(),
+            format!("オファーへの申し込みがありました"),
+        )
+        .await?;
 
         Ok((res.id, res.offer_id))
     }
@@ -109,6 +144,13 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
         updated_offer_user.status = ActiveValue::Set(input.status);
 
         let res = self.offer_user_repo.update(updated_offer_user).await?;
+
+        self._send_notifications(
+            input.user_id,
+            "オファーのステータスが変更されました".to_string(),
+            format!("オファーのステータスが変更されました"),
+        )
+        .await?;
 
         Ok((res.id, res.offer_id))
     }
@@ -160,7 +202,7 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
             },
             TxsFspActiveModel {
                 from: ActiveValue::Set(Some(offer.owner)),
-                to: ActiveValue::Set(user_id),
+                to: ActiveValue::Set(user_id.clone()),
                 amount: ActiveValue::Set(offer.fee),
                 notes: ActiveValue::Set(Some(format!("[Offer] {} completed", offer.title))),
                 ..Default::default()
@@ -173,8 +215,70 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
             self.txs_fsp_repo.create(txs_fsp)
         )?;
 
+        self._send_notifications(
+            user_id,
+            "オファーが完了しました".to_string(),
+            "オファーが完了し、ポイントを受け取りました".to_string(),
+        )
+        .await?;
+
         info!("Successfully completed offer");
         info!("FSP tx id: {}", txs_fsp_result.id);
         Ok((offer_user_result.id, offer_result.id))
+    }
+
+    async fn _send_notifications(
+        &self,
+        user_id: String,
+        title: String,
+        body: String,
+    ) -> Result<(), DomainError> {
+        let user = self.users_repo.find_by_id(&user_id).await?.unwrap();
+
+        let db_task = async {
+            let notification_active_model = NotificationActiveModel {
+                title: ActiveValue::Set(title.clone()),
+                content: ActiveValue::Set(body.clone()),
+                ..Default::default()
+            };
+            let new_notification = self
+                .notifications_repo
+                .create(notification_active_model)
+                .await?;
+
+            let notification_user_active_model = NotificationUserActiveModel {
+                notification_id: ActiveValue::Set(new_notification.id),
+                user: ActiveValue::Set(user.id),
+                is_read: ActiveValue::Set(false),
+                is_deleted: ActiveValue::Set(false),
+                ..Default::default()
+            };
+            self.notification_user_repo
+                .create(notification_user_active_model)
+                .await
+        };
+
+        let push_notification_task = user.fcm_token.map(|token| {
+            let push_notification = PushNotification {
+                token,
+                title: title.clone(),
+                body: body.clone(),
+            };
+            self.push_notification_service
+                .send_push_notification(push_notification)
+        });
+
+        let (db_result, _) = tokio::join!(db_task, async {
+            if let Some(task) = push_notification_task {
+                match task.await {
+                    Ok(result) => {
+                        tracing::debug!("Push notification sent successfully: {}", result)
+                    }
+                    Err(e) => tracing::error!("Failed to send push notification: {}", e),
+                }
+            }
+        });
+
+        db_result.map(|_| ())
     }
 }

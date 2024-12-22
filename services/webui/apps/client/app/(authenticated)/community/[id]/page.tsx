@@ -3,16 +3,213 @@ import Image from "next/image";
 import { SocialLink } from "../../../../components/account/social-links";
 import { Separator } from "@ui/components/ui/separator";
 import { ConnectionTypes } from "../../../../components/account/connection-type";
-import { getBgClassByType, UserType } from "../../../../utils";
+import { getBgClassByType, category } from "../../../../utils";
 import { Offers } from "../../../../components/account/offers";
 import { Skill } from "../../../../components/community/skill";
 import { NotoSansJP } from "../../layout";
 import { BorderDash } from "../../../../components/border-dash";
 import { Works } from "../../../../components/community/works";
 import { OfferCard } from "../../../../components/community/offer-card";
-import { mockData } from "../page";
 import { List } from "../../../../components/account/list";
 import { BaseComponent } from "../../../../components/account/base";
+
+interface CommunityListsRowProps {
+  id: string;
+  name: string;
+  friendCount: number;
+  rate: string;
+  type: {
+    title: string;
+    role?: string;
+  };
+  comment?: string;
+  connection: {
+    offer: string;
+    date: string;
+  };
+  isOnline: boolean;
+  description: string;
+  connectedSince: string;
+  avatar: string;
+  skill: string;
+  members: { title: string; role?: string }[];
+  lastLogin: string;
+  offers?: string[] | undefined;
+  connections?: category[] | undefined;
+}
+
+const mockData: CommunityListsRowProps[] = [
+  {
+    id: "1",
+    name: "taro_yoshida",
+    friendCount: 4,
+    rate: "4.5",
+    type: {
+      title: "artist",
+      role: "Vocal",
+    },
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    isOnline: true,
+    description:
+      "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+    connectedSince: "2023/7/23",
+    avatar: "",
+    skill: "バンド、ベース（サポートもできます！）",
+    members: [
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
+    ],
+    lastLogin: "20分前",
+    offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+    connections: ["musician", "curator", "creator", "supporter"],
+  },
+  {
+    id: "2",
+    name: "sayaka_kyoda",
+    friendCount: 4,
+    rate: "4.5",
+    type: {
+      title: "artist",
+      role: "Vocal",
+    },
+    comment: "イベントいつも最高",
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    isOnline: true,
+    description:
+      "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+    connectedSince: "2023/7/23",
+    avatar: "",
+    skill: "バンド、ベース（サポートもできます！）",
+    members: [
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
+    ],
+    lastLogin: "20分前",
+    offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+    connections: ["musician", "curator", "creator", "supporter"],
+  },
+  {
+    id: "3",
+    name: "photoone",
+    friendCount: 4,
+    rate: "4.5",
+    type: {
+      title: "promoter",
+      role: "Photographer",
+    },
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    isOnline: true,
+    description:
+      "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+    connectedSince: "2023/7/23",
+    avatar: "",
+    skill: "バンド、ベース（サポートもできます！）",
+    members: [
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
+    ],
+    lastLogin: "20分前",
+    offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+    connections: ["musician", "curator", "creator", "supporter"],
+  },
+  {
+    id: "4",
+    name: "lisa_fukuda",
+    friendCount: 4,
+    rate: "4.5",
+    type: {
+      title: "curator",
+      role: "manager",
+    },
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    isOnline: true,
+    description:
+      "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+    connectedSince: "2023/7/23",
+    avatar: "",
+    skill: "バンド、ベース（サポートもできます！）",
+    members: [
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
+    ],
+    lastLogin: "20分前",
+    offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+    connections: ["musician", "curator", "creator", "supporter"],
+  },
+  {
+    id: "5",
+    name: "minoru_kou",
+    friendCount: 4,
+    rate: "4.5",
+    type: {
+      title: "curator",
+      role: "manager",
+    },
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    isOnline: true,
+    description:
+      "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+    connectedSince: "2023/7/23",
+    avatar: "",
+    skill: "バンド、ベース（サポートもできます！）",
+    members: [
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
+    ],
+    lastLogin: "20分前",
+    offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+    connections: ["musician", "curator", "creator", "supporter"],
+  },
+  {
+    id: "6",
+    name: "john_john",
+    friendCount: 4,
+    rate: "4.5",
+    type: {
+      title: "artist",
+      role: "Vocal",
+    },
+    comment: "次のMVの時きく!",
+    connection: {
+      offer: "Offer #123",
+      date: "2024/10/23",
+    },
+    isOnline: true,
+    description:
+      "The Bandのjohn_johnです! よろしくお願いします! レコーディングやイベントのお誘い、または対バンやサポートベーシストのお誘いまでお待ちしております!",
+    connectedSince: "2023/7/23",
+    avatar: "",
+    skill: "バンド、ベース（サポートもできます！）",
+    members: [
+      { title: "Tetsuo Yoshida", role: "Vocal" },
+      { title: "Kei Minami", role: "Owner" },
+      { title: "Shinya Fukuda", role: "Drums" },
+    ],
+    lastLogin: "20分前",
+    offers: ["Event", "Live", "Recording", "Promoting", "Support Musician"],
+    connections: ["musician", "curator", "creator", "supporter"],
+  },
+];
 
 export default function CommunityAccountPage({
   params,
@@ -28,7 +225,7 @@ export default function CommunityAccountPage({
     return mockData[parseInt(id) - 1];
   }
   const user = getuser(params.id);
-  const bgColor = getBgClassByType(user?.type.title as UserType);
+  const bgColor = getBgClassByType(user?.type.title as category);
 
   return (
     <div className="min-h-screen text-white">
@@ -41,7 +238,7 @@ export default function CommunityAccountPage({
               alt="avatar"
               width={80}
               height={80}
-              className={`p-1 rounded-full object-cover ${getBgClassByType(user?.type.title as UserType)}`}
+              className={`p-1 rounded-full object-cover ${getBgClassByType(user?.type.title as category)}`}
             />
           </div>
           <div className="flex flex-col gap-3 mr-12">

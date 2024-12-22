@@ -7,16 +7,19 @@ use uuid::Uuid;
 use domain::entities::message_attach::ActiveModel as MessageAttachActiveModel;
 use domain::entities::messages::ActiveModel as MessageActiveModel;
 use domain::entities::messages::Model as Message;
+use domain::entities::notification_user::ActiveModel as NotificationUserActiveModel;
+use domain::entities::notifications::ActiveModel as NotificationActiveModel;
 use domain::entities::rooms::ActiveModel as RoomActiveModel;
 use domain::repositories::message_attach_repo::MessageAttachRepository;
 use domain::repositories::messages_repo::MessagesRepository;
+use domain::repositories::notification_user_repo::NotificationUserRepository;
+use domain::repositories::notifications_repo::NotificationsRepository;
 use domain::repositories::room_user_repo::RoomUserRepository;
 use domain::repositories::rooms_repo::RoomsRepository;
 use domain::repositories::users_repo::UsersRepository;
 
 use crate::services::push_notification::PushNotificationServiceTrait;
 use crate::services::send_email::EmailServiceTrait;
-use domain::services::email::Email;
 use domain::services::notification::PushNotification;
 
 //
@@ -59,6 +62,8 @@ pub struct SendMessageUsecase {
     users_repo: Arc<dyn UsersRepository>,
     room_user_repo: Arc<dyn RoomUserRepository>,
     email_service: Arc<dyn EmailServiceTrait>,
+    notifications_repo: Arc<dyn NotificationsRepository>,
+    notification_user_repo: Arc<dyn NotificationUserRepository>,
 }
 
 impl SendMessageUsecase {
@@ -70,6 +75,8 @@ impl SendMessageUsecase {
         users_repo: Arc<dyn UsersRepository>,
         room_user_repo: Arc<dyn RoomUserRepository>,
         email_service: Arc<dyn EmailServiceTrait>,
+        notifications_repo: Arc<dyn NotificationsRepository>,
+        notification_user_repo: Arc<dyn NotificationUserRepository>,
     ) -> Self {
         Self {
             messages_repo,
@@ -79,6 +86,8 @@ impl SendMessageUsecase {
             users_repo,
             room_user_repo,
             email_service,
+            notifications_repo,
+            notification_user_repo,
         }
     }
 }
@@ -205,6 +214,31 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                         }
                     });
                     */
+
+                    let notification_active_model: NotificationActiveModel =
+                        NotificationActiveModel {
+                            title: ActiveValue::Set("新着メッセージがあります".to_string()),
+                            content: ActiveValue::Set(format!(
+                                "{}さんからメッセージが届きました",
+                                sender_name
+                            )),
+                            ..Default::default()
+                        };
+                    let new_notification = self
+                        .notifications_repo
+                        .create(notification_active_model)
+                        .await?;
+                    let notification_user_active_model: NotificationUserActiveModel =
+                        NotificationUserActiveModel {
+                            notification_id: ActiveValue::Set(new_notification.id),
+                            user: ActiveValue::Set(room_user.user_id.clone()),
+                            is_read: ActiveValue::Set(false),
+                            is_deleted: ActiveValue::Set(false),
+                            ..Default::default()
+                        };
+                    self.notification_user_repo
+                        .create(notification_user_active_model)
+                        .await?;
                 }
                 Ok(None) => {
                     tracing::warn!("User not found: {}", room_user.user_id);

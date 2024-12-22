@@ -13,9 +13,16 @@ pub struct AddShortnoteInput {
     pub comment: String,
 }
 
+pub struct EditShortnoteInput {
+    pub id: Uuid,
+    pub comment: String,
+}
+
 #[async_trait]
 pub trait AddShortnoteUsecaseTrait: Send + Sync {
     async fn add_shortnote(&self, input: AddShortnoteInput) -> Result<String, DomainError>;
+    async fn edit_shortnote(&self, input: EditShortnoteInput) -> Result<String, DomainError>;
+    async fn delete_shortnote(&self, shortnote_id: Uuid) -> Result<Uuid, DomainError>;
 }
 
 pub struct AddShortnoteUsecase {
@@ -36,9 +43,22 @@ impl AddShortnoteUsecaseTrait for AddShortnoteUsecase {
             comment: ActiveValue::Set(input.comment.clone()),
             ..Default::default()
         };
-
         self.short_notes_repo.create(short_note).await?;
-
         Ok(input.comment)
+    }
+
+    async fn edit_shortnote(&self, input: EditShortnoteInput) -> Result<String, DomainError> {
+        let short_note: ShortNoteActiveModel = ShortNoteActiveModel {
+            id: ActiveValue::Set(input.id),
+            comment: ActiveValue::Set(input.comment.clone()),
+            ..Default::default()
+        };
+        self.short_notes_repo.update(short_note).await?;
+        Ok(input.comment)
+    }
+
+    async fn delete_shortnote(&self, shortnote_id: Uuid) -> Result<Uuid, DomainError> {
+        let _res = self.short_notes_repo.delete(shortnote_id).await?;
+        Ok(shortnote_id)
     }
 }

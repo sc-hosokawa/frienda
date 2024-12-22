@@ -5,11 +5,20 @@ use tracing::info;
 use uuid::Uuid;
 
 use domain::entities::artists::Model as Artist;
+use domain::entities::notification_user::ActiveModel as NotificationUserActiveModel;
+use domain::entities::notifications::ActiveModel as NotificationActiveModel;
 use domain::entities::txs_fsp::ActiveModel as TxsFspActiveModel;
 use domain::entities::users::Model as User;
 use domain::repositories::artists_repo::ArtistsRepository;
 use domain::repositories::txs_fsp_repo::TxsFspRepository;
 use domain::repositories::users_repo::UsersRepository;
+
+use crate::services::push_notification::PushNotificationServiceTrait;
+use crate::services::send_email::EmailServiceTrait;
+use domain::repositories::notification_user_repo::NotificationUserRepository;
+use domain::repositories::notifications_repo::NotificationsRepository;
+use domain::services::notification::PushNotification;
+use shared::error::domain_err::DomainError;
 
 //
 // Define the input for the usecase
@@ -45,6 +54,13 @@ pub trait TransferPointBetweenAccountsUsecaseTrait: Send + Sync {
         &self,
         input: TransferPointBetweenAccountsInput,
     ) -> Result<Uuid, anyhow::Error>;
+    async fn _send_notifications(
+        &self,
+        to_user: String,
+        fcm_token: Option<String>,
+        email: String,
+        amount: i32,
+    ) -> Result<(), DomainError>;
 }
 
 //
@@ -54,6 +70,10 @@ pub struct TransferPointBetweenAccountsUsecase {
     txs_fsp_repo: Arc<dyn TxsFspRepository>,
     users_repo: Arc<dyn UsersRepository>,
     artists_repo: Arc<dyn ArtistsRepository>,
+    notifications_repo: Arc<dyn NotificationsRepository>,
+    notification_user_repo: Arc<dyn NotificationUserRepository>,
+    push_notification_service: Arc<dyn PushNotificationServiceTrait>,
+    email_service: Arc<dyn EmailServiceTrait>,
 }
 
 impl TransferPointBetweenAccountsUsecase {
@@ -61,11 +81,19 @@ impl TransferPointBetweenAccountsUsecase {
         txs_fsp_repo: Arc<dyn TxsFspRepository>,
         users_repo: Arc<dyn UsersRepository>,
         artists_repo: Arc<dyn ArtistsRepository>,
+        notifications_repo: Arc<dyn NotificationsRepository>,
+        notification_user_repo: Arc<dyn NotificationUserRepository>,
+        push_notification_service: Arc<dyn PushNotificationServiceTrait>,
+        email_service: Arc<dyn EmailServiceTrait>,
     ) -> Self {
         Self {
             txs_fsp_repo,
             users_repo,
             artists_repo,
+            notifications_repo,
+            notification_user_repo,
+            push_notification_service,
+            email_service,
         }
     }
 }
@@ -117,6 +145,9 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
         };
         let res = self.txs_fsp_repo.create(tx_fsp).await?;
 
+        self._send_notifications(to_user.id, to_user.fcm_token, to_user.email, input.amount)
+            .await?;
+
         Ok(res.id)
     }
 
@@ -155,12 +186,15 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
 
         let tx_fsp: TxsFspActiveModel = TxsFspActiveModel {
             from: ActiveValue::Set(input.from),
-            to: ActiveValue::Set(to_user.id),
+            to: ActiveValue::Set(to_user.id.clone()),
             amount: ActiveValue::Set(input.amount),
             notes: ActiveValue::Set(input.notes),
             ..Default::default()
         };
         let res = self.txs_fsp_repo.create(tx_fsp).await?;
+
+        self._send_notifications(to_user.id, to_user.fcm_token, to_user.email, input.amount)
+            .await?;
 
         Ok(res.id)
     }
@@ -229,5 +263,65 @@ impl TransferPointBetweenAccountsUsecaseTrait for TransferPointBetweenAccountsUs
         let res = self.txs_fsp_repo.create_many(tx_fsps).await?;
 
         Ok(res.id)
+    }
+
+    async fn _send_notifications(
+        &self,
+        to_user: String,
+        fcm_token: Option<String>,
+        email: String,
+        amount: i32,
+    ) -> Result<(), DomainError> {
+        let notification_title = "ポイントを受け取りました".to_string();
+        let notification_body = format!("{}ポイント受け取りました", amount);
+
+        // データベース保存とプッシュ通知を並列実行
+        let db_task = async {
+            let notification_active_model = NotificationActiveModel {
+                title: ActiveValue::Set(notification_title.clone()),
+                content: ActiveValue::Set(notification_body.clone()),
+                ..Default::default()
+            };
+            let new_notification = self
+                .notifications_repo
+                .create(notification_active_model)
+                .await?;
+
+            let notification_user_active_model = NotificationUserActiveModel {
+                notification_id: ActiveValue::Set(new_notification.id),
+                user: ActiveValue::Set(to_user),
+                is_read: ActiveValue::Set(false),
+                is_deleted: ActiveValue::Set(false),
+                ..Default::default()
+            };
+            self.notification_user_repo
+                .create(notification_user_active_model)
+                .await
+        };
+
+        // FCMトークンがある場合のみプッシュ通知タスクを作成
+        let push_notification_task = fcm_token.map(|token| {
+            let push_notification = PushNotification {
+                token,
+                title: notification_title.clone(),
+                body: notification_body.clone(),
+            };
+            self.push_notification_service
+                .send_push_notification(push_notification)
+        });
+
+        // 両方のタスクを並列実行
+        let (db_result, _) = tokio::join!(db_task, async {
+            if let Some(task) = push_notification_task {
+                match task.await {
+                    Ok(result) => {
+                        tracing::debug!("Push notification sent successfully: {}", result)
+                    }
+                    Err(e) => tracing::error!("Failed to send push notification: {}", e),
+                }
+            }
+        });
+
+        db_result.map(|_| ())
     }
 }

@@ -13,6 +13,7 @@ pub trait OfferUserRepository: Send + Sync {
     async fn get_by_id(&self, id: i32) -> Result<Option<OfferUser>, DomainError>;
     async fn get_by_user_id(&self, user_id: &str) -> Result<Vec<OfferUser>, DomainError>;
     async fn get_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferUser>, DomainError>;
+    async fn get_by_offer_ids(&self, offer_ids: Vec<i32>) -> Result<Vec<OfferUser>, DomainError>;
     async fn get_by_user_id_and_offer_id(
         &self,
         user_id: &str,

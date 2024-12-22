@@ -1,54 +1,55 @@
 use application::services::send_email::EmailServiceTrait;
 use async_trait::async_trait;
 use domain::services::email::Email;
-use lettre::{transport::smtp::authentication::Credentials, Message, SmtpTransport, Transport};
+use sendgrid::v3::*;
 use std::env;
 
 pub struct SendGridService {
-    mailer: SmtpTransport,
+    sender: Sender,
 }
 
 impl SendGridService {
-    pub fn new() -> Result<Self, anyhow::Error> {
+    pub async fn new() -> Result<Self, anyhow::Error> {
         tracing::info!("Setting up SendGridService...");
         let api_key: String = env::var("SENDGRID_API_KEY")?;
-        let creds: Credentials = Credentials::new("apikey".to_string(), api_key.clone());
-        let mailer: SmtpTransport = SmtpTransport::relay("smtp.sendgrid.net")?
-            .credentials(creds.clone())
-            .build();
+        let sender: Sender = Sender::new(api_key.clone(), None);
 
-        tracing::info!("SendGridApiKey: {}", api_key);
-        tracing::info!("SendGridCreds: {:?}", creds);
-        tracing::info!("SendGridMailer: {:?}", mailer);
+        tracing::info!("SendGrid API Key: {:?}", api_key);
+        tracing::info!("SendGrid API Key configured");
 
-        /*
-        // テストメールの送信
-        let test_email: Message = Message::builder()
-            .from("info@friendshipdao.xyz".parse()?)
-            .to("naoki@fracton.ventures".parse()?)
-            .subject("SendGrid Test Email")
-            .body(String::from(
-                "SendGrid service has been initialized successfully.",
-            ))?;
+        let p_init: Personalization =
+            Personalization::new(sendgrid::v3::Email::new("naoki@fracton.ventures"));
+        let message: Message = Message::new(sendgrid::v3::Email::new("info@friendshipdao.xyz"))
+            .set_subject("Initial Message")
+            .add_content(
+                Content::new()
+                    .set_content_type("text/plain")
+                    .set_value("Initial Message"),
+            )
+            .add_personalization(p_init);
+        let result = sender.send(&message).await?;
+        tracing::info!("Email setup successfully: {:?}", result);
 
-        mailer.send(&test_email)?;
-        tracing::info!("Test email sent successfully");
-        */
-
-        Ok(Self { mailer })
+        Ok(Self { sender })
     }
 }
 
 #[async_trait]
 impl EmailServiceTrait for SendGridService {
     async fn send_email(&self, email: Email) -> Result<(), anyhow::Error> {
-        let email_message: Message = Message::builder()
-            .from(email.from.parse()?)
-            .to(email.to.parse()?)
-            .subject(email.subject)
-            .body(email.body)?;
+        let p: Personalization = Personalization::new(sendgrid::v3::Email::new(&email.to));
 
-        self.mailer.send(&email_message)?;
+        let message: Message = Message::new(sendgrid::v3::Email::new(&email.from))
+            .set_subject(&email.subject)
+            .add_content(
+                Content::new()
+                    .set_content_type("text/plain")
+                    .set_value(&email.body),
+            )
+            .add_personalization(p);
+
+        let result = self.sender.send(&message).await?;
+        tracing::info!("Email sent successfully: {:?}", result);
 
         Ok(())
     }

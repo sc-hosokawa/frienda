@@ -33,4 +33,9 @@ impl ShortNotesRepository for ShortNotesRepoImpl {
         ShortNoteEntity::delete_by_id(id).exec(&self.db).await?;
         Ok(())
     }
+
+    async fn get_by_id(&self, id: Uuid) -> Result<Option<ShortNote>, DomainError> {
+        let res = ShortNoteEntity::find_by_id(id).one(&self.db).await?;
+        Ok(res)
+    }
 }

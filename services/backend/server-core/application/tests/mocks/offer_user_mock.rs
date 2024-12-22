@@ -18,6 +18,10 @@ pub trait MockOfferUserRepo {
     async fn mock_get_by_id(&self, id: i32) -> Result<Option<OfferUser>, DomainError>;
     async fn mock_get_by_user_id(&self, user_id: String) -> Result<Vec<OfferUser>, DomainError>;
     async fn mock_get_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferUser>, DomainError>;
+    async fn mock_get_by_offer_ids(
+        &self,
+        offer_ids: Vec<i32>,
+    ) -> Result<Vec<OfferUser>, DomainError>;
     async fn mock_get_by_user_id_and_offer_id(
         &self,
         user_id: String,
@@ -63,6 +67,10 @@ impl OfferUserRepository for MockMockOfferUserRepo {
 
     async fn get_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferUser>, DomainError> {
         self.mock_get_by_offer_id(offer_id).await
+    }
+
+    async fn get_by_offer_ids(&self, offer_ids: Vec<i32>) -> Result<Vec<OfferUser>, DomainError> {
+        self.mock_get_by_offer_ids(offer_ids).await
     }
 
     async fn get_by_user_id_and_offer_id(

@@ -1,8 +1,8 @@
 use async_trait::async_trait;
 use sea_orm::ActiveValue;
-use std::sync::Arc;
-
 use shared::error::domain_err::DomainError;
+use std::sync::Arc;
+use uuid::Uuid;
 
 use domain::entities::favorites::ActiveModel as FavoriteActiveModel;
 use domain::repositories::favorites_repo::FavoritesRepository;
@@ -15,6 +15,7 @@ pub struct MarkFavoriteInput {
 #[async_trait]
 pub trait MarkFavoriteUsecaseTrait: Send + Sync {
     async fn mark_favorite(&self, input: MarkFavoriteInput) -> Result<String, DomainError>;
+    async fn unmark_favorite(&self, favorite_id: Uuid) -> Result<Uuid, DomainError>;
 }
 
 pub struct MarkFavoriteUsecase {
@@ -39,5 +40,10 @@ impl MarkFavoriteUsecaseTrait for MarkFavoriteUsecase {
         let _res = self.favorites_repo.create(favorite).await?;
 
         Ok(input.user_id)
+    }
+
+    async fn unmark_favorite(&self, favorite_id: Uuid) -> Result<Uuid, DomainError> {
+        let _res = self.favorites_repo.delete(favorite_id).await?;
+        Ok(favorite_id)
     }
 }

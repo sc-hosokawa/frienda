@@ -9,4 +9,5 @@ pub trait ShortNotesRepository: Send + Sync {
     async fn update(&self, short_note: ShortNoteActiveModel) -> Result<ShortNote, DomainError>;
 
     async fn delete(&self, id: Uuid) -> Result<(), DomainError>;
+    async fn get_by_id(&self, id: Uuid) -> Result<Option<ShortNote>, DomainError>;
 }
