@@ -17,6 +17,7 @@ impl SendGridService {
         tracing::info!("SendGrid API Key: {:?}", api_key);
         tracing::info!("SendGrid API Key configured");
 
+        /*
         let p_init: Personalization =
             Personalization::new(sendgrid::v3::Email::new("naoki@fracton.ventures"));
         let message: Message = Message::new(sendgrid::v3::Email::new("info@friendshipdao.xyz"))
@@ -29,6 +30,7 @@ impl SendGridService {
             .add_personalization(p_init);
         let result = sender.send(&message).await?;
         tracing::info!("Email setup successfully: {:?}", result);
+        */
 
         Ok(Self { sender })
     }
