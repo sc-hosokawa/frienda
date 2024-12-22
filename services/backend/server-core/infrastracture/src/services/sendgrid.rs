@@ -13,8 +13,6 @@ impl SendGridService {
         tracing::info!("Setting up SendGridService...");
         let api_key: String = env::var("SENDGRID_API_KEY")?;
         let sender: Sender = Sender::new(api_key.clone(), None);
-
-        tracing::info!("SendGrid API Key: {:?}", api_key);
         tracing::info!("SendGrid API Key configured");
 
         let p_init: Personalization =
