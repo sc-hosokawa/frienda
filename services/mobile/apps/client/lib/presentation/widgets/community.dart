@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/data/model/community/member.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/widgets/community/community_map.dart';
 
 // GraphQLクエリの定義
 final GET_OWN_COMMUNITY = gql('''
@@ -251,7 +252,10 @@ class _CommunityState extends ConsumerState<Community> {
   }
 
   Widget _buildMapView(List<CommunityMember> members) {
-    return Container();
+    return CommunityMap(
+      members: members,
+      currentUser: ref.watch(userProvider),
+    );
   }
 
   Color _getCategoryColor(String? category) {
