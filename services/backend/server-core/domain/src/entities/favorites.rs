@@ -14,8 +14,6 @@ pub struct Model {
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::short_notes::Entity")]
-    ShortNotes,
     #[sea_orm(
         belongs_to = "super::users::Entity",
         from = "Column::LikedBy",
@@ -32,12 +30,6 @@ pub enum Relation {
         on_delete = "NoAction"
     )]
     Users1,
-}
-
-impl Related<super::short_notes::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::ShortNotes.def()
-    }
 }
 
 impl ActiveModelBehavior for ActiveModel {}

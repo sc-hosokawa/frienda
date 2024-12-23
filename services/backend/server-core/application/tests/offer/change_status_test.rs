@@ -93,6 +93,7 @@ async fn test_apply_success() {
             id: 1,
             title: "オファーへの申し込みがありました".to_string(),
             content: "オファーへの申し込みがありました".to_string(),
+            category: Some("message".to_string()),
             created_at: chrono::Utc::now().naive_utc(),
         })
     });
@@ -198,6 +199,7 @@ async fn test_change_status_success() {
             id: 1,
             title: "オファーのステータスが変更されました".to_string(),
             content: "オファーのステータスが変更されました".to_string(),
+            category: Some("message".to_string()),
             created_at: chrono::Utc::now().naive_utc(),
         })
     });
@@ -295,6 +297,7 @@ async fn test_complete_success() {
             id: 1,
             title: "オファーが完了しました".to_string(),
             content: "オファーが完了し、ポイントを受け取りました".to_string(),
+            category: Some("message".to_string()),
             created_at: chrono::Utc::now().naive_utc(),
         })
     });

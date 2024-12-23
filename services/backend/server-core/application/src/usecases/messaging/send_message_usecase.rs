@@ -20,6 +20,7 @@ use domain::repositories::users_repo::UsersRepository;
 
 use crate::services::push_notification::PushNotificationServiceTrait;
 use crate::services::send_email::EmailServiceTrait;
+use domain::services::email::Email;
 use domain::services::notification::PushNotification;
 
 //
@@ -195,10 +196,9 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                         });
                     }
 
-                    /*
                     // メール通知
-                    let email = user.email.clone();
-                    let sender_name = sender_name.clone();
+                    let email: String = user.email.clone();
+                    let sender_name_clone: String = sender_name.clone();
                     tokio::spawn(async move {
                         let email_notification = Email {
                             from: "info@friendshipdao.xyz".to_string(),
@@ -206,14 +206,13 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                             subject: "【FRIENDSHIP. DAO】新着メッセージがあります".to_string(),
                             body: format!(
                                 "{0}さんから新しいメッセージが届きました。\n\nウェブサイトを開いて確認する: https://app.friendshipdao.xyz",
-                                sender_name,
+                                sender_name_clone,
                             ),
                         };
                         if let Err(e) = email_service.send_email(email_notification).await {
                             tracing::warn!("Failed to send email notification: {}", e);
                         }
                     });
-                    */
 
                     let notification_active_model: NotificationActiveModel =
                         NotificationActiveModel {
@@ -222,6 +221,7 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                                 "{}さんからメッセージが届きました",
                                 sender_name
                             )),
+                            category: ActiveValue::Set(Some("message".to_string())),
                             ..Default::default()
                         };
                     let new_notification = self

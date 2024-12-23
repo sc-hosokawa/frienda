@@ -19,6 +19,7 @@ use domain::entities::notification_user::ActiveModel as NotificationUserActiveMo
 use domain::entities::notifications::ActiveModel as NotificationActiveModel;
 use domain::repositories::notification_user_repo::NotificationUserRepository;
 use domain::repositories::notifications_repo::NotificationsRepository;
+use domain::services::email::Email;
 use domain::services::notification::PushNotification;
 use shared::error::domain_err::DomainError;
 
@@ -235,10 +236,12 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
     ) -> Result<(), DomainError> {
         let user = self.users_repo.find_by_id(&user_id).await?.unwrap();
 
+        // データベースへの通知保存タスク
         let db_task = async {
             let notification_active_model = NotificationActiveModel {
                 title: ActiveValue::Set(title.clone()),
                 content: ActiveValue::Set(body.clone()),
+                category: ActiveValue::Set(Some("offer".to_string())),
                 ..Default::default()
             };
             let new_notification = self
@@ -248,7 +251,7 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
 
             let notification_user_active_model = NotificationUserActiveModel {
                 notification_id: ActiveValue::Set(new_notification.id),
-                user: ActiveValue::Set(user.id),
+                user: ActiveValue::Set(user.id.clone()),
                 is_read: ActiveValue::Set(false),
                 is_deleted: ActiveValue::Set(false),
                 ..Default::default()
@@ -258,6 +261,7 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
                 .await
         };
 
+        // プッシュ通知タスク
         let push_notification_task = user.fcm_token.map(|token| {
             let push_notification = PushNotification {
                 token,
@@ -268,16 +272,42 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
                 .send_push_notification(push_notification)
         });
 
-        let (db_result, _) = tokio::join!(db_task, async {
-            if let Some(task) = push_notification_task {
-                match task.await {
-                    Ok(result) => {
-                        tracing::debug!("Push notification sent successfully: {}", result)
-                    }
-                    Err(e) => tracing::error!("Failed to send push notification: {}", e),
+        // メール通知タスク
+        let email_task = {
+            let email: String = user.email.clone();
+            let title_clone: String = title.clone();
+            let body_clone: String = body.clone();
+            let email_service: Arc<dyn EmailServiceTrait> = self.email_service.clone();
+            tokio::spawn(async move {
+                let email_notification = Email {
+                    from: "info@friendshipdao.xyz".to_string(),
+                    to: email,
+                    subject: format!("【FRIENDSHIP. DAO】{}", title_clone),
+                    body: format!(
+                        "{}\n\nウェブサイトを開いて確認する: https://app.friendshipdao.xyz",
+                        body_clone
+                    ),
+                };
+                if let Err(e) = email_service.send_email(email_notification).await {
+                    tracing::warn!("Failed to send email notification: {}", e);
                 }
-            }
-        });
+            })
+        };
+
+        let (db_result, _, _) = tokio::join!(
+            db_task,
+            async {
+                if let Some(task) = push_notification_task {
+                    match task.await {
+                        Ok(result) => {
+                            tracing::debug!("Push notification sent successfully: {}", result)
+                        }
+                        Err(e) => tracing::error!("Failed to send push notification: {}", e),
+                    }
+                }
+            },
+            email_task
+        );
 
         db_result.map(|_| ())
     }

@@ -46,6 +46,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           variables: {
             'userId': userState!.id,
           },
+          fetchPolicy: FetchPolicy.networkOnly,
         ),
       );
 
@@ -130,7 +131,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             variables: {
               'userId': userState?.id ?? '',
             },
-            fetchPolicy: FetchPolicy.networkOnly,
+            fetchPolicy: FetchPolicy.cacheAndNetwork,
           ),
           builder: (result, {refetch, fetchMore}) {
             if (result.hasException) {

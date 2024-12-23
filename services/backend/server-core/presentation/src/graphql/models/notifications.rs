@@ -6,6 +6,7 @@ use async_graphql::{InputObject, SimpleObject};
 pub struct NotificationData {
     pub id: String,
     pub title: String,
+    pub category: Option<String>,
     pub content: String,
     pub is_read: bool,
     pub created_at: String,

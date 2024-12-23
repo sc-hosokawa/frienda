@@ -23,6 +23,8 @@ pub trait MockNotificationsRepo {
     async fn mock_get_by_id(&self, id: i32) -> Result<Option<Notification>, DomainError>;
 
     async fn mock_get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Notification>, DomainError>;
+
+    async fn mock_get_by_category(&self, category: &str) -> Result<Vec<Notification>, DomainError>;
 }
 
 #[async_trait]
@@ -47,5 +49,9 @@ impl NotificationsRepository for MockMockNotificationsRepo {
 
     async fn get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Notification>, DomainError> {
         self.mock_get_by_ids(ids).await
+    }
+
+    async fn get_by_category(&self, category: &str) -> Result<Vec<Notification>, DomainError> {
+        self.mock_get_by_category(category).await
     }
 }

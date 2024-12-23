@@ -149,11 +149,7 @@ class _MessageListState extends ConsumerState<MessageList> {
   }
 
   Future<void> _createRoom(String recipientId) async {
-    print('Creating room with recipient: $recipientId');
-
     final currentUserId = ref.read(userProvider)?.id;
-    print('Current user ID: $currentUserId');
-
     final result = await ref.read(graphQLClientProvider).mutate(
           MutationOptions(
             document: gql('''
@@ -173,7 +169,6 @@ class _MessageListState extends ConsumerState<MessageList> {
           ),
         );
 
-    print('Mutation result: ${result.data}');
     if (result.hasException) {
       print('Mutation error: ${result.exception}');
       if (context.mounted) {
@@ -188,7 +183,6 @@ class _MessageListState extends ConsumerState<MessageList> {
     _refetch?.call();
 
     final roomId = result.data?['createNewMessageRoom']['id'] as String?;
-    print('Created room ID: $roomId');
 
     if (roomId != null && context.mounted) {
       await Navigator.of(context).push(
@@ -263,14 +257,8 @@ class _MessageListState extends ConsumerState<MessageList> {
         ),
         builder: (QueryResult result,
             {VoidCallback? refetch, FetchMore? fetchMore}) {
-          print('Query execution time: ${DateTime.now()}');
-          print('Cache status: ${result.source}');
-          print('Has data: ${result.data != null}');
-          print('Network status: ${result.isLoading}');
-
           _refetch = refetch;
 
-          print('result: ${result.data}');
           if (result.hasException) {
             return Center(child: Text(result.exception.toString()));
           }

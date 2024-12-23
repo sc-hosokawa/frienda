@@ -9,10 +9,11 @@ use shared::error::domain_err::DomainError;
 use std::sync::Arc;
 use uuid::Uuid;
 
-fn create_test_shortnote(favorite_id: Uuid, comment: &str) -> ShortNote {
+fn create_test_shortnote(writer: &str, to_user: &str, comment: &str) -> ShortNote {
     ShortNote {
         id: Uuid::new_v4(),
-        favorite_id,
+        writer: writer.to_string(),
+        to_user: to_user.to_string(),
         comment: comment.to_string(),
         created_at: chrono::Utc::now().naive_utc(),
     }
@@ -22,22 +23,25 @@ fn create_test_shortnote(favorite_id: Uuid, comment: &str) -> ShortNote {
 async fn test_add_shortnote_success() {
     let mut mock_repo = MockMockShortNotesRepo::new();
 
-    let favorite_id = Uuid::new_v4();
+    let writer = "test_writer".to_string();
+    let to_user = "test_to_user".to_string();
     let comment = "This is a test comment".to_string();
 
     let input = AddShortnoteInput {
-        favorite_id,
+        writer: writer.clone(),
+        to_user: to_user.clone(),
         comment: comment.clone(),
     };
 
-    let short_note = create_test_shortnote(favorite_id, &comment);
+    let short_note = create_test_shortnote(&writer, &to_user, &comment);
 
     let comment_clone = comment.clone();
 
     mock_repo
         .expect_mock_create()
         .withf(move |short_note: &ShortNoteActiveModel| {
-            short_note.favorite_id == ActiveValue::Set(favorite_id)
+            short_note.writer == ActiveValue::Set(writer.clone())
+                && short_note.to_user == ActiveValue::Set(to_user.clone())
                 && short_note.comment == ActiveValue::Set(comment_clone.clone())
         })
         .returning(move |_| Ok(short_note.clone()));
@@ -54,11 +58,13 @@ async fn test_add_shortnote_success() {
 async fn test_add_shortnote_failure() {
     let mut mock_repo = MockMockShortNotesRepo::new();
 
-    let favorite_id = Uuid::new_v4();
-    let comment = "This is a test comment".to_string();
+    let writer: String = "test_writer".to_string();
+    let to_user: String = "test_to_user".to_string();
+    let comment: String = "This is a test comment".to_string();
 
     let input = AddShortnoteInput {
-        favorite_id,
+        writer: writer.clone(),
+        to_user: to_user.clone(),
         comment: comment.clone(),
     };
 

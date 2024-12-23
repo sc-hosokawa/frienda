@@ -9,6 +9,7 @@ import 'package:client/presentation/widgets/offer/edit_offer.dart';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:client/presentation/widgets/offer/manage_offer.dart';
 
 class OfferDetailPage extends ConsumerStatefulWidget {
   final int offerId;
@@ -472,17 +473,16 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
         Expanded(
           child: ElevatedButton(
             onPressed: isOwner
-                ? () async {
-                    final result = await Navigator.push(
+                ? () {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            EditOfferPage(offerId: widget.offerId),
+                        builder: (context) => ManageOfferPage(
+                          offerId: widget.offerId,
+                          userId: currentUser?.id ?? '',
+                        ),
                       ),
                     );
-                    if (result == true) {
-                      _fetchOfferData();
-                    }
                   }
                 : (_isApplied ? null : _showConfirmationDialog),
             style: ElevatedButton.styleFrom(
@@ -493,7 +493,7 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
             ),
             child: Text(
               isOwner
-                  ? 'Offerを編集する'
+                  ? 'Offerを管理する'
                   : (_isApplied ? 'Applied' : 'このOfferに申し込む'),
               style: TextStyle(
                 fontSize: 16,
@@ -507,11 +507,36 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
           PopupMenuButton<String>(
             icon: Icon(Icons.more_vert, color: Colors.white),
             onSelected: (value) {
-              if (value == 'delete') {
-                _showDeleteConfirmationDialog();
+              switch (value) {
+                case 'edit':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          EditOfferPage(offerId: widget.offerId),
+                    ),
+                  ).then((result) {
+                    if (result == true) {
+                      _fetchOfferData();
+                    }
+                  });
+                  break;
+                case 'delete':
+                  _showDeleteConfirmationDialog();
+                  break;
               }
             },
             itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'edit',
+                child: Row(
+                  children: [
+                    Icon(Icons.edit, color: Colors.white, size: 20),
+                    SizedBox(width: 8),
+                    Text('編集する'),
+                  ],
+                ),
+              ),
               PopupMenuItem<String>(
                 value: 'delete',
                 child: Row(

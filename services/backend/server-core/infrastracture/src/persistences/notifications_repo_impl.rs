@@ -52,4 +52,12 @@ impl NotificationsRepository for NotificationsRepoImpl {
             .await?;
         Ok(notifications)
     }
+
+    async fn get_by_category(&self, category: &str) -> Result<Vec<Notification>, DomainError> {
+        let notifications: Vec<Notification> = NotificationEntity::find()
+            .filter(Column::Category.eq(category))
+            .all(&self.db)
+            .await?;
+        Ok(notifications)
+    }
 }

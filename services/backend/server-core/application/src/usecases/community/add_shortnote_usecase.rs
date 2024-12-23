@@ -9,7 +9,8 @@ use domain::entities::short_notes::ActiveModel as ShortNoteActiveModel;
 use domain::repositories::short_notes_repo::ShortNotesRepository;
 
 pub struct AddShortnoteInput {
-    pub favorite_id: Uuid,
+    pub writer: String,
+    pub to_user: String,
     pub comment: String,
 }
 
@@ -39,7 +40,8 @@ impl AddShortnoteUsecase {
 impl AddShortnoteUsecaseTrait for AddShortnoteUsecase {
     async fn add_shortnote(&self, input: AddShortnoteInput) -> Result<String, DomainError> {
         let short_note: ShortNoteActiveModel = ShortNoteActiveModel {
-            favorite_id: ActiveValue::Set(input.favorite_id),
+            writer: ActiveValue::Set(input.writer.clone()),
+            to_user: ActiveValue::Set(input.to_user.clone()),
             comment: ActiveValue::Set(input.comment.clone()),
             ..Default::default()
         };

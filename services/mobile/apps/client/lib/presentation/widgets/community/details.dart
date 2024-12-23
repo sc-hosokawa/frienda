@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NodeDetailPage extends StatelessWidget {
-  final Map<dynamic, dynamic> node;
+class NodeDetailPage extends ConsumerStatefulWidget {
+  final String id;
 
-  const NodeDetailPage({super.key, required this.node});
+  const NodeDetailPage({super.key, required this.id});
 
+  @override
+  ConsumerState<NodeDetailPage> createState() => _NodeDetailPageState();
+}
+
+class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +36,7 @@ class NodeDetailPage extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      node['name'] ?? 'No Name',
+                      'No Name',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
@@ -36,11 +44,11 @@ class NodeDetailPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              _buildSection('説明', node['description']),
-              _buildSection('スキル', node['skills']?.join(', ')),
-              _buildSection('カテゴリ', node['category']),
-              _buildListSection('Offers', node['offers']),
-              _buildListSection('Connections', node['connections']),
+              _buildSection('説明', 'No description'),
+              _buildSection('スキル', 'No skills'),
+              _buildSection('カテゴリ', 'No category'),
+              _buildListSection('Offers', []),
+              _buildListSection('Connections', []),
             ],
           ),
         ),
