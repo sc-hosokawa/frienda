@@ -44,11 +44,18 @@ impl QuestQuery {
     }
 
     #[tracing::instrument(skip(self, ctx))]
-    async fn login_reward(&self, ctx: &Context<'_>, user_id: String) -> Result<i32> {
+    async fn login_reward(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<models::quests::LoginRewardResponse> {
         tracing::info!("login_reward called with user_id: {}", user_id);
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        let login_reward_result: i32 = usecases.login_reward.login_reward(user_id).await?;
-        tracing::info!("login_reward result: {}", login_reward_result);
-        Ok(login_reward_result)
+        let login_reward_result: (i32, bool) = usecases.login_reward.login_reward(user_id).await?;
+        tracing::info!("login_reward result: {:?}", login_reward_result);
+        Ok(models::quests::LoginRewardResponse {
+            fsp: login_reward_result.0,
+            reward_given: login_reward_result.1,
+        })
     }
 }

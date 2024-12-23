@@ -23,3 +23,9 @@ pub struct MarkAsDoneResponse {
 pub struct CreateQuestResponse {
     pub quest_id: i32,
 }
+
+#[derive(SimpleObject)]
+pub struct LoginRewardResponse {
+    pub fsp: i32,
+    pub reward_given: bool,
+}

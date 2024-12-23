@@ -348,7 +348,7 @@ type MessagesByRoomIdByUserData {
 }
 
 type MutationRoot {
-	addShortnote(favoriteId: String!, comment: String!): AddShortnoteResponse!
+	addShortnote(writer: String!, toUser: String!, comment: String!): AddShortnoteResponse!
 	editShortnote(shortnoteId: String!, comment: String!): EditShortnoteResponse!
 	deleteShortnote(shortnoteId: String!): DeleteShortnoteResponse!
 	markFavorite(targetUserId: String!, likedBy: String!): MarkFavoriteResponse!

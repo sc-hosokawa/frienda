@@ -485,8 +485,6 @@ ALTER TABLE "news" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "notification_user" ADD FOREIGN KEY ("notification_id") REFERENCES "notifications" ("id");
 
-ALTER TABLE "short_notes" ADD FOREIGN KEY ("favorite_id") REFERENCES "favorites" ("id");
-
 ALTER TABLE "user_artist" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "user_artist" ADD FOREIGN KEY ("artist_id") REFERENCES "artists" ("artist_id");

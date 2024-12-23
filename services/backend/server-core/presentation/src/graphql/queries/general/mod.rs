@@ -166,6 +166,7 @@ impl GeneralQuery {
             .map(|n| models::notifications::NotificationData {
                 id: n.id.to_string(),
                 title: n.title,
+                category: n.category,
                 content: n.content,
                 is_read: n.is_read,
                 created_at: n.created_at.to_string(),
