@@ -6,6 +6,7 @@ use domain::entities::favorites::Model as Favorite;
 use domain::entities::offer_user::Model as OfferUser;
 use domain::entities::offers::Model as Offer;
 use domain::entities::sea_orm_active_enums::{OfferStatus, UserCategory};
+use domain::entities::short_notes::Model as ShortNote;
 use domain::entities::track_credits::Model as TrackCredits;
 use domain::entities::txs_fsp::Model as TxsFsp;
 use domain::entities::user_artist::Model as UserArtist;
@@ -211,11 +212,10 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
                 .exists(&user_id, &connected_user_id)
                 .await?;
             let favorite_id = favorite.map(|favorite| favorite.id);
-            let short_note = if let Some(favorite_id) = favorite_id {
-                self.short_notes_repo.get_by_id(favorite_id).await?
-            } else {
-                None
-            };
+            let short_note = self
+                .short_notes_repo
+                .get_by_writer_and_to_user(&user_id, &connected_user_id)
+                .await?;
             let last_logged_in: Option<String> =
                 connected_user.last_login_at.map(|date| date.to_string());
             let connections: Vec<String> = reasons;

@@ -59,11 +59,11 @@ impl ShortNotesRepository for ShortNotesRepoImpl {
         &self,
         writer: &str,
         to_user: &str,
-    ) -> Result<Vec<ShortNote>, DomainError> {
-        let res: Vec<ShortNote> = ShortNoteEntity::find()
+    ) -> Result<Option<ShortNote>, DomainError> {
+        let res: Option<ShortNote> = ShortNoteEntity::find()
             .filter(Column::Writer.eq(writer))
             .filter(Column::ToUser.eq(to_user))
-            .all(&self.db)
+            .one(&self.db)
             .await?;
         Ok(res)
     }

@@ -21,7 +21,7 @@ pub trait MockShortNotesRepo {
         &self,
         writer: &str,
         to_user: &str,
-    ) -> Result<Vec<ShortNote>, DomainError>;
+    ) -> Result<Option<ShortNote>, DomainError>;
 }
 
 #[async_trait]
@@ -54,7 +54,7 @@ impl ShortNotesRepository for MockMockShortNotesRepo {
         &self,
         writer: &str,
         to_user: &str,
-    ) -> Result<Vec<ShortNote>, DomainError> {
+    ) -> Result<Option<ShortNote>, DomainError> {
         self.mock_get_by_writer_and_to_user(writer, to_user).await
     }
 }
