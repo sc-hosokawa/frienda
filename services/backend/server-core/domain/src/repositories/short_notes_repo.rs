@@ -16,5 +16,5 @@ pub trait ShortNotesRepository: Send + Sync {
         &self,
         writer: &str,
         to_user: &str,
-    ) -> Result<Vec<ShortNote>, DomainError>;
+    ) -> Result<Option<ShortNote>, DomainError>;
 }

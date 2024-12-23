@@ -279,6 +279,11 @@ type LineChartData {
 	youtube: Int!
 }
 
+type LoginRewardResponse {
+	fsp: Int!
+	rewardGiven: Boolean!
+}
+
 input MarkAsAdminInput {
 	adminMember: String!
 	userId: String!
@@ -384,6 +389,7 @@ type MutationRoot {
 type NotificationData {
 	id: String!
 	title: String!
+	category: String
 	content: String!
 	isRead: Boolean!
 	createdAt: String!
@@ -530,7 +536,7 @@ type QueryRoot {
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
 	getQuestByUserId(userId: String!): [QuestData!]!
-	loginReward(userId: String!): Int!
+	loginReward(userId: String!): LoginRewardResponse!
 	getCredits(userId: String!, artistId: String!, isrc: String!): [TrackCredit!]!
 	getAllCredits(userId: String!): GetAllCreditsOutput!
 }
