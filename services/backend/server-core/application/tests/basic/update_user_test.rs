@@ -125,6 +125,7 @@ async fn test_update_user_profile_success() {
         instagram_handle: Some("instagram_handle".to_string()),
         fb_handle: Some("fb_handle".to_string()),
         fcm_token: Some("fcm_token".to_string()),
+        interest_offer: Some(OfferCategory::Creation),
     };
 
     let result = usecase.update(input).await;
