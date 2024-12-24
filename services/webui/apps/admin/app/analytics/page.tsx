@@ -20,7 +20,7 @@ export default function AnalyticsPage() {
   const [selectedPeriod, setSelectedPeriod] = React.useState(12);
   const [open, setOpen] = React.useState(false);
   const [selectedArtistId, setSelectedArtistId] = React.useState(
-    "artist_00_000000000000000000"
+    "artist_00_000000000000000000",
   );
   const {
     data: artistData,
@@ -30,7 +30,7 @@ export default function AnalyticsPage() {
     queryKey: ["artists"],
     queryFn: async () => {
       return await request(endpoint, GET_ALL_ARTISTS).then(
-        (data: any) => data.getAllArtists.artistList
+        (data: any) => data.getAllArtists.artistList,
       );
     },
   });

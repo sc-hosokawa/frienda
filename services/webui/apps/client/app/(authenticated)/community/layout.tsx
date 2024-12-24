@@ -24,6 +24,7 @@ export default function CommunityLayout({
             <p className="text-sm">コミュニティ</p>
           </div>
         </div>
+        {/*
         <Button
           variant="ghost"
           size="icon"
@@ -31,6 +32,7 @@ export default function CommunityLayout({
         >
           <Image src="/search.svg" alt="plus" width={24} height={24} />
         </Button>
+              */}
       </div>
       <hr className="mb-8 mt-24 border-[#303030]" />
       {children}

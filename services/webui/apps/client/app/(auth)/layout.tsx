@@ -23,7 +23,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
+    <html lang="ja" suppressHydrationWarning className="dark">
       <body
         className={`${JostFont.className} bg-white text-black dark:bg-black dark:text-white dark`}
       >

@@ -69,10 +69,10 @@ export default function GenderGenView({ data, isLoading }: GenderGenViewProps) {
   ];
 
   const hasGenerationData = generationData.some(
-    (item) => item.value !== undefined && item.value !== null && item.value > 0
+    (item) => item.value !== undefined && item.value !== null && item.value > 0,
   );
   const hasGenderData = genderData.some(
-    (item) => item.value !== undefined && item.value !== null && item.value > 0
+    (item) => item.value !== undefined && item.value !== null && item.value > 0,
   );
 
   return (

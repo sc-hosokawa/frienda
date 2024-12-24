@@ -8,10 +8,14 @@ import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { useUserBalance } from "../../store/user";
 import { gql, useQuery } from "@apollo/client";
+import { toast } from "react-hot-toast";
 
 const LOGIN_REWARD_QUERY = gql`
   query LoginReward($userId: String!) {
-    loginReward(userId: $userId)
+    loginReward(userId: $userId) {
+      fsp
+      rewardGiven
+    }
   }
 `;
 
@@ -23,12 +27,34 @@ export default function Header() {
   const { data } = useQuery(LOGIN_REWARD_QUERY, {
     variables: { userId: user?.id },
     skip: !user?.id,
-    fetchPolicy: "no-cache",
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {
-    if (data?.loginReward) {
-      console.log("Login reward received:", data.loginReward);
+    if (data?.loginReward && data.loginReward.rewardGiven) {
+      toast.success(
+        <div className="flex items-center justify-between w-full">
+          <span>ログインボーナスを獲得しました！</span>
+        </div>,
+        {
+          duration: 3000,
+          position: "top-center",
+          style: {
+            background: "#00B496",
+            color: "white",
+            padding: "16px",
+            width: "calc(100% - var(--sidebar-width))",
+            maxWidth: "calc(100% - var(--sidebar-width))",
+            marginLeft: "var(--sidebar-width)",
+            border: "none",
+            height: "90px",
+            display: "flex",
+            alignItems: "center",
+            borderRadius: "50px",
+          },
+          className: "w-full",
+        },
+      );
     }
   }, [data]);
 

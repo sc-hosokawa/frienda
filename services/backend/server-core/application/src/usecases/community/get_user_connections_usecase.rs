@@ -30,6 +30,7 @@ pub struct UserConnection {
     pub image_url: Option<String>,
     pub category: UserCategory,
     pub favorite_id: Option<Uuid>,
+    pub short_note_id: Option<Uuid>,
     pub short_note: Option<String>,
     pub last_logged_in: Option<String>,
     pub connections: Vec<String>,
@@ -216,6 +217,8 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
                 .short_notes_repo
                 .get_by_writer_and_to_user(&user_id, &connected_user_id)
                 .await?;
+            let short_note_clone = short_note.clone();
+            let short_note_id = short_note_clone.map(|short_note| short_note.id);
             let last_logged_in: Option<String> =
                 connected_user.last_login_at.map(|date| date.to_string());
             let connections: Vec<String> = reasons;
@@ -227,6 +230,7 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
                 image_url: connected_user.img_url,
                 category: connected_user.category,
                 favorite_id,
+                short_note_id,
                 short_note: short_note.map(|short_note| short_note.comment),
                 last_logged_in,
                 connections,
@@ -371,11 +375,12 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
                 .exists(&viewer_id, &connected_user_id)
                 .await?;
             let favorite_id = favorite.map(|favorite| favorite.id);
-            let short_note = if let Some(favorite_id) = favorite_id {
-                self.short_notes_repo.get_by_id(favorite_id).await?
-            } else {
-                None
-            };
+            let short_note: Option<ShortNote> = self
+                .short_notes_repo
+                .get_by_writer_and_to_user(&viewer_id, &connected_user_id)
+                .await?;
+            let short_note_clone = short_note.clone();
+            let short_note_id = short_note_clone.map(|short_note| short_note.id);
             let last_logged_in: Option<String> =
                 connected_user.last_login_at.map(|date| date.to_string());
             let connections: Vec<String> = reasons;
@@ -387,6 +392,7 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
                 image_url: connected_user.img_url,
                 category: connected_user.category,
                 favorite_id,
+                short_note_id,
                 short_note: short_note.map(|short_note| short_note.comment),
                 last_logged_in,
                 connections,

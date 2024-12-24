@@ -282,7 +282,7 @@ export default function Component() {
   return (
     <div className="flex flex-col h-screen bg-black text-white">
       <Link href="/message">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 z-50">
           <Image
             src="/arrow-left.svg"
             alt="arrow-left"
@@ -320,7 +320,7 @@ export default function Component() {
       >
         <div className="min-h-full flex flex-col justify-end">
           {messages.length === 0 ? (
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-2 my-auto">
               <h1 className="text-2xl font-light">メッセージがありません</h1>
               <p className="text-gray-500">
                 最初のメッセージを送信してみましょう
