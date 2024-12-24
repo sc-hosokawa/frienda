@@ -25,7 +25,8 @@ import { Skeleton } from "@ui/components/ui/skeleton";
 const conciergeSchema = z.object({
   question: z.string(),
 });
-export const ASK_LLM = gql`
+
+const ASK_LLM = gql`
   query AskLLM($userId: String!, $question: String!) {
     askLlm(userId: $userId, question: $question)
   }
