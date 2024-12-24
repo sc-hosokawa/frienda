@@ -70,7 +70,7 @@ export function SearchArtist({
                   value={artist.name}
                   onSelect={(currentValue) => {
                     setValue(
-                      !value || value !== currentValue ? currentValue : ""
+                      !value || value !== currentValue ? currentValue : "",
                     );
                     setOpen(false);
                   }}
@@ -79,7 +79,7 @@ export function SearchArtist({
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === artist.artistId ? "opacity-100" : "opacity-0"
+                      value === artist.artistId ? "opacity-100" : "opacity-0",
                     )}
                   />
                 </CommandItem>

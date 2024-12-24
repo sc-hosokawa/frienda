@@ -32,7 +32,7 @@ export default function SettingPage() {
     queryKey: ["artists"],
     queryFn: async () => {
       return await request(endpoint, GET_ALL_ARTISTS).then(
-        (data: any) => data.getAllArtists.artistList
+        (data: any) => data.getAllArtists.artistList,
       );
     },
   });

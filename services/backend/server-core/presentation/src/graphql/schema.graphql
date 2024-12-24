@@ -787,6 +787,7 @@ type UserConnectionData {
 	imageUrl: String
 	category: String!
 	favoriteId: String
+	shortNoteId: String
 	shortNote: String
 	lastLoggedIn: String
 	connections: [String!]!

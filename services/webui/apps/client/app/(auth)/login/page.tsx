@@ -121,7 +121,6 @@ export default function Login() {
         }
       }
 
-      // プロフィール情報の確認
       const { data } = await getUserData({
         variables: {
           userId: user.uid,
@@ -239,26 +238,26 @@ export default function Login() {
         {/* Form */}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <Label htmlFor="email">メールアドレス</Label>
+            <Label htmlFor="email">メールアドレス / Email</Label>
             <Input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="メールアドレスを入力してください"
+              placeholder="メールアドレスを入力してください / Input your email"
               className="bg-black border-white text-white placeholder:text-white/50 h-[90px] rounded-3xl"
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">パスワード</Label>
+            <Label htmlFor="password">パスワード / Password</Label>
             <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="パスワードを入力してください"
+              placeholder="パスワードを入力してください / Input a password"
               className="bg-black border-white text-white placeholder:text-white/50 h-[90px] rounded-3xl"
               required
             />
@@ -289,7 +288,7 @@ export default function Login() {
               className="hover:underline text-left"
               onClick={() => setResetDialogOpen(true)}
             >
-              パスワードをお忘れの方はこちら →
+              パスワードをお忘れの方はこちら / Forgot your password? →
             </button>
           </div>
 
@@ -299,7 +298,7 @@ export default function Login() {
               className="bg-white text-black hover:bg-white/90 h-[60px] w-[180px] rounded-full"
               disabled={loading}
             >
-              {loading ? "ログイン中..." : "ログイン"}
+              {loading ? "Processing..." : "Login"}
             </Button>
             <Button
               type="button"
@@ -307,7 +306,7 @@ export default function Login() {
               className="bg-black text-white border-gray-500 hover:bg-white/90 hover:text-black transition-colors h-[60px] w-[180px] rounded-full border-dashed"
               onClick={handleSignUp}
             >
-              新規登録
+              Signup
             </Button>
           </div>
         </form>
@@ -316,17 +315,17 @@ export default function Login() {
       <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
         <DialogContent className="bg-black border border-white/20">
           <DialogHeader>
-            <DialogTitle>パスワードリセット</DialogTitle>
+            <DialogTitle>パスワードリセット / Reset Password</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="reset-email">メールアドレス</Label>
+              <Label htmlFor="reset-email">メールアドレス / Email</Label>
               <Input
                 id="reset-email"
                 type="email"
                 value={resetEmail}
                 onChange={(e) => setResetEmail(e.target.value)}
-                placeholder="メールアドレスを入力してください"
+                placeholder="メールアドレスを入力してください / Input your email"
                 className="bg-black border-white/20 text-white placeholder:text-white/50"
               />
             </div>
@@ -335,7 +334,7 @@ export default function Login() {
               className="w-full bg-white text-black hover:bg-white/90"
               onClick={handlePasswordReset}
             >
-              パスワードを再設定
+              パスワードを再設定 / reset
             </Button>
           </div>
         </DialogContent>

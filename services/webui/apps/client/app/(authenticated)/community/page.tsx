@@ -15,7 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from "@ui/components/ui/table";
-import { ChevronDown } from "lucide-react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import useUserStore from "../../../store/user";
 
@@ -42,6 +41,7 @@ export default function CommunityPage() {
 
   const { data, error, loading, refetch } = useQuery(GET_OWN_COMMUNITY, {
     variables: { userId: user?.id || "" },
+    fetchPolicy: "network-only",
     skip: !user?.id,
   });
 
@@ -88,10 +88,7 @@ export default function CommunityPage() {
                 <TableRow className="border-b border-[#FFFFFF73]">
                   <TableHead></TableHead>
                   <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
-                    <div className="flex items-center gap-1">
-                      User
-                      <ChevronDown className="w-4 h-4" />
-                    </div>
+                    User
                   </TableHead>
                   <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
                     Category

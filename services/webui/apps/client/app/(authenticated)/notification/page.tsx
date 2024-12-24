@@ -13,6 +13,7 @@ const GET_NOTIFICATIONS = gql`
     getNotifications(userId: $userId) {
       id
       title
+      category
       content
       isRead
       createdAt
@@ -36,7 +37,7 @@ export default function NotificationList() {
   const notifications =
     data?.getNotifications.map((notification: any) => ({
       id: notification.id,
-      category: "Notification",
+      category: notification.category,
       color: "bg-[#e8ff26]",
       textColor: "text-black",
       highlighted: !notification.isRead,
