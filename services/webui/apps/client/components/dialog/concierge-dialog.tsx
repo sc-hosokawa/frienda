@@ -29,7 +29,7 @@ export function ConciergeDialog({ children }: { children: React.ReactNode }) {
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-[#0E0E0E] p-6 max-w-screen-2xl min-h-[90vh] h-[90vh]">
-        <AlertDialogHeader className="mb-6">
+        <AlertDialogHeader>
           <div className="flex flex-row justify-between items-start w-full p-6">
             <div className="flex flex-col mt-16 gap-3">
               <Separator className="w-[960px] border border-[#303030] mb-3" />

@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import OfferList from "./offer-list";
 import OfferListSkeleton from "./offer-list-skeleton";
@@ -15,9 +15,53 @@ import {
   TooltipTrigger,
 } from "@ui/components/ui/tooltip";
 import { ConciergeDialog } from "../../../components/dialog/concierge-dialog";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Form, FormControl, FormField, FormItem } from "@ui/components/ui/form";
+import { gql, useApolloClient } from "@apollo/client";
+import { Skeleton } from "@ui/components/ui/skeleton";
+
+const conciergeSchema = z.object({
+  question: z.string(),
+});
+export const ASK_LLM = gql`
+  query AskLLM($userId: String!, $question: String!) {
+    askLlm(userId: $userId, question: $question)
+  }
+`;
 
 export default function OfferPage() {
   const { user } = useUserStore();
+  const client = useApolloClient();
+  const [userQuestion, setUserQuestion] = React.useState<string | null>(null);
+  const [answer, setAnswer] = React.useState<string | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const form = useForm<z.infer<typeof conciergeSchema>>({
+    resolver: zodResolver(conciergeSchema),
+  });
+
+  async function onSubmit(value: z.infer<typeof conciergeSchema>) {
+    setUserQuestion(value.question);
+    if (answer) setAnswer(null);
+    try {
+      setIsLoading(true);
+      const { data } = await client.query({
+        query: ASK_LLM,
+        variables: {
+          userId: user?.id,
+          question: value.question,
+        },
+      });
+      setAnswer(data.askLlm);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      form.setValue("question", "");
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div className="p-4 min-h-screen">
@@ -39,16 +83,62 @@ export default function OfferPage() {
         </div>
         <div className="flex items-center gap-2">
           <ConciergeDialog>
-            {/* TODO: add chat component that shows prompt and response */}
-            <div className="relative flex -bottom-20 items-center w-[960px]">
-              <input
-                placeholder="My Conciergeに色々聞いてみましょう。(例: おすすめのオファーを3つ挙げてください。)"
-                className="flex w-full border border-white bg-transparent text-white rounded-[30px] h-[90px] p-6 pr-16"
-              />
-              <div className="absolute right-6">
-                <button
-                // TODO: add onClick handler to submit prompt
-                >
+            <div className="flex flex-col space-y-4 overflow-auto h-[300px] w-[960px]">
+              {userQuestion && (
+                <div className="flex justify-end mb-6">
+                  <div className="bg-[#E4DBC0] text-black w-[500px] p-4 rounded-md">
+                    {userQuestion}
+                  </div>
+                </div>
+              )}
+              <div className="flex flex-row">
+                <div>
+                  <Image
+                    src={"/logo_visualonly_dark.jpg"}
+                    alt="avatar"
+                    width={40}
+                    height={40}
+                    className={`p-1 rounded-full object-cover`}
+                  />
+                </div>
+                {answer && (
+                  <div className="bg-transparent text-white w-[960px]">
+                    <p>{answer}</p>
+                  </div>
+                )}
+                {isLoading && <Skeleton className="w-[960px] h-[90px]" />}
+                {!isLoading && !answer && (
+                  <div className="bg-transparent text-white w-[960px] p-2">
+                    <p>
+                      こんにちは!コンシェルジュです。何か質問があればどうぞ!
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex flex-row items-center w-[960px] gap-2"
+              >
+                <FormField
+                  control={form.control}
+                  name="question"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <input
+                          placeholder="My Conciergeに色々聞いてみましょう。(例: おすすめのオファーを3つ挙げてください。)"
+                          className="flex w-[900px] border border-white bg-transparent text-white rounded-[30px] h-[90px] p-6"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <button type="submit">
                   <Image
                     src="/arrow-up-circle.svg"
                     alt="arrow-up"
@@ -56,8 +146,8 @@ export default function OfferPage() {
                     height={36}
                   />
                 </button>
-              </div>
-            </div>
+              </form>
+            </Form>
           </ConciergeDialog>
           <Link
             href="/offer/list"
