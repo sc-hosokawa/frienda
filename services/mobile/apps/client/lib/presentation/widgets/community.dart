@@ -18,6 +18,7 @@ final GET_OWN_COMMUNITY = gql('''
         imageUrl
         category
         favoriteId
+        shortNoteId
         shortNote
         lastLoggedIn
         connections
@@ -40,6 +41,23 @@ const String markFavoriteMutation = '''
 const String unmarkFavoriteMutation = '''
   mutation UnmarkFavorite(\$favoriteId: String!) {
     unmarkFavorite(favoriteId: \$favoriteId) {
+      id
+    }
+  }
+''';
+
+// GraphQL mutationの定義を修正
+const String addShortNoteMutation = '''
+  mutation AddShortNote(\$writer: String!, \$toUser: String!, \$comment: String!) {
+    addShortnote(writer: \$writer, toUser: \$toUser, comment: \$comment) {
+      id
+    }
+  }
+''';
+
+const String editShortNoteMutation = '''
+  mutation EditShortNote(\$shortnoteId: String!, \$comment: String!) {
+    editShortnote(shortnoteId: \$shortnoteId, comment: \$comment) {
       id
     }
   }
@@ -132,6 +150,7 @@ class _CommunityState extends ConsumerState<Community> {
 
         return Column(
           children: [
+            /*
             DropdownButton<String>(
               value: _selectedView,
               items: ['List View', '(beta) Map View']
@@ -148,10 +167,9 @@ class _CommunityState extends ConsumerState<Community> {
                 }
               },
             ),
+            */
             Expanded(
-              child: _selectedView == 'Map View'
-                  ? _buildMapView(communityMembers)
-                  : _buildListView(communityMembers, userId, refetch),
+              child: _buildListView(communityMembers, userId, refetch),
             ),
           ],
         );
@@ -186,13 +204,37 @@ class _CommunityState extends ConsumerState<Community> {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (member.shortNote != null)
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Chip(
-                    label: Text(member.shortNote ?? ''),
-                    backgroundColor: Colors.grey[800],
+              if (member.shortNote != null && member.shortNote!.isNotEmpty)
+                Flexible(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Text(
+                            member.shortNote!,
+                            style: TextStyle(
+                              color: Colors.grey[300],
+                              fontSize: 12,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.edit, size: 16),
+                        onPressed: () => _showShortNoteDialog(
+                            context, member, userId, refetch),
+                      ),
+                    ],
                   ),
+                )
+              else
+                IconButton(
+                  icon: const Icon(Icons.edit, size: 16),
+                  onPressed: () =>
+                      _showShortNoteDialog(context, member, userId, refetch),
                 ),
               IconButton(
                 icon: Icon(
@@ -270,6 +312,80 @@ class _CommunityState extends ConsumerState<Community> {
         return const Color(0xFFE4DBC0);
       default:
         return Colors.black;
+    }
+  }
+
+  // ショートノート編集ダイアログを表示する関数を追加
+  Future<void> _showShortNoteDialog(
+    BuildContext context,
+    CommunityMember member,
+    String userId,
+    VoidCallback? refetch,
+  ) async {
+    final controller = TextEditingController(text: member.shortNote);
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+            member.shortNoteId != null ? 'Edit Short Note' : 'Add Short Note'),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            hintText: 'Enter your short note',
+          ),
+          maxLength: 50,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, controller.text),
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+
+    if (result != null) {
+      final GraphQLClient client = GraphQLProvider.of(context).value;
+      try {
+        if (member.shortNoteId == null) {
+          // ショートノートが存在しない場合は追加
+          await client.mutate(
+            MutationOptions(
+              document: gql(addShortNoteMutation),
+              variables: {
+                'writer': userId,
+                'toUser': member.id,
+                'comment': result,
+              },
+            ),
+          );
+        } else {
+          // ショートノートが存在する場合は編集
+          await client.mutate(
+            MutationOptions(
+              document: gql(editShortNoteMutation),
+              variables: {
+                'shortnoteId': member.shortNoteId,
+                'comment': result,
+              },
+            ),
+          );
+        }
+        refetch?.call();
+      } catch (error) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to update short note: $error'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
     }
   }
 }

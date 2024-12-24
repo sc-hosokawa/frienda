@@ -40,13 +40,16 @@ class _HomePageState extends ConsumerState<HomePage> {
         QueryOptions(
           document: gql('''
             query LoginReward(\$userId: String!) {
-              loginReward(userId: \$userId)
+              loginReward(userId: \$userId) {
+                fsp
+                rewardGiven
+              }
             }
           '''),
           variables: {
             'userId': userState!.id,
           },
-          fetchPolicy: FetchPolicy.networkOnly,
+          fetchPolicy: FetchPolicy.noCache,
         ),
       );
 
@@ -57,10 +60,25 @@ class _HomePageState extends ConsumerState<HomePage> {
         return;
       }
 
-      // 必要に応じて結果を処理
-      final rewardPoints = result.data?['loginReward'] as int?;
-      if (rewardPoints != null) {
-        print('Login reward points: $rewardPoints');
+      final rewardPoints = result.data?['loginReward']['fsp'] as int?;
+      final rewardGiven = result.data?['loginReward']['rewardGiven'] as bool?;
+
+      if (rewardGiven == false && rewardPoints != null && mounted) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('デイリーログインボーナス'),
+              content: Text('ログインボーナスを獲得しました！'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
     } catch (e) {
       print('Error querying login reward: $e');
