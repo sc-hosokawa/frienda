@@ -35,6 +35,7 @@ pub struct UserDetailData {
     pub name: String,
     pub image_url: Option<String>,
     pub realname: String,
+    pub email: String,
     pub is_super_admin: bool,
     pub fsp_balance: i32,
     //    pub fsp_balance_temp: i32,
@@ -119,6 +120,7 @@ pub struct UpdateUserDataInput {
     pub instagram_handle: Option<String>,
     pub fb_handle: Option<String>,
     pub fcm_token: Option<String>,
+    pub interest_offer: Option<String>,
 }
 
 #[derive(SimpleObject)]
@@ -232,6 +234,7 @@ impl UserDetailData {
             id: domain.user.id,
             name: domain.user.username,
             image_url: domain.user.img_url,
+            email: domain.user.email,
             fsp_balance: domain.user.fsp,
             realname: domain.user.realname,
             is_super_admin: domain.user.is_superadmin.unwrap_or(false),
