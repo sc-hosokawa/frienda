@@ -5,6 +5,7 @@ import 'package:client/presentation/providers/client_provider.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/widgets/dashboard/balance_screen.dart';
+import 'package:client/presentation/widgets/dashboard/credit_dialog.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
   final String title;
@@ -73,8 +74,6 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen>
               fetchPolicy: FetchPolicy.networkOnly,
             ),
           );
-
-      print('PlaycountHistory Response: ${result.data}');
 
       if (result.hasException) {
         throw result.exception!;
@@ -310,6 +309,16 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen>
               fontSize: 16,
             ),
           ),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) => CreditDialog(
+                isrc: track['isrc'] ?? '',
+                trackName: title,
+                artistId: widget.artistId,
+              ),
+            );
+          },
         );
       },
     );

@@ -92,6 +92,7 @@ final balanceStreamProvider =
               variables: {
                 'userId': user.id,
               },
+              fetchPolicy: FetchPolicy.networkOnly,
             ),
           );
 

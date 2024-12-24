@@ -14,6 +14,7 @@ pub struct GetNotificationsResponse {
 pub struct NotificationResponse {
     pub id: String,
     pub title: String,
+    pub category: Option<String>,
     pub content: String,
     pub is_read: bool,
     pub created_at: String,
@@ -66,6 +67,7 @@ impl GetNotificationsUsecaseTrait for GetNotificationsUsecase {
             .map(|n| NotificationResponse {
                 id: n.id.to_string(),
                 title: n.title.clone(),
+                category: n.category.clone(),
                 content: n.content.clone(),
                 is_read: notification_users
                     .iter()

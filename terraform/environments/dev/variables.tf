@@ -22,3 +22,9 @@ variable "frienda_server_image_tag" {
   default     = "latest"
   sensitive   = true
 }
+
+variable "db_password" {
+  type        = string
+  description = "The password of the database"
+  sensitive   = true
+}

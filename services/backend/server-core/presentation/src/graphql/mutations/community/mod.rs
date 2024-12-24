@@ -12,7 +12,8 @@ impl CommunityMutation {
     async fn add_shortnote(
         &self,
         ctx: &Context<'_>,
-        favorite_id: String,
+        writer: String,
+        to_user: String,
         comment: String,
     ) -> Result<models::communities::AddShortnoteResponse> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
@@ -20,7 +21,8 @@ impl CommunityMutation {
             .add_shortnote
             .add_shortnote(
                 application::usecases::community::add_shortnote_usecase::AddShortnoteInput {
-                    favorite_id: Uuid::parse_str(&favorite_id).unwrap(),
+                    writer: writer.clone(),
+                    to_user: to_user.clone(),
                     comment: comment.clone(),
                 },
             )

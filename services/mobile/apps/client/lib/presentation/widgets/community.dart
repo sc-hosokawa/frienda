@@ -2,19 +2,59 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_graph_view/flutter_graph_view.dart';
 import 'package:client/presentation/widgets/community/details.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:client/data/model/community/member.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/widgets/community/community_map.dart';
+
+// GraphQLクエリの定義
+final GET_OWN_COMMUNITY = gql('''
+  query GetOwnCommunity(\$userId: String!) {
+    getOwnCommunity(userId: \$userId) {
+      community {
+        id
+        name
+        imageUrl
+        category
+        favoriteId
+        shortNote
+        lastLoggedIn
+        connections
+        weight
+      }
+    }
+  }
+''');
 
 Map<String, Vertex> vertexStorage = {};
 
-class Community extends StatefulWidget {
+const String markFavoriteMutation = '''
+  mutation MarkFavorite(\$targetUserId: String!, \$likedBy: String!) {
+    markFavorite(targetUserId: \$targetUserId, likedBy: \$likedBy) {
+      id
+    }
+  }
+''';
+
+const String unmarkFavoriteMutation = '''
+  mutation UnmarkFavorite(\$favoriteId: String!) {
+    unmarkFavorite(favoriteId: \$favoriteId) {
+      id
+    }
+  }
+''';
+
+class Community extends ConsumerStatefulWidget {
   const Community({super.key});
 
   @override
-  State<Community> createState() => _CommunityState();
+  ConsumerState<Community> createState() => _CommunityState();
 }
 
-class _CommunityState extends State<Community> {
+class _CommunityState extends ConsumerState<Community> {
   String _selectedView = 'List View';
-  bool is_view = false;
+  List<CommunityMember> communityMembers = [];
 
   void saveVertex(Vertex v) {
     vertexStorage[v.id as String] = v;
@@ -54,260 +94,182 @@ class _CommunityState extends State<Community> {
 
   @override
   Widget build(BuildContext context) {
-    // 初期位置を計算（radius は適宜調整）
-    final initialPositions = calculateInitialPositions(
-        200, false); // false for full circle, true for half circle
-
-    var vertexes = <Map>{};
-    var r = Random();
-
-    // node0（中心ノード）の追加
-    vertexes.add({
-      'id': 'node0',
-      'tag': 'tag${r.nextInt(9)}',
-      'tags': [
-        'tag${r.nextInt(9)}',
-        if (r.nextBool()) 'tag${r.nextInt(4)}',
-        if (r.nextBool()) 'tag${r.nextInt(8)}'
-      ],
-      'position': initialPositions['node0'], // 初期位置を設定
-    });
-
-    // 周りのノードの追加
-    for (var i = 1; i < 10; i++) {
-      vertexes.add({
-        'id': 'node$i',
-        'tag': 'tag${r.nextInt(9)}',
-        'tags': [
-          'tag${r.nextInt(9)}',
-          if (r.nextBool()) 'tag${r.nextInt(4)}',
-          if (r.nextBool()) 'tag${r.nextInt(8)}'
-        ],
-        'position': initialPositions['node$i'], // 初期位置を設定
-      });
-    }
-
-    var edges = <Map>{};
-    for (var i = 1; i < 10; i++) {
-      edges.add({
-        'srcId': 'node0',
-        'dstId': 'node$i',
-        'edgeName': 'edge${r.nextInt(3)}',
-        'ranking': DateTime.now().millisecond,
-      });
-    }
-
-    var data = {
-      'vertexes': vertexes,
-      'edges': edges,
-    };
-
-    return Column(
-      children: [
-        // ドロップダウンメニュー
-        DropdownButton<String>(
-          value: _selectedView,
-          items: ['List View', '(beta) Map View']
-              .map((String value) => DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  ))
-              .toList(),
-          onChanged: (String? newValue) {
-            if (newValue != null) {
-              setState(() {
-                _selectedView = newValue;
-              });
-            }
-          },
-        ),
-        // グラフ表示
-        Expanded(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: is_view
-                ? (_selectedView == 'Map View'
-                    ? FlutterGraphWidget(
-                        data: data,
-                        algorithm: RandomAlgorithm(
-                          decorators: [
-                            PersistenceDecorator(saveVertex, loadVertex),
-                            CoulombDecorator(k: 1000), // 反発力を調整
-                            HookeDecorator(length: 1000, k: 0.01), // バネの強さを調整
-                            HookeCenterDecorator(
-                                length: 1000, k: 0.01), // 中心への引力を調整
-                          ],
-                        ),
-                        convertor: MapConvertor(),
-                        options: Options()
-                          ..enableHit = false
-                          ..panelDelay = const Duration(milliseconds: 500)
-                          ..graphStyle = (GraphStyle()
-                            ..tagColor = {'tag8': Colors.orangeAccent.shade200}
-                            ..tagColorByIndex = [
-                              Colors.red.shade200,
-                              Colors.orange.shade200,
-                              Colors.yellow.shade200,
-                              Colors.green.shade200,
-                              Colors.blue.shade200,
-                              Colors.blueAccent.shade200,
-                              Colors.purple.shade200,
-                              Colors.pink.shade200,
-                              Colors.blueGrey.shade200,
-                              Colors.deepOrange.shade200,
-                            ])
-                          ..useLegend = false
-                          ..edgePanelBuilder = edgePanelBuilder
-                          ..vertexPanelBuilder = vertexPanelBuilder
-                          ..edgeShape = EdgeLineShape()
-                          ..vertexShape = VertexCircleShape(),
-                      )
-                    : _buildListView(vertexes.toList()))
-                : Center(
-                    child: Text(
-                      'No connection yet',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: _buildTags(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTags() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          _buildTagItem('Musician', Colors.blue),
-          const SizedBox(width: 8),
-          _buildTagItem('Curator', Colors.green),
-          const SizedBox(width: 8),
-          _buildTagItem('Creator', Colors.orange),
-          const SizedBox(width: 8),
-          _buildTagItem('Supporter', Colors.purple),
-        ],
+    final userId = ref.watch(userProvider)?.id ?? '';
+    return Query(
+      options: QueryOptions(
+        document: GET_OWN_COMMUNITY,
+        variables: {
+          'userId': userId,
+        },
+        fetchPolicy: FetchPolicy.cacheAndNetwork,
       ),
-    );
-  }
+      builder: (QueryResult result,
+          {VoidCallback? refetch, FetchMore? fetchMore}) {
+        if (result.hasException) {
+          return Center(child: Text('Error: ${result.exception.toString()}'));
+        }
 
-  Widget _buildTagItem(String label, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(color: Colors.white, fontSize: 12),
-      ),
-    );
-  }
+        if (result.isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-  Widget edgePanelBuilder(Edge edge, Viewfinder viewfinder) {
-    var c = viewfinder.localToGlobal(edge.position);
+        final data = result.data;
+        if (data == null) {
+          return const Center(child: Text('No connection yet'));
+        }
 
-    return Stack(
-      children: [
-        Positioned(
-          left: c.x + 5,
-          top: c.y,
-          child: SizedBox(
-            width: 200,
-            child: ColoredBox(
-              color: Colors.grey.shade900.withAlpha(200),
-              child: ListTile(
-                title: Text(
-                    '${edge.edgeName} @${edge.ranking}\nDelay controlled by \noptions.panelDelay\ndefault to 300ms'),
-              ),
+        final communityData = (data['getOwnCommunity']['community'] as List?)
+            ?.map((item) => item as Map<String, dynamic>)
+            .toList();
+
+        if (communityData == null || communityData.isEmpty) {
+          return const Center(child: Text('No connection yet'));
+        }
+
+        communityMembers = communityData
+            .map((data) => CommunityMember.fromJson(data))
+            .toList();
+
+        return Column(
+          children: [
+            DropdownButton<String>(
+              value: _selectedView,
+              items: ['List View', '(beta) Map View']
+                  .map((String value) => DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      ))
+                  .toList(),
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    _selectedView = newValue;
+                  });
+                }
+              },
             ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget vertexPanelBuilder(hoverVertex, Viewfinder viewfinder) {
-    var c = viewfinder.localToGlobal(hoverVertex.cpn!.position);
-    return Stack(
-      children: [
-        Positioned(
-          left: c.x + hoverVertex.radius + 5,
-          top: c.y - 20,
-          child: SizedBox(
-            width: 120,
-            child: ColoredBox(
-              color: Colors.grey.shade900.withAlpha(200),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Id: ${hoverVertex.id}',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Degree: ${hoverVertex.degree}',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Prev: ${hoverVertex.prevVertex?.id}',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Text(
-                    'Tag: ${hoverVertex.data['tag']}',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
+            Expanded(
+              child: _selectedView == 'Map View'
+                  ? _buildMapView(communityMembers)
+                  : _buildListView(communityMembers, userId, refetch),
             ),
-          ),
-        )
-      ],
+          ],
+        );
+      },
     );
   }
 
-  Widget _buildListView(List<Map<dynamic, dynamic>> vertexes) {
-    var targetNodes =
-        vertexes.where((vertex) => vertex['id'] != 'node0').toList();
-    var r = Random();
-
+  Widget _buildListView(
+      List<CommunityMember> members, String userId, VoidCallback? refetch) {
     return ListView.builder(
-      itemCount: targetNodes.length,
+      itemCount: members.length,
       itemBuilder: (context, index) {
-        var node = targetNodes[index];
-        // ランダムにタグを選択
-        var tags = ['Musician', 'Curator', 'Creator', 'Supporter'];
-        var randomTag = tags[r.nextInt(tags.length)];
-        // ランダムなコネクション数を生成（1から5の範囲）
-        var connections = r.nextInt(5) + 1;
-
+        final member = members[index];
         return ListTile(
-          leading: CircleAvatar(
-            backgroundImage: AssetImage('assets/logo_visualonly.jpg'),
+          leading: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: _getCategoryColor(member.category),
+                width: 2.0,
+              ),
+            ),
+            child: CircleAvatar(
+              backgroundImage: member.imageUrl != null
+                  ? NetworkImage(member.imageUrl!)
+                  : const AssetImage('assets/logo_visualonly.jpg')
+                      as ImageProvider,
+            ),
           ),
-          title: Text(node['id']),
-          subtitle: Text(randomTag), // ランダムに選択されたタグを表示
-          trailing: Chip(
-            label: Text('$connections'),
-            backgroundColor: Colors.grey[800],
-          ), // コネクション数を表示
+          title: Text(member.name ?? 'Unknown'),
+          subtitle: Text(member.category ?? ''),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (member.shortNote != null)
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Chip(
+                    label: Text(member.shortNote ?? ''),
+                    backgroundColor: Colors.grey[800],
+                  ),
+                ),
+              IconButton(
+                icon: Icon(
+                  member.favoriteId != null
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: member.favoriteId != null ? Colors.red : Colors.grey,
+                ),
+                onPressed: () async {
+                  final GraphQLClient client =
+                      GraphQLProvider.of(context).value;
+
+                  try {
+                    if (member.favoriteId != null) {
+                      await client.mutate(
+                        MutationOptions(
+                          document: gql(unmarkFavoriteMutation),
+                          variables: {
+                            'favoriteId': member.favoriteId,
+                          },
+                        ),
+                      );
+                    } else {
+                      await client.mutate(
+                        MutationOptions(
+                          document: gql(markFavoriteMutation),
+                          variables: {
+                            'targetUserId': member.id,
+                            'likedBy': userId,
+                          },
+                        ),
+                      );
+                    }
+                    refetch?.call();
+                  } catch (error) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:
+                            Text('Failed to update favorite status: $error'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => NodeDetailPage(node: node),
+              builder: (context) => NodeDetailPage(id: member.id),
             ),
           ),
         );
       },
     );
+  }
+
+  Widget _buildMapView(List<CommunityMember> members) {
+    return CommunityMap(
+      members: members,
+      currentUser: ref.watch(userProvider),
+    );
+  }
+
+  Color _getCategoryColor(String? category) {
+    switch (category?.toLowerCase()) {
+      case 'musician':
+        return const Color(0xFFFF7178);
+      case 'curator':
+        return const Color(0xFFFF692D);
+      case 'creator':
+        return const Color(0xFFE1F000);
+      case 'supporter':
+        return const Color(0xFFE4DBC0);
+      default:
+        return Colors.black;
+    }
   }
 }

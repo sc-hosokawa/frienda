@@ -10,4 +10,11 @@ pub trait ShortNotesRepository: Send + Sync {
 
     async fn delete(&self, id: Uuid) -> Result<(), DomainError>;
     async fn get_by_id(&self, id: Uuid) -> Result<Option<ShortNote>, DomainError>;
+    async fn get_by_writer(&self, writer: &str) -> Result<Vec<ShortNote>, DomainError>;
+    async fn get_by_to_user(&self, to_user: &str) -> Result<Vec<ShortNote>, DomainError>;
+    async fn get_by_writer_and_to_user(
+        &self,
+        writer: &str,
+        to_user: &str,
+    ) -> Result<Option<ShortNote>, DomainError>;
 }

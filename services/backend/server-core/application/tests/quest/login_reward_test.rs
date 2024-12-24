@@ -65,7 +65,7 @@ async fn test_login_reward_first_login() {
 
     // Assert
     assert!(result.is_ok());
-    assert_eq!(result.unwrap(), initial_fsp);
+    assert_eq!(result.unwrap(), (initial_fsp, false));
 }
 
 #[tokio::test]
@@ -95,7 +95,7 @@ async fn test_login_reward_same_day() {
 
     // Assert
     assert!(result.is_ok());
-    assert_eq!(result.unwrap(), initial_fsp);
+    assert_eq!(result.unwrap(), (initial_fsp, false));
 }
 
 #[tokio::test]
@@ -125,7 +125,7 @@ async fn test_login_reward_next_day() {
 
     // Assert
     assert!(result.is_ok());
-    assert_eq!(result.unwrap(), initial_fsp);
+    assert_eq!(result.unwrap(), (initial_fsp, true));
 }
 
 #[tokio::test]

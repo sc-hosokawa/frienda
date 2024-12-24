@@ -5,9 +5,6 @@ terraform {
       version = "5.8.0"
     }
   }
-  backend "gcs" {
-    bucket = "frienda-terraform-state"
-  }
 }
 
 provider "google" {
@@ -69,12 +66,7 @@ resource "google_sql_user" "users" {
   project  = var.project_id
   name     = "frienda-pg"
   instance = google_sql_database_instance.main.name
-  password = random_password.db_password.result
-}
-
-resource "random_password" "db_password" {
-  length  = 16
-  special = false
+  password = var.db_password
 }
 
 resource "google_storage_bucket_iam_member" "sql_storage_object_admin" {
@@ -99,11 +91,11 @@ resource "google_cloud_run_v2_service" "frienda_server" {
     }
     vpc_access {
       connector = google_vpc_access_connector.connector.id
-      egress    = "ALL_TRAFFIC"
+      egress    = "PRIVATE_RANGES_ONLY"
     }
   }
   lifecycle {
-    ignore_changes        = [template]
+    ignore_changes        = [template[0].containers[0]]
     create_before_destroy = true
   }
 }
@@ -124,24 +116,6 @@ resource "google_cloud_run_v2_service_iam_policy" "policy" {
 }
 
 // ======= Object Storage =======
-resource "google_storage_bucket" "terraform-state-store" {
-  name          = "frienda-terraform-state"
-  location      = "us-west1"
-  storage_class = "REGIONAL"
-
-  versioning {
-    enabled = true
-  }
-
-  lifecycle_rule {
-    action {
-      type = "Delete"
-    }
-    condition {
-      num_newer_versions = 5
-    }
-  }
-}
 
 resource "google_storage_bucket" "photo_storage" {
   name          = "frienda-photo-storage"

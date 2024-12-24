@@ -125,6 +125,7 @@ async fn test_transfer_between_users_success() {
             id: 1,
             title: "ポイントを受け取りました".to_string(),
             content: "500ポイント受け取りました".to_string(),
+            category: Some("message".to_string()),
             created_at: chrono::Utc::now().naive_utc(),
         })
     });
@@ -207,6 +208,7 @@ async fn test_transfer_from_admin_success() {
             id: 1,
             title: "ポイントを受け取りました".to_string(),
             content: "1000ポイント受け取りました".to_string(),
+            category: Some("message".to_string()),
             created_at: chrono::Utc::now().naive_utc(),
         })
     });

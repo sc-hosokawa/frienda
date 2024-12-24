@@ -15,6 +15,13 @@ pub trait MockShortNotesRepo {
         -> Result<ShortNote, DomainError>;
     async fn mock_delete(&self, id: Uuid) -> Result<(), DomainError>;
     async fn mock_get_by_id(&self, id: Uuid) -> Result<Option<ShortNote>, DomainError>;
+    async fn mock_get_by_writer(&self, writer: &str) -> Result<Vec<ShortNote>, DomainError>;
+    async fn mock_get_by_to_user(&self, to_user: &str) -> Result<Vec<ShortNote>, DomainError>;
+    async fn mock_get_by_writer_and_to_user(
+        &self,
+        writer: &str,
+        to_user: &str,
+    ) -> Result<Option<ShortNote>, DomainError>;
 }
 
 #[async_trait]
@@ -33,5 +40,21 @@ impl ShortNotesRepository for MockMockShortNotesRepo {
 
     async fn get_by_id(&self, id: Uuid) -> Result<Option<ShortNote>, DomainError> {
         self.mock_get_by_id(id).await
+    }
+
+    async fn get_by_writer(&self, writer: &str) -> Result<Vec<ShortNote>, DomainError> {
+        self.mock_get_by_writer(writer).await
+    }
+
+    async fn get_by_to_user(&self, to_user: &str) -> Result<Vec<ShortNote>, DomainError> {
+        self.mock_get_by_to_user(to_user).await
+    }
+
+    async fn get_by_writer_and_to_user(
+        &self,
+        writer: &str,
+        to_user: &str,
+    ) -> Result<Option<ShortNote>, DomainError> {
+        self.mock_get_by_writer_and_to_user(writer, to_user).await
     }
 }
