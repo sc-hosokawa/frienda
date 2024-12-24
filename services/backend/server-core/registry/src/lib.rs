@@ -21,6 +21,7 @@ use application::usecases::community::{
     add_shortnote_usecase::{AddShortnoteUsecase, AddShortnoteUsecaseTrait},
     get_user_connections_usecase::{GetUserConnectionsUsecase, GetUserConnectionsUsecaseTrait},
     mark_favorite_usecase::{MarkFavoriteUsecase, MarkFavoriteUsecaseTrait},
+    user_profile_usecase::{GetUserProfileUsecase, GetUserProfileUsecaseTrait},
 };
 use application::usecases::credit::{
     get_credits_usecase::{GetCreditsUsecase, GetCreditsUsecaseTrait},
@@ -202,6 +203,7 @@ pub struct Usecases {
     pub mark_notification_as_read: Arc<dyn MarkNotificationAsReadUsecaseTrait>,
     pub manage_users_in_offer: Arc<dyn ManageUsersInOfferUsecaseTrait>,
     pub get_user_connections: Arc<dyn GetUserConnectionsUsecaseTrait>,
+    pub get_user_profile: Arc<dyn GetUserProfileUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -259,6 +261,14 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        get_user_profile: Arc::new(GetUserProfileUsecase::new(
+            repos.users.clone(),
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+            repos.offers.clone(),
+            repos.offer_user.clone(),
+            repos.short_notes.clone(),
+        )),
         get_user_connections: Arc::new(GetUserConnectionsUsecase::new(
             repos.users.clone(),
             repos.txs_fsp.clone(),

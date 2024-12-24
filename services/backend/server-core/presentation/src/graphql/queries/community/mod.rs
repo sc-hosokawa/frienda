@@ -39,4 +39,18 @@ impl CommunityQuery {
             community: result.community.into_iter().map(|c| c.into()).collect(),
         })
     }
+
+    async fn get_user_profile(
+        &self,
+        ctx: &Context<'_>,
+        viewer_id: String,
+        user_id: String,
+    ) -> Result<models::communities::UserDataOnDetailPage> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_user_profile
+            .get_user_profile(viewer_id, user_id)
+            .await?;
+        Ok(result.into())
+    }
 }
