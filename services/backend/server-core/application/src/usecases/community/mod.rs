@@ -13,3 +13,4 @@ pub mod show_connection_map_usecase;
 pub mod suggest_connections_usecase;
 pub mod unblock_user_usecase;
 pub mod update_connection_privacy_settings_usecase;
+pub mod user_profile_usecase;
