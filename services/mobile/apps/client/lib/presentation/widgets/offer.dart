@@ -420,7 +420,7 @@ class _OfferState extends ConsumerState<Offer> {
                 'No owned offers',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.black,
+                  color: Colors.grey,
                 ),
               ),
             ),

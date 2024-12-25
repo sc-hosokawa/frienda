@@ -217,18 +217,18 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                           const SizedBox(height: 32),
                           if (profile['offers'] != null)
                             _buildOffersList(profile['offers']),
-                          if (communityData != null) ...[
-                            const SizedBox(height: 32),
-                            _buildCommunityList(
-                              communityData,
-                              profile['imageUrl'],
-                              profile['name'],
-                              profile['category'],
-                            ),
-                          ],
                         ],
                       ),
                     ),
+                    if (communityData != null) ...[
+                      const SizedBox(height: 32),
+                      _buildCommunityList(
+                        communityData,
+                        profile['imageUrl'],
+                        profile['name'],
+                        profile['category'],
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -546,10 +546,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
     String? centerUserName,
     String? centerUserCategory,
   ) {
-    // 自分のユーザーIDを取得
     final currentUserId = ref.read(userProvider)?.id;
-
-    // 自分以外のユーザーをフィルタリング
     final filteredCommunity =
         community.where((member) => member['id'] != currentUserId).toList();
 
@@ -557,7 +554,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4),
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             '繋がりのあるユーザー',
             style: TextStyle(
@@ -570,9 +567,9 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: filteredCommunity.length, // フィルタリングされたリストを使用
+          itemCount: filteredCommunity.length,
           itemBuilder: (context, index) {
-            final member = filteredCommunity[index]; // フィルタリングされたリストを使用
+            final member = filteredCommunity[index];
             return ListTile(
               leading: Container(
                 decoration: BoxDecoration(
@@ -748,7 +745,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
       final GraphQLClient client = GraphQLProvider.of(context).value;
       try {
         if (member['shortNoteId'] == null) {
-          // ショートノートが存在しない場合は追加
+          // ショートノートが存在しない場合��追加
           await client.mutate(
             MutationOptions(
               document: gql('''

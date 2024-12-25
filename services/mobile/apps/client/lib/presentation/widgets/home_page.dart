@@ -68,8 +68,8 @@ class _HomePageState extends ConsumerState<HomePage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('デイリーログインボーナス'),
-              content: Text('ログインボーナスを獲得しました！'),
+              title: const Text('ログインボーナス'),
+              content: Text('ログインボーナス（1fsp）を獲得しました！'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
