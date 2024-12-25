@@ -27,6 +27,7 @@ const GET_OWN_COMMUNITY = gql`
         imageUrl
         category
         favoriteId
+        shortNoteId
         shortNote
         lastLoggedIn
         connections
@@ -44,6 +45,8 @@ export default function CommunityPage() {
     fetchPolicy: "network-only",
     skip: !user?.id,
   });
+
+  console.log(data?.getOwnCommunity?.community);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -76,7 +79,12 @@ export default function CommunityPage() {
           {communityData.length === 0 ? (
             <div className="text-center py-8 text-white">No Connection</div>
           ) : (
-            <CommunityMap items={communityData} />
+            <CommunityMap
+              items={communityData}
+              center_user_image={user?.imageUrl || "/logo_visualonly.jpg"}
+              center_user_name={"You"}
+              center_user_category={user?.role || ""}
+            />
           )}
         </TabsContent>
         <TabsContent value="list">

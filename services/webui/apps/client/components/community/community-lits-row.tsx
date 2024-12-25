@@ -35,6 +35,7 @@ export interface CommunityListsRowProps {
   imageUrl: string;
   category: string;
   favoriteId: string;
+  shortNoteId: string;
   shortNote: string;
   lastLoggedIn: string;
   connections: string[];
@@ -94,6 +95,14 @@ const DELETE_SHORTNOTE = gql`
   }
 `;
 
+const EDIT_SHORTNOTE = gql`
+  mutation EditShortnote($shortnoteId: String!, $comment: String!) {
+    editShortnote(shortnoteId: $shortnoteId, comment: $comment) {
+      id
+    }
+  }
+`;
+
 const CREATE_MESSAGE_ROOM = gql`
   mutation CreateNewMessageRoom($input: CreateNewMessageRoomInput!) {
     createNewMessageRoom(input: $input) {
@@ -117,6 +126,7 @@ export default function CommunityListsRow({
   imageUrl,
   category,
   favoriteId,
+  shortNoteId,
   shortNote,
   lastLoggedIn,
   connections,
@@ -129,6 +139,7 @@ export default function CommunityListsRow({
   const [unmarkFavorite] = useMutation(UNMARK_FAVORITE);
   const [addShortnote] = useMutation(ADD_SHORTNOTE);
   const [deleteShortnote] = useMutation(DELETE_SHORTNOTE);
+  const [editShortnote] = useMutation(EDIT_SHORTNOTE);
   const [createRoom] = useMutation(CREATE_MESSAGE_ROOM);
   const isLiked = favoriteId !== null;
   const [comment, setComment] = useState(shortNote || "");
@@ -158,21 +169,29 @@ export default function CommunityListsRow({
     }
   };
 
-  const handleAddShortnote = async (e: React.FormEvent) => {
+  const handleSaveShortnote = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      await addShortnote({
-        variables: {
-          writer: user?.id,
-          toUser: id,
-          comment: comment,
-        },
-      });
-      setComment("");
+      if (shortNoteId) {
+        await editShortnote({
+          variables: {
+            shortnoteId: shortNoteId,
+            comment: comment,
+          },
+        });
+      } else {
+        await addShortnote({
+          variables: {
+            writer: user?.id,
+            toUser: id,
+            comment: comment,
+          },
+        });
+      }
       refetch();
     } catch (error) {
-      console.error("Failed to add shortnote:", error);
+      console.error("Failed to save shortnote:", error);
     }
   };
 
@@ -264,9 +283,11 @@ export default function CommunityListsRow({
             <span className="text-[15px] font-semibold leading-[16px] text-left  group-hover:text-black">
               {name}
             </span>
+            {/*
             <span className="text-[12px] font-light leading-[16px] text-left text-[#777777] group-hover:text-black/70">
               {`${weight}`}
             </span>
+            */}
           </div>
         </div>
       </TableCell>
@@ -297,7 +318,7 @@ export default function CommunityListsRow({
               <form
                 onSubmit={(e) => {
                   e.stopPropagation();
-                  handleAddShortnote(e);
+                  handleSaveShortnote(e);
                 }}
                 className="flex gap-2"
               >

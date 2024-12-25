@@ -6,7 +6,6 @@ interface ListProps {
   title: string;
   lists: {
     title: string;
-    role?: string;
   }[];
 }
 
@@ -18,9 +17,6 @@ export function List({ title, lists }: ListProps) {
           <div className="flex flex-col text-white">
             <div className="text-[14px] leading-[24px] text-white">
               {list.title}
-              {list.role && (
-                <span className="text-white"> {` / ${list.role}`}</span>
-              )}
             </div>
           </div>
         ))}

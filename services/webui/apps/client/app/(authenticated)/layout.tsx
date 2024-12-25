@@ -23,7 +23,7 @@ export const NotoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
 });
 
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: "FRIENDSHIP. DAO",
   description: "Community-driven dashboard",
 };

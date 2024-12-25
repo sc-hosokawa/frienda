@@ -212,6 +212,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                         children: [
                           if (profile['greeting'] != null)
                             Text(profile['greeting']),
+                          const SizedBox(height: 32),
                           _buildInfoSection(profile),
                           const SizedBox(height: 32),
                           if (profile['offers'] != null)
@@ -275,22 +276,19 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
   Widget _buildInfoSection(Map<String, dynamic> profile) {
     return Column(
       children: [
-        // スキル
         _buildInfoRow(
           'スキル',
-          profile['skill'] != null && (profile['skill'] as List).isNotEmpty
+          profile['skill'] != null
               ? Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: (profile['skill'] as List<dynamic>).map((skill) {
+                  children: (profile['skill'] is List
+                          ? profile['skill'] as List<dynamic>
+                          : [profile['skill']])
+                      .map((skill) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
                         vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         skill.toString(),
@@ -308,9 +306,8 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                 ),
         ),
 
-        const SizedBox(height: 24), // 一定の間隔
+        const SizedBox(height: 24),
 
-        // 属性（カテゴリー）
         _buildInfoRow(
           '属性',
           profile['category'] != null
@@ -342,12 +339,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
           profile['interestOffer'] != null
               ? Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
                     vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     profile['interestOffer'].toString(),
@@ -363,17 +355,17 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                 ),
         ),
 
-        const SizedBox(height: 24), // 一定の間隔
+        const SizedBox(height: 24),
 
-        // 所属するアーティスト
         _buildInfoRow(
           '所属するArtists',
-          profile['belongsToArtists'] != null &&
-                  (profile['belongsToArtists'] as List).isNotEmpty
+          profile['belongsToArtists'] != null
               ? Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: (profile['belongsToArtists'] as List<dynamic>)
+                  children: (profile['belongsToArtists'] is List
+                          ? profile['belongsToArtists'] as List<dynamic>
+                          : [profile['belongsToArtists']])
                       .map((artist) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
@@ -470,6 +462,17 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                               width: double.infinity,
                               fit: BoxFit.cover,
                             ),
+                          )
+                        else
+                          ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(12)),
+                            child: Image.asset(
+                              'assets/logo_visualonly.jpg',
+                              height: 160,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         Padding(
                           padding: const EdgeInsets.all(12),
@@ -486,11 +489,14 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 8),
-                              Text(
-                                offer['description'] ?? '',
-                                style: const TextStyle(fontSize: 12),
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
+                              SizedBox(
+                                height: 54, // 3行分の高さ (18px × 3)
+                                child: Text(
+                                  offer['description'] ?? '',
+                                  style: const TextStyle(fontSize: 12),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               if (offer['fee'] != null) ...[
                                 const SizedBox(height: 8),
@@ -566,7 +572,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: filteredCommunity.length, // フィルタリングされたリストを使用
           itemBuilder: (context, index) {
-            final member = filteredCommunity[index]; // フィルタリングされたリ��トを使用
+            final member = filteredCommunity[index]; // フィルタリングされたリストを使用
             return ListTile(
               leading: Container(
                 decoration: BoxDecoration(
@@ -674,10 +680,10 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                             ),
                           );
                         }
-                        // キャッシュをリセットして再取得
+                        if (!mounted) return;
                         await client.resetStore();
                       } catch (error) {
-                        if (!context.mounted) return;
+                        if (!mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -777,10 +783,10 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
             ),
           );
         }
-        // キャッシュをリセットして再取得
+        if (!mounted) return;
         await client.resetStore();
       } catch (error) {
-        if (!context.mounted) return;
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to update short note: $error'),
