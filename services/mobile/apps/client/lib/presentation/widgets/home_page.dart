@@ -63,7 +63,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       final rewardPoints = result.data?['loginReward']['fsp'] as int?;
       final rewardGiven = result.data?['loginReward']['rewardGiven'] as bool?;
 
-      if (rewardGiven == false && rewardPoints != null && mounted) {
+      if (rewardGiven == true && rewardPoints != null && mounted) {
         showDialog(
           context: context,
           builder: (BuildContext context) {

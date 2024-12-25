@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/widgets/message/message_room.dart';
+import 'package:client/presentation/providers/client_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:client/presentation/widgets/offer/offer_detail.dart';
 
 class NodeDetailPage extends ConsumerStatefulWidget {
   final String id;
@@ -13,7 +17,6 @@ class NodeDetailPage extends ConsumerStatefulWidget {
 }
 
 class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
-  // GraphQLクエリの定義
   static final GET_USER_PROFILE = gql('''
     query GetUserProfile(\$viewerId: String!, \$userId: String!) {
       getUserProfile(viewerId: \$viewerId, userId: \$userId) {
@@ -70,6 +73,14 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
     }
   ''');
 
+  static final CREATE_MESSAGE_ROOM = gql('''
+    mutation CreateNewMessageRoom(\$input: CreateNewMessageRoomInput!) {
+      createNewMessageRoom(input: \$input) {
+        id
+      }
+    }
+  ''');
+
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
@@ -116,12 +127,14 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
               appBar: AppBar(
                 title: Text('${profile['name']}'),
                 actions: [
+                  /*
                   IconButton(
                     icon: const Icon(Icons.share),
                     onPressed: () {
                       // シェア機能の実装
                     },
                   ),
+                  */
                   if (user?.id == widget.id)
                     IconButton(
                       icon: const Icon(Icons.edit),
@@ -132,8 +145,58 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                   else
                     IconButton(
                       icon: const Icon(Icons.message),
-                      onPressed: () {
-                        // メッセージ機能の実装
+                      onPressed: () async {
+                        final currentUserId = ref.read(userProvider)?.id;
+                        if (currentUserId == null) return;
+
+                        try {
+                          final result =
+                              await ref.read(graphQLClientProvider).mutate(
+                                    MutationOptions(
+                                      document: CREATE_MESSAGE_ROOM,
+                                      variables: {
+                                        'input': {
+                                          'createdBy': currentUserId,
+                                          'userList': [
+                                            currentUserId,
+                                            widget.id
+                                          ], // widget.idは表示中のユーザーID
+                                          'category': 'dm',
+                                        },
+                                      },
+                                    ),
+                                  );
+
+                          if (result.hasException) {
+                            if (!context.mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(result.exception.toString())),
+                            );
+                            return;
+                          }
+
+                          final roomId = result.data?['createNewMessageRoom']
+                              ['id'] as String?;
+
+                          if (roomId != null && context.mounted) {
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    MessageRoom(roomId: roomId),
+                              ),
+                            );
+
+                            // メッセージルームから戻ってきた後にキャッシュをリセット
+                            final client = ref.read(graphQLClientProvider);
+                            await client.resetStore();
+                          }
+                        } catch (e) {
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Error: $e')),
+                          );
+                        }
                       },
                     ),
                 ],
@@ -180,10 +243,19 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 40,
-            backgroundImage: NetworkImage(
-              profile['imageUrl'] ?? 'assets/logo_visualonly.jpg',
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: _getCategoryColor(profile['category']),
+                width: 2.0,
+              ),
+            ),
+            child: CircleAvatar(
+              radius: 40,
+              backgroundImage: NetworkImage(
+                profile['imageUrl'] ?? 'assets/logo_visualonly.jpg',
+              ),
             ),
           ),
           const SizedBox(width: 16),
@@ -362,92 +434,101 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
           ),
         ),
         const SizedBox(height: 16),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.8,
-          ),
-          itemCount: offers.length,
-          itemBuilder: (context, index) {
-            final offer = offers[index];
-            return Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (offer['imageUrl'] != null)
-                    ClipRRect(
-                      borderRadius:
-                          const BorderRadius.vertical(top: Radius.circular(12)),
-                      child: Image.network(
-                        offer['imageUrl'],
-                        height: 120,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: offers.map((offer) {
+              return Container(
+                width: 280,
+                margin: const EdgeInsets.only(right: 16),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OfferDetailPage(
+                          offerId: offer['id'],
+                        ),
                       ),
+                    );
+                  },
+                  child: Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  Padding(
-                    padding: const EdgeInsets.all(12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          offer['title'] ?? '',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        if (offer['imageUrl'] != null)
+                          ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(12)),
+                            child: Image.network(
+                              offer['imageUrl'],
+                              height: 160,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                offer['title'] ?? '',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                offer['description'] ?? '',
+                                style: const TextStyle(fontSize: 12),
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              if (offer['fee'] != null) ...[
+                                const SizedBox(height: 8),
+                                Text(
+                                  '${NumberFormat('#,###').format(offer['fee'])} FSP',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                              if (offer['category'] != null) ...[
+                                const SizedBox(height: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.white),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    offer['category'],
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 8),
-                        Text(
-                          offer['description'] ?? '',
-                          style: const TextStyle(fontSize: 12),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        if (offer['fee'] != null) ...[
-                          const SizedBox(height: 8),
-                          Text(
-                            '${offer['fee']} FSP',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                        if (offer['category'] != null) ...[
-                          const SizedBox(height: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              offer['category'],
-                              style: const TextStyle(fontSize: 12),
-                            ),
-                          ),
-                        ],
                       ],
                     ),
                   ),
-                ],
-              ),
-            );
-          },
+                ),
+              );
+            }).toList(),
+          ),
         ),
       ],
     );
@@ -459,11 +540,18 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
     String? centerUserName,
     String? centerUserCategory,
   ) {
+    // 自分のユーザーIDを取得
+    final currentUserId = ref.read(userProvider)?.id;
+
+    // 自分以外のユーザーをフィルタリング
+    final filteredCommunity =
+        community.where((member) => member['id'] != currentUserId).toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 4),
           child: Text(
             '繋がりのあるユーザー',
             style: TextStyle(
@@ -476,9 +564,9 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: community.length,
+          itemCount: filteredCommunity.length, // フィルタリングされたリストを使用
           itemBuilder: (context, index) {
-            final member = community[index];
+            final member = filteredCommunity[index]; // フィルタリングされたリ��トを使用
             return ListTile(
               leading: Container(
                 decoration: BoxDecoration(
@@ -519,15 +607,86 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                               ),
                             ),
                           ),
+                          IconButton(
+                            icon: const Icon(Icons.edit, size: 16),
+                            onPressed: () => _showShortNoteDialog(
+                              context,
+                              member,
+                            ),
+                          ),
                         ],
                       ),
+                    )
+                  else
+                    IconButton(
+                      icon: const Icon(Icons.edit, size: 16),
+                      onPressed: () => _showShortNoteDialog(
+                        context,
+                        member,
+                      ),
                     ),
-                  Text(
-                    '${member['connections']}',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                  IconButton(
+                    icon: Icon(
+                      member['favoriteId'] != null
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: member['favoriteId'] != null
+                          ? Colors.red
+                          : Colors.grey,
+                      size: 20,
                     ),
+                    onPressed: () async {
+                      final userId = ref.read(userProvider)?.id;
+                      if (userId == null) return;
+
+                      final GraphQLClient client =
+                          GraphQLProvider.of(context).value;
+                      try {
+                        if (member['favoriteId'] != null) {
+                          await client.mutate(
+                            MutationOptions(
+                              document: gql('''
+                                mutation UnmarkFavorite(\$favoriteId: String!) {
+                                  unmarkFavorite(favoriteId: \$favoriteId) {
+                                    id
+                                  }
+                                }
+                              '''),
+                              variables: {
+                                'favoriteId': member['favoriteId'],
+                              },
+                            ),
+                          );
+                        } else {
+                          await client.mutate(
+                            MutationOptions(
+                              document: gql('''
+                                mutation MarkFavorite(\$targetUserId: String!, \$likedBy: String!) {
+                                  markFavorite(targetUserId: \$targetUserId, likedBy: \$likedBy) {
+                                    id
+                                  }
+                                }
+                              '''),
+                              variables: {
+                                'targetUserId': member['id'],
+                                'likedBy': userId,
+                              },
+                            ),
+                          );
+                        }
+                        // キャッシュをリセットして再取得
+                        await client.resetStore();
+                      } catch (error) {
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Failed to update favorite status: $error'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -542,6 +701,94 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
         ),
       ],
     );
+  }
+
+  // ショートノート編集ダイアログを表示する関数を追加
+  Future<void> _showShortNoteDialog(
+    BuildContext context,
+    Map<String, dynamic> member,
+  ) async {
+    final controller = TextEditingController(text: member['shortNote']);
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(member['shortNoteId'] != null
+            ? 'Edit Short Note'
+            : 'Add Short Note'),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            hintText: 'Enter your short note',
+          ),
+          maxLength: 50,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, controller.text),
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+
+    if (result != null) {
+      final userId = ref.read(userProvider)?.id;
+      if (userId == null) return;
+
+      final GraphQLClient client = GraphQLProvider.of(context).value;
+      try {
+        if (member['shortNoteId'] == null) {
+          // ショートノートが存在しない場合は追加
+          await client.mutate(
+            MutationOptions(
+              document: gql('''
+                mutation AddShortNote(\$writer: String!, \$toUser: String!, \$comment: String!) {
+                  addShortnote(writer: \$writer, toUser: \$toUser, comment: \$comment) {
+                    id
+                  }
+                }
+              '''),
+              variables: {
+                'writer': userId,
+                'toUser': member['id'],
+                'comment': result,
+              },
+            ),
+          );
+        } else {
+          // ショートノートが存在する場合は編集
+          await client.mutate(
+            MutationOptions(
+              document: gql('''
+                mutation EditShortNote(\$shortnoteId: String!, \$comment: String!) {
+                  editShortnote(shortnoteId: \$shortnoteId, comment: \$comment) {
+                    id
+                  }
+                }
+              '''),
+              variables: {
+                'shortnoteId': member['shortNoteId'],
+                'comment': result,
+              },
+            ),
+          );
+        }
+        // キャッシュをリセットして再取得
+        await client.resetStore();
+      } catch (error) {
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to update short note: $error'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   Color _getCategoryColor(String? category) {

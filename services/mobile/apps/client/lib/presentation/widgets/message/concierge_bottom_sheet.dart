@@ -177,7 +177,7 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
                               child: Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Text(
-                                  'My Conciergeに色々聞いてみましょう',
+                                  'My Conciergeに色々聞いてみましょう！\n（テスト版につき現在調整中）',
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.white.withOpacity(0.7),
