@@ -60,7 +60,6 @@ const items = [
       active: "/offers_line.svg",
     },
   },
-  /*
   {
     title: "Community",
     url: "/community",
@@ -69,7 +68,6 @@ const items = [
       active: "/community_line.svg",
     },
   },
-  */
   {
     title: "Message",
     url: "/message",

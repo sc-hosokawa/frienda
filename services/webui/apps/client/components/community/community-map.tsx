@@ -20,8 +20,17 @@ export interface CommunityMapProps {
   refetch: () => void;
 }
 
-const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
-  const { user } = useUserStore();
+const CommunityMap = ({
+  items,
+  center_user_image,
+  center_user_name,
+  center_user_category,
+}: {
+  items: CommunityMapProps[];
+  center_user_image: string;
+  center_user_name: string;
+  center_user_category: string;
+}) => {
   const [nodes, setNodes] = useState([]);
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,13 +66,6 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
     { category: "creator", label: "Creator" },
     { category: "supporter", label: "Supporter" },
   ];
-
-  const centerProfile = {
-    id: user?.id,
-    image: user?.imageUrl || "/logo_visualonly.jpg",
-    category: (user?.role || "supporter") as category,
-    name: "You",
-  };
 
   const calculateLayoutParameters = () => {
     const container = containerRef.current;
@@ -300,18 +302,18 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
                   <circle
                     r="43"
                     fill={
-                      categoryColors[centerProfile.category as category]
+                      categoryColors[center_user_category as category]
                         ?.background || categoryColors.supporter.background
                     }
                     stroke={
-                      categoryColors[centerProfile.category as category]
+                      categoryColors[center_user_category as category]
                         ?.border || categoryColors.supporter.border
                     }
                     strokeWidth="2"
                   />
                   <g clipPath="url(#circle-clip-center)">
                     <image
-                      href={centerProfile.image}
+                      href={center_user_image || "/logo_visualonly.jpg"}
                       x="-37"
                       y="-37"
                       width="74"
@@ -325,7 +327,7 @@ const CommunityMap = ({ items }: { items: CommunityMapProps[] }) => {
                     fill="white"
                     className="text-sm"
                   >
-                    {centerProfile.name}
+                    {center_user_name}
                   </text>
                 </g>
               </svg>

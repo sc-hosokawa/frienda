@@ -5,12 +5,11 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Link from "next/link";
 
 interface BorderDashProps {
-  imageSrc: string | StaticImport;
+  imageSrc: string;
   alt: string;
-  className?: string;
   width: number;
   height: number;
-  link: string;
+  className?: string;
 }
 
 export function BorderDash({
@@ -19,7 +18,6 @@ export function BorderDash({
   className,
   width,
   height,
-  link,
 }: BorderDashProps) {
   return (
     <Button
@@ -27,9 +25,7 @@ export function BorderDash({
       variant="outline"
       className={`rounded-full border-dashed border-white ${className}`}
     >
-      <Link href={link} target="_blank" rel="noopener noreferrer">
-        <Image src={imageSrc} alt={alt} width={width} height={height} />
-      </Link>
+      <Image src={imageSrc} alt={alt} width={width} height={height} />
     </Button>
   );
 }

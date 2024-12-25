@@ -1,12 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:client/data/model/community/member.dart';
-import 'package:client/domain/entities/user.dart';
+import 'package:client/presentation/providers/user_provider.dart';
 import 'community_graph_painter.dart';
 
 class CommunityMap extends StatefulWidget {
   final List<CommunityMember> members;
-  final User? currentUser;
+  final UserData? currentUser;
 
   const CommunityMap({
     super.key,
@@ -30,34 +30,14 @@ class _CommunityMapState extends State<CommunityMap> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
-      child: Row(
+      child: Column(
         children: [
-          // フィルターサイドバー
-          Container(
-            width: 120,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Filter',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                ..._buildFilterItems(),
-              ],
-            ),
-          ),
           // グラフ表示エリア
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final width = constraints.maxWidth;
-                final height = max(600.0, width * 0.75);
+                final height = constraints.maxHeight;
                 final radius = min(width, height) * 0.3;
 
                 return SizedBox(
@@ -77,6 +57,29 @@ class _CommunityMapState extends State<CommunityMap> {
                   ),
                 );
               },
+            ),
+          ),
+          // フィルター部分（下部に移動）
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Filter',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  // フィルターを並びに
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: _buildFilterItems(),
+                ),
+              ],
             ),
           ),
         ],
@@ -103,45 +106,50 @@ class _CommunityMapState extends State<CommunityMap> {
     ];
 
     return filterItems.map((item) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Row(
-          children: [
-            Container(
-              width: 16,
-              height: 16,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: item.$4,
-                border: Border.all(color: item.$3, width: 2),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                item.$2,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
+      return SizedBox(
+        width: 85,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 16,
+                height: 16,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: item.$4,
+                  border: Border.all(color: item.$3, width: 2),
                 ),
               ),
-            ),
-            Checkbox(
-              value: _filters[item.$1] ?? true,
-              onChanged: (value) {
-                setState(() {
-                  _filters[item.$1] = value ?? true;
-                });
-              },
-              fillColor: MaterialStateProperty.resolveWith(
-                (states) => states.contains(MaterialState.selected)
-                    ? item.$3
-                    : Colors.transparent,
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  item.$2,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-              checkColor: Colors.black,
-              side: BorderSide(color: item.$3),
-            ),
-          ],
+              Checkbox(
+                value: _filters[item.$1] ?? true,
+                onChanged: (value) {
+                  setState(() {
+                    _filters[item.$1] = value ?? true;
+                  });
+                },
+                fillColor: MaterialStateProperty.resolveWith(
+                  (states) => states.contains(MaterialState.selected)
+                      ? item.$3
+                      : Colors.transparent,
+                ),
+                checkColor: Colors.black,
+                side: BorderSide(color: item.$3),
+              ),
+            ],
+          ),
         ),
       );
     }).toList();

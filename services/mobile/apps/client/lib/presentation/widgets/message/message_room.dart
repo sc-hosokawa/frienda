@@ -26,7 +26,6 @@ class MessageRoom extends ConsumerStatefulWidget {
 class _MessageRoomState extends ConsumerState<MessageRoom> {
   final TextEditingController _messageController = TextEditingController();
 
-  // Refetch型として定義
   Refetch? _refetchMessages;
 
   @override
