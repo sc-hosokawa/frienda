@@ -14,13 +14,13 @@ import { SearchArtist } from "../../components/analytics/search-artist";
 import GenderGenView from "../../components/analytics/gender-gen-chart";
 import { Trending } from "../../components/analytics/trending";
 
-const admin = "admin_0000000000000000000000";
+const admin = "admin_0000000000000000000185";
 
 export default function AnalyticsPage() {
   const [selectedPeriod, setSelectedPeriod] = React.useState(12);
   const [open, setOpen] = React.useState(false);
   const [selectedArtistId, setSelectedArtistId] = React.useState(
-    "artist_00_000000000000000000",
+    "artist_00_000000000000000185",
   );
   const {
     data: artistData,
@@ -35,6 +35,8 @@ export default function AnalyticsPage() {
     },
   });
 
+  console.log(artistData);
+
   const { data: trendingData, isLoading: isLoadingTrendingData } = useQuery({
     queryKey: ["trendingData", selectedArtistId],
     queryFn: async () => {
@@ -45,6 +47,8 @@ export default function AnalyticsPage() {
     },
     enabled: !!selectedArtistId,
   });
+
+  console.log(trendingData);
 
   const { data: genderGenData, isLoading: isLoadingGenderGenData } = useQuery({
     queryKey: ["genderGenData", selectedArtistId],

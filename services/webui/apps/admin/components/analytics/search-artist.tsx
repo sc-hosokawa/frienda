@@ -68,10 +68,8 @@ export function SearchArtist({
                 <CommandItem
                   key={artist.artistId}
                   value={artist.name}
-                  onSelect={(currentValue) => {
-                    setValue(
-                      !value || value !== currentValue ? currentValue : "",
-                    );
+                  onSelect={() => {
+                    setValue(artist.artistId);
                     setOpen(false);
                   }}
                 >

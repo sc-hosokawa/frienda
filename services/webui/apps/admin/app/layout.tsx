@@ -24,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ja" suppressHydrationWarning>
       <body
-        className={`${JostFont.className} bg-white text-black dark:bg-black dark:text-white dark`}
+        className={`${JostFont.className} bg-white text-black dark:bg-black dark:text-white`}
       >
         <ThemeProvider
           attribute="class"

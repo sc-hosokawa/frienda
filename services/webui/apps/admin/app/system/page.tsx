@@ -1,10 +1,11 @@
 "use client";
+
 import React from "react";
 import { StatsCard } from "../../components/stats-card";
 import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import { endpoint, GET_ALL_ARTISTS } from "../../utils/query";
-import { Activity, Disc, JapaneseYen, Users } from "lucide-react";
+import { Activity, Disc, JapaneseYen, Users, MoreVertical } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -26,6 +27,12 @@ import {
   PointHistoryTable,
   PointHistoryTableProps,
 } from "../../components/system/point-history-table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@ui/components/ui/dropdown-menu";
 
 export default function SettingPage() {
   const { data: artistData, isLoading: isLoadingArtist } = useQuery({
@@ -36,11 +43,55 @@ export default function SettingPage() {
       );
     },
   });
+
+  const downloadCreditHistoryCSV = () => {
+    const headers = ["date", "isrc", "user", "role", "name", "email"];
+    const csvContent = [
+      headers.join(","),
+      ...mockCreditHistory.map((history) =>
+        [
+          history.date,
+          history.isrc,
+          history.user,
+          history.role,
+          history.name,
+          history.email,
+        ].join(","),
+      ),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "credit-history.csv";
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
+  const downloadPointHistoryCSV = () => {
+    const headers = ["date", "from", "to", "amount"];
+    const csvContent = [
+      headers.join(","),
+      ...mockPointHistory.map((history) =>
+        [history.date, history.from, history.to, history.amount].join(","),
+      ),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "point-history.csv";
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   return (
     <main>
-      <div className="flex flex-col min-h-screen gap-10">
+      <div className="flex flex-col min-h-screen">
         {/* Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 p-6">
           <StatsCard
             title="総アーティスト数"
             amount={artistData?.length}
@@ -48,16 +99,21 @@ export default function SettingPage() {
             image={<Users />}
             unit="users"
           />
-          <StatsCard title="総再生回数" amount={0} image={<Activity />} />
+          <StatsCard
+            title="総再生回数"
+            amount={0}
+            image={<Activity />}
+            unit="回"
+          />
           <StatsCard
             title="総配布ポイント数"
-            amount={0}
+            amount={5218}
             image={<Disc />}
             unit="fsp"
           />
           <StatsCard
             title="総登録者"
-            amount={0}
+            amount={23}
             image={<Users />}
             unit="users"
           />
@@ -70,30 +126,40 @@ export default function SettingPage() {
         </div>
         {/* Tables */}
         <div className="grid grid-cols-1 gap-4 p-6">
-          <Card className="bg-[#1E1E1E]">
-            <CardHeader>
-              <CardTitle>{`クレジット登録0件`}</CardTitle>
+          <Card className="dark:border dark:border-white dark:border-opacity-10">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>{`クレジット登録`}</CardTitle>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <MoreVertical className="h-5 w-5" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={downloadCreditHistoryCSV}>
+                    CSVダウンロード
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </CardHeader>
             <CardContent>
               <Table className="border-collapse">
                 <TableHeader>
                   <TableRow className="border-b border-[#FFFFFF73]">
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       date
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       isrc
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       user
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       role
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       name
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       email
                     </TableHead>
                   </TableRow>
@@ -106,24 +172,34 @@ export default function SettingPage() {
               </Table>
             </CardContent>
           </Card>
-          <Card className="bg-[#1E1E1E]">
-            <CardHeader>
+          <Card className="dark:border dark:border-white dark:border-opacity-10">
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>ポイント履歴</CardTitle>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <MoreVertical className="h-5 w-5" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={downloadPointHistoryCSV}>
+                    CSVダウンロード
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </CardHeader>
             <CardContent>
               <Table className="border-collapse">
                 <TableHeader>
                   <TableRow className="border-b border-[#FFFFFF73]">
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       date
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       from
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       to
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       amount
                     </TableHead>
                   </TableRow>
