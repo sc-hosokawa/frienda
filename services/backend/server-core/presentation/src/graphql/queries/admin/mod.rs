@@ -8,7 +8,7 @@ pub struct AdminQuery;
 
 #[Object]
 impl AdminQuery {
-    async fn get_overview(&self, ctx: &Context<'_>) -> Result<models::admin::OverviewData> {
+    async fn get_system_overview(&self, ctx: &Context<'_>) -> Result<models::admin::OverviewData> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let result = usecases.get_overview.get_overview().await?;
         Ok(models::admin::OverviewData {
@@ -20,7 +20,7 @@ impl AdminQuery {
         })
     }
 
-    async fn get_fsp_history(
+    async fn get_fsp_history_for_admin(
         &self,
         ctx: &Context<'_>,
         count: i32,
@@ -39,7 +39,7 @@ impl AdminQuery {
             .collect())
     }
 
-    async fn get_track_credits_history(
+    async fn get_track_credits_history_for_admin(
         &self,
         ctx: &Context<'_>,
         count: i32,
