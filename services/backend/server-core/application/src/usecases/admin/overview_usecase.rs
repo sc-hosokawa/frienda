@@ -1,9 +1,16 @@
 use async_trait::async_trait;
 use std::sync::Arc;
 
+use domain::entities::track_credits::Model as TrackCredits;
+use domain::entities::tracks::Model as Track;
+use domain::entities::txs_fsp::Model as TxsFsp;
 use domain::entities::users::Model as User;
 use domain::repositories::artists_repo::ArtistsRepository;
+use domain::repositories::track_credits_repo::TrackCreditsRepository;
+use domain::repositories::tracks_repo::TracksRepository;
+use domain::repositories::txs_fsp_repo::TxsFspRepository;
 use domain::repositories::users_repo::UsersRepository;
+
 pub struct OverviewOutput {
     pub total_users: i64,
     pub total_artists: i64,
@@ -12,24 +19,53 @@ pub struct OverviewOutput {
     pub total_play_count: i64,
 }
 
+pub struct Credit {
+    pub date: String,
+    pub title: String,
+    pub isrc: String,
+    pub user: String,
+    pub role: String,
+    pub name: String,
+    pub email: String,
+}
+
+pub struct FspHistory {
+    pub date: String,
+    pub from: String, // username
+    pub to: String,   // username
+    pub amount: i32,
+    pub notes: Option<String>,
+}
+
 #[async_trait]
 pub trait OverviewUsecaseTrait: Send + Sync {
     async fn get_overview(&self) -> Result<OverviewOutput, anyhow::Error>;
+    async fn get_all_credits(&self, count: i32) -> Result<Vec<Credit>, anyhow::Error>;
+    async fn get_fsp_history(&self, count: i32) -> Result<Vec<FspHistory>, anyhow::Error>;
 }
 
 pub struct OverviewUsecase {
     users_repo: Arc<dyn UsersRepository>,
     artists_repo: Arc<dyn ArtistsRepository>,
+    track_credits_repo: Arc<dyn TrackCreditsRepository>,
+    tracks_repo: Arc<dyn TracksRepository>,
+    txs_fsp_repo: Arc<dyn TxsFspRepository>,
 }
 
 impl OverviewUsecase {
     pub fn new(
         users_repo: Arc<dyn UsersRepository>,
         artists_repo: Arc<dyn ArtistsRepository>,
+        track_credits_repo: Arc<dyn TrackCreditsRepository>,
+        tracks_repo: Arc<dyn TracksRepository>,
+        txs_fsp_repo: Arc<dyn TxsFspRepository>,
     ) -> Self {
         Self {
             users_repo,
             artists_repo,
+            track_credits_repo,
+            tracks_repo,
+            txs_fsp_repo,
         }
     }
 }
@@ -48,5 +84,50 @@ impl OverviewUsecaseTrait for OverviewUsecase {
             total_revenue: 0,
             total_play_count: 0,
         })
+    }
+
+    async fn get_all_credits(&self, count: i32) -> Result<Vec<Credit>, anyhow::Error> {
+        let credits: Vec<TrackCredits> = self.track_credits_repo.all_credits(count).await?;
+        let mut result: Vec<Credit> = vec![];
+        for credit in credits {
+            let user: User = self
+                .users_repo
+                .find_by_id(&credit.commit_user)
+                .await?
+                .unwrap();
+            let track: Track = self.tracks_repo.get_by_isrc(&credit.isrc).await?.unwrap();
+            result.push(Credit {
+                date: credit.created_at.to_string(),
+                title: track.title,
+                isrc: credit.isrc,
+                user: user.username,
+                role: credit.credit_role,
+                name: credit.credit_name,
+                email: credit.email,
+            });
+        }
+
+        Ok(result)
+    }
+
+    async fn get_fsp_history(&self, count: i32) -> Result<Vec<FspHistory>, anyhow::Error> {
+        let history: Vec<TxsFsp> = self.txs_fsp_repo.find_all().await?;
+        let mut result: Vec<FspHistory> = vec![];
+
+        for tx in history {
+            if let Some(from_id) = tx.from {
+                if let Some(from_user) = self.users_repo.find_by_id(&from_id).await? {
+                    let to_user: User = self.users_repo.find_by_id(&tx.to).await?.unwrap();
+                    result.push(FspHistory {
+                        date: tx.tx_at.to_string(),
+                        from: from_user.username,
+                        to: to_user.username,
+                        amount: tx.amount,
+                        notes: tx.notes,
+                    });
+                }
+            }
+        }
+        Ok(result)
     }
 }

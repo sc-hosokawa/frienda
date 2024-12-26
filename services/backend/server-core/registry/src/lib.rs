@@ -266,6 +266,9 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         get_overview: Arc::new(OverviewUsecase::new(
             repos.users.clone(),
             repos.artists.clone(),
+            repos.track_credits.clone(),
+            repos.tracks.clone(),
+            repos.txs_fsp.clone(),
         )),
         get_user_profile: Arc::new(GetUserProfileUsecase::new(
             repos.users.clone(),

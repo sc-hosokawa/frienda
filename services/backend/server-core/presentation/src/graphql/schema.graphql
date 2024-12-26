@@ -205,6 +205,16 @@ type CreateQuestResponse {
 	questId: Int!
 }
 
+type Credit {
+	date: String!
+	title: String!
+	isrc: String!
+	user: String!
+	role: String!
+	name: String!
+	email: String!
+}
+
 input DeleteOfferInput {
 	id: Int!
 }
@@ -445,6 +455,14 @@ type OffersData {
 	offerList: [OfferData!]!
 }
 
+type OverviewData {
+	totalUsers: Int!
+	totalArtists: Int!
+	totalFsp: Int!
+	totalRevenue: Int!
+	totalPlayCount: Int!
+}
+
 type PendingMember {
 	id: String!
 	name: String!
@@ -500,7 +518,7 @@ type ProductsData {
 
 type QueryRoot {
 	healthCheck: HealthCheck!
-	getOverview(artistId: String!, userId: String!): TotalOverviewData!
+	getOverview: OverviewData!
 	getOverviewByUpc(artistId: String!, userId: String!, upc: String!): TotalOverviewData!
 	getTrending(artistId: String!, userId: String!): TrendingData!
 	getPlayCountHistory(artistId: String!, userId: String!, period: Int!): ChartData!
@@ -509,6 +527,8 @@ type QueryRoot {
 	getGenderGenRateByUpc(artistId: String!, userId: String!, upc: String!): GenderGenRateData!
 	getProducts(artistId: String!): ProductsData!
 	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
+	getFspHistory(userId: String!, count: Int!): TransactionsData!
+	getTrackCreditsHistory(count: Int!): [Credit!]!
 	getOwnCommunity(userId: String!): ConnectedUsersData!
 	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
 	getUserProfile(viewerId: String!, userId: String!): UserDataOnDetailPage!
@@ -541,7 +561,6 @@ type QueryRoot {
 	getPopularPrizes: [PrizeData!]!
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
-	getFspHistory(userId: String!, count: Int!): TransactionsData!
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
 	getQuestByUserId(userId: String!): [QuestData!]!

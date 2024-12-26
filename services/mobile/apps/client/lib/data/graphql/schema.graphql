@@ -205,6 +205,16 @@ type CreateQuestResponse {
 	questId: Int!
 }
 
+type Credit {
+	date: String!
+	title: String!
+	isrc: String!
+	user: String!
+	role: String!
+	name: String!
+	email: String!
+}
+
 input DeleteOfferInput {
 	id: Int!
 }
@@ -279,6 +289,11 @@ type LineChartData {
 	youtube: Int!
 }
 
+type LoginRewardResponse {
+	fsp: Int!
+	rewardGiven: Boolean!
+}
+
 input MarkAsAdminInput {
 	adminMember: String!
 	userId: String!
@@ -348,7 +363,7 @@ type MessagesByRoomIdByUserData {
 }
 
 type MutationRoot {
-	addShortnote(favoriteId: String!, comment: String!): AddShortnoteResponse!
+	addShortnote(writer: String!, toUser: String!, comment: String!): AddShortnoteResponse!
 	editShortnote(shortnoteId: String!, comment: String!): EditShortnoteResponse!
 	deleteShortnote(shortnoteId: String!): DeleteShortnoteResponse!
 	markFavorite(targetUserId: String!, likedBy: String!): MarkFavoriteResponse!
@@ -357,7 +372,6 @@ type MutationRoot {
 	updateUserData(input: UpdateUserDataInput!): UpdateUserDataResponse!
 	updateBelongsToArtistStatus(input: UpdateBelongsToArtistStatusInput!): UpdateBelongsToArtistStatusResponse!
 	contactToAdmin(input: ContactToAdminInput!): ContactToAdminResponse!
-	updateUserDetailProfile(input: UpdateUserDetailProfileInput!): UpdateUserDetailProfileResponse!
 	createNewMessageRoom(input: CreateNewMessageRoomInput!): CreateNewMessageRoomResponse!
 	sendMessage(input: SendMessageInput!): SendMessageResponse!
 	markAsRead(input: MarkAsReadInput!): MarkAsReadResponse!
@@ -384,6 +398,7 @@ type MutationRoot {
 type NotificationData {
 	id: String!
 	title: String!
+	category: String
 	content: String!
 	isRead: Boolean!
 	createdAt: String!
@@ -440,12 +455,29 @@ type OffersData {
 	offerList: [OfferData!]!
 }
 
+type OverviewData {
+	totalUsers: Int!
+	totalArtists: Int!
+	totalFsp: Int!
+	totalRevenue: Int!
+	totalPlayCount: Int!
+}
+
 type PendingMember {
 	id: String!
 	name: String!
 	realname: String!
 	email: String!
 	imageUrl: String
+}
+
+type PortfolioData {
+	id: String!
+	title: String!
+	description: String!
+	imageUrl: String
+	refLink: [String!]!
+	createdAt: String!
 }
 
 type PrizeData {
@@ -486,7 +518,7 @@ type ProductsData {
 
 type QueryRoot {
 	healthCheck: HealthCheck!
-	getOverview(artistId: String!, userId: String!): TotalOverviewData!
+	getOverview: OverviewData!
 	getOverviewByUpc(artistId: String!, userId: String!, upc: String!): TotalOverviewData!
 	getTrending(artistId: String!, userId: String!): TrendingData!
 	getPlayCountHistory(artistId: String!, userId: String!, period: Int!): ChartData!
@@ -495,8 +527,11 @@ type QueryRoot {
 	getGenderGenRateByUpc(artistId: String!, userId: String!, upc: String!): GenderGenRateData!
 	getProducts(artistId: String!): ProductsData!
 	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
+	getFspHistory(userId: String!, count: Int!): TransactionsData!
+	getTrackCreditsHistory(count: Int!): [Credit!]!
 	getOwnCommunity(userId: String!): ConnectedUsersData!
 	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
+	getUserProfile(viewerId: String!, userId: String!): UserDataOnDetailPage!
 	getOfferStatsByUser(userId: String!): OfferStatsByUserData!
 	getOffersByOwner(userId: String!): OffersData!
 	getOffersByStatus(userId: String!): OfferByStatusData!
@@ -526,11 +561,10 @@ type QueryRoot {
 	getPopularPrizes: [PrizeData!]!
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
-	getFspHistory(userId: String!, count: Int!): TransactionsData!
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
 	getQuestByUserId(userId: String!): [QuestData!]!
-	loginReward(userId: String!): Int!
+	loginReward(userId: String!): LoginRewardResponse!
 	getCredits(userId: String!, artistId: String!, isrc: String!): [TrackCredit!]!
 	getAllCredits(userId: String!): GetAllCreditsOutput!
 }
@@ -751,27 +785,10 @@ input UpdateUserDataInput {
 	instagramHandle: String
 	fbHandle: String
 	fcmToken: String
+	interestOffer: String
 }
 
 type UpdateUserDataResponse {
-	userInfo: UserDetailData!
-}
-
-input UpdateUserDetailProfileInput {
-	id: String!
-	name: String
-	imageUrl: String
-	role: String
-	primaryRole: String
-	greeting: String
-	skill: String
-	xHandle: String
-	instagramHandle: String
-	fbHandle: String
-	interestOffer: [String!]
-}
-
-type UpdateUserDetailProfileResponse {
 	userInfo: UserDetailData!
 }
 
@@ -781,10 +798,30 @@ type UserConnectionData {
 	imageUrl: String
 	category: String!
 	favoriteId: String
+	shortNoteId: String
 	shortNote: String
 	lastLoggedIn: String
 	connections: [String!]!
 	weight: Int!
+}
+
+type UserDataOnDetailPage {
+	id: String!
+	imageUrl: String
+	name: String!
+	lastLoggedIn: String
+	xHandle: String
+	instagramHandle: String
+	fbHandle: String
+	shortNote: String
+	greeting: String
+	skill: String
+	connections: [String!]!
+	interestOffer: String
+	category: String!
+	belongsToArtists: [String!]!
+	portfolios: [PortfolioData!]!
+	offers: [OfferData!]!
 }
 
 type UserDetailData {
@@ -792,6 +829,7 @@ type UserDetailData {
 	name: String!
 	imageUrl: String
 	realname: String!
+	email: String!
 	isSuperAdmin: Boolean!
 	fspBalance: Int!
 	credentialBalance: Int!

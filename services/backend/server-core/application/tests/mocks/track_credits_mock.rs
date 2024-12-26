@@ -26,6 +26,8 @@ pub trait MockTrackCreditsRepo {
         &self,
         is_invite: bool,
     ) -> Result<Vec<TrackCredits>, DomainError>;
+    async fn mock_all_credits(&self, count: i32) -> Result<Vec<TrackCredits>, DomainError>;
+    async fn mock_count_credits(&self) -> Result<i64, DomainError>;
 }
 
 #[async_trait]
@@ -62,5 +64,13 @@ impl TrackCreditsRepository for MockMockTrackCreditsRepo {
 
     async fn find_by_is_invite(&self, is_invite: bool) -> Result<Vec<TrackCredits>, DomainError> {
         self.mock_find_by_is_invite(is_invite).await
+    }
+
+    async fn all_credits(&self, count: i32) -> Result<Vec<TrackCredits>, DomainError> {
+        self.mock_all_credits(count).await
+    }
+
+    async fn count_credits(&self) -> Result<i64, DomainError> {
+        self.mock_count_credits().await
     }
 }
