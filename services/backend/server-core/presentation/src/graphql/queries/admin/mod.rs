@@ -19,4 +19,44 @@ impl AdminQuery {
             total_play_count: result.total_play_count,
         })
     }
+
+    async fn get_fsp_history(
+        &self,
+        ctx: &Context<'_>,
+        count: i32,
+    ) -> Result<Vec<models::admin::FspHistory>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.get_overview.get_fsp_history(count).await?;
+        Ok(result
+            .into_iter()
+            .map(|fsp| models::admin::FspHistory {
+                date: fsp.date,
+                from: fsp.from,
+                to: fsp.to,
+                amount: fsp.amount,
+                notes: fsp.notes,
+            })
+            .collect())
+    }
+
+    async fn get_track_credits_history(
+        &self,
+        ctx: &Context<'_>,
+        count: i32,
+    ) -> Result<Vec<models::admin::Credit>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.get_overview.get_all_credits(count).await?;
+        Ok(result
+            .into_iter()
+            .map(|credit| models::admin::Credit {
+                date: credit.date,
+                title: credit.title,
+                isrc: credit.isrc,
+                user: credit.user,
+                role: credit.role,
+                name: credit.name,
+                email: credit.email,
+            })
+            .collect())
+    }
 }

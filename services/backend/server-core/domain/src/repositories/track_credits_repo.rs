@@ -20,4 +20,6 @@ pub trait TrackCreditsRepository: Send + Sync {
     async fn find_by_id(&self, id: i32) -> Result<Option<TrackCredits>, DomainError>;
     async fn find_by_isrc(&self, isrc: &str) -> Result<Vec<TrackCredits>, DomainError>;
     async fn find_by_is_invite(&self, is_invite: bool) -> Result<Vec<TrackCredits>, DomainError>;
+    async fn all_credits(&self, count: i32) -> Result<Vec<TrackCredits>, DomainError>;
+    async fn count_credits(&self) -> Result<i64, DomainError>;
 }
