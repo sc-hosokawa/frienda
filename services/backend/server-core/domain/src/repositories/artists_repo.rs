@@ -15,4 +15,5 @@ pub trait ArtistsRepository: Send + Sync {
     async fn find_all(&self) -> Result<Vec<Artist>, DomainError>;
     async fn delete(&self, id: Uuid) -> Result<(), DomainError>;
     async fn update_fsp(&self, id: &str, fsp: i32) -> Result<Artist, DomainError>;
+    async fn count(&self) -> Result<i64, DomainError>;
 }

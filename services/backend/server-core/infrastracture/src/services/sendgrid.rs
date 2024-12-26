@@ -14,20 +14,6 @@ impl SendGridService {
         let api_key: String = env::var("SENDGRID_API_KEY")?;
         let sender: Sender = Sender::new(api_key.clone(), None);
         tracing::info!("SendGrid API Key configured");
-
-        let p_init: Personalization =
-            Personalization::new(sendgrid::v3::Email::new("naoki@fracton.ventures"));
-        let message: Message = Message::new(sendgrid::v3::Email::new("info@friendshipdao.xyz"))
-            .set_subject("Initial Message")
-            .add_content(
-                Content::new()
-                    .set_content_type("text/plain")
-                    .set_value("Initial Message"),
-            )
-            .add_personalization(p_init);
-        let result = sender.send(&message).await?;
-        tracing::info!("Email setup successfully: {:?}", result);
-
         Ok(Self { sender })
     }
 }
