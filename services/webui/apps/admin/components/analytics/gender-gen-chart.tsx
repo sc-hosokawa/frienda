@@ -24,7 +24,7 @@ import { GenderGenRateData } from "../../generated/graphql";
 import { ChartSkeleton } from "./gender-gen-chart-skelton";
 
 const GENERATION_COLORS = [
-  "rgba(253, 224, 71, 0.6)", // 60% opacity
+  "rgba(253, 224, 71, 0.6)",
   "rgba(248, 113, 113, 0.6)",
   "rgba(94, 234, 212, 0.6)",
   "rgba(251, 146, 60, 0.6)",
@@ -77,9 +77,9 @@ export default function GenderGenView({ data, isLoading }: GenderGenViewProps) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <Card className="border-zinc-800">
+      <Card className="dark:border-zinc-800">
         <CardHeader>
-          <CardTitle className="text-zinc-100 font-light">Generation</CardTitle>
+          <CardTitle className="font-light">Generation</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
@@ -145,9 +145,9 @@ export default function GenderGenView({ data, isLoading }: GenderGenViewProps) {
         </CardFooter>
       </Card>
 
-      <Card className="border-zinc-800">
+      <Card className="dark:border-zinc-800">
         <CardHeader>
-          <CardTitle className="text-zinc-100 font-light">Gender</CardTitle>
+          <CardTitle className="font-light">Gender</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">

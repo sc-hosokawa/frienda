@@ -21,7 +21,7 @@ export function StatsCard({
   unit?: string;
 }) {
   return (
-    <Card className="w-[300px] bg-[#1E1E1E]">
+    <Card className="dark:border dark:border-white dark:border-opacity-10">
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
         {image}
@@ -30,9 +30,11 @@ export function StatsCard({
         {isLoading ? (
           <Skeleton className="w-full h-[32px]" />
         ) : (
-          <div className="text-3xl font-bold">
+          <div className="text-3xl">
             {amount}
-            <span className="text-sm text-right">{unit ? ` ${unit}` : ""}</span>
+            <span className="text-sm text-right ml-1">
+              {unit ? ` ${unit}` : ""}
+            </span>
           </div>
         )}
       </CardContent>

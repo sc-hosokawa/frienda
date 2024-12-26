@@ -97,9 +97,9 @@ export default function NotificationList() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {notifications.map((notification: any) => (
-            notification.category === 'info' ? (
-              <Card 
+          {notifications.map((notification: any) =>
+            notification.category === "info" ? (
+              <Card
                 key={notification.id}
                 className="h-full overflow-hidden relative border rounded-3xl border-white/30"
               >
@@ -178,8 +178,8 @@ export default function NotificationList() {
                   </div>
                 </Card>
               </Link>
-            )
-          ))}
+            ),
+          )}
         </div>
       )}
     </div>

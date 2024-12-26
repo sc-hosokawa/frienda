@@ -4,8 +4,6 @@ import { BaseComponent } from "../account/base";
 import { NotoSansJP } from "../../app/(authenticated)/layout";
 import { getBgClassByType, category } from "../../utils/index";
 
-
-
 export function Category({
   title,
   category,
