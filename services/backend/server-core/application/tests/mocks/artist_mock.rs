@@ -18,6 +18,7 @@ pub trait MockArtistsRepo {
     async fn mock_find_all(&self) -> Result<Vec<Artist>, DomainError>;
     async fn mock_delete(&self, id: Uuid) -> Result<(), DomainError>;
     async fn mock_update_fsp(&self, id: String, fsp: i32) -> Result<Artist, DomainError>;
+    async fn mock_count(&self) -> Result<i64, DomainError>;
 }
 
 #[async_trait]
@@ -57,5 +58,9 @@ impl ArtistsRepository for MockMockArtistsRepo {
 
     async fn update_fsp(&self, id: &str, fsp: i32) -> Result<Artist, DomainError> {
         self.mock_update_fsp(id.to_string(), fsp).await
+    }
+
+    async fn count(&self) -> Result<i64, DomainError> {
+        self.mock_count().await
     }
 }
