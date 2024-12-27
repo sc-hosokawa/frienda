@@ -133,8 +133,13 @@ export default function DiscographyAlbumPage({ params }: Props) {
                         </span>
                         <div>
                           <div className="font-medium">{track.trackTitle}</div>
-                          <div className="text-sm text-gray-400">
-                            {track.isrc}
+                          <div className="text-sm text-gray-400 flex gap-4">
+                            <span>
+                              total: {track.totalPlayCount.toLocaleString()}
+                            </span>
+                            <span>
+                              weekly: {track.weeklyPlayCount.toLocaleString()}
+                            </span>
                           </div>
                         </div>
                       </div>
