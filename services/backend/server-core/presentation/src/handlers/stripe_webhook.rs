@@ -3,7 +3,7 @@ use futures::StreamExt;
 use serde::Deserialize;
 use serde_json::json;
 use std::sync::Arc;
-use tracing::{debug, error, info, instrument};
+use tracing::{debug, error, info};
 
 use registry::Usecases;
 
