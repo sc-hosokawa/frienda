@@ -34,7 +34,7 @@ export function Header() {
             <Link
               href="/manage"
               className={`text-sm hover:text-primary relative ${
-                pathname === "/manage" &&
+                pathname.startsWith("/manage") &&
                 "after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary"
               }`}
             >
@@ -43,7 +43,7 @@ export function Header() {
             <Link
               href="/analytics"
               className={`text-sm hover:text-primary relative ${
-                pathname === "/analytics" &&
+                pathname.startsWith("/analytics") &&
                 "after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary"
               }`}
             >
@@ -52,7 +52,7 @@ export function Header() {
             <Link
               href="/system"
               className={`text-sm hover:text-primary relative ${
-                pathname === "/system" &&
+                pathname.startsWith("/system") &&
                 "after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary"
               }`}
             >
