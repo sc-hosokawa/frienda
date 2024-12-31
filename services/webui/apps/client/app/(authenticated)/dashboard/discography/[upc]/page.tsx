@@ -63,17 +63,17 @@ export default function DiscographyAlbumPage({ params }: Props) {
 
   return (
     <>
-      <Link href="/dashboard/discography">
-        <div className="flex items-center gap-2">
+      <div className="w-[60px]">
+        <Link href="/dashboard/discography" className="ml-6">
           <Image
             src="/arrow-left.svg"
             alt="arrow-left"
             width={60}
             height={60}
-            className="ml-6 -mt-6"
+            className="ml-6"
           />
-        </div>
-      </Link>
+        </Link>
+      </div>
       <div className="max-w-7xl mx-auto bg-black text-white min-h-screen p-6">
         <hr className="my-8 border-[#303030]" />
         <div className="space-y-6 mb-16">

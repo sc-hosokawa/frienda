@@ -274,17 +274,17 @@ export default function OfferEditPage() {
 
   return (
     <>
-      <Link href="/offer">
-        <div className="flex items-center gap-2 mt-20">
+      <div className="w-[60px]">
+        <Link href="/offer" className="ml-6">
           <Image
             src="/arrow-left.svg"
             alt="arrow-left"
             width={60}
             height={60}
-            className="ml-6 -mt-6"
+            className="ml-6"
           />
-        </div>
-      </Link>
+        </Link>
+      </div>
       <div className="min-h-screen p-6">
         <div className="max-w-6xl mx-auto space-y-8">
           <div>

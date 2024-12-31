@@ -263,17 +263,15 @@ export default function OfferCreatePage() {
 
   return (
     <>
-      <div className="mt-20">
-        <Link href="/offer" className="block">
-          <div className="flex items-center gap-2">
-            <Image
-              src="/arrow-left.svg"
-              alt="arrow-left"
-              width={60}
-              height={60}
-              className="ml-6 -mt-6"
-            />
-          </div>
+      <div className="w-[60px]">
+        <Link href="/offer" className="ml-24">
+          <Image
+            src="/arrow-left.svg"
+            alt="arrow-left"
+            width={60}
+            height={60}
+            className="ml-6"
+          />
         </Link>
       </div>
       <div className="min-h-screen p-6">
