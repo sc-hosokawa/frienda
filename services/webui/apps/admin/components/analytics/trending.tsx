@@ -28,10 +28,7 @@ export function Trending({ data, isLoading }: TrendingProps) {
           {[...(data?.trendingTracks ?? [])]
             .sort((a, b) => b.totalPlayCount - a.totalPlayCount)
             .map((song, index) => (
-              <div
-                key={index}
-                className="flex items-center p-4 rounded-lg"
-              >
+              <div key={index} className="flex items-center p-4 rounded-lg">
                 <div className="flex items-center space-x-4">
                   <span className="text-2xl w-8">{index + 1}</span>
                   <Image

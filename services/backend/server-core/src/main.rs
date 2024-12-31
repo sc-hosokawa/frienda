@@ -80,6 +80,10 @@ async fn bootstrap() -> Result<(), std::io::Error> {
                 "/stripe",
                 web::post().to(handlers::stripe_webhook::webhook_handler),
             )
+            .route(
+                "/contentful",
+                web::post().to(handlers::contentful_webhook::contentful_webhook_handler),
+            )
     })
     .client_request_timeout(Duration::from_secs(30))
     .bind((host, port))?

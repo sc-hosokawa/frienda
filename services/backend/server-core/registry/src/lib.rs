@@ -45,6 +45,7 @@ use application::usecases::messaging::{
     request_llm_usecase::{RequestLlmUsecase, RequestLlmUsecaseTrait},
     send_message_usecase::{SendMessageUsecase, SendMessageUsecaseTrait},
 };
+use application::usecases::news::{UpdateNewsUsecase, UpdateNewsUsecaseTrait};
 use application::usecases::notification::{
     get_notifications_usecase::{GetNotificationsUsecase, GetNotificationsUsecaseTrait},
     mark_notification_as_read_usecase::{
@@ -205,7 +206,8 @@ pub struct Usecases {
     pub manage_users_in_offer: Arc<dyn ManageUsersInOfferUsecaseTrait>,
     pub get_user_connections: Arc<dyn GetUserConnectionsUsecaseTrait>,
     pub get_user_profile: Arc<dyn GetUserProfileUsecaseTrait>,
-    pub get_overview: Arc<dyn OverviewUsecaseTrait>,
+    pub get_system_overview: Arc<dyn OverviewUsecaseTrait>,
+    pub update_news: Arc<dyn UpdateNewsUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -263,7 +265,7 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
-        get_overview: Arc::new(OverviewUsecase::new(
+        get_system_overview: Arc::new(OverviewUsecase::new(
             repos.users.clone(),
             repos.artists.clone(),
             repos.track_credits.clone(),
@@ -469,6 +471,11 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         )),
         mark_notification_as_read: Arc::new(MarkNotificationAsReadUsecase::new(
             repos.notification_user.clone(),
+        )),
+        update_news: Arc::new(UpdateNewsUsecase::new(
+            repos.users.clone(),
+            services.push_notification_service.clone(),
+            services.email_service.clone(),
         )),
     }
 }

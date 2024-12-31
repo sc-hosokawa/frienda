@@ -176,6 +176,11 @@ export function ClientSidebar() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side="right" align="start">
                       <DropdownMenuItem asChild>
+                        <Link href="/walkthrough">
+                          <span>チュートリアル</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
                         <Link href="/privacypolicy">
                           <span>プライバシーポリシー</span>
                         </Link>

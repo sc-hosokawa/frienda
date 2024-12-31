@@ -77,3 +77,41 @@ export const GET_TRENDING = gql`
     }
   }
 `;
+
+export const GET_SYSTEM_OVERVIEW = gql`
+  query GetSystemOverview {
+    getSystemOverview {
+      totalUsers
+      totalArtists
+      totalFsp
+      totalRevenue
+      totalPlayCount
+    }
+  }
+`;
+
+export const GET_FSP_HISTORY = gql`
+  query GetFspHistoryForAdmin($count: Int!) {
+    getFspHistoryForAdmin(count: $count) {
+      date
+      from
+      to
+      amount
+      notes
+    }
+  }
+`;
+
+export const GET_TRACK_CREDITS_HISTORY = gql`
+  query GetTrackCreditsHistoryForAdmin($count: Int!) {
+    getTrackCreditsHistoryForAdmin(count: $count) {
+      date
+      title
+      isrc
+      user
+      role
+      name
+      email
+    }
+  }
+`;

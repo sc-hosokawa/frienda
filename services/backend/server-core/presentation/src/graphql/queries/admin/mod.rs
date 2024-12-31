@@ -10,7 +10,7 @@ pub struct AdminQuery;
 impl AdminQuery {
     async fn get_system_overview(&self, ctx: &Context<'_>) -> Result<models::admin::OverviewData> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        let result = usecases.get_overview.get_overview().await?;
+        let result = usecases.get_system_overview.get_system_overview().await?;
         Ok(models::admin::OverviewData {
             total_users: result.total_users,
             total_artists: result.total_artists,
@@ -26,7 +26,7 @@ impl AdminQuery {
         count: i32,
     ) -> Result<Vec<models::admin::FspHistory>> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        let result = usecases.get_overview.get_fsp_history(count).await?;
+        let result = usecases.get_system_overview.get_fsp_history(count).await?;
         Ok(result
             .into_iter()
             .map(|fsp| models::admin::FspHistory {
@@ -45,7 +45,7 @@ impl AdminQuery {
         count: i32,
     ) -> Result<Vec<models::admin::Credit>> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        let result = usecases.get_overview.get_all_credits(count).await?;
+        let result = usecases.get_system_overview.get_all_credits(count).await?;
         Ok(result
             .into_iter()
             .map(|credit| models::admin::Credit {

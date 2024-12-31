@@ -39,7 +39,7 @@ pub struct FspHistory {
 
 #[async_trait]
 pub trait OverviewUsecaseTrait: Send + Sync {
-    async fn get_overview(&self) -> Result<OverviewOutput, anyhow::Error>;
+    async fn get_system_overview(&self) -> Result<OverviewOutput, anyhow::Error>;
     async fn get_all_credits(&self, count: i32) -> Result<Vec<Credit>, anyhow::Error>;
     async fn get_fsp_history(&self, count: i32) -> Result<Vec<FspHistory>, anyhow::Error>;
 }
@@ -72,7 +72,7 @@ impl OverviewUsecase {
 
 #[async_trait]
 impl OverviewUsecaseTrait for OverviewUsecase {
-    async fn get_overview(&self) -> Result<OverviewOutput, anyhow::Error> {
+    async fn get_system_overview(&self) -> Result<OverviewOutput, anyhow::Error> {
         let all_users: Vec<User> = self.users_repo.get_all_users().await?;
         let all_fsps: i32 = all_users.iter().map(|user| user.fsp).sum::<i32>();
         let total_artists: i64 = self.artists_repo.count().await?;

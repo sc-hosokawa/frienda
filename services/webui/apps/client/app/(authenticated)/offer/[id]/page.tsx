@@ -187,16 +187,16 @@ export default function OfferDetailPage({
     <div className="min-h-screen bg-black text-white">
       <div className="p-6">
         <div className="mb-8">
-          <Link href="/offer" className="block mb-2">
-            <div className="flex items-center gap-2">
+          <div className="w-[60px]">
+            <Link href="/offer" className="block mb-2">
               <Image
                 src="/arrow-left.svg"
                 alt="arrow-left"
                 width={60}
                 height={60}
               />
-            </div>
-          </Link>
+            </Link>
+          </div>
           <div className="flex items-center justify-between">
             <h1 className="text-[42px] font-light">Offer Details</h1>
             {isOwner ? (

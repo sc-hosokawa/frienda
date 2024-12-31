@@ -281,17 +281,17 @@ export default function Component() {
 
   return (
     <div className="flex flex-col h-screen bg-black text-white">
-      <Link href="/message">
-        <div className="flex items-center gap-2 z-50">
+      <div className="w-[60px]">
+        <Link href="/message" className="">
           <Image
             src="/arrow-left.svg"
             alt="arrow-left"
             width={60}
             height={60}
-            className="-mt-6"
+            className=""
           />
-        </div>
-      </Link>
+        </Link>
+      </div>
 
       <h1 className="text-[36px] font-light">Messages</h1>
       <hr className="mb-8 mt-4 border-[#303030]" />
