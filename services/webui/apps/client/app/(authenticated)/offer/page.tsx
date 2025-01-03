@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from "@ui/components/ui/tooltip";
 import { ConciergeDialog } from "../../../components/dialog/concierge-dialog";
+import { OfferInfo } from "./OfferInfo";
 
 export default function OfferPage() {
   const { user } = useUserStore();
@@ -31,8 +32,9 @@ export default function OfferPage() {
             height={105}
           />
           <div className="flex flex-col space-y-0">
-            <h1 className="text-[90px] font-light tracking-tight leading-none">
+            <h1 className="text-[90px] font-light tracking-tight leading-none relative">
               OFFERS
+              <OfferInfo />
             </h1>
             <p className="text-sm -mt-2">オファー</p>
           </div>

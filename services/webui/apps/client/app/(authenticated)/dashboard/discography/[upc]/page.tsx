@@ -10,6 +10,7 @@ import { CreditDialog } from "../../../credit-dialog";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../../../store/user";
 import { TrendingByUpcData } from "../../../../../generated/graphql";
+import { DiscographyInfo } from "./DiscographyInfo";
 
 const GET_OVERVIEW_BY_UPC = gql`
   query GetOverviewByUpc($artistId: String!, $userId: String!, $upc: String!) {
@@ -59,7 +60,6 @@ export default function DiscographyAlbumPage({ params }: Props) {
       variables: { upc: params.upc, userId: user?.id },
     },
   );
-  console.log(trendingData?.getTrendingByUpc.trendingTracks[0]?.trackTitle);
 
   return (
     <>
@@ -88,14 +88,17 @@ export default function DiscographyAlbumPage({ params }: Props) {
             <div className="flex-grow space-y-6">
               <div className="space-y-4 mb-16">
                 <div className="flex items-center justify-between">
-                  <h1 className="text-2xl font-semibold">
+                  <h1 className="text-2xl font-semibold relative">
                     {trendingData?.getTrendingByUpc.productTitle}
+                    <DiscographyInfo />
                   </h1>
+                  {/* TODO: add info dialog 
                   <div className="flex gap-2">
                     <Button variant="ghost" size="icon">
                       <MoreHorizontal className="w-5 h-5" />
                     </Button>
                   </div>
+                  */}
                 </div>
                 <p className="text-sm text-gray-400">
                   {trendingData?.getTrendingByUpc.artistName}
@@ -135,10 +138,10 @@ export default function DiscographyAlbumPage({ params }: Props) {
                           <div className="font-medium">{track.trackTitle}</div>
                           <div className="text-sm text-gray-400 flex gap-4">
                             <span>
-                              total: {track.totalPlayCount.toLocaleString()}
+                              Total/ {track.totalPlayCount.toLocaleString()}
                             </span>
                             <span>
-                              weekly: {track.weeklyPlayCount.toLocaleString()}
+                              Weekly/ {track.weeklyPlayCount.toLocaleString()}
                             </span>
                           </div>
                         </div>
