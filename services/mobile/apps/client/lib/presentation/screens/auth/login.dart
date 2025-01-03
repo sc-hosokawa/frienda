@@ -8,6 +8,8 @@ import 'package:client/presentation/providers/client_provider.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/services/biometric_auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:client/presentation/screens/auth/reset_password.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -93,6 +95,33 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           throw Exception('ユーザー情報の取得に失敗しました');
         }
 
+        // FCMトークンを取得
+        final prefs = await SharedPreferences.getInstance();
+        final fcmToken = prefs.getString('fcm_token');
+
+        // FCMトークンを更新するミューテーション
+        await ref.read(graphQLClientProvider).mutate(
+              MutationOptions(
+                document: gql('''
+                  mutation UpdateUserData(\$input: UpdateUserDataInput!) {
+                    updateUserData(input: \$input) {
+                      userInfo {
+                        id
+                        name
+                        imageUrl
+                      }
+                    }
+                  }
+                '''),
+                variables: {
+                  'input': {
+                    'id': user.uid,
+                    'fcmToken': fcmToken,
+                  },
+                },
+              ),
+            );
+
         // ユーザーデータを取得
         final userData = await ref.read(graphQLClientProvider).query(
               QueryOptions(
@@ -137,6 +166,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 variables: {
                   'userId': user.uid,
                 },
+                fetchPolicy: FetchPolicy.noCache,
               ),
             );
 
@@ -219,6 +249,33 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           password: _passwordController.text,
         );
 
+        // FCMトークンを取得
+        final prefs = await SharedPreferences.getInstance();
+        final fcmToken = prefs.getString('fcm_token');
+
+        // FCMトークンを更新するミューテーション
+        await ref.read(graphQLClientProvider).mutate(
+              MutationOptions(
+                document: gql('''
+                  mutation UpdateUserData(\$input: UpdateUserDataInput!) {
+                    updateUserData(input: \$input) {
+                      userInfo {
+                        id
+                        name
+                        imageUrl
+                      }
+                    }
+                  }
+                '''),
+                variables: {
+                  'input': {
+                    'id': userCredential.user!.uid,
+                    'fcmToken': fcmToken,
+                  },
+                },
+              ),
+            );
+
         // カスタムトークンを取得して保存
         final token = await userCredential.user?.getIdToken();
         if (token != null) {
@@ -268,6 +325,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 variables: {
                   'userId': userCredential.user!.uid,
                 },
+                fetchPolicy: FetchPolicy.noCache,
               ),
             );
 
@@ -375,6 +433,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     );
                   },
                 ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ResetPasswordPage(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'パスワードをお忘れの方はこちら',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -387,6 +462,5 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Future<void> logout() async {
     await _biometricAuth.deleteAuthToken();
     await FirebaseAuth.instance.signOut();
-    // その他のログアウト処理...
   }
 }

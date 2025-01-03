@@ -5,6 +5,8 @@ pub mod gender_gen_playback_repo_impl;
 pub mod health_check_repo_impl;
 pub mod message_attach_repo_impl;
 pub mod messages_repo_impl;
+pub mod notification_user_repo_impl;
+pub mod notifications_repo_impl;
 pub mod offer_attach_repo_impl;
 pub mod offer_user_repo_impl;
 pub mod offers_repo_impl;

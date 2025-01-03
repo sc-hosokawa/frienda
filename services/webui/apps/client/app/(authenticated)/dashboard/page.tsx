@@ -8,6 +8,7 @@ import { Historical } from "./histrical";
 import { GenderGenView } from "./gender-gen-data";
 import useUserStore from "../../../store/user";
 import { RequestForViewDialog } from "../reqest-for-view";
+import { DashboardInfo } from "./DashboardInfo";
 
 export default function Dashboard() {
   const { user } = useUserStore();
@@ -32,8 +33,9 @@ export default function Dashboard() {
               height={105}
             />
             <div className="flex flex-col space-y-0">
-              <h1 className="text-[90px] font-light tracking-tight leading-none">
+              <h1 className="text-[90px] font-light tracking-tight leading-none relative">
                 DASHBOARD
+                <DashboardInfo />
               </h1>
               <p className="text-sm -mt-2">ダッシュボード</p>
             </div>

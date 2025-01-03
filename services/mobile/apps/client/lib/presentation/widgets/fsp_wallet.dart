@@ -36,7 +36,6 @@ class Fsp extends ConsumerWidget {
           ]);
         },
         child: SingleChildScrollView(
-          // Add physics to enable refresh on iOS
           physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
@@ -347,7 +346,12 @@ class Fsp extends ConsumerWidget {
                                         child: transaction['counterParty']
                                                     ?['imageUrl'] ==
                                                 null
-                                            ? const Icon(Icons.person, size: 20)
+                                            ? ClipOval(
+                                                child: Image.asset(
+                                                  'assets/logo_visualonly.jpg',
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )
                                             : null,
                                       ),
                                     ],
@@ -456,6 +460,7 @@ final transactionsProvider =
             'userId': user.id,
             'count': 5,
           },
+          fetchPolicy: FetchPolicy.noCache,
         ),
       );
 

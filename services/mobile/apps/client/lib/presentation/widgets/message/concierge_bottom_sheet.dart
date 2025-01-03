@@ -35,7 +35,9 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
     });
 
     try {
-      final result = await ref.read(graphQLClientProvider).query(
+      final result = await ref
+          .read(graphQLClientProvider)
+          .query(
             QueryOptions(
               document: gql('''
             query AskLlm(\$userId: String!, \$question: String!) {
@@ -49,9 +51,9 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
               fetchPolicy: FetchPolicy.noCache,
               cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
               errorPolicy: ErrorPolicy.all,
-              pollInterval: const Duration(seconds: 30),
             ),
-          );
+          )
+          .timeout(const Duration(seconds: 30));
 
       if (result.hasException) {
         throw result.exception!;
@@ -175,7 +177,7 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
                               child: Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Text(
-                                  'My Conciergeに色々聞いてみましょう',
+                                  'My Conciergeに色々聞いてみましょう！\n（テスト版につき現在調整中）',
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.white.withOpacity(0.7),

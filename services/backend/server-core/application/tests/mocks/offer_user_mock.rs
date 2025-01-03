@@ -18,6 +18,10 @@ pub trait MockOfferUserRepo {
     async fn mock_get_by_id(&self, id: i32) -> Result<Option<OfferUser>, DomainError>;
     async fn mock_get_by_user_id(&self, user_id: String) -> Result<Vec<OfferUser>, DomainError>;
     async fn mock_get_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferUser>, DomainError>;
+    async fn mock_get_by_offer_ids(
+        &self,
+        offer_ids: Vec<i32>,
+    ) -> Result<Vec<OfferUser>, DomainError>;
     async fn mock_get_by_user_id_and_offer_id(
         &self,
         user_id: String,
@@ -28,6 +32,11 @@ pub trait MockOfferUserRepo {
         user_id: String,
         status: OfferStatus,
     ) -> Result<Vec<OfferUser>, DomainError>;
+    async fn mock_cancel_other_applications(
+        &self,
+        offer_id: i32,
+        except_user_id: &str,
+    ) -> Result<(), DomainError>;
 }
 
 #[async_trait]
@@ -60,6 +69,10 @@ impl OfferUserRepository for MockMockOfferUserRepo {
         self.mock_get_by_offer_id(offer_id).await
     }
 
+    async fn get_by_offer_ids(&self, offer_ids: Vec<i32>) -> Result<Vec<OfferUser>, DomainError> {
+        self.mock_get_by_offer_ids(offer_ids).await
+    }
+
     async fn get_by_user_id_and_offer_id(
         &self,
         user_id: &str,
@@ -75,6 +88,15 @@ impl OfferUserRepository for MockMockOfferUserRepo {
         status: OfferStatus,
     ) -> Result<Vec<OfferUser>, DomainError> {
         self.mock_get_by_user_id_and_status(user_id.to_string(), status)
+            .await
+    }
+
+    async fn cancel_other_applications(
+        &self,
+        offer_id: i32,
+        except_user_id: &str,
+    ) -> Result<(), DomainError> {
+        self.mock_cancel_other_applications(offer_id, except_user_id)
             .await
     }
 }

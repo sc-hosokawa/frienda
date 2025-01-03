@@ -7,9 +7,13 @@ use uuid::Uuid;
 use domain::entities::message_attach::ActiveModel as MessageAttachActiveModel;
 use domain::entities::messages::ActiveModel as MessageActiveModel;
 use domain::entities::messages::Model as Message;
+use domain::entities::notification_user::ActiveModel as NotificationUserActiveModel;
+use domain::entities::notifications::ActiveModel as NotificationActiveModel;
 use domain::entities::rooms::ActiveModel as RoomActiveModel;
 use domain::repositories::message_attach_repo::MessageAttachRepository;
 use domain::repositories::messages_repo::MessagesRepository;
+use domain::repositories::notification_user_repo::NotificationUserRepository;
+use domain::repositories::notifications_repo::NotificationsRepository;
 use domain::repositories::room_user_repo::RoomUserRepository;
 use domain::repositories::rooms_repo::RoomsRepository;
 use domain::repositories::users_repo::UsersRepository;
@@ -59,6 +63,8 @@ pub struct SendMessageUsecase {
     users_repo: Arc<dyn UsersRepository>,
     room_user_repo: Arc<dyn RoomUserRepository>,
     email_service: Arc<dyn EmailServiceTrait>,
+    notifications_repo: Arc<dyn NotificationsRepository>,
+    notification_user_repo: Arc<dyn NotificationUserRepository>,
 }
 
 impl SendMessageUsecase {
@@ -70,6 +76,8 @@ impl SendMessageUsecase {
         users_repo: Arc<dyn UsersRepository>,
         room_user_repo: Arc<dyn RoomUserRepository>,
         email_service: Arc<dyn EmailServiceTrait>,
+        notifications_repo: Arc<dyn NotificationsRepository>,
+        notification_user_repo: Arc<dyn NotificationUserRepository>,
     ) -> Self {
         Self {
             messages_repo,
@@ -79,6 +87,8 @@ impl SendMessageUsecase {
             users_repo,
             room_user_repo,
             email_service,
+            notifications_repo,
+            notification_user_repo,
         }
     }
 }
@@ -137,12 +147,12 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
         let room_users = self.room_user_repo.get_by_room_id(message.room_id).await?;
 
         let sent_by = &message.sent_by;
-        let other_users = room_users
+        let other_users: Vec<&domain::entities::room_user::Model> = room_users
             .iter()
             .filter(|room_user| &room_user.user_id != sent_by)
             .collect::<Vec<_>>();
 
-        let sender = self
+        let sender: domain::entities::users::Model = self
             .users_repo
             .find_by_id(&message.sent_by)
             .await?
@@ -154,6 +164,13 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                 Ok(Some(user)) => {
                     let push_notification_service = Arc::clone(&self.push_notification_service);
                     let email_service = Arc::clone(&self.email_service);
+                    tracing::debug!(
+                        "fcm_token on send_message: {}",
+                        user.fcm_token
+                            .clone()
+                            .unwrap_or("fcm_token not found".to_string())
+                    );
+                    tracing::debug!("email on send_message: {}", user.email);
 
                     // プッシュ通知
                     if let Some(fcm_token) = user.fcm_token.clone() {
@@ -164,18 +181,24 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                                 title: "新着メッセージがあります".to_string(),
                                 body: format!("{}さんからメッセージが届きました", sender_name),
                             };
-                            if let Err(e) = push_notification_service
+                            match push_notification_service
                                 .send_push_notification(push_notification)
                                 .await
                             {
-                                tracing::warn!("Failed to send push notification: {}", e);
+                                Ok(result) => tracing::debug!(
+                                    "Push notification sent successfully: {}",
+                                    result
+                                ),
+                                Err(e) => {
+                                    tracing::error!("Failed to send push notification: {}", e)
+                                }
                             }
                         });
                     }
 
                     // メール通知
-                    let email = user.email.clone();
-                    let sender_name = sender_name.clone();
+                    let email: String = user.email.clone();
+                    let sender_name_clone: String = sender_name.clone();
                     tokio::spawn(async move {
                         let email_notification = Email {
                             from: "info@friendshipdao.xyz".to_string(),
@@ -183,13 +206,39 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
                             subject: "【FRIENDSHIP. DAO】新着メッセージがあります".to_string(),
                             body: format!(
                                 "{0}さんから新しいメッセージが届きました。\n\nウェブサイトを開いて確認する: https://app.friendshipdao.xyz",
-                                sender_name,
+                                sender_name_clone,
                             ),
                         };
                         if let Err(e) = email_service.send_email(email_notification).await {
                             tracing::warn!("Failed to send email notification: {}", e);
                         }
                     });
+
+                    let notification_active_model: NotificationActiveModel =
+                        NotificationActiveModel {
+                            title: ActiveValue::Set("新着メッセージがあります".to_string()),
+                            content: ActiveValue::Set(format!(
+                                "{}さんからメッセージが届きました",
+                                sender_name
+                            )),
+                            category: ActiveValue::Set(Some("message".to_string())),
+                            ..Default::default()
+                        };
+                    let new_notification = self
+                        .notifications_repo
+                        .create(notification_active_model)
+                        .await?;
+                    let notification_user_active_model: NotificationUserActiveModel =
+                        NotificationUserActiveModel {
+                            notification_id: ActiveValue::Set(new_notification.id),
+                            user: ActiveValue::Set(room_user.user_id.clone()),
+                            is_read: ActiveValue::Set(false),
+                            is_deleted: ActiveValue::Set(false),
+                            ..Default::default()
+                        };
+                    self.notification_user_repo
+                        .create(notification_user_active_model)
+                        .await?;
                 }
                 Ok(None) => {
                     tracing::warn!("User not found: {}", room_user.user_id);

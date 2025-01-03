@@ -1,63 +1,218 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import { SocialLink } from "../../../../components/account/social-links";
-import { Separator } from "../../../../../../packages/ui/components/ui/separator";
+import { Separator } from "@ui/components/ui/separator";
 import { ConnectionTypes } from "../../../../components/account/connection-type";
-import { getBgClassByType, UserType } from "../../../../utils";
+import { getBgClassByType, category } from "../../../../utils";
 import { Offers } from "../../../../components/account/offers";
 import { Skill } from "../../../../components/community/skill";
+import { Category } from "../../../../components/community/category";
 import { NotoSansJP } from "../../layout";
 import { BorderDash } from "../../../../components/border-dash";
 import { Works } from "../../../../components/community/works";
 import { OfferCard } from "../../../../components/community/offer-card";
-import { mockData } from "../page";
 import { List } from "../../../../components/account/list";
 import { BaseComponent } from "../../../../components/account/base";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import useUserStore from "../../../../store/user";
+import CommunityMap from "../../../../components/community/community-map";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@ui/components/ui/popover";
+import { Copy, Check, MessageSquare, Pencil } from "lucide-react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+const GET_USER_PROFILE = gql`
+  query GetUserProfile($viewerId: String!, $userId: String!) {
+    getUserProfile(viewerId: $viewerId, userId: $userId) {
+      id
+      imageUrl
+      name
+      lastLoggedIn
+      xHandle
+      instagramHandle
+      fbHandle
+      shortNote
+      greeting
+      skill
+      connections
+      interestOffer
+      category
+      belongsToArtists
+      portfolios {
+        id
+        title
+        description
+        imageUrl
+        refLink
+        createdAt
+      }
+      offers {
+        id
+        title
+        description
+        imageUrl
+        fee
+        category
+      }
+    }
+  }
+`;
+
+const GET_OTHER_USER_COMMUNITY = gql`
+  query GetOtherUserCommunity($viewerId: String!, $targetUserId: String!) {
+    getOtherUserCommunity(viewerId: $viewerId, targetUserId: $targetUserId) {
+      community {
+        id
+        name
+        imageUrl
+        category
+        favoriteId
+        shortNoteId
+        shortNote
+        lastLoggedIn
+        connections
+        weight
+      }
+    }
+  }
+`;
+
+const CREATE_MESSAGE_ROOM = gql`
+  mutation CreateNewMessageRoom($input: CreateNewMessageRoomInput!) {
+    createNewMessageRoom(input: $input) {
+      id
+    }
+  }
+`;
 
 export default function CommunityAccountPage({
   params,
 }: {
   params: { id: string };
 }) {
-  // TODO: get user data by id
-  /*
-   * e.g.:
-   * const { data, error } = useQuery(["user", params.id], () => getUser(params.id));
-   */
-  function getuser(id: string) {
-    return mockData[parseInt(id) - 1];
-  }
-  const user = getuser(params.id);
-  const bgColor = getBgClassByType(user?.type.title as UserType);
+  const router = useRouter();
+  const { user } = useUserStore();
+  const [createRoom] = useMutation(CREATE_MESSAGE_ROOM);
+
+  const { loading: communityLoading, data: communityData } = useQuery(
+    GET_OTHER_USER_COMMUNITY,
+    {
+      variables: {
+        viewerId: user?.id,
+        targetUserId: params.id,
+      },
+    },
+  );
+
+  const { loading, error, data } = useQuery(GET_USER_PROFILE, {
+    variables: {
+      viewerId: user?.id,
+      userId: params.id,
+    },
+  });
+
+  const [showCopied, setShowCopied] = useState(false);
+
+  const handleMessageClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      const result = await createRoom({
+        variables: {
+          input: {
+            createdBy: user?.id,
+            userList: [user?.id, params.id],
+            category: "dm",
+          },
+        },
+      });
+
+      if (result.data?.createNewMessageRoom?.id) {
+        router.push(`/message/${result.data.createNewMessageRoom.id}`);
+      }
+    } catch (err) {
+      console.error("Failed to create message room:", err);
+    }
+  };
+
+  const isOwnProfile = user?.id === params.id;
+
+  const handleEditProfile = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push("/profile");
+  };
+
+  if (loading || communityLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  console.log(data?.getUserProfile?.category);
 
   return (
     <div className="min-h-screen text-white">
-      {/* Profile Header */}
       <div className="flex items-center justify-between p-6">
         <div className="flex items-center gap-4">
-          <div>
+          <div className="w-[80px] h-[80px] relative rounded-full overflow-hidden">
             <Image
-              src={user?.avatar || "/logo_visualonly.jpg"}
+              src={data?.getUserProfile?.imageUrl || "/logo_visualonly.jpg"}
               alt="avatar"
               width={80}
               height={80}
-              className={`p-1 rounded-full object-cover ${getBgClassByType(user?.type.title as UserType)}`}
+              className="w-full h-full object-cover border-2 rounded-full"
+              style={getBgClassByType(
+                data?.getUserProfile?.category as category,
+              )}
             />
           </div>
           <div className="flex flex-col gap-3 mr-12">
-            <h1 className="text-[24px] leading-[21px]">{user?.name}</h1>
-            {user?.isOnline ? (
-              <div className="flex items-center gap-1">
-                <div className="w-[18px] h-[18px] rounded-full bg-[#00B496]" />
-                <span className="text-[15px] font-light leading-[15px] text-left group-hover:text-black">
-                  Online
-                </span>
-              </div>
-            ) : (
-              <span className="text-[12px] font-light leading-[16px] text-left group-hover:text-black">
-                {user?.lastLogin}
-              </span>
-            )}
+            <h1 className="text-[24px] leading-[21px]">
+              {data?.getUserProfile?.name}
+            </h1>
+            {(() => {
+              if (!data?.getUserProfile?.lastLoggedIn) return null;
+
+              const lastLogin = new Date(data.getUserProfile.lastLoggedIn);
+              const now = new Date();
+              const diffInMinutes = Math.floor(
+                (now.getTime() - lastLogin.getTime()) / (1000 * 60),
+              );
+
+              if (diffInMinutes <= 15) {
+                return (
+                  <div className="flex items-center gap-1">
+                    <div className="w-[18px] h-[18px] rounded-full bg-[#00B496] animate-pulse mr-1" />
+                    <span className="text-[15px] font-light leading-[15px] text-left group-hover:text-black">
+                      Online
+                    </span>
+                  </div>
+                );
+              }
+
+              if (diffInMinutes < 60) {
+                return (
+                  <span className="text-[12px] font-light leading-[16px] text-left">
+                    {diffInMinutes}分前
+                  </span>
+                );
+              } else if (diffInMinutes < 1440) {
+                const hours = Math.floor(diffInMinutes / 60);
+                return (
+                  <span className="text-[12px] font-light leading-[16px] text-left">
+                    {hours}時間前
+                  </span>
+                );
+              } else {
+                const days = Math.floor(diffInMinutes / 1440);
+                return (
+                  <span className="text-[12px] font-light leading-[16px] text-left">
+                    {days}日前
+                  </span>
+                );
+              }
+            })()}
           </div>
           <div className="flex gap-2">
             <BorderDash
@@ -66,7 +221,6 @@ export default function CommunityAccountPage({
               width={24}
               height={24}
               className="w-12 h-12"
-              link={`https://x.com/${user?.name}`}
             />
             <BorderDash
               imageSrc={"/instagram-white.svg"}
@@ -74,73 +228,129 @@ export default function CommunityAccountPage({
               width={24}
               height={24}
               className="w-12 h-12"
-              link={`https://instagram.com/${user?.name}`}
             />
           </div>
         </div>
         <div>
-          {user?.comment && (
+          {data?.getUserProfile?.shortNote && (
             <span
-              className={`px-3 py-1 ${bgColor} text-black rounded-full text-sm transition-colors`}
+              className={`px-3 py-1 text-white rounded-full text-sm transition-colors`}
             >
-              {user?.comment}
+              {data?.getUserProfile?.shortNote}
             </span>
           )}
         </div>
         <div className="flex items-center gap-2">
-          <BorderDash
-            imageSrc={"/share.svg"}
-            alt="share"
-            width={24}
-            height={24}
-            className="w-12 h-12"
-            link={"/"}
-          />
+          <Popover>
+            <PopoverTrigger>
+              <BorderDash
+                imageSrc={"/share.svg"}
+                alt="share"
+                width={24}
+                height={24}
+                className="w-12 h-12"
+              />
+            </PopoverTrigger>
+            <PopoverContent className="p-1">
+              <button
+                onClick={async () => {
+                  await navigator.clipboard.writeText(window.location.href);
+                  setShowCopied(true);
+                  setTimeout(() => setShowCopied(false), 2000);
+                }}
+                className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 hover:text-black rounded flex items-center gap-2"
+              >
+                {showCopied ? (
+                  <>
+                    <Check className="w-4 h-4 text-green-500" />
+                    <span>コピーしました</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>URLをコピー</span>
+                  </>
+                )}
+              </button>
+            </PopoverContent>
+          </Popover>
 
-          <BorderDash
-            imageSrc={"/mail.svg"}
-            alt="mail"
-            width={24}
-            height={24}
-            className="w-12 h-12"
-            link={"/"}
-          />
-
-          <BorderDash
-            imageSrc={"/more-horizontal.svg"}
-            alt="more"
-            width={24}
-            height={24}
-            className="w-12 h-12"
-            link={"/"}
-          />
+          {isOwnProfile ? (
+            <Popover>
+              <PopoverTrigger>
+                <BorderDash
+                  imageSrc={"/more-horizontal.svg"}
+                  alt="edit"
+                  width={24}
+                  height={24}
+                  className="w-12 h-12"
+                />
+              </PopoverTrigger>
+              <PopoverContent className="p-1">
+                <button
+                  onClick={handleEditProfile}
+                  className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 hover:text-black rounded flex items-center gap-2"
+                >
+                  <Pencil className="w-4 h-4" />
+                  <span>プロフィールを編集する</span>
+                </button>
+              </PopoverContent>
+            </Popover>
+          ) : (
+            <Popover>
+              <PopoverTrigger>
+                <BorderDash
+                  imageSrc={"/mail.svg"}
+                  alt="mail"
+                  width={24}
+                  height={24}
+                  className="w-12 h-12"
+                />
+              </PopoverTrigger>
+              <PopoverContent className="p-1">
+                <button
+                  onClick={handleMessageClick}
+                  className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 hover:text-black rounded flex items-center gap-2"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>メッセージする</span>
+                </button>
+              </PopoverContent>
+            </Popover>
+          )}
         </div>
       </div>
 
-      {/* Content */}
       <div className="p-6 space-y-12">
-        {/* Description */}
         <div className="space-y-4">
-          <div className="w-[720px] h-[40px]">
+          <div className="">
             <p
               className={`${NotoSansJP.className} text-[14px] font-[350] leading-[24px] text-left`}
             >
-              {user?.description}
+              {data?.getUserProfile?.greeting}
             </p>
           </div>
         </div>
 
         <Separator className="w-full border border-dashed border-[#505050]" />
 
-        <div className="grid grid-cols-3 ">
-          <Skill title="Skill" skill={user?.skill} />
-          <ConnectionTypes title={"繋がり"} types={user?.connections} />
-          <Offers title={"興味のあるオファー"} offers={user?.offers} />
+        <div className="grid grid-cols-3 gap-8">
+          <Skill title="スキル" skill={data?.getUserProfile?.skill} />
+          <Category title="属性" category={data?.getUserProfile?.category} />
+          <Offers
+            title={"興味のあるオファー"}
+            offers={
+              data?.getUserProfile?.interestOffer
+                ? [data?.getUserProfile?.interestOffer]
+                : []
+            }
+          />
         </div>
 
         <Separator className="w-full border border-dashed border-[#505050]" />
 
         <div className="grid grid-cols-3 ">
+          {/* 
           <BaseComponent title={"Type"}>
             <div className="flex flex-wrap gap-2">
               <div className="flex flex-col text-white">
@@ -156,14 +366,22 @@ export default function CommunityAccountPage({
               </div>
             </div>
           </BaseComponent>
+          */}
 
           <div>
-            <List title="Members" lists={user?.members!} />
+            <List
+              title="所属するArtists"
+              lists={
+                data?.getUserProfile?.belongsToArtists?.map((artist: any) => ({
+                  title: artist,
+                  role: "",
+                })) ?? []
+              }
+            />
           </div>
         </div>
 
-        <Separator className="w-full border border-dashed border-[#505050]" />
-        {/* Social Links */}
+        {/* Social Links 
         <div className="grid grid-cols-3 ">
           <SocialLink
             title="Artist SNS"
@@ -178,9 +396,11 @@ export default function CommunityAccountPage({
             youtube={{ username: "mock" }}
           />
         </div>
+        */}
 
         <Separator className="w-full border border-dashed border-[#505050]" />
 
+        {/* Works 
         <div className="grid grid-cols-3 gap-4">
           <div>
             <Works
@@ -191,80 +411,23 @@ export default function CommunityAccountPage({
             />
           </div>
         </div>
+        */}
 
         <div className="grid grid-cols-2 gap-10">
-          {sampleData.map((data, index) => (
-            <OfferCard key={index} {...data} />
+          {data?.getUserProfile?.offers?.map((offer: any, index: number) => (
+            <OfferCard key={index} {...offer} />
           ))}
         </div>
+
+        {communityData?.getOtherUserCommunity?.community && (
+          <CommunityMap
+            items={communityData.getOtherUserCommunity.community}
+            center_user_image={data?.getUserProfile?.imageUrl}
+            center_user_name={data?.getUserProfile?.name}
+            center_user_category={data?.getUserProfile?.category}
+          />
+        )}
       </div>
     </div>
   );
 }
-
-const sampleData = [
-  {
-    status: "In-Progress" as const,
-    offerId: "123",
-    title: "イベントに参加してくれるアーティスト募集中！",
-    lastUpdated: "2024/10/10",
-    participants: [
-      {
-        avatar: "/logo_visualonly.jpg",
-        name: "User 1",
-      },
-      {
-        avatar: "/logo_visualonly.jpg",
-        name: "User 2",
-      },
-      {
-        avatar: "/logo_visualonly.jpg",
-        name: "User 3",
-      },
-    ],
-    deadline: "2024/11/10",
-    location: "東京都",
-    target: "2 Artists",
-    borderColor: "#2D78FF",
-  },
-  {
-    status: "Offer Applied" as const,
-    offerId: "124",
-    title: "イベントに参加してくれるアーティスト募集中！",
-    lastUpdated: "2024/10/10",
-    participants: [
-      {
-        avatar: "/logo_visualonly.jpg",
-        name: "User 1",
-      },
-      {
-        avatar: "/logo_visualonly.jpg",
-        name: "User 2",
-      },
-    ],
-    deadline: "2024/11/10",
-    location: "東京都",
-    target: "2 Artists",
-    borderColor: "#00B496",
-  },
-  {
-    status: "Offer Applied" as const,
-    offerId: "124",
-    title: "イベントに参加してくれるアーティスト募集中！",
-    lastUpdated: "2024/10/10",
-    participants: [
-      {
-        avatar: "/logo_visualonly.jpg",
-        name: "User 1",
-      },
-      {
-        avatar: "/logo_visualonly.jpg",
-        name: "User 2",
-      },
-    ],
-    deadline: "2024/11/10",
-    location: "東京都",
-    target: "2 Artists",
-    borderColor: "#00B496",
-  },
-];

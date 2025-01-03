@@ -22,6 +22,70 @@ class _HomePageState extends ConsumerState<HomePage> {
   final _isLoading = ValueNotifier<bool>(false);
 
   @override
+  void initState() {
+    super.initState();
+    // ウィジェットがビルドされた後にクエリを実行
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _queryLoginReward();
+    });
+  }
+
+  Future<void> _queryLoginReward() async {
+    final userState = ref.read(userProvider);
+    if (userState?.id == null) return;
+
+    final client = ref.read(graphQLClientProvider);
+    try {
+      final result = await client.query(
+        QueryOptions(
+          document: gql('''
+            query LoginReward(\$userId: String!) {
+              loginReward(userId: \$userId) {
+                fsp
+                rewardGiven
+              }
+            }
+          '''),
+          variables: {
+            'userId': userState!.id,
+          },
+          fetchPolicy: FetchPolicy.noCache,
+        ),
+      );
+
+      print('Login reward result: ${result.data}');
+
+      if (result.hasException) {
+        print('Login reward query failed: ${result.exception}');
+        return;
+      }
+
+      final rewardPoints = result.data?['loginReward']['fsp'] as int?;
+      final rewardGiven = result.data?['loginReward']['rewardGiven'] as bool?;
+
+      if (rewardGiven == true && rewardPoints != null && mounted) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('ログインボーナス'),
+              content: Text('ログインボーナス（1fsp）を獲得しました！'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      print('Error querying login reward: $e');
+    }
+  }
+
+  @override
   void dispose() {
     _isLoading.dispose();
     super.dispose();
@@ -85,7 +149,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             variables: {
               'userId': userState?.id ?? '',
             },
-            fetchPolicy: FetchPolicy.networkOnly,
+            fetchPolicy: FetchPolicy.cacheAndNetwork,
           ),
           builder: (result, {refetch, fetchMore}) {
             if (result.hasException) {

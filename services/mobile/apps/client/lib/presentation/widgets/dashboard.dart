@@ -268,6 +268,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
             fetchPolicy: FetchPolicy.networkOnly,
           ),
           builder: (result, {refetch, fetchMore}) {
+            print('result: ${result.data}');
             if (result.hasException) {
               return Center(child: Text('Error loading trending data'));
             }
@@ -356,16 +357,38 @@ class _DashboardState extends ConsumerState<Dashboard> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                'Total: ${numberFormat.format(totalCount)}',
-                style: Theme.of(context).textTheme.titleSmall,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Total: ',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Colors.grey,
+                          ),
+                    ),
+                    TextSpan(
+                      text: numberFormat.format(totalCount),
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
               ),
-              /*
-              Text(
-                'Week: ${numberFormat.format(weeklyCount)}',
-                style: Theme.of(context).textTheme.titleSmall,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Week: ',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Colors.grey,
+                          ),
+                    ),
+                    TextSpan(
+                      text: numberFormat.format(weeklyCount),
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
               ),
-              */
             ],
           ),
         ],
@@ -408,8 +431,10 @@ class _DashboardState extends ConsumerState<Dashboard> {
                 'artistId': selectedArtistData.artistId,
                 'userId': user.id,
               },
+              fetchPolicy: FetchPolicy.cacheAndNetwork,
             ),
           );
+      print('result: ${result.data}');
 
       if (result.hasException) {
         throw result.exception!;

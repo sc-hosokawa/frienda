@@ -14,6 +14,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@ui/components/ui/tooltip";
+import { ConciergeDialog } from "../../../components/dialog/concierge-dialog";
+import { OfferInfo } from "./OfferInfo";
 
 export default function OfferPage() {
   const { user } = useUserStore();
@@ -30,13 +32,35 @@ export default function OfferPage() {
             height={105}
           />
           <div className="flex flex-col space-y-0">
-            <h1 className="text-[90px] font-light tracking-tight leading-none">
+            <h1 className="text-[90px] font-light tracking-tight leading-none relative">
               OFFERS
+              <OfferInfo />
             </h1>
             <p className="text-sm -mt-2">オファー</p>
-          </div>{" "}
+          </div>
         </div>
         <div className="flex items-center gap-2">
+          <ConciergeDialog>
+            {/* TODO: add chat component that shows prompt and response */}
+            <div className="relative flex -bottom-20 items-center w-[960px]">
+              <input
+                placeholder="My Conciergeに色々聞いてみましょう。(例: おすすめのオファーを3つ挙げてください。)"
+                className="flex w-full border border-white bg-transparent text-white rounded-[30px] h-[90px] p-6 pr-16"
+              />
+              <div className="absolute right-6">
+                <button
+                // TODO: add onClick handler to submit prompt
+                >
+                  <Image
+                    src="/arrow-up-circle.svg"
+                    alt="arrow-up"
+                    width={36}
+                    height={36}
+                  />
+                </button>
+              </div>
+            </div>
+          </ConciergeDialog>
           <Link
             href="/offer/list"
             className="p-2 rounded-full hover:bg-gray-700 transition-colors border border-white border-dashed w-[60px] h-[60px] flex items-center justify-center"

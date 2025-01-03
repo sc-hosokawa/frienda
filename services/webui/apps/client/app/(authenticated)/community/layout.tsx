@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "../../../../../packages/ui/components/ui/button";
+import { Button } from "@ui/components/ui/button";
 
 export default function CommunityLayout({
   children,
@@ -19,11 +19,12 @@ export default function CommunityLayout({
           />
           <div className="flex flex-col">
             <h1 className="text-[90px] font-light tracking-tight leading-none">
-              Community
+              COMMUNITY
             </h1>
             <p className="text-sm">コミュニティ</p>
           </div>
         </div>
+        {/*
         <Button
           variant="ghost"
           size="icon"
@@ -31,6 +32,7 @@ export default function CommunityLayout({
         >
           <Image src="/search.svg" alt="plus" width={24} height={24} />
         </Button>
+              */}
       </div>
       <hr className="mb-8 mt-24 border-[#303030]" />
       {children}

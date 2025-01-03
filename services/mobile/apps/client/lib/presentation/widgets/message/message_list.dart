@@ -21,6 +21,14 @@ class _MessageListState extends ConsumerState<MessageList> {
   void Function()? _refetch;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _refetch?.call();
+    });
+  }
+
+  @override
   void dispose() {
     _recipientController.dispose();
     super.dispose();
@@ -109,7 +117,6 @@ class _MessageListState extends ConsumerState<MessageList> {
                                     : null,
                               ),
                               title: Text(user['name'] as String),
-                              subtitle: Text(user['realname'] as String? ?? ''),
                               onTap: () async {
                                 print(
                                     'Selected user: ${user['id']} - ${user['name']}');
@@ -142,11 +149,7 @@ class _MessageListState extends ConsumerState<MessageList> {
   }
 
   Future<void> _createRoom(String recipientId) async {
-    print('Creating room with recipient: $recipientId');
-
     final currentUserId = ref.read(userProvider)?.id;
-    print('Current user ID: $currentUserId');
-
     final result = await ref.read(graphQLClientProvider).mutate(
           MutationOptions(
             document: gql('''
@@ -166,7 +169,6 @@ class _MessageListState extends ConsumerState<MessageList> {
           ),
         );
 
-    print('Mutation result: ${result.data}');
     if (result.hasException) {
       print('Mutation error: ${result.exception}');
       if (context.mounted) {
@@ -181,7 +183,6 @@ class _MessageListState extends ConsumerState<MessageList> {
     _refetch?.call();
 
     final roomId = result.data?['createNewMessageRoom']['id'] as String?;
-    print('Created room ID: $roomId');
 
     if (roomId != null && context.mounted) {
       await Navigator.of(context).push(
@@ -189,6 +190,10 @@ class _MessageListState extends ConsumerState<MessageList> {
           builder: (context) => MessageRoom(roomId: roomId),
         ),
       );
+      final client = ref.read(graphQLClientProvider);
+      await client.resetStore();
+      await Future.delayed(const Duration(milliseconds: 100));
+      _refetch?.call();
     }
   }
 
@@ -247,10 +252,13 @@ class _MessageListState extends ConsumerState<MessageList> {
           variables: {
             'userId': userId,
           },
+          fetchPolicy: FetchPolicy.networkOnly,
+          cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
         ),
         builder: (QueryResult result,
             {VoidCallback? refetch, FetchMore? fetchMore}) {
           _refetch = refetch;
+
           if (result.hasException) {
             return Center(child: Text(result.exception.toString()));
           }
@@ -301,13 +309,15 @@ class _MessageListState extends ConsumerState<MessageList> {
                 title: Text(
                   otherUser?['name'] as String? ?? 'Unknown User',
                   style: TextStyle(
-                    fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isUnread ? FontWeight.normal : FontWeight.normal,
                   ),
                 ),
                 subtitle: Text(
                   room['latestMessage'] as String? ?? 'No messages',
                   style: TextStyle(
-                    fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isUnread ? FontWeight.normal : FontWeight.normal,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -315,15 +325,15 @@ class _MessageListState extends ConsumerState<MessageList> {
                 trailing: Text(
                   _formatDateTime(room['latestSentAt'] as String?),
                   style: TextStyle(
-                    fontWeight: isUnread ? FontWeight.bold : FontWeight.normal,
+                    fontWeight:
+                        isUnread ? FontWeight.normal : FontWeight.normal,
                   ),
                 ),
-                tileColor: isUnread ? Colors.grey[800] : null,
+                tileColor: isUnread ? null : null,
                 onTap: () async {
                   final currentUserId = ref.read(userProvider)?.id;
                   if (currentUserId == null) return;
 
-                  // latestMessageIdが存在する場合のみ既読処理を実行
                   final latestMessageId = room['latestMessageId'] as String?;
                   if (latestMessageId != null) {
                     await _markAsRead(
@@ -333,13 +343,16 @@ class _MessageListState extends ConsumerState<MessageList> {
                     );
                   }
 
-                  Navigator.push(
+                  if (!context.mounted) return;
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
                           MessageRoom(roomId: room['id'] as String),
                     ),
                   );
+
+                  _refetch?.call();
                 },
               );
             },

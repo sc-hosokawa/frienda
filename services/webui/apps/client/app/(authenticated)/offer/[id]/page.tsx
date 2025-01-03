@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@ui/components/ui/dialog";
+import { ApplicantsList } from "./applications-list";
 
 const GET_OFFER_QUERY = gql`
   query GetOfferDetail($offerId: Int!, $userId: String!) {
@@ -186,16 +187,16 @@ export default function OfferDetailPage({
     <div className="min-h-screen bg-black text-white">
       <div className="p-6">
         <div className="mb-8">
-          <Link href="/offer" className="block mb-2">
-            <div className="flex items-center gap-2">
+          <div className="w-[60px]">
+            <Link href="/offer" className="block mb-2">
               <Image
                 src="/arrow-left.svg"
                 alt="arrow-left"
                 width={60}
                 height={60}
               />
-            </div>
-          </Link>
+            </Link>
+          </div>
           <div className="flex items-center justify-between">
             <h1 className="text-[42px] font-light">Offer Details</h1>
             {isOwner ? (
@@ -233,7 +234,7 @@ export default function OfferDetailPage({
                           return "進行中";
                         case "Suspend":
                         case "Canceled":
-                          return "停止中";
+                          return "募集終了";
                         case "Finished":
                           return "完了";
                         default:
@@ -345,6 +346,16 @@ export default function OfferDetailPage({
         <div className="mt-4 text-right text-gray-400 text-sm">
           Last Updated: {new Date(offer?.updatedAt || "").toLocaleDateString()}
         </div>
+
+        {isOwner && (
+          <>
+            <hr className="mb-8 mt-12 border-[#303030]" />
+            <ApplicantsList
+              offerId={parseInt(params.id)}
+              userId={user?.id || ""}
+            />
+          </>
+        )}
       </div>
 
       <Dialog open={showCancelModal} onOpenChange={setShowCancelModal}>

@@ -3,6 +3,7 @@ use std::sync::Arc;
 use tracing;
 
 use application::health_check::*;
+use application::usecases::admin::overview_usecase::{OverviewUsecase, OverviewUsecaseTrait};
 use application::usecases::artist::{
     get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait},
     get_members_usecase::{GetMembersUsecase, GetMembersUsecaseTrait},
@@ -19,7 +20,9 @@ use application::usecases::basic::{
 };
 use application::usecases::community::{
     add_shortnote_usecase::{AddShortnoteUsecase, AddShortnoteUsecaseTrait},
+    get_user_connections_usecase::{GetUserConnectionsUsecase, GetUserConnectionsUsecaseTrait},
     mark_favorite_usecase::{MarkFavoriteUsecase, MarkFavoriteUsecaseTrait},
+    user_profile_usecase::{GetUserProfileUsecase, GetUserProfileUsecaseTrait},
 };
 use application::usecases::credit::{
     get_credits_usecase::{GetCreditsUsecase, GetCreditsUsecaseTrait},
@@ -42,6 +45,13 @@ use application::usecases::messaging::{
     request_llm_usecase::{RequestLlmUsecase, RequestLlmUsecaseTrait},
     send_message_usecase::{SendMessageUsecase, SendMessageUsecaseTrait},
 };
+use application::usecases::news::{UpdateNewsUsecase, UpdateNewsUsecaseTrait};
+use application::usecases::notification::{
+    get_notifications_usecase::{GetNotificationsUsecase, GetNotificationsUsecaseTrait},
+    mark_notification_as_read_usecase::{
+        MarkNotificationAsReadUsecase, MarkNotificationAsReadUsecaseTrait,
+    },
+};
 use application::usecases::offer::{
     change_status_usecase::{ChangeStatusUsecase, ChangeStatusUsecaseTrait},
     delete_offer_usecase::{DeleteOfferUsecase, DeleteOfferUsecaseTrait},
@@ -50,6 +60,7 @@ use application::usecases::offer::{
     get_offer_by_status_usecase::{GetOfferByStatusUsecase, GetOfferByStatusUsecaseTrait},
     get_offer_details_usecase::{GetOfferDetailsUsecase, GetOfferDetailsUsecaseTrait},
     get_offer_stats_usecase::{GetOfferStatsUsecase, GetOfferStatsUsecaseTrait},
+    manage_users_in_offer_usecase::{ManageUsersInOfferUsecase, ManageUsersInOfferUsecaseTrait},
     register_task_usecase::{RegisterTaskUsecase, RegisterTaskUsecaseTrait},
     update_task_usecase::{UpdateTaskUsecase, UpdateTaskUsecaseTrait},
 };
@@ -83,15 +94,17 @@ use infrastracture::persistences::{
     favorites_repo_impl::FavoritesRepoImpl,
     gender_gen_playback_repo_impl::GenderGenPlaybackRepoImpl,
     message_attach_repo_impl::MessageAttachRepoImpl, messages_repo_impl::MessagesRepoImpl,
-    offer_attach_repo_impl::OfferAttachRepoImpl, offer_user_repo_impl::OfferUserRepoImpl,
-    offers_repo_impl::OffersRepoImpl, plays_daily_repo_impl::PlaysDailyRepoImpl,
-    plays_monthly_repo_impl::PlaysMonthlyRepoImpl, prizes_repo_impl::PrizesRepoImpl,
-    product_track_repo_impl::ProductTrackRepoImpl, products_repo_impl::ProductsRepoImpl,
-    quest_user_repo_impl::QuestUserRepoImpl, quests_repo_impl::QuestsRepoImpl,
-    room_user_repo_impl::RoomUserRepoImpl, rooms_repo_impl::RoomsRepoImpl,
-    short_notes_repo_impl::ShortNotesRepoImpl, track_credits_repo_impl::TrackCreditsRepoImpl,
-    tracks_repo_impl::TracksRepoImpl, txs_fsp_repo_impl::TxsFspRepoImpl,
-    user_artist_repo_impl::UserArtistRepoImpl, users_repo_impl::UsersRepoImpl,
+    notification_user_repo_impl::NotificationUserRepoImpl,
+    notifications_repo_impl::NotificationsRepoImpl, offer_attach_repo_impl::OfferAttachRepoImpl,
+    offer_user_repo_impl::OfferUserRepoImpl, offers_repo_impl::OffersRepoImpl,
+    plays_daily_repo_impl::PlaysDailyRepoImpl, plays_monthly_repo_impl::PlaysMonthlyRepoImpl,
+    prizes_repo_impl::PrizesRepoImpl, product_track_repo_impl::ProductTrackRepoImpl,
+    products_repo_impl::ProductsRepoImpl, quest_user_repo_impl::QuestUserRepoImpl,
+    quests_repo_impl::QuestsRepoImpl, room_user_repo_impl::RoomUserRepoImpl,
+    rooms_repo_impl::RoomsRepoImpl, short_notes_repo_impl::ShortNotesRepoImpl,
+    track_credits_repo_impl::TrackCreditsRepoImpl, tracks_repo_impl::TracksRepoImpl,
+    txs_fsp_repo_impl::TxsFspRepoImpl, user_artist_repo_impl::UserArtistRepoImpl,
+    users_repo_impl::UsersRepoImpl,
 };
 
 use application::services::{
@@ -129,6 +142,8 @@ pub struct RepositoriesImpl {
     pub track_credits: Arc<TrackCreditsRepoImpl>,
     pub favorites: Arc<FavoritesRepoImpl>,
     pub short_notes: Arc<ShortNotesRepoImpl>,
+    pub notifications: Arc<NotificationsRepoImpl>,
+    pub notification_user: Arc<NotificationUserRepoImpl>,
 }
 
 pub struct ServicesImpl {
@@ -186,6 +201,13 @@ pub struct Usecases {
     pub mark_favorite: Arc<dyn MarkFavoriteUsecaseTrait>,
     pub add_shortnote: Arc<dyn AddShortnoteUsecaseTrait>,
     pub manage_artists: Arc<dyn ManageArtistsUsecaseTrait>,
+    pub get_notifications: Arc<dyn GetNotificationsUsecaseTrait>,
+    pub mark_notification_as_read: Arc<dyn MarkNotificationAsReadUsecaseTrait>,
+    pub manage_users_in_offer: Arc<dyn ManageUsersInOfferUsecaseTrait>,
+    pub get_user_connections: Arc<dyn GetUserConnectionsUsecaseTrait>,
+    pub get_user_profile: Arc<dyn GetUserProfileUsecaseTrait>,
+    pub get_system_overview: Arc<dyn OverviewUsecaseTrait>,
+    pub update_news: Arc<dyn UpdateNewsUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -216,6 +238,8 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
         track_credits: Arc::new(TrackCreditsRepoImpl::new(db.clone())),
         favorites: Arc::new(FavoritesRepoImpl::new(db.clone())),
         short_notes: Arc::new(ShortNotesRepoImpl::new(db.clone())),
+        notifications: Arc::new(NotificationsRepoImpl::new(db.clone())),
+        notification_user: Arc::new(NotificationUserRepoImpl::new(db.clone())),
     }
 }
 
@@ -226,7 +250,9 @@ pub async fn create_services() -> ServicesImpl {
     let push_notification_service = FcmNotificationService::new()
         .await
         .expect("Failed to create FcmNotificationService");
-    let sendgrid_service = SendGridService::new().expect("Failed to create SendGridService");
+    let sendgrid_service = SendGridService::new()
+        .await
+        .expect("Failed to create SendGridService");
 
     ServicesImpl {
         llm_service: Arc::new(llm_service),
@@ -239,10 +265,40 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        get_system_overview: Arc::new(OverviewUsecase::new(
+            repos.users.clone(),
+            repos.artists.clone(),
+            repos.track_credits.clone(),
+            repos.tracks.clone(),
+            repos.txs_fsp.clone(),
+        )),
+        get_user_profile: Arc::new(GetUserProfileUsecase::new(
+            repos.users.clone(),
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+            repos.offers.clone(),
+            repos.offer_user.clone(),
+            repos.short_notes.clone(),
+        )),
+        get_user_connections: Arc::new(GetUserConnectionsUsecase::new(
+            repos.users.clone(),
+            repos.txs_fsp.clone(),
+            repos.offer_user.clone(),
+            repos.user_artist.clone(),
+            repos.track_credits.clone(),
+            repos.favorites.clone(),
+            repos.short_notes.clone(),
+            repos.offers.clone(),
+        )),
         mark_favorite: Arc::new(MarkFavoriteUsecase::new(repos.favorites.clone())),
         add_shortnote: Arc::new(AddShortnoteUsecase::new(repos.short_notes.clone())),
         search_users: Arc::new(SearchUsersUsecase::new(repos.users.clone())),
         login_reward: Arc::new(LoginRewardUsecase::new(repos.users.clone())),
+        manage_users_in_offer: Arc::new(ManageUsersInOfferUsecase::new(
+            repos.offers.clone(),
+            repos.users.clone(),
+            repos.offer_user.clone(),
+        )),
         manage_artists: Arc::new(ManageArtistsUsecase::new(repos.artists.clone())),
         get_products: Arc::new(GetProductsUsecase::new(
             repos.products.clone(),
@@ -331,6 +387,8 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.users.clone(),
             repos.room_user.clone(),
             services.email_service.clone(),
+            repos.notifications.clone(),
+            repos.notification_user.clone(),
         )),
         get_room_list: Arc::new(GetRoomListUsecase::new(
             repos.room_user.clone(),
@@ -373,6 +431,10 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.offer_user.clone(),
             repos.txs_fsp.clone(),
             repos.users.clone(),
+            repos.notifications.clone(),
+            repos.notification_user.clone(),
+            services.push_notification_service.clone(),
+            services.email_service.clone(),
         )),
         delete_offer: Arc::new(DeleteOfferUsecase::new(
             repos.offers.clone(),
@@ -400,7 +462,23 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.txs_fsp.clone(),
             repos.users.clone(),
             repos.artists.clone(),
+            repos.notifications.clone(),
+            repos.notification_user.clone(),
+            services.push_notification_service.clone(),
+            services.email_service.clone(),
         )),
         mark_as_read: Arc::new(MarkAsReadUsecase::new(repos.room_user.clone())),
+        get_notifications: Arc::new(GetNotificationsUsecase::new(
+            repos.notification_user.clone(),
+            repos.notifications.clone(),
+        )),
+        mark_notification_as_read: Arc::new(MarkNotificationAsReadUsecase::new(
+            repos.notification_user.clone(),
+        )),
+        update_news: Arc::new(UpdateNewsUsecase::new(
+            repos.users.clone(),
+            services.push_notification_service.clone(),
+            services.email_service.clone(),
+        )),
     }
 }

@@ -60,7 +60,6 @@ const items = [
       active: "/offers_line.svg",
     },
   },
-  /*
   {
     title: "Community",
     url: "/community",
@@ -69,13 +68,20 @@ const items = [
       active: "/community_line.svg",
     },
   },
-  */
   {
     title: "Message",
     url: "/message",
     icon: {
       default: "/message.svg",
       active: "/message_line.svg",
+    },
+  },
+  {
+    title: "Notification",
+    url: "/notification",
+    icon: {
+      default: "/notification.svg",
+      active: "/notification_line.svg",
     },
   },
 ];
@@ -169,6 +175,11 @@ export function ClientSidebar() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side="right" align="start">
+                      <DropdownMenuItem asChild>
+                        <Link href="/walkthrough">
+                          <span>チュートリアル</span>
+                        </Link>
+                      </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/privacypolicy">
                           <span>プライバシーポリシー</span>

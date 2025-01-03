@@ -29,8 +29,11 @@ impl PushNotificationServiceTrait for PushNotificationService {
         &self,
         notification: PushNotification,
     ) -> Result<String, anyhow::Error> {
-        self.notification_service
+        let result = self
+            .notification_service
             .send_push_notification(notification)
-            .await
+            .await;
+        tracing::debug!("result: {:?}", result);
+        result
     }
 }

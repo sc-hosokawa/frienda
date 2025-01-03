@@ -29,6 +29,7 @@ pub struct TransactionByUserData {
     pub direction: TransactionDirection,
     pub counter_party: UserSimpleData,
     pub tx_at: String,
+    pub note: Option<String>,
 }
 
 #[derive(SimpleObject)]
@@ -63,6 +64,7 @@ impl From<application::usecases::point::get_point_transaction_history_usecase::T
             counter_party: tx.counter_party.into(),
             amount: tx.amount,
             tx_at: tx.tx_at.to_string(),
+            note: tx.note,
         }
     }
 }

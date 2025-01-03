@@ -103,4 +103,9 @@ impl ArtistsRepository for ArtistsRepoImpl {
         let res: Artist = ArtistEntity::update(updated_artist).exec(&self.db).await?;
         Ok(res)
     }
+
+    async fn count(&self) -> Result<i64, DomainError> {
+        let count: u64 = ArtistEntity::find().count(&self.db).await?;
+        Ok(count as i64)
+    }
 }

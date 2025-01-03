@@ -12,7 +12,8 @@ impl CommunityMutation {
     async fn add_shortnote(
         &self,
         ctx: &Context<'_>,
-        favorite_id: String,
+        writer: String,
+        to_user: String,
         comment: String,
     ) -> Result<models::communities::AddShortnoteResponse> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
@@ -20,12 +21,47 @@ impl CommunityMutation {
             .add_shortnote
             .add_shortnote(
                 application::usecases::community::add_shortnote_usecase::AddShortnoteInput {
-                    favorite_id: Uuid::parse_str(&favorite_id).unwrap(),
+                    writer: writer.clone(),
+                    to_user: to_user.clone(),
                     comment: comment.clone(),
                 },
             )
             .await?;
         Ok(models::communities::AddShortnoteResponse { id: res })
+    }
+
+    async fn edit_shortnote(
+        &self,
+        ctx: &Context<'_>,
+        shortnote_id: String,
+        comment: String,
+    ) -> Result<models::communities::EditShortnoteResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .add_shortnote
+            .edit_shortnote(
+                application::usecases::community::add_shortnote_usecase::EditShortnoteInput {
+                    id: Uuid::parse_str(&shortnote_id).unwrap(),
+                    comment: comment.clone(),
+                },
+            )
+            .await?;
+        Ok(models::communities::EditShortnoteResponse { id: res })
+    }
+
+    async fn delete_shortnote(
+        &self,
+        ctx: &Context<'_>,
+        shortnote_id: String,
+    ) -> Result<models::communities::DeleteShortnoteResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .add_shortnote
+            .delete_shortnote(Uuid::parse_str(&shortnote_id).unwrap())
+            .await?;
+        Ok(models::communities::DeleteShortnoteResponse {
+            id: res.to_string(),
+        })
     }
 
     async fn mark_favorite(
@@ -45,5 +81,20 @@ impl CommunityMutation {
             )
             .await?;
         Ok(models::communities::MarkFavoriteResponse { id: res })
+    }
+
+    async fn unmark_favorite(
+        &self,
+        ctx: &Context<'_>,
+        favorite_id: String,
+    ) -> Result<models::communities::MarkFavoriteResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .mark_favorite
+            .unmark_favorite(Uuid::parse_str(&favorite_id).unwrap())
+            .await?;
+        Ok(models::communities::MarkFavoriteResponse {
+            id: res.to_string(),
+        })
     }
 }

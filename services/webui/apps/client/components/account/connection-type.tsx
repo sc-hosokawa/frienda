@@ -1,18 +1,18 @@
 import React from "react";
-import { getBgClassByType, UserType } from "../../utils";
+import { getBgClassByType, category } from "../../utils";
 import { BadgeList } from "../badge-list";
 import { BaseComponent } from "./base";
 
 interface ConnectionTypesProps {
   title: string;
-  types?: UserType[] | undefined;
+  types?: category[] | undefined;
 }
 
 export function ConnectionTypes({ title, types }: ConnectionTypesProps) {
   return (
     <BaseComponent title={title}>
       <div className="flex flex-wrap gap-2">
-        {types?.map((type: UserType) => (
+        {types?.map((type: category) => (
           <BadgeList
             key={type}
             className={getBgClassByType(type) + " text-black"}

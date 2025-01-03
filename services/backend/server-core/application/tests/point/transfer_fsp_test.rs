@@ -1,6 +1,11 @@
 use crate::mocks::artist_mock::MockMockArtistsRepo;
+use crate::mocks::email_mock::MockMockEmailService;
+use crate::mocks::notification_mock::MockMockNotificationsRepo;
+use crate::mocks::notification_user_mock::MockMockNotificationUserRepo;
+use crate::mocks::push_notification_mock::MockMockPushNotificationService;
 use crate::mocks::txs_fsp_mock::MockMockTxsFspRepo;
 use crate::mocks::user_mock::MockMockUsersRepo;
+
 use application::usecases::point::transfer_point_between_accounts_usecase::{
     TransferPointBetweenAccountsInput, TransferPointBetweenAccountsUsecase,
     TransferPointBetweenAccountsUsecaseTrait,
@@ -82,7 +87,11 @@ async fn test_transfer_between_users_success() {
     // Arrange
     let mut mock_users_repo = MockMockUsersRepo::new();
     let mut mock_txs_fsp_repo = MockMockTxsFspRepo::new();
-    let mock_artists_repo = MockMockArtistsRepo::new();
+    let mut mock_artists_repo = MockMockArtistsRepo::new();
+    let mut mock_notifications_repo = MockMockNotificationsRepo::new();
+    let mut mock_notification_user_repo = MockMockNotificationUserRepo::new();
+    let mut mock_push_notification_service = MockMockPushNotificationService::new();
+    let mut mock_email_service = MockMockEmailService::new();
 
     let from_user = create_test_user("user1", 1000);
     let to_user = create_test_user("user2", 0);
@@ -111,10 +120,40 @@ async fn test_transfer_between_users_success() {
         ))
     });
 
+    mock_notifications_repo.expect_mock_create().returning(|_| {
+        Ok(domain::entities::notifications::Model {
+            id: 1,
+            title: "ポイントを受け取りました".to_string(),
+            content: "500ポイント受け取りました".to_string(),
+            category: Some("message".to_string()),
+            created_at: chrono::Utc::now().naive_utc(),
+        })
+    });
+
+    mock_notification_user_repo
+        .expect_mock_create()
+        .returning(|_| {
+            Ok(domain::entities::notification_user::Model {
+                id: 1,
+                notification_id: 1,
+                user: "user2".to_string(),
+                is_read: false,
+                is_deleted: false,
+            })
+        });
+
+    mock_push_notification_service
+        .expect_mock_send_push_notification()
+        .returning(|_| Ok("notification sent".to_string()));
+
     let usecase = TransferPointBetweenAccountsUsecase::new(
         Arc::new(mock_txs_fsp_repo),
         Arc::new(mock_users_repo),
         Arc::new(mock_artists_repo),
+        Arc::new(mock_notifications_repo),
+        Arc::new(mock_notification_user_repo),
+        Arc::new(mock_push_notification_service),
+        Arc::new(mock_email_service),
     );
 
     let input = TransferPointBetweenAccountsInput {
@@ -137,7 +176,11 @@ async fn test_transfer_from_admin_success() {
     // Arrange
     let mut mock_users_repo = MockMockUsersRepo::new();
     let mut mock_txs_fsp_repo = MockMockTxsFspRepo::new();
-    let mock_artists_repo = MockMockArtistsRepo::new();
+    let mut mock_artists_repo = MockMockArtistsRepo::new();
+    let mut mock_notifications_repo = MockMockNotificationsRepo::new();
+    let mut mock_notification_user_repo = MockMockNotificationUserRepo::new();
+    let mut mock_push_notification_service = MockMockPushNotificationService::new();
+    let mut mock_email_service = MockMockEmailService::new();
 
     let to_user = create_test_user("user1", 0);
     let tx_id = Uuid::new_v4();
@@ -160,10 +203,40 @@ async fn test_transfer_from_admin_success() {
         ))
     });
 
+    mock_notifications_repo.expect_mock_create().returning(|_| {
+        Ok(domain::entities::notifications::Model {
+            id: 1,
+            title: "ポイントを受け取りました".to_string(),
+            content: "1000ポイント受け取りました".to_string(),
+            category: Some("message".to_string()),
+            created_at: chrono::Utc::now().naive_utc(),
+        })
+    });
+
+    mock_notification_user_repo
+        .expect_mock_create()
+        .returning(|_| {
+            Ok(domain::entities::notification_user::Model {
+                id: 1,
+                notification_id: 1,
+                user: "user1".to_string(),
+                is_read: false,
+                is_deleted: false,
+            })
+        });
+
+    mock_push_notification_service
+        .expect_mock_send_push_notification()
+        .returning(|_| Ok("notification sent".to_string()));
+
     let usecase = TransferPointBetweenAccountsUsecase::new(
         Arc::new(mock_txs_fsp_repo),
         Arc::new(mock_users_repo),
         Arc::new(mock_artists_repo),
+        Arc::new(mock_notifications_repo),
+        Arc::new(mock_notification_user_repo),
+        Arc::new(mock_push_notification_service),
+        Arc::new(mock_email_service),
     );
 
     let input = TransferPointBetweenAccountsInput {
@@ -184,8 +257,12 @@ async fn test_transfer_from_admin_success() {
 async fn test_transfer_insufficient_balance() {
     // Arrange
     let mut mock_users_repo = MockMockUsersRepo::new();
-    let mock_txs_fsp_repo = MockMockTxsFspRepo::new();
-    let mock_artists_repo = MockMockArtistsRepo::new();
+    let mut mock_txs_fsp_repo = MockMockTxsFspRepo::new();
+    let mut mock_artists_repo = MockMockArtistsRepo::new();
+    let mut mock_notifications_repo = MockMockNotificationsRepo::new();
+    let mut mock_notification_user_repo = MockMockNotificationUserRepo::new();
+    let mut mock_push_notification_service = MockMockPushNotificationService::new();
+    let mut mock_email_service = MockMockEmailService::new();
 
     let from_user = create_test_user("user1", 100);
 
@@ -198,6 +275,10 @@ async fn test_transfer_insufficient_balance() {
         Arc::new(mock_txs_fsp_repo),
         Arc::new(mock_users_repo),
         Arc::new(mock_artists_repo),
+        Arc::new(mock_notifications_repo),
+        Arc::new(mock_notification_user_repo),
+        Arc::new(mock_push_notification_service),
+        Arc::new(mock_email_service),
     );
 
     let input = TransferPointBetweenAccountsInput {

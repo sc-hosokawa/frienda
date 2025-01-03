@@ -10,6 +10,7 @@ import { CreditDialog } from "../../../credit-dialog";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../../../store/user";
 import { TrendingByUpcData } from "../../../../../generated/graphql";
+import { DiscographyInfo } from "./DiscographyInfo";
 
 const GET_OVERVIEW_BY_UPC = gql`
   query GetOverviewByUpc($artistId: String!, $userId: String!, $upc: String!) {
@@ -59,21 +60,20 @@ export default function DiscographyAlbumPage({ params }: Props) {
       variables: { upc: params.upc, userId: user?.id },
     },
   );
-  console.log(trendingData?.getTrendingByUpc.trendingTracks[0]?.trackTitle);
 
   return (
     <>
-      <Link href="/dashboard/discography">
-        <div className="flex items-center gap-2">
+      <div className="w-[60px]">
+        <Link href="/dashboard/discography" className="ml-6">
           <Image
             src="/arrow-left.svg"
             alt="arrow-left"
             width={60}
             height={60}
-            className="ml-6 -mt-6"
+            className="ml-6"
           />
-        </div>
-      </Link>
+        </Link>
+      </div>
       <div className="max-w-7xl mx-auto bg-black text-white min-h-screen p-6">
         <hr className="my-8 border-[#303030]" />
         <div className="space-y-6 mb-16">
@@ -88,14 +88,17 @@ export default function DiscographyAlbumPage({ params }: Props) {
             <div className="flex-grow space-y-6">
               <div className="space-y-4 mb-16">
                 <div className="flex items-center justify-between">
-                  <h1 className="text-2xl font-semibold">
+                  <h1 className="text-2xl font-semibold relative">
                     {trendingData?.getTrendingByUpc.productTitle}
+                    <DiscographyInfo />
                   </h1>
+                  {/* TODO: add info dialog 
                   <div className="flex gap-2">
                     <Button variant="ghost" size="icon">
                       <MoreHorizontal className="w-5 h-5" />
                     </Button>
                   </div>
+                  */}
                 </div>
                 <p className="text-sm text-gray-400">
                   {trendingData?.getTrendingByUpc.artistName}
@@ -133,8 +136,13 @@ export default function DiscographyAlbumPage({ params }: Props) {
                         </span>
                         <div>
                           <div className="font-medium">{track.trackTitle}</div>
-                          <div className="text-sm text-gray-400">
-                            {track.isrc}
+                          <div className="text-sm text-gray-400 flex gap-4">
+                            <span>
+                              Total/ {track.totalPlayCount.toLocaleString()}
+                            </span>
+                            <span>
+                              Weekly/ {track.weeklyPlayCount.toLocaleString()}
+                            </span>
                           </div>
                         </div>
                       </div>
