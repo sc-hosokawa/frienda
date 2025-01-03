@@ -28,10 +28,7 @@ export function Trending({ data, isLoading }: TrendingProps) {
           {[...(data?.trendingTracks ?? [])]
             .sort((a, b) => b.totalPlayCount - a.totalPlayCount)
             .map((song, index) => (
-              <div
-                key={index}
-                className={`flex items-center justify-between p-4 rounded-lg ${index % 2 === 1 ? "bg-[#23231f]" : ""}`}
-              >
+              <div key={index} className="flex items-center p-4 rounded-lg">
                 <div className="flex items-center space-x-4">
                   <span className="text-2xl w-8">{index + 1}</span>
                   <Image
@@ -41,19 +38,23 @@ export function Trending({ data, isLoading }: TrendingProps) {
                     height={64}
                     className="rounded-lg"
                   />
-                  <div>
+                  <div className="flex flex-col space-y-1">
                     <h3 className="font-medium">{song.trackTitle}</h3>
                     <p className="text-gray-400 text-sm">{song.upcTitle}</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-64">
-                  <div className="flex flex-col items-end">
-                    <p className="flex items-baseline gap-2">
-                      <span className="text-sm">Total /</span>
-                      <span className="text-2xl">
-                        {song.totalPlayCount.toLocaleString()}
-                      </span>
-                    </p>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-400">Total</span>
+                        <span className="text-lg">
+                          {song.totalPlayCount.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-400">Weekly</span>
+                        <span className="text-lg">
+                          {song.weeklyPlayCount.toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

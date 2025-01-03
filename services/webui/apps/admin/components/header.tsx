@@ -1,4 +1,7 @@
+"use client";
+
 import { Button } from "@ui/components/ui/button";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,12 +11,55 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/ui/avatar";
 import { LogOut } from "lucide-react";
 import { ModeToggle } from "@ui/components/theme-button";
+import { usePathname } from "next/navigation";
 
 export function Header() {
+  const pathname = usePathname();
+
   return (
     <header className="border-b">
       <div className="flex h-16 items-center px-4 justify-between">
-        <div className="font-semibold text-lg">アーティスト管理システム</div>
+        <div className="flex items-center gap-6">
+          <div className="font-semibold text-lg">管理システム</div>
+          <nav className="flex items-center gap-4">
+            <Link
+              href="/"
+              className={`text-sm hover:text-primary relative ${
+                pathname === "/" &&
+                "after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary"
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/manage"
+              className={`text-sm hover:text-primary relative ${
+                pathname.startsWith("/manage") &&
+                "after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary"
+              }`}
+            >
+              Manage
+            </Link>
+            <Link
+              href="/analytics"
+              className={`text-sm hover:text-primary relative ${
+                pathname.startsWith("/analytics") &&
+                "after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary"
+              }`}
+            >
+              Analytics
+            </Link>
+            <Link
+              href="/system"
+              className={`text-sm hover:text-primary relative ${
+                pathname.startsWith("/system") &&
+                "after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary"
+              }`}
+            >
+              System
+            </Link>
+          </nav>
+        </div>
 
         <div className="flex items-center gap-4">
           <ModeToggle />

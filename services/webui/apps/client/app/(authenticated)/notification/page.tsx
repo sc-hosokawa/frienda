@@ -7,12 +7,14 @@ import { Button } from "@ui/components/ui/button";
 import Image from "next/image";
 import { gql, useQuery } from "@apollo/client";
 import useUserStore from "../../../store/user";
+import Link from "next/link";
 
 const GET_NOTIFICATIONS = gql`
   query GetNotifications($userId: String!) {
     getNotifications(userId: $userId) {
       id
       title
+      category
       content
       isRead
       createdAt
@@ -28,22 +30,42 @@ export default function NotificationList() {
     },
   });
 
-  console.log(data);
+  console.log(data?.getNotifications[0].category);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   const notifications =
-    data?.getNotifications.map((notification: any) => ({
-      id: notification.id,
-      category: "Notification",
-      color: "bg-[#e8ff26]",
-      textColor: "text-black",
-      highlighted: !notification.isRead,
-      title: notification.title,
-      content: notification.content,
-      createdAt: notification.createdAt,
-    })) || [];
+    data?.getNotifications.map((notification: any) => {
+      let color = "";
+      let textColor = "text-black";
+
+      switch (notification.category) {
+        case "message":
+          color = "bg-[#FF7178]";
+          break;
+        case "offer":
+          color = "bg-[#FF692D]";
+          break;
+        case "fsp":
+          color = "bg-[#2D78FF]";
+          textColor = "text-white";
+          break;
+        default:
+          color = "bg-[#e8ff26]";
+      }
+
+      return {
+        id: notification.id,
+        category: notification.category,
+        color: color,
+        textColor: textColor,
+        highlighted: !notification.isRead,
+        title: notification.title,
+        content: notification.content,
+        createdAt: notification.createdAt,
+      };
+    }) || [];
 
   return (
     <div className="container max-w-6xl mx-auto">
@@ -75,48 +97,89 @@ export default function NotificationList() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {notifications.map((notification: any) => (
-            <Card
-              key={notification.id}
-              className="h-full overflow-hidden hover:shadow-lg transition-all hover:bg-white/30 relative border rounded-3xl border-white/30"
-            >
-              {notification.highlighted && (
-                <span className="absolute top-0 left-0 z-10 bg-[#E1F000] text-black py-4 px-6 rounded-3xl text-xs font-light">
-                  NEW
-                </span>
-              )}
-              <div className="p-4 flex flex-col h-[240px]">
-                <div className="flex items-center justify-between mb-2">
-                  <span
-                    className={`text-sm my-2 px-4 py-2 rounded-full ${notification.color} ${notification.textColor}`}
-                  >
-                    {notification.category}
+          {notifications.map((notification: any) =>
+            notification.category === "info" ? (
+              <Card
+                key={notification.id}
+                className="h-full overflow-hidden relative border rounded-3xl border-white/30"
+              >
+                <div className="p-4 flex flex-col h-[240px]">
+                  <div className="flex items-center justify-between mb-2">
+                    <span
+                      className={`text-sm my-2 px-4 py-2 rounded-full ${notification.color} ${notification.textColor}`}
+                    >
+                      {notification.category.toUpperCase()}
+                    </span>
+                  </div>
+                  <h2 className="text-lg mb-2 line-clamp-3 flex-grow">
+                    {notification.title}
+                  </h2>
+                  <p className="text-sm text-white line-clamp-2">
+                    {notification.content}
+                  </p>
+                  <span className="text-xs mt-4 text-muted-foreground">
+                    {(() => {
+                      const date = new Date(notification.createdAt);
+                      const jstDate = new Date(
+                        date.getTime() + 9 * 60 * 60 * 1000,
+                      );
+                      return jstDate.toLocaleString("ja-JP", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      });
+                    })()}
                   </span>
                 </div>
-                <h2 className="text-lg mb-2 line-clamp-3 flex-grow">
-                  {notification.title}
-                </h2>
-                <p className="text-sm text-white line-clamp-2">
-                  {notification.content}
-                </p>
-                <span className="text-xs mt-4 text-muted-foreground">
-                  {(() => {
-                    const date = new Date(notification.createdAt);
-                    const jstDate = new Date(
-                      date.getTime() + 9 * 60 * 60 * 1000,
-                    );
-                    return jstDate.toLocaleString("ja-JP", {
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    });
-                  })()}
-                </span>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ) : (
+              <Link
+                key={notification.id}
+                href={`/${notification.category}`}
+                className="block h-full"
+              >
+                <Card className="h-full overflow-hidden hover:shadow-lg transition-all hover:bg-white/30 relative border rounded-3xl border-white/30">
+                  {notification.highlighted && (
+                    <span className="absolute top-0 left-0 z-10 bg-[#E1F000] text-black py-4 px-6 rounded-3xl text-xs font-light">
+                      NEW
+                    </span>
+                  )}
+                  <div className="p-4 flex flex-col h-[240px]">
+                    <div className="flex items-center justify-between mb-2">
+                      <span
+                        className={`text-sm my-2 px-4 py-2 rounded-full ${notification.color} ${notification.textColor}`}
+                      >
+                        {notification.category.toUpperCase()}
+                      </span>
+                    </div>
+                    <h2 className="text-lg mb-2 line-clamp-3 flex-grow">
+                      {notification.title}
+                    </h2>
+                    <p className="text-sm text-white line-clamp-2">
+                      {notification.content}
+                    </p>
+                    <span className="text-xs mt-4 text-muted-foreground">
+                      {(() => {
+                        const date = new Date(notification.createdAt);
+                        const jstDate = new Date(
+                          date.getTime() + 9 * 60 * 60 * 1000,
+                        );
+                        return jstDate.toLocaleString("ja-JP", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        });
+                      })()}
+                    </span>
+                  </div>
+                </Card>
+              </Link>
+            ),
+          )}
         </div>
       )}
     </div>

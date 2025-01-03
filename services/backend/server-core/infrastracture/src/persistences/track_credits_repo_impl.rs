@@ -61,4 +61,18 @@ impl TrackCreditsRepository for TrackCreditsRepoImpl {
             .await?;
         Ok(res)
     }
+
+    async fn all_credits(&self, count: i32) -> Result<Vec<TrackCredits>, DomainError> {
+        let res: Vec<TrackCredits> = TrackCreditsEntity::find()
+            .order_by_desc(Column::CreatedAt)
+            .limit(count as u64)
+            .all(&self.db)
+            .await?;
+        Ok(res)
+    }
+
+    async fn count_credits(&self) -> Result<i64, DomainError> {
+        let res: u64 = TrackCreditsEntity::find().count(&self.db).await?;
+        Ok(res as i64)
+    }
 }

@@ -71,9 +71,15 @@ export function Trending({
               <div className="flex items-center space-x-64">
                 <div className="flex flex-col items-end">
                   <p className="flex items-baseline gap-2">
-                    <span className="text-sm">Total /</span>
+                    <span className="text-sm text-gray-400">Total /</span>
                     <span className="text-2xl">
                       {song.totalPlayCount.toLocaleString()}
+                    </span>
+                  </p>
+                  <p className="flex items-baseline gap-2">
+                    <span className="text-sm text-gray-400">Weekly /</span>
+                    <span className="text-2xl">
+                      {song.weeklyPlayCount.toLocaleString()}
                     </span>
                   </p>
                 </div>

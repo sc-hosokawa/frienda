@@ -1,9 +1,16 @@
 "use client";
+
 import React from "react";
 import { StatsCard } from "../../components/stats-card";
 import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
-import { endpoint, GET_ALL_ARTISTS } from "../../utils/query";
+import {
+  endpoint,
+  GET_ALL_ARTISTS,
+  GET_SYSTEM_OVERVIEW,
+  GET_FSP_HISTORY,
+  GET_TRACK_CREDITS_HISTORY,
+} from "../../utils/query";
 import { Activity, Disc, JapaneseYen, Users } from "lucide-react";
 import {
   Table,
@@ -26,112 +33,191 @@ import {
   PointHistoryTable,
   PointHistoryTableProps,
 } from "../../components/system/point-history-table";
+import Link from "next/link";
 
 export default function SettingPage() {
   const { data: artistData, isLoading: isLoadingArtist } = useQuery({
     queryKey: ["artists"],
     queryFn: async () => {
       return await request(endpoint, GET_ALL_ARTISTS).then(
-        (data: any) => data.getAllArtists.artistList
+        (data: any) => data.getAllArtists.artistList,
       );
     },
   });
+
+  const { data: systemOverview, isLoading: isLoadingSystemOverview } = useQuery(
+    {
+      queryKey: ["systemOverview"],
+      queryFn: async () => {
+        return await request(endpoint, GET_SYSTEM_OVERVIEW).then(
+          (data: any) => data.getSystemOverview,
+        );
+      },
+    },
+  );
+
+  const {
+    data: fspHistory,
+    isLoading: isLoadingFspHistory,
+    isError: isErrorFspHistory,
+  } = useQuery({
+    queryKey: ["fspHistory"],
+    queryFn: async () => {
+      return await request(endpoint, GET_FSP_HISTORY, { count: 10 }).then(
+        (data: any) => data.getFspHistoryForAdmin,
+      );
+    },
+  });
+
+  const { data: trackCreditsHistory, isLoading: isLoadingTrackCreditsHistory } =
+    useQuery({
+      queryKey: ["trackCreditsHistory"],
+      queryFn: async () => {
+        return await request(endpoint, GET_TRACK_CREDITS_HISTORY, {
+          count: 10,
+        }).then((data: any) => data.getTrackCreditsHistoryForAdmin);
+      },
+    });
+
   return (
     <main>
-      <div className="flex flex-col min-h-screen gap-10">
+      <div className="flex flex-col min-h-screen">
         {/* Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 px-6 pt-6">
           <StatsCard
             title="総アーティスト数"
-            amount={artistData?.length}
-            isLoading={isLoadingArtist}
+            amount={systemOverview?.totalArtists}
+            isLoading={isLoadingSystemOverview}
             image={<Users />}
             unit="users"
           />
-          <StatsCard title="総再生回数" amount={0} image={<Activity />} />
+          <StatsCard
+            title="総再生回数"
+            amount={systemOverview?.totalPlayCount}
+            isLoading={isLoadingSystemOverview}
+            image={<Activity />}
+            unit="回"
+          />
           <StatsCard
             title="総配布ポイント数"
-            amount={0}
+            amount={systemOverview?.totalFsp}
+            isLoading={isLoadingSystemOverview}
             image={<Disc />}
             unit="fsp"
           />
           <StatsCard
             title="総登録者"
-            amount={0}
+            amount={systemOverview?.totalUsers}
+            isLoading={isLoadingSystemOverview}
             image={<Users />}
             unit="users"
           />
           <StatsCard
             title="総売上"
-            amount={0}
+            amount={systemOverview?.totalRevenue}
+            isLoading={isLoadingSystemOverview}
             image={<JapaneseYen />}
             unit="円"
           />
         </div>
         {/* Tables */}
-        <div className="grid grid-cols-1 gap-4 p-6">
-          <Card className="bg-[#1E1E1E]">
-            <CardHeader>
-              <CardTitle>{`クレジット登録0件`}</CardTitle>
+        <div className="grid grid-cols-1 gap-6 p-6">
+          <Card className="dark:border dark:border-white dark:border-opacity-10">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>{`クレジット登録`}</CardTitle>
+              <Link
+                href="/system/credit"
+                className="text-sm text-muted-foreground hover:underline"
+              >
+                詳細を見る
+              </Link>
             </CardHeader>
             <CardContent>
               <Table className="border-collapse">
                 <TableHeader>
                   <TableRow className="border-b border-[#FFFFFF73]">
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       date
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       isrc
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       user
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       role
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       name
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       email
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {mockCreditHistory.map((history) => (
-                    <CreditHistoryTable {...history} />
-                  ))}
+                  {isLoadingTrackCreditsHistory ? (
+                    <TableRow>
+                      <td colSpan={6} className="text-center py-4">
+                        Loading...
+                      </td>
+                    </TableRow>
+                  ) : (
+                    trackCreditsHistory?.map((history: any) => (
+                      <CreditHistoryTable
+                        key={`${history.date}-${history.isrc}-${history.user}`}
+                        {...history}
+                      />
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </CardContent>
           </Card>
-          <Card className="bg-[#1E1E1E]">
-            <CardHeader>
+          <Card className="dark:border dark:border-white dark:border-opacity-10">
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>ポイント履歴</CardTitle>
+              <Link
+                href="/system/fsp"
+                className="text-sm text-muted-foreground hover:underline"
+              >
+                詳細を見る
+              </Link>
             </CardHeader>
             <CardContent>
               <Table className="border-collapse">
                 <TableHeader>
                   <TableRow className="border-b border-[#FFFFFF73]">
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       date
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       from
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       to
                     </TableHead>
-                    <TableHead className="text-white text-[15px] font-medium leading-[15px] text-left">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
                       amount
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {mockPointHistory.map((history) => (
-                    <PointHistoryTable {...history} />
-                  ))}
+                  {isLoadingFspHistory ? (
+                    <TableRow>
+                      <td colSpan={4} className="text-center py-4">
+                        Loading...
+                      </td>
+                    </TableRow>
+                  ) : (
+                    fspHistory?.map((history: any) => (
+                      <PointHistoryTable
+                        key={`${history.date}-${history.from}-${history.to}`}
+                        {...history}
+                      />
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </CardContent>
@@ -190,44 +276,5 @@ const mockCreditHistory: CreditHistoryTableProps[] = [
     role: "artist",
     name: "username",
     email: "example@gmail.com",
-  },
-];
-
-const mockPointHistory: PointHistoryTableProps[] = [
-  {
-    date: "12/18/2024",
-    from: "username",
-    to: "username",
-    amount: "100",
-  },
-  {
-    date: "12/18/2024",
-    from: "username",
-    to: "username",
-    amount: "100",
-  },
-  {
-    date: "12/18/2024",
-    from: "username",
-    to: "username",
-    amount: "100",
-  },
-  {
-    date: "12/18/2024",
-    from: "username",
-    to: "username",
-    amount: "100",
-  },
-  {
-    date: "12/18/2024",
-    from: "username",
-    to: "username",
-    amount: "100",
-  },
-  {
-    date: "12/18/2024",
-    from: "username",
-    to: "username",
-    amount: "100",
   },
 ];

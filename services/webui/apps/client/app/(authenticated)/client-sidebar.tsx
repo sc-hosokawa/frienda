@@ -60,7 +60,6 @@ const items = [
       active: "/offers_line.svg",
     },
   },
-  /*
   {
     title: "Community",
     url: "/community",
@@ -69,7 +68,6 @@ const items = [
       active: "/community_line.svg",
     },
   },
-  */
   {
     title: "Message",
     url: "/message",
@@ -177,6 +175,11 @@ export function ClientSidebar() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side="right" align="start">
+                      <DropdownMenuItem asChild>
+                        <Link href="/walkthrough">
+                          <span>チュートリアル</span>
+                        </Link>
+                      </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/privacypolicy">
                           <span>プライバシーポリシー</span>

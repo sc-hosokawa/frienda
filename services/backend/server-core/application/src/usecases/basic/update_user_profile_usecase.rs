@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use domain::entities::sea_orm_active_enums::{UserArtistStatus, UserCategory};
+use domain::entities::sea_orm_active_enums::{OfferCategory, UserArtistStatus, UserCategory};
 use domain::entities::user_artist::ActiveModel as UserArtistActiveModel;
 use domain::entities::users::ActiveModel as UserActiveModel;
 use domain::repositories::artists_repo::ArtistsRepository;
@@ -24,6 +24,7 @@ pub struct UpdateUserProfileInput {
     pub instagram_handle: Option<String>,
     pub fb_handle: Option<String>,
     pub fcm_token: Option<String>,
+    pub interest_offer: Option<OfferCategory>,
     // pub status: Option<UserStatus>,
 }
 
@@ -136,6 +137,9 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
         }
         if let Some(fcm_token) = input.fcm_token {
             updated_user.fcm_token = ActiveValue::Set(Some(fcm_token));
+        }
+        if let Some(interest_offer) = input.interest_offer {
+            updated_user.interest_offer = ActiveValue::Set(Some(interest_offer));
         }
 
         let updated_user = self.users_repo.update(updated_user).await?;

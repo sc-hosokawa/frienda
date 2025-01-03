@@ -2,11 +2,11 @@ import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:client/data/model/community/member.dart';
-import 'package:client/domain/entities/user.dart';
+import 'package:client/presentation/providers/user_provider.dart';
 
 class CommunityGraphPainter extends CustomPainter {
   final List<CommunityMember> members;
-  final User? currentUser;
+  final UserData? currentUser;
   final double width;
   final double height;
   final double radius;
@@ -158,22 +158,23 @@ class CommunityGraphPainter extends CustomPainter {
 
       // 点線効果
       final dashPath = Path();
-      final dash = PathMetric(path: path);
-      var distance = 0.0;
-      final length = dash.length;
+      final metrics = path.computeMetrics();
+      var dashDistance = 0.0;
+      final metric = metrics.first;
+      final length = metric.length;
       const dashWidth = 4.0;
       const dashSpace = 4.0;
 
-      while (distance < length) {
-        final start = distance;
+      while (dashDistance < length) {
+        final start = dashDistance;
         final end = start + dashWidth;
         if (end <= length) {
           dashPath.addPath(
-            path.extractPath(start, end),
+            metric.extractPath(start, end),
             Offset.zero,
           );
         }
-        distance = end + dashSpace;
+        dashDistance = end + dashSpace;
       }
 
       canvas.drawPath(dashPath, paint);

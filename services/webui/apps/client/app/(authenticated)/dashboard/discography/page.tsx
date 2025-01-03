@@ -41,18 +41,18 @@ export default function DiscographyPage() {
 
   return (
     <>
-      <Link href="/dashboard">
-        <div className="flex items-center gap-2">
+      <div className="w-[60px]">
+        <Link href="/dashboard" className="ml-6">
           <Image
             src="/arrow-left.svg"
             alt="arrow-left"
             width={60}
             height={60}
-            className="ml-6 -mt-6"
+            className="ml-6"
           />
-        </div>
-      </Link>
-      <div className="min-h-screen bg-black text-gray-200 p-6">
+        </Link>
+      </div>
+      <div className="min-h-screen bg-black text-gray-200 px-6 pb-6">
         <hr className="my-8 border-[#303030]" />
         <header className="flex items-center justify-between mb-8">
           <h1 className="text-6xl font-light">Discography</h1>

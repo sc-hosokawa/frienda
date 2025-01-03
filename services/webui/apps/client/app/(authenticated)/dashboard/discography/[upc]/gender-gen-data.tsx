@@ -170,7 +170,7 @@ export function GenderGenViewByUPC({ upc }: { upc: string }) {
               <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
                 <Info className="w-4 h-4" />
                 世代比データはLINE
-                Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。
+                Musicのデータを利用しています。集計対象は2021年3月1日以降のデータとなります。今後、他のDSPのデータも統合予定です。
               </div>
             </div>
           </div>
@@ -248,7 +248,7 @@ export function GenderGenViewByUPC({ upc }: { upc: string }) {
               <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
                 <Info className="w-4 h-4" />
                 性別比データはLINE
-                Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。
+                Musicのデータを利用しています。集計対象は2021年3月1日以降のデータとなります。今後、他のDSPのデータも統合予定です。
               </div>
             </div>
           </div>

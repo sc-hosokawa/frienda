@@ -1,3 +1,4 @@
+pub mod admin;
 pub mod artist;
 pub mod basic;
 pub mod community;

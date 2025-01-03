@@ -19,6 +19,8 @@ const GET_USER_DATA = gql`
       id
       name
       imageUrl
+      realname
+      email
       role
       primaryRole
       greeting
@@ -52,6 +54,9 @@ const UPDATE_USER_DATA = gql`
     $xHandle: String
     $instagramHandle: String
     $fbHandle: String
+    $role: String
+    $primaryRole: String
+    $interestOffer: String
   ) {
     updateUserData(
       input: {
@@ -63,6 +68,9 @@ const UPDATE_USER_DATA = gql`
         xHandle: $xHandle
         instagramHandle: $instagramHandle
         fbHandle: $fbHandle
+        role: $role
+        primaryRole: $primaryRole
+        interestOffer: $interestOffer
       }
     ) {
       userInfo {
@@ -113,6 +121,9 @@ export default function SettingPage() {
     xHandle: "",
     instagramHandle: "",
     fbHandle: "",
+    role: "",
+    primaryRole: "",
+    interestOffer: "",
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(null);
@@ -137,6 +148,9 @@ export default function SettingPage() {
         xHandle: user.xHandle || "",
         instagramHandle: user.instagramHandle || "",
         fbHandle: user.fbHandle || "",
+        role: user.role || "",
+        primaryRole: user.role || "",
+        interestOffer: user.interestOffer || "",
       });
       setCurrentImageUrl(user.imageUrl);
     }
@@ -183,7 +197,7 @@ export default function SettingPage() {
         }
       }
 
-      console.log(formData);
+      console.log(formData.role);
 
       const res = await updateUserData({
         variables: {
@@ -195,6 +209,8 @@ export default function SettingPage() {
           xHandle: formData.xHandle,
           instagramHandle: formData.instagramHandle,
           fbHandle: formData.fbHandle,
+          primaryCategory: formData.role,
+          interestOffer: formData.interestOffer,
         },
       });
 
@@ -202,7 +218,7 @@ export default function SettingPage() {
 
       updateUser(res.data.updateUserData.userInfo);
 
-      router.push("/");
+      //router.push("/");
     } catch (error) {
       console.error("Profile update failed:", error);
     } finally {
@@ -210,98 +226,181 @@ export default function SettingPage() {
     }
   };
 
+  // 役割の選択肢を定義
+  const roles = ["Musician", "Curator", "Creator", "Supporter"];
+
+  // 興味のあるオファーの選択肢を定義
+  const interestOffers = ["Creation", "Event", "Promotion", "Other"];
+
   if (userDataLoading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">プロフィール編集</h1>
+    <div className="bg-black text-white flex-1 mb-16">
+      <div className="flex items-center justify-between pt-[115px] border-gray-800">
+        <div className="flex items-center gap-2">
+          <div className="flex flex-col">
+            <h1 className="text-[60px] font-light tracking-tight leading-none mb-16">
+              Edit Profile
+            </h1>
+          </div>
+        </div>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="flex justify-center">
-          <div className="relative">
-            <div className="w-[100px] h-[100px] rounded-full overflow-hidden">
-              <Image
-                src={
-                  imageFile
-                    ? URL.createObjectURL(imageFile)
-                    : currentImageUrl || "/default_avatar.png"
-                }
-                alt="Profile"
-                width={100}
-                height={100}
-                className="object-cover"
-              />
+        <div className="flex items-center gap-4">
+          <label className="block text-sm font-medium w-1/3">
+            プロフィール画像
+          </label>
+          <div className="w-2/3">
+            <div className="relative inline-block">
+              <div className="w-[100px] h-[100px] rounded-full overflow-hidden">
+                <Image
+                  src={
+                    imageFile
+                      ? URL.createObjectURL(imageFile)
+                      : currentImageUrl || "/default_avatar.png"
+                  }
+                  alt="Profile"
+                  width={100}
+                  height={100}
+                  className="object-cover"
+                />
+              </div>
+              <label className="absolute bottom-0 right-0 bg-primary p-2 rounded-full cursor-pointer">
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={(e) =>
+                    e.target.files?.[0] && setImageFile(e.target.files[0])
+                  }
+                />
+                <svg
+                  className="w-5 h-5 text-black"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </label>
             </div>
-            <label className="absolute bottom-0 right-0 bg-primary p-2 rounded-full cursor-pointer">
-              <input
-                type="file"
-                className="hidden"
-                accept="image/*"
-                onChange={(e) =>
-                  e.target.files?.[0] && setImageFile(e.target.files[0])
-                }
-              />
-              <svg
-                className="w-5 h-5 text-black"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-            </label>
           </div>
         </div>
 
-        <div className="space-y-4">
-          {Object.entries(formData).map(([key, value]) => (
-            <div key={key}>
-              <label className="block text-sm font-medium">
-                {key === "name"
-                  ? "名前"
-                  : key === "greeting"
-                    ? "自己紹介"
-                    : key === "skill"
-                      ? "スキル"
-                      : key === "xHandle"
-                        ? "X (Twitter)"
-                        : key === "instagramHandle"
-                          ? "Instagram"
-                          : "Facebook"}
-              </label>
-              <input
-                type="text"
-                value={value}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, [key]: e.target.value }))
-                }
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                required={key === "name"}
-              />
-            </div>
-          ))}
+        <div className="space-y-4 mx-auto">
+          {Object.entries(formData).map(([key, value]) => {
+            // 役割と興味のあるオファーは特別な処理
+            if (key === "role" || key === "interestOffer") {
+              const options = key === "role" ? roles : interestOffers;
+              return (
+                <div key={key} className="flex items-center gap-4">
+                  <label className="block text-sm font-medium w-1/3">
+                    {key === "role" ? "役割" : "興味のあるオファー"}
+                  </label>
+                  <div className="flex flex-wrap gap-2 w-2/3">
+                    {options.map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() =>
+                          setFormData((prev) => ({ ...prev, [key]: option }))
+                        }
+                        className={`h-[48px] w-[180px] rounded-full text-[18px] transition-colors my-4 ${
+                          value === option
+                            ? "bg-white text-black"
+                            : "bg-black text-white border-dashed border border-white hover:bg-gray-100 hover:text-black"
+                        }`}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
+            // その他のフィールドは既存の処理を維持
+            if (key !== "primaryRole") {
+              // primaryRoleは除外
+              return (
+                <div key={key} className="flex items-center gap-4">
+                  <label className="block text-sm font-medium w-1/3">
+                    {key === "name"
+                      ? "ユーザーネーム"
+                      : key === "greeting"
+                        ? "自己紹介"
+                        : key === "skill"
+                          ? "スキル"
+                          : key === "xHandle"
+                            ? "X (Twitter)"
+                            : key === "instagramHandle"
+                              ? "Instagram"
+                              : key === "fbHandle"
+                                ? "Facebook"
+                                : key}
+                  </label>
+                  <textarea
+                    value={value}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        [key]: e.target.value,
+                      }))
+                    }
+                    placeholder={
+                      key === "name"
+                        ? "あなたの名前を入力してください"
+                        : key === "greeting"
+                          ? "自己紹介文を入力してください"
+                          : key === "skill"
+                            ? "あなたのスキルを入力してください"
+                            : key === "xHandle"
+                              ? "プロフィールページのURLを入力してください。https://x.com/username"
+                              : key === "instagramHandle"
+                                ? "プロフィールページのURLを入力してください。https://instagram.com/username"
+                                : key === "fbHandle"
+                                  ? "プロフィールページのURLを入力してください。https://facebook.com/username"
+                                  : key === "role"
+                                    ? "あなたの役割を入力してください"
+                                    : key === "primaryRole"
+                                      ? "主要な役割を入��してください"
+                                      : key === "interestOffer"
+                                        ? "興味のあるオファーを入力してください"
+                                        : ""
+                    }
+                    className="mt-1 block w-2/3 h-[90px] rounded-2xl border border-white/50 bg-black text-white placeholder-gray-500 p-3"
+                    required={key === "name"}
+                  />
+                </div>
+              );
+            }
+            return null;
+          })}
         </div>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full py-2 px-4 rounded-md hover:bg-white hover:text-black disabled:opacity-50 border border-primary"
-        >
-          {isLoading ? "更新中..." : "プロフィールを更新"}
-        </button>
+        <div className="flex justify-end mt-8">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="h-[48px] w-[180px] rounded-full text-[18px] transition-colors bg-[#E4DBC0] hover:bg-gray-100 text-black border border-white hover:text-black disabled:opacity-50 text-sm"
+          >
+            {isLoading ? "更新中..." : "プロフィールを更新"}
+          </button>
+        </div>
       </form>
     </div>
   );
