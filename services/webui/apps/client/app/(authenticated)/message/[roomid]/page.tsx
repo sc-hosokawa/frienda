@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { Avatar, AvatarImage } from "@ui/components/ui/avatar";
 import { Button } from "@ui/components/ui/button";
 import { Info, Image as ImageIcon, Send, Loader2, Plus, X } from "lucide-react";
@@ -279,8 +281,22 @@ export default function Component() {
 
   return (
     <div className="flex flex-col h-screen bg-black text-white">
-      {/* Header - Update with recipient data */}
-      <header className="flex-none items-center justify-between p-4 border-b border-gray-800 sticky top-0">
+      <div className="w-[60px]">
+        <Link href="/message" className="">
+          <Image
+            src="/arrow-left.svg"
+            alt="arrow-left"
+            width={60}
+            height={60}
+            className=""
+          />
+        </Link>
+      </div>
+
+      <h1 className="text-[36px] font-light">Messages</h1>
+      <hr className="mb-8 mt-4 border-[#303030]" />
+
+      <header className="flex-none items-center justify-between p-4 sticky top-0">
         <div className="flex items-center gap-2">
           <Avatar className="w-10 h-10">
             <AvatarImage
@@ -304,7 +320,7 @@ export default function Component() {
       >
         <div className="min-h-full flex flex-col justify-end">
           {messages.length === 0 ? (
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-2 my-auto">
               <h1 className="text-2xl font-light">メッセージがありません</h1>
               <p className="text-gray-500">
                 最初のメッセージを送信してみましょう
@@ -544,7 +560,9 @@ export default function Component() {
             onKeyDown={handleKeyDown}
             disabled={isSubmitting}
             placeholder={
-              isSubmitting ? "送信中..." : "ここにメッセージを入力してください"
+              isSubmitting
+                ? "送信中..."
+                : "ここにメッセージを入力してください。（Shift + Enterキーで改行）"
             }
             rows={1}
             className={`

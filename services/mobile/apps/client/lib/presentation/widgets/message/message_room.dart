@@ -26,7 +26,6 @@ class MessageRoom extends ConsumerStatefulWidget {
 class _MessageRoomState extends ConsumerState<MessageRoom> {
   final TextEditingController _messageController = TextEditingController();
 
-  // Refetch型として定義
   Refetch? _refetchMessages;
 
   @override
@@ -79,6 +78,10 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
               title: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -143,12 +146,14 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.add),
+                        icon: Icon(Icons.add, color: Colors.white),
                         onPressed: _attachFile,
                       ),
                       Expanded(
                         child: TextField(
                           controller: _messageController,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
                           decoration: InputDecoration(
                             hintText: 'メッセージを入力...',
                             border: OutlineInputBorder(
@@ -163,7 +168,7 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                       ),
                       SizedBox(width: 8),
                       IconButton(
-                        icon: Icon(Icons.send),
+                        icon: Icon(Icons.send, color: Colors.white),
                         onPressed: _sendMessage,
                       ),
                     ],
@@ -484,7 +489,8 @@ class MessageBubble extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: isMyMessage ? Colors.green[300] : Colors.grey[300],
+                  color:
+                      isMyMessage ? const Color(0xFFE4DBC0) : Colors.grey[300],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -502,7 +508,9 @@ class MessageBubble extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: isMyMessage ? Colors.green[100] : Colors.grey[100],
+                  color: isMyMessage
+                      ? const Color(0xFFE4DBC0).withOpacity(0.7)
+                      : Colors.grey[100],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(

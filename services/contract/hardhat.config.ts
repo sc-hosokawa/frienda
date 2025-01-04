@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 import { HardhatUserConfig } from "hardhat/config";
@@ -20,6 +20,11 @@ const config: HardhatUserConfig = {
       optimizer: {
         enabled: true,
         runs: 200,
+      },
+      outputSelection: {
+        "*": {
+          "*": ["storageLayout"],
+        },
       },
     },
   },
@@ -75,9 +80,18 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      polygon: process.env.POLYGONSCAN_KEY !== undefined ? process.env.POLYGONSCAN_KEY : "",
-      polygonMumbai: process.env.POLYGONSCAN_KEY !== undefined ? process.env.POLYGONSCAN_KEY : "",
-      sepolia: process.env.ETHERSCAN_KEY !== undefined ? process.env.ETHERSCAN_KEY : "",
+      polygon:
+        process.env.POLYGONSCAN_KEY !== undefined
+          ? process.env.POLYGONSCAN_KEY
+          : "",
+      polygonMumbai:
+        process.env.POLYGONSCAN_KEY !== undefined
+          ? process.env.POLYGONSCAN_KEY
+          : "",
+      sepolia:
+        process.env.ETHERSCAN_KEY !== undefined
+          ? process.env.ETHERSCAN_KEY
+          : "",
     },
   },
 };

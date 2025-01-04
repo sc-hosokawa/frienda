@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:client/presentation/widgets/offer/offer_detail.dart';
+import 'package:intl/intl.dart';
 
 class AvailableOffers extends StatelessWidget {
   const AvailableOffers({super.key});
@@ -45,27 +46,51 @@ class AvailableOffers extends StatelessWidget {
           final offers =
               result.data?['getOffers']['offerList'] as List<dynamic>? ?? [];
 
+          if (offers.isEmpty) {
+            return const Center(
+              child: Text(
+                '利用可能なOfferはありません',
+                style: TextStyle(fontSize: 16),
+              ),
+            );
+          }
+
           return ListView.builder(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(4),
             itemCount: offers.length,
             itemBuilder: (context, index) {
               final offer = offers[index];
               return Card(
-                margin: const EdgeInsets.only(bottom: 12),
+                color: Colors.black,
+                margin: const EdgeInsets.only(bottom: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: const BorderSide(
+                    color: Colors.white,
+                    width: 1,
+                  ),
+                ),
                 child: ListTile(
-                  leading: offer['imageUrl'] != null
-                      ? Image.network(
-                          offer['imageUrl'],
-                          width: 60,
-                          height: 60,
-                          fit: BoxFit.cover,
-                        )
-                      : SvgPicture.asset(
-                          'assets/design.svg',
-                          width: 60,
-                          height: 60,
-                          fit: BoxFit.cover,
-                        ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 16,
+                  ),
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: offer['imageUrl'] != null
+                        ? Image.network(
+                            offer['imageUrl'],
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                          )
+                        : SvgPicture.asset(
+                            'assets/offer.svg',
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
                   title: Text(offer['title']),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,31 +102,38 @@ class AvailableOffers extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '報酬: ${offer['fee']} FSP',
+                        'Fee: ${NumberFormat('#,###').format(offer['fee'])} FSP',
                         style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ],
                   ),
-                  trailing: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OfferDetailPage(
-                            offerId: offer['id'],
-                          ),
+                  trailing: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        side: const BorderSide(
+                          color: Colors.white,
+                          width: 1,
                         ),
-                      );
-                    },
-                    child: const Text(
-                      '詳細',
-                      style: TextStyle(
-                        color: Colors.black,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OfferDetailPage(
+                              offerId: offer['id'],
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        '詳細',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/auth_provider.dart';
 import 'package:client/presentation/screens/web_view_screen.dart';
 import 'package:client/presentation/screens/auth/profile_setup.dart';
+import 'dart:async';
 
 class RegisterPage extends ConsumerStatefulWidget {
   const RegisterPage({super.key});
@@ -21,7 +22,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   final _linkButtonStyle = TextButton.styleFrom(
     padding: EdgeInsets.symmetric(vertical: 4),
-    foregroundColor: Colors.green,
+    foregroundColor: Colors.white,
     textStyle: TextStyle(fontSize: 12),
   );
 
@@ -89,16 +90,17 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     children: [
                       TextButton(
                         style: _linkButtonStyle,
-                        onPressed: () => _openWebView(
-                            'プライバシーポリシー', 'https://example.com/privacy'),
+                        onPressed: () => _openWebView('プライバシーポリシー',
+                            'https://app.friendshipdao.xyz/privacypolicy'),
                         child: Text('プライバシーポリシー'),
                       ),
                       TextButton(
                         style: _linkButtonStyle,
-                        onPressed: () =>
-                            _openWebView('利用規約', 'https://example.com/terms'),
+                        onPressed: () => _openWebView('利用規約',
+                            'https://app.friendshipdao.xyz/termofservice'),
                         child: Text('利用規約'),
                       ),
+                      /*
                       TextButton(
                         style: _linkButtonStyle,
                         onPressed: () => _openWebView('特定商取引法',
@@ -111,6 +113,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                             '資金決済法', 'https://example.com/fund-settlement'),
                         child: Text('資金決済法'),
                       ),
+                      */
                     ],
                   ),
                 ],
@@ -145,30 +148,33 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
         final User user = userCredential.user!;
 
-        final String? idToken = await user.getIdToken();
-        if (idToken == null) {
-          throw Exception('IDトークンの取得に失敗しました');
-        }
+        // メール認証の送信
+        await user.sendEmailVerification();
 
-        await ref.read(authProvider.notifier).setAuthInfo(user);
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ProfileSetupScreen(
-              user: user,
-              initialData: {
-                'uid': user.uid,
-                'email': user.email ?? '',
-                'idToken': idToken,
-              },
-            ),
-          ),
+        // メール認証待ちの説明を表示
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('メール認証'),
+              content: Text('確認メールを送信しました。メールのリンクをクリックして認証を完了してください。'),
+              actions: [
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    await _checkEmailVerification(user);
+                  },
+                ),
+              ],
+            );
+          },
         );
       } on FirebaseAuthException catch (e) {
         String message;
         if (e.code == 'weak-password') {
-          message = 'パスワードが弱すぎます';
+          message = 'パスワードがすぎます';
         } else if (e.code == 'email-already-in-use') {
           message = 'このメールアドレスは既に使用されています';
         } else {
@@ -184,6 +190,85 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
       } finally {
         setState(() => _isLoading = false);
       }
+    }
+  }
+
+  Future<void> _checkEmailVerification(User user) async {
+    Timer? timer;
+    LifecycleObserver? observer;
+
+    void handleAppResume() async {
+      await user.reload();
+      user = FirebaseAuth.instance.currentUser!;
+
+      if (user.emailVerified) {
+        timer?.cancel();
+        final String? idToken = await user.getIdToken();
+        if (idToken == null) {
+          throw Exception('IDトークンの取得に失敗しました');
+        }
+
+        await ref.read(authProvider.notifier).setAuthInfo(user);
+
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ProfileSetupScreen(
+                user: user,
+                initialData: {
+                  'uid': user.uid,
+                  'email': user.email ?? '',
+                  'idToken': idToken,
+                },
+              ),
+            ),
+          );
+        }
+      }
+    }
+
+    observer = LifecycleObserver(onResume: handleAppResume);
+    WidgetsBinding.instance.addObserver(observer);
+
+    timer = Timer.periodic(Duration(seconds: 3), (timer) async {
+      handleAppResume();
+    });
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('メール認証待ち'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('メールのリンクをクリックして認証を完了してください。'),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: handleAppResume,
+              child: Text('認証状態を確認'),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (mounted) {
+      WidgetsBinding.instance.removeObserver(observer);
+      timer?.cancel();
+    }
+  }
+}
+
+class LifecycleObserver extends WidgetsBindingObserver {
+  final VoidCallback onResume;
+
+  LifecycleObserver({required this.onResume});
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      onResume();
     }
   }
 }

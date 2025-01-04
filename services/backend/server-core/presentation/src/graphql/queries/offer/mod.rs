@@ -131,9 +131,23 @@ impl OfferQuery {
         })
     }
 
+    async fn get_users_in_offer(
+        &self,
+        ctx: &Context<'_>,
+        offer_id: i32,
+        user_id: String,
+    ) -> Result<models::offers::UsersInOfferData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .manage_users_in_offer
+            .get_users_in_offer(offer_id, user_id)
+            .await?;
+        Ok(models::offers::UsersInOfferData {
+            users: result.into_iter().map(|u| u.into()).collect(),
+        })
+    }
+
     /*
-
-
     async fn get_offers_by_applied(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
         todo!()
     }

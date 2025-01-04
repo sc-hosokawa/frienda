@@ -9,17 +9,17 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@apollo/client": "^3.11.8",
-    "@apollo/experimental-nextjs-app-support": "^0.11.5",
     "@firebase/app": "^0.10.15",
     "@firebase/auth": "^1.8.0",
     "firebase": "^11.0.1",
     "firebase-admin": "^12.7.0",
-    "graphql": "^16.9.0",
+    "@tanstack/react-query": "^5.62.7",
+    "graphql-request": "^7.1.2",
     "lucide-react": "^0.322.0",
     "next": "^14.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "recharts": "^2.13.3",
     "ui": "workspace:*",
     "xlsx": "^0.18.5"
   },

@@ -81,40 +81,42 @@ impl RegisterTaskUsecaseTrait for RegisterTaskUsecase {
         };
         let offer: Offer = self.offers_repo.create(offer).await?;
 
-        if input.attached_imgs.is_some() {
-            tracing::debug!("Attached imgs: {:?}", input.attached_imgs);
-            let attached_imgs: Vec<String> = input.attached_imgs.clone().unwrap_or_default();
-            let offer_img_attaches: Vec<OfferAttachActiveModel> = attached_imgs
-                .into_iter()
-                .map(|media_url| OfferAttachActiveModel {
-                    offer_id: ActiveValue::Set(offer.id),
-                    file_uri: ActiveValue::Set(None),
-                    image_uri: ActiveValue::Set(Some(media_url)),
-                    ..Default::default()
-                })
-                .collect();
+        if let Some(attached_imgs) = input.attached_imgs {
+            if !attached_imgs.is_empty() {
+                tracing::debug!("Attached imgs: {:?}", attached_imgs);
+                let offer_img_attaches: Vec<OfferAttachActiveModel> = attached_imgs
+                    .into_iter()
+                    .map(|media_url| OfferAttachActiveModel {
+                        offer_id: ActiveValue::Set(offer.id),
+                        file_uri: ActiveValue::Set(None),
+                        image_uri: ActiveValue::Set(Some(media_url)),
+                        ..Default::default()
+                    })
+                    .collect();
 
-            self.offer_attach_repo
-                .create_many(offer_img_attaches)
-                .await?;
+                self.offer_attach_repo
+                    .create_many(offer_img_attaches)
+                    .await?;
+            }
         }
 
-        if input.attached_files.is_some() {
-            tracing::debug!("Attached files: {:?}", input.attached_files);
-            let attached_files: Vec<String> = input.attached_files.clone().unwrap_or_default();
-            let offer_file_attaches: Vec<OfferAttachActiveModel> = attached_files
-                .into_iter()
-                .map(|media_url| OfferAttachActiveModel {
-                    offer_id: ActiveValue::Set(offer.id),
-                    file_uri: ActiveValue::Set(Some(media_url)),
-                    image_uri: ActiveValue::Set(None),
-                    ..Default::default()
-                })
-                .collect();
+        if let Some(attached_files) = input.attached_files {
+            if !attached_files.is_empty() {
+                tracing::debug!("Attached files: {:?}", attached_files);
+                let offer_file_attaches: Vec<OfferAttachActiveModel> = attached_files
+                    .into_iter()
+                    .map(|media_url| OfferAttachActiveModel {
+                        offer_id: ActiveValue::Set(offer.id),
+                        file_uri: ActiveValue::Set(Some(media_url)),
+                        image_uri: ActiveValue::Set(None),
+                        ..Default::default()
+                    })
+                    .collect();
 
-            self.offer_attach_repo
-                .create_many(offer_file_attaches)
-                .await?;
+                self.offer_attach_repo
+                    .create_many(offer_file_attaches)
+                    .await?;
+            }
         }
 
         Ok(offer.id)

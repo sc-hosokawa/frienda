@@ -12,42 +12,52 @@ class Allocation extends ConsumerWidget {
     final userData = ref.watch(userProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('アーティスト選択'),
-        titleTextStyle: Theme.of(context).textTheme.titleMedium,
-      ),
-      body: userData == null || userData.belongsToArtists.isEmpty
-          ? const Center(child: Text('No data'))
-          : ListView.builder(
-              itemCount: userData.belongsToArtists.length,
-              itemBuilder: (context, index) {
-                final artist = userData.belongsToArtists[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: (artist.imageUrl?.isNotEmpty ?? false)
-                        ? NetworkImage(artist.imageUrl!)
-                        : null,
-                    child: (artist.imageUrl?.isNotEmpty ?? false)
-                        ? null
-                        : const Icon(Icons.person),
-                  ),
-                  title: Text(artist.name),
-                  trailing: Text('${artist.fsp} ポイント'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MemberAllocation(
-                          artistName: artist.name,
-                          artistId: artist.artistId,
-                          totalPoints: artist.fsp,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
+      body: Column(
+        children: [
+          SafeArea(
+            child: AppBar(
+              title: const Text('アーティスト選択'),
+              titleTextStyle: Theme.of(context).textTheme.titleMedium,
+              centerTitle: true,
             ),
+          ),
+          Expanded(
+            child: userData == null || userData.belongsToArtists.isEmpty
+                ? const Center(child: Text('No data'))
+                : ListView.builder(
+                    itemCount: userData.belongsToArtists.length,
+                    itemBuilder: (context, index) {
+                      final artist = userData.belongsToArtists[index];
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage:
+                              (artist.imageUrl?.isNotEmpty ?? false)
+                                  ? NetworkImage(artist.imageUrl!)
+                                  : null,
+                          child: (artist.imageUrl?.isNotEmpty ?? false)
+                              ? null
+                              : const Icon(Icons.person),
+                        ),
+                        title: Text(artist.name),
+                        trailing: Text('${artist.fsp} ポイント'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MemberAllocation(
+                                artistName: artist.name,
+                                artistId: artist.artistId,
+                                totalPoints: artist.fsp,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }

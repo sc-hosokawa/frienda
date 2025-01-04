@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "forge clean && forge build",
     "clean": "pnpm hardhat clean",
     "test": "GAS_REPORT=true pnpm hardhat test",
+    "foundrytest": "forge clean && forge test",
+    "coverage": "forge clean && forge coverage",
     "test:inheritance": "pnpm hardhat run scripts/checks/inheritance-ordering.ts",
     "balance": "pnpm hardhat run scripts/utils/balances.ts",
     "hhnode": "pnpm hardhat node",
@@ -13,7 +16,9 @@
     "lint:es": "eslint . --ext .ts,.js,.tsx,.jsx",
     "lint:sol": "solhint --config .solhint.json --ignore-path .solhintignore contracts/**/*.sol test/foundry/**/*.sol",
     "lint:fix": "eslint --fix . --ext .ts,.js,.tsx,.jsx",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy:credentialProxy-sepolia": "forge clean && forge script script/DeployCredentialProxy.s.sol --rpc-url sepolia --broadcast --etherscan-api-key $ETHERSCAN_KEY --verify",
+    "upgrade": "forge clean && forge script script/Upgrade.s.sol --rpc-url sepolia --broadcast --etherscan-api-key $ETHERSCAN_KEY --verify"
   },
   "keywords": [],
   "author": "Naoki Akazawa",
@@ -44,7 +49,8 @@
     "yarn": "please_use_pnpm_instead"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.2",
-    "@openzeppelin/contracts-upgradeable": "^5.0.2"
+    "@openzeppelin/contracts": "^5.1.0",
+    "@openzeppelin/contracts-upgradeable": "^5.1.0",
+    "@openzeppelin/upgrades-core": "^1.41.0"
   }
 }

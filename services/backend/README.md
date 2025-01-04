@@ -10,4 +10,6 @@ cargo check
 cargo build
 
 cargo clean
+
+cargo nextest run
 ```

@@ -22,3 +22,7 @@ svix = { workspace = true }
 http = { workspace = true }
 uuid = { workspace = true }
 chrono = { workspace = true }
+google-generative-ai-rs = { workspace = true }
+fcm-rs = { workspace = true }
+tempfile = { workspace = true }
+sendgrid = { workspace = true }

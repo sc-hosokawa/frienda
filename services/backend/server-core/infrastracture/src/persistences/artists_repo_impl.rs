@@ -32,6 +32,15 @@ impl ArtistsRepository for ArtistsRepoImpl {
         Ok(updated_artist)
     }
 
+    async fn find_latest(&self) -> Result<Option<Artist>, DomainError> {
+        let latest_artist = ArtistEntity::find()
+            .order_by_desc(Column::ArtistId)
+            .limit(1)
+            .one(&self.db)
+            .await?;
+        Ok(latest_artist)
+    }
+
     async fn find_by_id(&self, id: &str) -> Result<Option<Artist>, DomainError> {
         let artist = ArtistEntity::find()
             .filter(Column::ArtistId.eq(id))
@@ -93,5 +102,10 @@ impl ArtistsRepository for ArtistsRepoImpl {
 
         let res: Artist = ArtistEntity::update(updated_artist).exec(&self.db).await?;
         Ok(res)
+    }
+
+    async fn count(&self) -> Result<i64, DomainError> {
+        let count: u64 = ArtistEntity::find().count(&self.db).await?;
+        Ok(count as i64)
     }
 }

@@ -19,6 +19,7 @@ impl GeneralMutation {
             .create(
                 application::usecases::basic::create_user_usecase::CreateUserInput {
                     id: input.id.clone(),
+                    fcm_token: input.fcm_token.clone(),
                     email: input.email.clone(),
                     name: input.name.clone(),
                     realname: input.realname.clone(),
@@ -63,6 +64,10 @@ impl GeneralMutation {
                         models::users::from_string_to_user_category(category).unwrap()
                     }),
                     evm_addr: input.evm_addr,
+                    fcm_token: input.fcm_token,
+                    interest_offer: input.interest_offer.as_deref().map(|category| {
+                        models::users::from_string_to_offer_category(category).unwrap()
+                    }),
                 },
             )
             .await?;
@@ -72,6 +77,7 @@ impl GeneralMutation {
                 id: res.updated_user.id,
                 name: res.updated_user.username,
                 realname: res.updated_user.realname,
+                email: res.updated_user.email,
                 is_super_admin: res.updated_user.is_superadmin.unwrap_or(false),
                 image_url: res.updated_user.img_url,
                 fsp_balance: res.updated_user.fsp,
@@ -136,14 +142,6 @@ impl GeneralMutation {
         ctx: &Context<'_>,
         input: models::contact_us::ContactToAdminInput,
     ) -> Result<models::contact_us::ContactToAdminResponse> {
-        todo!()
-    }
-
-    async fn update_user_detail_profile(
-        &self,
-        ctx: &Context<'_>,
-        input: models::users::UpdateUserDetailProfileInput,
-    ) -> Result<models::users::UpdateUserDetailProfileResponse> {
         todo!()
     }
 }

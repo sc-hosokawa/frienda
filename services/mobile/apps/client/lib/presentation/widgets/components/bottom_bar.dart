@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -10,26 +11,71 @@ class CustomBottomNavigationBar extends StatelessWidget {
     required this.onTap,
   });
 
-  static const List<BottomNavigationBarItem> _items = [
+  static List<BottomNavigationBarItem> _items = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.home),
-      label: 'home',
+      icon: SvgPicture.asset(
+        'assets/home.svg',
+        width: 20,
+        height: 20,
+      ),
+      activeIcon: SvgPicture.asset(
+        'assets/home.svg',
+        width: 20,
+        height: 20,
+      ),
+      label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.dashboard),
-      label: 'dashboard',
+      icon: SvgPicture.asset(
+        'assets/dashboard.svg',
+        width: 20,
+        height: 20,
+      ),
+      activeIcon: SvgPicture.asset(
+        'assets/dashboard.svg',
+        width: 20,
+        height: 20,
+      ),
+      label: 'Dashboard',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.task),
-      label: 'offer',
+      icon: SvgPicture.asset(
+        'assets/offer.svg',
+        width: 20,
+        height: 20,
+      ),
+      activeIcon: SvgPicture.asset(
+        'assets/offer.svg',
+        width: 20,
+        height: 20,
+      ),
+      label: 'Offers',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.money),
-      label: 'fsp',
+      icon: SvgPicture.asset(
+        'assets/message.svg',
+        width: 20,
+        height: 20,
+      ),
+      activeIcon: SvgPicture.asset(
+        'assets/message.svg',
+        width: 20,
+        height: 20,
+      ),
+      label: 'Message',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.people),
-      label: 'community',
+      icon: SvgPicture.asset(
+        'assets/community.svg',
+        width: 20,
+        height: 20,
+      ),
+      activeIcon: SvgPicture.asset(
+        'assets/community.svg',
+        width: 20,
+        height: 20,
+      ),
+      label: 'Community',
     ),
   ];
 
@@ -38,7 +84,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return BottomNavigationBar(
       items: _items,
       currentIndex: currentIndex,
-      selectedItemColor: Colors.green,
+      selectedItemColor: Colors.white,
       unselectedItemColor: Colors.grey,
       type: BottomNavigationBarType.fixed,
       onTap: onTap,

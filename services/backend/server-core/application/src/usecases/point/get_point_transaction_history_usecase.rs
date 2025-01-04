@@ -23,6 +23,7 @@ pub struct TransactionData {
     pub direction: String,
     pub counter_party: UserSimpleData,
     pub tx_at: String,
+    pub note: Option<String>,
 }
 pub struct UserSimpleData {
     pub id: String,
@@ -188,6 +189,7 @@ impl GetPointTransactionHistoryUsecaseTrait for GetPointTransactionHistoryUsecas
                 direction,
                 counter_party,
                 tx_at: tx.tx_at.to_string(),
+                note: tx.notes,
             });
         }
 

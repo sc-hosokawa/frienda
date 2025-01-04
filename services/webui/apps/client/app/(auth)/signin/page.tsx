@@ -325,7 +325,7 @@ export default function SignIn() {
         <div className="space-y-8">
           <div className="space-y-2">
             <h1 className="text-5xl font-light tracking-wider mb-8">
-              メール認証
+              メール認証 / Email Verification
             </h1>
             <p className="text-sm">
               認証メールを送信しました。メールを確認して認証を完了してください。
@@ -339,6 +339,10 @@ export default function SignIn() {
             <p className="text-sm">
               次の画面でお名前と属性などの簡単な設定を行い、その後ご利用できるようになります。
             </p>
+            <p className="text-sm text-gray-400">
+              A verification email has been sent. Please check your email and
+              complete the verification.
+            </p>
           </div>
           <Button
             onClick={() => {
@@ -349,7 +353,7 @@ export default function SignIn() {
             }}
             className="bg-white text-black hover:bg-white/90"
           >
-            認証メールを再送信
+            認証メールを再送信 / Resend
           </Button>
         </div>
       </div>
@@ -363,17 +367,15 @@ export default function SignIn() {
         <div className="space-y-8">
           <div className="space-y-2">
             <h1 className="text-5xl font-light tracking-wider">
-              プロフィール設定
+              プロフィール設定 / Profile Setting
             </h1>
             <p className="text-sm">アカウントの詳細情報を入力してください</p>
           </div>
 
           <form className="space-y-6" onSubmit={handleProfileSubmit}>
-            {/* プロフィール画像アップロード */}
             <div className="space-y-2">
-              <Label htmlFor="profileImage">
-                プロフィール画像（任意、後から設定・変更できます）
-              </Label>
+              <Label htmlFor="profileImage">プロフィール画像</Label>
+              <p className="text-sm text-gray-400">Profile image</p>
               <div className="flex flex-col items-center gap-4">
                 {imagePreview && (
                   <div className="w-32 h-32 relative rounded-full overflow-hidden">
@@ -399,6 +401,7 @@ export default function SignIn() {
               <Label htmlFor="realname">
                 氏名（事務局以外の他のユーザーには許諾なく公開されません）
               </Label>
+              <p className="text-sm text-gray-400">Name</p>
               <Input
                 id="realname"
                 value={realname}
@@ -413,6 +416,7 @@ export default function SignIn() {
               <Label htmlFor="displayName">
                 ユーザーネーム（他のユーザーに表示されます）
               </Label>
+              <p className="text-sm text-gray-400">Username</p>
               <Input
                 id="displayName"
                 value={displayName}
@@ -485,26 +489,26 @@ export default function SignIn() {
         {/* Form */}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <Label htmlFor="email">登録に利用するメールアドレス</Label>
+            <Label htmlFor="email">登録に利用するメールアドレス / Email</Label>
             <Input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="メールアドレスを入力してください"
+              placeholder="メールアドレスを入力してください / Input your email"
               className="bg-black border-white text-white placeholder:text-white/50 h-[90px] rounded-3xl"
               required
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">登録するパスワード</Label>
+            <Label htmlFor="password">登録するパスワード / Password</Label>
             <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="パスワードを入力してください"
+              placeholder="パスワードを入力してください / Input a password"
               className="bg-black border-white text-white placeholder:text-white/50 h-[90px] rounded-3xl"
               required
             />
@@ -540,7 +544,7 @@ export default function SignIn() {
               className="flex-1 bg-white text-black hover:bg-white/90"
               disabled={loading}
             >
-              {loading ? "登録中..." : "アカウントを作成する"}
+              {loading ? "Signing up..." : "Create an Account"}
             </Button>
           </div>
         </form>

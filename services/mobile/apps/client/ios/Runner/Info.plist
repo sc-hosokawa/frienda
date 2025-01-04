@@ -79,5 +79,7 @@
 		<string>音楽を再生するために、音楽へのアクセスが必要です。</string>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
+		<key>NSFaceIDUsageDescription</key>
+		<string>アプリへのログインに生体認証を使用します</string>
 	</dict>
 </plist>

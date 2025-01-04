@@ -99,42 +99,44 @@ class _TransferState extends ConsumerState<Transfer> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SafeArea(
-          child: AppBar(
-            title: const Text('送る'),
-            titleTextStyle: Theme.of(context).textTheme.titleMedium,
-            centerTitle: true,
+    return Scaffold(
+      body: Column(
+        children: [
+          SafeArea(
+            child: AppBar(
+              title: const Text('送る'),
+              titleTextStyle: Theme.of(context).textTheme.titleMedium,
+              centerTitle: true,
+            ),
           ),
-        ),
-        Expanded(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 24),
-                  _AvailablePointsAndQRScanner(onQRScanTap: _startQRScanner),
-                  const SizedBox(height: 24),
-                  _TransferInputFields(
-                    recipientController: _recipientController,
-                    pointsController: _pointsController,
-                    noteController: _noteController,
-                  ),
-                  const SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: () => _validateAndShowConfirmation(context),
-                    child: const Text('送る'),
-                  ),
-                ],
+          Expanded(
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 24),
+                    _AvailablePointsAndQRScanner(onQRScanTap: _startQRScanner),
+                    const SizedBox(height: 24),
+                    _TransferInputFields(
+                      recipientController: _recipientController,
+                      pointsController: _pointsController,
+                      noteController: _noteController,
+                    ),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () => _validateAndShowConfirmation(context),
+                      child: const Text('送る'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -294,7 +296,7 @@ class _TransferInputFields extends StatelessWidget {
         TextFormField(
           controller: pointsController,
           decoration: const InputDecoration(
-            labelText: '送るポイント数',
+            labelText: '送付ポイント数',
             border: OutlineInputBorder(),
           ),
           keyboardType: TextInputType.number,

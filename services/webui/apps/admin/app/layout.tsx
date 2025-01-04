@@ -1,15 +1,21 @@
 import "@ui/styles/globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Jost } from "next/font/google";
 import { ThemeProvider } from "@ui/components/theme-provider";
 import { Toaster } from "@ui/components/ui/toaster";
-import { ApollClientProvider } from "../provider/apollo-client";
+import { Header } from "../components/header";
+import Providers from "./providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const JostFont = Jost({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-jost",
+});
 
 export const metadata: Metadata = {
-  title: "管理システム",
-  description: "Admin System",
+  title: "Admin | FRIENDSHIP. DAO",
+  description: "Admin dashboard for FRIENDSHIP. DAO",
 };
 
 export default function RootLayout({
@@ -18,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ja" suppressHydrationWarning>
       <body
-        className={`${inter.className} bg-white text-black dark:bg-black dark:text-white`}
+        className={`${JostFont.className} bg-white text-black dark:bg-black dark:text-white`}
       >
         <ThemeProvider
           attribute="class"
@@ -28,10 +34,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ApollClientProvider>
+          <Providers>
+            <Header />
             {children}
             <Toaster />
-          </ApollClientProvider>
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

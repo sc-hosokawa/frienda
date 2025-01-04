@@ -1,5 +1,6 @@
 mod health_check;
 
+mod admin;
 mod artist;
 mod community;
 mod credit;
@@ -20,6 +21,7 @@ use health_check::HealthCheckQuery;
 pub struct QueryRoot(
     HealthCheckQuery,
     dashboard::DashboardQuery,
+    admin::AdminQuery,
     community::CommunityQuery,
     offer::OfferQuery,
     message::MessageQuery,

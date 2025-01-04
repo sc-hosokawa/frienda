@@ -6,7 +6,8 @@ import { ClientSidebar } from "./client-sidebar";
 import Header from "./header";
 import { AuthProvider } from "../../provider/auth-provider";
 import { ApollClientProvider } from "../../provider/apollo-client";
-import { Jost } from "next/font/google";
+import { Jost, Noto_Sans_JP } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
 const JostFont = Jost({
   subsets: ["latin"],
@@ -15,7 +16,14 @@ const JostFont = Jost({
   variable: "--font-jost",
 });
 
-export const metadata: Metadata = {
+export const NotoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+  display: "swap",
+  variable: "--font-noto-sans-jp",
+});
+
+const metadata: Metadata = {
   title: "FRIENDSHIP. DAO",
   description: "Community-driven dashboard",
 };
@@ -26,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
+    <html lang="ja" suppressHydrationWarning className="dark">
       <body
         className={`${JostFont.className} bg-white text-black dark:bg-black dark:text-white dark`}
       >
@@ -45,6 +53,7 @@ export default function RootLayout({
                   <Header />
                   <main className="flex-1 min-w-0 w-full">
                     <div className="max-w-6xl mx-auto">{children}</div>
+                    <Toaster />
                   </main>
                 </div>
               </SidebarProvider>

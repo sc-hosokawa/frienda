@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:http/io_client.dart';
 // import 'package:client/presentation/providers/auth_provider.dart';
 
 final graphQLClientProvider = Provider<GraphQLClient>((ref) {
@@ -7,6 +10,7 @@ final graphQLClientProvider = Provider<GraphQLClient>((ref) {
   // final token = ref.watch(authTokenProvider);
 
   final httpLink = HttpLink(
+    //'http://127.0.0.1:8080/graphql',
     'https://frienda-server-962498306731.asia-northeast1.run.app/graphql',
     defaultHeaders: {
       'Content-Type': 'application/json',

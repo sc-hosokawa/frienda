@@ -55,12 +55,16 @@ class _ArtistListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const CircleAvatar(
-        child: Icon(Icons.person),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.grey.shade600), // ボーダーの色と太さを設定
+        ),
       ),
-      title: Text(artist),
-      onTap: onTap,
+      child: ListTile(
+        title: Text(artist),
+        onTap: onTap,
+      ),
     );
   }
 }
@@ -86,7 +90,7 @@ class _AddNewArtistButton extends StatelessWidget {
             children: [
               Icon(Icons.add),
               SizedBox(width: 4),
-              Text('新規アーティストを追加'),
+              Text('アーティストデータの閲覧権限を申請する'),
             ],
           ),
         ),

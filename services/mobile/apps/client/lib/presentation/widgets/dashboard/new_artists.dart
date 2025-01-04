@@ -155,6 +155,9 @@ class _NewArtistsState extends ConsumerState<NewArtists> {
                         setState(() {
                           _selectedArtistIds.clear();
                         });
+
+                        // 前の画面に戻る
+                        Navigator.of(context).pop();
                       }
                     },
                     onError: (error) {

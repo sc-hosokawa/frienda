@@ -9,23 +9,28 @@ class WalkthroughPage4 extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(
-          'Welcome to FRIENDSHIP. DAO!',
-          style: TextStyle(fontSize: 20),
+          'OFFERS',
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.w100,
+          ),
         ),
         const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/login');
-          },
-          child: const Text('ログイン'),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.asset(
+            'assets/tutorial-offer.gif',
+            height: 350,
+            fit: BoxFit.contain,
+          ),
         ),
-        TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/signup');
-          },
+        const SizedBox(height: 30),
+        SizedBox(
+          width: 350,
           child: const Text(
-            '新規登録',
-            style: TextStyle(fontSize: 14, color: Colors.green),
+            'Offersでは、あなたにあったオファーを探すことができ、オファーに応募して承認されると、オファー作成者やオファーのパートナーと共に、オファーを始めることになります。オファーを完了すると、ポイントが付与されます。',
+            style: TextStyle(fontSize: 14),
+            textAlign: TextAlign.center,
           ),
         ),
       ],

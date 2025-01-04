@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/widgets/more.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:client/presentation/providers/fsp_balance_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:client/presentation/widgets/fsp_wallet.dart';
 
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String title;
@@ -28,15 +30,23 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 16.0),
           child: Row(
             children: [
-              balanceState.when(
-                data: (balance) => Text(
-                  '${balance.fspBalance} fsp',
-                  style: TextStyle(fontSize: 16),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Fsp()),
+                  );
+                },
+                child: balanceState.when(
+                  data: (balance) => Text(
+                    '${NumberFormat('#,###').format(balance.fspBalance)} fsp',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  loading: () => const SizedBox.shrink(),
+                  error: (err, stack) => const SizedBox.shrink(),
                 ),
-                loading: () => const SizedBox.shrink(),
-                error: (err, stack) => const SizedBox.shrink(),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                   Navigator.push(

@@ -35,6 +35,7 @@ pub struct UserDetailData {
     pub name: String,
     pub image_url: Option<String>,
     pub realname: String,
+    pub email: String,
     pub is_super_admin: bool,
     pub fsp_balance: i32,
     //    pub fsp_balance_temp: i32,
@@ -88,6 +89,7 @@ pub struct UsersInput {
 #[derive(InputObject)]
 pub struct CreateNewUserDataInput {
     pub id: String,
+    pub fcm_token: Option<String>,
     pub email: String,
     pub name: String,
     pub realname: String,
@@ -117,6 +119,8 @@ pub struct UpdateUserDataInput {
     pub x_handle: Option<String>,
     pub instagram_handle: Option<String>,
     pub fb_handle: Option<String>,
+    pub fcm_token: Option<String>,
+    pub interest_offer: Option<String>,
 }
 
 #[derive(SimpleObject)]
@@ -162,6 +166,7 @@ impl CreateNewUserDataInput {
     pub fn into_usecase_input(self) -> Result<create_user_usecase::CreateUserInput, Error> {
         Ok(create_user_usecase::CreateUserInput {
             id: self.id,
+            fcm_token: self.fcm_token,
             email: self.email,
             name: self.name,
             realname: self.realname,
@@ -229,6 +234,7 @@ impl UserDetailData {
             id: domain.user.id,
             name: domain.user.username,
             image_url: domain.user.img_url,
+            email: domain.user.email,
             fsp_balance: domain.user.fsp,
             realname: domain.user.realname,
             is_super_admin: domain.user.is_superadmin.unwrap_or(false),
