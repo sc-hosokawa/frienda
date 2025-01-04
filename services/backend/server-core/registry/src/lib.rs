@@ -62,6 +62,7 @@ use application::usecases::offer::{
     get_offer_stats_usecase::{GetOfferStatsUsecase, GetOfferStatsUsecaseTrait},
     manage_users_in_offer_usecase::{ManageUsersInOfferUsecase, ManageUsersInOfferUsecaseTrait},
     register_task_usecase::{RegisterTaskUsecase, RegisterTaskUsecaseTrait},
+    search_tasks_usecase::{SearchTasksUsecase, SearchTasksUsecaseTrait},
     update_task_usecase::{UpdateTaskUsecase, UpdateTaskUsecaseTrait},
 };
 use application::usecases::point::{
@@ -208,6 +209,7 @@ pub struct Usecases {
     pub get_user_profile: Arc<dyn GetUserProfileUsecaseTrait>,
     pub get_system_overview: Arc<dyn OverviewUsecaseTrait>,
     pub update_news: Arc<dyn UpdateNewsUsecaseTrait>,
+    pub search_tasks: Arc<dyn SearchTasksUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -290,6 +292,7 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.short_notes.clone(),
             repos.offers.clone(),
         )),
+        search_tasks: Arc::new(SearchTasksUsecase::new(repos.offers.clone())),
         mark_favorite: Arc::new(MarkFavoriteUsecase::new(repos.favorites.clone())),
         add_shortnote: Arc::new(AddShortnoteUsecase::new(repos.short_notes.clone())),
         search_users: Arc::new(SearchUsersUsecase::new(repos.users.clone())),

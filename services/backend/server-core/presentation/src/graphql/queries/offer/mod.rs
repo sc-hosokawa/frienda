@@ -147,46 +147,24 @@ impl OfferQuery {
         })
     }
 
-    /*
-    async fn get_offers_by_applied(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
-        todo!()
-    }
-
-    async fn get_offers_by_applied_user(
+    async fn search_offers(
         &self,
         ctx: &Context<'_>,
+        query: String,
+        options: models::offers::SearchOptionsOffersInput,
     ) -> Result<models::offers::OffersData> {
-        todo!()
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .search_tasks
+            .search_offers(
+                application::usecases::offer::search_tasks_usecase::SearchInput {
+                    query: query.to_string(),
+                    options: options.into(),
+                },
+            )
+            .await?;
+        Ok(models::offers::OffersData {
+            offer_list: result.into_iter().map(|o| o.into()).collect(),
+        })
     }
-
-    async fn get_offers_by_status(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
-        todo!()
-    }
-
-    async fn get_offers_by_tag(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
-        todo!()
-    }
-
-    async fn get_offers_by_title(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
-        todo!()
-    }
-
-    async fn get_offers_by_deadline(
-        &self,
-        ctx: &Context<'_>,
-    ) -> Result<models::offers::OffersData> {
-        todo!()
-    }
-
-    async fn get_offers_by_points(&self, ctx: &Context<'_>) -> Result<models::offers::OffersData> {
-        todo!()
-    }
-
-    async fn get_offers_by_user_category(
-        &self,
-        ctx: &Context<'_>,
-    ) -> Result<models::offers::OffersData> {
-        todo!()
-    }
-    */
 }
