@@ -9,6 +9,10 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@firebase/app": "^0.10.15",
+    "@firebase/auth": "^1.8.0",
+    "firebase": "^11.0.1",
+    "firebase-admin": "^12.7.0",
     "@tanstack/react-query": "^5.62.7",
     "graphql-request": "^7.1.2",
     "lucide-react": "^0.322.0",

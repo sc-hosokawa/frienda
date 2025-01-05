@@ -85,6 +85,38 @@ export default function SettingPage() {
         {/* Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 px-6 pt-6">
           <StatsCard
+            title="総登録者"
+            amount={systemOverview?.totalUsers}
+            isLoading={isLoadingSystemOverview}
+            image={<Users />}
+            unit="users"
+          />
+          <StatsCard
+            title="モバイルユーザー率"
+            amount={
+              (systemOverview?.mobileAppUsersCount /
+                systemOverview?.totalUsers) *
+              100
+            }
+            isLoading={isLoadingSystemOverview}
+            image={<Users />}
+            unit="%"
+          />
+          <StatsCard
+            title="総売上"
+            amount={systemOverview?.totalRevenue}
+            isLoading={isLoadingSystemOverview}
+            image={<JapaneseYen />}
+            unit="円"
+          />
+          <StatsCard
+            title="総配布ポイント数"
+            amount={systemOverview?.totalFsp}
+            isLoading={isLoadingSystemOverview}
+            image={<Disc />}
+            unit="fsp"
+          />
+          <StatsCard
             title="総アーティスト数"
             amount={systemOverview?.totalArtists}
             isLoading={isLoadingSystemOverview}
@@ -97,27 +129,6 @@ export default function SettingPage() {
             isLoading={isLoadingSystemOverview}
             image={<Activity />}
             unit="回"
-          />
-          <StatsCard
-            title="総配布ポイント数"
-            amount={systemOverview?.totalFsp}
-            isLoading={isLoadingSystemOverview}
-            image={<Disc />}
-            unit="fsp"
-          />
-          <StatsCard
-            title="総登録者"
-            amount={systemOverview?.totalUsers}
-            isLoading={isLoadingSystemOverview}
-            image={<Users />}
-            unit="users"
-          />
-          <StatsCard
-            title="総売上"
-            amount={systemOverview?.totalRevenue}
-            isLoading={isLoadingSystemOverview}
-            image={<JapaneseYen />}
-            unit="円"
           />
         </div>
         {/* Tables */}

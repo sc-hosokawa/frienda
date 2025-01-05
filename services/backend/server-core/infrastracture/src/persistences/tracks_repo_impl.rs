@@ -23,6 +23,18 @@ impl TracksRepository for TracksRepoImpl {
         Ok(inserted_model.unwrap())
     }
 
+    async fn create_many(&self, models: Vec<TracksActiveModel>) -> Result<(), DomainError> {
+        let _res = TracksEntity::insert_many(models)
+            .on_conflict(
+                sea_orm::sea_query::OnConflict::column(Column::Isrc)
+                    .do_nothing()
+                    .to_owned(),
+            )
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
+
     async fn update(&self, model: TracksActiveModel) -> Result<Tracks, DomainError> {
         let res: Tracks = model.update(&self.db).await?;
         Ok(res)
@@ -51,6 +63,16 @@ impl TracksRepository for TracksRepoImpl {
             .filter(Column::ArtistId.eq(artist_id))
             .all(&self.db)
             .await?;
+        Ok(res)
+    }
+
+    async fn count(&self) -> Result<i64, DomainError> {
+        let res: u64 = TracksEntity::find().count(&self.db).await?;
+        Ok(res as i64)
+    }
+
+    async fn find_all(&self) -> Result<Vec<Tracks>, DomainError> {
+        let res: Vec<Tracks> = TracksEntity::find().all(&self.db).await?;
         Ok(res)
     }
 }
