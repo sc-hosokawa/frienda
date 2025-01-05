@@ -30,6 +30,43 @@ export const GET_ALL_ARTISTS = gql`
   }
 `;
 
+export const GET_ALL_ARTISTS_ID = gql`
+  query GetAllArtists {
+    getAllArtists {
+      artistList {
+        id
+        artistId
+        name
+        displayNameEn
+        displayNameKana
+      }
+    }
+  }
+`;
+
+export const GET_ALL_ARTISTS_FOR_ADMIN = gql`
+  query GetAllArtistsFull {
+    getAllArtists {
+      artistList {
+        id
+        artistId
+        name
+        displayNameEn
+        displayNameKana
+        imageUrl
+        fsp
+        status
+        universalId
+        appleKey
+        spotifyKey
+        lineKey
+        amazonKey
+        youtubeKey
+      }
+    }
+  }
+`;
+
 export const GET_ARTIST_BY_ID = gql`
   query GetArtistById($artistId: String!) {
     getArtistById(artistId: $artistId) {
@@ -86,6 +123,7 @@ export const GET_SYSTEM_OVERVIEW = gql`
       totalFsp
       totalRevenue
       totalPlayCount
+      mobileAppUsersCount
     }
   }
 `;

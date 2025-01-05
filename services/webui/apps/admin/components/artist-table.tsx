@@ -28,28 +28,23 @@ import {
   SheetTrigger,
 } from "@ui/components/ui/sheet";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@tanstack/react-query";
+import request from "graphql-request";
+import { endpoint, GET_ALL_ARTISTS_FOR_ADMIN } from "../utils/query";
 
 interface Artist {
   artistId: string;
   nameJa: string;
   nameEn: string;
   nameKana: string;
-  isPublic: boolean;
+  status: string;
+  universalId: string;
+  appleKey: string;
+  spotifyKey: string;
+  lineKey: string;
+  amazonKey: string;
+  youtubeKey: string;
 }
-
-const GET_ARTISTS = gql`
-  query GetAllArtists {
-    getAllArtists {
-      artistList {
-        artistId
-        name
-        imageUrl
-        fsp
-      }
-    }
-  }
-`;
 
 export function ArtistTable() {
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -65,10 +60,17 @@ export function ArtistTable() {
   const itemsPerPage = 10;
   const { toast } = useToast();
 
-  const { loading, error, data } = useQuery(GET_ARTISTS);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["artists"],
+    queryFn: async () => {
+      return await request(endpoint, GET_ALL_ARTISTS_FOR_ADMIN).then(
+        (data: any) => data.getAllArtists,
+      );
+    },
+  });
 
   useEffect(() => {
-    console.log("GraphQL Response:", data); // APIレスポンスの確認
+    console.log("GraphQL Response:", data);
 
     if (data?.getAllArtists?.artistList) {
       const formattedArtists = data.getAllArtists.artistList.map(
@@ -77,9 +79,15 @@ export function ArtistTable() {
             id: parseInt(artist.artistId),
             artistId: artist.artistId,
             nameJa: artist.name,
-            nameEn: artist.name,
-            nameKana: artist.name,
-            isPublic: true,
+            nameEn: artist.displayNameEn,
+            nameKana: artist.displayNameKana,
+            status: artist.status,
+            universalId: artist.universalId,
+            appleKey: artist.appleKey,
+            spotifyKey: artist.spotifyKey,
+            lineKey: artist.lineKey,
+            amazonKey: artist.amazonKey,
+            youtubeKey: artist.youtubeKey,
           };
           return formatted;
         },
@@ -95,8 +103,10 @@ export function ArtistTable() {
         artist.nameEn.toLowerCase().includes(searchTerm.toLowerCase()) ||
         artist.nameKana.toLowerCase().includes(searchTerm.toLowerCase());
 
-      if (sortOrder === "public") return matchesSearch && artist.isPublic;
-      if (sortOrder === "private") return matchesSearch && !artist.isPublic;
+      if (sortOrder === "public")
+        return matchesSearch && artist.status === "visible";
+      if (sortOrder === "private")
+        return matchesSearch && artist.status === "hidden";
       return matchesSearch;
     });
 
@@ -107,7 +117,8 @@ export function ArtistTable() {
     setArtists(
       artists.map((artist) => {
         if (artist.artistId === artistId) {
-          const newPublicState = !artist.isPublic;
+          const newPublicState =
+            artist.status === "visible" ? "hidden" : "visible";
           toast({
             title: "公開状態を変更しました",
             description: `ID: ${artistId} を${newPublicState ? "公開" : "非公開"}に設定しました`,
@@ -155,7 +166,7 @@ export function ArtistTable() {
     currentPage * itemsPerPage,
   );
 
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -251,12 +262,19 @@ export function ArtistTable() {
                         <label>公開状態</label>
                         <div className="flex items-center space-x-2">
                           <Switch
-                            checked={editForm?.isPublic}
+                            checked={editForm?.status === "visible"}
                             onCheckedChange={() =>
-                              handleFormChange("isPublic", !editForm?.isPublic)
+                              handleFormChange(
+                                "status",
+                                editForm?.status === "visible"
+                                  ? "hidden"
+                                  : "visible",
+                              )
                             }
                           />
-                          <span>{editForm?.isPublic ? "公開" : "非公開"}</span>
+                          <span>
+                            {editForm?.status === "visible" ? "公開" : "非公開"}
+                          </span>
                         </div>
                       </div>
                       <div className="flex justify-end pt-4">
