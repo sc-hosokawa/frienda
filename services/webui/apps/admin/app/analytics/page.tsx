@@ -48,8 +48,6 @@ export default function AnalyticsPage() {
     enabled: !!selectedArtistId,
   });
 
-  console.log(trendingData);
-
   const { data: genderGenData, isLoading: isLoadingGenderGenData } = useQuery({
     queryKey: ["genderGenData", selectedArtistId],
     queryFn: async () => {

@@ -12,10 +12,16 @@ import {
   TableRow,
 } from "@ui/components/ui/table";
 import * as XLSX from "xlsx";
-import { Loader2, FileUp, Plus } from "lucide-react";
+import { Loader2, FileUp, Plus, UserPlus } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import { endpoint, GET_ALL_ARTISTS_ID } from "../utils/query";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@ui/components/ui/dialog";
 
 interface Metadata {
   upc: string;
@@ -61,6 +67,7 @@ export function MetadataUpload() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [showUnregisteredDialog, setShowUnregisteredDialog] = useState(false);
 
   const {
     data: artistMapping,
@@ -100,7 +107,11 @@ export function MetadataUpload() {
       const reader = new FileReader();
       reader.onload = (e) => {
         const data = new Uint8Array(e.target?.result as ArrayBuffer);
-        const workbook = XLSX.read(data, { type: "array" });
+        const workbook = XLSX.read(data, {
+          type: "array",
+          cellNF: false,
+          cellStyles: false,
+        });
         const secondSheetName = workbook.SheetNames[1];
         if (!secondSheetName) {
           throw new Error("Second sheet not found in workbook");
@@ -193,6 +204,9 @@ export function MetadataUpload() {
     setMetadata(newMetadata);
   };
 
+  const hasUnregisteredArtists = metadata.some((item) => !item.artistId);
+  const unregisteredArtists = metadata.filter((item) => !item.artistId);
+
   return (
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
@@ -206,7 +220,7 @@ export function MetadataUpload() {
           />
           <label
             htmlFor="file-upload"
-            className="flex items-center justify-center space-x-2 p-2 border-2 border-dashed rounded-md cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
+            className="flex items-center justify-center space-x-2 p-2 border-2 border-dashed rounded-md cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 dark:border-gray-700"
           >
             {file ? (
               <>
@@ -235,7 +249,11 @@ export function MetadataUpload() {
           <div className="flex items-center my-12">
             <h3 className="text-lg">アップロードされたメタデータ</h3>
             <Button
-              onClick={handleRegister}
+              onClick={
+                hasUnregisteredArtists
+                  ? () => setShowUnregisteredDialog(true)
+                  : handleRegister
+              }
               disabled={isRegistering}
               className="ml-4"
             >
@@ -243,6 +261,11 @@ export function MetadataUpload() {
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   登録中...
+                </>
+              ) : hasUnregisteredArtists ? (
+                <>
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  アーティストを管理する
                 </>
               ) : (
                 "登録する"
@@ -260,6 +283,7 @@ export function MetadataUpload() {
                   <TableHead className="text-center">
                     アーティスト名(カナ)
                   </TableHead>
+                  <TableHead className="text-center">アーティストID</TableHead>
                   <TableHead className="text-center">UPC</TableHead>
                   <TableHead className="text-center">商品形態</TableHead>
                   <TableHead className="text-center">トラック数</TableHead>
@@ -273,8 +297,6 @@ export function MetadataUpload() {
                   <TableHead className="text-center">
                     トラックタイトルバージョン
                   </TableHead>
-                  <TableHead className="text-center">アーティストID</TableHead>
-                  <TableHead className="text-center">ステータス</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -312,6 +334,13 @@ export function MetadataUpload() {
                       }
                       isEditing={editingIndex === index}
                     />
+                    <TableCell className="px-4">
+                      {item.artistId ? (
+                        <span className="text-green-500">{item.artistId}</span>
+                      ) : (
+                        <span className="text-red-500">未登録</span>
+                      )}
+                    </TableCell>
                     <EditableCell
                       value={item.upc}
                       onChange={(value) =>
@@ -379,25 +408,56 @@ export function MetadataUpload() {
                       }
                       isEditing={editingIndex === index}
                     />
-                    <TableCell className="px-4">
-                      {item.artistId || "-"}
-                    </TableCell>
-                    <TableCell className="px-4">
-                      <span
-                        className={
-                          item.artistStatus === "未登録"
-                            ? "text-red-500"
-                            : "text-green-500"
-                        }
-                      >
-                        {item.artistStatus}
-                      </span>
-                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
+
+          <Dialog
+            open={showUnregisteredDialog}
+            onOpenChange={setShowUnregisteredDialog}
+          >
+            <DialogContent className="max-w-3xl">
+              <DialogHeader>
+                <DialogTitle>未登録アーティスト一覧</DialogTitle>
+              </DialogHeader>
+              <div className="mt-4">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>アーティスト名(日本語)</TableHead>
+                      <TableHead>アーティスト名(カナ)</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {unregisteredArtists.map((artist, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{artist.artist_jp}</TableCell>
+                        <TableCell>{artist.artist_kana}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                <div className="mt-4 flex justify-end space-x-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowUnregisteredDialog(false)}
+                  >
+                    閉じる
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      // TODO: アーティスト管理画面への遷移処理を追加
+                      setShowUnregisteredDialog(false);
+                    }}
+                  >
+                    アーティスト管理へ
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       )}
     </div>
