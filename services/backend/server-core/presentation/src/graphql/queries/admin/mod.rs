@@ -17,6 +17,7 @@ impl AdminQuery {
             total_fsp: result.total_fsp,
             total_revenue: result.total_revenue,
             total_play_count: result.total_play_count,
+            mobile_app_users_count: result.mobile_app_users_count,
         })
     }
 

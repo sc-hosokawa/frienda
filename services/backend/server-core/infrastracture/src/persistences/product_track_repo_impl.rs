@@ -25,6 +25,18 @@ impl ProductTrackRepository for ProductTrackRepoImpl {
         Ok(inserted_model.unwrap())
     }
 
+    async fn create_many(&self, models: Vec<ProductTrackActiveModel>) -> Result<(), DomainError> {
+        let _res = ProductTrackEntity::insert_many(models)
+            .on_conflict(
+                sea_orm::sea_query::OnConflict::column(Column::Upc)
+                    .do_nothing()
+                    .to_owned(),
+            )
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
+
     async fn update(&self, model: ProductTrackActiveModel) -> Result<ProductTrack, DomainError> {
         let res = model.update(&self.db).await?;
         Ok(res)

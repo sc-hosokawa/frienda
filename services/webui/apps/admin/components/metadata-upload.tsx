@@ -12,11 +12,47 @@ import {
   TableRow,
 } from "@ui/components/ui/table";
 import * as XLSX from "xlsx";
-import { Loader2 } from "lucide-react";
+import { Loader2, FileUp, Plus } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import request from "graphql-request";
+import { endpoint, GET_ALL_ARTISTS_ID } from "../utils/query";
 
 interface Metadata {
   upc: string;
   format: string;
+  track_count: string;
+  title: string;
+  artist_jp: string;
+  artist_kana: string;
+  release_date: string;
+  isrc: string;
+  track_no: string;
+  track_title: string;
+  track_title_version: string;
+  artistId?: string;
+  artistStatus?: string;
+}
+
+function EditableCell({
+  value,
+  onChange,
+  isEditing,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  isEditing: boolean;
+}) {
+  if (!isEditing) return <TableCell className="px-4">{value}</TableCell>;
+
+  return (
+    <TableCell className="p-0">
+      <Input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="h-full border-2 border-gray-200 focus:ring-0 px-4"
+      />
+    </TableCell>
+  );
 }
 
 export function MetadataUpload() {
@@ -24,11 +60,36 @@ export function MetadataUpload() {
   const [metadata, setMetadata] = useState<Metadata[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+
+  const {
+    data: artistMapping,
+    isLoading: isLoadingArtists,
+    error,
+  } = useQuery({
+    queryKey: ["artists"],
+    queryFn: async () => {
+      return await request(endpoint, GET_ALL_ARTISTS_ID).then(
+        (data: any) => data.getAllArtists,
+      );
+    },
+  });
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
     }
+  };
+
+  const findArtistId = (artistJp: string, artistKana: string) => {
+    if (!artistMapping?.artistList) return null;
+
+    const artist = artistMapping.artistList.find(
+      (artist: any) =>
+        artist.name === artistJp || artist.displayNameKana === artistKana,
+    );
+
+    return artist?.artistId || null;
   };
 
   const handleUpload = async () => {
@@ -54,17 +115,30 @@ export function MetadataUpload() {
           header: 1,
           blankrows: false,
         });
-
         const dataRows = jsonData.slice(1);
-        console.log(dataRows);
 
         const extractedMetadata: Metadata[] = dataRows
           .slice(2)
           .map((row: unknown) => {
             const rowArray = row as any[];
+            const artistJp = rowArray[27] || "";
+            const artistKana = rowArray[33] || "";
+            const artistId = findArtistId(artistJp, artistKana);
+
             return {
               upc: rowArray[1] || "",
               format: rowArray[4] || "",
+              track_count: rowArray[7] || "",
+              title: rowArray[9] || "",
+              artist_jp: artistJp,
+              artist_kana: artistKana,
+              artistId: artistId || undefined,
+              artistStatus: artistId ? "登録済み" : "未登録",
+              release_date: rowArray[73] || "",
+              isrc: rowArray[81] || "",
+              track_no: rowArray[88] || "",
+              track_title: rowArray[93] || "",
+              track_title_version: rowArray[104] || "",
             };
           })
           .filter((item) => item.upc !== "");
@@ -96,7 +170,6 @@ export function MetadataUpload() {
         throw new Error("登録に失敗しました");
       }
 
-      // 成功したらメタデータをクリア
       setMetadata([]);
       alert("メタデータを登録しました");
     } catch (error) {
@@ -107,20 +180,55 @@ export function MetadataUpload() {
     }
   };
 
+  const handleMetadataChange = (
+    index: number,
+    field: keyof Metadata,
+    value: string,
+  ) => {
+    const newMetadata = [...metadata];
+    newMetadata[index] = {
+      ...newMetadata[index],
+      [field]: value,
+    } as Metadata;
+    setMetadata(newMetadata);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
-        <Input type="file" accept=".xlsx,.xlsm" onChange={handleFileChange} />
-        <Button onClick={handleUpload} disabled={isLoading}>
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              処理中...
-            </>
-          ) : (
-            "アップロード"
-          )}
-        </Button>
+        <div className="relative flex-1">
+          <Input
+            type="file"
+            accept=".xlsx,.xlsm"
+            onChange={handleFileChange}
+            className="hidden"
+            id="file-upload"
+          />
+          <label
+            htmlFor="file-upload"
+            className="flex items-center justify-center space-x-2 p-2 border-2 border-dashed rounded-md cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
+          >
+            {file ? (
+              <>
+                <FileUp className="h-5 w-5" />
+                <span>{file.name}</span>
+              </>
+            ) : (
+              <>
+                <Plus className="h-5 w-5" />
+                <span>ファイルを選択してください</span>
+              </>
+            )}
+          </label>
+        </div>
+        {file && (
+          <Button
+            onClick={handleUpload}
+            disabled={isLoading || metadata.length > 0}
+          >
+            {isLoading ? <>処理中...</> : "アップロード"}
+          </Button>
+        )}
       </div>
       {metadata.length > 0 && (
         <div className="mt-8">
@@ -145,18 +253,146 @@ export function MetadataUpload() {
             <Table className="text-sm">
               <TableHeader>
                 <TableRow className="border-b border-gray-200 dark:border-gray-700">
-                  <TableHead>UPC</TableHead>
-                  <TableHead>商品形態</TableHead>
+                  <TableHead className="text-center">操作</TableHead>
+                  <TableHead className="text-center">
+                    アーティスト名(日本語)
+                  </TableHead>
+                  <TableHead className="text-center">
+                    アーティスト名(カナ)
+                  </TableHead>
+                  <TableHead className="text-center">UPC</TableHead>
+                  <TableHead className="text-center">商品形態</TableHead>
+                  <TableHead className="text-center">トラック数</TableHead>
+                  <TableHead className="text-center">タイトル</TableHead>
+                  <TableHead className="text-center">リリース日</TableHead>
+                  <TableHead className="text-center">ISRC</TableHead>
+                  <TableHead className="text-center">トラック番号</TableHead>
+                  <TableHead className="text-center">
+                    トラックタイトル
+                  </TableHead>
+                  <TableHead className="text-center">
+                    トラックタイトルバージョン
+                  </TableHead>
+                  <TableHead className="text-center">アーティストID</TableHead>
+                  <TableHead className="text-center">ステータス</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {metadata.map((item, index) => (
                   <TableRow
                     key={index}
-                    className="border-b border-gray-200 dark:border-gray-700"
+                    className={`border-b border-gray-200 dark:border-gray-700 whitespace-nowrap ${
+                      editingIndex === index
+                        ? "bg-gray-50 dark:bg-gray-800"
+                        : ""
+                    }`}
                   >
-                    <TableCell>{item.upc}</TableCell>
-                    <TableCell>{item.format}</TableCell>
+                    <TableCell className="px-6">
+                      {editingIndex === index ? (
+                        <Button onClick={() => setEditingIndex(null)}>
+                          保存
+                        </Button>
+                      ) : (
+                        <Button onClick={() => setEditingIndex(index)}>
+                          編集
+                        </Button>
+                      )}
+                    </TableCell>
+                    <EditableCell
+                      value={item.artist_jp}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "artist_jp", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.artist_kana}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "artist_kana", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.upc}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "upc", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.format}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "format", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.track_count}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "track_count", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.title}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "title", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.release_date}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "release_date", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.isrc}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "isrc", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.track_no}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "track_no", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.track_title}
+                      onChange={(value) =>
+                        handleMetadataChange(index, "track_title", value)
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <EditableCell
+                      value={item.track_title_version}
+                      onChange={(value) =>
+                        handleMetadataChange(
+                          index,
+                          "track_title_version",
+                          value,
+                        )
+                      }
+                      isEditing={editingIndex === index}
+                    />
+                    <TableCell className="px-4">
+                      {item.artistId || "-"}
+                    </TableCell>
+                    <TableCell className="px-4">
+                      <span
+                        className={
+                          item.artistStatus === "未登録"
+                            ? "text-red-500"
+                            : "text-green-500"
+                        }
+                      >
+                        {item.artistStatus}
+                      </span>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

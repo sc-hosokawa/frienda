@@ -23,6 +23,18 @@ impl ProductsRepository for ProductsRepoImpl {
         Ok(inserted_model.unwrap())
     }
 
+    async fn create_many(&self, models: Vec<ProductsActiveModel>) -> Result<(), DomainError> {
+        let _res = ProductsEntity::insert_many(models)
+            .on_conflict(
+                sea_orm::sea_query::OnConflict::column(Column::Upc)
+                    .do_nothing()
+                    .to_owned(),
+            )
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
+
     async fn update(&self, model: ProductsActiveModel) -> Result<Products, DomainError> {
         let res = model.update(&self.db).await?;
         Ok(res)
@@ -43,6 +55,11 @@ impl ProductsRepository for ProductsRepoImpl {
             .filter(Column::ArtistId.eq(artist_id))
             .all(&self.db)
             .await?;
+        Ok(res)
+    }
+
+    async fn find_all(&self) -> Result<Vec<Products>, DomainError> {
+        let res: Vec<Products> = ProductsEntity::find().all(&self.db).await?;
         Ok(res)
     }
 }
