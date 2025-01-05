@@ -1,3 +1,4 @@
+mod admin;
 mod artist;
 mod community;
 mod credit;
@@ -23,4 +24,5 @@ pub struct MutationRoot(
     quest::QuestMutation,
     artist::ArtistMutation,
     credit::CreditMutation,
+    admin::AdminMutation,
 );

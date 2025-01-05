@@ -10,6 +10,10 @@ pub trait ProductTrackRepository: Send + Sync {
         &self,
         product_track: ProductTrackActiveModel,
     ) -> Result<ProductTrack, DomainError>;
+    async fn create_many(
+        &self,
+        product_tracks: Vec<ProductTrackActiveModel>,
+    ) -> Result<(), DomainError>;
     async fn update(
         &self,
         product_track: ProductTrackActiveModel,

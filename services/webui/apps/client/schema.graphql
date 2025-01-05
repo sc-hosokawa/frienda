@@ -45,6 +45,13 @@ type ArtistData {
 	displayNameKana: String
 	fsp: Int!
 	imageUrl: String
+	status: String!
+	universalId: String
+	appleKey: String
+	spotifyKey: String
+	lineKey: String
+	amazonKey: String
+	youtubeKey: String
 }
 
 type ArtistFullData {
@@ -401,6 +408,7 @@ type MutationRoot {
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
+	registerReleases(input: RegisterReleases!): RegisterReleasesResponse!
 }
 
 type NotificationData {
@@ -469,6 +477,7 @@ type OverviewData {
 	totalFsp: Int!
 	totalRevenue: Int!
 	totalPlayCount: Int!
+	mobileAppUsersCount: Int!
 }
 
 type PendingMember {
@@ -602,6 +611,27 @@ input RegisterInfo {
 	email: String!
 	isInvite: Boolean!
 	memo: String
+}
+
+input RegisterReleases {
+	releases: [ReleaseData!]!
+}
+
+type RegisterReleasesResponse {
+	success: Boolean!
+}
+
+input ReleaseData {
+	upc: String!
+	format: String!
+	trackCount: Int!
+	title: String!
+	releaseDate: String!
+	isrc: String!
+	trackNo: Int!
+	trackTitle: String!
+	trackTitleVersion: String!
+	artistId: String!
 }
 
 input RequestToAccessArtistInput {

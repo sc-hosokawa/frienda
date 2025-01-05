@@ -3,7 +3,10 @@ use std::sync::Arc;
 use tracing;
 
 use application::health_check::*;
-use application::usecases::admin::overview_usecase::{OverviewUsecase, OverviewUsecaseTrait};
+use application::usecases::admin::{
+    manage_tracks_usecase::{ManageTracksUsecase, ManageTracksUsecaseTrait},
+    overview_usecase::{OverviewUsecase, OverviewUsecaseTrait},
+};
 use application::usecases::artist::{
     get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait},
     get_members_usecase::{GetMembersUsecase, GetMembersUsecaseTrait},
@@ -208,6 +211,7 @@ pub struct Usecases {
     pub get_user_profile: Arc<dyn GetUserProfileUsecaseTrait>,
     pub get_system_overview: Arc<dyn OverviewUsecaseTrait>,
     pub update_news: Arc<dyn UpdateNewsUsecaseTrait>,
+    pub manage_tracks: Arc<dyn ManageTracksUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -271,6 +275,12 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.track_credits.clone(),
             repos.tracks.clone(),
             repos.txs_fsp.clone(),
+        )),
+        manage_tracks: Arc::new(ManageTracksUsecase::new(
+            repos.tracks.clone(),
+            repos.products.clone(),
+            repos.artists.clone(),
+            repos.product_track.clone(),
         )),
         get_user_profile: Arc::new(GetUserProfileUsecase::new(
             repos.users.clone(),

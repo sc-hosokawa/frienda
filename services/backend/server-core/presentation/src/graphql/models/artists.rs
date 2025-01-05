@@ -12,6 +12,13 @@ pub struct ArtistData {
     pub display_name_kana: Option<String>,
     pub fsp: i32,
     pub image_url: Option<String>,
+    pub status: String,
+    pub universal_id: Option<String>,
+    pub apple_key: Option<String>,
+    pub spotify_key: Option<String>,
+    pub line_key: Option<String>,
+    pub amazon_key: Option<String>,
+    pub youtube_key: Option<String>,
 }
 
 #[derive(SimpleObject)]
@@ -233,6 +240,17 @@ impl ArtistData {
             display_name_kana: domain.display_name_kana,
             fsp: domain.fsp,
             image_url: domain.img_url,
+            status: match domain.status {
+                ArtistStatus::Hidden => "hidden".to_string(),
+                ArtistStatus::Visible => "visible".to_string(),
+                ArtistStatus::Unknown => "unknown".to_string(),
+            },
+            universal_id: domain.universal_id,
+            apple_key: domain.apple_key,
+            spotify_key: domain.spotify_key,
+            line_key: domain.line_key,
+            amazon_key: domain.amazon_key,
+            youtube_key: domain.youtube_key,
         })
     }
 }

@@ -45,6 +45,13 @@ type ArtistData {
 	displayNameKana: String
 	fsp: Int!
 	imageUrl: String
+	status: String!
+	universalId: String
+	appleKey: String
+	spotifyKey: String
+	lineKey: String
+	amazonKey: String
+	youtubeKey: String
 }
 
 type ArtistFullData {
@@ -243,6 +250,14 @@ type ExchangePrizeResponse {
 }
 
 
+type FspHistory {
+	date: String!
+	from: String!
+	to: String!
+	amount: Int!
+	notes: String
+}
+
 type GenPlaybackRate {
 	under14: Int!
 	gen1519: Int!
@@ -393,6 +408,7 @@ type MutationRoot {
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
+	registerReleases(input: RegisterReleases!): RegisterReleasesResponse!
 }
 
 type NotificationData {
@@ -461,6 +477,7 @@ type OverviewData {
 	totalFsp: Int!
 	totalRevenue: Int!
 	totalPlayCount: Int!
+	mobileAppUsersCount: Int!
 }
 
 type PendingMember {
@@ -518,7 +535,7 @@ type ProductsData {
 
 type QueryRoot {
 	healthCheck: HealthCheck!
-	getOverview: OverviewData!
+	getOverview(artistId: String!, userId: String!): TotalOverviewData!
 	getOverviewByUpc(artistId: String!, userId: String!, upc: String!): TotalOverviewData!
 	getTrending(artistId: String!, userId: String!): TrendingData!
 	getPlayCountHistory(artistId: String!, userId: String!, period: Int!): ChartData!
@@ -527,8 +544,9 @@ type QueryRoot {
 	getGenderGenRateByUpc(artistId: String!, userId: String!, upc: String!): GenderGenRateData!
 	getProducts(artistId: String!): ProductsData!
 	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
-	getFspHistory(userId: String!, count: Int!): TransactionsData!
-	getTrackCreditsHistory(count: Int!): [Credit!]!
+	getSystemOverview: OverviewData!
+	getFspHistoryForAdmin(count: Int!): [FspHistory!]!
+	getTrackCreditsHistoryForAdmin(count: Int!): [Credit!]!
 	getOwnCommunity(userId: String!): ConnectedUsersData!
 	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
 	getUserProfile(viewerId: String!, userId: String!): UserDataOnDetailPage!
@@ -561,6 +579,7 @@ type QueryRoot {
 	getPopularPrizes: [PrizeData!]!
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
+	getFspHistory(userId: String!, count: Int!): TransactionsData!
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
 	getQuestByUserId(userId: String!): [QuestData!]!
@@ -592,6 +611,27 @@ input RegisterInfo {
 	email: String!
 	isInvite: Boolean!
 	memo: String
+}
+
+input RegisterReleases {
+	releases: [ReleaseData!]!
+}
+
+type RegisterReleasesResponse {
+	success: Boolean!
+}
+
+input ReleaseData {
+	upc: String!
+	format: String!
+	trackCount: Int!
+	title: String!
+	releaseDate: String!
+	isrc: String!
+	trackNo: Int!
+	trackTitle: String!
+	trackTitleVersion: String!
+	artistId: String!
 }
 
 input RequestToAccessArtistInput {

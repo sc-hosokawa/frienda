@@ -17,6 +17,7 @@ pub struct OverviewOutput {
     pub total_fsp: i64,
     pub total_revenue: i64,
     pub total_play_count: i64,
+    pub mobile_app_users_count: i32,
 }
 
 pub struct Credit {
@@ -42,6 +43,7 @@ pub trait OverviewUsecaseTrait: Send + Sync {
     async fn get_system_overview(&self) -> Result<OverviewOutput, anyhow::Error>;
     async fn get_all_credits(&self, count: i32) -> Result<Vec<Credit>, anyhow::Error>;
     async fn get_fsp_history(&self, count: i32) -> Result<Vec<FspHistory>, anyhow::Error>;
+    async fn get_balance_mobile_app_users(&self) -> Result<i32, anyhow::Error>;
 }
 
 pub struct OverviewUsecase {
@@ -76,6 +78,7 @@ impl OverviewUsecaseTrait for OverviewUsecase {
         let all_users: Vec<User> = self.users_repo.get_all_users().await?;
         let all_fsps: i32 = all_users.iter().map(|user| user.fsp).sum::<i32>();
         let total_artists: i64 = self.artists_repo.count().await?;
+        let mobile_app_users_count = self.get_balance_mobile_app_users().await?;
 
         Ok(OverviewOutput {
             total_users: all_users.len() as i64,
@@ -83,6 +86,7 @@ impl OverviewUsecaseTrait for OverviewUsecase {
             total_fsp: all_fsps as i64,
             total_revenue: 0,
             total_play_count: 0,
+            mobile_app_users_count,
         })
     }
 
@@ -129,5 +133,11 @@ impl OverviewUsecaseTrait for OverviewUsecase {
             }
         }
         Ok(result)
+    }
+
+    async fn get_balance_mobile_app_users(&self) -> Result<i32, anyhow::Error> {
+        let users: Vec<User> = self.users_repo.get_all_users().await?;
+        let mobile_app_users_count = users.iter().filter(|user| user.fcm_token.is_some()).count();
+        Ok(mobile_app_users_count as i32)
     }
 }
