@@ -213,6 +213,7 @@ export function MetadataUpload() {
           <MetadataTable
             metadata={metadata}
             editingIndex={editingIndex}
+            hasUnregisteredArtists={hasUnregisteredArtists}
             setEditingIndex={setEditingIndex}
             handleMetadataChange={handleMetadataChange}
           />

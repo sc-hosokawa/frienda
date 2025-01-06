@@ -61,6 +61,7 @@ function EditableCell({ value, onChange, isEditing }: EditableCellProps) {
 interface MetadataTableProps {
   metadata: Metadata[];
   editingIndex: number | null;
+  hasUnregisteredArtists: boolean;
   setEditingIndex: (index: number | null) => void;
   handleMetadataChange: (
     index: number,
@@ -80,6 +81,7 @@ const REGISTER_RELEASES = `
 export function MetadataTable({
   metadata,
   editingIndex,
+  hasUnregisteredArtists,
   setEditingIndex,
   handleMetadataChange,
 }: MetadataTableProps) {
@@ -236,13 +238,15 @@ export function MetadataTable({
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-        <Button
-          onClick={handleRegister}
-          className=""
-          disabled={mutation.isPending}
-        >
-          {mutation.isPending ? "登録中..." : "登録"}
-        </Button>
+        {!hasUnregisteredArtists && (
+          <Button
+            onClick={handleRegister}
+            className=""
+            disabled={mutation.isPending}
+          >
+            {mutation.isPending ? "登録中..." : "登録"}
+          </Button>
+        )}
       </div>
 
       <Table className="text-sm">
