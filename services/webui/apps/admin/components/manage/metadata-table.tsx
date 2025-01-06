@@ -16,9 +16,11 @@ import {
   PaginationContent,
   PaginationItem,
   PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@ui/components/ui/pagination";
+import { useMutation } from "@tanstack/react-query";
+import request from "graphql-request";
+import { endpoint } from "../../utils/query";
+import { useToast } from "@ui/hooks/use-toast";
 
 interface Metadata {
   upc: string;
@@ -67,12 +69,21 @@ interface MetadataTableProps {
   ) => void;
 }
 
+const REGISTER_RELEASES = `
+  mutation RegisterReleases($input: RegisterReleases!) {
+    registerReleases(input: $input) {
+      success
+    }
+  }
+`;
+
 export function MetadataTable({
   metadata,
   editingIndex,
   setEditingIndex,
   handleMetadataChange,
 }: MetadataTableProps) {
+  const { toast } = useToast();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
   const totalPages = Math.ceil(metadata.length / itemsPerPage);
@@ -82,9 +93,61 @@ export function MetadataTable({
     currentPage * itemsPerPage,
   );
 
+  const mutation = useMutation({
+    mutationFn: async (metadata: Metadata[]) => {
+      const releases = metadata.map((item) => ({
+        upc: item.upc,
+        format: item.format,
+        trackCount: parseInt(item.track_count),
+        title: item.title,
+        releaseDate: item.release_date,
+        isrc: item.isrc,
+        trackNo: parseInt(item.track_no),
+        trackTitle: item.track_title,
+        trackTitleVersion: item.track_title_version,
+        artistId: item.artistId || "",
+      }));
+
+      return request(endpoint, REGISTER_RELEASES, {
+        input: { releases },
+      });
+    },
+    onSuccess: (data: any) => {
+      if (data.registerReleases.success) {
+        toast({
+          title: "メタデータを登録しました",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "登録に失敗しました",
+          variant: "destructive",
+        });
+      }
+    },
+    onError: (error) => {
+      console.error("Registration error:", error);
+      toast({
+        title: "登録中にエラーが発生しました",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleRegister = () => {
+    if (!paginatedMetadata.every((item) => item.artistId)) {
+      toast({
+        title: "アーティストIDが未設定の項目があります",
+        variant: "destructive",
+      });
+      return;
+    }
+    mutation.mutate(paginatedMetadata);
+  };
+
   return (
     <div className="overflow-x-auto">
-      <div className="mb-4">
+      <div className="flex justify-between items-center mb-4">
         <Pagination>
           <PaginationContent>
             <PaginationItem>
@@ -173,6 +236,13 @@ export function MetadataTable({
             </PaginationItem>
           </PaginationContent>
         </Pagination>
+        <Button
+          onClick={handleRegister}
+          className=""
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? "登録中..." : "登録"}
+        </Button>
       </div>
 
       <Table className="text-sm">

@@ -86,7 +86,7 @@ impl ManageArtistsUsecaseTrait for ManageArtistsUsecase {
         let mut artists: Vec<ArtistRes> = Vec::new();
 
         for artist in input.artists {
-            let new_artist_id: String = format!("artist_00_{:0>15}", current_sequence);
+            let new_artist_id: String = format!("artist_00_{:0>18}", current_sequence);
 
             let artist_model: ArtistActiveModel = ArtistActiveModel {
                 artist_id: ActiveValue::Set(new_artist_id.clone()),

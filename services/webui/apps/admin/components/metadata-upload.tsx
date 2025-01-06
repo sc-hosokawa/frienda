@@ -31,7 +31,6 @@ export function MetadataUpload() {
   const [file, setFile] = useState<File | null>(null);
   const [metadata, setMetadata] = useState<Metadata[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isRegistering, setIsRegistering] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [showUnregisteredDialog, setShowUnregisteredDialog] = useState(false);
 
@@ -139,33 +138,6 @@ export function MetadataUpload() {
     }
   };
 
-  const handleRegister = async () => {
-    if (metadata.length === 0) return;
-    setIsRegistering(true);
-
-    try {
-      const response = await fetch("/api/metadata", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ metadata }),
-      });
-
-      if (!response.ok) {
-        throw new Error("登録に失敗しました");
-      }
-
-      setMetadata([]);
-      alert("メタデータを登録しました");
-    } catch (error) {
-      console.error("登録エラー:", error);
-      alert("登録中にエラーが発生しました");
-    } finally {
-      setIsRegistering(false);
-    }
-  };
-
   const handleMetadataChange = (
     index: number,
     field: keyof Metadata,
@@ -225,29 +197,17 @@ export function MetadataUpload() {
             <h3 className="text-lg">
               アップロードされたメタデータ（{metadata.length}件）
             </h3>
-            <Button
-              onClick={
-                hasUnregisteredArtists
-                  ? () => setShowUnregisteredDialog(true)
-                  : handleRegister
-              }
-              disabled={isRegistering}
-              className="ml-4"
-            >
-              {isRegistering ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  登録中...
-                </>
-              ) : hasUnregisteredArtists ? (
+            {hasUnregisteredArtists && (
+              <Button
+                onClick={() => setShowUnregisteredDialog(true)}
+                className="ml-4"
+              >
                 <>
                   <AlertCircle className="mr-2 h-4 w-4 animate-pulse" />
                   未登録のアーティストを確認
                 </>
-              ) : (
-                "登録する"
-              )}
-            </Button>
+              </Button>
+            )}
           </div>
 
           <MetadataTable

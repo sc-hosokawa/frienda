@@ -6,7 +6,14 @@ import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
 import { Separator } from "@ui/components/ui/separator";
 import { useToast } from "@ui/hooks/use-toast";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@ui/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@ui/components/ui/table";
 
 import { endpoint, CREATE_NEW_ARTIST } from "../utils/query";
 import { useMutation } from "@tanstack/react-query";
@@ -86,7 +93,7 @@ export function NewArtistForm() {
         try {
           const text = await file.text();
           const rows = text.split("\n").filter((row) => row.trim());
-          
+
           const artists: CreateNewArtistInput[] = rows.map((row) => {
             const [nameJp, nameEn, nameKana] = row
               .split(",")
@@ -113,7 +120,7 @@ export function NewArtistForm() {
 
   const handleCsvSubmit = async () => {
     const invalidData = previewData.some(
-      (artist) => !artist.displayNameJp || !artist.displayNameEn
+      (artist) => !artist.displayNameJp || !artist.displayNameEn,
     );
 
     if (invalidData) {
@@ -133,7 +140,8 @@ export function NewArtistForm() {
         setPreviewData([]);
         setCsvFile(null);
         if (document.getElementById("csv-upload")) {
-          (document.getElementById("csv-upload") as HTMLInputElement).value = "";
+          (document.getElementById("csv-upload") as HTMLInputElement).value =
+            "";
         }
       },
       onError: (error) => {
@@ -146,7 +154,11 @@ export function NewArtistForm() {
     });
   };
 
-  const handleEditData = (index: number, field: keyof CreateNewArtistInput, value: string) => {
+  const handleEditData = (
+    index: number,
+    field: keyof CreateNewArtistInput,
+    value: string,
+  ) => {
     const newData = [...previewData];
     // @ts-ignore
     newData[index] = { ...newData[index], [field]: value };
@@ -232,21 +244,43 @@ export function NewArtistForm() {
                       <TableCell>
                         <Input
                           value={artist.displayNameJp}
-                          onChange={(e) => handleEditData(index, "displayNameJp", e.target.value)}
-                          className={!artist.displayNameJp ? "border-red-500" : ""}
+                          onChange={(e) =>
+                            handleEditData(
+                              index,
+                              "displayNameJp",
+                              e.target.value,
+                            )
+                          }
+                          className={
+                            !artist.displayNameJp ? "border-red-500" : ""
+                          }
                         />
                       </TableCell>
                       <TableCell>
                         <Input
                           value={artist.displayNameEn}
-                          onChange={(e) => handleEditData(index, "displayNameEn", e.target.value)}
-                          className={!artist.displayNameEn ? "border-red-500" : ""}
+                          onChange={(e) =>
+                            handleEditData(
+                              index,
+                              "displayNameEn",
+                              e.target.value,
+                            )
+                          }
+                          className={
+                            !artist.displayNameEn ? "border-red-500" : ""
+                          }
                         />
                       </TableCell>
                       <TableCell>
                         <Input
                           value={artist.displayNameKana || ""}
-                          onChange={(e) => handleEditData(index, "displayNameKana", e.target.value)}
+                          onChange={(e) =>
+                            handleEditData(
+                              index,
+                              "displayNameKana",
+                              e.target.value,
+                            )
+                          }
                         />
                       </TableCell>
                     </TableRow>
