@@ -1,9 +1,8 @@
 use async_trait::async_trait;
 use domain::entities::offers::{ActiveModel as OfferActiveModel, Model as Offer};
+use domain::repositories::offers_repo::{OffersRepository, SearchOptions};
 use mockall::automock;
 use shared::error::domain_err::DomainError;
-
-use domain::repositories::offers_repo::OffersRepository;
 
 #[automock]
 #[async_trait]
@@ -18,6 +17,11 @@ pub trait MockOffersRepo {
     async fn mock_get_offers_by_category(
         &self,
         category_id: String,
+    ) -> Result<Vec<Offer>, DomainError>;
+    async fn mock_search(
+        &self,
+        query: &str,
+        options: SearchOptions,
     ) -> Result<Vec<Offer>, DomainError>;
 }
 
@@ -54,5 +58,9 @@ impl OffersRepository for MockMockOffersRepo {
     async fn get_offers_by_category(&self, category_id: &str) -> Result<Vec<Offer>, DomainError> {
         self.mock_get_offers_by_category(category_id.to_string())
             .await
+    }
+
+    async fn search(&self, query: &str, options: SearchOptions) -> Result<Vec<Offer>, DomainError> {
+        self.mock_search(query, options).await
     }
 }

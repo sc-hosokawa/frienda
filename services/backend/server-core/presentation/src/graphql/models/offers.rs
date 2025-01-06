@@ -4,7 +4,6 @@ use async_graphql::{InputObject, SimpleObject};
 use domain::entities::sea_orm_active_enums::{OfferCategory, OfferStatus, UserCategory};
 
 // ===== Query =====
-
 #[derive(SimpleObject)]
 pub struct OfferStatsData {
     pub total_offers: i32,
@@ -81,8 +80,18 @@ pub struct UserInOfferData {
     pub status_in_offer: String,
 }
 
-// ===== Mutation =====
+#[derive(InputObject)]
+pub struct SearchOptionsOffersInput {
+    pub owner: Option<String>, // varchar(28)
+    pub category: Option<String>,
+    pub target_role: Option<String>,
+    pub place: Option<String>,
+    pub min_price: Option<i32>,
+    pub max_price: Option<i32>,
+    pub sort_by: Option<String>,
+}
 
+// ===== Mutation =====
 #[derive(InputObject)]
 pub struct CreateNewOfferInput {
     pub owner: String,
@@ -303,6 +312,26 @@ impl From<application::usecases::offer::manage_users_in_offer_usecase::GetUsersI
                 OfferStatus::Rejected => "Rejected".to_string(),
                 OfferStatus::Suspend => "Suspend".to_string(),
             },
+        }
+    }
+}
+
+impl From<SearchOptionsOffersInput>
+    for application::usecases::offer::search_tasks_usecase::SearchUsecaseOptions
+{
+    fn from(input: SearchOptionsOffersInput) -> Self {
+        application::usecases::offer::search_tasks_usecase::SearchUsecaseOptions {
+            owner: input.owner,
+            category: input
+                .category
+                .map(|c| from_string_to_offer_category(&c).unwrap()),
+            target_role: input
+                .target_role
+                .map(|r| from_string_to_user_category(&r).unwrap()),
+            place: input.place,
+            min_price: input.min_price,
+            max_price: input.max_price,
+            sort_by: input.sort_by,
         }
     }
 }
