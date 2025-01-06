@@ -37,7 +37,7 @@ export function SearchArtist({
   isLoading,
   isError,
 }: Props) {
-  if (isLoading) {
+  if (isLoading || !artists) {
     return <Skeleton className="h-12 w-80" />;
   } else if (isError) {
     return <div>Error loading artists.</div>;

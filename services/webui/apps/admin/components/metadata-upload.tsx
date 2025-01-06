@@ -10,6 +10,7 @@ import request from "graphql-request";
 import { endpoint, GET_ALL_ARTISTS_ID } from "../utils/query";
 import { MetadataTable } from "./manage/metadata-table";
 import { UnregisteredArtistsDialog } from "./manage/unregistered-artist-dialog";
+import { useToast } from "@ui/hooks/use-toast"
 
 interface Metadata {
   upc: string;
@@ -33,6 +34,7 @@ export function MetadataUpload() {
   const [isLoading, setIsLoading] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [showUnregisteredDialog, setShowUnregisteredDialog] = useState(false);
+  const { toast } = useToast();
 
   const {
     data: artistMapping,
@@ -66,6 +68,23 @@ export function MetadataUpload() {
 
   const handleUpload = async () => {
     if (!file) return;
+    if (isLoadingArtists) {
+      toast({
+        title: "アーティスト情報の読み込み中",
+        description: "アーティスト情報の読み込みが完了するまでお待ちください。",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (!artistMapping?.artistList) {
+      toast({
+        title: "アーティスト情報の取得に失敗",
+        description: "アーティスト情報が取得できませんでした。再度お試しください。",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -185,9 +204,15 @@ export function MetadataUpload() {
         {file && (
           <Button
             onClick={handleUpload}
-            disabled={isLoading || metadata.length > 0}
+            disabled={isLoading || metadata.length > 0 || isLoadingArtists}
           >
-            {isLoading ? <>処理中...</> : "アップロード"}
+            {isLoading ? (
+              <>処理中...</>
+            ) : isLoadingArtists ? (
+              <>アーティスト情報読み込み中...</>
+            ) : (
+              "アップロード"
+            )}
           </Button>
         )}
       </div>
