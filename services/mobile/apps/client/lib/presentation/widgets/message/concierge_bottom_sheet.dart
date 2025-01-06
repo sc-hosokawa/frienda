@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:dio/dio.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 
 class ConciergeBottomSheet extends ConsumerStatefulWidget {
@@ -35,32 +35,35 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
     });
 
     try {
-      final result = await ref
-          .read(graphQLClientProvider)
-          .query(
-            QueryOptions(
-              document: gql('''
+      final dio = Dio();
+      dio.options.headers['Content-Type'] = 'application/json';
+      dio.options.sendTimeout = const Duration(seconds: 60);
+      dio.options.receiveTimeout = const Duration(seconds: 60);
+      dio.options.connectTimeout = const Duration(seconds: 60);
+      final response = await dio.post(
+        'https://frienda-server-962498306731.asia-northeast1.run.app/graphql',
+        data: {
+          'query': '''
             query AskLlm(\$userId: String!, \$question: String!) {
               askLlm(userId: \$userId, question: \$question)
             }
-          '''),
-              variables: {
-                'userId': widget.userId,
-                'question': _questionController.text,
-              },
-              fetchPolicy: FetchPolicy.noCache,
-              cacheRereadPolicy: CacheRereadPolicy.ignoreAll,
-              errorPolicy: ErrorPolicy.all,
-            ),
-          )
-          .timeout(const Duration(seconds: 30));
+          ''',
+          'variables': {
+            'userId': widget.userId,
+            'question': _questionController.text,
+          },
+        },
+      );
 
-      if (result.hasException) {
-        throw result.exception!;
+      print(response.data);
+
+      final data = response.data as Map<String, dynamic>;
+      if (data['errors'] != null) {
+        throw Exception(data['errors'][0]['message']);
       }
 
       setState(() {
-        _response = result.data?['askLlm'] as String?;
+        _response = data['data']['askLlm'] as String; // String!なのでnull非許容
         _isLoading = false;
       });
 
