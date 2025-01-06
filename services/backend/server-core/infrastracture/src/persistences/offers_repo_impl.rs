@@ -5,7 +5,7 @@ use sea_orm::*;
 use domain::entities::offers::{
     ActiveModel as OfferActiveModel, Column, Entity as OfferEntity, Model as Offer,
 };
-use domain::repositories::offers_repo::OffersRepository;
+use domain::repositories::offers_repo::{OffersRepository, SearchOptions};
 use shared::error::domain_err::DomainError;
 
 #[derive(new)]
@@ -79,5 +79,56 @@ impl OffersRepository for OffersRepoImpl {
             .await?;
 
         Ok(offers)
+    }
+
+    async fn search(&self, query: &str, options: SearchOptions) -> Result<Vec<Offer>, DomainError> {
+        let mut condition: Condition = if query.is_empty() {
+            Condition::all()
+        } else {
+            let search_term: String = format!("%{}%", query);
+            Condition::any()
+                .add(Column::Title.contains(&search_term))
+                .add(Column::Description.contains(&search_term))
+                .add(Column::Attention.contains(&search_term))
+        };
+
+        if let Some(category) = options.category {
+            condition = condition.add(Column::Category.eq(category));
+        }
+
+        if let Some(target_role) = options.target_role {
+            condition = condition.add(Column::TargetRole.eq(target_role));
+        }
+
+        if let Some(min_price) = options.min_price {
+            condition = condition.add(Column::Fee.gte(min_price));
+        }
+
+        if let Some(max_price) = options.max_price {
+            condition = condition.add(Column::Fee.lte(max_price));
+        }
+
+        if let Some(place) = options.place {
+            condition = condition.add(Column::Place.contains(&place));
+        }
+
+        if let Some(owner) = options.owner {
+            condition = condition.add(Column::Owner.eq(owner));
+        }
+
+        let mut query = OfferEntity::find().filter(condition);
+
+        if let Some(sort_by) = options.sort_by {
+            query = match sort_by.as_str() {
+                "fee_asc" => query.order_by_asc(Column::Fee),
+                "fee_desc" => query.order_by_desc(Column::Fee),
+                _ => query.order_by_desc(Column::CreatedAt),
+            };
+        }
+
+        query
+            .all(&self.db)
+            .await
+            .map_err(|e| DomainError::DatabaseError(e.to_string()))
     }
 }
