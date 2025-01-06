@@ -3,25 +3,13 @@
 import { useState } from "react";
 import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@ui/components/ui/table";
 import * as XLSX from "xlsx";
-import { Loader2, FileUp, Plus, UserPlus } from "lucide-react";
+import { Loader2, FileUp, Plus, AlertCircle } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import { endpoint, GET_ALL_ARTISTS_ID } from "../utils/query";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@ui/components/ui/dialog";
+import { MetadataTable } from "./manage/metadata-table";
+import { UnregisteredArtistsDialog } from "./manage/unregistered-artist-dialog";
 
 interface Metadata {
   upc: string;
@@ -37,28 +25,6 @@ interface Metadata {
   track_title_version: string;
   artistId?: string;
   artistStatus?: string;
-}
-
-function EditableCell({
-  value,
-  onChange,
-  isEditing,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  isEditing: boolean;
-}) {
-  if (!isEditing) return <TableCell className="px-4">{value}</TableCell>;
-
-  return (
-    <TableCell className="p-0">
-      <Input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="h-full border-2 border-gray-200 focus:ring-0 px-4"
-      />
-    </TableCell>
-  );
 }
 
 export function MetadataUpload() {
@@ -130,27 +96,36 @@ export function MetadataUpload() {
 
         const extractedMetadata: Metadata[] = dataRows
           .slice(2)
-          .map((row: unknown) => {
+          .flatMap((row: unknown) => {
             const rowArray = row as any[];
             const artistJp = rowArray[27] || "";
             const artistKana = rowArray[33] || "";
-            const artistId = findArtistId(artistJp, artistKana);
 
-            return {
-              upc: rowArray[1] || "",
-              format: rowArray[4] || "",
-              track_count: rowArray[7] || "",
-              title: rowArray[9] || "",
-              artist_jp: artistJp,
-              artist_kana: artistKana,
-              artistId: artistId || undefined,
-              artistStatus: artistId ? "登録済み" : "未登録",
-              release_date: rowArray[73] || "",
-              isrc: rowArray[81] || "",
-              track_no: rowArray[88] || "",
-              track_title: rowArray[93] || "",
-              track_title_version: rowArray[104] || "",
-            };
+            const artistJpList = artistJp.split("|").map((a: any) => a.trim());
+            const artistKanaList = artistKana
+              .split("|")
+              .map((a: any) => a.trim());
+
+            return artistJpList.map((splitArtistJp: any, index: any) => {
+              const splitArtistKana = artistKanaList[index] || "";
+              const artistId = findArtistId(splitArtistJp, splitArtistKana);
+
+              return {
+                upc: rowArray[1] || "",
+                format: rowArray[4] || "",
+                track_count: rowArray[7] || "",
+                title: rowArray[9] || "",
+                artist_jp: splitArtistJp,
+                artist_kana: splitArtistKana,
+                artistId: artistId || undefined,
+                artistStatus: artistId ? "登録済み" : "未登録",
+                release_date: rowArray[73] || "",
+                isrc: rowArray[81] || "",
+                track_no: rowArray[88] || "",
+                track_title: rowArray[93] || "",
+                track_title_version: rowArray[104] || "",
+              };
+            });
           })
           .filter((item) => item.upc !== "");
 
@@ -247,7 +222,9 @@ export function MetadataUpload() {
       {metadata.length > 0 && (
         <div className="mt-8">
           <div className="flex items-center my-12">
-            <h3 className="text-lg">アップロードされたメタデータ</h3>
+            <h3 className="text-lg">
+              アップロードされたメタデータ（{metadata.length}件）
+            </h3>
             <Button
               onClick={
                 hasUnregisteredArtists
@@ -264,200 +241,27 @@ export function MetadataUpload() {
                 </>
               ) : hasUnregisteredArtists ? (
                 <>
-                  <UserPlus className="mr-2 h-4 w-4" />
-                  アーティストを管理する
+                  <AlertCircle className="mr-2 h-4 w-4 animate-pulse" />
+                  未登録のアーティストを確認
                 </>
               ) : (
                 "登録する"
               )}
             </Button>
           </div>
-          <div className="overflow-x-auto">
-            <Table className="text-sm">
-              <TableHeader>
-                <TableRow className="border-b border-gray-200 dark:border-gray-700">
-                  <TableHead className="text-center">操作</TableHead>
-                  <TableHead className="text-center">
-                    アーティスト名(日本語)
-                  </TableHead>
-                  <TableHead className="text-center">
-                    アーティスト名(カナ)
-                  </TableHead>
-                  <TableHead className="text-center">アーティストID</TableHead>
-                  <TableHead className="text-center">UPC</TableHead>
-                  <TableHead className="text-center">商品形態</TableHead>
-                  <TableHead className="text-center">トラック数</TableHead>
-                  <TableHead className="text-center">タイトル</TableHead>
-                  <TableHead className="text-center">リリース日</TableHead>
-                  <TableHead className="text-center">ISRC</TableHead>
-                  <TableHead className="text-center">トラック番号</TableHead>
-                  <TableHead className="text-center">
-                    トラックタイトル
-                  </TableHead>
-                  <TableHead className="text-center">
-                    トラックタイトルバージョン
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {metadata.map((item, index) => (
-                  <TableRow
-                    key={index}
-                    className={`border-b border-gray-200 dark:border-gray-700 whitespace-nowrap ${
-                      editingIndex === index
-                        ? "bg-gray-50 dark:bg-gray-800"
-                        : ""
-                    }`}
-                  >
-                    <TableCell className="px-6">
-                      {editingIndex === index ? (
-                        <Button onClick={() => setEditingIndex(null)}>
-                          保存
-                        </Button>
-                      ) : (
-                        <Button onClick={() => setEditingIndex(index)}>
-                          編集
-                        </Button>
-                      )}
-                    </TableCell>
-                    <EditableCell
-                      value={item.artist_jp}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "artist_jp", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <EditableCell
-                      value={item.artist_kana}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "artist_kana", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <TableCell className="px-4">
-                      {item.artistId ? (
-                        <span className="text-green-500">{item.artistId}</span>
-                      ) : (
-                        <span className="text-red-500">未登録</span>
-                      )}
-                    </TableCell>
-                    <EditableCell
-                      value={item.upc}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "upc", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <EditableCell
-                      value={item.format}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "format", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <EditableCell
-                      value={item.track_count}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "track_count", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <EditableCell
-                      value={item.title}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "title", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <EditableCell
-                      value={item.release_date}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "release_date", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <EditableCell
-                      value={item.isrc}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "isrc", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <EditableCell
-                      value={item.track_no}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "track_no", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <EditableCell
-                      value={item.track_title}
-                      onChange={(value) =>
-                        handleMetadataChange(index, "track_title", value)
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                    <EditableCell
-                      value={item.track_title_version}
-                      onChange={(value) =>
-                        handleMetadataChange(
-                          index,
-                          "track_title_version",
-                          value,
-                        )
-                      }
-                      isEditing={editingIndex === index}
-                    />
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
 
-          <Dialog
-            open={showUnregisteredDialog}
-            onOpenChange={setShowUnregisteredDialog}
-          >
-            <DialogContent className="max-w-3xl">
-              <DialogHeader>
-                <DialogTitle>未登録アーティスト一覧</DialogTitle>
-              </DialogHeader>
-              <div className="mt-4">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>アーティスト名(日本語)</TableHead>
-                      <TableHead>アーティスト名(カナ)</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {unregisteredArtists.map((artist, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{artist.artist_jp}</TableCell>
-                        <TableCell>{artist.artist_kana}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-                <div className="mt-4 flex justify-end space-x-2">
-                  <Button
-                    variant="outline"
-                    onClick={() => setShowUnregisteredDialog(false)}
-                  >
-                    閉じる
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      // TODO: アーティスト管理画面への遷移処理を追加
-                      setShowUnregisteredDialog(false);
-                    }}
-                  >
-                    アーティスト管理へ
-                  </Button>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <MetadataTable
+            metadata={metadata}
+            editingIndex={editingIndex}
+            setEditingIndex={setEditingIndex}
+            handleMetadataChange={handleMetadataChange}
+          />
+
+          <UnregisteredArtistsDialog
+            showDialog={showUnregisteredDialog}
+            setShowDialog={setShowUnregisteredDialog}
+            unregisteredArtists={unregisteredArtists}
+          />
         </div>
       )}
     </div>

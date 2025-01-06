@@ -153,3 +153,14 @@ export const GET_TRACK_CREDITS_HISTORY = gql`
     }
   }
 `;
+
+export const CREATE_NEW_ARTIST = gql`
+  mutation CreateNewArtist($input: [CreateNewArtistInput!]!) {
+    createNewArtist(input: $input) {
+      addedArtists {
+        artistId
+        displayNameJp
+      }
+    }
+  }
+`;

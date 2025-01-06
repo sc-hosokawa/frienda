@@ -31,7 +31,7 @@ export function StatsCard({
           <Skeleton className="w-full h-[32px]" />
         ) : (
           <div className="text-3xl">
-            {amount}
+            {amount.toLocaleString()}
             <span className="text-sm text-right ml-1">
               {unit ? ` ${unit}` : ""}
             </span>
