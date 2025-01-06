@@ -5,7 +5,7 @@ import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
 import * as XLSX from "xlsx";
 import { Loader2, FileUp, Plus, AlertCircle } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import request from "graphql-request";
 import { endpoint, GET_ALL_ARTISTS_ID } from "../utils/query";
 import { MetadataTable } from "./manage/metadata-table";
@@ -35,6 +35,7 @@ export function MetadataUpload() {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [showUnregisteredDialog, setShowUnregisteredDialog] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const {
     data: artistMapping,
@@ -68,26 +69,33 @@ export function MetadataUpload() {
 
   const handleUpload = async () => {
     if (!file) return;
-    if (isLoadingArtists || !artistMapping?.artistList) {
-      toast({
-        title: "アーティスト情報の読み込み中",
-        description: "アーティスト情報の読み込みが完了するまでお待ちください。",
-        variant: "destructive",
-      });
-      return;
-    }
-    if (isErrorLoadingArtists) {
-      toast({
-        title: "アーティスト情報の取得に失敗",
-        description: "アーティスト情報が取得できませんでした。再度お試しください。",
-        variant: "destructive",
-      });
-      return;
-    }
 
     setIsLoading(true);
 
     try {
+      console.log("fetching artists");
+      await queryClient.ensureQueryData({
+        queryKey: ['artists'],
+        queryFn: async () => {
+          return await request(endpoint, GET_ALL_ARTISTS_ID).then(
+            (data: any) => data.getAllArtists,
+          );
+        },
+        staleTime: 10000,
+      });
+      console.log("artists fetched");
+
+      if (isErrorLoadingArtists) {
+        toast({
+          title: "アーティスト情報の取得に失敗",
+          description: "アーティスト情報が取得できませんでした。再度お試しください。",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      console.log("processing file");
+
       const reader = new FileReader();
       reader.onload = (e) => {
         const data = new Uint8Array(e.target?.result as ArrayBuffer);
@@ -152,8 +160,13 @@ export function MetadataUpload() {
       };
       reader.readAsArrayBuffer(file);
     } catch (error) {
+      console.error("Error during upload:", error);
       setIsLoading(false);
-      console.error("Error processing file:", error);
+      toast({
+        title: "エラーが発生しました",
+        description: "処理中にエラーが発生しました。再度お試しください。",
+        variant: "destructive",
+      });
     }
   };
 

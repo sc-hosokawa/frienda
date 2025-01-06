@@ -1,4 +1,5 @@
 "use client";
+
 import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import React from "react";
@@ -23,7 +24,7 @@ export default function AnalyticsPage() {
     "artist_00_000000000000000185",
   );
   const {
-    data: artistData = [],
+    data: artistData,
     isLoading: isLoadingArtist,
     isError: isErrorLoadingArtist,
   } = useQuery({
@@ -82,7 +83,7 @@ export default function AnalyticsPage() {
         <SearchArtist
           value={selectedArtistId}
           setValue={setSelectedArtistId}
-          artists={artistData}
+          artists={artistData || []}
           open={open}
           setOpen={setOpen}
           isLoading={isLoadingArtist}

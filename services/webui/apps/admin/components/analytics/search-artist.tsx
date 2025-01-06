@@ -1,3 +1,5 @@
+"use client";
+
 import { Check, ChevronsUpDown } from "lucide-react";
 
 import { cn } from "@ui/lib/utils";
@@ -31,7 +33,7 @@ interface Props {
 export function SearchArtist({
   value,
   setValue,
-  artists,
+  artists = [],
   open,
   setOpen,
   isLoading,
@@ -43,6 +45,11 @@ export function SearchArtist({
     return <div>Error loading artists.</div>;
   }
 
+  console.log("artists", artists);
+  const selectedArtist = Array.isArray(artists) 
+    ? artists.find((artist: any) => artist.artistId === value)
+    : [];
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -52,9 +59,7 @@ export function SearchArtist({
           aria-expanded={open}
           className="w-80 justify-between"
         >
-          {value
-            ? artists.find((artist: any) => artist.artistId === value)?.name
-            : "Select artist..."}
+          {selectedArtist?.name || "Select artist..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -64,24 +69,30 @@ export function SearchArtist({
           <CommandList>
             <CommandEmpty>No artist found.</CommandEmpty>
             <CommandGroup>
-              {artists.map((artist: any) => (
-                <CommandItem
-                  key={artist.artistId}
-                  value={artist.name}
-                  onSelect={() => {
-                    setValue(artist.artistId);
-                    setOpen(false);
-                  }}
-                >
-                  {artist.name}
-                  <Check
-                    className={cn(
-                      "ml-auto",
-                      value === artist.artistId ? "opacity-100" : "opacity-0",
-                    )}
-                  />
+              {Array.isArray(artists) ? (
+                artists.map((artist: any) => (
+                  <CommandItem
+                    key={artist.artistId}
+                    value={artist.name}
+                    onSelect={() => {
+                      setValue(artist.artistId);
+                      setOpen(false);
+                    }}
+                  >
+                    {artist.name}
+                    <Check
+                      className={cn(
+                        "ml-auto",
+                        value === artist.artistId ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                  </CommandItem>
+                ))
+              ) : (
+                <CommandItem value="error">
+                  データの読み込みに失敗しました
                 </CommandItem>
-              ))}
+              )}
             </CommandGroup>
           </CommandList>
         </Command>
