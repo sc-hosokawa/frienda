@@ -11,7 +11,7 @@ import {
   GET_FSP_HISTORY,
   GET_TRACK_CREDITS_HISTORY,
 } from "../../utils/query";
-import { Activity, Disc, JapaneseYen, Users } from "lucide-react";
+import { Activity, Disc, JapaneseYen, Users, Smartphone } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -99,7 +99,7 @@ export default function SettingPage() {
               100
             }
             isLoading={isLoadingSystemOverview}
-            image={<Users />}
+            image={<Smartphone />}
             unit="%"
           />
           <StatsCard

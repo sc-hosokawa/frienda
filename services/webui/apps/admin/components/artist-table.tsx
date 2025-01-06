@@ -70,28 +70,18 @@ export function ArtistTable() {
   });
 
   useEffect(() => {
-    console.log("GraphQL Response:", data);
-
-    if (data?.getAllArtists?.artistList) {
-      const formattedArtists = data.getAllArtists.artistList.map(
-        (artist: any) => {
-          const formatted = {
-            id: parseInt(artist.artistId),
-            artistId: artist.artistId,
-            nameJa: artist.name,
-            nameEn: artist.displayNameEn,
-            nameKana: artist.displayNameKana,
-            status: artist.status,
-            universalId: artist.universalId,
-            appleKey: artist.appleKey,
-            spotifyKey: artist.spotifyKey,
-            lineKey: artist.lineKey,
-            amazonKey: artist.amazonKey,
-            youtubeKey: artist.youtubeKey,
-          };
-          return formatted;
-        },
-      );
+    if (data?.artistList) {
+      const formattedArtists = data.artistList.map((artist: any) => {
+        const formatted = {
+          id: parseInt(artist.artistId),
+          artistId: artist.artistId,
+          nameJa: artist.name,
+          nameEn: artist.displayNameEn,
+          nameKana: artist.displayNameKana,
+          status: artist.status,
+        };
+        return formatted;
+      });
       setArtists(formattedArtists);
     }
   }, [data]);
