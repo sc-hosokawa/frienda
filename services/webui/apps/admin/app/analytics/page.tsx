@@ -23,7 +23,7 @@ export default function AnalyticsPage() {
     "artist_00_000000000000000185",
   );
   const {
-    data: artistData,
+    data: artistData = [],
     isLoading: isLoadingArtist,
     isError: isErrorLoadingArtist,
   } = useQuery({

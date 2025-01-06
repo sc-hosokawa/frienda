@@ -39,7 +39,7 @@ export function MetadataUpload() {
   const {
     data: artistMapping,
     isLoading: isLoadingArtists,
-    error,
+    isError: isErrorLoadingArtists,
   } = useQuery({
     queryKey: ["artists"],
     queryFn: async () => {
@@ -68,7 +68,7 @@ export function MetadataUpload() {
 
   const handleUpload = async () => {
     if (!file) return;
-    if (isLoadingArtists) {
+    if (isLoadingArtists || !artistMapping?.artistList) {
       toast({
         title: "アーティスト情報の読み込み中",
         description: "アーティスト情報の読み込みが完了するまでお待ちください。",
@@ -76,7 +76,7 @@ export function MetadataUpload() {
       });
       return;
     }
-    if (!artistMapping?.artistList) {
+    if (isErrorLoadingArtists) {
       toast({
         title: "アーティスト情報の取得に失敗",
         description: "アーティスト情報が取得できませんでした。再度お試しください。",
