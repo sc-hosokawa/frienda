@@ -17,6 +17,20 @@ import { Trending } from "../../components/analytics/trending";
 
 const admin = "admin_0000000000000000000185";
 
+interface ArtistsData {
+  getAllArtists: {
+    artistList: ArtistData[];
+  }
+}
+
+interface ArtistData {
+  id: string;
+  artistId: string;
+  name: string;
+  imageUrl?: string;
+  fsp: number;
+}
+
 export default function AnalyticsPage() {
   const [selectedPeriod, setSelectedPeriod] = React.useState(12);
   const [open, setOpen] = React.useState(false);
@@ -27,12 +41,11 @@ export default function AnalyticsPage() {
     data: artistData,
     isLoading: isLoadingArtist,
     isError: isErrorLoadingArtist,
-  } = useQuery({
+  } = useQuery<ArtistData[]>({
     queryKey: ["artists"],
     queryFn: async () => {
-      return await request(endpoint, GET_ALL_ARTISTS).then(
-        (data: any) => data.getAllArtists.artistList,
-      );
+      const response = await request<ArtistsData>(endpoint, GET_ALL_ARTISTS);
+      return response.getAllArtists.artistList;
     },
   });
 
