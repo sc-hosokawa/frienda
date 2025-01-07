@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "onchain",
+    "dsp",
+]
+resolver = "2"
