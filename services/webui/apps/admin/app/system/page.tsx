@@ -10,6 +10,7 @@ import {
   GET_SYSTEM_OVERVIEW,
   GET_FSP_HISTORY,
   GET_TRACK_CREDITS_HISTORY,
+  GET_ALL_USERS,
 } from "../../utils/query";
 import { Activity, Disc, JapaneseYen, Users, Smartphone } from "lucide-react";
 import {
@@ -34,6 +35,7 @@ import {
   PointHistoryTableProps,
 } from "../../components/system/point-history-table";
 import Link from "next/link";
+import { UserListTable } from "../../components/system/user-list-table";
 
 export default function SettingPage() {
   const { data: artistData, isLoading: isLoadingArtist } = useQuery({
@@ -78,6 +80,19 @@ export default function SettingPage() {
         }).then((data: any) => data.getTrackCreditsHistoryForAdmin);
       },
     });
+
+  const {
+    data: userTable,
+    isLoading: isLoadingUserTable,
+    isError: isErrorUserTable,
+  } = useQuery({
+    queryKey: ["userTable"],
+    queryFn: async () => {
+      return await request(endpoint, GET_ALL_USERS, { count: 10 }).then(
+        (data: any) => data.getAllUsersForAdmin,
+      );
+    },
+  });
 
   return (
     <main>
@@ -133,6 +148,60 @@ export default function SettingPage() {
         </div>
         {/* Tables */}
         <div className="grid grid-cols-1 gap-6 p-6">
+          <Card className="dark:border dark:border-white dark:border-opacity-10">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>{`ユーザー一覧`}</CardTitle>
+              <Link
+                href="/system/user"
+                className="text-sm text-muted-foreground hover:underline"
+              >
+                詳細を見る
+              </Link>
+            </CardHeader>
+            <CardContent>
+              <Table className="border-collapse">
+                <TableHeader>
+                  <TableRow className="border-b border-[#FFFFFF73]">
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
+                      realname
+                    </TableHead>
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
+                      username
+                    </TableHead>
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
+                      email
+                    </TableHead>
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
+                      role
+                    </TableHead>
+                    <TableHead className="text-[15px] font-medium leading-[15px] text-left">
+                      createdAt
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {isLoadingUserTable ? (
+                    <TableRow>
+                      <td colSpan={5} className="text-center py-4">
+                        Loading...
+                      </td>
+                    </TableRow>
+                  ) : (
+                    userTable?.map((user: any) => (
+                      <UserListTable
+                        key={user.id}
+                        realname={user.realname}
+                        username={user.username}
+                        email={user.email}
+                        role={user.role}
+                        createdAt={user.createdAt}
+                      />
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
           <Card className="dark:border dark:border-white dark:border-opacity-10">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>{`クレジット登録`}</CardTitle>
@@ -238,54 +307,3 @@ export default function SettingPage() {
     </main>
   );
 }
-
-const mockCreditHistory: CreditHistoryTableProps[] = [
-  {
-    date: "12/18/2024",
-    isrc: "username",
-    user: "username",
-    role: "artist",
-    name: "username",
-    email: "example@gmail.com",
-  },
-  {
-    date: "12/18/2024",
-    isrc: "username",
-    user: "username",
-    role: "artist",
-    name: "username",
-    email: "example@gmail.com",
-  },
-  {
-    date: "12/18/2024",
-    isrc: "username",
-    user: "username",
-    role: "artist",
-    name: "username",
-    email: "example@gmail.com",
-  },
-  {
-    date: "12/18/2024",
-    isrc: "username",
-    user: "username",
-    role: "artist",
-    name: "username",
-    email: "example@gmail.com",
-  },
-  {
-    date: "12/18/2024",
-    isrc: "username",
-    user: "username",
-    role: "artist",
-    name: "username",
-    email: "example@gmail.com",
-  },
-  {
-    date: "12/18/2024",
-    isrc: "username",
-    user: "username",
-    role: "artist",
-    name: "username",
-    email: "example@gmail.com",
-  },
-];

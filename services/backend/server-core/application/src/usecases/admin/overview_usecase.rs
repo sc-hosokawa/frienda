@@ -44,6 +44,7 @@ pub trait OverviewUsecaseTrait: Send + Sync {
     async fn get_all_credits(&self, count: i32) -> Result<Vec<Credit>, anyhow::Error>;
     async fn get_fsp_history(&self, count: i32) -> Result<Vec<FspHistory>, anyhow::Error>;
     async fn get_balance_mobile_app_users(&self) -> Result<i32, anyhow::Error>;
+    async fn get_all_users(&self) -> Result<Vec<User>, anyhow::Error>;
 }
 
 pub struct OverviewUsecase {
@@ -139,5 +140,10 @@ impl OverviewUsecaseTrait for OverviewUsecase {
         let users: Vec<User> = self.users_repo.get_all_users().await?;
         let mobile_app_users_count = users.iter().filter(|user| user.fcm_token.is_some()).count();
         Ok(mobile_app_users_count as i32)
+    }
+
+    async fn get_all_users(&self) -> Result<Vec<User>, anyhow::Error> {
+        let users: Vec<User> = self.users_repo.get_all_users().await?;
+        Ok(users)
     }
 }

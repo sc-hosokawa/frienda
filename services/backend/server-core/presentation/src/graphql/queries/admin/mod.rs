@@ -3,6 +3,8 @@ use async_graphql::{Context, Object, Result};
 use registry::Usecases;
 use std::sync::Arc;
 
+use domain::entities::sea_orm_active_enums::UserCategory;
+
 #[derive(Default)]
 pub struct AdminQuery;
 
@@ -57,6 +59,34 @@ impl AdminQuery {
                 role: credit.role,
                 name: credit.name,
                 email: credit.email,
+            })
+            .collect())
+    }
+
+    async fn get_all_users_for_admin(&self, ctx: &Context<'_>) -> Result<Vec<models::admin::User>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.get_system_overview.get_all_users().await?;
+        Ok(result
+            .into_iter()
+            .map(|user| models::admin::User {
+                id: user.id,
+                realname: user.realname,
+                username: user.username,
+                image_url: user.img_url,
+                email: user.email,
+                role: match user.category {
+                    UserCategory::Musician => "Musician".to_string(),
+                    UserCategory::Creator => "Creator".to_string(),
+                    UserCategory::Supporter => "Supporter".to_string(),
+                    UserCategory::Curator => "Curator".to_string(),
+                },
+                primary_role: match user.primary_category {
+                    UserCategory::Musician => "Musician".to_string(),
+                    UserCategory::Creator => "Creator".to_string(),
+                    UserCategory::Supporter => "Supporter".to_string(),
+                    UserCategory::Curator => "Curator".to_string(),
+                },
+                created_at: user.created_at.to_string(),
             })
             .collect())
     }
