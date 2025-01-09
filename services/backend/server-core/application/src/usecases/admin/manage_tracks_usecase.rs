@@ -30,6 +30,7 @@ pub struct Release {
     pub track_title: String,
     pub track_title_version: String,
     pub artist_id: String,
+    pub image_url: Option<String>,
 }
 
 #[async_trait]
@@ -105,6 +106,7 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
                 r#type: ActiveValue::Set(Some(release.format.clone())),
                 distributed_at: ActiveValue::Set(Some(release.release_date.parse().unwrap())),
                 artist_id: ActiveValue::Set(Some(release.artist_id.clone())),
+                img_url: ActiveValue::Set(release.image_url.clone()),
                 ..Default::default()
             });
 

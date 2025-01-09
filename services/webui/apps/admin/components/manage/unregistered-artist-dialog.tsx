@@ -14,9 +14,14 @@ import {
   TableRow,
 } from "@ui/components/ui/table";
 import { useState, useMemo } from "react";
+import { useMutation } from "@tanstack/react-query";
+import request from "graphql-request";
+import { useToast } from "@ui/hooks/use-toast";
+import { endpoint } from "../../utils/query";
 
 interface Metadata {
   artist_jp: string;
+  artist_en: string;
   artist_kana: string;
 }
 
@@ -42,19 +47,82 @@ function getUniqueArtists(artists: Metadata[]): Metadata[] {
 
 function generateCsv(artists: Metadata[]): string {
   return artists
-    .map((artist) => `${artist.artist_jp},,${artist.artist_kana || ""}`)
+    .map(
+      (artist) =>
+        `${artist.artist_jp},${artist.artist_en},${artist.artist_kana || ""}`,
+    )
     .join("\n");
 }
+
+type CreateNewArtistInput = {
+  displayNameJp: string;
+  displayNameEn: string;
+  displayNameKana?: string;
+};
+
+type CreateNewArtistResponse = {
+  createNewArtist: {
+    addedArtists: Array<{
+      artistId: string;
+      displayNameJp: string;
+    }>;
+  };
+};
 
 export function UnregisteredArtistsDialog({
   showDialog,
   setShowDialog,
   unregisteredArtists,
 }: UnregisteredArtistsDialogProps) {
+  const { toast } = useToast();
   const uniqueArtists = useMemo(
     () => getUniqueArtists(unregisteredArtists),
     [unregisteredArtists],
   );
+
+  const mutation = useMutation({
+    mutationFn: async (artists: CreateNewArtistInput[]) => {
+      const mutation = `
+        mutation CreateNewArtist($input: [CreateNewArtistInput!]!) {
+          createNewArtist(input: $input) {
+            addedArtists {
+              artistId
+              displayNameJp
+            }
+          }
+        }
+      `;
+
+      return request<CreateNewArtistResponse>(endpoint, mutation, {
+        input: artists,
+      });
+    },
+  });
+
+  const handleRegisterArtists = () => {
+    const artists = uniqueArtists.map((artist) => ({
+      displayNameJp: artist.artist_jp,
+      displayNameEn: artist.artist_en,
+      displayNameKana: artist.artist_kana,
+    }));
+
+    mutation.mutate(artists, {
+      onSuccess: (data) => {
+        toast({
+          title: `${artists.length}件のアーティストを登録しました`,
+          variant: "default",
+        });
+        setShowDialog(false);
+      },
+      onError: (error) => {
+        console.error("Error creating artists:", error);
+        toast({
+          title: "アーティストの登録に失敗しました",
+          variant: "destructive",
+        });
+      },
+    });
+  };
 
   const handleDownloadCsv = () => {
     const csvContent = generateCsv(uniqueArtists);
@@ -86,6 +154,7 @@ export function UnregisteredArtistsDialog({
             <TableHeader>
               <TableRow>
                 <TableHead>アーティスト名(日本語)</TableHead>
+                <TableHead>アーティスト名(英語)</TableHead>
                 <TableHead>アーティスト名(カナ)</TableHead>
               </TableRow>
             </TableHeader>
@@ -93,6 +162,7 @@ export function UnregisteredArtistsDialog({
               {uniqueArtists.map((artist, index) => (
                 <TableRow key={index}>
                   <TableCell>{artist.artist_jp}</TableCell>
+                  <TableCell>{artist.artist_en}</TableCell>
                   <TableCell>{artist.artist_kana}</TableCell>
                 </TableRow>
               ))}
@@ -107,9 +177,12 @@ export function UnregisteredArtistsDialog({
                 handleDownloadCsv();
                 setShowDialog(false);
               }}
-              variant="default"
+              variant="outline"
             >
               CSVダウンロード
+            </Button>
+            <Button onClick={handleRegisterArtists} variant="default">
+              アーティストを登録
             </Button>
           </div>
         </div>

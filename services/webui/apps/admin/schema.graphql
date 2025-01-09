@@ -547,6 +547,7 @@ type QueryRoot {
 	getSystemOverview: OverviewData!
 	getFspHistoryForAdmin(count: Int!): [FspHistory!]!
 	getTrackCreditsHistoryForAdmin(count: Int!): [Credit!]!
+	getAllUsersForAdmin: [User!]!
 	getOwnCommunity(userId: String!): ConnectedUsersData!
 	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
 	getUserProfile(viewerId: String!, userId: String!): UserDataOnDetailPage!
@@ -556,6 +557,7 @@ type QueryRoot {
 	getOffers: OffersData!
 	getOffersById(offerId: Int!, userId: String!): OfferDetailData!
 	getUsersInOffer(offerId: Int!, userId: String!): UsersInOfferData!
+	searchOffers(query: String!, options: SearchOptionsOffersInput!): OffersData!
 	getMessageRooms(userId: String!): MessageRoomsByUserData!
 	getMessagesInProgress(userId: String!): MessageRoomsByUserData!
 	getMessagesByMessageRoomId(userId: String!, messageRoomId: String!): MessagesByRoomIdByUserData!
@@ -632,6 +634,7 @@ input ReleaseData {
 	trackTitle: String!
 	trackTitleVersion: String!
 	artistId: String!
+	imageUrl: String
 }
 
 input RequestToAccessArtistInput {
@@ -641,6 +644,16 @@ input RequestToAccessArtistInput {
 
 type RequestToAccessArtistResponse {
 	createdMappings: [ArtistByUserDataWithMappingId!]!
+}
+
+input SearchOptionsOffersInput {
+	owner: String
+	category: String
+	targetRole: String
+	place: String
+	minPrice: Int
+	maxPrice: Int
+	sortBy: String
 }
 
 input SendMessageInput {
@@ -830,6 +843,17 @@ input UpdateUserDataInput {
 
 type UpdateUserDataResponse {
 	userInfo: UserDetailData!
+}
+
+type User {
+	id: String!
+	imageUrl: String
+	realname: String!
+	username: String!
+	email: String!
+	role: String!
+	primaryRole: String!
+	createdAt: String!
 }
 
 type UserConnectionData {

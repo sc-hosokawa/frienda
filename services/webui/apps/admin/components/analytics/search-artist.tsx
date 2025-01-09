@@ -46,7 +46,7 @@ export function SearchArtist({
   }
 
   console.log("artists", artists);
-  const selectedArtist = Array.isArray(artists) 
+  const selectedArtist = Array.isArray(artists)
     ? artists.find((artist: any) => artist.artistId === value)
     : [];
 

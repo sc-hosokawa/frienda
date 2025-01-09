@@ -28,6 +28,7 @@ interface Metadata {
   track_count: string;
   title: string;
   artist_jp: string;
+  artist_en: string;
   artist_kana: string;
   release_date: string;
   isrc: string;
@@ -36,6 +37,7 @@ interface Metadata {
   track_title_version: string;
   artistId?: string;
   artistStatus?: string;
+  imageUrl?: string;
 }
 
 interface EditableCellProps {
@@ -108,6 +110,7 @@ export function MetadataTable({
         trackTitle: item.track_title,
         trackTitleVersion: item.track_title_version,
         artistId: item.artistId || "",
+        imageUrl: item.imageUrl || "",
       }));
 
       return request(endpoint, REGISTER_RELEASES, {
@@ -257,6 +260,7 @@ export function MetadataTable({
               アーティスト名(日本語)
             </TableHead>
             <TableHead className="text-center">アーティスト名(カナ)</TableHead>
+            <TableHead className="text-center">アーティスト名(英語)</TableHead>
             <TableHead className="text-center">アーティストID</TableHead>
             <TableHead className="text-center">UPC</TableHead>
             <TableHead className="text-center">商品形態</TableHead>
@@ -297,6 +301,13 @@ export function MetadataTable({
                 value={item.artist_kana}
                 onChange={(value) =>
                   handleMetadataChange(index, "artist_kana", value)
+                }
+                isEditing={editingIndex === index}
+              />
+              <EditableCell
+                value={item.artist_en}
+                onChange={(value) =>
+                  handleMetadataChange(index, "artist_en", value)
                 }
                 isEditing={editingIndex === index}
               />

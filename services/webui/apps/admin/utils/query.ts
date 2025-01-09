@@ -164,3 +164,18 @@ export const CREATE_NEW_ARTIST = gql`
     }
   }
 `;
+
+export const GET_ALL_USERS = gql`
+  query GetAllUsersForAdmin {
+    getAllUsersForAdmin {
+      id
+      imageUrl
+      realname
+      username
+      email
+      role
+      primaryRole
+      createdAt
+    }
+  }
+`;

@@ -47,9 +47,22 @@ pub struct ReleaseData {
     pub track_title: String,
     pub track_title_version: String,
     pub artist_id: String,
+    pub image_url: Option<String>,
 }
 
 #[derive(SimpleObject)]
 pub struct RegisterReleasesResponse {
     pub success: bool,
+}
+
+#[derive(SimpleObject)]
+pub struct User {
+    pub id: String,
+    pub image_url: Option<String>,
+    pub realname: String,
+    pub username: String,
+    pub email: String,
+    pub role: String,
+    pub primary_role: String,
+    pub created_at: String,
 }

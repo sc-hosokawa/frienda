@@ -20,7 +20,7 @@ const admin = "admin_0000000000000000000185";
 interface ArtistsData {
   getAllArtists: {
     artistList: ArtistData[];
-  }
+  };
 }
 
 interface ArtistData {
