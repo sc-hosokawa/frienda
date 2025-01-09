@@ -33,6 +33,7 @@ impl AdminMutation {
                                 track_title: release.track_title,
                                 track_title_version: release.track_title_version,
                                 artist_id: release.artist_id,
+                                image_url: release.image_url,
                             }
                         })
                         .collect(),

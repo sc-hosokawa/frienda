@@ -47,6 +47,7 @@ pub struct ReleaseData {
     pub track_title: String,
     pub track_title_version: String,
     pub artist_id: String,
+    pub image_url: Option<String>,
 }
 
 #[derive(SimpleObject)]

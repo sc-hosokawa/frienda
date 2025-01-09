@@ -171,13 +171,13 @@ export default function OfferEditPage() {
 
       if (offer.attachedImgs) {
         setAttachedImages(
-          offer.attachedImgs.map((url: string) => ({ url, isNew: false }))
+          offer.attachedImgs.map((url: string) => ({ url, isNew: false })),
         );
       }
 
       if (offer.attachedFiles) {
         setAttachedFiles(
-          offer.attachedFiles.map((url: string) => ({ url, isNew: false }))
+          offer.attachedFiles.map((url: string) => ({ url, isNew: false })),
         );
       }
     }
@@ -192,16 +192,18 @@ export default function OfferEditPage() {
     }
   };
 
-  const handleAttachedImagesSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAttachedImagesSelect = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const files = Array.from(e.target.files || []);
     const imageFiles = files
       .filter((file) => {
-        if (!file.type.startsWith('image/')) {
-          alert('画像ファイルのみアップロード可能です。');
+        if (!file.type.startsWith("image/")) {
+          alert("画像ファイルのみアップロード可能です。");
           return false;
         }
         if (file.size > 10 * 1024 * 1024) {
-          alert('画像サイズは10MB以下にしてください。');
+          alert("画像サイズは10MB以下にしてください。");
           return false;
         }
         return true;
@@ -209,30 +211,32 @@ export default function OfferEditPage() {
       .map((file) => ({
         url: URL.createObjectURL(file),
         isNew: true,
-        file
+        file,
       }));
     setAttachedImages((prev) => [...prev, ...imageFiles]);
   };
 
   const handleMediaFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    const validFiles = files.filter((file) => {
-      const isPDF = file.type === "application/pdf";
-      const isMP4 = file.type === "video/mp4";
-      if (!isPDF && !isMP4) {
-        alert('PDFまたはMP4ファイルのみアップロード可能です。');
-        return false;
-      }
-      if (file.size > 100 * 1024 * 1024) {
-        alert('ファイルサイズは100MB以下にしてください。');
-        return false;
-      }
-      return true;
-    }).map(file => ({
-      url: URL.createObjectURL(file),
-      isNew: true,
-      file
-    }));
+    const validFiles = files
+      .filter((file) => {
+        const isPDF = file.type === "application/pdf";
+        const isMP4 = file.type === "video/mp4";
+        if (!isPDF && !isMP4) {
+          alert("PDFまたはMP4ファイルのみアップロード可能です。");
+          return false;
+        }
+        if (file.size > 100 * 1024 * 1024) {
+          alert("ファイルサイズは100MB以下にしてください。");
+          return false;
+        }
+        return true;
+      })
+      .map((file) => ({
+        url: URL.createObjectURL(file),
+        isNew: true,
+        file,
+      }));
     setAttachedFiles((prev) => [...prev, ...validFiles]);
   };
 
@@ -240,17 +244,17 @@ export default function OfferEditPage() {
     try {
       const fileName = `${Date.now()}_${file.name}`;
       let path: string;
-      
-      if (file.type.startsWith('image/')) {
+
+      if (file.type.startsWith("image/")) {
         // 画像ファイルの場合
         if (file.size > 10 * 1024 * 1024) {
-          throw new Error('画像サイズは10MB以下にしてください。');
+          throw new Error("画像サイズは10MB以下にしてください。");
         }
         path = `offers/imgs/${fileName}`;
       } else {
         // その他のファイル（PDF, MP4など）の場合
         if (file.size > 100 * 1024 * 1024) {
-          throw new Error('ファイルサイズは100MB以下にしてください。');
+          throw new Error("ファイルサイズは100MB以下にしてください。");
         }
         path = `offers/files/${fileName}`;
       }
@@ -275,37 +279,37 @@ export default function OfferEditPage() {
       // アップロード処理をtry-catchで個別に処理
       const newImageUrls = await Promise.all(
         attachedImages
-          .filter(img => img.isNew && img.file)
-          .map(async img => {
+          .filter((img) => img.isNew && img.file)
+          .map(async (img) => {
             try {
               return await uploadAttachment(img.file!);
             } catch (error) {
               console.error(`Failed to upload image: ${error}`);
               throw error;
             }
-          })
+          }),
       );
 
       const newFileUrls = await Promise.all(
         attachedFiles
-          .filter(file => file.isNew && file.file)
-          .map(async file => {
+          .filter((file) => file.isNew && file.file)
+          .map(async (file) => {
             try {
               return await uploadAttachment(file.file!);
             } catch (error) {
               console.error(`Failed to upload file: ${error}`);
               throw error;
             }
-          })
+          }),
       );
 
       const finalImageUrls = [
-        ...attachedImages.filter(img => !img.isNew).map(img => img.url),
-        ...newImageUrls
+        ...attachedImages.filter((img) => !img.isNew).map((img) => img.url),
+        ...newImageUrls,
       ];
       const finalFileUrls = [
-        ...attachedFiles.filter(file => !file.isNew).map(file => file.url),
-        ...newFileUrls
+        ...attachedFiles.filter((file) => !file.isNew).map((file) => file.url),
+        ...newFileUrls,
       ];
 
       await updateOffer({
@@ -330,7 +334,7 @@ export default function OfferEditPage() {
       router.push("/offer");
     } catch (error) {
       console.error("Error updating offer:", error);
-      alert('エラーが発生しました。ファイルサイズと形式を確認してください。');
+      alert("エラーが発生しました。ファイルサイズと形式を確認してください。");
     } finally {
       setIsLoading(false);
     }
@@ -341,15 +345,15 @@ export default function OfferEditPage() {
       // ファイル名を timestamp_originalname の形式に
       const fileName = `${Date.now()}_${file.name}`;
       const storageRef = ref(storage, `offers/imgs/${fileName}`);
-      
+
       // ファイルサイズチェック (10MB制限)
       if (file.size > 10 * 1024 * 1024) {
-        throw new Error('画像サイズは10MB以下にしてください。');
+        throw new Error("画像サイズは10MB以下にしてください。");
       }
 
       // 画像タイプチェック
-      if (!file.type.startsWith('image/')) {
-        throw new Error('画像ファイルのみアップロード可能です。');
+      if (!file.type.startsWith("image/")) {
+        throw new Error("画像ファイルのみアップロード可能です。");
       }
 
       const snapshot = await uploadBytes(storageRef, file);
@@ -367,12 +371,12 @@ export default function OfferEditPage() {
         URL.revokeObjectURL(selectedImagePreview);
       }
       attachedImages.forEach((img) => {
-        if (img.isNew && img.url.startsWith('blob:')) {
+        if (img.isNew && img.url.startsWith("blob:")) {
           URL.revokeObjectURL(img.url);
         }
       });
       attachedFiles.forEach((file) => {
-        if (file.isNew && file.url.startsWith('blob:')) {
+        if (file.isNew && file.url.startsWith("blob:")) {
           URL.revokeObjectURL(file.url);
         }
       });
