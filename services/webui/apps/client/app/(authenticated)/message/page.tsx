@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { Avatar, AvatarImage } from "@ui/components/ui/avatar";
 import { Button } from "@ui/components/ui/button";
 import { Skeleton } from "@ui/components/ui/skeleton";
@@ -13,6 +13,22 @@ import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { MessageRoomsByUserData } from "../../../generated/graphql";
 import { useRouter } from "next/navigation";
+import { ConciergeDialog } from "../../../components/dialog/concierge-dialog";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Form, FormControl, FormField, FormItem } from "@ui/components/ui/form";
+import { useApolloClient } from "@apollo/client";
+
+const conciergeSchema = z.object({
+  question: z.string(),
+});
+
+const ASK_LLM = gql`
+  query AskLLM($userId: String!, $question: String!) {
+    askLlm(userId: $userId, question: $question)
+  }
+`;
 
 const GET_MESSAGE_ROOMS = gql`
   query GetMessageRooms($userId: String!) {
@@ -135,6 +151,37 @@ const MessageList = () => {
 };
 
 export default function MessagePage() {
+  const { user } = useUserStore();
+  const client = useApolloClient();
+  const [userQuestion, setUserQuestion] = React.useState<string | null>(null);
+  const [answer, setAnswer] = React.useState<string | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const form = useForm<z.infer<typeof conciergeSchema>>({
+    resolver: zodResolver(conciergeSchema),
+  });
+
+  async function onSubmit(value: z.infer<typeof conciergeSchema>) {
+    setUserQuestion(value.question);
+    if (answer) setAnswer(null);
+    try {
+      setIsLoading(true);
+      const { data } = await client.query({
+        query: ASK_LLM,
+        variables: {
+          userId: user?.id,
+          question: value.question,
+        },
+      });
+      setAnswer(data.askLlm);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      form.setValue("question", "");
+      setIsLoading(false);
+    }
+  }
+
   return (
     <div className="bg-black text-white flex-1">
       <div className="flex items-center justify-between pt-[115px] border-gray-800">
@@ -153,7 +200,107 @@ export default function MessagePage() {
             <p className="text-sm">メッセージ</p>
           </div>
         </div>
-        <NewMessageDialog />
+        <div className="flex items-center gap-2">
+          <ConciergeDialog>
+            <div className="flex flex-col space-y-4 overflow-auto h-[500px] w-[960px]">
+              {userQuestion && (
+                <div className="flex justify-end mb-6">
+                  <div className="bg-[#E4DBC0] text-black w-[500px] p-4 rounded-md">
+                    {userQuestion}
+                  </div>
+                </div>
+              )}
+              <div className="flex flex-row">
+                <div>
+                  <Image
+                    src={"/logo_visualonly_dark.jpg"}
+                    alt="avatar"
+                    width={40}
+                    height={40}
+                    className={`p-1 rounded-full object-cover`}
+                  />
+                </div>
+                {answer && (
+                  <div className="bg-transparent text-white w-[960px]">
+                    {answer.split("\n").map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line.startsWith("**") && !line.startsWith("* **") ? (
+                          <h3 className="text-lg mb-2">
+                            {line.replace(/\*\*/g, "")}
+                          </h3>
+                        ) : line.startsWith("* **") ? (
+                          <div className="flex gap-2 mb-2">
+                            <span className="ml-4">•</span>
+                            <p>
+                              <span className="font-bold">
+                                {line.match(/\*\*(.*?)\*\*/)?.[1]}:
+                              </span>
+                              {line.split(":**")[1]}
+                            </p>
+                          </div>
+                        ) : line.startsWith("*") ? (
+                          <div className="flex gap-2 mb-2">
+                            <span className="ml-4">•</span>
+                            <p>{line.substring(2)}</p>
+                          </div>
+                        ) : (
+                          <p className="mb-2">{line}</p>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                )}
+                {isLoading && <Skeleton className="w-[960px] h-[90px]" />}
+                {!isLoading && !answer && (
+                  <div className="bg-transparent text-white w-[960px] p-2">
+                    <p>
+                      こんにちは!コンシェルジュです。何か質問があればどうぞ!
+                    </p>
+                    <p className="text-sm text-gray-400 mt-4">
+                      この機能は実験的な機能であり、回答や内容が正確でない場合がありますがご了承ください。今後のアップデートで精度が向上します。
+                    </p>
+                    <p className="text-sm text-gray-400 mt-4">
+                      hint:アーティスト名やグループ名を具体的に指定しましょう。
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex flex-row items-center w-[960px] gap-2"
+              >
+                <FormField
+                  control={form.control}
+                  name="question"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <input
+                          placeholder="My Conciergeに色々聞いてみましょう。"
+                          className="flex w-[900px] border border-white bg-transparent text-white rounded-[30px] h-[90px] p-6"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <button type="submit">
+                  <Image
+                    src="/arrow-up-circle.svg"
+                    alt="arrow-up"
+                    width={36}
+                    height={36}
+                  />
+                </button>
+              </form>
+            </Form>
+          </ConciergeDialog>
+          <NewMessageDialog />
+        </div>
       </div>
       <hr className="mb-8 mt-24 border-[#303030]" />
 

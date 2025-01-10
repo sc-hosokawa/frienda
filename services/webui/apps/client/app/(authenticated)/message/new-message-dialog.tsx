@@ -80,7 +80,7 @@ export default function NewMessageDialog() {
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full border border-dashed border-gray-600 w-[60px] h-[60px] flex items-center justify-center"
+          className="rounded-full border border-dashed border-white w-[60px] h-[60px] flex items-center justify-center"
         >
           <Image src="/plus.svg" alt="plus" width={24} height={24} />
         </Button>

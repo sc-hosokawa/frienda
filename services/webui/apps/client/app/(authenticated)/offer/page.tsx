@@ -86,7 +86,7 @@ export default function OfferPage() {
         </div>
         <div className="flex items-center gap-2">
           <ConciergeDialog>
-            <div className="flex flex-col space-y-4 overflow-auto h-[300px] w-[960px]">
+            <div className="flex flex-col space-y-4 overflow-auto h-[500px] w-[960px]">
               {userQuestion && (
                 <div className="flex justify-end mb-6">
                   <div className="bg-[#E4DBC0] text-black w-[500px] p-4 rounded-md">
@@ -106,7 +106,32 @@ export default function OfferPage() {
                 </div>
                 {answer && (
                   <div className="bg-transparent text-white w-[960px]">
-                    <p>{answer}</p>
+                    {answer.split("\n").map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line.startsWith("**") && !line.startsWith("* **") ? (
+                          <h3 className="text-lg mb-2">
+                            {line.replace(/\*\*/g, "")}
+                          </h3>
+                        ) : line.startsWith("* **") ? (
+                          <div className="flex gap-2 mb-2">
+                            <span className="ml-4">•</span>
+                            <p>
+                              <span className="font-bold">
+                                {line.match(/\*\*(.*?)\*\*/)?.[1]}:
+                              </span>
+                              {line.split(":**")[1]}
+                            </p>
+                          </div>
+                        ) : line.startsWith("*") ? (
+                          <div className="flex gap-2 mb-2">
+                            <span className="ml-4">•</span>
+                            <p>{line.substring(2)}</p>
+                          </div>
+                        ) : (
+                          <p className="mb-2">{line}</p>
+                        )}
+                      </React.Fragment>
+                    ))}
                   </div>
                 )}
                 {isLoading && <Skeleton className="w-[960px] h-[90px]" />}
@@ -114,6 +139,12 @@ export default function OfferPage() {
                   <div className="bg-transparent text-white w-[960px] p-2">
                     <p>
                       こんにちは!コンシェルジュです。何か質問があればどうぞ!
+                    </p>
+                    <p className="text-sm text-gray-400 mt-4">
+                      この機能は実験的な機能であり、回答や内容が正確でない場合がありますがご了承ください。今後のアップデートで精度が向上します。
+                    </p>
+                    <p className="text-sm text-gray-400 mt-4">
+                      hint:アーティスト名やグループ名を具体的に指定しましょう。
                     </p>
                   </div>
                 )}
@@ -132,7 +163,7 @@ export default function OfferPage() {
                     <FormItem>
                       <FormControl>
                         <input
-                          placeholder="My Conciergeに色々聞いてみましょう。(例: おすすめのオファーを3つ挙げてください。)"
+                          placeholder="My Conciergeに色々聞いてみましょう。"
                           className="flex w-[900px] border border-white bg-transparent text-white rounded-[30px] h-[90px] p-6"
                           {...field}
                         />
