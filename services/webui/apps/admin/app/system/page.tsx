@@ -187,16 +187,23 @@ export default function SettingPage() {
                       </td>
                     </TableRow>
                   ) : (
-                    userTable?.map((user: any) => (
-                      <UserListTable
-                        key={user.id}
-                        realname={user.realname}
-                        username={user.username}
-                        email={user.email}
-                        role={user.role}
-                        createdAt={user.createdAt}
-                      />
-                    ))
+                    userTable
+                      ?.sort(
+                        (a: any, b: any) =>
+                          new Date(b.createdAt).getTime() -
+                          new Date(a.createdAt).getTime(),
+                      )
+                      .slice(0, 5)
+                      .map((user: any) => (
+                        <UserListTable
+                          key={user.id}
+                          realname={user.realname}
+                          username={user.username}
+                          email={user.email}
+                          role={user.role}
+                          createdAt={user.createdAt}
+                        />
+                      ))
                   )}
                 </TableBody>
               </Table>
