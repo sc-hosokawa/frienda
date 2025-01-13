@@ -32,6 +32,8 @@ pub struct TrendTrack {
     pub image_url: Option<String>, // img_url of UPC
     pub total_play_count: i32,
     pub weekly_play_count: i32,
+    pub total_play_count_details: PlayCountDetails,
+    pub weekly_play_count_details: PlayCountDetails,
 }
 
 pub struct GetTrendingByUpcUsecaseInput {
@@ -43,6 +45,15 @@ pub struct GetTrendingByUpcUsecaseOutput {
     pub product_img_url: Option<String>,
     pub product_title: String,
     pub trending: Vec<TrendTrack>,
+}
+
+#[derive(Clone)]
+pub struct PlayCountDetails {
+    pub spotify: i32,
+    pub apple: i32,
+    pub line: i32,
+    pub amazon: i32,
+    pub youtube: i32,
 }
 
 #[async_trait]
@@ -111,10 +122,31 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         let plays_monthly: Vec<PlaysMonthly> =
             self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
 
-        // ISRCごとの合計を計算
+        // ISRCごとのDSP別合計を計算
         let mut plays_by_isrc: HashMap<String, i32> = HashMap::new();
+        let mut plays_by_isrc_details: HashMap<String, PlayCountDetails> = HashMap::new();
+
         for play in plays_monthly {
-            *plays_by_isrc.entry(play.isrc.clone().unwrap()).or_insert(0) += play.sum.unwrap_or(0);
+            if let Some(isrc) = play.isrc.clone() {
+                let details =
+                    plays_by_isrc_details
+                        .entry(isrc.clone())
+                        .or_insert(PlayCountDetails {
+                            spotify: 0,
+                            apple: 0,
+                            line: 0,
+                            amazon: 0,
+                            youtube: 0,
+                        });
+
+                details.spotify += play.spotify;
+                details.apple += play.apple;
+                details.line += play.line;
+                details.amazon += play.amazon;
+                details.youtube += play.youtube;
+
+                *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+            }
         }
 
         // 再生数で降順ソートして上位5件を取得
@@ -138,16 +170,33 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             .await?;
 
         let mut plays_by_isrc_daily: HashMap<String, i32> = HashMap::new();
+        let mut plays_by_isrc_daily_details: HashMap<String, PlayCountDetails> = HashMap::new();
+
         for play in plays_daily_in_top5 {
             if let Some(date) = play.date {
                 if date <= two_days_ago && date >= seven_days_ago {
-                    *plays_by_isrc_daily
-                        .entry(play.isrc.clone().unwrap())
-                        .or_insert(0) += play.sum.unwrap_or(0);
+                    if let Some(isrc) = play.isrc.clone() {
+                        let details = plays_by_isrc_daily_details.entry(isrc.clone()).or_insert(
+                            PlayCountDetails {
+                                spotify: 0,
+                                apple: 0,
+                                line: 0,
+                                amazon: 0,
+                                youtube: 0,
+                            },
+                        );
+
+                        details.spotify += play.spotify;
+                        details.apple += play.apple;
+                        details.line += play.line;
+                        details.amazon += play.amazon.unwrap_or(0);
+                        details.youtube += play.youtube.unwrap_or(0);
+
+                        *plays_by_isrc_daily.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                    }
                 }
             }
         }
-        tracing::info!("weekly_plays: {:?}", plays_by_isrc_daily);
 
         let tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(top_5_isrcs).await?;
 
@@ -172,6 +221,26 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                     .map(|(_, count)| *count)
                     .unwrap_or(0),
                 weekly_play_count: plays_by_isrc_daily.get(&track.isrc).copied().unwrap_or(0),
+                total_play_count_details: plays_by_isrc_details
+                    .get(&track.isrc)
+                    .cloned()
+                    .unwrap_or(PlayCountDetails {
+                        spotify: 0,
+                        apple: 0,
+                        line: 0,
+                        amazon: 0,
+                        youtube: 0,
+                    }),
+                weekly_play_count_details: plays_by_isrc_daily_details
+                    .get(&track.isrc)
+                    .cloned()
+                    .unwrap_or(PlayCountDetails {
+                        spotify: 0,
+                        apple: 0,
+                        line: 0,
+                        amazon: 0,
+                        youtube: 0,
+                    }),
             });
         }
 
@@ -201,23 +270,72 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             .plays_monthly_repo
             .find_by_isrcs(isrcs_in_upc.clone())
             .await?;
-        let mut plays_by_isrc: HashMap<String, i32> = HashMap::new();
-        for play in plays_monthly {
-            *plays_by_isrc.entry(play.isrc.clone().unwrap()).or_insert(0) += play.sum.unwrap_or(0);
-        }
-        tracing::info!("monthly_plays: {:?} in {}", plays_by_isrc, input.upc);
 
+        // 月間再生数の集計とDSP別内訳の計算
+        let mut plays_by_isrc: HashMap<String, i32> = HashMap::new();
+        let mut plays_by_isrc_details: HashMap<String, PlayCountDetails> = HashMap::new();
+
+        for play in plays_monthly {
+            if let Some(isrc) = play.isrc.clone() {
+                let details =
+                    plays_by_isrc_details
+                        .entry(isrc.clone())
+                        .or_insert(PlayCountDetails {
+                            spotify: 0,
+                            apple: 0,
+                            line: 0,
+                            amazon: 0,
+                            youtube: 0,
+                        });
+
+                details.spotify += play.spotify;
+                details.apple += play.apple;
+                details.line += play.line;
+                details.amazon += play.amazon;
+                details.youtube += play.youtube;
+
+                *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+            }
+        }
+
+        // 週間再生数の集計とDSP別内訳の計算
         let plays_daily: Vec<PlaysDaily> = self
             .plays_daily_repo
             .find_by_isrcs(isrcs_in_upc.clone())
             .await?;
+
         let mut plays_by_isrc_daily: HashMap<String, i32> = HashMap::new();
+        let mut plays_by_isrc_daily_details: HashMap<String, PlayCountDetails> = HashMap::new();
+
+        let today = Utc::now().date_naive();
+        let seven_days_ago = today - Duration::days(9);
+        let two_days_ago = today - Duration::days(2);
+
         for play in plays_daily {
-            *plays_by_isrc_daily
-                .entry(play.isrc.clone().unwrap())
-                .or_insert(0) += play.sum.unwrap_or(0);
+            if let Some(date) = play.date {
+                if date <= two_days_ago && date >= seven_days_ago {
+                    if let Some(isrc) = play.isrc.clone() {
+                        let details = plays_by_isrc_daily_details.entry(isrc.clone()).or_insert(
+                            PlayCountDetails {
+                                spotify: 0,
+                                apple: 0,
+                                line: 0,
+                                amazon: 0,
+                                youtube: 0,
+                            },
+                        );
+
+                        details.spotify += play.spotify;
+                        details.apple += play.apple;
+                        details.line += play.line;
+                        details.amazon += play.amazon.unwrap_or(0);
+                        details.youtube += play.youtube.unwrap_or(0);
+
+                        *plays_by_isrc_daily.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                    }
+                }
+            }
         }
-        tracing::info!("weekly_plays: {:?} in {}", plays_by_isrc_daily, input.upc);
 
         let mut tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(isrcs_in_upc).await?;
 
@@ -233,13 +351,33 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         let mut trending: Vec<TrendTrack> = vec![];
 
         for track in tracks {
+            let isrc = track.isrc.clone();
             trending.push(TrendTrack {
-                isrc: track.isrc.clone(),
+                isrc: isrc.clone(),
                 track_title: Some(track.title),
                 upc_title: None,
                 image_url: None,
-                total_play_count: plays_by_isrc.get(&track.isrc).unwrap_or(&0).clone(),
-                weekly_play_count: plays_by_isrc_daily.get(&track.isrc).unwrap_or(&0).clone(),
+                total_play_count: plays_by_isrc.get(&isrc).unwrap_or(&0).clone(),
+                weekly_play_count: plays_by_isrc_daily.get(&isrc).unwrap_or(&0).clone(),
+                total_play_count_details: plays_by_isrc_details.get(&isrc).cloned().unwrap_or(
+                    PlayCountDetails {
+                        spotify: 0,
+                        apple: 0,
+                        line: 0,
+                        amazon: 0,
+                        youtube: 0,
+                    },
+                ),
+                weekly_play_count_details: plays_by_isrc_daily_details
+                    .get(&isrc)
+                    .cloned()
+                    .unwrap_or(PlayCountDetails {
+                        spotify: 0,
+                        apple: 0,
+                        line: 0,
+                        amazon: 0,
+                        youtube: 0,
+                    }),
             });
         }
 

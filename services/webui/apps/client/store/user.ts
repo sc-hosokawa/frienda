@@ -48,6 +48,7 @@ const GET_USER_BALANCE = gql`
     getUserPointBalance(userId: $userId) {
       fspBalance
       credentialBalance
+      isCredentialAvailable
     }
   }
 `;

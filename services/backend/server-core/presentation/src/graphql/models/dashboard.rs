@@ -22,7 +22,19 @@ pub struct TrendTrack {
     pub image_url: Option<String>, // img_url of UPC
     pub total_play_count: i32,
     pub weekly_play_count: i32,
+    pub total_play_count_details: PlayCountByDSPDetails,
+    pub weekly_play_count_details: PlayCountByDSPDetails,
 }
+
+#[derive(SimpleObject)]
+pub struct PlayCountByDSPDetails {
+    pub spotify: i32,
+    pub apple: i32,
+    pub line: i32,
+    pub amazon: i32,
+    pub youtube: i32,
+}
+
 impl From<application::usecases::dashboard::get_trending_usecase::TrendTrack> for TrendTrack {
     fn from(t: application::usecases::dashboard::get_trending_usecase::TrendTrack) -> Self {
         Self {
@@ -32,6 +44,22 @@ impl From<application::usecases::dashboard::get_trending_usecase::TrendTrack> fo
             image_url: t.image_url,
             total_play_count: t.total_play_count,
             weekly_play_count: t.weekly_play_count,
+            total_play_count_details: t.total_play_count_details.into(),
+            weekly_play_count_details: t.weekly_play_count_details.into(),
+        }
+    }
+}
+
+impl From<application::usecases::dashboard::get_trending_usecase::PlayCountDetails>
+    for PlayCountByDSPDetails
+{
+    fn from(d: application::usecases::dashboard::get_trending_usecase::PlayCountDetails) -> Self {
+        Self {
+            spotify: d.spotify,
+            apple: d.apple,
+            line: d.line,
+            amazon: d.amazon,
+            youtube: d.youtube,
         }
     }
 }

@@ -66,3 +66,33 @@ pub struct User {
     pub primary_role: String,
     pub created_at: String,
 }
+
+#[derive(SimpleObject)]
+pub struct ChartDataForAdmin {
+    pub line_chart_data: Vec<LineChartDataForAdmin>,
+}
+#[derive(SimpleObject)]
+pub struct LineChartDataForAdmin {
+    pub date: String,
+    pub spotify: i32,
+    pub apple: i32,
+    pub line: i32,
+    pub amazon: i32,
+    pub youtube: i32,
+}
+impl From<application::usecases::admin::all_track_playback_usecase::ChartDataByDSPForAdmin>
+    for LineChartDataForAdmin
+{
+    fn from(
+        d: application::usecases::admin::all_track_playback_usecase::ChartDataByDSPForAdmin,
+    ) -> Self {
+        Self {
+            date: d.date,
+            spotify: d.spotify,
+            apple: d.apple,
+            line: d.line,
+            amazon: d.amazon,
+            youtube: d.youtube,
+        }
+    }
+}

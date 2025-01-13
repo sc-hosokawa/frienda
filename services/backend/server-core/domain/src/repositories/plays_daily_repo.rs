@@ -20,4 +20,5 @@ pub trait PlaysDailyRepository: Send + Sync {
         isrcs: Vec<String>,
         period: i32,
     ) -> Result<Vec<PlaysDaily>, DomainError>;
+    async fn get_all_by_period(&self, period: i32) -> Result<Vec<PlaysDaily>, DomainError>;
 }

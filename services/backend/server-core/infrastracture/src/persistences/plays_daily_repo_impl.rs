@@ -101,4 +101,16 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
 
         Ok(res)
     }
+
+    async fn get_all_by_period(&self, period: i32) -> Result<Vec<PlaysDaily>, DomainError> {
+        let end_date = (Utc::now() - Duration::days(2)).date_naive();
+        let start_date = end_date - Duration::days(period as i64);
+
+        let res: Vec<PlaysDaily> = PlaysDailyEntity::find()
+            .filter(Column::Date.gte(start_date))
+            .filter(Column::Date.lte(end_date))
+            .all(&self.db)
+            .await?;
+        Ok(res)
+    }
 }

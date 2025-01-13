@@ -3,43 +3,31 @@
 use sea_orm::entity::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
-#[sea_orm(table_name = "exchange_prize_history")]
+#[sea_orm(table_name = "portfolios")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
-    pub prize_id: i32,
-    pub user: String,
-    pub point_used: i32,
-    pub amount: i32,
-    pub exchanged_at: DateTime,
-    pub is_used: bool,
-    pub used_at: Option<DateTime>,
+    pub user_id: String,
+    pub title: String,
+    pub description: String,
+    pub img_url: Option<String>,
+    pub category: String,
+    pub release_date: Option<Date>,
+    pub external_url: Option<String>,
+    pub created_at: DateTime,
+    pub updated_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
     #[sea_orm(
-        belongs_to = "super::prizes::Entity",
-        from = "Column::PrizeId",
-        to = "super::prizes::Column::Id",
-        on_update = "NoAction",
-        on_delete = "NoAction"
-    )]
-    Prizes,
-    #[sea_orm(
         belongs_to = "super::users::Entity",
-        from = "Column::User",
+        from = "Column::UserId",
         to = "super::users::Column::Id",
         on_update = "NoAction",
         on_delete = "NoAction"
     )]
     Users,
-}
-
-impl Related<super::prizes::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Prizes.def()
-    }
 }
 
 impl Related<super::users::Entity> for Entity {

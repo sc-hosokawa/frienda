@@ -6,6 +6,7 @@ use domain::entities::tracks::Model as Track;
 use domain::entities::txs_fsp::Model as TxsFsp;
 use domain::entities::users::Model as User;
 use domain::repositories::artists_repo::ArtistsRepository;
+use domain::repositories::plays_monthly_repo::PlaysMonthlyRepository;
 use domain::repositories::track_credits_repo::TrackCreditsRepository;
 use domain::repositories::tracks_repo::TracksRepository;
 use domain::repositories::txs_fsp_repo::TxsFspRepository;
@@ -53,6 +54,7 @@ pub struct OverviewUsecase {
     track_credits_repo: Arc<dyn TrackCreditsRepository>,
     tracks_repo: Arc<dyn TracksRepository>,
     txs_fsp_repo: Arc<dyn TxsFspRepository>,
+    plays_monthly_repo: Arc<dyn PlaysMonthlyRepository>,
 }
 
 impl OverviewUsecase {
@@ -62,6 +64,7 @@ impl OverviewUsecase {
         track_credits_repo: Arc<dyn TrackCreditsRepository>,
         tracks_repo: Arc<dyn TracksRepository>,
         txs_fsp_repo: Arc<dyn TxsFspRepository>,
+        plays_monthly_repo: Arc<dyn PlaysMonthlyRepository>,
     ) -> Self {
         Self {
             users_repo,
@@ -69,6 +72,7 @@ impl OverviewUsecase {
             track_credits_repo,
             tracks_repo,
             txs_fsp_repo,
+            plays_monthly_repo,
         }
     }
 }
@@ -79,14 +83,15 @@ impl OverviewUsecaseTrait for OverviewUsecase {
         let all_users: Vec<User> = self.users_repo.get_all_users().await?;
         let all_fsps: i32 = all_users.iter().map(|user| user.fsp).sum::<i32>();
         let total_artists: i64 = self.artists_repo.count().await?;
-        let mobile_app_users_count = self.get_balance_mobile_app_users().await?;
+        let mobile_app_users_count: i32 = self.get_balance_mobile_app_users().await?;
+        let total_play_count: i64 = self.plays_monthly_repo.get_total_play_count_all().await?;
 
         Ok(OverviewOutput {
             total_users: all_users.len() as i64,
             total_artists,
             total_fsp: all_fsps as i64,
             total_revenue: 0,
-            total_play_count: 0,
+            total_play_count,
             mobile_app_users_count,
         })
     }

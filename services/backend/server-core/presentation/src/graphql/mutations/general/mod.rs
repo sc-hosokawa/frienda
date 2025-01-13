@@ -1,5 +1,6 @@
 use crate::graphql::models;
 use async_graphql::{Context, Object, Result};
+use chrono::NaiveDate;
 use registry::Usecases;
 use std::sync::Arc;
 
@@ -110,6 +111,74 @@ impl GeneralMutation {
         })
     }
 
+    async fn register_portfolio(
+        &self,
+        ctx: &Context<'_>,
+        input: models::portfolios::RegisterPortfolioInput,
+    ) -> Result<models::portfolios::RegisterPortfolioResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .manage_portfolios
+            .register_portfolio(
+                application::usecases::basic::manage_portfolios_usecase::RegisterPortfolioInput {
+                    user_id: input.user_id,
+                    title: input.title,
+                    description: input.description,
+                    img_url: Some(input.img_url),
+                    category: input.category,
+                    release_date: Some(input.release_date.parse::<NaiveDate>().unwrap()),
+                    external_url: Some(input.external_url),
+                },
+            )
+            .await?;
+        Ok(models::portfolios::RegisterPortfolioResponse {
+            portfolio_id: res.id,
+        })
+    }
+
+    async fn update_portfolio(
+        &self,
+        ctx: &Context<'_>,
+        input: models::portfolios::UpdatePortfolioInput,
+    ) -> Result<models::portfolios::UpdatePortfolioResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .manage_portfolios
+            .update_portfolio(
+                application::usecases::basic::manage_portfolios_usecase::UpdatePortfolioInput {
+                    id: input.id,
+                    title: input.title,
+                    description: input.description,
+                    img_url: input.img_url,
+                    category: input.category,
+                    release_date: input
+                        .release_date
+                        .as_deref()
+                        .map(|date| date.parse::<NaiveDate>().unwrap()),
+                    external_url: input.external_url,
+                },
+            )
+            .await?;
+        Ok(models::portfolios::UpdatePortfolioResponse {
+            portfolio_id: res.id,
+        })
+    }
+
+    async fn delete_portfolio(
+        &self,
+        ctx: &Context<'_>,
+        input: models::portfolios::DeletePortfolioInput,
+    ) -> Result<models::portfolios::DeletePortfolioResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        usecases
+            .manage_portfolios
+            .delete_portfolio(input.id)
+            .await?;
+        Ok(models::portfolios::DeletePortfolioResponse {
+            portfolio_id: input.id,
+        })
+    }
+
     async fn update_belongs_to_artist_status(
         &self,
         ctx: &Context<'_>,
@@ -135,6 +204,27 @@ impl GeneralMutation {
             )
             .unwrap(),
         })
+    }
+
+    async fn join_with_invitation_code(
+        &self,
+        ctx: &Context<'_>,
+        code: String,
+        joined_user_id: String,
+        joined_email: String,
+    ) -> Result<bool> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let _res = usecases
+            .invitation
+            .join_with_code(code, joined_user_id, joined_email)
+            .await?;
+        Ok(true)
+    }
+
+    async fn invite(&self, ctx: &Context<'_>, pass: String) -> Result<bool> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let _res = usecases.invitation.invite(pass).await?;
+        Ok(true)
     }
 
     async fn contact_to_admin(

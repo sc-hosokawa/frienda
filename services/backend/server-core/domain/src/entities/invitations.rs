@@ -11,6 +11,9 @@ pub struct Model {
     pub inviter_email: String,
     pub digest_code: Option<String>,
     pub invited_at: DateTime,
+    pub is_joined: bool,
+    pub joined_email: Option<String>,
+    pub joined_at: Option<DateTime>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

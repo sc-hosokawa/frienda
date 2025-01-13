@@ -51,4 +51,24 @@ impl PrizeMutation {
             tx_id: result.1.to_string(),
         })
     }
+
+    async fn use_prize(
+        &self,
+        ctx: &Context<'_>,
+        input: models::prizes::UsePrizeInput,
+    ) -> Result<models::prizes::UsePrizeResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .exchange_prize
+            .use_prize(
+                application::usecases::prize::exchange_prize_usecase::UsePrizeInput {
+                    user_id: input.user_id,
+                    prize_id: input.prize_id,
+                    code: input.code,
+                    representation_user_id: input.representation_user_id,
+                },
+            )
+            .await?;
+        Ok(models::prizes::UsePrizeResponse { id: result })
+    }
 }

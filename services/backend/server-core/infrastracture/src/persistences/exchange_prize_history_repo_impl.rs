@@ -87,4 +87,17 @@ impl ExchangePrizeHistoryRepository for ExchangePrizeHistoryRepoImpl {
             .await?;
         Ok(histories)
     }
+
+    async fn get_by_user_id_and_prize_id(
+        &self,
+        user_id: &str,
+        prize_id: i32,
+    ) -> Result<Option<ExchangePrizeHistory>, DomainError> {
+        let history = ExchangePrizeHistoryEntity::find()
+            .filter(Column::User.eq(user_id))
+            .filter(Column::PrizeId.eq(prize_id))
+            .one(&self.db)
+            .await?;
+        Ok(history)
+    }
 }

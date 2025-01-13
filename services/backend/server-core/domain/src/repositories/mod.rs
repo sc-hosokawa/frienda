@@ -19,6 +19,7 @@ pub mod offers_repo;
 pub mod plays_daily_repo;
 pub mod plays_monthly_repo;
 pub mod plays_yearly_repo;
+pub mod portfolios_repo;
 pub mod prizes_repo;
 pub mod product_track_repo;
 pub mod products_repo;
