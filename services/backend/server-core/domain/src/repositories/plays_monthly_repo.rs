@@ -28,4 +28,7 @@ pub trait PlaysMonthlyRepository: Send + Sync {
         isrcs: Vec<String>,
         period: i32,
     ) -> Result<Vec<PlaysMonthly>, DomainError>;
+    async fn get_total_play_count_all(&self) -> Result<i64, DomainError>;
+    async fn get_all(&self) -> Result<Vec<PlaysMonthly>, DomainError>;
+    async fn get_all_by_period(&self, period: i32) -> Result<Vec<PlaysMonthly>, DomainError>;
 }

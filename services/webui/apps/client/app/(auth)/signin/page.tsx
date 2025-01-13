@@ -10,7 +10,7 @@ import { auth } from "../../../config";
 import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -70,6 +70,12 @@ const GET_USER_DATA = gql`
   }
 `;
 
+const JOIN_WITH_INVITATION_CODE = gql`
+  mutation JoinWithInvitationCode($code: String!, $joinedUserId: String!, $joinedEmail: String!) {
+    joinWithInvitationCode(code: $code, joinedUserId: $joinedUserId, joinedEmail: $joinedEmail)
+  }
+`;
+
 export default function SignIn() {
   const { step, setStep } = useAuthStepStore();
   const [email, setEmail] = useState("");
@@ -87,6 +93,9 @@ export default function SignIn() {
   const [verificationTimer, setVerificationTimer] =
     useState<NodeJS.Timeout | null>(null);
   const [getUserData, { data: userData }] = useLazyQuery(GET_USER_DATA);
+  const searchParams = useSearchParams();
+  const inviteCode = searchParams.get('code');
+  const [joinWithCode] = useMutation(JOIN_WITH_INVITATION_CODE);
 
   const { setUser } = useUserStore();
 
@@ -172,12 +181,12 @@ export default function SignIn() {
       await sendEmailVerification(user);
       setStep("verify");
 
-      // 認証状態の監視を開始
       const checkVerification = setInterval(async () => {
         await checkAuthStatus(user);
       }, 3000);
 
       setVerificationTimer(checkVerification);
+
     } catch (error: any) {
       console.error("Error signing up:", error);
       alert(
@@ -253,8 +262,26 @@ export default function SignIn() {
         }
       }
 
-      console.log(`selectedCategory: ${selectedCategory}`);
-      console.log(`selectedPrimaryCategory: ${selectedPrimaryCategory}`);
+      if (inviteCode) {
+        try {
+          const { data } = await joinWithCode({
+            variables: {
+              code: inviteCode,
+              joinedUserId: auth.currentUser?.uid,
+              joinedEmail: auth.currentUser?.email,
+            }
+          });
+          
+          if (!data.joinWithInvitationCode) {
+            console.error('Invitation code processing failed');
+          } else {
+            console.log('Invitation code processed successfully');
+          }
+        } catch (error) {
+          console.error('Error processing invitation code:', error);
+        }
+      }
+
       const response = await createUser({
         variables: {
           input: {
@@ -312,9 +339,8 @@ export default function SignIn() {
     } catch (error: any) {
       console.error("Error creating profile:", error);
       alert("プロフィールの作成に失敗しました");
-      setLoading(false);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -465,24 +491,20 @@ export default function SignIn() {
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       <div className="space-y-8">
-        {/* Logo - 位置を固定 
-        <div className="fixed top-8 left-8">
-          <div className="w-16 h-16 relative">
-            <Image
-              src="/logo_visualonly_dark.jpg"
-              alt="Logo"
-              width={60}
-              height={60}
-            />
-          </div>
-        </div>
-        */}
-
-        {/* Header */}
         <div className="">
           <h1 className="text-[90px] font-light tracking-wider">SIGNUP</h1>
-          <p className="text-sm -mt-4">FRIENDSHIP. DAOにサインイン</p>
+          <p className="text-sm -mt-4">
+            FRIENDSHIP. DAOにサインイン
+          </p>
         </div>
+
+        {inviteCode && (
+          <div className="bg-white/10 p-4 rounded-lg">
+            <p className="text-sm">
+              招待リンクからアクセスされました。このまま登録を進めてください。
+            </p>
+          </div>
+        )}
 
         <hr className="border-white/20" />
 

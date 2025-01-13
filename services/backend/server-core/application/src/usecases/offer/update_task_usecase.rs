@@ -35,6 +35,12 @@ pub struct UpdateTaskOutput {
     pub attached_imgs: Option<Vec<String>>,
 }
 
+#[derive(Debug, PartialEq)]
+pub enum AttachmentType {
+    Image,
+    File,
+}
+
 //
 // Define the interface for the usecase
 //
@@ -60,6 +66,65 @@ impl UpdateTaskUsecase {
             offers_repo,
             offer_attach_repo,
         }
+    }
+
+    async fn handle_attachments(
+        &self,
+        offer_id: i32,
+        attachment_type: AttachmentType,
+        new_urls: Option<Vec<String>>,
+    ) -> Result<(), anyhow::Error> {
+        let existing_attachments = self.offer_attach_repo.get_by_offer_id(offer_id).await?;
+
+        let existing_urls: std::collections::HashSet<String> = existing_attachments
+            .iter()
+            .filter_map(|attach| match attachment_type {
+                AttachmentType::Image => attach.image_uri.clone(),
+                AttachmentType::File => attach.file_uri.clone(),
+            })
+            .collect();
+
+        let new_urls_set: std::collections::HashSet<String> =
+            new_urls.unwrap_or_default().into_iter().collect();
+
+        // 新規追加が必要なURL
+        for url in &new_urls_set {
+            if !existing_urls.contains(url) {
+                let mut new_attach = OfferAttachActiveModel {
+                    offer_id: ActiveValue::Set(offer_id),
+                    file_uri: ActiveValue::Set(None),
+                    image_uri: ActiveValue::Set(None),
+                    ..Default::default()
+                };
+
+                match attachment_type {
+                    AttachmentType::Image => {
+                        new_attach.image_uri = ActiveValue::Set(Some(url.clone()))
+                    }
+                    AttachmentType::File => {
+                        new_attach.file_uri = ActiveValue::Set(Some(url.clone()))
+                    }
+                }
+
+                self.offer_attach_repo.create(new_attach).await?;
+            }
+        }
+
+        // 削除が必要な添付ファイル
+        for attachment in existing_attachments {
+            let current_uri = match attachment_type {
+                AttachmentType::Image => attachment.image_uri,
+                AttachmentType::File => attachment.file_uri,
+            };
+
+            if let Some(uri) = current_uri {
+                if !new_urls_set.contains(&uri) {
+                    self.offer_attach_repo.delete(attachment.id).await?;
+                }
+            }
+        }
+
+        Ok(())
     }
 }
 
@@ -113,49 +178,15 @@ impl UpdateTaskUsecaseTrait for UpdateTaskUsecase {
 
         let new_offer = self.offers_repo.update(updated_offer).await?;
 
-        // Handle attached media (images and files)
-        if input.attached_imgs.is_some() || input.attached_files.is_some() {
-            // Clone the values before using them in the iterator
-            let attached_files = input.attached_files.clone();
-            let attached_imgs = input.attached_imgs.clone();
+        // 画像とファイルを別々に処理
+        if input.attached_imgs.is_some() {
+            self.handle_attachments(input.id, AttachmentType::Image, input.attached_imgs.clone())
+                .await?;
+        }
 
-            let attached_media: Vec<String> = attached_imgs
-                .unwrap_or_default()
-                .into_iter()
-                .chain(attached_files.unwrap_or_default().into_iter())
-                .collect();
-
-            // Get existing attachments
-            let existing_attachments = self.offer_attach_repo.get_by_offer_id(input.id).await?;
-
-            // Create a set of existing media URLs for quick lookup
-            let existing_urls: std::collections::HashSet<String> = existing_attachments
-                .iter()
-                .map(|attach| attach.file_uri.clone().unwrap())
-                .collect();
-
-            // Process new attachments
-            for media_url in &attached_media {
-                if !existing_urls.contains(media_url) {
-                    // If the URL doesn't exist, create a new attachment
-                    let new_attach = OfferAttachActiveModel {
-                        offer_id: ActiveValue::Set(input.id),
-                        file_uri: ActiveValue::Set(Some(media_url.clone())),
-                        ..Default::default()
-                    };
-                    self.offer_attach_repo.create(new_attach).await?;
-                }
-            }
-
-            // Remove attachments that are no longer in the input list
-            let new_urls: std::collections::HashSet<String> = attached_media.into_iter().collect();
-            for existing_attach in existing_attachments {
-                if let Some(file_uri) = existing_attach.file_uri {
-                    if !new_urls.contains(&file_uri) {
-                        self.offer_attach_repo.delete(existing_attach.id).await?;
-                    }
-                }
-            }
+        if input.attached_files.is_some() {
+            self.handle_attachments(input.id, AttachmentType::File, input.attached_files.clone())
+                .await?;
         }
 
         Ok(UpdateTaskOutput {

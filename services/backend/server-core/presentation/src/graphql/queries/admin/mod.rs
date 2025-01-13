@@ -90,4 +90,34 @@ impl AdminQuery {
             })
             .collect())
     }
+
+    async fn get_all_track_playback_history_for_admin(
+        &self,
+        ctx: &Context<'_>,
+        period: i32,
+    ) -> Result<models::admin::ChartDataForAdmin> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result: application::usecases::admin::all_track_playback_usecase::AllTrackPlaybackHistoryUsecaseOutput = usecases
+            .all_track_playback
+            .get_all_track_playback_history(
+                application::usecases::admin::all_track_playback_usecase::AllTrackPlaybackHistoryUsecaseInput {
+                    period,
+                },
+            )
+            .await?;
+        Ok(models::admin::ChartDataForAdmin {
+            line_chart_data: result
+                .chart_data
+                .into_iter()
+                .map(|chart| models::admin::LineChartDataForAdmin {
+                    date: chart.date,
+                    spotify: chart.spotify,
+                    apple: chart.apple,
+                    line: chart.line,
+                    amazon: chart.amazon,
+                    youtube: chart.youtube,
+                })
+                .collect(),
+        })
+    }
 }

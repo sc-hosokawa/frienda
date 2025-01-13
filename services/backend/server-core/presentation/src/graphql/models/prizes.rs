@@ -26,6 +26,12 @@ pub struct PrizesData {
     pub prize_list: Vec<PrizeData>,
 }
 
+#[derive(SimpleObject)]
+pub struct PrizesByUserIdData {
+    pub used_prize_list: Vec<PrizeDetailData>,
+    pub unused_prize_list: Vec<PrizeDetailData>,
+}
+
 // ===== for Mutation =====
 
 #[derive(InputObject)]
@@ -81,6 +87,19 @@ pub struct UpdatePrizeInput {
 
 #[derive(SimpleObject)]
 pub struct UpdatePrizeResponse {
+    pub id: i32,
+}
+
+#[derive(InputObject)]
+pub struct UsePrizeInput {
+    pub representation_user_id: String,
+    pub user_id: String,
+    pub prize_id: i32,
+    pub code: Option<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct UsePrizeResponse {
     pub id: i32,
 }
 

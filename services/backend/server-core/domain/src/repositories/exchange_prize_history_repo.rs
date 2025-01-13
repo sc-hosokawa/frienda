@@ -24,4 +24,9 @@ pub trait ExchangePrizeHistoryRepository: Send + Sync {
         prize_id: i32,
     ) -> Result<Vec<ExchangePrizeHistory>, DomainError>;
     async fn get_recent(&self, limit: i32) -> Result<Vec<ExchangePrizeHistory>, DomainError>;
+    async fn get_by_user_id_and_prize_id(
+        &self,
+        user_id: &str,
+        prize_id: i32,
+    ) -> Result<Option<ExchangePrizeHistory>, DomainError>;
 }

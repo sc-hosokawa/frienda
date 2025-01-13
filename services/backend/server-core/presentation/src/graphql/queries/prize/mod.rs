@@ -60,4 +60,25 @@ impl PrizeQuery {
 
         Ok(detail.prize.into())
     }
+
+    async fn get_prize_by_user_id(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<models::prizes::PrizesByUserIdData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_prize_list
+            .get_prize_list_by_user_id(user_id)
+            .await?;
+
+        Ok(models::prizes::PrizesByUserIdData {
+            used_prize_list: result.used_prizes.into_iter().map(|p| p.into()).collect(),
+            unused_prize_list: result
+                .un_used_prizes
+                .into_iter()
+                .map(|p| p.into())
+                .collect(),
+        })
+    }
 }

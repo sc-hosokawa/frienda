@@ -12,7 +12,6 @@ pub mod get_realtime_play_count_usecase;
 pub mod get_song_playback_count_usecase;
 pub mod get_top_artists_usecase;
 pub mod get_top_tracks_usecase;
-pub mod get_trending_songs_usecase;
 pub mod get_trending_usecase;
 pub mod get_user_listening_stats_usecase;
 pub mod playback_overview_usecase;

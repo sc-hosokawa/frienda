@@ -123,6 +123,7 @@ impl GeneralQuery {
             fsp_balance: result.fsp_balance,
             fsp_balance_temp: result.fsp_balance_temp,
             credential_balance: result.credential_balance,
+            is_credential_available: result.is_credential_available,
         })
     }
 
@@ -170,6 +171,56 @@ impl GeneralQuery {
                 content: n.content,
                 is_read: n.is_read,
                 created_at: n.created_at.to_string(),
+            })
+            .collect())
+    }
+
+    async fn get_portfolios_by_user_id(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<Vec<models::portfolios::Portfolio>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .manage_portfolios
+            .get_portfolios_by_user_id(user_id)
+            .await?;
+        Ok(result
+            .into_iter()
+            .map(|p| models::portfolios::Portfolio {
+                id: p.id,
+                user_id: p.user_id,
+                title: p.title,
+                description: p.description,
+                img_url: p.img_url,
+                category: p.category,
+                release_date: p.release_date.map(|date| date.to_string()),
+                external_url: p.external_url,
+                created_at: p.created_at.to_string(),
+                updated_at: p.updated_at.to_string(),
+            })
+            .collect())
+    }
+
+    async fn get_all_portfolios(
+        &self,
+        ctx: &Context<'_>,
+    ) -> Result<Vec<models::portfolios::Portfolio>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.manage_portfolios.get_all_portfolios().await?;
+        Ok(result
+            .into_iter()
+            .map(|p| models::portfolios::Portfolio {
+                id: p.id,
+                user_id: p.user_id,
+                title: p.title,
+                description: p.description,
+                img_url: p.img_url,
+                category: p.category,
+                release_date: p.release_date.map(|date| date.to_string()),
+                external_url: p.external_url,
+                created_at: p.created_at.to_string(),
+                updated_at: p.updated_at.to_string(),
             })
             .collect())
     }

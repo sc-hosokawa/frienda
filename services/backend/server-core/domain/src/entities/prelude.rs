@@ -19,6 +19,7 @@ pub use super::offers::Entity as Offers;
 pub use super::plays_daily::Entity as PlaysDaily;
 pub use super::plays_monthly::Entity as PlaysMonthly;
 pub use super::plays_yearly::Entity as PlaysYearly;
+pub use super::portfolios::Entity as Portfolios;
 pub use super::prizes::Entity as Prizes;
 pub use super::product_track::Entity as ProductTrack;
 pub use super::products::Entity as Products;

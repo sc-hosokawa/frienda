@@ -35,6 +35,14 @@ impl PrizesRepository for PrizesRepoImpl {
         Ok(prize)
     }
 
+    async fn get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Prize>, DomainError> {
+        let prizes: Vec<Prize> = PrizeEntity::find()
+            .filter(Column::Id.is_in(ids))
+            .all(&self.db)
+            .await?;
+        Ok(prizes)
+    }
+
     async fn delete(&self, id: i32) -> Result<(), DomainError> {
         let _res: DeleteResult = PrizeEntity::delete_by_id(id).exec(&self.db).await?;
         Ok(())

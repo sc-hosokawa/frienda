@@ -4,6 +4,9 @@ use tracing;
 
 use application::health_check::*;
 use application::usecases::admin::{
+    all_track_playback_usecase::{
+        AllTrackPlaybackHistoryUsecase, AllTrackPlaybackHistoryUsecaseTrait,
+    },
     manage_tracks_usecase::{ManageTracksUsecase, ManageTracksUsecaseTrait},
     overview_usecase::{OverviewUsecase, OverviewUsecaseTrait},
 };
@@ -18,6 +21,7 @@ use application::usecases::basic::{
     create_user_usecase::{CreateUserUsecase, CreateUserUsecaseTrait},
     get_all_users_usecase::{GetAllUsersUsecase, GetAllUsersUsecaseTrait},
     get_user_basic_info_usecase::{GetUserBasicInfoUsecase, GetUserBasicInfoUsecaseTrait},
+    manage_portfolios_usecase::{ManagePortfoliosUsecase, ManagePortfoliosUsecaseTrait},
     search_users_usecase::{SearchUsersUsecase, SearchUsersUsecaseTrait},
     update_user_profile_usecase::{UpdateUserProfileUsecase, UpdateUserProfileUsecaseTrait},
 };
@@ -29,6 +33,7 @@ use application::usecases::community::{
 };
 use application::usecases::credit::{
     get_credits_usecase::{GetCreditsUsecase, GetCreditsUsecaseTrait},
+    invitation_usecase::{InvitationUsecase, InvitationUsecaseTrait},
     register_usecase::{RegisterUsecase, RegisterUsecaseTrait},
 };
 use application::usecases::dashboard::{
@@ -97,18 +102,18 @@ use infrastracture::persistences::{
     exchange_prize_history_repo_impl::ExchangePrizeHistoryRepoImpl,
     favorites_repo_impl::FavoritesRepoImpl,
     gender_gen_playback_repo_impl::GenderGenPlaybackRepoImpl,
-    message_attach_repo_impl::MessageAttachRepoImpl, messages_repo_impl::MessagesRepoImpl,
-    notification_user_repo_impl::NotificationUserRepoImpl,
+    invitations_repo_impl::InvitationsRepoImpl, message_attach_repo_impl::MessageAttachRepoImpl,
+    messages_repo_impl::MessagesRepoImpl, notification_user_repo_impl::NotificationUserRepoImpl,
     notifications_repo_impl::NotificationsRepoImpl, offer_attach_repo_impl::OfferAttachRepoImpl,
     offer_user_repo_impl::OfferUserRepoImpl, offers_repo_impl::OffersRepoImpl,
     plays_daily_repo_impl::PlaysDailyRepoImpl, plays_monthly_repo_impl::PlaysMonthlyRepoImpl,
-    prizes_repo_impl::PrizesRepoImpl, product_track_repo_impl::ProductTrackRepoImpl,
-    products_repo_impl::ProductsRepoImpl, quest_user_repo_impl::QuestUserRepoImpl,
-    quests_repo_impl::QuestsRepoImpl, room_user_repo_impl::RoomUserRepoImpl,
-    rooms_repo_impl::RoomsRepoImpl, short_notes_repo_impl::ShortNotesRepoImpl,
-    track_credits_repo_impl::TrackCreditsRepoImpl, tracks_repo_impl::TracksRepoImpl,
-    txs_fsp_repo_impl::TxsFspRepoImpl, user_artist_repo_impl::UserArtistRepoImpl,
-    users_repo_impl::UsersRepoImpl,
+    portfolios_repo_impl::PortfoliosRepoImpl, prizes_repo_impl::PrizesRepoImpl,
+    product_track_repo_impl::ProductTrackRepoImpl, products_repo_impl::ProductsRepoImpl,
+    quest_user_repo_impl::QuestUserRepoImpl, quests_repo_impl::QuestsRepoImpl,
+    room_user_repo_impl::RoomUserRepoImpl, rooms_repo_impl::RoomsRepoImpl,
+    short_notes_repo_impl::ShortNotesRepoImpl, track_credits_repo_impl::TrackCreditsRepoImpl,
+    tracks_repo_impl::TracksRepoImpl, txs_fsp_repo_impl::TxsFspRepoImpl,
+    user_artist_repo_impl::UserArtistRepoImpl, users_repo_impl::UsersRepoImpl,
 };
 
 use application::services::{
@@ -148,6 +153,8 @@ pub struct RepositoriesImpl {
     pub short_notes: Arc<ShortNotesRepoImpl>,
     pub notifications: Arc<NotificationsRepoImpl>,
     pub notification_user: Arc<NotificationUserRepoImpl>,
+    pub invitations: Arc<InvitationsRepoImpl>,
+    pub portfolios: Arc<PortfoliosRepoImpl>,
 }
 
 pub struct ServicesImpl {
@@ -214,6 +221,9 @@ pub struct Usecases {
     pub update_news: Arc<dyn UpdateNewsUsecaseTrait>,
     pub search_tasks: Arc<dyn SearchTasksUsecaseTrait>,
     pub manage_tracks: Arc<dyn ManageTracksUsecaseTrait>,
+    pub all_track_playback: Arc<dyn AllTrackPlaybackHistoryUsecaseTrait>,
+    pub invitation: Arc<dyn InvitationUsecaseTrait>,
+    pub manage_portfolios: Arc<dyn ManagePortfoliosUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -246,6 +256,8 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
         short_notes: Arc::new(ShortNotesRepoImpl::new(db.clone())),
         notifications: Arc::new(NotificationsRepoImpl::new(db.clone())),
         notification_user: Arc::new(NotificationUserRepoImpl::new(db.clone())),
+        invitations: Arc::new(InvitationsRepoImpl::new(db.clone())),
+        portfolios: Arc::new(PortfoliosRepoImpl::new(db.clone())),
     }
 }
 
@@ -271,18 +283,30 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        manage_portfolios: Arc::new(ManagePortfoliosUsecase::new(repos.portfolios.clone())),
+        invitation: Arc::new(InvitationUsecase::new(
+            repos.invitations.clone(),
+            repos.users.clone(),
+            repos.track_credits.clone(),
+            services.email_service.clone(),
+        )),
         get_system_overview: Arc::new(OverviewUsecase::new(
             repos.users.clone(),
             repos.artists.clone(),
             repos.track_credits.clone(),
             repos.tracks.clone(),
             repos.txs_fsp.clone(),
+            repos.plays_monthly.clone(),
         )),
         manage_tracks: Arc::new(ManageTracksUsecase::new(
             repos.tracks.clone(),
             repos.products.clone(),
             repos.artists.clone(),
             repos.product_track.clone(),
+        )),
+        all_track_playback: Arc::new(AllTrackPlaybackHistoryUsecase::new(
+            repos.plays_daily.clone(),
+            repos.plays_monthly.clone(),
         )),
         get_user_profile: Arc::new(GetUserProfileUsecase::new(
             repos.users.clone(),
@@ -462,7 +486,10 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.users.clone(),
             repos.txs_fsp.clone(),
         )),
-        get_prize_list: Arc::new(GetPrizeListUsecase::new(repos.prizes.clone())),
+        get_prize_list: Arc::new(GetPrizeListUsecase::new(
+            repos.prizes.clone(),
+            repos.exchange_prize_history.clone(),
+        )),
         get_prize: Arc::new(GetPrizeUsecase::new(repos.prizes.clone())),
         update_prize: Arc::new(UpdatePrizeUsecase::new(repos.prizes.clone())),
         get_point_transaction_history: Arc::new(GetPointTransactionHistoryUsecase::new(

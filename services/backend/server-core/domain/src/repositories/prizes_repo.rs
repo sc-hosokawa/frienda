@@ -8,6 +8,7 @@ pub trait PrizesRepository: Send + Sync {
     async fn update(&self, prize: PrizeActiveModel) -> Result<Prize, DomainError>;
 
     async fn get_by_id(&self, id: i32) -> Result<Option<Prize>, DomainError>;
+    async fn get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Prize>, DomainError>;
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
     async fn list(&self, limit: u32, offset: u32) -> Result<Vec<Prize>, DomainError>;
     async fn get_by_condition(&self, condition: &str) -> Result<Vec<Prize>, DomainError>;

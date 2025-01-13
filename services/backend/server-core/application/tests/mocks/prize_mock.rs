@@ -15,6 +15,7 @@ pub trait MockPrizesRepo {
     async fn mock_list(&self, limit: u32, offset: u32) -> Result<Vec<Prize>, DomainError>;
     async fn mock_get_by_condition(&self, condition: String) -> Result<Vec<Prize>, DomainError>;
     async fn mock_get_available(&self) -> Result<Vec<Prize>, DomainError>;
+    async fn mock_get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Prize>, DomainError>;
 }
 
 #[async_trait]
@@ -45,5 +46,9 @@ impl PrizesRepository for MockMockPrizesRepo {
 
     async fn get_available(&self) -> Result<Vec<Prize>, DomainError> {
         self.mock_get_available().await
+    }
+
+    async fn get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Prize>, DomainError> {
+        self.mock_get_by_ids(ids).await
     }
 }

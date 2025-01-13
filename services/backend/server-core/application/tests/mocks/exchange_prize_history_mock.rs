@@ -29,6 +29,11 @@ pub trait MockExchangePrizeHistoryRepo {
         prize_id: i32,
     ) -> Result<Vec<ExchangePrizeHistory>, DomainError>;
     async fn mock_get_recent(&self, limit: i32) -> Result<Vec<ExchangePrizeHistory>, DomainError>;
+    async fn mock_get_by_user_id_and_prize_id(
+        &self,
+        user_id: &str,
+        prize_id: i32,
+    ) -> Result<Option<ExchangePrizeHistory>, DomainError>;
 }
 
 #[async_trait]
@@ -71,5 +76,14 @@ impl ExchangePrizeHistoryRepository for MockMockExchangePrizeHistoryRepo {
 
     async fn get_recent(&self, limit: i32) -> Result<Vec<ExchangePrizeHistory>, DomainError> {
         self.mock_get_recent(limit).await
+    }
+
+    async fn get_by_user_id_and_prize_id(
+        &self,
+        user_id: &str,
+        prize_id: i32,
+    ) -> Result<Option<ExchangePrizeHistory>, DomainError> {
+        self.mock_get_by_user_id_and_prize_id(user_id, prize_id)
+            .await
     }
 }

@@ -3,7 +3,10 @@ use sea_orm::ActiveValue;
 use std::sync::Arc;
 use uuid::Uuid;
 
-use domain::entities::exchange_prize_history::ActiveModel as ExchangePrizeHistoryActiveModel;
+use domain::entities::exchange_prize_history::{
+    ActiveModel as ExchangePrizeHistoryActiveModel, Model as ExchangePrizeHistory,
+};
+use domain::entities::prizes::Model as Prize;
 use domain::entities::txs_fsp::ActiveModel as FspTxActiveModel;
 
 use domain::repositories::exchange_prize_history_repo::ExchangePrizeHistoryRepository;
@@ -20,12 +23,20 @@ pub struct ExchangePrizeInput {
     pub amount: Option<i32>,
 }
 
+pub struct UsePrizeInput {
+    pub representation_user_id: String,
+    pub user_id: String,
+    pub prize_id: i32,
+    pub code: Option<String>,
+}
+
 //
 // Define the trait for the usecase
 //
 #[async_trait]
 pub trait ExchangePrizeUsecaseTrait: Send + Sync {
     async fn exchange(&self, input: ExchangePrizeInput) -> Result<(i32, Uuid), anyhow::Error>;
+    async fn use_prize(&self, input: UsePrizeInput) -> Result<i32, anyhow::Error>;
 }
 
 //
@@ -116,5 +127,41 @@ impl ExchangePrizeUsecaseTrait for ExchangePrizeUsecase {
         )?;
 
         Ok((created_exchange_prize_history.id, created_fsp_tx_id.id))
+    }
+
+    async fn use_prize(&self, input: UsePrizeInput) -> Result<i32, anyhow::Error> {
+        let exchange_prize_history: ExchangePrizeHistory = self
+            .exchange_prize_history_repo
+            .get_by_user_id_and_prize_id(&input.user_id, input.prize_id)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("Exchange prize history not found"))?;
+
+        if exchange_prize_history.is_used {
+            return Err(anyhow::anyhow!("Prize already used"));
+        }
+
+        let prize: Prize = self
+            .prizes_repo
+            .get_by_id(input.prize_id)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("Prize not found"))?;
+
+        if prize.representation != input.representation_user_id {
+            return Err(anyhow::anyhow!("Invalid representation user"));
+        }
+
+        let updated_history: ExchangePrizeHistoryActiveModel = ExchangePrizeHistoryActiveModel {
+            id: ActiveValue::Set(exchange_prize_history.id),
+            is_used: ActiveValue::Set(true),
+            used_at: ActiveValue::Set(Some(chrono::Utc::now().naive_utc())),
+            ..Default::default()
+        };
+
+        let updated_history = self
+            .exchange_prize_history_repo
+            .update(updated_history)
+            .await?;
+
+        Ok(updated_history.id)
     }
 }

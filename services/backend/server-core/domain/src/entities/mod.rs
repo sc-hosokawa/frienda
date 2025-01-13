@@ -21,6 +21,7 @@ pub mod offers;
 pub mod plays_daily;
 pub mod plays_monthly;
 pub mod plays_yearly;
+pub mod portfolios;
 pub mod prizes;
 pub mod product_track;
 pub mod products;

@@ -1,8 +1,9 @@
 // services/backend/server-core/application/tests/prize/get_prize_list_test.rs
 
+use crate::mocks::exchange_prize_history_mock::MockMockExchangePrizeHistoryRepo;
 use crate::mocks::prize_mock::MockMockPrizesRepo;
 use application::usecases::prize::get_prize_list_usecase::{
-    GetPrizeListInput, GetPrizeListUsecase, GetPrizeListUsecaseTrait,
+    GetPrizeListByUserIdOutput, GetPrizeListInput, GetPrizeListUsecase, GetPrizeListUsecaseTrait,
 };
 use domain::entities::prizes::Model as Prize;
 use std::sync::Arc;
@@ -32,7 +33,7 @@ async fn test_get_prize_list_success() {
     // Arrange
     let mut mock_repo = MockMockPrizesRepo::new();
     let expected_prizes = create_test_prizes(3);
-
+    let mut mock_exchange_prize_history_repo = MockMockExchangePrizeHistoryRepo::new();
     mock_repo
         .expect_mock_list()
         .returning(move |_limit, _offset| {
@@ -40,7 +41,10 @@ async fn test_get_prize_list_success() {
             Ok(prizes)
         });
 
-    let usecase = GetPrizeListUsecase::new(Arc::new(mock_repo));
+    let usecase = GetPrizeListUsecase::new(
+        Arc::new(mock_repo),
+        Arc::new(mock_exchange_prize_history_repo),
+    );
     let input = GetPrizeListInput {
         limit: 10,
         offset: 0,
@@ -77,7 +81,15 @@ async fn test_get_prize_list_empty() {
 
     mock_repo.expect_mock_list().returning(|_, _| Ok(vec![]));
 
-    let usecase = GetPrizeListUsecase::new(Arc::new(mock_repo));
+    let mut mock_exchange_prize_history_repo = MockMockExchangePrizeHistoryRepo::new();
+    mock_exchange_prize_history_repo
+        .expect_mock_get_by_user_id()
+        .returning(|user_id| Ok(vec![]));
+
+    let usecase = GetPrizeListUsecase::new(
+        Arc::new(mock_repo),
+        Arc::new(mock_exchange_prize_history_repo),
+    );
     let input = GetPrizeListInput {
         limit: 10,
         offset: 0,
@@ -96,6 +108,7 @@ async fn test_get_prize_list_empty() {
 async fn test_get_prize_list_with_pagination() {
     // Arrange
     let mut mock_repo = MockMockPrizesRepo::new();
+    let mut mock_exchange_prize_history_repo = MockMockExchangePrizeHistoryRepo::new();
     let all_prizes = create_test_prizes(5);
 
     mock_repo
@@ -107,7 +120,10 @@ async fn test_get_prize_list_with_pagination() {
             Ok(prizes[start..end].to_vec())
         });
 
-    let usecase = GetPrizeListUsecase::new(Arc::new(mock_repo));
+    let usecase = GetPrizeListUsecase::new(
+        Arc::new(mock_repo),
+        Arc::new(mock_exchange_prize_history_repo),
+    );
     let input = GetPrizeListInput {
         limit: 2,
         offset: 1,

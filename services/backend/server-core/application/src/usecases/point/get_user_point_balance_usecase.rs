@@ -1,6 +1,7 @@
 use async_trait::async_trait;
 use std::sync::Arc;
 
+use domain::entities::users::Model as User;
 use domain::repositories::users_repo::UsersRepository;
 
 //
@@ -14,6 +15,7 @@ pub struct GetUserPointBalanceOutput {
     pub fsp_balance: i32,
     pub fsp_balance_temp: i32,
     pub credential_balance: i32,
+    pub is_credential_available: bool,
 }
 
 //
@@ -49,15 +51,18 @@ impl GetUserPointBalanceUsecaseTrait for GetUserPointBalanceUsecase {
         &self,
         input: GetUserPointBalanceInput,
     ) -> Result<GetUserPointBalanceOutput, anyhow::Error> {
-        let user = self
+        let user: User = self
             .users_repo
             .find_by_id(&input.user_id)
             .await?
             .ok_or_else(|| anyhow::anyhow!("User not found"))?;
+        let is_credential_available: bool = user.evm_addr.is_some();
+
         Ok(GetUserPointBalanceOutput {
             fsp_balance: user.fsp,
             fsp_balance_temp: user.fsp_temp,
             credential_balance: user.credential,
+            is_credential_available,
         })
     }
 }
