@@ -265,7 +265,7 @@ export default function SettingPage() {
                   src={
                     imageFile
                       ? URL.createObjectURL(imageFile)
-                      : currentImageUrl || "/default_avatar.png"
+                      : currentImageUrl || "/logo_visualonly.jpg"
                   }
                   alt="Profile"
                   width={100}

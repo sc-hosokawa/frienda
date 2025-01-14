@@ -263,7 +263,13 @@ const CommunityMap = ({
                     y: number;
                     category: category;
                   }) => (
-                    <Link href={`/community/${node.id}`}>
+                    <Link 
+                      href={`/community/${node.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = `/community/${node.id}`;
+                      }}
+                    >
                       <g
                         key={node.id}
                         transform={`translate(${node.x},${node.y})`}

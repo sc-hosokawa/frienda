@@ -60,7 +60,7 @@ export function CreditDialog({
   const { user } = useUserStore();
   const [registerCredit] = useMutation(REGISTER_CREDIT);
 
-  const { data: creditData } = useQuery(GET_CREDITS, {
+  const { data: creditData, refetch } = useQuery(GET_CREDITS, {
     variables: {
       userId: user?.id || "",
       artistId,
@@ -69,20 +69,24 @@ export function CreditDialog({
     skip: !open,
   });
 
-  useEffect(() => {
-    if (open && creditData?.getCredits) {
-      const existingCredits = creditData.getCredits.map((credit: any) => ({
-        role: credit.creditRole,
-        name: credit.creditName,
-        email: credit.email,
-      }));
-      setCredits(
-        existingCredits.length > 0
-          ? existingCredits
-          : [{ role: "", name: "", email: "" }],
-      );
+  const handleOpenChange = async (isOpen: boolean) => {
+    setOpen(isOpen);
+    if (isOpen) {
+      const { data } = await refetch();
+      if (data?.getCredits) {
+        const existingCredits = data.getCredits.map((credit: any) => ({
+          role: credit.creditRole,
+          name: credit.creditName,
+          email: credit.email,
+        }));
+        setCredits(
+          existingCredits.length > 0
+            ? existingCredits
+            : [{ role: "", name: "", email: "" }],
+        );
+      }
     }
-  }, [open, creditData]);
+  };
 
   const handleInputChange = (
     index: number,
@@ -90,7 +94,6 @@ export function CreditDialog({
     value: string,
   ) => {
     const newCredits = [...credits];
-    // オブジェクトの存在確認と型アサーションを追加
     if (newCredits[index]) {
       (newCredits[index] as CreditFormData)[field] = value;
       setCredits(newCredits);
@@ -133,12 +136,12 @@ export function CreditDialog({
       setCredits([{ role: "", name: "", email: "" }]);
     } catch (error) {
       console.error("Failed to register credits:", error);
-      // エラーハンドリングを追加（必要に応じて）
+      // エラーハンドリングを追加
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button variant="outline">クレジットを編集</Button>
       </DialogTrigger>

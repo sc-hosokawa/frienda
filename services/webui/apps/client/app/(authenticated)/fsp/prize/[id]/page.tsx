@@ -126,7 +126,7 @@ export default function PrizeDetailPage({
                     alert(
                       "交換が完了しました。\n" +
                         "交換ID: " +
-                        response.data.exchangePrize.txId + 
+                        response.data.exchangePrize.txId +
                         "\n必ず受領メールをご確認ください。",
                     );
                     router.push("/fsp");

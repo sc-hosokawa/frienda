@@ -47,14 +47,18 @@ export default function OfferStats() {
               <Image src="/total.svg" alt="logo" width={60} height={60} />
               <p className="text-4xl font-light ml-3">Total</p>
             </div>
-            <p className="text-7xl font-extralight">{stats.totalOffers.toLocaleString()}</p>
+            <p className="text-7xl font-extralight">
+              {stats.totalOffers.toLocaleString()}
+            </p>
           </div>
           <div className="flex items-center justify-between w-full border-b border-dotted border-white/30 pb-4">
             <div className="flex items-center">
               <Image src="/current.svg" alt="logo" width={60} height={60} />
               <p className="text-4xl font-light ml-3">Current</p>
             </div>
-            <p className="text-7xl font-extralight">{stats.ongoingOffers.toLocaleString()}</p>
+            <p className="text-7xl font-extralight">
+              {stats.ongoingOffers.toLocaleString()}
+            </p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -63,14 +67,18 @@ export default function OfferStats() {
               <Image src="/apply.svg" alt="logo" width={60} height={60} />
               <p className="text-4xl font-light ml-3">Applying</p>
             </div>
-            <p className="text-7xl font-extralight">{stats.appliedOffers.toLocaleString()}</p>
+            <p className="text-7xl font-extralight">
+              {stats.appliedOffers.toLocaleString()}
+            </p>
           </div>
           <div className="flex items-center justify-between w-full border-b border-dotted border-white/30 pb-4">
             <div className="flex items-center">
               <Image src="/complete.svg" alt="logo" width={60} height={60} />
               <p className="text-4xl font-light ml-3">Completed</p>
             </div>
-            <p className="text-7xl font-extralight">{stats.completedOffers.toLocaleString()}</p>
+            <p className="text-7xl font-extralight">
+              {stats.completedOffers.toLocaleString()}
+            </p>
           </div>
         </div>
         <div className="flex items-center justify-between border-b border-dotted border-white/30 pt-4">
@@ -83,7 +91,9 @@ export default function OfferStats() {
             />
             <p className="text-4xl font-light ml-3">Total Point Earned</p>
           </div>
-          <p className="text-7xl font-extralight">{stats.totalEarnings.toLocaleString()}</p>
+          <p className="text-7xl font-extralight">
+            {stats.totalEarnings.toLocaleString()}
+          </p>
         </div>
       </div>
     </div>
