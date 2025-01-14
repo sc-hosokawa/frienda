@@ -108,7 +108,7 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
           <p className="text-sm text-gray-400 mt-2">貢献したユーザー</p>
           <div className="flex items-center justify-center gap-2 mt-4">
             <Image
-              src={finishedUser.imgUrl}
+              src={finishedUser.imgUrl || "/logo_visualonly.jpg"}
               alt={finishedUser.username}
               width={40}
               height={40}
@@ -205,7 +205,7 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
             className="flex items-center gap-4 p-4 bg-black rounded-lg border border-blue-500"
           >
             <Image
-              src={ongoingUser.imgUrl || "/placeholder.svg"}
+              src={ongoingUser.imgUrl || "/logo_visualonly.jpg"}
               alt={ongoingUser.username}
               width={40}
               height={40}
@@ -240,7 +240,7 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
               className="flex items-center gap-4 p-4 bg-zinc-900 rounded-lg"
             >
               <Image
-                src={user.imgUrl || "/placeholder.svg"}
+                src={user.imgUrl || "/logo_visualonly.jpg"}
                 alt={user.username}
                 width={40}
                 height={40}

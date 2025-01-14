@@ -40,7 +40,7 @@ export default function Header() {
           duration: 3000,
           position: "top-center",
           style: {
-            background: "#00B496",
+            background: "rgba(0, 180, 150, 0.9)",
             color: "white",
             padding: "16px",
             width: "calc(100% - var(--sidebar-width))",

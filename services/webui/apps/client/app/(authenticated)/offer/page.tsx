@@ -86,7 +86,7 @@ export default function OfferPage() {
         </div>
         <div className="flex items-center gap-2">
           <ConciergeDialog>
-            <div className="flex flex-col space-y-4 overflow-auto h-[500px] w-[960px]">
+            <div className="flex flex-col space-y-4 overflow-auto w-[960px]">
               {userQuestion && (
                 <div className="flex justify-end mb-6">
                   <div className="bg-[#E4DBC0] text-black w-[500px] p-4 rounded-md">

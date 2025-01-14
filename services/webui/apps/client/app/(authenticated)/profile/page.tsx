@@ -21,6 +21,7 @@ const GET_USER_DATA = gql`
       imageUrl
       realname
       email
+      evmAddr
       role
       primaryRole
       greeting
@@ -81,6 +82,7 @@ const UPDATE_USER_DATA = gql`
         imageUrl
         fspBalance
         credentialBalance
+        evmAddr
         role
         primaryRole
         greeting
@@ -200,8 +202,6 @@ export default function SettingPage() {
           await deleteOldImage(currentImageUrl);
         }
       }
-
-      console.log(formData.role);
 
       const res = await updateUserData({
         variables: {
