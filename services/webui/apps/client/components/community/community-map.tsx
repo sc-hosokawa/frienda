@@ -263,7 +263,7 @@ const CommunityMap = ({
                     y: number;
                     category: category;
                   }) => (
-                    <Link 
+                    <Link
                       href={`/community/${node.id}`}
                       onClick={(e) => {
                         e.preventDefault();
