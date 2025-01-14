@@ -11,6 +11,7 @@ import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../../../../store/user";
 import { TrendingByUpcData } from "../../../../../generated/graphql";
 import { DiscographyInfo } from "./DiscographyInfo";
+import * as Popover from "@radix-ui/react-popover";
 
 const GET_OVERVIEW_BY_UPC = gql`
   query GetOverviewByUpc($artistId: String!, $userId: String!, $upc: String!) {
@@ -34,14 +35,24 @@ const GET_TRENDING_BY_UPC = gql`
         imageUrl
         totalPlayCount
         weeklyPlayCount
+        totalPlayCountDetails {
+          spotify
+          apple
+          line
+          amazon
+          youtube
+        }
+        weeklyPlayCountDetails {
+          spotify
+          apple
+          line
+          amazon
+          youtube
+        }
       }
     }
   }
 `;
-
-interface TrendingResData {
-  getTrendingByUpc: TrendingByUpcData;
-}
 
 type Props = {
   params: {
@@ -54,12 +65,9 @@ export default function DiscographyAlbumPage({ params }: Props) {
   const { data } = useQuery(GET_OVERVIEW_BY_UPC, {
     variables: { artistId: "", userId: user?.id, upc: params.upc },
   });
-  const { data: trendingData } = useQuery<TrendingResData>(
-    GET_TRENDING_BY_UPC,
-    {
-      variables: { upc: params.upc, userId: user?.id },
-    },
-  );
+  const { data: trendingData } = useQuery(GET_TRENDING_BY_UPC, {
+    variables: { upc: params.upc, userId: user?.id },
+  });
 
   return (
     <>
@@ -125,7 +133,7 @@ export default function DiscographyAlbumPage({ params }: Props) {
 
               <div className="space-y-2">
                 {trendingData?.getTrendingByUpc.trendingTracks.map(
-                  (track, i) => (
+                  (track: any, i: number) => (
                     <div
                       key={i}
                       className="flex items-center justify-between py-2 hover:bg-gray-800 rounded-lg px-4 group w-full"
@@ -134,17 +142,109 @@ export default function DiscographyAlbumPage({ params }: Props) {
                         <span className="text-gray-400 w-6">
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <div>
-                          <div className="font-medium">{track.trackTitle}</div>
-                          <div className="text-sm text-gray-400 flex gap-4">
-                            <span>
-                              Total/ {track.totalPlayCount.toLocaleString()}
-                            </span>
-                            <span>
-                              Weekly/ {track.weeklyPlayCount.toLocaleString()}
-                            </span>
-                          </div>
-                        </div>
+                        <Popover.Root>
+                          <Popover.Trigger asChild>
+                            <div className="cursor-pointer hover:opacity-80">
+                              <div className="font-medium">
+                                {track.trackTitle}
+                              </div>
+                              <div className="text-sm text-gray-400 flex gap-4">
+                                <span>
+                                  Total/ {track.totalPlayCount.toLocaleString()}
+                                </span>
+                                <span>
+                                  Weekly/{" "}
+                                  {track.weeklyPlayCount.toLocaleString()}
+                                </span>
+                              </div>
+                            </div>
+                          </Popover.Trigger>
+                          <Popover.Portal>
+                            <Popover.Content
+                              className="bg-[#23231f] rounded-lg p-4 shadow-lg outline-none"
+                              sideOffset={5}
+                              side="right"
+                            >
+                              <div className="flex gap-12">
+                                <div>
+                                  <h4 className="text-sm text-white mb-2">
+                                    Total Details
+                                  </h4>
+                                  <div className="space-y-1">
+                                    <p>
+                                      <span className="text-gray-400">
+                                        Spotify:
+                                      </span>{" "}
+                                      {track.totalPlayCountDetails.spotify.toLocaleString()}
+                                    </p>
+                                    <p>
+                                      <span className="text-gray-400">
+                                        Apple:
+                                      </span>{" "}
+                                      {track.totalPlayCountDetails.apple.toLocaleString()}
+                                    </p>
+                                    <p>
+                                      <span className="text-gray-400">
+                                        Line:
+                                      </span>{" "}
+                                      {track.totalPlayCountDetails.line.toLocaleString()}
+                                    </p>
+                                    <p>
+                                      <span className="text-gray-400">
+                                        Amazon:
+                                      </span>{" "}
+                                      {track.totalPlayCountDetails.amazon.toLocaleString()}
+                                    </p>
+                                    <p>
+                                      <span className="text-gray-400">
+                                        YouTube:
+                                      </span>{" "}
+                                      {track.totalPlayCountDetails.youtube.toLocaleString()}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h4 className="text-sm text-white mb-2">
+                                    Weekly Details
+                                  </h4>
+                                  <div className="space-y-1">
+                                    <p>
+                                      <span className="text-gray-400">
+                                        Spotify:
+                                      </span>{" "}
+                                      {track.weeklyPlayCountDetails.spotify.toLocaleString()}
+                                    </p>
+                                    <p>
+                                      <span className="text-gray-400">
+                                        Apple:
+                                      </span>{" "}
+                                      {track.weeklyPlayCountDetails.apple.toLocaleString()}
+                                    </p>
+                                    <p>
+                                      <span className="text-gray-400">
+                                        Line:
+                                      </span>{" "}
+                                      {track.weeklyPlayCountDetails.line.toLocaleString()}
+                                    </p>
+                                    <p>
+                                      <span className="text-gray-400">
+                                        Amazon:
+                                      </span>{" "}
+                                      {track.weeklyPlayCountDetails.amazon.toLocaleString()}
+                                    </p>
+                                    <p>
+                                      <span className="text-gray-400">
+                                        YouTube:
+                                      </span>{" "}
+                                      {track.weeklyPlayCountDetails.youtube.toLocaleString()}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <Popover.Arrow className="fill-[#23231f]" />
+                            </Popover.Content>
+                          </Popover.Portal>
+                        </Popover.Root>
                       </div>
                       <div className="flex gap-2 group-hover:opacity-100 transition-opacity rounded-md p-1">
                         <CreditDialog

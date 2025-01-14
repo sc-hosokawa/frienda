@@ -179,19 +179,16 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
 
 const transformData = (data: any) => {
   const { date, trackCount } = data;
-  console.log("Transform input:", { date, trackCount });
   const entries = Object.entries(trackCount);
   const result = {
     date: date,
     ...Object.fromEntries(entries),
   };
-  console.log("Transform result:", result);
   return result;
 };
 
 const generateChartConfig = (data: any) => {
   if (!data?.length) {
-    console.log("No data length");
     return {};
   }
 

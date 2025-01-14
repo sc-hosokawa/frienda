@@ -71,8 +71,16 @@ const GET_USER_DATA = gql`
 `;
 
 const JOIN_WITH_INVITATION_CODE = gql`
-  mutation JoinWithInvitationCode($code: String!, $joinedUserId: String!, $joinedEmail: String!) {
-    joinWithInvitationCode(code: $code, joinedUserId: $joinedUserId, joinedEmail: $joinedEmail)
+  mutation JoinWithInvitationCode(
+    $code: String!
+    $joinedUserId: String!
+    $joinedEmail: String!
+  ) {
+    joinWithInvitationCode(
+      code: $code
+      joinedUserId: $joinedUserId
+      joinedEmail: $joinedEmail
+    )
   }
 `;
 
@@ -94,7 +102,7 @@ export default function SignIn() {
     useState<NodeJS.Timeout | null>(null);
   const [getUserData, { data: userData }] = useLazyQuery(GET_USER_DATA);
   const searchParams = useSearchParams();
-  const inviteCode = searchParams.get('code');
+  const inviteCode = searchParams.get("code");
   const [joinWithCode] = useMutation(JOIN_WITH_INVITATION_CODE);
 
   const { setUser } = useUserStore();
@@ -186,7 +194,6 @@ export default function SignIn() {
       }, 3000);
 
       setVerificationTimer(checkVerification);
-
     } catch (error: any) {
       console.error("Error signing up:", error);
       alert(
@@ -269,16 +276,16 @@ export default function SignIn() {
               code: inviteCode,
               joinedUserId: auth.currentUser?.uid,
               joinedEmail: auth.currentUser?.email,
-            }
+            },
           });
-          
+
           if (!data.joinWithInvitationCode) {
-            console.error('Invitation code processing failed');
+            console.error("Invitation code processing failed");
           } else {
-            console.log('Invitation code processed successfully');
+            console.log("Invitation code processed successfully");
           }
         } catch (error) {
-          console.error('Error processing invitation code:', error);
+          console.error("Error processing invitation code:", error);
         }
       }
 
@@ -493,9 +500,7 @@ export default function SignIn() {
       <div className="space-y-8">
         <div className="">
           <h1 className="text-[90px] font-light tracking-wider">SIGNUP</h1>
-          <p className="text-sm -mt-4">
-            FRIENDSHIP. DAOにサインイン
-          </p>
+          <p className="text-sm -mt-4">FRIENDSHIP. DAOにサインイン</p>
         </div>
 
         {inviteCode && (

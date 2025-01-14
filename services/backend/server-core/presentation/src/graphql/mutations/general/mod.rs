@@ -83,6 +83,7 @@ impl GeneralMutation {
                 image_url: res.updated_user.img_url,
                 fsp_balance: res.updated_user.fsp,
                 credential_balance: res.updated_user.credential,
+                evm_addr: res.updated_user.evm_addr,
                 role: models::users::from_user_category_to_string(&res.updated_user.category),
                 created_at: res.updated_user.created_at.to_string(),
                 greeting: res.updated_user.greeting,

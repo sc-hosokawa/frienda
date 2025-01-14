@@ -57,6 +57,7 @@ const UPDATE_USER_DATA = gql`
     $role: String
     $primaryRole: String
     $interestOffer: String
+    $evmAddr: String
   ) {
     updateUserData(
       input: {
@@ -71,6 +72,7 @@ const UPDATE_USER_DATA = gql`
         role: $role
         primaryRole: $primaryRole
         interestOffer: $interestOffer
+        evmAddr: $evmAddr
       }
     ) {
       userInfo {
@@ -124,6 +126,7 @@ export default function SettingPage() {
     role: "",
     primaryRole: "",
     interestOffer: "",
+    evmAddr: "",
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(null);
@@ -151,6 +154,7 @@ export default function SettingPage() {
         role: user.role || "",
         primaryRole: user.role || "",
         interestOffer: user.interestOffer || "",
+        evmAddr: user.evmAddr || "",
       });
       setCurrentImageUrl(user.imageUrl);
     }
@@ -211,6 +215,7 @@ export default function SettingPage() {
           fbHandle: formData.fbHandle,
           primaryCategory: formData.role,
           interestOffer: formData.interestOffer,
+          evmAddr: formData.evmAddr,
         },
       });
 
@@ -303,6 +308,7 @@ export default function SettingPage() {
 
         <div className="space-y-4 mx-auto">
           {Object.entries(formData).map(([key, value]) => {
+            if (key === "evmAddr") return null;
             // 役割と興味のあるオファーは特別な処理
             if (key === "role" || key === "interestOffer") {
               const options = key === "role" ? roles : interestOffers;
@@ -377,7 +383,7 @@ export default function SettingPage() {
                                   : key === "role"
                                     ? "あなたの役割を入力してください"
                                     : key === "primaryRole"
-                                      ? "主要な役割を入��してください"
+                                      ? "主要な役割を入力してください"
                                       : key === "interestOffer"
                                         ? "興味のあるオファーを入力してください"
                                         : ""
@@ -390,6 +396,23 @@ export default function SettingPage() {
             }
             return null;
           })}
+
+          <div className="flex items-center gap-4">
+            <label className="block text-sm font-medium w-1/3">
+              EVMアドレス
+            </label>
+            <textarea
+              value={formData.evmAddr}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  evmAddr: e.target.value,
+                }))
+              }
+              placeholder="EVMアドレスを入力してください"
+              className="mt-1 block w-2/3 h-[90px] rounded-2xl border border-white/50 bg-black text-white placeholder-gray-500 p-3"
+            />
+          </div>
         </div>
 
         <div className="flex justify-end mt-8">

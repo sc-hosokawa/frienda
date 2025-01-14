@@ -27,26 +27,17 @@ import dayjs from "dayjs";
 import "dayjs/locale/ja";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@ui/components/ui/popover";
+import { InfoIcon } from "lucide-react";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.locale("ja");
 dayjs.tz.setDefault("Asia/Tokyo");
-
-type Product = {
-  id: number;
-  name: string;
-  points: number;
-  imageUrl: string;
-};
-
-type Transaction = {
-  id: number;
-  type: "send" | "receive" | "exchange";
-  amount: number;
-  date: string;
-  description: string;
-};
 
 const GET_POPULAR_PRIZES = gql`
   query GetPopularPrizes {
@@ -76,6 +67,16 @@ const GET_FSP_HISTORY = gql`
   }
 `;
 
+const GET_USER_POINT_BALANCE = gql`
+  query GetUserPointBalance($userId: String!) {
+    getUserPointBalance(userId: $userId) {
+      fspBalanceTemp
+      credentialBalance
+      isCredentialAvailable
+    }
+  }
+`;
+
 export default function FspPage() {
   const { user } = useUserStore();
   const { data: fspHistoryData } = useQuery(GET_FSP_HISTORY, {
@@ -92,7 +93,11 @@ export default function FspPage() {
     e.currentTarget.src = "/logo_visualonly.jpg";
   };
 
-  console.log(fspHistoryData);
+  const { data: userPointBalanceData } = useQuery(GET_USER_POINT_BALANCE, {
+    variables: { userId: user?.id },
+  });
+
+  console.log(userPointBalanceData);
 
   return (
     <div className="container mx-auto p-4">
@@ -100,9 +105,37 @@ export default function FspPage() {
         <CardHeader>
           <CardTitle className="font-light">ポイント残高</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-2">
           <p className="text-4xl font-light">
             {user?.fspBalance.toLocaleString()} FSP
+          </p>
+          <p className="font-light">
+            <span className="mr-2 text-gray-400">
+              クレデンシャル
+              <Popover>
+                <PopoverTrigger>
+                  <InfoIcon className="inline-block ml-2 mb-1 h-4 w-4 cursor-pointer text-gray-400 hover:text-gray-600" />
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                  <div className="space-y-2">
+                    <h4 className="font-medium">クレデンシャルとは</h4>
+                    <p className="text-sm text-gray-300">
+                      クレデンシャルは、ブロックチェーン上で発行・管理される貢献証明です。
+                      特定の条件を満たすことで取得でき、さまざまな特典を受けることができます。
+                      登録はプロフィールページからできます。
+                    </p>
+                  </div>
+                </PopoverContent>
+              </Popover>
+              ：
+            </span>
+            {userPointBalanceData?.getUserPointBalance.isCredentialAvailable ? (
+              userPointBalanceData?.getUserPointBalance.credentialBalance.toLocaleString()
+            ) : (
+              <Link href="/profile">
+                <Button>未登録</Button>
+              </Link>
+            )}
           </p>
         </CardContent>
       </Card>
