@@ -11,7 +11,7 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
-import useUserStore from "../../../../store/user";
+import useUserStore from "~/store/user";
 
 const GET_USER_DATA = gql`
   query GetUserData($userId: String!) {

@@ -2,14 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { MoreHorizontal } from "lucide-react";
-import { Button } from "@ui/components/ui/button";
 import { HistoricalByUPC } from "./histrical-chart";
 import { GenderGenViewByUPC } from "./gender-gen-data";
-import { CreditDialog } from "../../../credit-dialog";
+import { CreditDialog } from "~/components/dialog/credit-dialog";
 import { useQuery, gql } from "@apollo/client";
-import useUserStore from "../../../../../../store/user";
-import { TrendingByUpcData } from "../../../../../../generated/graphql";
+import useUserStore from "~/store/user";
 import { DiscographyInfo } from "./DiscographyInfo";
 import * as Popover from "@radix-ui/react-popover";
 

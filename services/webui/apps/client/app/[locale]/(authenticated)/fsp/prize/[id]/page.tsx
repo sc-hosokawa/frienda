@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@ui/components/ui/button";
 import { Card } from "@ui/components/ui/card";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import useUserStore from "../../../../../../store/user";
+import useUserStore from "~/store/user";
 import { useRouter } from "next/navigation";
 
 const GET_PRIZE_DETAIL = gql`

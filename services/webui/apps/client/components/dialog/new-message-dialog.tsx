@@ -14,8 +14,8 @@ import {
 import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
 import { useQuery, useMutation, gql } from "@apollo/client";
-import useUserStore from "../../../../store/user";
-import { UserSimpleData } from "../../../../generated/graphql";
+import useUserStore from "~/store/user";
+import { UserSimpleData } from "~/generated/graphql";
 import { useRouter } from "next/navigation";
 
 const SEARCH_USERS = gql`

@@ -16,7 +16,7 @@ import {
 import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { useToast } from "@ui/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import useUserStore from "../../../store/user";
+import useUserStore from "~/store/user";
 
 // GraphQL クエリとミューテーションの定義
 const SEARCH_ARTISTS = gql`

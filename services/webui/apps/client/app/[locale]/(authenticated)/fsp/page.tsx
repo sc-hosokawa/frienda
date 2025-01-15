@@ -18,10 +18,10 @@ import {
   TableHeader,
   TableRow,
 } from "@ui/components/ui/table";
-import { TransferDialog } from "./transfer-dialog";
-import { AllocationDialog } from "./allocation-dialog";
-import { PurchaseDialog } from "./purchase-dialog";
-import useUserStore from "../../../../store/user";
+import { TransferDialog } from "~/components/dialog/transfer-dialog";
+import { AllocationDialog } from "~/components/dialog/allocation-dialog";
+import { PurchaseDialog } from "~/components/dialog/purchase-dialog";
+import useUserStore from "~/store/user";
 import { useQuery, gql } from "@apollo/client";
 import dayjs from "dayjs";
 import "dayjs/locale/ja";

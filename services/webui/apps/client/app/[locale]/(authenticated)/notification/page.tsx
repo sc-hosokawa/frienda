@@ -2,11 +2,9 @@
 
 import { Bell } from "lucide-react";
 import { Card } from "@ui/components/ui/card";
-import { Badge } from "@ui/components/ui/badge";
-import { Button } from "@ui/components/ui/button";
 import Image from "next/image";
 import { gql, useQuery } from "@apollo/client";
-import useUserStore from "../../../../store/user";
+import useUserStore from "~/store/user";
 import Link from "next/link";
 
 const GET_NOTIFICATIONS = gql`

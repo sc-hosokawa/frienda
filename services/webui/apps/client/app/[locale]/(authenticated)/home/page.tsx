@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import useUserStore from "../../../../store/user";
+import useUserStore from "~/store/user";
 import { useQuery, gql } from "@apollo/client";
-import { QuestData } from "../../../../generated/graphql";
+import { QuestData } from "~/generated/graphql";
 import {
   Carousel,
   CarouselContent,
@@ -11,9 +11,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@ui/components/ui/carousel";
-import { RequestForViewDialog } from "../reqest-for-view";
-import { Overview } from "../dashboard/overview";
-import { Trending } from "../dashboard/trending";
+import { RequestForViewDialog } from "~/components/reqest-for-view";
+import { Overview } from "~/components/dashboard/overview";
+import { Trending } from "~/components/dashboard/trending";
 
 const GET_QUESTS_BY_USER = gql`
   query GetQuestsByUser($userId: String!) {

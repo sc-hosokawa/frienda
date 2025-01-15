@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import useUserStore from "../../../store/user";
+import useUserStore from "~/store/user";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
-import { useUserBalance } from "../../../store/user";
+import { useUserBalance } from "~/store/user";
 import { gql, useQuery } from "@apollo/client";
 import { toast } from "react-hot-toast";
 

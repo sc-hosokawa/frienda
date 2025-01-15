@@ -18,7 +18,7 @@ import {
   SidebarFooter,
 } from "@ui/components/ui/sidebar";
 import AccessControlDialog from "./access-control";
-import SuperAdminDialog from "./superadmin-dialog";
+import SuperAdminDialog from "./dialog/superadmin-dialog";
 import {
   DropdownMenu,
   DropdownMenuTrigger,

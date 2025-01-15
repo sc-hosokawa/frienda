@@ -19,7 +19,7 @@ import {
   ChartTooltipContent,
 } from "@ui/components/ui/chart";
 import { useQuery, gql } from "@apollo/client";
-import { ChartDataByUpc } from "../../../../../../generated/graphql";
+import { ChartDataByUpc } from "~/generated/graphql";
 import {
   Select,
   SelectContent,

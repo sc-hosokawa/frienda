@@ -1,7 +1,7 @@
 "use client";
 
-import CommunityListsRow from "../../../../components/community/community-lits-row";
-import CommunityMap from "../../../../components/community/community-map";
+import CommunityListsRow from "~/components/community/community-lits-row";
+import CommunityMap from "~/components/community/community-map";
 import {
   Tabs,
   TabsContent,
@@ -15,8 +15,8 @@ import {
   TableHeader,
   TableRow,
 } from "@ui/components/ui/table";
-import { gql, useQuery, useMutation } from "@apollo/client";
-import useUserStore from "../../../../store/user";
+import { gql, useQuery } from "@apollo/client";
+import useUserStore from "~/store/user";
 
 const GET_OWN_COMMUNITY = gql`
   query GetOwnCommunity($userId: String!) {

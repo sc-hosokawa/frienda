@@ -2,14 +2,13 @@
 
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import useUserStore from "../../../../../store/user";
+import useUserStore from "~/store/user";
 import Image from "next/image";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@ui/components/ui/dialog";
 import { Button } from "@ui/components/ui/button";
 import { useState } from "react";

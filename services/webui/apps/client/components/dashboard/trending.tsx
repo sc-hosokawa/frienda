@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useQuery, gql } from "@apollo/client";
-import useUserStore from "../../../../store/user";
-import { CreditDialog } from "../credit-dialog";
+import useUserStore from "~/store/user";
+import { CreditDialog } from "../dialog/credit-dialog";
 import * as Popover from "@radix-ui/react-popover";
 
 const GET_TRENDING = gql`

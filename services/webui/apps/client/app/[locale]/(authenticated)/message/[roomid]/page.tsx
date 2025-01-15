@@ -5,12 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { Avatar, AvatarImage } from "@ui/components/ui/avatar";
 import { Button } from "@ui/components/ui/button";
-import { Info, Image as ImageIcon, Send, Loader2, Plus, X } from "lucide-react";
-import useUserStore from "../../../../../store/user";
+import { Image as ImageIcon, Send, Loader2, Plus, X } from "lucide-react";
+import useUserStore from "~/store/user";
 import { useQuery, useMutation, gql } from "@apollo/client";
-import { MessagesByRoomIdByUserData } from "../../../../../generated/graphql";
+import { MessagesByRoomIdByUserData } from "~/generated/graphql";
 import { useParams } from "next/navigation";
-import { storage } from "../../../../../config";
+import { storage } from "~/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   DropdownMenu,

@@ -2,19 +2,22 @@
 
 import React, { Suspense } from "react";
 import Image from "next/image";
-import OfferList from "./offer-list";
-import OfferListSkeleton from "./offer-list-skeleton";
-import OfferStats from "./stats";
-import OfferAllList, { OfferAllListSkeleton } from "./offer-all-list";
+import OfferList from "~/components/offer/offer-list";
+import OfferListSkeleton from "~/components/offer/offer-list-skeleton";
+import OfferStats from "~/components/offer/stats";
+import OfferAllList, {
+  OfferAllListSkeleton,
+} from "~/components/offer/offer-all-list";
+import { OfferInfo } from "~/components/offer/offer-Info";
 import Link from "next/link";
-import useUserStore from "../../../../store/user";
+import useUserStore from "~/store/user";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@ui/components/ui/tooltip";
-import { ConciergeDialog } from "../../../../components/dialog/concierge-dialog";
+import { ConciergeDialog } from "~/components/dialog/concierge-dialog";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -29,9 +32,8 @@ const conciergeSchema = z.object({
 const ASK_LLM = gql`
   query AskLLM($userId: String!, $question: String!) {
     askLlm(userId: $userId, question: $question)
-  }
+  }~/components/offer/OfferInfo
 `;
-import { OfferInfo } from "./OfferInfo";
 
 export default function OfferPage() {
   const { user } = useUserStore();

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -8,21 +7,21 @@ import {
   sendPasswordResetEmail,
   sendEmailVerification,
 } from "firebase/auth";
-import { auth } from "../../../../config";
+import { auth } from "~/config";
 import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
 import { useRouter } from "next/navigation";
 import { gql, useLazyQuery } from "@apollo/client";
-import useAuthStore from "../../../../store/auth";
-import useUserStore from "../../../../store/user";
+import useAuthStore from "~/store/auth";
+import useUserStore from "~/store/user";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@ui/components/ui/dialog";
-import useAuthStepStore from "../../../../store/authStep";
+import useAuthStepStore from "~/store/authStep";
 
 export default function Login({
   params: { locale },

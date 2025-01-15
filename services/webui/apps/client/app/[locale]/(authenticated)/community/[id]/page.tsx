@@ -1,22 +1,22 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { SocialLink } from "../../../../../components/account/social-links";
+import { SocialLink } from "~/components/account/social-links";
 import { Separator } from "@ui/components/ui/separator";
-import { ConnectionTypes } from "../../../../../components/account/connection-type";
-import { getBgClassByType, category } from "../../../../../utils";
-import { Offers } from "../../../../../components/account/offers";
-import { Skill } from "../../../../../components/community/skill";
-import { Category } from "../../../../../components/community/category";
+import { ConnectionTypes } from "~/components/account/connection-type";
+import { getBgClassByType, category } from "~/utils";
+import { Offers } from "~/components/account/offers";
+import { Skill } from "~/components/community/skill";
+import { Category } from "~/components/community/category";
 import { NotoSansJP } from "../../layout";
-import { BorderDash } from "../../../../../components/border-dash";
-import { Works } from "../../../../../components/community/works";
-import { OfferCard } from "../../../../../components/community/offer-card";
-import { List } from "../../../../../components/account/list";
-import { BaseComponent } from "../../../../../components/account/base";
+import { BorderDash } from "~/components/border-dash";
+import { Works } from "~/components/community/works";
+import { OfferCard } from "~/components/community/offer-card";
+import { List } from "~/components/account/list";
+import { BaseComponent } from "~/components/account/base";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import useUserStore from "../../../../../store/user";
-import CommunityMap from "../../../../../components/community/community-map";
+import useUserStore from "~/store/user";
+import CommunityMap from "~/components/community/community-map";
 import {
   Popover,
   PopoverContent,

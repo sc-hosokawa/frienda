@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import { gql, useQuery } from "@apollo/client";
-import useUserStore from "../../../../store/user";
-import { OfferStatsByUserData } from "../../../../generated/graphql";
+import useUserStore from "~/store/user";
 
 const GET_OFFER_STATS = gql`
   query GetOfferStats($userId: String!) {

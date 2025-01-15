@@ -11,7 +11,7 @@ import {
 } from "@ui/components/ui/dialog";
 import { Button } from "@ui/components/ui/button";
 import { ShoppingCart } from "lucide-react";
-import useUserStore from "../../../../store/user";
+import useUserStore from "../../store/user";
 
 interface PointOption {
   points: number;

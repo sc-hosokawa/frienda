@@ -10,7 +10,7 @@ import { useQuery, useMutation, gql } from "@apollo/client";
 import { Button } from "@ui/components/ui/button";
 import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { Check, X, ShieldCheck } from "lucide-react";
-import useUserStore from "../../../store/user";
+import useUserStore from "~/store/user";
 import { useState } from "react";
 
 const GET_PENDING_MEMBERS = gql`

@@ -6,7 +6,7 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
-import { auth } from "../../../../config";
+import { auth } from "~/config";
 import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
@@ -14,9 +14,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../../../../config";
-import useUserStore from "../../../../store/user";
-import useAuthStepStore from "../../../../store/authStep";
+import { storage } from "~/config";
+import useUserStore from "~/store/user";
+import useAuthStepStore from "~/store/authStep";
 
 // GraphQL Mutationの定義
 const CREATE_USER_MUTATION = gql`

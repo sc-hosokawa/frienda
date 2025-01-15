@@ -14,7 +14,7 @@ import { Input } from "@ui/components/ui/input";
 import { Textarea } from "@ui/components/ui/textarea";
 import { Send } from "lucide-react";
 import { useMutation, gql, useQuery } from "@apollo/client";
-import useUserStore from "../../../../store/user";
+import useUserStore from "../../store/user";
 
 type TransferFormData = {
   recipient: string;

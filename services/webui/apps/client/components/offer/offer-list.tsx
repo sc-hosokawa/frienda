@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { Card, CardContent } from "@ui/components/ui/card";
 import { gql, useQuery } from "@apollo/client";
-import useUserStore from "../../../../store/user";
-import { OffersData } from "../../../../generated/graphql";
+import useUserStore from "~/store/user";
+import { OffersData } from "~/generated/graphql";
 import { useRouter } from "next/navigation";
 
 const GET_OFFERS_BY_OWNER = gql`

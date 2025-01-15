@@ -1,20 +1,11 @@
 import "@ui/styles/globals.css";
 import type { Metadata } from "next";
-import { ThemeProvider } from "@ui/components/theme-provider";
 import { SidebarProvider, SidebarTrigger } from "@ui/components/ui/sidebar";
-import { ClientSidebar } from "./client-sidebar";
-import Header from "./header";
-import { AuthProvider } from "../../../provider/auth-provider";
-import { ApollClientProvider } from "../../../provider/apollo-client";
-import { Jost, Noto_Sans_JP } from "next/font/google";
+import { ClientSidebar } from "~/components/client-sidebar";
+import Header from "~/components/header";
+import {  Noto_Sans_JP } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 
-const JostFont = Jost({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  display: "swap",
-  variable: "--font-jost",
-});
 
 export const NotoSansJP = Noto_Sans_JP({
   subsets: ["latin"],

@@ -16,7 +16,7 @@ import {
 import { Button } from "@ui/components/ui/button";
 import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { Check, UserCheck, X } from "lucide-react";
-import useUserStore from "../../../store/user";
+import useUserStore from "../store/user";
 import { gql, useQuery, useMutation } from "@apollo/client";
 
 const MARK_AS_MEMBER = gql`

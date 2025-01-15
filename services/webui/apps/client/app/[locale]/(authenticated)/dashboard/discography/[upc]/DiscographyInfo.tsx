@@ -1,6 +1,6 @@
 "use client";
 
-import { InfoDialog } from "../../../../../../components/dialog/page-info";
+import { InfoDialog } from "~/components/dialog/page-info";
 
 export function DiscographyInfo() {
   return (

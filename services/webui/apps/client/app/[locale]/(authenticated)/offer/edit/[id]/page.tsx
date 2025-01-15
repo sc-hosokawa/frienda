@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
 import { Textarea } from "@ui/components/ui/textarea";
 import { Switch } from "@ui/components/ui/switch";
-import useUserStore from "../../../../../../store/user";
+import useUserStore from "~/store/user";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import {
@@ -21,7 +21,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@ui/components/ui/dialog";
-import { storage } from "../../../../../../config";
+import { storage } from "~/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const GET_OFFER_BY_ID = gql`

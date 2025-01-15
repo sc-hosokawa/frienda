@@ -9,10 +9,9 @@ import {
   DialogTrigger,
 } from "@ui/components/ui/dialog";
 import { Button } from "@ui/components/ui/button";
-import { Share2, User, ArrowLeft } from "lucide-react";
+import { Share2, ArrowLeft } from "lucide-react";
 import { Input } from "@ui/components/ui/input";
-import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/ui/avatar";
-import useUserStore from "../../../../store/user";
+import useUserStore from "~/store/user";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
 interface Artist {

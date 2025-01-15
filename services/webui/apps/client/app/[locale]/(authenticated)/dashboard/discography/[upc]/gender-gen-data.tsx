@@ -21,7 +21,7 @@ import {
 } from "recharts";
 import { Info } from "lucide-react";
 import { useQuery, gql } from "@apollo/client";
-import { GenderGenRateData } from "../../../../../../generated/graphql";
+import { GenderGenRateData } from "~/generated/graphql";
 import { ChartSkeleton } from "./gender-gen-chart-skelton";
 
 const GET_GENDER_GEN_RATE_BY_UPC = gql`

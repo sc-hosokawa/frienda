@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useQuery, gql } from "@apollo/client";
-import useUserStore from "../../../../store/user";
+import useUserStore from "~/store/user";
 
 const GET_OVERVIEW = gql`
   query GetOverview($artistId: String!, $userId: String!) {

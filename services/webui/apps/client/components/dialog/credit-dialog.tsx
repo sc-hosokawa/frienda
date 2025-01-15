@@ -13,7 +13,7 @@ import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
 import { Label } from "@ui/components/ui/label";
 import { PlusCircle, X } from "lucide-react";
-import useUserStore from "../../../store/user";
+import useUserStore from "~/store/user";
 import { gql, useMutation, useQuery } from "@apollo/client";
 
 interface CreditFormData {

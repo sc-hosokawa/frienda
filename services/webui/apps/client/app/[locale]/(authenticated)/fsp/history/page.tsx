@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowDownRight, ArrowUpRight, ArrowLeft } from "lucide-react";
-import Image from "next/image";
 import { format } from "date-fns";
 import Link from "next/link";
 
@@ -15,7 +14,7 @@ import {
   TableRow,
 } from "@ui/components/ui/table";
 import { useQuery, gql } from "@apollo/client";
-import useUserStore from "../../../../../store/user";
+import useUserStore from "~/store/user";
 
 interface Transaction {
   id: string;

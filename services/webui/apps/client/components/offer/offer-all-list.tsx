@@ -6,8 +6,7 @@ import { Card, CardContent, CardFooter } from "@ui/components/ui/card";
 import { Badge } from "@ui/components/ui/badge";
 import { Skeleton } from "@ui/components/ui/skeleton";
 import { gql, useQuery } from "@apollo/client";
-import { OffersData } from "../../../../generated/graphql";
-import useUserStore from "../../../../store/user";
+import useUserStore from "../../store/user";
 import { useRouter } from "next/navigation";
 
 // Offer type definition

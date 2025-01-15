@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Overview } from "./overview";
-import { Trending } from "./trending";
-import { Historical } from "./histrical";
-import { GenderGenView } from "./gender-gen-data";
-import useUserStore from "../../../../store/user";
-import { RequestForViewDialog } from "../reqest-for-view";
-import { DashboardInfo } from "./DashboardInfo";
+import { Overview } from "~/components/dashboard/overview";
+import { Trending } from "~/components/dashboard/trending";
+import { Historical } from "~/components/dashboard/histrical";
+import { GenderGenView } from "~/components/dashboard/gender-gen-data";
+import useUserStore from "~/store/user";
+import { RequestForViewDialog } from "~/components/reqest-for-view";
+import { DashboardInfo } from "~/components/dashboard/DashboardInfo";
 
 export default function Dashboard() {
   const { user } = useUserStore();

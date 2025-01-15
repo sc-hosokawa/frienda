@@ -1,12 +1,12 @@
 "use client";
 
 import { Button } from "@ui/components/ui/button";
-import { Download, ArrowLeft } from "lucide-react";
+import { Download } from "lucide-react";
 import Image from "next/image";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { useState } from "react";
-import useUserStore from "../../../../../store/user";
-import { OfferDetailData } from "../../../../../generated/graphql";
+import useUserStore from "~/store/user";
+import { OfferDetailData } from "~/generated/graphql";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {

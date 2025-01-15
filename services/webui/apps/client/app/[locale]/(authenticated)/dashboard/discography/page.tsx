@@ -10,11 +10,11 @@ import { Card, CardContent, CardHeader } from "@ui/components/ui/card";
 import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { Separator } from "@ui/components/ui/separator";
 import { useQuery, gql } from "@apollo/client";
-import useUserStore from "../../../../../store/user";
+import useUserStore from "~/store/user";
 import {
   ProductsData,
   ProductWithTracks,
-} from "../../../../../generated/graphql";
+} from "~/generated/graphql";
 
 interface ResData {
   getProducts: ProductsData;

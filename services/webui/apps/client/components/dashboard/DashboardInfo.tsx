@@ -1,6 +1,6 @@
 "use client";
 
-import { InfoDialog } from "../../../../components/dialog/page-info";
+import { InfoDialog } from "../dialog/page-info";
 
 export function DashboardInfo() {
   return (
