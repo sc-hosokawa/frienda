@@ -3,16 +3,8 @@ import type { Metadata } from "next";
 import { SidebarProvider, SidebarTrigger } from "@ui/components/ui/sidebar";
 import { ClientSidebar } from "~/components/client-sidebar";
 import Header from "~/components/header";
-import {  Noto_Sans_JP } from "next/font/google";
+
 import { Toaster } from "react-hot-toast";
-
-
-export const NotoSansJP = Noto_Sans_JP({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
-  display: "swap",
-  variable: "--font-noto-sans-jp",
-});
 
 const metadata: Metadata = {
   title: "FRIENDSHIP. DAO",

@@ -1,15 +1,10 @@
 import "@ui/styles/globals.css";
-import type { Metadata } from "next";
+
 import { ThemeProvider } from "@ui/components/theme-provider";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "~/provider/auth-provider";
 import { ApollClientProvider } from "~/provider/apollo-client";
 import { JostFont } from "../utils/fonts";
-
-const metadata: Metadata = {
-  title: "FRIENDSHIP. DAO",
-  description: "Community-driven dashboard",
-};
 
 export default function RootLayout({
   children,

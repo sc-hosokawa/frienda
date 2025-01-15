@@ -8,12 +8,13 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
   CarouselPrevious,
+  CarouselNext,
 } from "@ui/components/ui/carousel";
 import { RequestForViewDialog } from "~/components/reqest-for-view";
 import { Overview } from "~/components/dashboard/overview";
 import { Trending } from "~/components/dashboard/trending";
+import { useTranslation } from "~/i18n/client";
 
 const GET_QUESTS_BY_USER = gql`
   query GetQuestsByUser($userId: String!) {
@@ -29,8 +30,13 @@ interface QuestsResData {
   getQuestByUserId: QuestData[];
 }
 
-export default function Home() {
+export default function Home({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
   const { user } = useUserStore();
+  const { t } = useTranslation();
   const acceptedArtists = user?.belongsToArtists.filter(
     (artist) => artist.status === "Accept"
   );
@@ -65,7 +71,7 @@ export default function Home() {
           <h1 className="text-[90px] font-light tracking-tight leading-none">
             HOME
           </h1>
-          <p className="text-sm -mt-2">ホーム</p>
+          <p className="text-sm -mt-2">{t("home")}</p>
         </div>
       </div>
       <hr className="mb-8 mt-24 border-[#303030]" />

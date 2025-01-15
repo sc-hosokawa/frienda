@@ -8,7 +8,6 @@ import { getBgClassByType, category } from "~/utils";
 import { Offers } from "~/components/account/offers";
 import { Skill } from "~/components/community/skill";
 import { Category } from "~/components/community/category";
-import { NotoSansJP } from "../../layout";
 import { BorderDash } from "~/components/border-dash";
 import { Works } from "~/components/community/works";
 import { OfferCard } from "~/components/community/offer-card";
@@ -25,6 +24,7 @@ import {
 import { Copy, Check, MessageSquare, Pencil } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { NotoSansJP } from "~/utils/fonts";
 
 const GET_USER_PROFILE = gql`
   query GetUserProfile($viewerId: String!, $userId: String!) {
