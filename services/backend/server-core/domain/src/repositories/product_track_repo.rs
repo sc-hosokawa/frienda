@@ -26,4 +26,5 @@ pub trait ProductTrackRepository: Send + Sync {
     async fn get_by_isrc(&self, isrc: &str) -> Result<Vec<ProductTrack>, DomainError>;
     async fn get_by_upcs(&self, upcs: Vec<String>) -> Result<Vec<ProductTrack>, DomainError>;
     async fn get_by_isrcs(&self, isrcs: Vec<String>) -> Result<Vec<ProductTrack>, DomainError>;
+    async fn get_max_id(&self) -> Result<Option<i32>, DomainError>;
 }

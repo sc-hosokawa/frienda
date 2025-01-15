@@ -30,8 +30,14 @@ impl ProductTrackRepository for ProductTrackRepoImpl {
         models: Vec<ProductTrackActiveModel>,
     ) -> Result<InsertResult<ProductTrackActiveModel>, DomainError> {
         let res: InsertResult<ProductTrackActiveModel> = ProductTrackEntity::insert_many(models)
+            .on_conflict(
+                sea_orm::sea_query::OnConflict::new()
+                    .do_nothing()
+                    .to_owned(),
+            )
             .exec(&self.db)
             .await?;
+        tracing::info!("Insert result: {:?}", res);
         Ok(res)
     }
 
@@ -79,6 +85,18 @@ impl ProductTrackRepository for ProductTrackRepoImpl {
             .filter(Column::Isrc.is_in(isrcs))
             .all(&self.db)
             .await?;
+        Ok(res)
+    }
+
+    async fn get_max_id(&self) -> Result<Option<i32>, DomainError> {
+        let res = ProductTrackEntity::find()
+            .select_only()
+            .column_as(sea_orm::sea_query::Expr::col(Column::Id).max(), "max_id")
+            .into_tuple::<Option<i32>>()
+            .one(&self.db)
+            .await?
+            .flatten();
+
         Ok(res)
     }
 }

@@ -93,6 +93,11 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
             Vec::with_capacity(input.releases.len());
         tracing::info!("========== Releases count = {}", input.releases.len());
 
+        let start_id = self.product_track_repo.get_max_id().await?.unwrap();
+        tracing::info!("========== Start ID = {}", start_id);
+
+        let mut id_counter = start_id + 1;
+
         for release in &input.releases {
             if !unique_products.contains_key(&release.upc) {
                 unique_products.insert(
@@ -123,11 +128,12 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
             });
 
             product_tracks.push(ProductTrackActiveModel {
+                id: ActiveValue::Set(id_counter),
                 upc: ActiveValue::Set(release.upc.clone()),
                 isrc: ActiveValue::Set(release.isrc.clone()),
                 track_no: ActiveValue::Set(Some(release.track_no)),
-                ..Default::default()
             });
+            id_counter += 1;
         }
 
         // HashMapの値を Vec に変換
@@ -158,10 +164,6 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
                 tracing::error!("Failed to create product tracks: {:?}", e);
                 anyhow::anyhow!("Failed to create product tracks: {}", e)
             })?;
-        tracing::info!(
-            "Product tracks created: {} rows affected",
-            product_track_res.last_insert_id
-        );
 
         // 全ての処理が成功した場合
         tracing::info!("Successfully registered all releases");
