@@ -5,7 +5,7 @@ use shared::error::domain_err::DomainError;
 #[async_trait]
 pub trait TracksRepository: Send + Sync {
     async fn create(&self, track: TrackActiveModel) -> Result<Track, DomainError>;
-    async fn create_many(&self, tracks: Vec<TrackActiveModel>) -> Result<(), DomainError>;
+    async fn create_many(&self, tracks: Vec<TrackActiveModel>) -> Result<bool, DomainError>;
     async fn update(&self, track: TrackActiveModel) -> Result<Track, DomainError>;
 
     async fn delete(&self, isrc: &str) -> Result<(), DomainError>;

@@ -1,6 +1,7 @@
 use async_trait::async_trait;
 use derive_new::new;
 use sea_orm::*;
+use tracing::info;
 
 use domain::entities::products::{
     ActiveModel as ProductsActiveModel, Column, Entity as ProductsEntity, Model as Products,
@@ -23,16 +24,26 @@ impl ProductsRepository for ProductsRepoImpl {
         Ok(inserted_model.unwrap())
     }
 
-    async fn create_many(&self, models: Vec<ProductsActiveModel>) -> Result<(), DomainError> {
-        let _res = ProductsEntity::insert_many(models)
+    async fn create_many(&self, models: Vec<ProductsActiveModel>) -> Result<bool, DomainError> {
+        info!("========== Before insert: models count = {}", models.len());
+
+        let try_res = ProductsEntity::insert_many(models)
             .on_conflict(
                 sea_orm::sea_query::OnConflict::column(Column::Upc)
                     .do_nothing()
                     .to_owned(),
             )
+            .do_nothing()
             .exec(&self.db)
             .await?;
-        Ok(())
+
+        let success = matches!(try_res, TryInsertResult::Inserted(_));
+        info!(
+            "========== Insert completed: {}",
+            if success { "inserted" } else { "skipped" }
+        );
+
+        Ok(success)
     }
 
     async fn update(&self, model: ProductsActiveModel) -> Result<Products, DomainError> {

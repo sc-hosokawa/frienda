@@ -91,7 +91,7 @@ export function MetadataTable({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
   const totalPages = Math.ceil(metadata.length / itemsPerPage);
-
+  console.log("========== releases count = ", metadata.length);
   const paginatedMetadata = metadata.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage,
@@ -140,14 +140,14 @@ export function MetadataTable({
   });
 
   const handleRegister = () => {
-    if (!paginatedMetadata.every((item) => item.artistId)) {
+    if (!metadata.every((item) => item.artistId)) {
       toast({
         title: "アーティストIDが未設定の項目があります",
         variant: "destructive",
       });
       return;
     }
-    mutation.mutate(paginatedMetadata);
+    mutation.mutate(metadata);
   };
 
   return (

@@ -120,7 +120,8 @@ export function MetadataUpload() {
           cellNF: false,
           cellStyles: false,
         });
-        const secondSheetName = workbook.SheetNames[1];
+        console.log("workbook", workbook);
+        const secondSheetName = workbook.SheetNames[2];
         if (!secondSheetName) {
           throw new Error("Second sheet not found in workbook");
         }
@@ -269,6 +270,8 @@ export function MetadataUpload() {
         );
         return imageData ? { ...item, imageUrl: imageData.url } : item;
       });
+
+      console.log("newMetadata", newMetadata);
 
       setMetadata(newMetadata);
       setImageFiles({});

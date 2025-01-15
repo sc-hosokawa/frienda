@@ -2,6 +2,7 @@ use crate::entities::product_track::{
     ActiveModel as ProductTrackActiveModel, Model as ProductTrack,
 };
 use async_trait::async_trait;
+use sea_orm::InsertResult;
 use shared::error::domain_err::DomainError;
 
 #[async_trait]
@@ -13,7 +14,7 @@ pub trait ProductTrackRepository: Send + Sync {
     async fn create_many(
         &self,
         product_tracks: Vec<ProductTrackActiveModel>,
-    ) -> Result<(), DomainError>;
+    ) -> Result<InsertResult<ProductTrackActiveModel>, DomainError>;
     async fn update(
         &self,
         product_track: ProductTrackActiveModel,

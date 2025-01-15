@@ -39,7 +39,15 @@ impl AdminMutation {
                         .collect(),
                 },
             )
-            .await?;
-        Ok(models::admin::RegisterReleasesResponse { success: true })
+            .await;
+
+        match res {
+            Ok(_) => Ok(models::admin::RegisterReleasesResponse { success: true }),
+            Err(e) => {
+                // エラーログを出力
+                tracing::error!("Register releases error: {:?}", e);
+                Ok(models::admin::RegisterReleasesResponse { success: false })
+            }
+        }
     }
 }

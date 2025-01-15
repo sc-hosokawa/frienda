@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use chrono::NaiveDate;
 use futures::join;
 use sea_orm::ActiveValue;
 use std::collections::HashMap;
@@ -37,8 +38,8 @@ pub struct Release {
 pub trait ManageTracksUsecaseTrait: Send + Sync {
     async fn get_all_tracks(&self) -> Result<Vec<Track>, anyhow::Error>;
     async fn get_all_products(&self) -> Result<Vec<Product>, anyhow::Error>;
-    async fn register_releases(&self, input: RegisterReleasesInput) -> Result<(), anyhow::Error>;
-    async fn _increase_artists_fsp(&self, artist_id: &str) -> Result<(), anyhow::Error>;
+    async fn register_releases(&self, input: RegisterReleasesInput) -> Result<bool, anyhow::Error>;
+    async fn _increase_artists_fsp(&self, artist_ids: Vec<String>) -> Result<(), anyhow::Error>;
 }
 
 pub struct ManageTracksUsecase {
@@ -84,35 +85,39 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
         Ok(products)
     }
 
-    async fn register_releases(&self, input: RegisterReleasesInput) -> Result<(), anyhow::Error> {
-        let mut artist_products_map: HashMap<String, HashMap<String, Vec<String>>> = HashMap::new();
-
-        let mut products: Vec<ProductActiveModel> = Vec::with_capacity(input.releases.len());
+    async fn register_releases(&self, input: RegisterReleasesInput) -> Result<bool, anyhow::Error> {
+        // UPCをキーとした製品の一時保存用HashMap
+        let mut unique_products: HashMap<String, ProductActiveModel> = HashMap::new();
         let mut tracks: Vec<TrackActiveModel> = Vec::with_capacity(input.releases.len());
         let mut product_tracks: Vec<ProductTrackActiveModel> =
             Vec::with_capacity(input.releases.len());
+        tracing::info!("========== Releases count = {}", input.releases.len());
 
-        for release in input.releases {
-            artist_products_map
-                .entry(release.artist_id.clone())
-                .or_insert(HashMap::new())
-                .entry(release.format.clone())
-                .or_insert(vec![])
-                .push(release.upc.clone());
-
-            products.push(ProductActiveModel {
-                upc: ActiveValue::Set(release.upc.clone()),
-                title: ActiveValue::Set(release.title),
-                r#type: ActiveValue::Set(Some(release.format.clone())),
-                distributed_at: ActiveValue::Set(Some(release.release_date.parse().unwrap())),
-                artist_id: ActiveValue::Set(Some(release.artist_id.clone())),
-                img_url: ActiveValue::Set(release.image_url.clone()),
-                ..Default::default()
-            });
+        for release in &input.releases {
+            if !unique_products.contains_key(&release.upc) {
+                unique_products.insert(
+                    release.upc.clone(),
+                    ProductActiveModel {
+                        upc: ActiveValue::Set(release.upc.clone()),
+                        title: ActiveValue::Set(release.title.clone()),
+                        r#type: ActiveValue::Set(Some(release.format.clone())),
+                        distributed_at: ActiveValue::Set(Some(
+                            NaiveDate::parse_from_str(&release.release_date, "%Y/%m/%d")
+                                .map_err(|e| anyhow::anyhow!(e))?,
+                        )),
+                        artist_id: ActiveValue::Set(Some(release.artist_id.clone())),
+                        img_url: ActiveValue::Set(release.image_url.clone()),
+                        ..Default::default()
+                    },
+                );
+            }
 
             tracks.push(TrackActiveModel {
                 isrc: ActiveValue::Set(release.isrc.clone()),
-                title: ActiveValue::Set(release.track_title),
+                title: ActiveValue::Set(format!(
+                    "{} ({})",
+                    release.track_title, release.track_title_version
+                )),
                 artist_id: ActiveValue::Set(Some(release.artist_id.clone())),
                 ..Default::default()
             });
@@ -125,35 +130,85 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
             });
         }
 
-        let (product_track_res, track_res, product_res) = join!(
-            self.product_track_repo.create_many(product_tracks),
-            self.tracks_repo.create_many(tracks),
-            self.products_repo.create_many(products),
+        // HashMapの値を Vec に変換
+        let products: Vec<ProductActiveModel> = unique_products.into_values().collect();
+
+        // 順序を保証するため、順次実行に変更し、各ステップでエラーハンドリング
+        let product_res: bool = self
+            .products_repo
+            .create_many(products)
+            .await
+            .map_err(|e| {
+                tracing::error!("Failed to create products: {:?}", e);
+                anyhow::anyhow!("Failed to create products: {}", e)
+            })?;
+        tracing::info!("Products created: {}", product_res);
+
+        let track_res: bool = self.tracks_repo.create_many(tracks).await.map_err(|e| {
+            tracing::error!("Failed to create tracks: {:?}", e);
+            anyhow::anyhow!("Failed to create tracks: {}", e)
+        })?;
+        tracing::info!("Tracks created: {}", track_res);
+
+        let product_track_res = self
+            .product_track_repo
+            .create_many(product_tracks)
+            .await
+            .map_err(|e| {
+                tracing::error!("Failed to create product tracks: {:?}", e);
+                anyhow::anyhow!("Failed to create product tracks: {}", e)
+            })?;
+        tracing::info!(
+            "Product tracks created: {} rows affected",
+            product_track_res.last_insert_id
         );
 
-        product_track_res.map_err(|e| anyhow::anyhow!(e))?;
-        track_res.map_err(|e| anyhow::anyhow!(e))?;
-        product_res.map_err(|e| anyhow::anyhow!(e))?;
+        // 全ての処理が成功した場合
+        tracing::info!("Successfully registered all releases");
 
-        /* アーティストのfspを更新する */
-        //for (artist_id, products) in artist_products_map {
-        //    self._increase_artists_fsp(&artist_id).await?;
-        //}
+        // アーティストのFSPを更新
+        let artist_ids: Vec<String> = input
+            .releases
+            .iter()
+            .map(|release| release.artist_id.clone())
+            .collect();
+        self._increase_artists_fsp(artist_ids).await?;
 
-        Ok(())
+        Ok(true)
     }
 
-    async fn _increase_artists_fsp(&self, artist_id: &str) -> Result<(), anyhow::Error> {
-        let artist: Option<Artist> = self
-            .artists_repo
-            .find_by_id(&artist_id)
-            .await
-            .map_err(|e| anyhow::anyhow!(e))?;
-        let artist: Artist = artist.unwrap();
-        let mut artist_active_model: ArtistActiveModel = artist.into();
+    async fn _increase_artists_fsp(&self, artist_ids: Vec<String>) -> Result<(), anyhow::Error> {
+        // アーティストIDごとの出現回数をカウント
+        let mut artist_track_counts: HashMap<String, i32> = HashMap::new();
+        for artist_id in artist_ids {
+            *artist_track_counts.entry(artist_id).or_insert(0) += 1;
+        }
 
-        artist_active_model.fsp = ActiveValue::Set(artist_active_model.fsp.unwrap() + 1);
-        self.artists_repo.update(artist_active_model).await?;
+        for (artist_id, track_count) in artist_track_counts {
+            let fsp_points: i32 = if track_count <= 10 {
+                track_count * 10 // 10曲以下: 曲数 × 10ポイント
+            } else {
+                100 // 11曲以上: 100ポイント（上限）
+            };
+
+            let artist = self
+                .artists_repo
+                .find_by_id(&artist_id)
+                .await
+                .map_err(|e| anyhow::anyhow!("Failed to find artist: {}", e))?;
+
+            if let Some(artist) = artist {
+                let current_fsp: i32 = artist.fsp;
+                let mut artist_active: ArtistActiveModel = artist.into();
+                artist_active.fsp = ActiveValue::Set(current_fsp + fsp_points);
+
+                self.artists_repo
+                    .update(artist_active)
+                    .await
+                    .map_err(|e| anyhow::anyhow!("Failed to update artist FSP: {}", e))?;
+            }
+        }
+
         Ok(())
     }
 }

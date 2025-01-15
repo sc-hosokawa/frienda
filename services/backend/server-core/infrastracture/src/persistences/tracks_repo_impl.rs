@@ -7,6 +7,7 @@ use domain::entities::tracks::{
 };
 use domain::repositories::tracks_repo::TracksRepository;
 use shared::error::domain_err::DomainError;
+use tracing::info;
 
 #[derive(new)]
 pub struct TracksRepoImpl {
@@ -23,16 +24,26 @@ impl TracksRepository for TracksRepoImpl {
         Ok(inserted_model.unwrap())
     }
 
-    async fn create_many(&self, models: Vec<TracksActiveModel>) -> Result<(), DomainError> {
-        let _res = TracksEntity::insert_many(models)
+    async fn create_many(&self, models: Vec<TracksActiveModel>) -> Result<bool, DomainError> {
+        info!("========== Before insert: models count = {}", models.len());
+
+        let try_res = TracksEntity::insert_many(models)
             .on_conflict(
                 sea_orm::sea_query::OnConflict::column(Column::Isrc)
                     .do_nothing()
                     .to_owned(),
             )
+            .do_nothing()
             .exec(&self.db)
             .await?;
-        Ok(())
+
+        let success = matches!(try_res, TryInsertResult::Inserted(_));
+        info!(
+            "========== Insert completed: {}",
+            if success { "inserted" } else { "skipped" }
+        );
+
+        Ok(success)
     }
 
     async fn update(&self, model: TracksActiveModel) -> Result<Tracks, DomainError> {
