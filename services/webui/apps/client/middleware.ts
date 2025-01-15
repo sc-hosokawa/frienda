@@ -12,7 +12,11 @@ const extractLocale = (headers: Negotiator.Headers) => {
 export function middleware(request: NextRequest) {
   const session = request.cookies.get("session");
   const pathname = request.nextUrl.pathname;
-
+  
+	// public配下のファイルへのリクエストはスキップ
+  if (pathname.includes(".")) {
+    return NextResponse.next();
+  }
   // APIルートはミドルウェアをスキップ
   if (pathname.startsWith("/api/")) {
     return NextResponse.next();
@@ -39,9 +43,7 @@ export function middleware(request: NextRequest) {
   // ルートパスの処理を修正
   if (isRoot) {
     if (session) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/home`, request.url)
-      );
+      return NextResponse.redirect(new URL(`/${locale}/home`, request.url));
     }
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
@@ -59,9 +61,7 @@ export function middleware(request: NextRequest) {
       !pathname.startsWith(`/${locale}/termofservice`) &&
       !pathname.startsWith(`/${locale}/privacypolicy`)
     ) {
-      return NextResponse.redirect(
-        new URL(`/${locale}/home`, request.url)
-      );
+      return NextResponse.redirect(new URL(`/${locale}/home`, request.url));
     }
     return NextResponse.next();
   }
