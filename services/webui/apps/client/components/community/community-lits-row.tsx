@@ -10,23 +10,20 @@ import {
   Copy,
   MessageSquare,
 } from "lucide-react";
-import heart from "../../public/heart.svg";
-import {
-  TableCell,
-  TableRow,
-} from "../../../../packages/ui/components/ui/table";
-import { getBgClassByType, category } from "../../utils";
+import heart from "~/public/heart.svg";
+import { TableCell, TableRow } from "@ui/components/ui/table";
+import { getBgClassByType, category } from "~/utils";
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 import { gql, useMutation } from "@apollo/client";
-import useUserStore from "../../store/user";
+import useUserStore from "~/store/user";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../../packages/ui/components/ui/popover";
-import { Button } from "../../../../packages/ui/components/ui/button";
-import { Input } from "../../../../packages/ui/components/ui/input";
+} from "@ui/components/ui/popover";
+import { Button } from "@ui/components/ui/button";
+import { Input } from "@ui/components/ui/input";
 import { useRouter } from "next/navigation";
 
 export interface CommunityListsRowProps {
