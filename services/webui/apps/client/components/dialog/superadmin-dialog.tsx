@@ -12,6 +12,7 @@ import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { Check, X, ShieldCheck } from "lucide-react";
 import useUserStore from "~/store/user";
 import { useState } from "react";
+import { useTranslation } from "~/i18n/client";
 
 const GET_PENDING_MEMBERS = gql`
   query GetPendingMembers($userId: String!) {
@@ -59,6 +60,7 @@ type PendingMember = {
 
 export default function SuperAdminDialog() {
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
   const { user } = useUserStore();
 
   const { data, loading, error, refetch } = useQuery(GET_PENDING_MEMBERS, {
@@ -146,19 +148,19 @@ export default function SuperAdminDialog() {
       {user?.isSuperAdmin && (
         <Button onClick={() => setOpen(true)} variant="outline" className="">
           <ShieldCheck className="mr-4 h-4 w-4" />
-          管理者専用
+          {t("common.only-admin")}
         </Button>
       )}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="w-4/5 max-w-5xl h-[80vh] max-h-[80vh] flex flex-col p-0 gap-0">
           <DialogHeader className="p-6 pb-2">
-            <DialogTitle>アクセス権限リクエスト一覧</DialogTitle>
+            <DialogTitle>{t("common.list-of-access-request")}</DialogTitle>
           </DialogHeader>
           <ScrollArea className="flex-grow p-6">
             <div className="space-y-4">
               {data?.getAllPendingMembers?.length === 0 ? (
                 <div className="text-center text-muted-foreground py-8">
-                  処理すべきリクエストはありません
+                  {t("common.no-access-request-to-handle")}
                 </div>
               ) : (
                 data?.getAllPendingMembers?.map((item: PendingMember) => (
@@ -189,7 +191,7 @@ export default function SuperAdminDialog() {
                         className="bg-green-500 hover:bg-green-600"
                       >
                         <Check className="mr-2 h-4 w-4" />
-                        許可
+                        {t("common.admit")}
                       </Button>
                       <Button
                         onClick={() =>
@@ -199,7 +201,7 @@ export default function SuperAdminDialog() {
                         className="bg-blue-500 hover:bg-blue-600"
                       >
                         <Check className="mr-2 h-4 w-4" />
-                        管理者として許可
+                        {t("common.admit-as-admin")}
                       </Button>
                       <Button
                         onClick={() =>
@@ -209,7 +211,7 @@ export default function SuperAdminDialog() {
                         variant="destructive"
                       >
                         <X className="mr-2 h-4 w-4" />
-                        拒否
+                        {t("common.reject")}
                       </Button>
                     </div>
                   </div>

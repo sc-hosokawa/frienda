@@ -12,6 +12,7 @@ import {
 import { Button } from "@ui/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import useUserStore from "../../store/user";
+import { useTranslation } from "~/i18n/client";
 
 interface PointOption {
   points: number;
@@ -19,6 +20,7 @@ interface PointOption {
 }
 
 export function PurchaseDialog() {
+  const { t } = useTranslation();
   const { user } = useUserStore();
   const [showDialog, setShowDialog] = useState(false);
   const [selectedOption, setSelectedOption] = useState<PointOption>({
@@ -64,7 +66,7 @@ export function PurchaseDialog() {
       <DialogTrigger asChild>
         <Button className="w-full">
           <ShoppingCart className="mr-2 h-4 w-4" />
-          購入
+          {t("common.purchase")}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[1140px] sm:h-[80vh] bg-black text-white border-zinc-800">
@@ -73,13 +75,15 @@ export function PurchaseDialog() {
             Point Purchase
           </DialogTitle>
           <DialogDescription>
-            <p>ポイントの購入を行えます。</p>
-            <p>購入されたいポイント数を選択してお支払いにお進みください。</p>
+            <p>{t("purchase-dialog.title")}</p>
+            <p>{t("purchase-dialog.description")}</p>
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-12">
           <div>
-            <p className="mb-3 text-zinc-400">購入ポイント選択</p>
+            <p className="mb-3 text-zinc-400">
+              {t("purchase-dialog.select-amount")}
+            </p>
             <div className="flex flex-wrap gap-2">
               {pointOptions.map((option) => (
                 <button
@@ -99,7 +103,7 @@ export function PurchaseDialog() {
           </div>
 
           <div className="space-y-6">
-            <p className="text-zinc-400">総額</p>
+            <p className="text-zinc-400">{t("common.total-value")}</p>
             <p className="text-5xl font-light">
               ¥{selectedOption.price.toLocaleString()}
             </p>
@@ -107,9 +111,7 @@ export function PurchaseDialog() {
         </div>
 
         <div className="flex items-center justify-between gap-4">
-          <p className="text-sm text-zinc-400">
-            FRIENDSHIP.DAO内でのお支払いはStripeにて安全にお支払いいただけます。
-          </p>
+          <p className="text-sm text-zinc-400">{t("purchase-dialog.notion")}</p>
 
           <div className="flex gap-3">
             <Button
@@ -117,13 +119,13 @@ export function PurchaseDialog() {
               className="text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors h-[60px]"
               onClick={() => setShowDialog(false)}
             >
-              キャンセル
+              {t("common.cancel")}
             </Button>
             <Button
               className="bg-[#E6DFD3] text-black hover:bg-[#d6cfb3] transition-colors rounded-full w-[210px] h-[60px]"
               onClick={handlePayment}
             >
-              お支払いにすすむ
+              {t("purchase-dialog.process-payment")}
             </Button>
           </div>
         </div>

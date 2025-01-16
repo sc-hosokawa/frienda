@@ -15,6 +15,7 @@ import { Label } from "@ui/components/ui/label";
 import { PlusCircle, X } from "lucide-react";
 import useUserStore from "~/store/user";
 import { gql, useMutation, useQuery } from "@apollo/client";
+import { useTranslation } from "~/i18n/client";
 
 interface CreditFormData {
   role: string;
@@ -53,6 +54,7 @@ export function CreditDialog({
   artistId,
   onSubmit,
 }: CreditDialogProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [credits, setCredits] = useState<CreditFormData[]>([
     { role: "", name: "", email: "" },
@@ -143,17 +145,19 @@ export function CreditDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline">クレジットを編集</Button>
+        <Button variant="outline">{t("common.edit-credit")}</Button>
       </DialogTrigger>
       <DialogContent className="w-4/5 max-w-4xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>クレジット入力: {trackName}</DialogTitle>
+          <DialogTitle>
+            {t("common.enter-credit")}: {trackName}
+          </DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           {credits.map((credit, index) => (
             <div key={index} className="flex items-end space-x-4">
               <div className="flex-1 space-y-2">
-                <Label htmlFor={`role-${index}`}>ロール</Label>
+                <Label htmlFor={`role-${index}`}>{t("common.role")}</Label>
                 <Input
                   id={`role-${index}`}
                   value={credit.role}
@@ -163,7 +167,7 @@ export function CreditDialog({
                 />
               </div>
               <div className="flex-1 space-y-2">
-                <Label htmlFor={`name-${index}`}>名前</Label>
+                <Label htmlFor={`name-${index}`}>{t("common.name")}</Label>
                 <Input
                   id={`name-${index}`}
                   value={credit.name}
@@ -197,10 +201,10 @@ export function CreditDialog({
         </div>
         <Button onClick={addCreditForm} variant="outline" className="mt-4">
           <PlusCircle className="h-4 w-4 mr-2" />
-          フォームを追加
+          {t("common.add-form")}
         </Button>
         <DialogFooter>
-          <Button onClick={handleSubmit}>登録</Button>
+          <Button onClick={handleSubmit}>{t("common.register")}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

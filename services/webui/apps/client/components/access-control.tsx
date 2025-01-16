@@ -18,6 +18,7 @@ import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { Check, UserCheck, X } from "lucide-react";
 import useUserStore from "../store/user";
 import { gql, useQuery, useMutation } from "@apollo/client";
+import { useTranslation } from "~/i18n/client";
 
 const MARK_AS_MEMBER = gql`
   mutation MarkAsMember($input: MarkAsMemberInput!) {
@@ -40,6 +41,7 @@ const GET_MEMBERS_BELONGED = gql`
 
 function AccessControlDialog() {
   const { user } = useUserStore();
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState<string>(
     user?.belongsToArtists[0]?.artistId || ""
@@ -124,18 +126,18 @@ function AccessControlDialog() {
     <>
       <Button onClick={() => setIsOpen(true)} variant="outline" size="sm">
         <UserCheck className="mr-2 h-4 w-4" />
-        アクセス管理
+        {t("common.manage-access")}
       </Button>
 
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent className="w-4/5 max-w-5xl h-[80vh] max-h-[80vh] flex flex-col p-0 gap-0">
           <DialogHeader className="p-6 pb-2">
-            <DialogTitle>アクセスリクエスト管理</DialogTitle>
+            <DialogTitle>{t("common.manage-access-request")}</DialogTitle>
           </DialogHeader>
           {!user?.belongsToArtists?.length ? (
             <div className="flex items-center justify-center flex-grow p-6">
               <p className="text-muted-foreground">
-                アクセス管理できるアーティストがありません
+                {t("common.no-manage-access-request")}
               </p>
             </div>
           ) : (
@@ -165,7 +167,7 @@ function AccessControlDialog() {
                     {error?.message === "not admin" ? (
                       <div className="flex items-center justify-center flex-grow p-6">
                         <p className="text-muted-foreground mt-24">
-                          このアーティストの管理権限がありません
+                          {t("home.no-permission-to-view-artist")}
                         </p>
                       </div>
                     ) : (
@@ -197,7 +199,7 @@ function AccessControlDialog() {
                                       className="bg-green-500 hover:bg-green-600"
                                     >
                                       <Check className="mr-2 h-4 w-4" />
-                                      許可
+                                      {t("common.admit")}
                                     </Button>
                                     <Button
                                       onClick={() => handleDeny(user.id)}
@@ -205,7 +207,7 @@ function AccessControlDialog() {
                                       variant="destructive"
                                     >
                                       <X className="mr-2 h-4 w-4" />
-                                      拒否
+                                      {t("common.reject")}
                                     </Button>
                                   </>
                                 </div>

@@ -26,6 +26,7 @@ import {
   DropdownMenuItem,
 } from "@ui/components/ui/dropdown-menu";
 import { Button } from "@ui/components/ui/button";
+import { useTranslation } from "~/i18n/client";
 
 const items = [
   {
@@ -88,6 +89,7 @@ const items = [
 
 export function ClientSidebar() {
   const pathname = usePathname();
+  const { t } = useTranslation();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   return (
@@ -177,17 +179,17 @@ export function ClientSidebar() {
                     <DropdownMenuContent side="right" align="start">
                       <DropdownMenuItem asChild>
                         <Link href="/walkthrough">
-                          <span>チュートリアル</span>
+                          <span>{t("common.tutorial")}</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/privacypolicy">
-                          <span>プライバシーポリシー</span>
+                          <span>{t("common.privacy-policy")}</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/termofservice">
-                          <span>利用規約</span>
+                          <span>{t("common.term-of-use")}</span>
                         </Link>
                       </DropdownMenuItem>
                     </DropdownMenuContent>

@@ -13,6 +13,7 @@ import { Share2, ArrowLeft } from "lucide-react";
 import { Input } from "@ui/components/ui/input";
 import useUserStore from "~/store/user";
 import { useQuery, useMutation, gql } from "@apollo/client";
+import { useTranslation } from "~/i18n/client";
 
 interface Artist {
   artistId: string;
@@ -56,6 +57,7 @@ const GET_USER_POINT_BALANCE = gql`
 
 export function AllocationDialog() {
   const { user, updateBalance, updateUser } = useUserStore();
+  const { t } = useTranslation();
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [allocatedPoints, setAllocatedPoints] = useState<{
@@ -168,7 +170,7 @@ export function AllocationDialog() {
       <DialogTrigger asChild>
         <Button className="w-full">
           <Share2 className="mr-2 h-4 w-4" />
-          分配
+          {t("common.allocation")}
         </Button>
       </DialogTrigger>
       <DialogContent className="w-4/5 h-4/5 max-w-none">
@@ -193,10 +195,10 @@ export function AllocationDialog() {
             )}
             <DialogTitle className="font-light">
               {showConfirmation
-                ? "確認"
+                ? t("common.confirmation")
                 : selectedArtist
                   ? `${selectedArtist.name}のメンバー`
-                  : "アーティスト選択"}
+                  : t("common.select-artist")}
             </DialogTitle>
           </div>
         </DialogHeader>
@@ -208,7 +210,7 @@ export function AllocationDialog() {
               <div className="space-y-2">
                 {!user?.belongsToArtists?.length ? (
                   <div className="text-center text-gray-500 py-8">
-                    選択できるアーティストがありません。
+                    {t("common.no-artist-to-select")}
                   </div>
                 ) : (
                   user.belongsToArtists.map((artist) => (
@@ -220,7 +222,9 @@ export function AllocationDialog() {
                       <div className="flex items-center gap-3">
                         <span>{artist.name}</span>
                       </div>
-                      <span>{artist.fsp.toLocaleString()} ポイント</span>
+                      <span>
+                        {artist.fsp.toLocaleString()} {t("common.point")}
+                      </span>
                     </div>
                   ))
                 )}
@@ -229,9 +233,11 @@ export function AllocationDialog() {
               // メンバー一覧と分配画面
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span>分配可能なFSP: {selectedArtist.fsp}</span>
+                  <span>
+                    {t("common.allocateable-fsp")}: {selectedArtist.fsp}
+                  </span>
                   <Button onClick={() => setShowConfirmation(true)}>
-                    送付
+                    {t("common.allocate")}
                   </Button>
                 </div>
                 {membersLoading ? (
@@ -240,7 +246,7 @@ export function AllocationDialog() {
                   </div>
                 ) : membersError ? (
                   <div className="text-center text-red-500">
-                    メンバー一覧の取得に失敗しました
+                    {t("common.failed-to-get-list-of-artist")}
                   </div>
                 ) : members.length === 0 ? (
                   <div className="text-center text-gray-500 py-8">
@@ -271,7 +277,7 @@ export function AllocationDialog() {
                   </div>
                 )}
                 <div className="text-right">
-                  残りポイント:{" "}
+                  {t("common.available-point")}:{" "}
                   {selectedArtist.fsp -
                     Object.values(allocatedPoints).reduce((a, b) => a + b, 0)}
                 </div>
@@ -283,11 +289,13 @@ export function AllocationDialog() {
               {members.map((member) => (
                 <div key={member.id} className="flex justify-between p-2">
                   <span>{member.name}</span>
-                  <span>{allocatedPoints[member.id] || 0} ポイント</span>
+                  <span>
+                    {allocatedPoints[member.id] || 0} {t("common.point")}
+                  </span>
                 </div>
               ))}
               <Button className="w-full" onClick={handleConfirm}>
-                確定する
+                {t("common.confirm")}
               </Button>
             </div>
           )}

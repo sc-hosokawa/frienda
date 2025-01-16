@@ -17,6 +17,7 @@ import { useQuery, useMutation, gql } from "@apollo/client";
 import useUserStore from "~/store/user";
 import { UserSimpleData } from "~/generated/graphql";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "~/i18n/client";
 
 const SEARCH_USERS = gql`
   query SearchUsers($username: String!) {
@@ -39,6 +40,7 @@ const CREATE_MESSAGE_ROOM = gql`
 
 export default function NewMessageDialog() {
   const { user } = useUserStore();
+  const { t } = useTranslation();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -93,26 +95,26 @@ export default function NewMessageDialog() {
             message to?
           </DialogTitle>
           <p className="text-sm text-white mt-2">
-            送信先のユーザーを選択してください。
+            {t("message.select-user-to-send")}
           </p>
         </DialogHeader>
 
         <div className="mt-6 h-[90px] w-[555px]">
           <Label htmlFor="search" className="text-sm text-gray-400">
-            送信先
+            {t("message.recipient")}
           </Label>
           <Input
             id="search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="ユーザー名を入力してください"
+            placeholder={t("message.enter-user-name")}
             className="mt-1.5 bg-transparent h-[60px] rounded-xl border border-white"
           />
         </div>
 
         <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto">
           {loading ? (
-            <div className="text-gray-400">検索中...</div>
+            <div className="text-gray-400">{t("common.searching...")}</div>
           ) : data?.searchUsers && data.searchUsers.length > 0 ? (
             data.searchUsers.map((user) => (
               <button
@@ -132,10 +134,10 @@ export default function NewMessageDialog() {
               </button>
             ))
           ) : searchTerm.length > 0 ? (
-            <div className="text-gray-400">ユーザーが見つかりません</div>
+            <div className="text-gray-400">{t("common.no-user-found")}</div>
           ) : (
             <div className="text-gray-400">
-              ユーザー名を入力して検索してください
+              {t("message.search-user-by-name")}
             </div>
           )}
         </div>

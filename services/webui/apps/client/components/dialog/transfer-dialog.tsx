@@ -15,6 +15,7 @@ import { Textarea } from "@ui/components/ui/textarea";
 import { Send } from "lucide-react";
 import { useMutation, gql, useQuery } from "@apollo/client";
 import useUserStore from "../../store/user";
+import { useTranslation } from "~/i18n/client";
 
 type TransferFormData = {
   recipient: string;
@@ -39,6 +40,7 @@ const GET_USER_POINT_BALANCE = gql`
 `;
 
 export function TransferDialog() {
+  const { t } = useTranslation();
   const { user, updateBalance } = useUserStore();
   const [showConfirm, setShowConfirm] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
@@ -79,7 +81,7 @@ export function TransferDialog() {
       });
 
       if (result.errors) {
-        throw new Error(result.errors[0]?.message || "送信に失敗しました");
+        throw new Error(result.errors[0]?.message || t("common.error-to-send"));
       }
 
       console.log("refetch");
@@ -108,17 +110,19 @@ export function TransferDialog() {
         <DialogTrigger asChild>
           <Button className="w-full">
             <Send className="mr-2 h-4 w-4" />
-            送信
+            {t("common.send-noun")}
           </Button>
         </DialogTrigger>
         <DialogContent className="w-4/5 h-4/5 max-w-none">
           <DialogHeader>
-            <DialogTitle>ポイント送信</DialogTitle>
+            <DialogTitle>{t("common.send-point")}</DialogTitle>
           </DialogHeader>
           <div className="flex-1 overflow-auto p-4">
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="space-y-2">
-                <Label htmlFor="recipient">受取人のEmail</Label>
+                <Label htmlFor="recipient">
+                  {t("common.recipient-of-email")}
+                </Label>
                 <Input
                   id="recipient"
                   type="email"
@@ -132,7 +136,7 @@ export function TransferDialog() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="points">送るポイント数</Label>
+                <Label htmlFor="points">{t("common.point-to-send")}</Label>
                 <Input
                   id="points"
                   type="number"
@@ -147,10 +151,10 @@ export function TransferDialog() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="notes">メモ（任意）</Label>
+                <Label htmlFor="notes">{t("common.memo")}</Label>
                 <Textarea
                   id="notes"
-                  placeholder="メモを入力してください"
+                  placeholder={t("common.enter-memo")}
                   className="h-24"
                   value={formData.notes}
                   onChange={(e) =>
@@ -160,7 +164,7 @@ export function TransferDialog() {
               </div>
 
               <Button type="submit" className="w-full">
-                確認画面へ
+                {t("common.proceed-to-confirmation")}
               </Button>
             </form>
           </div>
@@ -170,28 +174,28 @@ export function TransferDialog() {
       <Dialog open={showConfirm} onOpenChange={setShowConfirm}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>送信内容の確認</DialogTitle>
+            <DialogTitle>{t("common.confirmation-of-sending")}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label>受取人のEmail</Label>
+              <Label>{t("common.recipient-of-email")}</Label>
               <p className="mt-1">{formData.recipient}</p>
             </div>
             <div>
-              <Label>送るポイント数</Label>
+              <Label>{t("common.point-to-send")}</Label>
               <p className="mt-1">{formData.points} pt</p>
             </div>
             {formData.notes && (
               <div>
-                <Label>メモ</Label>
+                <Label>{t("common.memo")}</Label>
                 <p className="mt-1 whitespace-pre-wrap">{formData.notes}</p>
               </div>
             )}
             <div className="flex space-x-2 justify-end">
               <Button variant="outline" onClick={() => setShowConfirm(false)}>
-                戻る
+                {t("common.back")}
               </Button>
-              <Button onClick={handleTransfer}>送信する</Button>
+              <Button onClick={handleTransfer}>{t("common.send-verb")}</Button>
             </div>
           </div>
         </DialogContent>

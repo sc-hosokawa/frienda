@@ -9,6 +9,7 @@ import { LogOut } from "lucide-react";
 import { useUserBalance } from "~/store/user";
 import { gql, useQuery } from "@apollo/client";
 import { toast } from "react-hot-toast";
+import { useTranslation } from "~/i18n/client";
 
 const LOGIN_REWARD_QUERY = gql`
   query LoginReward($userId: String!) {
@@ -21,6 +22,7 @@ const LOGIN_REWARD_QUERY = gql`
 
 export default function Header() {
   const { user, clearUser } = useUserStore();
+  const { t } = useTranslation();
   const { loading: balanceLoading } = useUserBalance();
   const router = useRouter();
 
@@ -34,7 +36,7 @@ export default function Header() {
     if (data?.loginReward && data.loginReward.rewardGiven) {
       toast.success(
         <div className="flex items-center justify-between w-full">
-          <span>ログインボーナスを獲得しました！</span>
+          <span>{t("common.get-login-bonus")}</span>
         </div>,
         {
           duration: 3000,
@@ -110,7 +112,7 @@ export default function Header() {
           className="flex items-center gap-2 p-2 hover:bg-black/20 rounded-full mx-2"
         >
           <LogOut className="w-4 h-4" />
-          <span className="text-xs">ログアウト</span>
+          <span className="text-xs">{t("common.logOut")}</span>
         </button>
       </div>
     </header>
