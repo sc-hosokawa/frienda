@@ -231,7 +231,7 @@ export default function OfferDetailPage({
                     {(() => {
                       switch (data?.getOffersById?.status) {
                         case "Applied":
-                          return t("comon.applied");
+                          return t("common.applied");
                         case "Ongoing":
                           return t("common.ongoing");
                         case "Suspend":

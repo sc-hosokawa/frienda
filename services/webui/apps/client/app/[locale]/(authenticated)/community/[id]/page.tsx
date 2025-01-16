@@ -294,7 +294,7 @@ export default function CommunityAccountPage({
                   className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 hover:text-black rounded flex items-center gap-2"
                 >
                   <Pencil className="w-4 h-4" />
-                  <span>{t("commmon.edit-profile")}</span>
+                  <span>{t("common.edit-profile")}</span>
                 </button>
               </PopoverContent>
             </Popover>
