@@ -43,5 +43,6 @@
   "message.enter-message-with-navigation": "ここにメッセージを入力してください。(Shift + Enterキーで改行)",
   "message.send-message": "メッセージを送信",
   "news.no-article-found": "記事が見つかりませんでした",
-  "news.cannot-display-content": "コンテンツを表示できません"
+  "news.cannot-display-content": "コンテンツを表示できません",
+  "notification.no-notification": "通知はありません"
 }

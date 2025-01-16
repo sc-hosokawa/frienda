@@ -6,6 +6,7 @@ import Image from "next/image";
 import { gql, useQuery } from "@apollo/client";
 import useUserStore from "~/store/user";
 import Link from "next/link";
+import { useTranslation } from "~/i18n/client";
 
 const GET_NOTIFICATIONS = gql`
   query GetNotifications($userId: String!) {
@@ -22,13 +23,12 @@ const GET_NOTIFICATIONS = gql`
 
 export default function NotificationList() {
   const { user } = useUserStore();
+  const { t } = useTranslation();
   const { loading, error, data } = useQuery(GET_NOTIFICATIONS, {
     variables: {
       userId: user?.id,
     },
   });
-
-  console.log(data?.getNotifications[0].category);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -91,7 +91,9 @@ export default function NotificationList() {
       {notifications.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20">
           <Bell className="w-16 h-16 text-gray-400 mb-4" />
-          <p className="text-xl text-gray-400">通知はありません</p>
+          <p className="text-xl text-gray-400">
+            {t("notification.no-notification")}
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
