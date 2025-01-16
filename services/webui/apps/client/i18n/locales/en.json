@@ -1,3 +1,27 @@
 {
-  "home": "Home"
+  "common.Home": "Home",
+  "common.copied": "Copied",
+  "common.copy-url": "Copy URL",
+  "commmon.edit-profile": "Edit Profile",
+  "common.send-message": "Send Message",
+  "common.enter-artists-name": "Enter artist's name",
+  "common.search": "Search",
+  "common.request": "Request",
+  "common.selecting": "Selecting",
+  "common.success": "Success",
+  "common.error": "Error",
+  "common.succeeded": "Succeeded",
+  "common.error-occurred": "An error occurred",
+  "home.showing-random-artist": "Showing random artist.",
+  "home.asking-permission-to-view": "Asking permission to view",
+  "home.asking-permission-to-view-1": "Asking permission to view",
+  "home.plz-ask-permission-to-view": "Please ask for permission to view the artist.",
+  "home.alert-for-user": "If you have already done so, please wait a while before accessing. Once your viewing request is approved, you will be able to view the data.",
+  "home.alert-for-permissions": "You can check the artists you are currently requesting access to in the lower left corner of the access management. (If it is not displayed, please try logging out and trying again.)",
+  "home.no-request-available": "No requests available",
+  "home.request-permission-to-view": "Request permission to view",
+  "home.request-permission-dialog-title": "Request permission to view artist data",
+  "home.request-permission-dialog-description": "Please search by the official name. The search results can be scrolled. If you don't hit it well, try changing the upper and lower case letters, entering only the initials and scrolling to find it. If you still can't find it, please contact the office.",
+  "home.enter-artist-name-to-search": "Enter the artist's name and search",
+  "home.sent-access-request": "Sent access request"
 }

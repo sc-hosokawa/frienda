@@ -1,10 +1,21 @@
 import "server-only";
 
-import { RESOURCES, i18nKey, isSupportLocale } from "./settings";
+import { cache } from "react";
+import { RESOURCES, type i18nKey, isSupportLocale } from "./settings";
 
-export const getTranslation = (locale: string) => {
-  if (!isSupportLocale(locale)) {
-    throw new Error(`Unsupported locale: ${locale}`);
-  }
-  return { t: (key: i18nKey) => RESOURCES[locale][key] };
+const getLocale = cache<() => { current: string | undefined }>(() => ({
+  current: undefined,
+}));
+
+export const setStaticParamsLocale = (value: string) => {
+  getLocale().current = value;
 };
+
+export const getTranslation = cache(async () => {
+  const currentLocale = getLocale().current;
+  if (!isSupportLocale(currentLocale)) {
+    throw new Error(`Unsupported locale: ${currentLocale}`);
+  }
+  const resource = RESOURCES[currentLocale];
+  return { t: (key: i18nKey) => resource[key] };
+});

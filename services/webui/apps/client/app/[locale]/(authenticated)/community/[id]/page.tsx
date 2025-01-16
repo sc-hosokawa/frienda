@@ -25,6 +25,7 @@ import { Copy, Check, MessageSquare, Pencil } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { NotoSansJP } from "~/utils/fonts";
+import { useTranslation } from "~/i18n/client";
 
 const GET_USER_PROFILE = gql`
   query GetUserProfile($viewerId: String!, $userId: String!) {
@@ -98,6 +99,7 @@ export default function CommunityAccountPage({
   const router = useRouter();
   const { user } = useUserStore();
   const [createRoom] = useMutation(CREATE_MESSAGE_ROOM);
+  const { t } = useTranslation();
 
   const { loading: communityLoading, data: communityData } = useQuery(
     GET_OTHER_USER_COMMUNITY,
@@ -263,12 +265,12 @@ export default function CommunityAccountPage({
                 {showCopied ? (
                   <>
                     <Check className="w-4 h-4 text-green-500" />
-                    <span>コピーしました</span>
+                    <span>{t("common.copied")}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-4 h-4" />
-                    <span>URLをコピー</span>
+                    <span>{t("common.copy-url")}</span>
                   </>
                 )}
               </button>
@@ -292,7 +294,7 @@ export default function CommunityAccountPage({
                   className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 hover:text-black rounded flex items-center gap-2"
                 >
                   <Pencil className="w-4 h-4" />
-                  <span>プロフィールを編集する</span>
+                  <span>{t("commmon.edit-profile")}</span>
                 </button>
               </PopoverContent>
             </Popover>
@@ -313,7 +315,7 @@ export default function CommunityAccountPage({
                   className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 hover:text-black rounded flex items-center gap-2"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  <span>メッセージする</span>
+                  <span>{t("common.send-message")}</span>
                 </button>
               </PopoverContent>
             </Popover>

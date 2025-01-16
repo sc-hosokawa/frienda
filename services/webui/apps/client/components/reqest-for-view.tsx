@@ -17,6 +17,7 @@ import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { useToast } from "@ui/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import useUserStore from "~/store/user";
+import { useTranslation } from "~/i18n/client";
 
 // GraphQL クエリとミューテーションの定義
 const SEARCH_ARTISTS = gql`
@@ -61,6 +62,7 @@ export function RequestForViewDialog() {
   >(new Map());
   const { user } = useUserStore();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   // アーティスト検索クエリ
   const { loading, error, data, refetch } = useQuery(SEARCH_ARTISTS, {
@@ -72,8 +74,8 @@ export function RequestForViewDialog() {
   const [requestAccess] = useMutation(REQUEST_ACCESS, {
     onCompleted: () => {
       toast({
-        title: "成功",
-        description: "アクセスリクエストを送信しました",
+        title: t("common.success"),
+        description: t("home.sent-access-request"),
       });
       setSelectedArtists(new Set());
       setSelectedArtistDetails(new Map());
@@ -81,8 +83,8 @@ export function RequestForViewDialog() {
     },
     onError: (error) => {
       toast({
-        title: "エラー",
-        description: `エラーが発生しました: ${error.message}`,
+        title: t("common.error"),
+        description: `${t("common.error-occurred")}: ${error.message}`,
         variant: "destructive",
       });
     },
@@ -138,21 +140,21 @@ export function RequestForViewDialog() {
           variant="outline"
           className="border-white rounded-full bg-white text-black hover:bg-black hover:text-white"
         >
-          閲覧権限を申請
+          {t("home.request-permission-to-view")}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>アーティストデータの閲覧権限を申請する</DialogTitle>
+          <DialogTitle>{t("home.request-permission-dialog-title")}</DialogTitle>
           <DialogDescription>
-            正式名称で検索してください。検索結果はスクロールできます。うまくヒットしない場合は、大文字と小文字を入れ替えたり、頭文字だけ入れてスクロールして探してみるなどしてみてください。どうしても表示されない場合は事務局までご連絡ください。
+            {t("home.request-permission-dialog-description")}
           </DialogDescription>
         </DialogHeader>
 
         {/* 検索フォーム */}
         <div className="flex gap-2">
           <Input
-            placeholder="アーティスト名を入力"
+            placeholder={t("common.enter-artists-name")}
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             className="flex-grow"
@@ -161,7 +163,11 @@ export function RequestForViewDialog() {
             onClick={handleSearch}
             disabled={!searchText.trim() || loading}
           >
-            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "検索"}
+            {loading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              t("common.search")
+            )}
           </Button>
         </div>
 
@@ -169,7 +175,7 @@ export function RequestForViewDialog() {
         {selectedArtists.size > 0 && (
           <div className="space-y-2">
             <div className="text-sm text-muted-foreground">
-              選択中: {selectedArtists.size}件
+              {t("common.selecting")}: {selectedArtists.size}
             </div>
             <div className="flex flex-wrap gap-2">
               {Array.from(selectedArtistDetails.values()).map((artist) => (
@@ -194,12 +200,12 @@ export function RequestForViewDialog() {
         <ScrollArea className="h-[300px] w-full rounded-md border p-4">
           {error && (
             <div className="text-destructive">
-              エラーが発生しました: {error.message}
+              {t("common.error-occurred")}: {error.message}
             </div>
           )}
           {!searchText && (
             <div className="text-center text-muted-foreground">
-              アーティスト名を入力して検索してください
+              {t("home.enter-artist-name-to-search")}
             </div>
           )}
           {data?.getArtistsByName?.artistList && (
@@ -229,7 +235,7 @@ export function RequestForViewDialog() {
         {/* リクエストボタン */}
         {selectedArtists.size > 0 && (
           <Button className="w-full" onClick={handleRequestAccess}>
-            リクエスト
+            {t("common.request")}
           </Button>
         )}
       </DialogContent>

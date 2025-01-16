@@ -1,3 +1,27 @@
 {
-  "home": "ホーム"
+  "common.Home": "ホーム",
+  "common.copied": "コピーしました",
+  "common.copy-url": "URLをコピー",
+  "commmon.edit-profile": "プロフィールを編集する",
+  "common.send-message": "メッセージする",
+  "common.enter-artists-name": "アーティスト名を入力",
+  "common.search": "検索",
+	"common.request": "リクエスト",
+	"common.selecting": "選択中",
+	"common.success": "成功",
+	"common.error": "エラー",
+	"common.succeeded": "成功しました",
+  "common.error-occurred": "エラーが発生しました",
+  "home.showing-random-artist": "所属しているアーティストからランダムで表示しています。",
+  "home.asking-permission-to-view": "閲覧許可申請中です",
+  "home.asking-permission-to-view-1": "に閲覧許可を申請中です",
+  "home.plz-ask-permission-to-view": "アーティスト閲覧権限を申請してください。",
+  "home.alert-for-user": "すでに行った方は、しばらく時間をあけてからアクセスしてください。閲覧申請が承認されたらデータが確認できるようになります。",
+  "home.alert-for-permissions": "現在申請中のアーティストは左下のアクセス管理で確認できます。（表示されていない場合は、一度ログアウトしてから再度試みてください）",
+  "home.no-request-available": "利用可能なリクエストはありません",
+  "home.request-permission-to-view": "閲覧許可を申請",
+  "home.request-permission-dialog-title": "アーティストデータの閲覧権限を申請する",
+  "home.request-permission-dialog-description": "正式名称で検索してください。検索結果はスクロールできます。うまくヒットしない場合は、大文字と小文字を入れ替えたり、頭文字だけ入れてスクロールして探してみるなどしてみてください。どうしても表示されない場合は事務局までご連絡ください。",
+  "home.enter-artist-name-to-search": "アーティスト名を入力して検索してください"
+	,"home.sent-access-request": "アクセスリクエストを送信しました"
 }
