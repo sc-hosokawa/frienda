@@ -228,11 +228,42 @@ impl GeneralMutation {
         Ok(true)
     }
 
+    async fn report_user(
+        &self,
+        ctx: &Context<'_>,
+        input: models::users::ReportUserInput,
+    ) -> Result<models::users::ReportUserResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .report
+            .report_user(
+                application::usecases::basic::report_usecase::UserReportInput {
+                    reported_user_id: input.reported_user_id,
+                    reporter_user_id: input.reporter_user_id,
+                    report_content: input.report_content,
+                },
+            )
+            .await?;
+        Ok(models::users::ReportUserResponse { id: result.id })
+    }
+
     async fn contact_to_admin(
         &self,
         ctx: &Context<'_>,
         input: models::contact_us::ContactToAdminInput,
-    ) -> Result<models::contact_us::ContactToAdminResponse> {
-        todo!()
+    ) -> Result<bool> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let _res = usecases
+            .contact_to_admin
+            .contact_to_admin(
+                application::usecases::admin::contact_usecase::ContactToAdminInput {
+                    name: input.username,
+                    category: input.category,
+                    email: input.email,
+                    message: input.content,
+                },
+            )
+            .await?;
+        Ok(true)
     }
 }

@@ -120,4 +120,58 @@ impl AdminQuery {
                 .collect(),
         })
     }
+
+    async fn get_all_user_reports(
+        &self,
+        ctx: &Context<'_>,
+    ) -> Result<Vec<models::admin::UserReport>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.report.get_all_user_reports().await?;
+        Ok(result
+            .into_iter()
+            .map(|report| models::admin::UserReport {
+                id: report.id,
+                reported_user_id: report.reported_user_id,
+                reporter_user_id: report.reporter_user_id,
+                report_content: report.report_content,
+                created_at: report.created_at.to_string(),
+            })
+            .collect())
+    }
+
+    async fn get_all_offer_reports(
+        &self,
+        ctx: &Context<'_>,
+    ) -> Result<Vec<models::admin::OfferReport>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.report.get_all_offer_reports().await?;
+        Ok(result
+            .into_iter()
+            .map(|report| models::admin::OfferReport {
+                id: report.id,
+                offer_id: report.offer_id,
+                reporter_user_id: report.reporter_user_id,
+                report_content: report.report_content,
+                created_at: report.created_at.to_string(),
+            })
+            .collect())
+    }
+
+    async fn get_all_release_reports(
+        &self,
+        ctx: &Context<'_>,
+    ) -> Result<Vec<models::admin::ReleaseReport>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.report.get_all_release_reports().await?;
+        Ok(result
+            .into_iter()
+            .map(|report| models::admin::ReleaseReport {
+                id: report.id,
+                release: report.release,
+                reporter_user_id: report.reporter_user_id,
+                report_content: report.report_content,
+                created_at: report.created_at.to_string(),
+            })
+            .collect())
+    }
 }

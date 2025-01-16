@@ -50,4 +50,22 @@ impl AdminMutation {
             }
         }
     }
+
+    async fn delete_user_report(&self, ctx: &Context<'_>, id: i32) -> Result<bool> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let _res = usecases.report.delete_user_report(id).await?;
+        Ok(true)
+    }
+
+    async fn delete_offer_report(&self, ctx: &Context<'_>, id: i32) -> Result<bool> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let _res = usecases.report.delete_offer_report(id).await?;
+        Ok(true)
+    }
+
+    async fn delete_release_report(&self, ctx: &Context<'_>, id: i32) -> Result<bool> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let _res = usecases.report.delete_release_report(id).await?;
+        Ok(true)
+    }
 }

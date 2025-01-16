@@ -80,6 +80,34 @@ pub struct LineChartDataForAdmin {
     pub amazon: i32,
     pub youtube: i32,
 }
+
+#[derive(SimpleObject)]
+pub struct UserReport {
+    pub id: i32,
+    pub reported_user_id: String,
+    pub reporter_user_id: String,
+    pub report_content: String,
+    pub created_at: String,
+}
+
+#[derive(SimpleObject)]
+pub struct OfferReport {
+    pub id: i32,
+    pub offer_id: i32,
+    pub reporter_user_id: String,
+    pub report_content: String,
+    pub created_at: String,
+}
+
+#[derive(SimpleObject)]
+pub struct ReleaseReport {
+    pub id: i32,
+    pub release: String, // UPC or ISRC
+    pub reporter_user_id: String,
+    pub report_content: String,
+    pub created_at: String,
+}
+
 impl From<application::usecases::admin::all_track_playback_usecase::ChartDataByDSPForAdmin>
     for LineChartDataForAdmin
 {

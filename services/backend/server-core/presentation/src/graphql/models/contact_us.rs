@@ -1,4 +1,4 @@
-use async_graphql::{InputObject, SimpleObject};
+use async_graphql::InputObject;
 
 #[derive(InputObject)]
 pub struct ContactToAdminInput {
@@ -6,9 +6,4 @@ pub struct ContactToAdminInput {
     pub category: String,
     pub email: String,
     pub content: String,
-}
-
-#[derive(SimpleObject)]
-pub struct ContactToAdminResponse {
-    pub id: String, // ハッシュとか計算して返す
 }

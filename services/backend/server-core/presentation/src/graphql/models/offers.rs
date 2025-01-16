@@ -160,6 +160,18 @@ pub struct DeleteOfferResponse {
     pub id: i32,
 }
 
+#[derive(InputObject)]
+pub struct ReportOfferInput {
+    pub offer_id: i32,
+    pub reporter_user_id: String,
+    pub report_content: String,
+}
+
+#[derive(SimpleObject)]
+pub struct ReportOfferResponse {
+    pub id: i32,
+}
+
 // ===== Convert to usecase input =====
 impl CreateNewOfferInput {
     pub fn into_usecase_input(self) -> Result<register_task_usecase::RegisterTaskInput, Error> {

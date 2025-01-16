@@ -146,4 +146,23 @@ impl OfferMutation {
 
         Ok(models::offers::DeleteOfferResponse { id: result })
     }
+
+    async fn report_offer(
+        &self,
+        ctx: &Context<'_>,
+        input: models::offers::ReportOfferInput,
+    ) -> Result<models::offers::ReportOfferResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .report
+            .report_offer(
+                application::usecases::basic::report_usecase::OfferReportInput {
+                    offer_id: input.offer_id,
+                    reporter_user_id: input.reporter_user_id,
+                    report_content: input.report_content,
+                },
+            )
+            .await?;
+        Ok(models::offers::ReportOfferResponse { id: result.id })
+    }
 }

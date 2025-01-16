@@ -162,6 +162,18 @@ pub struct UpdateUserDetailProfileResponse {
     pub user_info: UserDetailData,
 }
 
+#[derive(InputObject)]
+pub struct ReportUserInput {
+    pub reported_user_id: String,
+    pub reporter_user_id: String,
+    pub report_content: String,
+}
+
+#[derive(SimpleObject)]
+pub struct ReportUserResponse {
+    pub id: i32,
+}
+
 // ===== Convert to usecase input =====
 impl CreateNewUserDataInput {
     pub fn into_usecase_input(self) -> Result<create_user_usecase::CreateUserInput, Error> {

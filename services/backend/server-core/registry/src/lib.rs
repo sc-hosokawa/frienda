@@ -7,6 +7,7 @@ use application::usecases::admin::{
     all_track_playback_usecase::{
         AllTrackPlaybackHistoryUsecase, AllTrackPlaybackHistoryUsecaseTrait,
     },
+    contact_usecase::{ContactToAdminUsecase, ContactToAdminUsecaseTrait},
     manage_tracks_usecase::{ManageTracksUsecase, ManageTracksUsecaseTrait},
     overview_usecase::{OverviewUsecase, OverviewUsecaseTrait},
 };
@@ -22,6 +23,7 @@ use application::usecases::basic::{
     get_all_users_usecase::{GetAllUsersUsecase, GetAllUsersUsecaseTrait},
     get_user_basic_info_usecase::{GetUserBasicInfoUsecase, GetUserBasicInfoUsecaseTrait},
     manage_portfolios_usecase::{ManagePortfoliosUsecase, ManagePortfoliosUsecaseTrait},
+    report_usecase::{ReportUsecase, ReportUsecaseTrait},
     search_users_usecase::{SearchUsersUsecase, SearchUsersUsecaseTrait},
     update_user_profile_usecase::{UpdateUserProfileUsecase, UpdateUserProfileUsecaseTrait},
 };
@@ -105,15 +107,17 @@ use infrastracture::persistences::{
     invitations_repo_impl::InvitationsRepoImpl, message_attach_repo_impl::MessageAttachRepoImpl,
     messages_repo_impl::MessagesRepoImpl, notification_user_repo_impl::NotificationUserRepoImpl,
     notifications_repo_impl::NotificationsRepoImpl, offer_attach_repo_impl::OfferAttachRepoImpl,
-    offer_user_repo_impl::OfferUserRepoImpl, offers_repo_impl::OffersRepoImpl,
-    plays_daily_repo_impl::PlaysDailyRepoImpl, plays_monthly_repo_impl::PlaysMonthlyRepoImpl,
-    portfolios_repo_impl::PortfoliosRepoImpl, prizes_repo_impl::PrizesRepoImpl,
-    product_track_repo_impl::ProductTrackRepoImpl, products_repo_impl::ProductsRepoImpl,
-    quest_user_repo_impl::QuestUserRepoImpl, quests_repo_impl::QuestsRepoImpl,
+    offer_report_repo_impl::OfferReportRepoImpl, offer_user_repo_impl::OfferUserRepoImpl,
+    offers_repo_impl::OffersRepoImpl, plays_daily_repo_impl::PlaysDailyRepoImpl,
+    plays_monthly_repo_impl::PlaysMonthlyRepoImpl, portfolios_repo_impl::PortfoliosRepoImpl,
+    prizes_repo_impl::PrizesRepoImpl, product_track_repo_impl::ProductTrackRepoImpl,
+    products_repo_impl::ProductsRepoImpl, quest_user_repo_impl::QuestUserRepoImpl,
+    quests_repo_impl::QuestsRepoImpl, release_report_repo_impl::ReleaseReportRepoImpl,
     room_user_repo_impl::RoomUserRepoImpl, rooms_repo_impl::RoomsRepoImpl,
     short_notes_repo_impl::ShortNotesRepoImpl, track_credits_repo_impl::TrackCreditsRepoImpl,
     tracks_repo_impl::TracksRepoImpl, txs_fsp_repo_impl::TxsFspRepoImpl,
-    user_artist_repo_impl::UserArtistRepoImpl, users_repo_impl::UsersRepoImpl,
+    user_artist_repo_impl::UserArtistRepoImpl, user_report_repo_impl::UserReportRepoImpl,
+    users_repo_impl::UsersRepoImpl,
 };
 
 use application::services::{
@@ -155,6 +159,9 @@ pub struct RepositoriesImpl {
     pub notification_user: Arc<NotificationUserRepoImpl>,
     pub invitations: Arc<InvitationsRepoImpl>,
     pub portfolios: Arc<PortfoliosRepoImpl>,
+    pub user_report: Arc<UserReportRepoImpl>,
+    pub offer_report: Arc<OfferReportRepoImpl>,
+    pub release_report: Arc<ReleaseReportRepoImpl>,
 }
 
 pub struct ServicesImpl {
@@ -224,6 +231,8 @@ pub struct Usecases {
     pub all_track_playback: Arc<dyn AllTrackPlaybackHistoryUsecaseTrait>,
     pub invitation: Arc<dyn InvitationUsecaseTrait>,
     pub manage_portfolios: Arc<dyn ManagePortfoliosUsecaseTrait>,
+    pub report: Arc<dyn ReportUsecaseTrait>,
+    pub contact_to_admin: Arc<dyn ContactToAdminUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -258,6 +267,9 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
         notification_user: Arc::new(NotificationUserRepoImpl::new(db.clone())),
         invitations: Arc::new(InvitationsRepoImpl::new(db.clone())),
         portfolios: Arc::new(PortfoliosRepoImpl::new(db.clone())),
+        user_report: Arc::new(UserReportRepoImpl::new(db.clone())),
+        offer_report: Arc::new(OfferReportRepoImpl::new(db.clone())),
+        release_report: Arc::new(ReleaseReportRepoImpl::new(db.clone())),
     }
 }
 
@@ -283,6 +295,12 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        contact_to_admin: Arc::new(ContactToAdminUsecase::new(services.email_service.clone())),
+        report: Arc::new(ReportUsecase::new(
+            repos.user_report.clone(),
+            repos.offer_report.clone(),
+            repos.release_report.clone(),
+        )),
         manage_portfolios: Arc::new(ManagePortfoliosUsecase::new(repos.portfolios.clone())),
         invitation: Arc::new(InvitationUsecase::new(
             repos.invitations.clone(),
