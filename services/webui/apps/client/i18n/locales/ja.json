@@ -1,6 +1,6 @@
 {
   "common.Home": "ホーム",
-	"common.save": "保存",
+  "common.save": "保存",
   "common.copied": "コピーしました",
   "common.copy-url": "URLをコピー",
   "commmon.edit-profile": "プロフィールを編集する",
@@ -35,7 +35,7 @@
   "common.point": "ポイント",
   "common.allocateable-fsp": "分配可能なFSP",
   "common.allocate": "送付",
-  "common.failed-to-get-list-of-member": "メンバー一覧の取得に失敗しました",
+  "common.failed-to-get-list-of-artist": "メンバー一覧の取得に失敗しました",
   "common.available-point": "残りポイント",
   "common.confirm": "確定する",
   "common.edit-credit": "クレジットを編集",
