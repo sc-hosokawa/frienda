@@ -16,7 +16,8 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@ui/components/ui/dialog";
-import { ApplicantsList } from "./applications-list";
+import { ApplicantsList } from "~/components/offer/applications-list";
+import { useTranslation } from "~/i18n/client";
 
 const GET_OFFER_QUERY = gql`
   query GetOfferDetail($offerId: Int!, $userId: String!) {
@@ -89,6 +90,7 @@ export default function OfferDetailPage({
 }) {
   const [isApplied, setIsApplied] = useState(false);
   const { user } = useUserStore();
+  const { t } = useTranslation();
   const { data, loading, error, refetch } = useQuery<ResData>(GET_OFFER_QUERY, {
     variables: {
       offerId: parseInt(params.id),
@@ -177,7 +179,7 @@ export default function OfferDetailPage({
 
   const showConfirmationDialog = () => {
     // TODO: Add dialog component
-    if (window.confirm("本当に申し込みますか？")) {
+    if (window.confirm(t("offer.apply.confirmation"))) {
       handleApply();
       refetch();
     }
@@ -202,14 +204,14 @@ export default function OfferDetailPage({
             {isOwner ? (
               <div className="flex gap-4">
                 <Link href={`/offer/edit/${params.id}`}>
-                  <Button className="">編集</Button>
+                  <Button className="">{t("common.edit")}</Button>
                 </Link>
                 <Button
                   variant="outline"
                   className="bg-black text-red-500 border-red-500 hover:bg-red-950"
                   onClick={() => setShowCancelModal(true)}
                 >
-                  削除
+                  {t("common.delete")}
                 </Button>
               </div>
             ) : (
@@ -229,16 +231,16 @@ export default function OfferDetailPage({
                     {(() => {
                       switch (data?.getOffersById?.status) {
                         case "Applied":
-                          return "応募済";
+                          return t("comon.applied");
                         case "Ongoing":
-                          return "進行中";
+                          return t("common.ongoing");
                         case "Suspend":
                         case "Canceled":
-                          return "募集終了";
+                          return t("offer.canceled-offer");
                         case "Finished":
-                          return "完了";
+                          return t("common.finished");
                         default:
-                          return "このオファーに応募する";
+                          return t("offer.apply-the-offer");
                       }
                     })()}
                   </Button>
@@ -271,19 +273,19 @@ export default function OfferDetailPage({
 
             <div className="flex gap-8 text-sm">
               <div>
-                <div>開催日</div>
+                <div>{t("offer.date")}</div>
                 <div>{offer?.place}</div>
               </div>
               <div>
-                <div>場所</div>
+                <div>{t("offer.place")}</div>
                 <div>{offer?.place}</div>
               </div>
               <div>
-                <div>参加対象</div>
+                <div>{t("offer.target")}</div>
                 <div>{offer?.targetRole}</div>
               </div>
               <div>
-                <div>報酬ポイント</div>
+                <div>{t("offer.reward")}</div>
                 <div>{offer?.fee} FSP</div>
               </div>
             </div>
@@ -335,6 +337,7 @@ export default function OfferDetailPage({
                 <span className="bg-zinc-800 px-2 py-1 rounded text-sm text-white">
                   PDF
                 </span>
+                {/* TODO: fix this */}
                 ファイルの入り方です。ファイルの入ります。
                 <span className="text-sm text-gray-400">1.2MB</span>
               </div>
@@ -361,17 +364,17 @@ export default function OfferDetailPage({
       <Dialog open={showCancelModal} onOpenChange={setShowCancelModal}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>オファーの削除確認</DialogTitle>
+            <DialogTitle>{t("offer.delete-confirmation")}</DialogTitle>
           </DialogHeader>
           <div className="py-4">
-            <p>このオファーを削除しますか？</p>
+            <p>{t("offer.delete-confirmation-description")}</p>
             <p className="text-sm text-gray-500 mt-2">
-              削除されたオファーは元に戻すことができません。
+              {t("offer.delete-confirmation-description-1")}
             </p>
           </div>
           <DialogFooter className="flex gap-2">
             <Button variant="outline" onClick={() => setShowCancelModal(false)}>
-              戻る
+              {t("common.back")}
             </Button>
             <Button
               variant="destructive"
@@ -379,7 +382,7 @@ export default function OfferDetailPage({
               onClick={handleCancel}
               disabled={isDeleting}
             >
-              {isDeleting ? "削除中..." : "削除する"}
+              {isDeleting ? t("common.deleting...") : t("common.delete")}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -22,15 +22,15 @@ export function OfferInfo() {
           <p className="mt-4">{t("offer.offer-creation-notion")}</p>
           <ul className="list-disc list-inside mt-4 ml-8 space-y-2">
             <li>{t("common.category")}(Creation, Event, Promotion, Other)</li>
-            <li>{t("offer.offer-title")}</li>
-            <li>{t("offer.offer-description")}</li>
+            <li>{t("offer.offer-title")}*</li>
+            <li>{t("offer.offer-description")}*</li>
             <li>{t("offer.offer-deadline")}</li>
-            <li>{t("offer.offer-place")}</li>
-            <li>{t("offer.offer-fee")}</li>
-            <li>{t("offer.offer-subject")}</li>
+            <li>{t("offer.offer-place")}*</li>
+            <li>{t("offer.offer-fee")}*</li>
+            <li>{t("offer.offer-subject")}*</li>
             <li>{t("offer.additional-offer-items")}</li>
             <li>{t("offer.offer-skills")}</li>
-            <li>{t("offer.cover-image")}</li>
+            <li>{t("offer.cover-image")}*</li>
             <li>{t("offer.attached-image")}</li>
             <li>{t("offer.attached-media")}</li>
           </ul>

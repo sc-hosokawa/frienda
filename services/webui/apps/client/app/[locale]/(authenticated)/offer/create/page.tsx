@@ -23,6 +23,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@ui/components/ui/dialog";
+import { useTranslation } from "~/i18n/client";
 
 const CREATE_NEW_OFFER = gql`
   mutation CreateNewOffer(
@@ -88,9 +89,11 @@ type FormErrors = {
   fee?: string;
 };
 
+// TODO: rewrite this component with React Hook Form
 export default function OfferCreatePage() {
   const { user } = useUserStore();
   const router = useRouter();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -280,7 +283,7 @@ export default function OfferCreatePage() {
             <h1 className="text-[42px] mb-2 text-white font-light">
               New Offer
             </h1>
-            <p className="">情報入力し、オファーを作成しましょう。</p>
+            <p className="">{t("offer.create.description")}</p>
           </div>
 
           <div>
@@ -288,7 +291,7 @@ export default function OfferCreatePage() {
               ( Offer Information )
             </h2>
             <div className="flex flex-col gap-2 mb-6">
-              <p className="text-sm text-white">カテゴリー</p>
+              <p className="text-sm text-white">{t("common.category")}</p>
               <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <button
@@ -311,11 +314,11 @@ export default function OfferCreatePage() {
             <div className="grid gap-6 mt-12">
               <div className="grid grid-cols-2 gap-6">
                 <div className="h-[180px]">
-                  <Label htmlFor="title">オファー名</Label>
+                  <Label htmlFor="title">{t("offer.offer-title")}</Label>
                   <span className="text-red-500 ml-1">*</span>
                   <Input
                     id="title"
-                    placeholder="例：イベントに関係してくれる人募集！"
+                    placeholder={t("offer.create.title-placeholder")}
                     className={`border-[#707070] h-[calc(180px-24px)] rounded-2xl ${
                       errors.title ? "border-red-500" : ""
                     }`}
@@ -334,11 +337,13 @@ export default function OfferCreatePage() {
                 </div>
 
                 <div className="h-[180px]">
-                  <Label htmlFor="description">概要</Label>
+                  <Label htmlFor="description">
+                    {t("offer.offer-description")}
+                  </Label>
                   <span className="text-red-500 ml-1">*</span>
                   <Textarea
                     id="description"
-                    placeholder="概要を入力します。"
+                    placeholder={t("offer.create.description-placeholder")}
                     className={`border-[#707070] h-[calc(180px-24px)] rounded-2xl flex items-center pt-[calc((180px-24px-1.5rem)/2)] ${
                       errors.description ? "border-red-500" : ""
                     }`}
@@ -361,11 +366,11 @@ export default function OfferCreatePage() {
 
               <div className="grid grid-cols-2 gap-6 mt-12">
                 <div className="h-[90px]">
-                  <Label htmlFor="date">期日</Label>
+                  <Label htmlFor="date">{t("offer.offer-deadline")}</Label>
                   <Input
                     id="date"
                     type="text"
-                    placeholder="例：2024年4月末まで"
+                    placeholder={t("offer.create.deadline-placeholder")}
                     className="border-[#707070] rounded-2xl h-[calc(90px-24px)]"
                     value={formData.deadline}
                     onChange={(e) =>
@@ -377,12 +382,12 @@ export default function OfferCreatePage() {
                   />
                 </div>
                 <div className="h-[90px]">
-                  <Label htmlFor="place">場所</Label>
+                  <Label htmlFor="place">{t("offer.offer-place")}</Label>
                   <span className="text-red-500 ml-1">*</span>
                   <Input
                     id="place"
                     type="text"
-                    placeholder="例：東京都渋谷区"
+                    placeholder={t("offer.create.place-placeholder")}
                     className={`border-[#707070] rounded-2xl h-[calc(90px-24px)] ${
                       errors.place ? "border-red-500" : ""
                     }`}
@@ -404,7 +409,7 @@ export default function OfferCreatePage() {
               <div className="grid grid-cols-2 gap-6 mt-12">
                 <div className="h-[90px]">
                   <Label htmlFor="fee">
-                    Fee
+                    {t("offer.offer-fee")}
                     <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <Input
@@ -432,7 +437,7 @@ export default function OfferCreatePage() {
               </div>
 
               <div className="mt-12">
-                <Label>オファー対象</Label>
+                <Label>{t("offer.offer-subject")}</Label>
                 <span className="text-red-500 ml-1">*</span>
                 <div className="flex flex-wrap gap-2">
                   {targetRoles.map((role) => (
@@ -456,7 +461,7 @@ export default function OfferCreatePage() {
 
               <div className="grid gap-6 md:grid-cols-2 mt-12">
                 <div className="h-[180px]">
-                  <Label>オファー詳細についての補足項目</Label>
+                  <Label>{t("offer.additional-offer-items")}</Label>
                   <Textarea
                     placeholder=""
                     className="border-[#707070] h-[calc(180px-24px)] rounded-2xl"
@@ -470,9 +475,9 @@ export default function OfferCreatePage() {
                   />
                 </div>
                 <div className="h-[180px]">
-                  <Label>対象となるスキル</Label>
+                  <Label>{t("offer.offer-skills")}</Label>
                   <Textarea
-                    placeholder="例：デジタル技術があるアーティスト、フェスのプロモーションをしたことがあるプロモーター"
+                    placeholder={t("offer.create.skills-placeholder")}
                     className="border-[#707070] h-[calc(180px-24px)] rounded-2xl"
                     value={formData.requiredSkill}
                     onChange={(e) =>
@@ -492,17 +497,17 @@ export default function OfferCreatePage() {
               ( File Upload )
             </h2>
             <p className="text-sm">
-              オファー画像をアップロードするとオファーページのメイン画像、サムネイルに使用されます。
+              {t("offer.create.file-upload-description")}
             </p>
             <p className="mb-6 text-sm">
-              メディアはオファーに関連する曲、PDF、画像などアップロードするとオファーページに表示されます。
+              {t("offer.create.file-upload-description-1")}
             </p>
 
             <div className="space-y-12">
               {/* カバー画像セクション */}
               <div>
                 <Label className="text-lg mt-12">
-                  カバー画像
+                  {t("offer.cover-image")}
                   <span className="text-red-500 ml-1">*</span>
                 </Label>
                 <label
@@ -529,7 +534,7 @@ export default function OfferCreatePage() {
                     <>
                       <Plus className="h-6 w-6 text-white" />
                       <span className="text-sm text-white mt-2">
-                        画像を追加
+                        {t("common.attach-image")}
                       </span>
                     </>
                   )}
@@ -543,7 +548,7 @@ export default function OfferCreatePage() {
 
               {/* 添付画像セクション */}
               <div>
-                <Label className="text-lg">添付画像</Label>
+                <Label className="text-lg">{t("offer.attached-image")}</Label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
                   {[...Array(4)].map((_, i) => {
                     const attachedImage = attachedImages[i];
@@ -582,7 +587,7 @@ export default function OfferCreatePage() {
                           <>
                             <Plus className="h-6 w-6 text-white" />
                             <span className="text-sm text-white mt-2">
-                              画像を追加
+                              {t("common.attach-image")}
                             </span>
                           </>
                         )}
@@ -594,9 +599,11 @@ export default function OfferCreatePage() {
 
               {/* 添付メディアセクション */}
               <div>
-                <Label className="text-lg font-semibold">添付メディア</Label>
+                <Label className="text-lg font-semibold">
+                  {t("offer.attached-media")}
+                </Label>
                 <p className="text-sm text-white mb-2">
-                  PDFファイルや動画ファイル（MP4）をアップロードできます
+                  {t("offer.create.attach-media-description")}
                 </p>
                 <label className="mt-2 border border-dashed border-white rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer">
                   <input
@@ -608,7 +615,7 @@ export default function OfferCreatePage() {
                   />
                   <Plus className="h-6 w-6 text-white mb-2" />
                   <span className="text-sm text-white">
-                    クリックしてメディアをアップロード
+                    {t("offer.create.click-to-attach-media")}
                   </span>
                 </label>
                 {/* 選択されたファイルの一覧表示 */}
@@ -641,16 +648,18 @@ export default function OfferCreatePage() {
           <div>
             <h2 className="text-xl mt-20">( Publicity )</h2>
             <p className="text-white mb-4">
-              非公開にすると、指定したユーザーのみ閲覧できるようになります。
+              {t("offer.create.publicity-description")}
             </p>
             <div className="flex items-center justify-between py-4">
               <div className="flex items-center gap-2">
-                <Label htmlFor="public">公開設定:</Label>
+                <Label htmlFor="public">{t("offer.create.publicity")}:</Label>
                 <span className="text-sm">
                   {formData.isPublic ? (
-                    <span className="text-green-400">公開</span>
+                    <span className="text-green-400">{t("common.public")}</span>
                   ) : (
-                    <span className="text-yellow-400">非公開</span>
+                    <span className="text-yellow-400">
+                      {t("offer.create.private")}
+                    </span>
                   )}
                 </span>
               </div>
@@ -669,13 +678,13 @@ export default function OfferCreatePage() {
               variant="outline"
               className="text-white hover:bg-gray-600 border-white"
             >
-              キャンセル
+              {t("common.cancel")}
             </Button>
             <Button
               className="bg-[#E4DBC0] hover:bg-gray-100 text-black"
               onClick={handleSubmit}
             >
-              確認画面へ
+              {t("common.proceed-to-confirmation")}
             </Button>
           </div>
         </div>
@@ -684,13 +693,15 @@ export default function OfferCreatePage() {
       <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
         <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col">
           <DialogHeader>
-            <DialogTitle>入力内容の確認</DialogTitle>
+            <DialogTitle>{t("offer.create.confirm-form-item")}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 flex-1 overflow-y-auto">
             {/* メイン画像のプレビュー */}
             {selectedImagePreview && (
               <div>
-                <h3 className="text-sm text-white mb-2">カバー画像</h3>
+                <h3 className="text-sm text-white mb-2">
+                  {t("offer.cover-image")}
+                </h3>
                 <div className="relative w-full h-[200px] bg-gray-800 rounded-lg overflow-hidden">
                   <Image
                     src={selectedImagePreview}
@@ -705,37 +716,37 @@ export default function OfferCreatePage() {
 
             {/* 既存のフォーム内容 */}
             <div>
-              <h3 className="">カテゴリー</h3>
-              <p>{formData.category || "未選択"}</p>
+              <h3 className="">{t("common.category")}</h3>
+              <p>{formData.category || t("common.not-selected")}</p>
             </div>
             <div>
-              <h3 className="">オファー名</h3>
+              <h3 className="">{t("offer.offer-title")}</h3>
               <p>{formData.title}</p>
             </div>
             <div>
-              <h3 className="">概要</h3>
+              <h3 className="">{t("offer.offer-description")}</h3>
               <p>{formData.description}</p>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <h3 className="">期日</h3>
+                <h3 className="">{t("offer.offer-deadline")}</h3>
                 <p>{formData.deadline}</p>
               </div>
               <div>
-                <h3 className="">場所</h3>
+                <h3 className="">{t("offer.offer-place")}</h3>
                 <p>{formData.place}</p>
               </div>
             </div>
             <div>
-              <h3 className="">オファー対象</h3>
-              <p>{formData.targetRole || "未選択"}</p>
+              <h3 className="">{t("offer.offer-subject")}</h3>
+              <p>{formData.targetRole || t("common.not-selected")}</p>
             </div>
             <div>
-              <h3 className="">補足項目</h3>
+              <h3 className="">{t("offer.additional-offer-items")}</h3>
               <p>{formData.attention}</p>
             </div>
             <div>
-              <h3 className="">対象となるスキル</h3>
+              <h3 className="">{t("offer.offer-skills")}</h3>
               <p>{formData.requiredSkill}</p>
             </div>
             <div>
@@ -743,13 +754,17 @@ export default function OfferCreatePage() {
               <p>{formData.fee}</p>
             </div>
             <div>
-              <h3 className="">公開設定</h3>
-              <p>{formData.isPublic ? "公開" : "非公開"}</p>
+              <h3 className="">{t("offer.create.publicity")}</h3>
+              <p>
+                {formData.isPublic
+                  ? t("common.public")
+                  : t("offer.create.private")}
+              </p>
             </div>
             {/* 添付画像のプレビュー */}
             {attachedImages.length > 0 && (
               <div>
-                <h3 className="mb-2">添付画像</h3>
+                <h3 className="mb-2">{t("offer.attached-image")}</h3>
                 <div className="grid grid-cols-4 gap-2">
                   {attachedImages.map((img, index) => (
                     <div
@@ -770,7 +785,7 @@ export default function OfferCreatePage() {
             {/* 添付ファイル一覧 */}
             {selectedFiles.length > 0 && (
               <div>
-                <h3 className="mb-2">添付ファイル</h3>
+                <h3 className="mb-2">{t("common.attached-file")}</h3>
                 <ul className="text-sm space-y-1">
                   {selectedFiles.map((file, index) => (
                     <li key={index} className="flex items-center gap-2">
@@ -790,14 +805,14 @@ export default function OfferCreatePage() {
               variant="outline"
               onClick={() => setShowConfirmModal(false)}
             >
-              戻る
+              {t("common.back")}
             </Button>
             <Button
               className="bg-[#E4DBC0] hover:bg-gray-100 text-black"
               onClick={handleConfirmedSubmit}
               disabled={isLoading}
             >
-              {isLoading ? "登録中..." : "登録する"}
+              {isLoading ? t("common.registering...") : t("common.register")}
             </Button>
           </DialogFooter>
         </DialogContent>
