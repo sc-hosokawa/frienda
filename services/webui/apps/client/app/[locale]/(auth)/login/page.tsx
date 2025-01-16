@@ -107,7 +107,7 @@ export default function Login({
           await sendEmailVerification(user);
           console.log("Verification email resent");
           setStep("verify");
-          router.push("/signin");
+          router.push(`${locale}/signin`);
           alert("認証メールを再送信しました。メールをご確認ください。");
           return false;
         } catch (error: any) {
@@ -132,7 +132,7 @@ export default function Login({
 
       if (!data?.getUserData?.name) {
         setStep("profile");
-        router.push("/signin");
+        router.push(`${locale}/signin`);
         return false;
       }
 
@@ -184,7 +184,7 @@ export default function Login({
   };
 
   const handleSignUp = () => {
-    router.push("/signin");
+    router.push(`${locale}/signin`);
   };
 
   const handlePasswordReset = async () => {

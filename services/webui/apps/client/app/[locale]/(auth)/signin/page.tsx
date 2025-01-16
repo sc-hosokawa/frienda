@@ -84,7 +84,11 @@ const JOIN_WITH_INVITATION_CODE = gql`
   }
 `;
 
-export default function SignIn() {
+export default function SignIn({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
   const { step, setStep } = useAuthStepStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -332,7 +336,7 @@ export default function SignIn() {
             if (result.status === "success") {
               console.log("Session created successfully");
               setStep("signup");
-              router.push("/");
+              router.push(`/${locale}/home`);
             } else {
               throw new Error("Session creation failed");
             }
