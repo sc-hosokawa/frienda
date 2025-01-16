@@ -658,7 +658,7 @@ export default function OfferCreatePage() {
                     <span className="text-green-400">{t("common.public")}</span>
                   ) : (
                     <span className="text-yellow-400">
-                      {t("offer.create.private")}
+                      {t("common.private")}
                     </span>
                   )}
                 </span>
@@ -756,9 +756,7 @@ export default function OfferCreatePage() {
             <div>
               <h3 className="">{t("offer.create.publicity")}</h3>
               <p>
-                {formData.isPublic
-                  ? t("common.public")
-                  : t("offer.create.private")}
+                {formData.isPublic ? t("common.public") : t("common.private")}
               </p>
             </div>
             {/* 添付画像のプレビュー */}

@@ -158,7 +158,7 @@
   "offer.create.skills-placeholder": "Example: Artists with digital skills, promoters who have promoted festivals",
   "offer.create.publicity": "Publicity",
   "common.public": "Public",
-  "offer.create.private": "Private",
+  "common.private": "Private",
   "offer.create.publicity-description": "If you make it private, only the specified users can view it.",
   "offer.create.confirm-form-item": "Confirm the content",
   "common.not-selected": "Not selected"
