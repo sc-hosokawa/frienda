@@ -4,6 +4,8 @@ import Link from "next/link";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { getEntry } from "../../contentful";
 import { Document, BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
+import { getTranslation, setStaticParamsLocale } from "~/i18n/server";
+import { SUPPORTED_LOCALES } from "~/i18n/settings";
 
 // 型ガードの関数
 function isAsset(obj: any): obj is Asset {
@@ -21,6 +23,7 @@ function isDocument(obj: any): obj is Document {
 type Props = {
   params: {
     id: string;
+    locale: string;
   };
 };
 
@@ -31,11 +34,18 @@ const categoryStyles = {
   Info: "bg-[#B487FF]",
 } as const;
 
+export async function generateStaticParams() {
+  return SUPPORTED_LOCALES.map((locale) => ({ locale }));
+}
+
 export default async function NewsDetailPage({ params }: Props) {
   const entry = await getEntry("information", params.id);
+  setStaticParamsLocale(params.locale);
+
+  const { t } = await getTranslation();
 
   if (!entry) {
-    return <div>記事が見つかりませんでした。</div>;
+    return <div>{t("news.no-article-found")}</div>;
   }
 
   // リッチテキストのレンダリングオプションを定義
@@ -62,7 +72,7 @@ export default async function NewsDetailPage({ params }: Props) {
       [INLINES.HYPERLINK]: (node: any) => {
         const uri = node.data.uri;
         const text = node.content.find(
-          (child: any) => child.nodeType === "text",
+          (child: any) => child.nodeType === "text"
         )?.value;
         return (
           <Link href={uri} className="text-blue-500" passHref>
@@ -139,7 +149,7 @@ export default async function NewsDetailPage({ params }: Props) {
         {isDocument(entry.fields.body) ? (
           documentToReactComponents(entry.fields.body, options)
         ) : (
-          <p>コンテンツを表示できません</p>
+          <p>{t("news.cannot-display-content")}</p>
         )}
       </div>
     </div>

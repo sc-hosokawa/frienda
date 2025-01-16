@@ -41,5 +41,7 @@
   "message.download-attached-file": "添付ファイルをダウンロード",
   "message.add-attach-file": "添付ファイルを追加",
   "message.enter-message-with-navigation": "ここにメッセージを入力してください。(Shift + Enterキーで改行)",
-	"message.send-message": "メッセージを送信"
+  "message.send-message": "メッセージを送信",
+  "news.no-article-found": "記事が見つかりませんでした",
+  "news.cannot-display-content": "コンテンツを表示できません"
 }
