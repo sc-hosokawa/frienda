@@ -1,5 +1,6 @@
 {
   "common.Home": "ホーム",
+	"common.save": "保存",
   "common.copied": "コピーしました",
   "common.copy-url": "URLをコピー",
   "commmon.edit-profile": "プロフィールを編集する",
@@ -50,7 +51,7 @@
   "common.list-of-access-request": "アクセス権限リクエスト一覧",
   "common.no-access-request-to-handle": "処理すべきリクエストはありません",
   "common.admit-as-admin": "管理者として許可",
-
+  "common.enter-comment": "コメントを入力",
   "common.send-noun": "送信",
   "common.send-point": "ポイント送信",
   "common.recipient-of-email": "受取人のEmail",

@@ -25,6 +25,7 @@ import {
 import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "~/i18n/client";
 
 export interface CommunityListsRowProps {
   id: string;
@@ -141,6 +142,7 @@ export default function CommunityListsRow({
   const isLiked = favoriteId !== null;
   const [comment, setComment] = useState(shortNote || "");
   const [showCopied, setShowCopied] = useState(false);
+  const { t } = useTranslation();
 
   const handleFavoriteClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -322,12 +324,12 @@ export default function CommunityListsRow({
                 <Input
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  placeholder="コメントを入力..."
+                  placeholder={t("common.enter-comment")}
                   className="flex-1"
                 />
                 <div className="flex gap-2">
                   <Button type="submit" size="sm">
-                    保存
+                    {t("common.save")}
                   </Button>
                 </div>
               </form>
@@ -383,12 +385,12 @@ export default function CommunityListsRow({
                 {showCopied ? (
                   <>
                     <Check className="w-4 h-4 text-green-500" />
-                    <span>コピーしました</span>
+                    <span>{t("common.copied")}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-4 h-4" />
-                    <span>URLをコピー</span>
+                    <span>{t("common.copy-url")}</span>
                   </>
                 )}
               </button>
@@ -413,7 +415,7 @@ export default function CommunityListsRow({
                 className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 hover:text-black rounded flex items-center gap-2"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>メッセージする</span>
+                <span>{t("message.send-message")}</span>
               </button>
             </PopoverContent>
           </Popover>
