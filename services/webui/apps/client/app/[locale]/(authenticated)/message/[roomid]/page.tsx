@@ -18,6 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@ui/components/ui/dropdown-menu";
+import { useTranslation } from "~/i18n/client";
 
 const GET_MESSAGES = gql`
   query GetMessages($userId: String!, $messageRoomId: String!) {
@@ -64,6 +65,7 @@ interface Message {
 export default function Component() {
   const { user } = useUserStore();
   const params = useParams();
+  const { t } = useTranslation();
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<Message | null>(null);
@@ -240,7 +242,7 @@ export default function Component() {
     const storageRef = ref(storage, `${path}/${Date.now()}_${file.name}`);
 
     if (file.size > 10 * 1024 * 1024) {
-      throw new Error("ファイルサイズは10MB以下にしてください");
+      throw new Error(t("message.file-size-alert"));
     }
 
     await uploadBytes(storageRef, file);
@@ -252,7 +254,7 @@ export default function Component() {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      alert("画像ファイルを選択してください");
+      alert(t("message.select-image-file"));
       return;
     }
 
@@ -261,7 +263,7 @@ export default function Component() {
       setAttachedImage(imageUrl);
     } catch (error) {
       alert(
-        error instanceof Error ? error.message : "アップロードに失敗しました"
+        error instanceof Error ? error.message : t("message.failed-uploading")
       );
       console.error("Failed to upload image:", error);
     }
@@ -321,10 +323,8 @@ export default function Component() {
         <div className="min-h-full flex flex-col justify-end">
           {messages.length === 0 ? (
             <div className="text-center space-y-2 my-auto">
-              <h1 className="text-2xl font-light">メッセージがありません</h1>
-              <p className="text-gray-500">
-                最初のメッセージを送信してみましょう
-              </p>
+              <h1 className="text-2xl font-light">{t("message.no-message")}</h1>
+              <p className="text-gray-500">{t("message.send-first-message")}</p>
             </div>
           ) : (
             <div className="space-y-6">
@@ -396,7 +396,7 @@ export default function Component() {
                             d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                           />
                         </svg>
-                        <span>添付ファイルをダウンロード</span>
+                        <span>{t("message.download-attached-file")}</span>
                       </a>
                     )}
 
@@ -425,7 +425,9 @@ export default function Component() {
                 <p className="text-sm text-gray-400">
                   {pendingMessage.content}
                 </p>
-                <p className="text-xs text-gray-600">送信中...</p>
+                <p className="text-xs text-gray-600">
+                  {t("common.sending...")}
+                </p>
               </div>
             </div>
           )}
@@ -471,7 +473,9 @@ export default function Component() {
                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                   />
                 </svg>
-                <span className="text-sm truncate">添付ファイル</span>
+                <span className="text-sm truncate">
+                  {t("common.attached-file")}
+                </span>
                 <Button
                   type="button"
                   variant="ghost"
@@ -515,7 +519,7 @@ export default function Component() {
                 disabled={isSubmitting}
               >
                 <Plus className="w-5 h-5" />
-                <span className="sr-only">添付ファイルを追加</span>
+                <span className="sr-only">{t("message.add-attach-file")}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
@@ -525,7 +529,7 @@ export default function Component() {
                   className="flex items-center gap-2 cursor-pointer"
                 >
                   <ImageIcon className="w-4 h-4" />
-                  <span>画像を添付</span>
+                  <span>{t("common.attach-image")}</span>
                 </label>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -546,7 +550,7 @@ export default function Component() {
                       d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                     />
                   </svg>
-                  <span>ファイルを添付</span>
+                  <span>{t("common.attach-file")}</span>
                 </label>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -561,8 +565,8 @@ export default function Component() {
             disabled={isSubmitting}
             placeholder={
               isSubmitting
-                ? "送信中..."
-                : "ここにメッセージを入力してください。（Shift + Enterキーで改行）"
+                ? t("common.sending...")
+                : t("message.enter-message-with-navigation")
             }
             rows={1}
             className={`
@@ -590,7 +594,9 @@ export default function Component() {
               <Send className="w-5 h-5" />
             )}
             <span className="sr-only">
-              {isSubmitting ? "送信中..." : "メッセージを送信"}
+              {isSubmitting
+                ? t("common.sending...")
+                : t("message.send-message")}
             </span>
           </Button>
         </form>
