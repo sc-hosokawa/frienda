@@ -161,5 +161,14 @@
   "common.private": "非公開",
   "offer.create.publicity-description": "非公開にすると、指定したユーザーのみ閲覧できるようになります。",
   "offer.create.confirm-form-item": "入力内容の確認",
-  "common.not-selected": "未選択"
+  "common.not-selected": "未選択",
+  "common.confirm-modified": "変更内容を確認する",
+  "common.confirmation-modified": "変更内容の確認",
+  "common.update": "更新する",
+  "common.updating...": "更新中...",
+  "common.change-image": "画像を変更",
+  "common.add-images": "画像を追加",
+  "common.image-size-alert": "画像サイズは10MB以下にしてください。",
+  "common.only-image-can-upload": "画像ファイルのみアップロード可能です",
+  "offer.no-offer-registered": "まだOfferが登録されていません"
 }

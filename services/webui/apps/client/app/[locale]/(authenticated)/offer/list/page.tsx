@@ -6,6 +6,7 @@ import Image from "next/image";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useTranslation } from "~/i18n/client";
 
 // GraphQLクエリの定義
 const GET_OFFERS = gql`
@@ -52,11 +53,14 @@ const getCategoryBackgroundColor = (category: string | undefined | null) => {
 export default function OfferList() {
   const { loading, error, data } = useQuery(GET_OFFERS);
   const offers = data?.getOffers?.offerList ?? [];
+  const { t } = useTranslation();
 
   if (error) {
     return (
       <div className="min-h-screen bg-black text-white p-6 flex items-center justify-center">
-        <p>エラーが発生しました: {error.message}</p>
+        <p>
+          {t("common.error-occurred")}: {error.message}
+        </p>
       </div>
     );
   }
@@ -119,7 +123,7 @@ export default function OfferList() {
                 .map((_, index) => <OfferCardSkeleton key={index} />)
             ) : offers.length === 0 ? (
               <div className="col-span-2 text-center py-10 text-gray-400">
-                まだOfferが登録されていません
+                {t("offer.no-offer-registered")}
               </div>
             ) : (
               offers.map((offer: Offer) => (

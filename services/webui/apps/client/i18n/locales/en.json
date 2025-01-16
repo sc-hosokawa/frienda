@@ -161,5 +161,14 @@
   "common.private": "Private",
   "offer.create.publicity-description": "If you make it private, only the specified users can view it.",
   "offer.create.confirm-form-item": "Confirm the content",
-  "common.not-selected": "Not selected"
+  "common.not-selected": "Not selected",
+  "common.confirm-modified": "Confirm the changes",
+  "common.confirmation-modified": "Confirmation of changes",
+  "common.update": "Update",
+  "common.updating...": "Updating...",
+  "common.change-image": "Change Image",
+  "common.add-images": "Add Images",
+  "common.image-size-alert": "Image size shoul be smaller than 10MB",
+  "common.only-image-can-upload": "Only image can be uploaded",
+  "offer.no-offer-registered": "No offer registered"
 }

@@ -23,6 +23,7 @@ import {
 } from "@ui/components/ui/dialog";
 import { storage } from "~/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useTranslation } from "~/i18n/client";
 
 const GET_OFFER_BY_ID = gql`
   query GetOfferById($offerId: Int!, $userId: String!) {
@@ -111,12 +112,14 @@ type AttachedFile = {
   file?: File;
 };
 
+// TODO: rewrite this component with React Hook Form
 export default function OfferEditPage() {
   const { user } = useUserStore();
   const router = useRouter();
   const params = useParams();
   const offerId = parseInt(params.id as string);
   const [errors, setErrors] = useState<FormErrors>({});
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState<FormData>({
     title: "",
@@ -199,11 +202,11 @@ export default function OfferEditPage() {
     const imageFiles = files
       .filter((file) => {
         if (!file.type.startsWith("image/")) {
-          alert("画像ファイルのみアップロード可能です。");
+          alert(t("common.only-image-can-upload"));
           return false;
         }
         if (file.size > 10 * 1024 * 1024) {
-          alert("画像サイズは10MB以下にしてください。");
+          alert(t("common.image-size-alert"));
           return false;
         }
         return true;
@@ -227,7 +230,7 @@ export default function OfferEditPage() {
           return false;
         }
         if (file.size > 100 * 1024 * 1024) {
-          alert("ファイルサイズは100MB以下にしてください。");
+          alert(t("message.file-size-alert"));
           return false;
         }
         return true;
@@ -248,13 +251,13 @@ export default function OfferEditPage() {
       if (file.type.startsWith("image/")) {
         // 画像ファイルの場合
         if (file.size > 10 * 1024 * 1024) {
-          throw new Error("画像サイズは10MB以下にしてください。");
+          throw new Error(t("common.image-size-alert"));
         }
         path = `offers/imgs/${fileName}`;
       } else {
         // その他のファイル（PDF, MP4など）の場合
         if (file.size > 100 * 1024 * 1024) {
-          throw new Error("ファイルサイズは100MB以下にしてください。");
+          throw new Error(t("message.file-size-alert"));
         }
         path = `offers/files/${fileName}`;
       }
@@ -348,12 +351,12 @@ export default function OfferEditPage() {
 
       // ファイルサイズチェック (10MB制限)
       if (file.size > 10 * 1024 * 1024) {
-        throw new Error("画像サイズは10MB以下にしてください。");
+        throw new Error(t("common.image-size-alert"));
       }
 
       // 画像タイプチェック
       if (!file.type.startsWith("image/")) {
-        throw new Error("画像ファイルのみアップロード可能です。");
+        throw new Error(t("common.only-image-can-upload"));
       }
 
       const snapshot = await uploadBytes(storageRef, file);
@@ -417,7 +420,7 @@ export default function OfferEditPage() {
               ( Offer Information )
             </h2>
             <div className="flex flex-col gap-2 mb-6">
-              <p className="text-sm text-white">カテゴリー</p>
+              <p className="text-sm text-white">{t("common.category")}</p>
               <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <button
@@ -440,10 +443,10 @@ export default function OfferEditPage() {
             <div className="grid gap-6 mt-12">
               <div className="grid grid-cols-2 gap-6">
                 <div className="h-[180px]">
-                  <Label htmlFor="title">オファー名</Label>
+                  <Label htmlFor="title">{t("offer.offer-title")}</Label>
                   <Input
                     id="title"
-                    placeholder="例：イベントに関係してくれる人募集！"
+                    placeholder={t("offer.create.title-placeholder")}
                     className="border-[#707070] h-[calc(180px-24px)] rounded-2xl"
                     value={formData.title}
                     onChange={(e) =>
@@ -456,10 +459,12 @@ export default function OfferEditPage() {
                 </div>
 
                 <div className="h-[180px]">
-                  <Label htmlFor="description">概要</Label>
+                  <Label htmlFor="description">
+                    {t("offer.offer-description")}
+                  </Label>
                   <Textarea
                     id="description"
-                    placeholder="概要を入力します。"
+                    placeholder={t("offer.create.description-placeholder")}
                     className="border-[#707070] h-[calc(180px-24px)] rounded-2xl"
                     value={formData.description}
                     onChange={(e) =>
@@ -474,11 +479,11 @@ export default function OfferEditPage() {
 
               <div className="grid grid-cols-2 gap-6 mt-12">
                 <div className="h-[90px]">
-                  <Label htmlFor="date">期日</Label>
+                  <Label htmlFor="date">{t("offer.offer-deadline")}</Label>
                   <Input
                     id="date"
                     type="text"
-                    placeholder="例：2024年4月末まで"
+                    placeholder={t("offer.create.deadline-placeholder")}
                     className="border-[#707070] rounded-2xl h-[calc(90px-24px)]"
                     value={formData.deadline}
                     onChange={(e) =>
@@ -490,11 +495,11 @@ export default function OfferEditPage() {
                   />
                 </div>
                 <div className="h-[90px]">
-                  <Label htmlFor="place">場所</Label>
+                  <Label htmlFor="place">{t("offer.offer-place")}</Label>
                   <Input
                     id="place"
                     type="text"
-                    placeholder="例：東京都渋谷区"
+                    placeholder={t("offer.create.place-placeholder")}
                     className="border-[#707070] rounded-2xl h-[calc(90px-24px)]"
                     value={formData.place}
                     onChange={(e) =>
@@ -510,7 +515,7 @@ export default function OfferEditPage() {
               <div className="grid grid-cols-2 gap-6 mt-12">
                 <div className="h-[90px]">
                   <Label htmlFor="fee">
-                    Fee
+                    {t("offer.offer-fee")}
                     <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <Input
@@ -538,7 +543,7 @@ export default function OfferEditPage() {
               </div>
 
               <div className="space-y-4 mt-12">
-                <Label>オファー対象</Label>
+                <Label>{t("offer.offer-subject")}</Label>
                 <div className="flex flex-wrap gap-2">
                   {[
                     "Musician",
@@ -566,7 +571,7 @@ export default function OfferEditPage() {
 
               <div className="grid gap-6 md:grid-cols-2 mt-12">
                 <div className="h-[180px]">
-                  <Label>オファー詳細についての補足項目</Label>
+                  <Label>{t("offer.additional-offer-items")}</Label>
                   <Textarea
                     placeholder=""
                     className="border-[#707070] h-[calc(180px-24px)] rounded-2xl"
@@ -580,9 +585,9 @@ export default function OfferEditPage() {
                   />
                 </div>
                 <div className="h-[180px]">
-                  <Label>対象となるスキル</Label>
+                  <Label>{t("offer.offer-skills")}</Label>
                   <Textarea
-                    placeholder="例：デジタル技術があるアーティスト、フェスのプロモーションをしたことがあるプロモーター"
+                    placeholder={t("offer.create.skills-placeholder")}
                     className="border-[#707070] h-[calc(180px-24px)] rounded-2xl"
                     value={formData.requiredSkill}
                     onChange={(e) =>
@@ -598,7 +603,7 @@ export default function OfferEditPage() {
           </div>
 
           <div className="mt-4">
-            <Label>カバー画像</Label>
+            <Label> {t("offer.cover-image")}</Label>
             <div className="mt-2 flex gap-4">
               {selectedImagePreview && (
                 <div className="relative h-48 w-2/3">
@@ -620,14 +625,16 @@ export default function OfferEditPage() {
                 />
                 <Plus className="h-6 w-6 text-white" />
                 <span className="text-sm text-white mt-2">
-                  {selectedImagePreview ? "画像を変更" : "画像を追加"}
+                  {selectedImagePreview
+                    ? t("common.change-image")
+                    : t("common.add-images")}
                 </span>
               </label>
             </div>
           </div>
 
           <div className="mt-4">
-            <Label>添付画像</Label>
+            <Label>{t("offer.attached-image")}</Label>
             <div className="grid grid-cols-4 gap-4 mt-2">
               {attachedImages.map((img, index) => (
                 <div key={index} className="relative aspect-square group">
@@ -659,14 +666,16 @@ export default function OfferEditPage() {
                     onChange={handleAttachedImagesSelect}
                   />
                   <Plus className="h-6 w-6 text-white" />
-                  <span className="text-sm text-white mt-2">画像を追加</span>
+                  <span className="text-sm text-white mt-2">
+                    {t("common.attach-image")}
+                  </span>
                 </label>
               )}
             </div>
           </div>
 
           <div className="mt-4">
-            <Label>添付ファイル</Label>
+            <Label> {t("common.attached-file")}</Label>
             <ul className="mt-2 space-y-2">
               {attachedFiles.map((file, index) => (
                 <li
@@ -679,7 +688,7 @@ export default function OfferEditPage() {
                     rel="noopener noreferrer"
                     className="text-blue-400 hover:underline"
                   >
-                    添付ファイル {index + 1}
+                    {t("common.attached-file")} {index + 1}
                   </a>
                   <button
                     onClick={() => {
@@ -689,7 +698,7 @@ export default function OfferEditPage() {
                     }}
                     className="text-red-500 hover:text-red-600"
                   >
-                    削除
+                    {t("common.delete")}
                   </button>
                 </li>
               ))}
@@ -703,18 +712,20 @@ export default function OfferEditPage() {
                 onChange={handleMediaFileSelect}
               />
               <Plus className="h-6 w-6 text-white" />
-              <span className="text-sm text-white mt-2">ファイルを追加</span>
+              <span className="text-sm text-white mt-2">
+                {t("message.add-attach-file")}
+              </span>
             </label>
           </div>
 
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-2">
-              <Label htmlFor="public">公開設定:</Label>
+              <Label htmlFor="public">{t("offer.create.publicity")}:</Label>
               <span className="text-sm">
                 {formData.isPublic ? (
-                  <span className="text-green-400">公開</span>
+                  <span className="text-green-400">{t("common.public")}</span>
                 ) : (
-                  <span className="text-yellow-400">非公開</span>
+                  <span className="text-yellow-400">{t("common.private")}</span>
                 )}
               </span>
             </div>
@@ -733,13 +744,13 @@ export default function OfferEditPage() {
               className="text-white hover:bg-gray-600 border-white"
               onClick={() => router.back()}
             >
-              キャンセル
+              {t("common.cancel")}
             </Button>
             <Button
               className="bg-[#E4DBC0] hover:bg-gray-100 text-black"
               onClick={handleSubmit}
             >
-              変更内容を確認する
+              {t("common.confirm-modified")}
             </Button>
           </div>
         </div>
@@ -748,12 +759,14 @@ export default function OfferEditPage() {
       <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
         <DialogContent className="sm:max-w-[600px] max-h-[80vh] flex flex-col">
           <DialogHeader>
-            <DialogTitle>変更内容の確認</DialogTitle>
+            <DialogTitle>{t("common.confirmation-modified")}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 flex-1 overflow-y-auto">
             {selectedImagePreview && (
               <div>
-                <h3 className="text-sm text-white mb-2">カバー画像</h3>
+                <h3 className="text-sm text-white mb-2">
+                  {t("offer.cover-image")}
+                </h3>
                 <div className="relative w-full h-[200px] bg-gray-800 rounded-lg overflow-hidden">
                   <Image
                     src={selectedImagePreview}
@@ -767,46 +780,58 @@ export default function OfferEditPage() {
             )}
 
             <div>
-              <h3 className="text-sm font-medium">カテゴリー</h3>
-              <p>{formData.category || "未選択"}</p>
+              <h3 className="text-sm font-medium">{t("common.category")}</h3>
+              <p>{formData.category || t("common.not-selected")}</p>
             </div>
             <div>
-              <h3 className="text-sm font-medium">オファー名</h3>
+              <h3 className="text-sm font-medium">{t("offer.offer-title")}</h3>
               <p>{formData.title}</p>
             </div>
             <div>
-              <h3 className="text-sm font-medium">概要</h3>
+              <h3 className="text-sm font-medium">
+                {t("offer.offer-description")}
+              </h3>
               <p>{formData.description}</p>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <h3 className="text-sm font-medium">期日</h3>
-                <p>{formData.deadline || "未設定"}</p>
+                <h3 className="text-sm font-medium">
+                  {t("offer.offer-deadline")}
+                </h3>
+                <p>{formData.category || t("common.not-selected")}</p>
               </div>
               <div>
-                <h3 className="text-sm font-medium">場所</h3>
+                <h3 className="text-sm font-medium">
+                  {t("offer.offer-place")}
+                </h3>
                 <p>{formData.place}</p>
               </div>
             </div>
             <div>
-              <h3 className="text-sm font-medium">オファー対象</h3>
-              <p>{formData.targetRole || "未選択"}</p>
+              <h3 className="text-sm font-medium">
+                {t("offer.offer-subject")}
+              </h3>
+              <p>{formData.targetRole || t("common.not-selected")}</p>
             </div>
             <div>
-              <h3 className="text-sm font-medium">補足項目</h3>
-              <p>{formData.attention || "なし"}</p>
+              <h3 className="text-sm font-medium">
+                {t("offer.additional-offer-items")}
+              </h3>
+              <p>{formData.attention}</p>
             </div>
             <div>
-              <h3 className="text-sm font-medium">対象となるスキル</h3>
-              <p>{formData.requiredSkill || "なし"}</p>
+              <h3 className="text-sm font-medium">{t("offer.offer-skills")}</h3>
+              <p>{formData.requiredSkill}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium">Fee</h3>
               <p>{formData.fee} FSP</p>
             </div>
             <div>
-              <h3 className="text-sm font-medium">公開設定</h3>
-              <p>{formData.isPublic ? "公開" : "非公開"}</p>
+              <h3 className="text-sm font-medium">
+                {t("offer.create.publicity")}
+              </h3>
+              {formData.isPublic ? t("common.public") : t("common.private")}
             </div>
           </div>
           <DialogFooter className="mt-6">
@@ -815,14 +840,14 @@ export default function OfferEditPage() {
               onClick={() => setShowConfirmModal(false)}
               className="text-white hover:bg-gray-600 border-white"
             >
-              キャンセル
+              {t("common.cancel")}
             </Button>
             <Button
               className="bg-[#E4DBC0] hover:bg-gray-100 text-black"
               onClick={handleConfirmedSubmit}
               disabled={isLoading}
             >
-              {isLoading ? "更新中..." : "変更する"}
+              {isLoading ? t("common.updating...") : t("common.update")}
             </Button>
           </DialogFooter>
         </DialogContent>
