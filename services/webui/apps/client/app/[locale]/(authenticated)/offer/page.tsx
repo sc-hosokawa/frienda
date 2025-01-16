@@ -32,7 +32,7 @@ const conciergeSchema = z.object({
 const ASK_LLM = gql`
   query AskLLM($userId: String!, $question: String!) {
     askLlm(userId: $userId, question: $question)
-  }~/components/offer/OfferInfo
+  }
 `;
 
 export default function OfferPage() {
