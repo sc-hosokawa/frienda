@@ -6,6 +6,7 @@ import { gql, useQuery } from "@apollo/client";
 import useUserStore from "~/store/user";
 import { OffersData } from "~/generated/graphql";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "~/i18n/client";
 
 const GET_OFFERS_BY_OWNER = gql`
   query GetOffersByOwner($userId: String!) {
@@ -43,6 +44,7 @@ const getCategoryBackgroundColor = (category: string | undefined | null) => {
 
 export default function OfferList() {
   const { user } = useUserStore();
+  const { t } = useTranslation();
   const router = useRouter();
 
   const { data, loading, error, refetch } = useQuery<ResData>(
@@ -65,7 +67,7 @@ export default function OfferList() {
   if (offers.length === 0) {
     return (
       <div className="text-center py-10">
-        <p className="text-zinc-500">まだオファーがありません。</p>
+        <p className="text-zinc-500">{t("offer.offer-list.no-offer-yet")}</p>
       </div>
     );
   }

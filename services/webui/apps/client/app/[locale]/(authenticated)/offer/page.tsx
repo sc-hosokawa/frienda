@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem } from "@ui/components/ui/form";
 import { gql, useApolloClient } from "@apollo/client";
 import { Skeleton } from "@ui/components/ui/skeleton";
+import { useTranslation } from "~/i18n/client";
 
 const conciergeSchema = z.object({
   question: z.string(),
@@ -38,6 +39,7 @@ const ASK_LLM = gql`
 export default function OfferPage() {
   const { user } = useUserStore();
   const client = useApolloClient();
+  const { t } = useTranslation();
   const [userQuestion, setUserQuestion] = React.useState<string | null>(null);
   const [answer, setAnswer] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -139,14 +141,12 @@ export default function OfferPage() {
                 {isLoading && <Skeleton className="w-[960px] h-[90px]" />}
                 {!isLoading && !answer && (
                   <div className="bg-transparent text-white w-[960px] p-2">
-                    <p>
-                      こんにちは!コンシェルジュです。何か質問があればどうぞ!
+                    <p>{t("concierge.welcome")}</p>
+                    <p className="text-sm text-gray-400 mt-4">
+                      {t("concierge.notion")}
                     </p>
                     <p className="text-sm text-gray-400 mt-4">
-                      この機能は実験的な機能であり、回答や内容が正確でない場合がありますがご了承ください。今後のアップデートで精度が向上します。
-                    </p>
-                    <p className="text-sm text-gray-400 mt-4">
-                      hint:アーティスト名やグループ名を具体的に指定しましょう。
+                      {t("concierge.hint")}
                     </p>
                   </div>
                 )}
@@ -165,7 +165,7 @@ export default function OfferPage() {
                     <FormItem>
                       <FormControl>
                         <input
-                          placeholder="My Conciergeに色々聞いてみましょう。"
+                          placeholder={t("concierge.ask-me-anything")}
                           className="flex w-[900px] border border-white bg-transparent text-white rounded-[30px] h-[90px] p-6"
                           {...field}
                         />
@@ -207,7 +207,7 @@ export default function OfferPage() {
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>20 FSP以上を保有するユーザーがOfferを作成できます</p>
+                  <p>{t("offer.offer-creation-notion")}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

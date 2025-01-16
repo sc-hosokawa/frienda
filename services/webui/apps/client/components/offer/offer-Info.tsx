@@ -1,42 +1,40 @@
+import { useTranslation } from "~/i18n/client";
 import { InfoDialog } from "../dialog/page-info";
 
 export function OfferInfo() {
+  const { t } = useTranslation();
   return (
     <InfoDialog
       position="top-3"
       size={24}
-      title="OFFERについて"
+      title={t("offer.about-offer")}
       content={
         <>
-          <p className="text-lg leading-relaxed">
-            OFFERSでは、アーティストの音楽活動において、それをサポートできるタスクを見つけたり募集したりすることができます。
-          </p>
+          <p className="text-lg leading-relaxed">{t("offer.offer-info")}</p>
           <p className="mt-4 font-semibold text-lg border-t border-gray-800 pt-4">
-            Offerを見つける
+            {t("offer.find-offer")}
           </p>
-          <p className="mt-4">
-            画面右上にある虫眼鏡アイコンをクリックすることで募集中のOfferを見つけることができます。
-          </p>
+          <p className="mt-4">{t("offer.find-offer-guide")}</p>
 
-          <p className="mt-16 font-semibold text-lg">新規Offerを作成する</p>
-          <p className="mt-4">
-            保有FSPが20以上のユーザーのみが新規Offerを作成できます。画面右上にあるプラスアイコンをクリックすることで新規Offerを作成できます。新規Offerを作成するには、以下の情報を入力する必要があります。
+          <p className="mt-16 font-semibold text-lg">
+            {t("offer.create-offer")}
           </p>
+          <p className="mt-4">{t("offer.offer-creation-notion")}</p>
           <ul className="list-disc list-inside mt-4 ml-8 space-y-2">
-            <li>カテゴリー（Creation, Event, Promotion, Other）</li>
-            <li>オファー名（タイトル）*</li>
-            <li>概要（オファーの詳細な説明）*</li>
-            <li>期日（オファーの締切日）</li>
-            <li>場所（活動場所）*</li>
-            <li>Fee（報酬額）*</li>
-            <li>オファー対象（Musician, Curator, Creator, Supporter等）*</li>
-            <li>オファー詳細についての補足項目</li>
-            <li>対象となるスキル</li>
-            <li>カバー画像*</li>
-            <li>添付画像（最大4枚まで）</li>
-            <li>添付メディア（PDFファイルやMP4動画）</li>
+            <li>{t("common.category")}(Creation, Event, Promotion, Other)</li>
+            <li>{t("offer.offer-title")}</li>
+            <li>{t("offer.offer-description")}</li>
+            <li>{t("offer.offer-deadline")}</li>
+            <li>{t("offer.offer-place")}</li>
+            <li>{t("offer.offer-fee")}</li>
+            <li>{t("offer.offer-subject")}</li>
+            <li>{t("offer.additional-offer-items")}</li>
+            <li>{t("offer.offer-skills")}</li>
+            <li>{t("offer.cover-image")}</li>
+            <li>{t("offer.attached-image")}</li>
+            <li>{t("offer.attached-media")}</li>
           </ul>
-          <p className="mt-4 text-sm text-gray-400">* は必須項目です</p>
+          <p className="mt-4 text-sm text-gray-400">{t("offer.required")}</p>
         </>
       }
     />

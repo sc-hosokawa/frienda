@@ -8,6 +8,7 @@ import { Skeleton } from "@ui/components/ui/skeleton";
 import { gql, useQuery } from "@apollo/client";
 import useUserStore from "../../store/user";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "~/i18n/client";
 
 // Offer type definition
 type Offer = {
@@ -136,6 +137,7 @@ const SkeletonCard = () => (
 
 // OfferList component with SWR
 const OfferListClient = () => {
+  const { t } = useTranslation();
   const user = useUserStore((state) => state.user);
   const { data, loading, error, refetch } = useQuery<{
     getOffersByStatus: OffersByStatus;
@@ -166,7 +168,7 @@ const OfferListClient = () => {
             width={30}
             height={30}
           />
-          <h2 className="text-xl">進行中のOffer</h2>
+          <h2 className="text-xl">{t("offer.offer-all-list.ongoing-offer")}</h2>
         </div>
         {inprogressOffers.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -176,7 +178,7 @@ const OfferListClient = () => {
           </div>
         ) : (
           <div className="text-center py-8 text-zinc-500">
-            進行中のオファーはまだありません
+            {t("offer.offer-all-list.no-ongoing-offer")}
           </div>
         )}
       </div>
@@ -190,7 +192,9 @@ const OfferListClient = () => {
             width={30}
             height={30}
           />
-          <h2 className="text-xl">応募中のOffer</h2>
+          <h2 className="text-xl">
+            {t("offer.offer-all-list.applying-offer")}
+          </h2>
         </div>
         {appliedOffers.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -200,7 +204,7 @@ const OfferListClient = () => {
           </div>
         ) : (
           <div className="text-center py-8 text-zinc-500">
-            応募中のオファーはまだありません
+            {t("offer.offer-all-list.no-applying-offer")}
           </div>
         )}
       </div>
