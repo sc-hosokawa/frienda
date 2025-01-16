@@ -114,7 +114,7 @@ impl ExchangePrizeUsecaseTrait for ExchangePrizeUsecase {
         let fsp_tx: FspTxActiveModel = FspTxActiveModel {
             from: ActiveValue::Set(Some(user.id.clone())),
             to: ActiveValue::Set(prize.representation),
-            amount: ActiveValue::Set(-total_points),
+            amount: ActiveValue::Set(total_points),
             notes: ActiveValue::Set(Some(format!("Exchange prize: {}", prize.name))),
             ..Default::default()
         };

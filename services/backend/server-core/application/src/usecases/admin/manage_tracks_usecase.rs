@@ -119,10 +119,7 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
 
             tracks.push(TrackActiveModel {
                 isrc: ActiveValue::Set(release.isrc.clone()),
-                title: ActiveValue::Set(format!(
-                    "{} ({})",
-                    release.track_title, release.track_title_version
-                )),
+                title: ActiveValue::Set(release.track_title.clone()),
                 artist_id: ActiveValue::Set(Some(release.artist_id.clone())),
                 ..Default::default()
             });

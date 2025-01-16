@@ -32,31 +32,17 @@ import { useQuery } from "@tanstack/react-query";
 import request from "graphql-request";
 import { endpoint, GET_ALL_ARTISTS_FOR_ADMIN } from "../utils/query";
 
-interface Artist {
-  artistId: string;
-  nameJa: string;
-  nameEn: string;
-  nameKana: string;
-  status: string;
-  universalId: string;
-  appleKey: string;
-  spotifyKey: string;
-  lineKey: string;
-  amazonKey: string;
-  youtubeKey: string;
-}
-
 export function ArtistTable() {
-  const [artists, setArtists] = useState<Artist[]>([]);
-  const [filteredArtists, setFilteredArtists] = useState<Artist[]>([]);
+  const [artists, setArtists] = useState<any[]>([]);
+  const [filteredArtists, setFilteredArtists] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState<"all" | "public" | "private">(
     "all",
   );
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
+  const [selectedArtist, setSelectedArtist] = useState<any | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [editForm, setEditForm] = useState<Artist | null>(null);
+  const [editForm, setEditForm] = useState<any | null>(null);
   const itemsPerPage = 10;
   const { toast } = useToast();
 
@@ -78,6 +64,7 @@ export function ArtistTable() {
           nameJa: artist.name,
           nameEn: artist.displayNameEn,
           nameKana: artist.displayNameKana,
+          fsp: artist.fsp,
           status: artist.status,
         };
         return formatted;
@@ -121,13 +108,13 @@ export function ArtistTable() {
     );
   };
 
-  const handleEdit = (artist: Artist) => {
+  const handleEdit = (artist: any) => {
     setSelectedArtist(artist);
     setEditForm(artist);
     setIsEditing(true);
   };
 
-  const handleFormChange = (field: keyof Artist, value: string | boolean) => {
+  const handleFormChange = (field: keyof any, value: string | boolean) => {
     if (!editForm) return;
     setEditForm({ ...editForm, [field]: value });
   };
@@ -196,6 +183,7 @@ export function ArtistTable() {
             <TableHead>名前（日本語）</TableHead>
             <TableHead>名前（英語）</TableHead>
             <TableHead>名前（カナ）</TableHead>
+            <TableHead>FSP</TableHead>
             <TableHead>操作</TableHead>
           </TableRow>
         </TableHeader>
@@ -206,6 +194,7 @@ export function ArtistTable() {
               <TableCell>{artist.nameJa}</TableCell>
               <TableCell>{artist.nameEn}</TableCell>
               <TableCell>{artist.nameKana}</TableCell>
+              <TableCell>{artist.fsp}</TableCell>
               <TableCell>
                 <Sheet
                   open={

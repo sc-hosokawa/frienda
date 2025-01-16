@@ -137,6 +137,8 @@ export function MetadataUpload() {
         });
         const dataRows = jsonData.slice(1);
 
+        console.log("dataRows", dataRows);
+
         const extractedMetadata: Metadata[] = dataRows
           .slice(2)
           .flatMap((row: unknown) => {
@@ -160,11 +162,16 @@ export function MetadataUpload() {
                 splitArtistEn,
               );
 
+              const fullTitle =
+                rowArray[11] + (rowArray[20] ? ` (${rowArray[20]})` : "");
+              const fullTrackTitle =
+                rowArray[95] + (rowArray[104] ? ` (${rowArray[104]})` : "");
+
               return {
                 upc: rowArray[1] || "",
                 format: rowArray[4] || "",
                 track_count: rowArray[7] || "",
-                title: rowArray[9] || "",
+                title: fullTitle,
                 artist_jp: splitArtistJp,
                 artist_en: splitArtistEn,
                 artist_kana: splitArtistKana,
@@ -173,7 +180,7 @@ export function MetadataUpload() {
                 release_date: rowArray[73] || "",
                 isrc: rowArray[81] || "",
                 track_no: rowArray[88] || "",
-                track_title: rowArray[93] || "",
+                track_title: fullTrackTitle,
                 track_title_version: rowArray[104] || "",
               };
             });

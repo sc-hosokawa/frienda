@@ -251,12 +251,14 @@ export default function SettingPage() {
                       </td>
                     </TableRow>
                   ) : (
-                    trackCreditsHistory?.map((history: any) => (
-                      <CreditHistoryTable
-                        key={`${history.date}-${history.isrc}-${history.user}`}
-                        {...history}
-                      />
-                    ))
+                    trackCreditsHistory
+                      ?.slice(0, 5)
+                      .map((history: any) => (
+                        <CreditHistoryTable
+                          key={`${history.date}-${history.isrc}-${history.user}`}
+                          {...history}
+                        />
+                      ))
                   )}
                 </TableBody>
               </Table>
@@ -298,12 +300,14 @@ export default function SettingPage() {
                       </td>
                     </TableRow>
                   ) : (
-                    fspHistory?.map((history: any) => (
-                      <PointHistoryTable
-                        key={`${history.date}-${history.from}-${history.to}`}
-                        {...history}
-                      />
-                    ))
+                    fspHistory
+                      ?.slice(0, 5)
+                      .map((history: any) => (
+                        <PointHistoryTable
+                          key={`${history.date}-${history.from}-${history.to}`}
+                          {...history}
+                        />
+                      ))
                   )}
                 </TableBody>
               </Table>
