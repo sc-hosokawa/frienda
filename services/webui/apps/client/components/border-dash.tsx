@@ -1,8 +1,6 @@
 import React from "react";
-import { Button } from "../../../packages/ui/components/ui/button";
+import { Button } from "@ui/components/ui/button";
 import Image from "next/image";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import Link from "next/link";
 
 interface BorderDashProps {
   imageSrc: string;
