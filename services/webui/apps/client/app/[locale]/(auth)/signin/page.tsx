@@ -17,6 +17,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "~/config";
 import useUserStore from "~/store/user";
 import useAuthStepStore from "~/store/authStep";
+import { useTranslation } from "~/i18n/client";
 
 // GraphQL Mutationの定義
 const CREATE_USER_MUTATION = gql`
@@ -110,6 +111,7 @@ export default function SignIn({
   const [joinWithCode] = useMutation(JOIN_WITH_INVITATION_CODE);
 
   const { setUser } = useUserStore();
+  const { t } = useTranslation();
 
   const categories = [
     { id: "Musician", name: "ミュージシャン" },
@@ -200,9 +202,7 @@ export default function SignIn({
       setVerificationTimer(checkVerification);
     } catch (error: any) {
       console.error("Error signing up:", error);
-      alert(
-        "サインインに失敗しました。大変お手数ですが事務局にお問い合わせください。"
-      );
+      alert(`${t("signin.failed-to-signin")}${t("signin.ask-for-office")}`);
     } finally {
       setLoading(false);
     }
@@ -342,14 +342,14 @@ export default function SignIn({
             }
           } catch (error) {
             console.error("Session creation error:", error);
-            alert(`セッションの作成に失敗しました: ${error}`);
+            alert(`${t("signin.session-creation-error")}: ${error}`);
             return;
           }
         }
       }
     } catch (error: any) {
       console.error("Error creating profile:", error);
-      alert("プロフィールの作成に失敗しました");
+      alert(t("signin.failed-to-create-profile"));
     } finally {
       setLoading(false);
     }
@@ -364,17 +364,15 @@ export default function SignIn({
             <h1 className="text-5xl font-light tracking-wider mb-8">
               メール認証 / Email Verification
             </h1>
-            <p className="text-sm">
-              認証メールを送信しました。メールを確認して認証を完了してください。
-            </p>
+            <p className="text-sm">{t("signin.email-verification-sent")}</p>
             <p className="text-sm">
               <span className="text-red-500">
-                このページは閉じないでください。
+                {t("signin.do-not-close-page")}
               </span>
-              認証が完了すると自動的に次の画面に進みます。
+              {t("signin.email-verification")}
             </p>
             <p className="text-sm">
-              次の画面でお名前と属性などの簡単な設定を行い、その後ご利用できるようになります。
+              {t("signin.email-verification-description")}
             </p>
             <p className="text-sm text-gray-400">
               A verification email has been sent. Please check your email and
@@ -385,7 +383,7 @@ export default function SignIn({
             onClick={() => {
               if (auth.currentUser) {
                 sendEmailVerification(auth.currentUser);
-                alert("認証メールを再送信しました");
+                alert(t("signin.email-verification-sent"));
               }
             }}
             className="bg-white text-black hover:bg-white/90"
@@ -406,7 +404,7 @@ export default function SignIn({
             <h1 className="text-5xl font-light tracking-wider">
               プロフィール設定 / Profile Setting
             </h1>
-            <p className="text-sm">アカウントの詳細情報を入力してください</p>
+            <p className="text-sm">{t("signin.profile-setting-description")}</p>
           </div>
 
           <form className="space-y-6" onSubmit={handleProfileSubmit}>
@@ -435,39 +433,35 @@ export default function SignIn({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="realname">
-                氏名（事務局以外の他のユーザーには許諾なく公開されません）
-              </Label>
+              <Label htmlFor="realname">{t("signin.name")}</Label>
               <p className="text-sm text-gray-400">Name</p>
               <Input
                 id="realname"
                 value={realname}
                 onChange={(e) => setRealname(e.target.value)}
-                placeholder="氏名（本名・フルネーム）を入力してください。"
+                placeholder={t("signin.name-placeholder")}
                 className="bg-black border-white text-white placeholder:text-white/50"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="displayName">
-                ユーザーネーム（他のユーザーに表示されます）
-              </Label>
+              <Label htmlFor="displayName">{t("signin.username")}</Label>
               <p className="text-sm text-gray-400">Username</p>
               <Input
                 id="displayName"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="あなたの表示名を入力してください"
+                placeholder={t("signin.username-placeholder")}
                 className="bg-black border-white text-white placeholder:text-white/50"
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="category">属性</Label>
+              <Label htmlFor="category">{t("signin.attribute")}</Label>
               <p className="text-sm text-gray-400">
-                FRIENDSHIP.のキュレーターの方はキュレーターを選択してください。特に思い当たらない方はその他を選択してください。この設定は後ほど変更できます。
+                {t("signin.attribute-description")}
               </p>
               <select
                 id="category"
@@ -476,7 +470,7 @@ export default function SignIn({
                 className="w-full p-2 bg-black border border-white text-white rounded-md"
                 required
               >
-                <option value="">選択してください</option>
+                <option value="">{t("signin.select")}</option>
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
                     {cat.name}
@@ -490,7 +484,7 @@ export default function SignIn({
               className="w-full bg-white text-black hover:bg-white/90"
               disabled={loading}
             >
-              {loading ? "保存中..." : "プロフィールを保存"}
+              {loading ? t("common.saving...") : t("common.save-profile")}
             </Button>
           </form>
         </div>
@@ -509,9 +503,7 @@ export default function SignIn({
 
         {inviteCode && (
           <div className="bg-white/10 p-4 rounded-lg">
-            <p className="text-sm">
-              招待リンクからアクセスされました。このまま登録を進めてください。
-            </p>
+            <p className="text-sm">{t("signin.invited-link")}</p>
           </div>
         )}
 
@@ -552,21 +544,18 @@ export default function SignIn({
                 href="/termofservice"
                 className="text-white hover:underline"
               >
-                利用規約
+                {t("common.term-of-use")}
               </Link>{" "}
               および{" "}
               <Link
                 href="/privacypolicy"
                 className="text-white hover:underline"
               >
-                プライバシーポリシー
+                {t("common.privacy-policy")}
               </Link>{" "}
               をご確認ください。
             </p>
-            <p>
-              アカウントを作成するボタンをクリックすることで、
-              利用規約とプライバシーポリシーに同意したものとみなされます。
-            </p>
+            <p>{t("signin.agree-to-terms")}</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -584,7 +573,7 @@ export default function SignIn({
             href="/login"
             className="text-sm text-gray-200 hover:text-gray-400 hover:font-semibold"
           >
-            ログインはこちら
+            {t("common.logIn")}
           </Link>
         </div>
       </div>
