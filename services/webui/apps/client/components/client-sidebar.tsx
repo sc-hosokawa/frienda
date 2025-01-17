@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Send, Settings } from "lucide-react";
 
@@ -87,10 +87,21 @@ const items = [
   },
 ];
 
-export function ClientSidebar() {
+export function ClientSidebar({ locale }: { locale: string }) {
   const pathname = usePathname();
   const { t } = useTranslation();
+  const router = useRouter();
+
+  const switchedLabel = locale === "ja" ? "English" : "日本語";
+
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
+  function switchLocale() {
+    const newLocale = locale === "ja" ? "en" : "ja";
+    const pathWithoutLocale = pathname.replace(`/${locale}`, "");
+    const newPath = `/${newLocale}${pathWithoutLocale}`;
+    router.push(newPath);
+  }
 
   return (
     <div className="dark">
@@ -177,6 +188,9 @@ export function ClientSidebar() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side="right" align="start">
+                      <DropdownMenuItem asChild onClick={switchLocale}>
+                        <span>{switchedLabel}</span>
+                      </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/walkthrough">
                           <span>{t("common.tutorial")}</span>
