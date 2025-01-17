@@ -22,6 +22,7 @@ import {
   DialogTitle,
 } from "@ui/components/ui/dialog";
 import useAuthStepStore from "~/store/authStep";
+import { useTranslation } from "~/i18n/client";
 
 export default function Login({
   params: { locale },
@@ -38,6 +39,7 @@ export default function Login({
   const [resetEmail, setResetEmail] = useState("");
   const [authCheckComplete, setAuthCheckComplete] = useState(false);
   const { setStep } = useAuthStepStore();
+  const { t } = useTranslation();
 
   const [getUserData] = useLazyQuery(GET_USER_DATA, {
     onCompleted: async (data) => {
@@ -76,7 +78,7 @@ export default function Login({
         }
       } catch (error) {
         console.error("Session creation error:", error);
-        alert(`セッションの作成に失敗しました: ${error}`);
+        alert(`${t("signin.session-creation-error")}: ${error}`);
       } finally {
         // setLoading(false);
       }
@@ -108,15 +110,14 @@ export default function Login({
           console.log("Verification email resent");
           setStep("verify");
           router.push("signin");
-          alert("認証メールを再送信しました。メールをご確認ください。");
+          alert(t("signin.email-verification-sent"));
           return false;
         } catch (error: any) {
           console.error("Email verification error:", error);
-          let errorMessage = "認証メールの送信に失敗しました";
+          let errorMessage = t("signin.email-verification-error");
 
           if (error.code === "auth/too-many-requests") {
-            errorMessage =
-              "短時間に多くのメールが送信されました。しばらく待ってから再試行してください。";
+            errorMessage = t("signin.email-too-many-requests");
           }
 
           alert(errorMessage);
@@ -170,12 +171,12 @@ export default function Login({
       });
     } catch (error: any) {
       console.error("Error logging in:", error);
-      let errorMessage = "ログインに失敗しました";
+      let errorMessage = t("signin.failed-to-login");
 
       if (error.code === "auth/user-not-found") {
-        errorMessage = "ユーザーが見つかりません";
+        errorMessage = t("signin.user-not-found");
       } else if (error.code === "auth/wrong-password") {
-        errorMessage = "パスワードが間違っています";
+        errorMessage = t("signin.wrong-password");
       }
 
       alert(errorMessage);
@@ -189,25 +190,23 @@ export default function Login({
 
   const handlePasswordReset = async () => {
     if (!resetEmail) {
-      alert("メールアドレスを入力してください");
+      alert(t("signin.enter-email"));
       return;
     }
 
     try {
       await sendPasswordResetEmail(auth, resetEmail);
-      alert(
-        "パスワードリセットのメールを送信しました。メールをご確認ください。"
-      );
+      alert(t("signin.password-reset-email-sent"));
       setResetDialogOpen(false);
       setResetEmail("");
     } catch (error: any) {
       console.error("Password reset error:", error);
-      let errorMessage = "パスワードリセットメールの送信に失敗しました";
+      let errorMessage = t("signin.password-reset-email-failed");
 
       if (error.code === "auth/user-not-found") {
-        errorMessage = "このメールアドレスのユーザーが見つかりません";
+        errorMessage = t("signin.user-not-found");
       } else if (error.code === "auth/invalid-email") {
-        errorMessage = "無効なメールアドレスです";
+        errorMessage = t("signin.invalid-email");
       }
 
       alert(errorMessage);
@@ -272,14 +271,14 @@ export default function Login({
                 href="/termofservice"
                 className="text-white hover:underline"
               >
-                利用規約
+                {t("common.term-of-use")}
               </Link>{" "}
-              および{" "}
+              {t("common.and")}{" "}
               <Link
                 href="/privacypolicy"
                 className="text-white hover:underline"
               >
-                プライバシーポリシー
+                {t("common.privacy-policy")}
               </Link>{" "}
               をご確認ください。
             </p>

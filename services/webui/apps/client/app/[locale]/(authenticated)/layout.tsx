@@ -22,7 +22,7 @@ export default function RootLayout({
     <SidebarProvider>
       <div className="flex w-full pt-12">
         <SidebarTrigger />
-        <ClientSidebar />
+        <ClientSidebar locale={locale} />
         <Header />
         <main className="flex-1 min-w-0 w-full">
           <div className="max-w-6xl mx-auto">{children}</div>

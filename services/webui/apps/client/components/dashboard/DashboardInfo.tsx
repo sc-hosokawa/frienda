@@ -1,8 +1,10 @@
 "use client";
 
+import { useTranslation } from "~/i18n/client";
 import { InfoDialog } from "../dialog/page-info";
 
 export function DashboardInfo() {
+  const { t } = useTranslation();
   return (
     <InfoDialog
       position="top-3"
@@ -11,39 +13,41 @@ export function DashboardInfo() {
       content={
         <>
           <p className="leading-relaxed text-gray-300">
-            ダッシュボードでは、ダッシュボードはアーティストが発表した楽曲の再生数などのデータをDSPを横断して確認できます。
+            {t("dashboard.info.title")}
           </p>
           <p className="mt-4 font-semibold text-lg border-t border-gray-800 pt-4">
-            Overviewについて
+            {t("dashboard.info.about-overview")}
           </p>
           <p className="mt-4">
-            Overviewでは、アーティストがこれまでに発表してきた全ての楽曲の合計再生数を表示します。
+            {t("dashboard.info.about-overview-1")}
             <br />
-            集計ルールは以下の通りです
-          </p>
-          <ul className="list-disc list-inside mt-4 ml-8 space-y-2">
-            <li>データ集計開始は2021年3月1日です</li>
-            <li>これまでに発表された楽曲の全期間にわたる合計再生数を表示</li>
-          </ul>
-
-          <p className="mt-16 font-semibold text-lg">Trendingについて</p>
-          <p className="mt-4">
-            Trendingでは、アーティストがこれまでに発表してきた楽曲のうち、再生数が上位５位の楽曲の情報を表示します。
-            <br />
-            集計ルールは以下の通りです
+            {t("dashboard.info.collection-rule")}
           </p>
           <ul className="list-disc list-inside mt-4 ml-8 space-y-2">
-            <li>データ集計開始は2021年3月1日です</li>
-            <li>
-              これまでに発表された楽曲のうち、全期間の合計再生数が上位５位の楽曲を表示
-            </li>
+            <li>{t("dashboard.info.collection-rule-1")}</li>
+            <li>{t("dashboard.info.collection-rule-2")}</li>
           </ul>
 
-          <p className="mt-16 font-semibold text-lg">チャートについて</p>
+          <p className="mt-16 font-semibold text-lg">
+            {t("dashboard.info.about-trending")}
+          </p>
           <p className="mt-4">
-            再生数の傾向を把握できるように、複数のチャートを表示します。
+            {t("dashboard.info.about-trending-1")}
             <br />
-            チャートの種類は以下の通りです
+            {t("dashboard.info.collection-rule")}
+          </p>
+          <ul className="list-disc list-inside mt-4 ml-8 space-y-2">
+            <li>{t("dashboard.info.collection-rule-1")}</li>
+            <li>{t("dashboard.info.trending-rule")}</li>
+          </ul>
+
+          <p className="mt-16 font-semibold text-lg">
+            {t("dashboard.info.about-chart")}
+          </p>
+          <p className="mt-4">
+            {t("dashboard.info.about-chart-1")}
+            <br />
+            {t("dashboard.info.chart-rule")}
           </p>
           <ul className="list-disc list-inside mt-4 ml-8 space-y-2">
             <li>再生数の推移（Stacked Chart）</li>

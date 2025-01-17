@@ -4,6 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 import useUserStore from "~/store/user";
 import { CreditDialog } from "../dialog/credit-dialog";
 import * as Popover from "@radix-ui/react-popover";
+import { useTranslation } from "~/i18n/client";
 
 const GET_TRENDING = gql`
   query GetTrending($artistId: String!, $userId: String!) {
@@ -39,6 +40,7 @@ export function Trending({
 }: {
   selectedArtistId: string | null;
 }) {
+  const { t } = useTranslation();
   const { user } = useUserStore();
   const { data } = useQuery(GET_TRENDING, {
     variables: { artistId: selectedArtistId, userId: user?.id },
@@ -53,7 +55,7 @@ export function Trending({
 
         <Link href={`/dashboard/discography`}>
           <button className="text-white px-8 py-4 rounded-full text-sm border border-dashed border-white">
-            全ての曲を見る
+            {t("dashboard.view-all-music")}
           </button>
         </Link>
       </div>
