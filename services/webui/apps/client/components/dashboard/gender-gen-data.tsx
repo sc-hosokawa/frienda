@@ -24,6 +24,7 @@ import { useQuery, gql } from "@apollo/client";
 import useUserStore from "../../store/user";
 import { GenderGenRateData } from "../../generated/graphql";
 import { ChartSkeleton } from "./gender-gen-chart-skelton";
+import { useTranslation } from "~/i18n/client";
 
 const GET_GENDER_GEN_RATE = gql`
   query GetGenderGenRate($artistId: String!, $userId: String!) {
@@ -69,6 +70,7 @@ export function GenderGenView({
 }: {
   selectedArtistId: string | null;
 }) {
+  const { t } = useTranslation();
   const { user } = useUserStore();
   const { data, loading } = useQuery<ResData>(GET_GENDER_GEN_RATE, {
     variables: {
@@ -161,8 +163,8 @@ export function GenderGenView({
               </ResponsiveContainer>
             ) : (
               <div className="h-full w-full flex flex-col items-center justify-center text-muted-foreground text-center">
-                <p>算出に必要なデータが収集できませんでした。</p>
-                <p>今後十分な再生数がある場合に算出できるようになります。</p>
+                <p>{t("dashboard.no-data-collected")}</p>
+                <p>{t("dashboard.no-data-collected-1")}</p>
               </div>
             )}
           </div>
@@ -172,8 +174,7 @@ export function GenderGenView({
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
                 <Info className="w-4 h-4" />
-                世代比データはLINE
-                Musicのデータを利用しています。集計対象は2021年3月1日以降のデータとなります。今後、他のDSPのデータも統合予定です。
+                {t("dashboard.notion")}
               </div>
             </div>
           </div>
@@ -239,8 +240,8 @@ export function GenderGenView({
               </ResponsiveContainer>
             ) : (
               <div className="h-full w-full flex flex-col items-center justify-center text-muted-foreground text-center">
-                <p>算出に必要なデータが収集できませんでした。</p>
-                <p>今後十分な再生数がある場合に算出できるようになります。</p>
+                <p>{t("dashboard.no-data-collected")}</p>
+                <p>{t("dashboard.no-data-collected-1")}</p>
               </div>
             )}
           </div>
@@ -250,8 +251,7 @@ export function GenderGenView({
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
                 <Info className="w-4 h-4" />
-                性別比データはLINE
-                Musicのデータを利用しています。集計対象は2021年3月1日以降のデータとなります。今後、他のDSPのデータも統合予定です。
+                {t("dashboard.notion")}
               </div>
             </div>
           </div>

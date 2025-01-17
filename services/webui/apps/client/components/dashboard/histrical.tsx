@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from "@ui/components/ui/select";
 import { useState } from "react";
+import { useTranslation } from "~/i18n/client";
 
 const GET_HISTORICAL = gql`
   query GetHistorical($artistId: String!, $userId: String!, $period: Int!) {
@@ -84,6 +85,7 @@ export function Historical({
 }: {
   selectedArtistId: string | null;
 }) {
+  const { t } = useTranslation();
   const [selectedPeriod, setSelectedPeriod] = useState<number>(12);
   const { user } = useUserStore();
   const { data } = useQuery<ResData>(GET_HISTORICAL, {
@@ -101,7 +103,7 @@ export function Historical({
           <div>
             <CardTitle className="font-light">Stacked Chart</CardTitle>
             <CardDescription>
-              各DSPの再生数が積み上げられて表示されます
+              {t("dashboard.historical-description")}
             </CardDescription>
           </div>
           <Select
@@ -187,7 +189,7 @@ export function Historical({
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
               <Info className="w-4 h-4" />
-              各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。AmazonとYouTubeは日次のデータがありませんが今後対応予定です。
+              {t("dashboard.historical-notion")}
             </div>
           </div>
         </div>
