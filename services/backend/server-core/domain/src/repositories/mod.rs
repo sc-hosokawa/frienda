@@ -36,6 +36,7 @@ pub mod track_credits_repo;
 pub mod tracks_repo;
 pub mod txs_fsp_repo;
 pub mod user_artist_repo;
+pub mod user_blocks_repo;
 pub mod user_report_repo;
 pub mod users_repo;
 pub mod webhook_stripe_repo;

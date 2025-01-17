@@ -39,6 +39,7 @@ pub mod track_credits;
 pub mod tracks;
 pub mod txs_fsp;
 pub mod user_artist;
+pub mod user_blocks;
 pub mod user_report;
 pub mod users;
 pub mod webhook_stripe;

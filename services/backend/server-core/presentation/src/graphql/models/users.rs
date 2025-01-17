@@ -174,6 +174,25 @@ pub struct ReportUserResponse {
     pub id: i32,
 }
 
+#[derive(InputObject)]
+pub struct BlockUserInput {
+    pub blocked_user_id: String,
+    pub blocker_user_id: String,
+}
+
+#[derive(SimpleObject)]
+pub struct BlockUserResponse {
+    pub id: i32,
+}
+
+#[derive(SimpleObject)]
+pub struct BlockUserDataResponse {
+    pub id: i32,
+    pub blocked_user_id: String,
+    pub blocker_user_id: String,
+    pub is_solved: bool,
+}
+
 // ===== Convert to usecase input =====
 impl CreateNewUserDataInput {
     pub fn into_usecase_input(self) -> Result<create_user_usecase::CreateUserInput, Error> {

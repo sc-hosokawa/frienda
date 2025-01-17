@@ -36,6 +36,7 @@ pub use super::track_credits::Entity as TrackCredits;
 pub use super::tracks::Entity as Tracks;
 pub use super::txs_fsp::Entity as TxsFsp;
 pub use super::user_artist::Entity as UserArtist;
+pub use super::user_blocks::Entity as UserBlocks;
 pub use super::user_report::Entity as UserReport;
 pub use super::users::Entity as Users;
 pub use super::webhook_stripe::Entity as WebhookStripe;

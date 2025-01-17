@@ -74,6 +74,22 @@ type ArtistsData {
 	artistList: [ArtistData!]!
 }
 
+type BlockUserDataResponse {
+	id: Int!
+	blockedUserId: String!
+	blockerUserId: String!
+	isSolved: Boolean!
+}
+
+input BlockUserInput {
+	blockedUserId: String!
+	blockerUserId: String!
+}
+
+type BlockUserResponse {
+	id: Int!
+}
+
 
 type ChartData {
 	lineChartData: [LineChartData!]!
@@ -410,6 +426,9 @@ type MutationRoot {
 	invite(pass: String!): Boolean!
 	reportUser(input: ReportUserInput!): ReportUserResponse!
 	contactToAdmin(input: ContactToAdminInput!): Boolean!
+	blockUser(input: BlockUserInput!): BlockUserResponse!
+	markAsSolved(id: Int!): Int!
+	deleteBlock(id: Int!): Boolean!
 	createNewMessageRoom(input: CreateNewMessageRoomInput!): CreateNewMessageRoomResponse!
 	sendMessage(input: SendMessageInput!): SendMessageResponse!
 	markAsRead(input: MarkAsReadInput!): MarkAsReadResponse!
@@ -614,6 +633,7 @@ type QueryRoot {
 	getAllUserReports: [UserReport!]!
 	getAllOfferReports: [OfferReport!]!
 	getAllReleaseReports: [ReleaseReport!]!
+	getAllBlockData: [BlockUserDataResponse!]!
 	getOwnCommunity(userId: String!): ConnectedUsersData!
 	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
 	getUserProfile(viewerId: String!, userId: String!): UserDataOnDetailPage!
@@ -639,6 +659,7 @@ type QueryRoot {
 	searchUsers(username: String!): [UserSimpleData!]!
 	getPortfoliosByUserId(userId: String!): [Portfolio!]!
 	getAllPortfolios: [Portfolio!]!
+	getBlockData(id: Int!): BlockUserDataResponse!
 	getAllArtists: ArtistsData!
 	getArtistById(artistId: String!): ArtistFullData!
 	getArtistsByIds(artistIds: [String!]!): ArtistsData!

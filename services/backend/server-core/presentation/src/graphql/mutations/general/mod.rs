@@ -266,4 +266,34 @@ impl GeneralMutation {
             .await?;
         Ok(true)
     }
+
+    async fn block_user(
+        &self,
+        ctx: &Context<'_>,
+        input: models::users::BlockUserInput,
+    ) -> Result<models::users::BlockUserResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .user_blocks
+            .block_user(
+                application::usecases::basic::block_usecase::UserBlocksInput {
+                    blocked_user_id: input.blocked_user_id,
+                    blocker_user_id: input.blocker_user_id,
+                },
+            )
+            .await?;
+        Ok(models::users::BlockUserResponse { id: res.id })
+    }
+
+    async fn mark_as_solved(&self, ctx: &Context<'_>, id: i32) -> Result<i32> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases.user_blocks.mark_as_solved(id).await?;
+        Ok(res.id)
+    }
+
+    async fn delete_block(&self, ctx: &Context<'_>, id: i32) -> Result<bool> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        usecases.user_blocks.delete_block(id).await?;
+        Ok(true)
+    }
 }

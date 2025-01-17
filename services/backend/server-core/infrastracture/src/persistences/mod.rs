@@ -28,5 +28,6 @@ pub mod track_credits_repo_impl;
 pub mod tracks_repo_impl;
 pub mod txs_fsp_repo_impl;
 pub mod user_artist_repo_impl;
+pub mod user_blocks_repo_impl;
 pub mod user_report_repo_impl;
 pub mod users_repo_impl;

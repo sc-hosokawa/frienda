@@ -174,4 +174,21 @@ impl AdminQuery {
             })
             .collect())
     }
+
+    async fn get_all_block_data(
+        &self,
+        ctx: &Context<'_>,
+    ) -> Result<Vec<models::users::BlockUserDataResponse>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.user_blocks.get_all_block_data().await?;
+        Ok(result
+            .into_iter()
+            .map(|block| models::users::BlockUserDataResponse {
+                id: block.id,
+                blocked_user_id: block.blocked_user_id,
+                blocker_user_id: block.blocker_user_id,
+                is_solved: block.is_solved,
+            })
+            .collect())
+    }
 }

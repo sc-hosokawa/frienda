@@ -19,6 +19,7 @@ use application::usecases::artist::{
     request_to_access_usecase::{RequestToAccessUsecase, RequestToAccessUsecaseTrait},
 };
 use application::usecases::basic::{
+    block_usecase::{UserBlocksUsecase, UserBlocksUsecaseTrait},
     create_user_usecase::{CreateUserUsecase, CreateUserUsecaseTrait},
     get_all_users_usecase::{GetAllUsersUsecase, GetAllUsersUsecaseTrait},
     get_user_basic_info_usecase::{GetUserBasicInfoUsecase, GetUserBasicInfoUsecaseTrait},
@@ -116,8 +117,8 @@ use infrastracture::persistences::{
     room_user_repo_impl::RoomUserRepoImpl, rooms_repo_impl::RoomsRepoImpl,
     short_notes_repo_impl::ShortNotesRepoImpl, track_credits_repo_impl::TrackCreditsRepoImpl,
     tracks_repo_impl::TracksRepoImpl, txs_fsp_repo_impl::TxsFspRepoImpl,
-    user_artist_repo_impl::UserArtistRepoImpl, user_report_repo_impl::UserReportRepoImpl,
-    users_repo_impl::UsersRepoImpl,
+    user_artist_repo_impl::UserArtistRepoImpl, user_blocks_repo_impl::UserBlocksRepoImpl,
+    user_report_repo_impl::UserReportRepoImpl, users_repo_impl::UsersRepoImpl,
 };
 
 use application::services::{
@@ -162,6 +163,7 @@ pub struct RepositoriesImpl {
     pub user_report: Arc<UserReportRepoImpl>,
     pub offer_report: Arc<OfferReportRepoImpl>,
     pub release_report: Arc<ReleaseReportRepoImpl>,
+    pub user_blocks: Arc<UserBlocksRepoImpl>,
 }
 
 pub struct ServicesImpl {
@@ -233,6 +235,7 @@ pub struct Usecases {
     pub manage_portfolios: Arc<dyn ManagePortfoliosUsecaseTrait>,
     pub report: Arc<dyn ReportUsecaseTrait>,
     pub contact_to_admin: Arc<dyn ContactToAdminUsecaseTrait>,
+    pub user_blocks: Arc<dyn UserBlocksUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -270,6 +273,7 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
         user_report: Arc::new(UserReportRepoImpl::new(db.clone())),
         offer_report: Arc::new(OfferReportRepoImpl::new(db.clone())),
         release_report: Arc::new(ReleaseReportRepoImpl::new(db.clone())),
+        user_blocks: Arc::new(UserBlocksRepoImpl::new(db.clone())),
     }
 }
 
@@ -296,6 +300,7 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
         contact_to_admin: Arc::new(ContactToAdminUsecase::new(services.email_service.clone())),
+        user_blocks: Arc::new(UserBlocksUsecase::new(repos.user_blocks.clone())),
         report: Arc::new(ReportUsecase::new(
             repos.user_report.clone(),
             repos.offer_report.clone(),

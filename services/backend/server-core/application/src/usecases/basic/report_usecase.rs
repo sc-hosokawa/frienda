@@ -1,6 +1,5 @@
 use async_trait::async_trait;
 use sea_orm::ActiveValue;
-use sea_orm::*;
 use std::sync::Arc;
 
 use domain::entities::offer_report::{ActiveModel as OfferReportActiveModel, Model as OfferReport};

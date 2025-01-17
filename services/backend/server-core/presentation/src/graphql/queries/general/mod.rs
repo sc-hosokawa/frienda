@@ -224,4 +224,19 @@ impl GeneralQuery {
             })
             .collect())
     }
+
+    async fn get_block_data(
+        &self,
+        ctx: &Context<'_>,
+        id: i32,
+    ) -> Result<models::users::BlockUserDataResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.user_blocks.get_block_data(id).await?;
+        Ok(models::users::BlockUserDataResponse {
+            id: result.id,
+            blocked_user_id: result.blocked_user_id,
+            blocker_user_id: result.blocker_user_id,
+            is_solved: result.is_solved,
+        })
+    }
 }
