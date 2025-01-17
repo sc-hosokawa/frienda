@@ -12,6 +12,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 import useUserStore from "~/store/user";
+import { useTranslation } from "~/i18n/client";
 
 const GET_USER_DATA = gql`
   query GetUserData($userId: String!) {
@@ -116,6 +117,7 @@ const UPDATE_USER_DATA = gql`
 `;
 
 export default function SettingPage() {
+  const { t } = useTranslation();
   const { user, updateUser } = useUserStore();
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -256,7 +258,7 @@ export default function SettingPage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex items-center gap-4">
           <label className="block text-sm font-medium w-1/3">
-            プロフィール画像
+            {t("common.profile-image")}
           </label>
           <div className="w-2/3">
             <div className="relative inline-block">
@@ -315,7 +317,9 @@ export default function SettingPage() {
               return (
                 <div key={key} className="flex items-center gap-4">
                   <label className="block text-sm font-medium w-1/3">
-                    {key === "role" ? "役割" : "興味のあるオファー"}
+                    {key === "role"
+                      ? t("common.role")
+                      : t("common.interested-offer")}
                   </label>
                   <div className="flex flex-wrap gap-2 w-2/3">
                     {options.map((option) => (
@@ -346,11 +350,11 @@ export default function SettingPage() {
                 <div key={key} className="flex items-center gap-4">
                   <label className="block text-sm font-medium w-1/3">
                     {key === "name"
-                      ? "ユーザーネーム"
+                      ? t("common.username")
                       : key === "greeting"
-                        ? "自己紹介"
+                        ? t("common.self-introduction")
                         : key === "skill"
-                          ? "スキル"
+                          ? t("common.skill")
                           : key === "xHandle"
                             ? "X (Twitter)"
                             : key === "instagramHandle"
@@ -369,23 +373,23 @@ export default function SettingPage() {
                     }
                     placeholder={
                       key === "name"
-                        ? "あなたの名前を入力してください"
+                        ? t("profile.enter-username")
                         : key === "greeting"
-                          ? "自己紹介文を入力してください"
+                          ? t("profile.enter-self-introduction")
                           : key === "skill"
-                            ? "あなたのスキルを入力してください"
+                            ? t("profile.enter-skill")
                             : key === "xHandle"
-                              ? "プロフィールページのURLを入力してください。https://x.com/username"
+                              ? `${t("profile.enter-profile-url")}https://x.com/username`
                               : key === "instagramHandle"
-                                ? "プロフィールページのURLを入力してください。https://instagram.com/username"
+                                ? `${t("profile.enter-profile-url")}https://instagram.com/username`
                                 : key === "fbHandle"
-                                  ? "プロフィールページのURLを入力してください。https://facebook.com/username"
+                                  ? `${t("profile.enter-profile-url")}https://facebook.com/username`
                                   : key === "role"
-                                    ? "あなたの役割を入力してください"
+                                    ? t("profile.enter-role")
                                     : key === "primaryRole"
-                                      ? "主要な役割を入力してください"
+                                      ? t("profile.enter-primary-role")
                                       : key === "interestOffer"
-                                        ? "興味のあるオファーを入力してください"
+                                        ? t("profile.enter-interested-offer")
                                         : ""
                     }
                     className="mt-1 block w-2/3 h-[90px] rounded-2xl border border-white/50 bg-black text-white placeholder-gray-500 p-3"
@@ -399,7 +403,7 @@ export default function SettingPage() {
 
           <div className="flex items-center gap-4">
             <label className="block text-sm font-medium w-1/3">
-              EVMアドレス
+              {t("common.evm-address")}
             </label>
             <textarea
               value={formData.evmAddr}
@@ -409,7 +413,7 @@ export default function SettingPage() {
                   evmAddr: e.target.value,
                 }))
               }
-              placeholder="EVMアドレスを入力してください"
+              placeholder={t("profile.enter-evm-address")}
               className="mt-1 block w-2/3 h-[90px] rounded-2xl border border-white/50 bg-black text-white placeholder-gray-500 p-3"
             />
           </div>
@@ -421,7 +425,7 @@ export default function SettingPage() {
             disabled={isLoading}
             className="h-[48px] w-[180px] rounded-full text-[18px] transition-colors bg-[#E4DBC0] hover:bg-gray-100 text-black border border-white hover:text-black disabled:opacity-50 text-sm"
           >
-            {isLoading ? "更新中..." : "プロフィールを更新"}
+            {isLoading ? t("common.updating...") : t("profile.update-profile")}
           </button>
         </div>
       </form>
