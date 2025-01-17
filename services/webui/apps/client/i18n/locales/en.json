@@ -113,8 +113,11 @@
   "signin.select": "Select",
   "common.save-profile": "Save Profile",
   "common.saving...": "Saving...",
+  "common.curator": "Curator",
+  "common.other": "Other",
+  "common.musician": "Musician",
   "signin.invited-link": "You have accessed from an invitation link. Please proceed with the registration.",
-	"signin.agree-to-terms": "By clicking the Create Account button, you agree to the Terms of Use and Privacy Policy.",
+  "signin.agree-to-terms": "By clicking the Create Account button, you agree to the Terms of Use and Privacy Policy.",
 
   "purchase-dialog.title": "You can purchase points.",
   "purchase-dialog.description": "Please select the number of points you want to purchase and proceed to payment.",

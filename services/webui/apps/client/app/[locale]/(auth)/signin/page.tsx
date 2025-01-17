@@ -114,9 +114,9 @@ export default function SignIn({
   const { t } = useTranslation();
 
   const categories = [
-    { id: "Musician", name: "ミュージシャン" },
-    { id: "Curator", name: "キュレーター" },
-    { id: "Supporter", name: "その他" },
+    { id: "Musician", name: t("common.musician") },
+    { id: "Curator", name: t("common.curator") },
+    { id: "Supporter", name: t("common.other") },
   ];
 
   const [createUser] = useMutation(CREATE_USER_MUTATION);

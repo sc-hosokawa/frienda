@@ -113,6 +113,10 @@
   "signin.select": "選択してください",
   "common.save-profile": "プロフィールを保存",
   "common.saving...": "保存中...",
+  "common.curator": "キュレーター",
+	"common.other": "その他",
+	"common.musician": "ミュージシャン",
+
   "signin.invited-link": "招待リンクからアクセスされました。このまま登録を進めてください。",
   "signin.agree-to-terms": "アカウントを作成するボタンをクリックすることで、利用規約とプライバシーポリシーに同意したものとみなされます。",
 
