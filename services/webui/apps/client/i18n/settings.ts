@@ -1,0 +1,18 @@
+export const labels = {
+  ja: "日本語",
+  en: "English",
+};
+
+import en from "./locales/en.json";
+import ja from "./locales/ja.json";
+
+export const RESOURCES = { ja, en };
+export const SUPPORTED_LOCALES = Object.keys(RESOURCES) as Locale[];
+export const DEFAULT_LOCALE = "ja";
+
+export type Locale = keyof typeof RESOURCES;
+
+export type i18nKey = keyof (typeof RESOURCES)["en"];
+
+export const isSupportLocale = (locale: string | undefined): locale is Locale =>
+  locale !== undefined && Object.keys(RESOURCES).includes(locale);

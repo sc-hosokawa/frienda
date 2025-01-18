@@ -10,24 +10,22 @@ import {
   Copy,
   MessageSquare,
 } from "lucide-react";
-import heart from "../../public/heart.svg";
-import {
-  TableCell,
-  TableRow,
-} from "../../../../packages/ui/components/ui/table";
-import { getBgClassByType, category } from "../../utils";
+import heart from "~/public/heart.svg";
+import { TableCell, TableRow } from "@ui/components/ui/table";
+import { getBgClassByType, category } from "~/utils";
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 import { gql, useMutation } from "@apollo/client";
-import useUserStore from "../../store/user";
+import useUserStore from "~/store/user";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../../packages/ui/components/ui/popover";
-import { Button } from "../../../../packages/ui/components/ui/button";
-import { Input } from "../../../../packages/ui/components/ui/input";
+} from "@ui/components/ui/popover";
+import { Button } from "@ui/components/ui/button";
+import { Input } from "@ui/components/ui/input";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "~/i18n/client";
 
 export interface CommunityListsRowProps {
   id: string;
@@ -144,6 +142,7 @@ export default function CommunityListsRow({
   const isLiked = favoriteId !== null;
   const [comment, setComment] = useState(shortNote || "");
   const [showCopied, setShowCopied] = useState(false);
+  const { t } = useTranslation();
 
   const handleFavoriteClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -325,12 +324,12 @@ export default function CommunityListsRow({
                 <Input
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  placeholder="コメントを入力..."
+                  placeholder={t("common.enter-comment")}
                   className="flex-1"
                 />
                 <div className="flex gap-2">
                   <Button type="submit" size="sm">
-                    保存
+                    {t("common.save")}
                   </Button>
                 </div>
               </form>
@@ -386,12 +385,12 @@ export default function CommunityListsRow({
                 {showCopied ? (
                   <>
                     <Check className="w-4 h-4 text-green-500" />
-                    <span>コピーしました</span>
+                    <span>{t("common.copied")}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-4 h-4" />
-                    <span>URLをコピー</span>
+                    <span>{t("common.copy-url")}</span>
                   </>
                 )}
               </button>
@@ -416,7 +415,7 @@ export default function CommunityListsRow({
                 className="w-full px-3 py-2 text-sm text-left hover:bg-gray-100 hover:text-black rounded flex items-center gap-2"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>メッセージする</span>
+                <span>{t("message.send-message")}</span>
               </button>
             </PopoverContent>
           </Popover>
