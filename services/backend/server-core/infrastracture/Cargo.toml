@@ -18,7 +18,6 @@ serde_json = { workspace = true }
 derive-new = { workspace = true }
 anyhow = { workspace = true }
 async-trait = { workspace = true }
-svix = { workspace = true }
 http = { workspace = true }
 uuid = { workspace = true }
 chrono = { workspace = true }
