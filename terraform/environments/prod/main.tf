@@ -104,7 +104,7 @@ resource "google_cloud_run_v2_service" "frienda_server" {
     }
     vpc_access {
       connector = google_vpc_access_connector.connector.id
-      egress    = "ALL_TRAFFIC"
+      egress    = "PRIVATE_RANGES_ONLY"
     }
     scaling {
       min_instance_count = 1
@@ -112,7 +112,7 @@ resource "google_cloud_run_v2_service" "frienda_server" {
     }
   }
   lifecycle {
-    ignore_changes        = [template]
+    ignore_changes        = [template[0].containers[0]]
     create_before_destroy = true
   }
 }
