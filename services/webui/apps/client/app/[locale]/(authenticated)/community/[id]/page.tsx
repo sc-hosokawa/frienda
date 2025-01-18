@@ -108,7 +108,7 @@ export default function CommunityAccountPage({
         viewerId: user?.id,
         targetUserId: params.id,
       },
-    }
+    },
   );
 
   const { loading, error, data } = useQuery(GET_USER_PROFILE, {
@@ -165,7 +165,7 @@ export default function CommunityAccountPage({
               height={80}
               className="w-full h-full object-cover border-2 rounded-full"
               style={getBgClassByType(
-                data?.getUserProfile?.category as category
+                data?.getUserProfile?.category as category,
               )}
             />
           </div>
@@ -179,7 +179,7 @@ export default function CommunityAccountPage({
               const lastLogin = new Date(data.getUserProfile.lastLoggedIn);
               const now = new Date();
               const diffInMinutes = Math.floor(
-                (now.getTime() - lastLogin.getTime()) / (1000 * 60)
+                (now.getTime() - lastLogin.getTime()) / (1000 * 60),
               );
 
               if (diffInMinutes <= 15) {

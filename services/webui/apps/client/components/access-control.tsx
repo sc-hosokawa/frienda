@@ -44,7 +44,7 @@ function AccessControlDialog() {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState<string>(
-    user?.belongsToArtists[0]?.artistId || ""
+    user?.belongsToArtists[0]?.artistId || "",
   );
   console.log(`user?.isSuperAdmin: ${user?.isSuperAdmin}`);
 
@@ -74,7 +74,7 @@ function AccessControlDialog() {
 
   const handleApprove = async (userId: string) => {
     console.log(
-      `userId: ${userId}, selectedArtist: ${selectedArtist}, "Accept"`
+      `userId: ${userId}, selectedArtist: ${selectedArtist}, "Accept"`,
     );
     try {
       await markAsMember({
@@ -212,7 +212,7 @@ function AccessControlDialog() {
                                   </>
                                 </div>
                               </div>
-                            )
+                            ),
                           )}
                         </div>
                       </ScrollArea>

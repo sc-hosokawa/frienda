@@ -119,12 +119,12 @@ const CommunityMap = ({
                 const node = nodes[index];
                 if (!node?.x || !node?.y) return;
                 const centerDistance = Math.sqrt(
-                  Math.pow(node.x - centerX, 2) + Math.pow(node.y - centerY, 2)
+                  Math.pow(node.x - centerX, 2) + Math.pow(node.y - centerY, 2),
                 );
                 if (centerDistance > radius * 1.5) {
                   const centerAngle = Math.atan2(
                     node.y - centerY,
-                    node.x - centerX
+                    node.x - centerX,
                   );
                   nodes[index]!.x =
                     centerX + radius * 1.5 * Math.cos(centerAngle);
@@ -230,13 +230,13 @@ const CommunityMap = ({
                       midX -
                       ((node.y - centerY) * offset) /
                         Math.sqrt(
-                          (node.x - centerX) ** 2 + (node.y - centerY) ** 2
+                          (node.x - centerX) ** 2 + (node.y - centerY) ** 2,
                         );
                     const controlY =
                       midY +
                       ((node.x - centerX) * offset) /
                         Math.sqrt(
-                          (node.x - centerX) ** 2 + (node.y - centerY) ** 2
+                          (node.x - centerX) ** 2 + (node.y - centerY) ** 2,
                         );
 
                     return (
@@ -249,7 +249,7 @@ const CommunityMap = ({
                         strokeDasharray="4"
                       />
                     );
-                  }
+                  },
                 )}
                 {nodes.map(
                   (node: {
@@ -298,7 +298,7 @@ const CommunityMap = ({
                         </text>
                       </g>
                     </Link>
-                  )
+                  ),
                 )}
 
                 <g transform={`translate(${centerX},${centerY})`}>

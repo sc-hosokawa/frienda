@@ -84,7 +84,7 @@ export function CreditDialog({
         setCredits(
           existingCredits.length > 0
             ? existingCredits
-            : [{ role: "", name: "", email: "" }]
+            : [{ role: "", name: "", email: "" }],
         );
       }
     }
@@ -93,7 +93,7 @@ export function CreditDialog({
   const handleInputChange = (
     index: number,
     field: keyof CreditFormData,
-    value: string
+    value: string,
   ) => {
     const newCredits = [...credits];
     if (newCredits[index]) {

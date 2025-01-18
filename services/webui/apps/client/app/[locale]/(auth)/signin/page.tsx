@@ -188,7 +188,7 @@ export default function SignIn({
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       const user = userCredential.user;
 
@@ -241,7 +241,7 @@ export default function SignIn({
 
           const storageRef = ref(
             storage,
-            `user_images/${auth.currentUser?.uid}/${safeFileName}`
+            `user_images/${auth.currentUser?.uid}/${safeFileName}`,
           );
           console.log("Storage path:", storageRef.fullPath);
 

@@ -55,7 +55,7 @@ export function RequestForViewDialog() {
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [selectedArtists, setSelectedArtists] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [selectedArtistDetails, setSelectedArtistDetails] = useState<
     Map<string, any>

@@ -55,7 +55,7 @@ export default function Header() {
             borderRadius: "50px",
           },
           className: "w-full",
-        }
+        },
       );
     }
   }, [data]);

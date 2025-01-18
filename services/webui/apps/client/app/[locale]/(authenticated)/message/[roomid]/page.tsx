@@ -175,7 +175,7 @@ export default function Component() {
   if (error) return <div>Error: {error.message}</div>;
 
   const sortedMessages = [...messages].sort(
-    (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime()
+    (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime(),
   );
 
   const handleSubmit = async (e?: React.FormEvent) => {
@@ -263,7 +263,7 @@ export default function Component() {
       setAttachedImage(imageUrl);
     } catch (error) {
       alert(
-        error instanceof Error ? error.message : t("message.failed-uploading")
+        error instanceof Error ? error.message : t("message.failed-uploading"),
       );
       console.error("Failed to upload image:", error);
     }

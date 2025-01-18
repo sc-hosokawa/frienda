@@ -26,7 +26,7 @@ const getLocale = (request: NextRequest): SupportedLocale => {
   };
 
   const negotiatedLocale = new Negotiator({ headers }).language(
-    SUPPORTED_LOCALES
+    SUPPORTED_LOCALES,
   );
   return isValidLocale(negotiatedLocale!) ? negotiatedLocale : DEFAULT_LOCALE;
 };
@@ -45,7 +45,8 @@ export function middleware(request: NextRequest) {
   }
 
   const pathnameIsMissingLocale = SUPPORTED_LOCALES.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+    (locale) =>
+      !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
   );
 
   // Get locale from cookies or headers

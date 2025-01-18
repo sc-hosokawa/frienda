@@ -50,7 +50,7 @@ export default function NewMessageDialog() {
     {
       variables: { username: searchTerm },
       skip: searchTerm.length === 0,
-    }
+    },
   );
 
   const [createRoom] = useMutation(CREATE_MESSAGE_ROOM);

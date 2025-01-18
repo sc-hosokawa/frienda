@@ -14,10 +14,10 @@ export default function Dashboard() {
   const { user } = useUserStore();
   const artists = user?.belongsToArtists;
   const acceptedArtists = artists?.filter(
-    (artist) => artist.status === "Accept"
+    (artist) => artist.status === "Accept",
   );
   const [selectedArtist, setSelectedArtist] = useState<string | null>(
-    acceptedArtists?.[0]?.artistId || null
+    acceptedArtists?.[0]?.artistId || null,
   );
 
   return (

@@ -21,7 +21,7 @@ export const useTranslation = (): {
     (key: i18nKey) => {
       return RESOURCES[currentLocale][key];
     },
-    [currentLocale]
+    [currentLocale],
   );
   return { t: translate };
 };

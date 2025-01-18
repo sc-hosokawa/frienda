@@ -102,7 +102,7 @@ export function AllocationDialog() {
           name: member.name,
           imageUrl: member.imageUrl,
           fsp: 0,
-        })
+        }),
       );
       setMembers(fetchedMembers);
       // 新しいメンバーリストに基づいて配分ポイントをリセット
@@ -268,7 +268,7 @@ export function AllocationDialog() {
                           onChange={(e) =>
                             handlePointsChange(
                               member.id,
-                              parseInt(e.target.value) || 0
+                              parseInt(e.target.value) || 0,
                             )
                           }
                         />

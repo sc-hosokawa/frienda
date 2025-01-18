@@ -91,11 +91,11 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
   }
 
   const ongoingUser = usersData?.getUsersInOffer.users.find(
-    (user) => user.statusInOffer === "Ongoing"
+    (user) => user.statusInOffer === "Ongoing",
   );
 
   const finishedUser = usersData?.getUsersInOffer.users.find(
-    (user) => user.statusInOffer === "Finished"
+    (user) => user.statusInOffer === "Finished",
   );
 
   if (finishedUser) {

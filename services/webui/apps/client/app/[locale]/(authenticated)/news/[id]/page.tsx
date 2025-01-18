@@ -72,7 +72,7 @@ export default async function NewsDetailPage({ params }: Props) {
       [INLINES.HYPERLINK]: (node: any) => {
         const uri = node.data.uri;
         const text = node.content.find(
-          (child: any) => child.nodeType === "text"
+          (child: any) => child.nodeType === "text",
         )?.value;
         return (
           <Link href={uri} className="text-blue-500" passHref>

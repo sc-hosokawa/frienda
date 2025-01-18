@@ -85,7 +85,7 @@ export default function FspPage() {
   const { data: popularPrizesData } = useQuery(GET_POPULAR_PRIZES);
   const sortedPrizes = popularPrizesData?.getPopularPrizes
     ? [...popularPrizesData.getPopularPrizes].sort(
-        (a: any, b: any) => a.point - b.point
+        (a: any, b: any) => a.point - b.point,
       )
     : [];
 
@@ -251,7 +251,7 @@ export default function FspPage() {
                         </TableCell>
                         <TableCell>{transaction.note}</TableCell>
                       </TableRow>
-                    )
+                    ),
                   )
                 )}
               </TableBody>

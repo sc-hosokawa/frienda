@@ -100,11 +100,11 @@ export function GenderGenViewByUPC({ upc }: { upc: string }) {
 
   // 世代データが空かどうかをチェック
   const hasGenerationData = generationData.some(
-    (item) => item.value !== undefined && item.value !== null && item.value > 0
+    (item) => item.value !== undefined && item.value !== null && item.value > 0,
   );
   // 性別データが空かどうかをチェック
   const hasGenderData = genderData.some(
-    (item) => item.value !== undefined && item.value !== null && item.value > 0
+    (item) => item.value !== undefined && item.value !== null && item.value > 0,
   );
 
   return (

@@ -251,7 +251,7 @@ export default function DiscographyAlbumPage({ params }: Props) {
                         />
                       </div>
                     </div>
-                  )
+                  ),
                 )}
               </div>
             </div>

@@ -121,7 +121,7 @@ export default function NotificationList() {
                     {(() => {
                       const date = new Date(notification.createdAt);
                       const jstDate = new Date(
-                        date.getTime() + 9 * 60 * 60 * 1000
+                        date.getTime() + 9 * 60 * 60 * 1000,
                       );
                       return jstDate.toLocaleString("ja-JP", {
                         year: "numeric",
@@ -164,7 +164,7 @@ export default function NotificationList() {
                       {(() => {
                         const date = new Date(notification.createdAt);
                         const jstDate = new Date(
-                          date.getTime() + 9 * 60 * 60 * 1000
+                          date.getTime() + 9 * 60 * 60 * 1000,
                         );
                         return jstDate.toLocaleString("ja-JP", {
                           year: "numeric",
@@ -178,7 +178,7 @@ export default function NotificationList() {
                   </div>
                 </Card>
               </Link>
-            )
+            ),
           )}
         </div>
       )}

@@ -52,7 +52,7 @@ export default function OfferList() {
     {
       variables: { userId: user?.id },
       skip: !user?.id,
-    }
+    },
   );
 
   useEffect(() => {

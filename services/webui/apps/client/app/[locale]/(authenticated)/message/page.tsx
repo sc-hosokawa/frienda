@@ -72,7 +72,7 @@ const MessageList = () => {
     {
       variables: { userId: user?.id || "" },
       skip: !user?.id,
-    }
+    },
   );
 
   const formatDateTime = (dateTimeStr: string | null | undefined) => {

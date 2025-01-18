@@ -117,7 +117,7 @@ export default function OfferDetailPage({
       onError: (error) => {
         console.error("Update status error:", error);
       },
-    }
+    },
   );
 
   const [deleteOffer, { loading: isDeleting }] = useMutation(
@@ -130,7 +130,7 @@ export default function OfferDetailPage({
       onError: (error) => {
         console.error("Delete offer error:", error);
       },
-    }
+    },
   );
 
   const handleCancel = async () => {

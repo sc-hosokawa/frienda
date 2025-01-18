@@ -34,10 +34,10 @@ export default function Home() {
   const { user } = useUserStore();
   const { t } = useTranslation();
   const acceptedArtists = user?.belongsToArtists.filter(
-    (artist) => artist.status === "Accept"
+    (artist) => artist.status === "Accept",
   );
   const pendingArtists = user?.belongsToArtists.filter(
-    (artist) => artist.status === "Check"
+    (artist) => artist.status === "Check",
   );
   const timestamp = Date.now();
   const artistsLength = acceptedArtists?.length || 0;

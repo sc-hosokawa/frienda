@@ -174,13 +174,13 @@ export default function OfferEditPage() {
 
       if (offer.attachedImgs) {
         setAttachedImages(
-          offer.attachedImgs.map((url: string) => ({ url, isNew: false }))
+          offer.attachedImgs.map((url: string) => ({ url, isNew: false })),
         );
       }
 
       if (offer.attachedFiles) {
         setAttachedFiles(
-          offer.attachedFiles.map((url: string) => ({ url, isNew: false }))
+          offer.attachedFiles.map((url: string) => ({ url, isNew: false })),
         );
       }
     }
@@ -196,7 +196,7 @@ export default function OfferEditPage() {
   };
 
   const handleAttachedImagesSelect = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const files = Array.from(e.target.files || []);
     const imageFiles = files
@@ -290,7 +290,7 @@ export default function OfferEditPage() {
               console.error(`Failed to upload image: ${error}`);
               throw error;
             }
-          })
+          }),
       );
 
       const newFileUrls = await Promise.all(
@@ -303,7 +303,7 @@ export default function OfferEditPage() {
               console.error(`Failed to upload file: ${error}`);
               throw error;
             }
-          })
+          }),
       );
 
       const finalImageUrls = [
@@ -648,7 +648,7 @@ export default function OfferEditPage() {
                   <button
                     onClick={() => {
                       setAttachedImages((prev) =>
-                        prev.filter((_, i) => i !== index)
+                        prev.filter((_, i) => i !== index),
                       );
                     }}
                     className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -693,7 +693,7 @@ export default function OfferEditPage() {
                   <button
                     onClick={() => {
                       setAttachedFiles((prev) =>
-                        prev.filter((_, i) => i !== index)
+                        prev.filter((_, i) => i !== index),
                       );
                     }}
                     className="text-red-500 hover:text-red-600"

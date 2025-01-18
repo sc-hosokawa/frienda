@@ -104,7 +104,7 @@ export default function PrizeDetailPage({
                 }
                 if (
                   confirm(
-                    `${data?.getPrizeDetail?.name}を${data?.getPrizeDetail?.point.toLocaleString()} fspで交換しますか？`
+                    `${data?.getPrizeDetail?.name}を${data?.getPrizeDetail?.point.toLocaleString()} fspで交換しますか？`,
                   )
                 ) {
                   try {
@@ -127,7 +127,7 @@ export default function PrizeDetailPage({
                       "交換が完了しました。\n" +
                         "交換ID: " +
                         response.data.exchangePrize.txId +
-                        "\n必ず受領メールをご確認ください。"
+                        "\n必ず受領メールをご確認ください。",
                     );
                     router.push("/fsp");
                   } catch (error) {

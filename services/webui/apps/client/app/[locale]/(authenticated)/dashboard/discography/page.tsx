@@ -11,10 +11,7 @@ import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { Separator } from "@ui/components/ui/separator";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "~/store/user";
-import {
-  ProductsData,
-  ProductWithTracks,
-} from "~/generated/graphql";
+import { ProductsData, ProductWithTracks } from "~/generated/graphql";
 
 interface ResData {
   getProducts: ProductsData;
@@ -24,7 +21,7 @@ export default function DiscographyPage() {
   const { user } = useUserStore();
   const artists = user?.belongsToArtists;
   const [selectedArtist, setSelectedArtist] = useState<string | null>(
-    artists?.[0]?.artistId || null
+    artists?.[0]?.artistId || null,
   );
   const { data } = useQuery<ResData>(GET_PRODUCTS, {
     variables: {

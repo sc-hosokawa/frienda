@@ -128,7 +128,7 @@ export default function OfferCreatePage() {
     const uploadPromises = files.map(async (file) => {
       const storageRef = ref(
         storage,
-        `offers/files/${Date.now()}_${file.name}`
+        `offers/files/${Date.now()}_${file.name}`,
       );
       await uploadBytes(storageRef, file);
       return getDownloadURL(storageRef);
@@ -180,7 +180,7 @@ export default function OfferCreatePage() {
       }
 
       const attachedImageUrls = await Promise.all(
-        attachedImages.map((file) => handleImageUpload(file.file))
+        attachedImages.map((file) => handleImageUpload(file.file)),
       );
 
       const fileUrls = await handleFilesUpload(selectedFiles);
@@ -222,7 +222,7 @@ export default function OfferCreatePage() {
   };
 
   const handleAttachedImagesSelect = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const files = Array.from(e.target.files || []);
     const imageFiles = files
@@ -575,7 +575,7 @@ export default function OfferCreatePage() {
                               onClick={(e) => {
                                 e.preventDefault();
                                 setAttachedImages((prev) =>
-                                  prev.filter((_, index) => index !== i)
+                                  prev.filter((_, index) => index !== i),
                                 );
                               }}
                               className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
@@ -630,7 +630,7 @@ export default function OfferCreatePage() {
                         <button
                           onClick={() =>
                             setSelectedFiles((files) =>
-                              files.filter((_, i) => i !== index)
+                              files.filter((_, i) => i !== index),
                             )
                           }
                           className="text-red-500"
