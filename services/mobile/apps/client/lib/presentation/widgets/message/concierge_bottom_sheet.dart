@@ -41,7 +41,7 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
       dio.options.receiveTimeout = const Duration(seconds: 60);
       dio.options.connectTimeout = const Duration(seconds: 60);
       final response = await dio.post(
-        'https://frienda-server-962498306731.asia-northeast1.run.app/graphql',
+        const String.fromEnvironment('apiUrl'),
         data: {
           'query': '''
             query AskLlm(\$userId: String!, \$question: String!) {

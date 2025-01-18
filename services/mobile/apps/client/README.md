@@ -22,5 +22,10 @@ flutter pub run build_runner build --delete-conflicting-outputs
 
 ## Build and upload to App Store Connect
 ```
-flutter build ipa --export-options-plist="build/ios/ipa/ExportOptions.plist"
+flutter build ipa --dart-define-from-file=dart_defines/prod.json --export-options-plist="build/ios/ipa/ExportOptions.plist"
+```
+
+## Build and upload to Google Play Store
+```
+flutter build appbundle --release --dart-define-from-file=dart_defines/prod.json
 ```

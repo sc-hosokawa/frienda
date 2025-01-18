@@ -63,6 +63,13 @@ void main() async {
       // FCMの初期化エラーはアプリの動作に致命的ではないため、続行
     }
 
+    // デバッグ情報の出力を改善
+    debugPrint('=== Environment Variables ===');
+    debugPrint('API URL: ${const String.fromEnvironment('apiUrl')}');
+    debugPrint('App Name: ${const String.fromEnvironment('appName')}');
+    debugPrint('Flavor: ${const String.fromEnvironment('flavor')}');
+    debugPrint('==========================');
+
     FlutterNativeSplash.remove();
 
     runApp(

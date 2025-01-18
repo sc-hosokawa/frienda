@@ -9,8 +9,8 @@ final graphQLClientProvider = Provider<GraphQLClient>((ref) {
   // 認証トークンプロバイダーなどから token を取得
   // final token = ref.watch(authTokenProvider);
 
-  final apiUrl = String.fromEnvironment('apiUrl');
-  print(apiUrl);
+  final apiUrl = const String.fromEnvironment('apiUrl');
+  print('GraphQL API URL:::: $apiUrl');
 
   final httpLink = HttpLink(
     //'http://127.0.0.1:8080/graphql',
