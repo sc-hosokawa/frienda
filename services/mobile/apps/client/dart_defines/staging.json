@@ -1,0 +1,6 @@
+{
+    "flavor": "stg",
+    "appIdSuffix": ".stg",
+    "appName": "STG FRIENDSHIP. DAO",
+    "apiUrl": "https://frienda-server-962498306731.asia-northeast1.run.app/graphql"
+}

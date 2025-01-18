@@ -1,0 +1,6 @@
+{
+    "flavor": "prod",
+    "appIdSuffix": "",
+    "appName": "FRIENDSHIP. DAO",
+    "apiUrl": "https://frienda-server-core-134053420815.asia-northeast1.run.app/graphql"
+}

@@ -60,30 +60,30 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAkYBfsIsL-PALnx6-20rJB1eEGAXMUYF8',
-    appId: '1:23181195188:web:c6798ac7cb4e22317fe4e1',
-    messagingSenderId: '23181195188',
-    projectId: 'frienda-auth-test1',
-    authDomain: 'frienda-auth-test1.firebaseapp.com',
-    storageBucket: 'frienda-auth-test1.appspot.com',
-    measurementId: 'G-64BS7X84PL',
+    apiKey: 'AIzaSyCZ8YeoVrHJih8M1H5VHrJumHC5Ww9kgjA',
+    appId: '1:955799892508:web:81817a5f2d973106b125d9',
+    messagingSenderId: '955799892508',
+    projectId: 'friendship-dao',
+    authDomain: 'friendship-dao.firebaseapp.com',
+    storageBucket: 'friendship-dao.firebasestorage.app',
+    measurementId: 'G-BSD0532YHD',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCxsXn4qfEelWu8Y0ui90VHRUXGAH8Hz5c',
-    appId: '1:23181195188:ios:0607d8d4ffa5636a7fe4e1',
-    messagingSenderId: '23181195188',
-    projectId: 'frienda-auth-test1',
-    storageBucket: 'frienda-auth-test1.appspot.com',
+    apiKey: 'AIzaSyCcBNXUqgoPfdQJ63ut3kwrZmRsoJ-V0ow',
+    appId: '1:955799892508:ios:5b5e149135c011f5b125d9',
+    messagingSenderId: '955799892508',
+    projectId: 'friendship-dao',
+    storageBucket: 'friendship-dao.firebasestorage.app',
     iosBundleId: 'com.frienda.client',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCiIj7IcHQ4a31-rRJBtMW_vSyxWCZYnFQ',
-    appId: '1:23181195188:android:ebd3c2193208c14e7fe4e1',
-    messagingSenderId: '23181195188',
-    projectId: 'frienda-auth-test1',
-    storageBucket: 'frienda-auth-test1.appspot.com',
+    apiKey: 'AIzaSyD5FWV8kjyaJexlDhYlCr35r9hea0ailEk',
+    appId: '1:955799892508:android:1813210a68c16c54b125d9',
+    messagingSenderId: '955799892508',
+    projectId: 'friendship-dao',
+    storageBucket: 'friendship-dao.firebasestorage.app',
   );
 
 }

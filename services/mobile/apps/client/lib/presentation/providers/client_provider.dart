@@ -9,9 +9,12 @@ final graphQLClientProvider = Provider<GraphQLClient>((ref) {
   // 認証トークンプロバイダーなどから token を取得
   // final token = ref.watch(authTokenProvider);
 
+  final apiUrl = String.fromEnvironment('apiUrl');
+  print(apiUrl);
+
   final httpLink = HttpLink(
     //'http://127.0.0.1:8080/graphql',
-    'https://frienda-server-962498306731.asia-northeast1.run.app/graphql',
+    apiUrl,
     defaultHeaders: {
       'Content-Type': 'application/json',
     },
