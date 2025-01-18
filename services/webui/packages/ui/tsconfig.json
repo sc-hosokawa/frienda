@@ -3,9 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@ui/*": ["./*"],
-      "@ui/components/ui*": ["./components/ui*"]
-    }    
+      "@ui/*": ["./*"]
+    }
   },
   "include": ["."],
   "exclude": ["node_modules", "dist"]

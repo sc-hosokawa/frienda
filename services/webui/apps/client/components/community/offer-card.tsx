@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MoreHorizontal } from "lucide-react";
 import { BorderDash } from "../border-dash";
 
 interface OfferCardProps {
