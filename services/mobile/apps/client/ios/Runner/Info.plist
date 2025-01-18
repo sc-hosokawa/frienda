@@ -67,19 +67,21 @@
 		<key>LSApplicationCategoryType</key>
 		<string></string>
 		<key>NSCameraUsageDescription</key>
-		<string>アプリ内でQRコードをスキャンするため、カメラへのアクセスが必要です。</string>
+		<string>QRコードをスキャンして相手ユーザーの情報を受け取るために、カメラへのアクセスが必要です。</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>画像をアップロードするために、写真へのアクセスが必要です。</string>
+		<string>プロフィール画像の設定やチャットでの写真共有のために、写真へのアクセスが必要です。アップロードした写真はあなたのプロフィールやメッセージの添付ファイルとして使用されます。</string>
 		<key>UIBackgroundModes</key>
 		<array>
 			<string>fetch</string>
 			<string>remote-notification</string>
 		</array>
 		<key>NSAppleMusicUsageDescription</key>
-		<string>音楽を再生するために、音楽へのアクセスが必要です。</string>
+		<string>プロフィールやチャットで音楽を共有するために、音楽ライブラリへのアクセスが必要です。共有された音楽はアプリ内でプレビュー再生することができます。</string>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 		<key>NSFaceIDUsageDescription</key>
-		<string>アプリへのログインに生体認証を使用します</string>
+		<string>アプリへの安全なログインに生体認証を使用します</string>
+		<key>NSUserTrackingUsageDescription</key>
+		<string>より関連性の高い広告及び情報を表示するために、デバイスの広告識別子を使用します。これにより、あなたの興味や関心に合った情報や機能をお届けすることができます。トラッキングを許可しない場合でも、アプリの全ての機能をご利用いただけます。</string>
 	</dict>
 </plist>

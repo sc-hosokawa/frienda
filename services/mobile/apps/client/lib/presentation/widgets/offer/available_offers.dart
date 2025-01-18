@@ -91,7 +91,10 @@ class AvailableOffers extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                   ),
-                  title: Text(offer['title']),
+                  title: Text(
+                    offer['title'],
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -99,6 +102,7 @@ class AvailableOffers extends StatelessWidget {
                         offer['description'],
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.grey[300]),
                       ),
                       const SizedBox(height: 4),
                       Text(
@@ -113,7 +117,8 @@ class AvailableOffers extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
                         side: const BorderSide(
                           color: Colors.white,
                           width: 1,
@@ -132,7 +137,7 @@ class AvailableOffers extends StatelessWidget {
                       child: const Text(
                         '詳細',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),

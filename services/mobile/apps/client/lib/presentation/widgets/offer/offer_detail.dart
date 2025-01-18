@@ -71,6 +71,14 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
     }
   ''';
 
+  static const String reportOfferMutation = '''
+    mutation ReportOffer(\$input: ReportOfferInput!) {
+      reportOffer(input: \$input) {
+        id
+      }
+    }
+  ''';
+
   @override
   void initState() {
     super.initState();
@@ -170,8 +178,26 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
         centerTitle: true,
         elevation: 0,
         actions: [
-          // IconButton(icon: Icon(Icons.share), onPressed: () {}),
-          // IconButton(icon: Icon(Icons.favorite_border), onPressed: () {}),
+          PopupMenuButton<String>(
+            icon: Icon(Icons.more_vert, color: Colors.white),
+            onSelected: (value) {
+              if (value == 'report') {
+                _showReportDialog();
+              }
+            },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'report',
+                child: Row(
+                  children: [
+                    Icon(Icons.flag_outlined, color: Colors.white, size: 20),
+                    SizedBox(width: 8),
+                    Text('報告する'),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -664,5 +690,105 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
         style: TextStyle(color: Colors.grey),
       ),
     );
+  }
+
+  void _showReportDialog() {
+    final TextEditingController commentController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Offerを報告'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('このOfferについて問題がある場合は報告してください。'),
+              SizedBox(height: 16),
+              TextField(
+                controller: commentController,
+                decoration: InputDecoration(
+                  hintText: 'コメント（任意）',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text('キャンセル'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              ),
+              child: Text('報告する'),
+              onPressed: () {
+                // まずダイアログを閉じてから報告処理を実行
+                Navigator.of(context).pop();
+                _submitReport(commentController.text);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _submitReport(String comment) async {
+    try {
+      final GraphQLClient client = ref.read(graphQLClientProvider);
+      final currentUser = ref.read(userProvider);
+
+      final result = await client.mutate(
+        MutationOptions(
+          document: gql(reportOfferMutation),
+          variables: {
+            'input': {
+              'offerId': widget.offerId,
+              'reporterUserId': currentUser?.id ?? '',
+              'reportContent': comment.trim().isEmpty ? '' : comment.trim(),
+            },
+          },
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception(result.exception.toString());
+      }
+
+      // 完了ダイアログを表示
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('ご協力ありがとうございます'),
+              content: Text('報告を受け付けました。'),
+              actions: [
+                TextButton(
+                  child: Text('閉じる'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('報告に失敗しました: ${e.toString()}')),
+        );
+      }
+    }
   }
 }

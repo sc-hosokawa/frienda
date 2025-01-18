@@ -215,6 +215,10 @@ class _CreditDialogState extends ConsumerState<CreditDialog> {
         ElevatedButton(
           onPressed: _handleSubmit,
           child: const Text('登録'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+          ),
         ),
       ],
     );

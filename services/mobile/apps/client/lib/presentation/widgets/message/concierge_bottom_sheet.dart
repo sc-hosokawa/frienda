@@ -135,10 +135,8 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Container(
         padding: const EdgeInsets.all(16),
         height: MediaQuery.of(context).size.height * 0.75,
@@ -151,18 +149,13 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
                 const Center(
                   child: Text(
                     'My Concierge',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
+                    style: TextStyle(fontSize: 24),
                   ),
                 ),
                 Positioned(
                   right: 0,
                   child: IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
+                    icon: const Icon(Icons.close, color: Colors.white),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
@@ -180,7 +173,7 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
                               child: Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Text(
-                                  'My Conciergeに色々聞いてみましょう！\n（テスト版につき現在調整中）',
+                                  'My Conciergeに色々聞いてみましょう！\n\n回答は必ずしも正しいとは限りません。重要な情報は確認するようにしてください。',
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.white.withOpacity(0.7),
@@ -191,40 +184,45 @@ class _ConciergeBottomSheetState extends ConsumerState<ConciergeBottomSheet> {
                             ),
                     ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _questionController,
-                    decoration: InputDecoration(
-                      hintText: 'Type your question...',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                top: 16,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _questionController,
+                      decoration: InputDecoration(
+                        hintText: 'Type your question...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24.0),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
+                      maxLines: null,
                     ),
-                    maxLines: null,
                   ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  onPressed: _askQuestion,
-                  icon: const Icon(
-                    Icons.send,
-                    color: Colors.white,
+                  const SizedBox(width: 8),
+                  IconButton(
+                    onPressed: _askQuestion,
+                    icon: const Icon(
+                      Icons.send,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'dart:math' show max;
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -174,7 +175,8 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen>
                   sideTitles: SideTitles(
                     showTitles: true,
                     reservedSize: 30,
-                    interval: (chartData.length / 3).floor().toDouble(),
+                    interval:
+                        max((chartData.length / 3).floor().toDouble(), 1.0),
                     getTitlesWidget: (value, _) {
                       final index = value.toInt();
                       if (index >= 0 && index < chartData.length) {
@@ -229,9 +231,13 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen>
   }
 
   double _calculateInterval(List<FlSpot> spots) {
-    if (spots.isEmpty) return 1;
+    if (spots.isEmpty) return 1.0;
+
     final maxY = spots.map((spot) => spot.y).reduce((a, b) => a > b ? a : b);
-    return (maxY / 5).ceil().toDouble();
+    if (maxY <= 0) return 1.0;
+
+    final interval = (maxY / 5).ceil().toDouble();
+    return interval > 0 ? interval : 1.0;
   }
 
   Widget _buildPeriodDropdown() {

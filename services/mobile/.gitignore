@@ -42,3 +42,5 @@ obfuscate/
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+.DS_Store

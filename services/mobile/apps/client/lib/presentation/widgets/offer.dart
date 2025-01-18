@@ -131,6 +131,8 @@ class _OfferState extends ConsumerState<Offer> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black,
                           minimumSize: const Size(double.infinity, 48),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -321,7 +323,10 @@ class _OfferState extends ConsumerState<Offer> {
               style: const TextStyle(color: Colors.white, fontSize: 12),
             ),
             Text(
-              value.toString(),
+              value.toString().replaceAllMapped(
+                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                    (Match m) => '${m[1]},',
+                  ),
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -350,7 +355,10 @@ class _OfferState extends ConsumerState<Offer> {
               style: TextStyle(color: Colors.white, fontSize: 12),
             ),
             Text(
-              totalEarnings.toString(),
+              totalEarnings.toString().replaceAllMapped(
+                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                    (Match m) => '${m[1]},',
+                  ),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 24,
@@ -477,8 +485,11 @@ class _OfferState extends ConsumerState<Offer> {
                           ),
                           const Spacer(),
                           Text(
-                            '${offer['fee']} FSP',
-                            style: TextStyle(
+                            '${offer['fee'].toString().replaceAllMapped(
+                                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                  (Match m) => '${m[1]},',
+                                )} FSP',
+                            style: const TextStyle(
                               fontSize: 12,
                               color: Colors.white,
                             ),
@@ -564,7 +575,10 @@ class _OfferState extends ConsumerState<Offer> {
                       ),
                       const Spacer(),
                       Text(
-                        '${offer['fee']} FSP',
+                        '${offer['fee'].toString().replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => '${m[1]},',
+                            )} FSP',
                         style: const TextStyle(
                           fontSize: 12,
                           color: Colors.white,

@@ -129,6 +129,10 @@ class _TransferState extends ConsumerState<Transfer> {
                     ElevatedButton(
                       onPressed: () => _validateAndShowConfirmation(context),
                       child: const Text('送る'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                      ),
                     ),
                   ],
                 ),
@@ -191,8 +195,8 @@ class _TransferState extends ConsumerState<Transfer> {
                 child: ElevatedButton(
                   onPressed: () {}, // 通常のタップでは何も起こらない
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
                     minimumSize: Size(double.infinity, 50),
                   ),
                   child: const Text('送付（1秒間長押し）'),

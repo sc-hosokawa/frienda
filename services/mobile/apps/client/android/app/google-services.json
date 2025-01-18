@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:23181195188:android:52ea4f139c7a11307fe4e1",
+        "mobilesdk_app_id": "1:23181195188:android:ebd3c2193208c14e7fe4e1",
         "android_client_info": {
-          "package_name": "com.example.client"
+          "package_name": "com.frienda.friendship"
         }
       },
       "oauth_client": [],

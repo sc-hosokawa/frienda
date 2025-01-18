@@ -33,6 +33,7 @@ class Transactions extends ConsumerWidget {
                         direction
                         counterParty {
                           name
+                          imageUrl
                         }
                         txAt
                         note
@@ -54,6 +55,8 @@ class Transactions extends ConsumerWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
 
+                print('result: ${result.data}');
+
                 final transactions = result.data?['getFspHistoryByUser']
                     ['transactionList'] as List<dynamic>?;
 
@@ -66,7 +69,8 @@ class Transactions extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     final transaction = transactions[index];
                     final isIncoming = transaction['direction'] == 'IN';
-                    final date = DateTime.parse(transaction['txAt']);
+                    final date = DateTime.parse(transaction['txAt'])
+                        .add(const Duration(hours: 9));
                     final formattedDate =
                         DateFormat('yyyy/MM/dd HH:mm').format(date);
 
@@ -82,8 +86,24 @@ class Transactions extends ConsumerWidget {
                             size: 20,
                           ),
                           const SizedBox(width: 8),
-                          const CircleAvatar(
-                            child: Icon(Icons.person),
+                          CircleAvatar(
+                            backgroundColor: Colors.grey[800],
+                            backgroundImage: transaction['counterParty']
+                                            ['imageUrl'] !=
+                                        null &&
+                                    transaction['counterParty']['imageUrl']
+                                        .toString()
+                                        .isNotEmpty
+                                ? NetworkImage(
+                                    transaction['counterParty']['imageUrl'])
+                                : null,
+                            child: transaction['counterParty']['imageUrl'] ==
+                                        null ||
+                                    transaction['counterParty']['imageUrl']
+                                        .toString()
+                                        .isEmpty
+                                ? const Icon(Icons.person, color: Colors.white)
+                                : null,
                           ),
                         ],
                       ),

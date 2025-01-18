@@ -122,7 +122,7 @@ class Fsp extends ConsumerWidget {
                                     builder: (context) => AlertDialog(
                                       title: const Text('クレデンシャル'),
                                       content: const Text(
-                                          'クレデンシャルは、ブロックチェーン上で管理される貢献証明です。\n特定の条件を満たすことで取得でき、様々な特典を受けることができます。'),
+                                          'クレデンシャルは貢献証明です。\n特定の条件を満たすことで取得でき、様々な特典を受けることができます。'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
@@ -359,9 +359,11 @@ class Fsp extends ConsumerWidget {
                                   title: Text(transaction['counterParty']
                                           ?['name'] ??
                                       'Unknown'),
-                                  subtitle: Text(DateFormat('yyyy/MM/dd HH:mm')
-                                      .format(
-                                          DateTime.parse(transaction['txAt']))),
+                                  subtitle: Text(
+                                    DateFormat('yyyy/MM/dd HH:mm').format(
+                                        DateTime.parse(transaction['txAt'])
+                                            .add(const Duration(hours: 9))),
+                                  ),
                                   trailing: Text(
                                     '${isIncoming ? "+" : "-"}${NumberFormat('#,###').format(transaction['amount'])} fsp',
                                     style: TextStyle(

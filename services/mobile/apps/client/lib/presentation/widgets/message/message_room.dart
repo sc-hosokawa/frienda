@@ -13,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path/path.dart' as path;
+import 'package:client/presentation/widgets/message/message_list.dart';
 
 class MessageRoom extends ConsumerStatefulWidget {
   const MessageRoom({super.key, required this.roomId});
@@ -27,6 +28,14 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
   final TextEditingController _messageController = TextEditingController();
 
   Refetch? _refetchMessages;
+
+  static const String reportUserMutation = '''
+    mutation ReportUser(\$input: ReportUserInput!) {
+      reportUser(input: \$input) {
+        id
+      }
+    }
+  ''';
 
   @override
   void dispose() {
@@ -109,6 +118,44 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                 ],
               ),
               centerTitle: true,
+              actions: [
+                PopupMenuButton<String>(
+                  icon: Icon(Icons.more_vert, color: Colors.white),
+                  onSelected: (value) {
+                    if (value == 'report') {
+                      _showReportDialog(result
+                          .data?['getMessagesByMessageRoomId']['to']['id']);
+                    } else if (value == 'block') {
+                      _showBlockConfirmationDialog(result
+                          .data?['getMessagesByMessageRoomId']['to']['id']);
+                    }
+                  },
+                  itemBuilder: (BuildContext context) => [
+                    PopupMenuItem<String>(
+                      value: 'report',
+                      child: Row(
+                        children: [
+                          Icon(Icons.flag_outlined,
+                              color: Colors.white, size: 20),
+                          SizedBox(width: 8),
+                          Text('ユーザーを報告'),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem<String>(
+                      value: 'block',
+                      child: Row(
+                        children: [
+                          Icon(Icons.block, color: Colors.red, size: 20),
+                          SizedBox(width: 8),
+                          Text('ユーザーをブロック',
+                              style: TextStyle(color: Colors.red)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
             body: Column(
               children: [
@@ -398,6 +445,198 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
         },
       ),
     );
+  }
+
+  void _showReportDialog(String? targetUserId) {
+    if (targetUserId == null) return;
+
+    final TextEditingController commentController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('ユーザーを報告'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('このユーザーについて問題がある場合は報告してください。'),
+              SizedBox(height: 16),
+              TextField(
+                controller: commentController,
+                decoration: InputDecoration(
+                  hintText: 'コメント（任意）',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text('キャンセル'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              ),
+              child: Text('報告する'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _submitReport(targetUserId, commentController.text);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _submitReport(String targetUserId, String comment) async {
+    try {
+      final userId = ref.read(authProvider).uid;
+      if (userId == null) return;
+
+      GraphQLClient client = GraphQLProvider.of(context).value;
+      final result = await client.mutate(
+        MutationOptions(
+          document: gql(reportUserMutation),
+          variables: {
+            'input': {
+              'reportedUserId': targetUserId,
+              'reporterUserId': userId,
+              'reportContent': comment.trim().isEmpty ? '' : comment.trim(),
+            },
+          },
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception(result.exception.toString());
+      }
+
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('ご協力ありがとうございます'),
+              content: Text('報告を受け付けました。'),
+              actions: [
+                TextButton(
+                  child: Text('閉じる'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('報告に失敗しました: ${e.toString()}')),
+        );
+      }
+    }
+  }
+
+  void _showBlockConfirmationDialog(String? targetUserId) {
+    if (targetUserId == null) return;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('ブロックの確認'),
+          content:
+              Text('このユーザーをブロックしますか？\n\nブロックすると、このユーザーとのメッセージのやり取りができなくなります。'),
+          actions: [
+            TextButton(
+              child: Text('キャンセル'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              child: Text('ブロックする'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _blockUser(targetUserId);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _blockUser(String targetUserId) async {
+    try {
+      final userId = ref.read(authProvider).uid;
+      if (userId == null) return;
+
+      GraphQLClient client = GraphQLProvider.of(context).value;
+      final result = await client.mutate(
+        MutationOptions(
+          document: gql('''
+            mutation BlockUser(\$input: BlockUserInput!) {
+              blockUser(input: \$input) {
+                id
+              }
+            }
+          '''),
+          variables: {
+            'input': {
+              'blockedUserId': targetUserId,
+              'blockerUserId': userId,
+            },
+          },
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception(result.exception.toString());
+      }
+
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('ブロックしました'),
+              content: Text('このユーザーをブロックしました。'),
+              actions: [
+                TextButton(
+                  child: Text('閉じる'),
+                  onPressed: () {
+                    // ダイアログを閉じる
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('ブロックに失敗しました: ${e.toString()}')),
+        );
+      }
+    }
   }
 }
 

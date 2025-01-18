@@ -81,6 +81,14 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
     }
   ''');
 
+  static const String reportUserMutation = '''
+    mutation ReportUser(\$input: ReportUserInput!) {
+      reportUser(input: \$input) {
+        id
+      }
+    }
+  ''';
+
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider);
@@ -127,14 +135,6 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
               appBar: AppBar(
                 title: Text('${profile['name']}'),
                 actions: [
-                  /*
-                  IconButton(
-                    icon: const Icon(Icons.share),
-                    onPressed: () {
-                      // シェア機能の実装
-                    },
-                  ),
-                  */
                   if (user?.id == widget.id)
                     IconButton(
                       icon: const Icon(Icons.edit),
@@ -143,61 +143,102 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                       },
                     )
                   else
-                    IconButton(
-                      icon: const Icon(Icons.message),
-                      onPressed: () async {
-                        final currentUserId = ref.read(userProvider)?.id;
-                        if (currentUserId == null) return;
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.message),
+                          onPressed: () async {
+                            final currentUserId = ref.read(userProvider)?.id;
+                            if (currentUserId == null) return;
 
-                        try {
-                          final result =
-                              await ref.read(graphQLClientProvider).mutate(
-                                    MutationOptions(
-                                      document: CREATE_MESSAGE_ROOM,
-                                      variables: {
-                                        'input': {
-                                          'createdBy': currentUserId,
-                                          'userList': [
-                                            currentUserId,
-                                            widget.id
-                                          ], // widget.idは表示中のユーザーID
-                                          'category': 'dm',
-                                        },
-                                      },
-                                    ),
-                                  );
+                            try {
+                              final result =
+                                  await ref.read(graphQLClientProvider).mutate(
+                                        MutationOptions(
+                                          document: CREATE_MESSAGE_ROOM,
+                                          variables: {
+                                            'input': {
+                                              'createdBy': currentUserId,
+                                              'userList': [
+                                                currentUserId,
+                                                widget.id
+                                              ], // widget.idは表示中のユーザーID
+                                              'category': 'dm',
+                                            },
+                                          },
+                                        ),
+                                      );
 
-                          if (result.hasException) {
-                            if (!context.mounted) return;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(result.exception.toString())),
-                            );
-                            return;
-                          }
+                              if (result.hasException) {
+                                if (!context.mounted) return;
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content:
+                                          Text(result.exception.toString())),
+                                );
+                                return;
+                              }
 
-                          final roomId = result.data?['createNewMessageRoom']
-                              ['id'] as String?;
+                              final roomId =
+                                  result.data?['createNewMessageRoom']['id']
+                                      as String?;
 
-                          if (roomId != null && context.mounted) {
-                            await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    MessageRoom(roomId: roomId),
+                              if (roomId != null && context.mounted) {
+                                await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        MessageRoom(roomId: roomId),
+                                  ),
+                                );
+
+                                // メッセージルームから戻ってきた後にキャッシュをリセット
+                                final client = ref.read(graphQLClientProvider);
+                                await client.resetStore();
+                              }
+                            } catch (e) {
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Error: $e')),
+                              );
+                            }
+                          },
+                        ),
+                        PopupMenuButton<String>(
+                          icon: Icon(Icons.more_vert),
+                          onSelected: (value) {
+                            if (value == 'report') {
+                              _showReportDialog(widget.id);
+                            } else if (value == 'block') {
+                              _showBlockConfirmationDialog(widget.id);
+                            }
+                          },
+                          itemBuilder: (BuildContext context) => [
+                            PopupMenuItem<String>(
+                              value: 'report',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.flag_outlined,
+                                      color: Colors.white, size: 20),
+                                  SizedBox(width: 8),
+                                  Text('ユーザーを報告'),
+                                ],
                               ),
-                            );
-
-                            // メッセージルームから戻ってきた後にキャッシュをリセット
-                            final client = ref.read(graphQLClientProvider);
-                            await client.resetStore();
-                          }
-                        } catch (e) {
-                          if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Error: $e')),
-                          );
-                        }
-                      },
+                            ),
+                            PopupMenuItem<String>(
+                              value: 'block',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.block,
+                                      color: Colors.red, size: 20),
+                                  SizedBox(width: 8),
+                                  Text('ユーザーをブロック',
+                                      style: TextStyle(color: Colors.red)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                 ],
               ),
@@ -745,7 +786,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
       final GraphQLClient client = GraphQLProvider.of(context).value;
       try {
         if (member['shortNoteId'] == null) {
-          // ショートノートが存在しない場合��追加
+          // ショートノートが存在しない場合追加
           await client.mutate(
             MutationOptions(
               document: gql('''
@@ -789,6 +830,197 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
             content: Text('Failed to update short note: $error'),
             backgroundColor: Colors.red,
           ),
+        );
+      }
+    }
+  }
+
+  void _showReportDialog(String? targetUserId) {
+    if (targetUserId == null) return;
+
+    final TextEditingController commentController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('ユーザーを報告'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('このユーザーについて問題がある場合は報告してください。'),
+              SizedBox(height: 16),
+              TextField(
+                controller: commentController,
+                decoration: InputDecoration(
+                  hintText: 'コメント（任意）',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text('キャンセル'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              ),
+              child: Text('報告する'),
+              onPressed: () {
+                // まずダイアログを閉じてから報告処理を実行
+                Navigator.of(context).pop();
+                _submitReport(targetUserId, commentController.text);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _submitReport(String targetUserId, String comment) async {
+    try {
+      final currentUser = ref.read(userProvider);
+      if (currentUser?.id == null) return;
+
+      final result = await ref.read(graphQLClientProvider).mutate(
+            MutationOptions(
+              document: gql(reportUserMutation),
+              variables: {
+                'input': {
+                  'reportedUserId': targetUserId,
+                  'reporterUserId': currentUser!.id,
+                  'reportContent': comment.trim().isEmpty ? '' : comment.trim(),
+                },
+              },
+            ),
+          );
+
+      if (result.hasException) {
+        throw Exception(result.exception.toString());
+      }
+
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('ご協力ありがとうございます'),
+              content: Text('報告を受け付けました。'),
+              actions: [
+                TextButton(
+                  child: Text('閉じる'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('報告に失敗しました: ${e.toString()}')),
+        );
+      }
+    }
+  }
+
+  void _showBlockConfirmationDialog(String? targetUserId) {
+    if (targetUserId == null) return;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('ブロックの確認'),
+          content:
+              Text('このユーザーをブロックしますか？\n\nブロックすると、このユーザーとのメッセージのやり取りができなくなります。'),
+          actions: [
+            TextButton(
+              child: Text('キャンセル'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              child: Text('ブロックする'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _blockUser(targetUserId);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _blockUser(String targetUserId) async {
+    try {
+      final userId = ref.read(userProvider)?.id;
+      if (userId == null) return;
+
+      final GraphQLClient client = GraphQLProvider.of(context).value;
+      final result = await client.mutate(
+        MutationOptions(
+          document: gql('''
+            mutation BlockUser(\$input: BlockUserInput!) {
+              blockUser(input: \$input) {
+                id
+              }
+            }
+          '''),
+          variables: {
+            'input': {
+              'blockedUserId': targetUserId,
+              'blockerUserId': userId,
+            },
+          },
+        ),
+      );
+
+      if (result.hasException) {
+        throw Exception(result.exception.toString());
+      }
+
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('ブロックしました'),
+              content: Text('このユーザーをブロックしました。'),
+              actions: [
+                TextButton(
+                  child: Text('閉じる'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('ブロックに失敗しました: ${e.toString()}')),
         );
       }
     }

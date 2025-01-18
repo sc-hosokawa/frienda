@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:client/presentation/screens/main_screen.dart';
 import 'package:client/presentation/screens/walkthrough/wt_1.dart';
 import 'package:client/presentation/screens/walkthrough/wt_2.dart';
@@ -32,6 +33,19 @@ void main() async {
     WebViewPlatform.instance = WebViewPlatform.instance;
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
+
+    // ATTの初期化と要求
+    try {
+      final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+      if (status == TrackingStatus.notDetermined) {
+        // ATTダイアログを表示する前に数秒待つことを推奨
+        await Future.delayed(const Duration(seconds: 2));
+        await AppTrackingTransparency.requestTrackingAuthorization();
+      }
+    } catch (e) {
+      debugPrint('ATT初期化エラー: $e');
+      // ATTの初期化エラーはアプリの動作に致命的ではないため、続行
+    }
 
     final messagingInstance = FirebaseMessaging.instance;
     try {
@@ -98,6 +112,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'FRIENDSHIP. DAO App',
       theme: ThemeData(
         fontFamily: 'Jost',

@@ -9,7 +9,7 @@ class About extends StatelessWidget {
     {
       'icon': Icons.info_outline,
       'title': 'アプリバージョン',
-      'description': '現在のバージョン: 1.0.0',
+      'description': '現在のバージョン: 1.0.2',
     },
     {
       'icon': Icons.description,

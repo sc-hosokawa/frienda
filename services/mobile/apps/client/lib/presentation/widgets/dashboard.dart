@@ -94,6 +94,10 @@ class _DashboardState extends ConsumerState<Dashboard> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+              ),
               onPressed: _showArtistSelectionBottomSheet,
               child: const Text('アーティストを選択'),
             ),
@@ -235,6 +239,14 @@ class _DashboardState extends ConsumerState<Dashboard> {
                   ),
                 );
               },
+              style: TextButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                side: const BorderSide(color: Colors.white),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
               child: const Text('全ての作品を見る'),
             ),
           ],

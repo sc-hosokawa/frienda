@@ -10,6 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/number_symbols_data.dart';
 import 'package:contentful_flutter/contentful_flutter.dart';
 import 'package:client/presentation/widgets/news/detail.dart';
+import 'package:client/presentation/screens/web_view_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -24,10 +26,86 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   void initState() {
     super.initState();
-    // ウィジェットがビルドされた後にクエリを実行
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAndShowTermsDialog();
       _queryLoginReward();
     });
+  }
+
+  Future<void> _checkAndShowTermsDialog() async {
+    if (!mounted) return;
+
+    final prefs = await SharedPreferences.getInstance();
+    final hasAgreedToTerms = prefs.getBool('has_agreed_to_terms') ?? false;
+
+    if (!hasAgreedToTerms) {
+      _showTermsDialog();
+    }
+  }
+
+  Future<void> _showTermsDialog() async {
+    if (!mounted) return;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('利用規約とプライバシーポリシー'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                    '本アプリケーションをご利用いただくには、以下の利用規約とプライバシーポリシーに同意していただく必要があります。'),
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WebViewScreen(
+                        title: '利用規約',
+                        url: 'https://app.friendshipdao.xyz/termofservice',
+                      ),
+                    ),
+                  ),
+                  child: const Text('利用規約を読む'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WebViewScreen(
+                        title: 'プライバシーポリシー',
+                        url: 'https://app.friendshipdao.xyz/privacypolicy',
+                      ),
+                    ),
+                  ),
+                  child: const Text('プライバシーポリシーを読む'),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setBool('has_agreed_to_terms', true);
+                if (mounted) {
+                  Navigator.of(context).pop();
+                }
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+              ),
+              child: const Text('同意する'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _queryLoginReward() async {
@@ -101,6 +179,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           _buildActionsSection(),
           const SizedBox(height: 24),
           _buildNewsSection(),
+          const SizedBox(height: 24),
           /*
           const SizedBox(height: 4),
           Padding(

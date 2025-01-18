@@ -77,12 +77,16 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   _isLoading
                       ? CircularProgressIndicator()
                       : ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                          ),
                           onPressed: _register,
                           child: Text('登録'),
                         ),
                   SizedBox(height: 48),
                   Text(
-                    '登録をした方は以下の書類に同意したこととみなします',
+                    '以下の規約類に同意の上、登録を進めてください。',
                     style: TextStyle(fontSize: 12),
                   ),
                   Column(
@@ -247,6 +251,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             ElevatedButton(
               onPressed: handleAppResume,
               child: Text('認証状態を確認'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+              ),
             ),
           ],
         ),

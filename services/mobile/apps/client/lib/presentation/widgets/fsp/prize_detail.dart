@@ -103,14 +103,29 @@ class PrizeDetail extends ConsumerWidget {
                                       .textTheme
                                       .headlineMedium,
                                 ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: Colors.black,
-                                  ),
-                                  onPressed: () => _exchangePrize(
-                                      context, ref, prizeDetail['name']),
-                                  child: const Text('交換する'),
+                                Consumer(
+                                  builder: (context, ref, _) {
+                                    final user = ref.watch(userProvider);
+                                    final userPoints = user?.fspBalance ?? 0;
+                                    final requiredPoints =
+                                        prizeDetail['point'] as int;
+                                    final hasEnoughPoints =
+                                        userPoints >= requiredPoints;
+
+                                    return ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        foregroundColor: Colors.black,
+                                      ),
+                                      onPressed: hasEnoughPoints
+                                          ? () => _exchangePrize(
+                                              context, ref, prizeDetail['name'])
+                                          : null,
+                                      child: Text(hasEnoughPoints
+                                          ? '交換する'
+                                          : '保有ポイントが足りません'),
+                                    );
+                                  },
                                 ),
                               ],
                             ),

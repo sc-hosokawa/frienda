@@ -4,8 +4,12 @@ import 'more/setting.dart';
 // import 'more/helpme.dart';
 import 'more/about.dart';
 import 'package:client/presentation/widgets/more/faq.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/fsp_balance_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:client/presentation/widgets/fsp_wallet.dart';
 
-class More extends StatelessWidget {
+class More extends ConsumerWidget {
   const More({super.key});
 
   final List<Map<String, dynamic>> _items = const [
@@ -32,7 +36,9 @@ class More extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final balanceState = ref.watch(balanceStreamProvider);
+
     return Material(
       child: SafeArea(
         child: Column(
@@ -41,6 +47,63 @@ class More extends StatelessWidget {
               title: const Text('その他'),
               titleTextStyle: Theme.of(context).textTheme.titleMedium,
               centerTitle: true,
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Fsp()),
+                );
+              },
+              child: Card(
+                margin: const EdgeInsets.all(16),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.account_balance_wallet,
+                        size: 40,
+                        color: Color(0xFFE4DBC0),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'FSP残高',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            balanceState.when(
+                              data: (balance) => Text(
+                                '${NumberFormat('#,###').format(balance.fspBalance)} fsp',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              loading: () => const CircularProgressIndicator(),
+                              error: (err, stack) => const Text(
+                                '0 fsp',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Icon(Icons.chevron_right, color: Color(0xFFE4DBC0)),
+                    ],
+                  ),
+                ),
+              ),
             ),
             Expanded(
               child: ListView.builder(

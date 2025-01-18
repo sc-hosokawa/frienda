@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:client/presentation/widgets/more/contact_form.dart';
 import 'package:client/presentation/widgets/more/account_setting.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/fsp_balance_provider.dart';
+import 'package:intl/intl.dart';
+import 'package:client/presentation/widgets/fsp_wallet.dart';
 
-class Setting extends StatelessWidget {
+class Setting extends ConsumerWidget {
   const Setting({super.key});
 
   final List<Map<String, dynamic>> _settingsItems = const [
@@ -19,13 +23,6 @@ class Setting extends StatelessWidget {
       'title': '通知設定',
       'description': '通知の ON/OFF や種類を設定します',
     },
-    /* 
-    {
-      'icon': Icons.color_lens,
-      'title': 'テーマ設定',
-      'description': 'アプリの配色やダークモードを設定します',
-    },
-     */
     {
       'icon': Icons.account_circle,
       'title': 'アカウント設定',
@@ -38,7 +35,7 @@ class Setting extends StatelessWidget {
     },
   ];
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Material(
       child: SafeArea(
         child: Column(

@@ -80,9 +80,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCiIj7IcHQ4a31-rRJBtMW_vSyxWCZYnFQ',
-    appId: '1:23181195188:android:52ea4f139c7a11307fe4e1',
+    appId: '1:23181195188:android:ebd3c2193208c14e7fe4e1',
     messagingSenderId: '23181195188',
     projectId: 'frienda-auth-test1',
     storageBucket: 'frienda-auth-test1.appspot.com',
   );
+
 }

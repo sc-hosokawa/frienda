@@ -9,6 +9,10 @@ class WalkthroughPage7 extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+          ),
           onPressed: () {
             Navigator.pushNamed(context, '/login');
           },

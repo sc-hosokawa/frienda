@@ -288,6 +288,10 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                             runMutation(variables);
                           }
                         },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black,
+                        ),
                         child: Text('プロフィールを保存'),
                       ),
               ],

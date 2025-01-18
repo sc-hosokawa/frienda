@@ -217,10 +217,6 @@ class _ProductListItem extends StatelessWidget {
                       '収録曲数: $tracksCount',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
-                    Text(
-                      'UPC: $upc',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
                   ],
                 ),
               ),
