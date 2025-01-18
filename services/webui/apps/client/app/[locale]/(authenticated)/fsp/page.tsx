@@ -97,8 +97,6 @@ export default function FspPage() {
     variables: { userId: user?.id },
   });
 
-  console.log(userPointBalanceData);
-
   return (
     <div className="container mx-auto p-4">
       <Card className="mb-6">

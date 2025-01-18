@@ -12,7 +12,7 @@ import {
 import { Button } from "@ui/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import useUserStore from "../../store/user";
-import { useTranslation } from "~/i18n/client";
+import { useTranslation, useLocale } from "~/i18n/client";
 
 interface PointOption {
   points: number;
@@ -21,6 +21,7 @@ interface PointOption {
 
 export function PurchaseDialog() {
   const { t } = useTranslation();
+  const locale = useLocale();
   const { user } = useUserStore();
   const [showDialog, setShowDialog] = useState(false);
   const [selectedOption, setSelectedOption] = useState<PointOption>({
@@ -42,6 +43,7 @@ export function PurchaseDialog() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-locale": locale,
         },
         body: JSON.stringify({
           points: selectedOption.points,
@@ -51,6 +53,7 @@ export function PurchaseDialog() {
       });
 
       const { url } = await response.json();
+      console.log(url);
 
       if (url) {
         window.location.href = url;
@@ -96,7 +99,7 @@ export function PurchaseDialog() {
                         : "hover:bg-zinc-800"
                     }`}
                 >
-                  {option.points}pt(¥{option.price.toLocaleString()})
+                  {option.points}fsp (¥{option.price.toLocaleString()})
                 </button>
               ))}
             </div>

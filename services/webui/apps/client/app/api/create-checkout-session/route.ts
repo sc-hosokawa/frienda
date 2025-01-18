@@ -9,6 +9,8 @@ export async function POST(request: Request) {
   try {
     const { points, amount, userId } = await request.json();
 
+    const locale = request.headers.get("x-locale") || "ja";
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -24,8 +26,8 @@ export async function POST(request: Request) {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/fsp/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/fsp`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/fsp/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/fsp`,
       metadata: {
         points: points.toString(),
         amount: amount.toString(),

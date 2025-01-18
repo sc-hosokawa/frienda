@@ -25,3 +25,11 @@ export const useTranslation = (): {
   );
   return { t: translate };
 };
+
+export const useLocale = (): string => {
+  const currentLocale = useContext(LocaleContext);
+  if (!isSupportLocale(currentLocale)) {
+    throw new Error(`Unsupported locale: ${currentLocale}`);
+  }
+  return currentLocale;
+};

@@ -1,5 +1,4 @@
 import "@ui/styles/globals.css";
-import type { Metadata } from "next";
 import { ThemeProvider } from "@ui/components/theme-provider";
 import { AuthProvider } from "../../../provider/auth-provider";
 import { Jost, Noto_Sans_JP } from "next/font/google";
@@ -18,36 +17,29 @@ const NotoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
 });
 
-const metadata: Metadata = {
-  title: "FRIENDSHIP. DAO",
-  description: "Community-driven dashboard",
-};
-
-export default function RootLayout({
+export default function WalkthroughLayout({
   children,
 }: {
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="ja" suppressHydrationWarning className="dark">
-      <body
-        className={`${JostFont.className} bg-white text-black dark:bg-black dark:text-white dark`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
+      enableSystem={false}
+      disableTransitionOnChange
+    >
+      <AuthProvider>
+        <div
+          className={`${JostFont.className} bg-white text-black dark:bg-black dark:text-white dark`}
         >
-          <AuthProvider>
-            <div className="flex w-full pt-12">
-              <main className="flex-1 min-w-0 w-full">
-                <div className="max-w-6xl mx-auto">{children}</div>
-              </main>
-            </div>
-          </AuthProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+          <div className="flex w-full pt-12">
+            <main className="flex-1 min-w-0 w-full">
+              <div className="max-w-6xl mx-auto">{children}</div>
+            </main>
+          </div>
+        </div>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

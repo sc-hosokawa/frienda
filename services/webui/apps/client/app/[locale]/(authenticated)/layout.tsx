@@ -1,17 +1,11 @@
 import "@ui/styles/globals.css";
-import type { Metadata } from "next";
 import { SidebarProvider, SidebarTrigger } from "@ui/components/ui/sidebar";
 import { ClientSidebar } from "~/components/client-sidebar";
 import Header from "~/components/header";
 
 import { Toaster } from "react-hot-toast";
 
-const metadata: Metadata = {
-  title: "FRIENDSHIP. DAO",
-  description: "Community-driven dashboard",
-};
-
-export default function RootLayout({
+export default function AuthenticatedLayout({
   children,
   params: { locale },
 }: {
@@ -20,7 +14,7 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <SidebarProvider>
-      <div className="flex w-full pt-12">
+      <div className="flex w-full pt-12 dark">
         <SidebarTrigger />
         <ClientSidebar locale={locale} />
         <Header />
