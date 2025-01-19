@@ -79,13 +79,13 @@ export default function Dashboard() {
         <main className="space-y-16">
           {selectedArtist && (
             <>
-              <hr className="mt-2 mb-4 border-t border-gray-800" />
+              <hr className="mt-2 mb-4 border-t border-[#303030]" />
               <Overview selectedArtistId={selectedArtist} />
-              <hr className="mt-2 mb-8 border-t border-gray-800" />
+              <hr className="mt-2 mb-8 border-t border-[#303030]" />
               <Trending selectedArtistId={selectedArtist} />
-              <hr className="mt-2 mb-8 border-t border-gray-800" />
+              <hr className="mt-2 mb-8 border-t border-[#303030]" />
               <Historical selectedArtistId={selectedArtist} />
-              <hr className="mt-2 mb-8 border-t border-gray-800" />
+              <hr className="mt-2 mb-8 border-t border-[#303030]" />
               <GenderGenView selectedArtistId={selectedArtist} />
             </>
           )}

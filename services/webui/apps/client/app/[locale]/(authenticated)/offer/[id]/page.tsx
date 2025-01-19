@@ -344,44 +344,46 @@ export default function OfferDetailPage({
           </div>
         </div>
 
-        {(offer?.attachedImgs?.length ?? 0) > 0 || (offer?.attachedFiles?.length ?? 0) > 0 && (
-          <div className="mt-12">
-            <h3 className="text-sm text-gray-400 mb-4">添付ファイル</h3>
-            {offer?.attachedImgs && offer.attachedImgs.length > 0 && (
-              <div className="grid grid-cols-4 gap-4 mb-4">
-                {offer.attachedImgs.map((img, i) => (
-                  <Image
-                    key={i}
-                    src={img}
-                    alt="Offer attachment"
-                    width={240}
-                    height={240}
-                    className="aspect-square bg-zinc-800 rounded-lg flex items-center justify-center"
-                  />
-                ))}
-              </div>
-            )}
-
-            {offer?.attachedFiles?.map((file, i) => (
-              <Button
-                key={i}
-                variant="outline"
-                className="w-full justify-between text-left mb-6"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="bg-zinc-800 px-2 py-1 rounded text-sm text-white">
-                    {file.split(".")[1]}
-                  </span>
-                  {file.split(".")[0]}
+        {(offer?.attachedImgs?.length ?? 0) > 0 ||
+          ((offer?.attachedFiles?.length ?? 0) > 0 && (
+            <div className="mt-12">
+              <h3 className="text-sm text-gray-400 mb-4">添付ファイル</h3>
+              {offer?.attachedImgs && offer.attachedImgs.length > 0 && (
+                <div className="grid grid-cols-4 gap-4 mb-4">
+                  {offer.attachedImgs.map((img, i) => (
+                    <Image
+                      key={i}
+                      src={img}
+                      alt="Offer attachment"
+                      width={240}
+                      height={240}
+                      className="aspect-square bg-zinc-800 rounded-lg flex items-center justify-center"
+                    />
+                  ))}
                 </div>
-                <Download className="w-4 h-4" />
-              </Button>
-            ))}
-          </div>
-        )}
+              )}
+
+              {offer?.attachedFiles?.map((file, i) => (
+                <Button
+                  key={i}
+                  variant="outline"
+                  className="w-full justify-between text-left mb-6"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="bg-zinc-800 px-2 py-1 rounded text-sm text-white">
+                      {file.split(".")[1]}
+                    </span>
+                    {file.split(".")[0]}
+                  </div>
+                  <Download className="w-4 h-4" />
+                </Button>
+              ))}
+            </div>
+          ))}
 
         <div className="mt-4 text-right text-gray-400 text-sm">
-          最終更新: {new Date(offer?.updatedAt || "").toLocaleDateString('ja-JP')}
+          最終更新:{" "}
+          {new Date(offer?.updatedAt || "").toLocaleDateString("ja-JP")}
         </div>
 
         {isOwner && (

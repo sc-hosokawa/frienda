@@ -115,10 +115,15 @@ export function TransferDialog() {
         </DialogTrigger>
         <DialogContent className="w-4/5 h-4/5 max-w-none">
           <DialogHeader>
-            <DialogTitle>{t("common.send-point")}</DialogTitle>
+            <DialogTitle className="text-6xl font-light mb-6">
+              {t("common.send-point")}
+            </DialogTitle>
           </DialogHeader>
           <div className="flex-1 overflow-auto p-4">
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form
+              className="space-y-4 max-w-[70%] mx-auto"
+              onSubmit={handleSubmit}
+            >
               <div className="space-y-2">
                 <Label htmlFor="recipient">
                   {t("common.recipient-of-email")}

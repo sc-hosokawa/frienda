@@ -51,6 +51,7 @@ const UPDATE_OFFER = gql`
     $id: Int!
     $title: String
     $description: String
+    $deadline: String
     $fee: Int
     $imageUrl: String
     $category: String
@@ -67,6 +68,7 @@ const UPDATE_OFFER = gql`
         id: $id
         title: $title
         description: $description
+        deadline: $deadline
         fee: $fee
         imageUrl: $imageUrl
         category: $category
@@ -300,7 +302,7 @@ export default function OfferEditPage() {
               console.error(`Failed to upload attached image:`, error);
               throw new Error(t("offer.error.attached-image-upload"));
             }
-          })
+          }),
       );
 
       // 添付ファイルのアップロード
@@ -314,7 +316,7 @@ export default function OfferEditPage() {
               console.error(`Failed to upload attached file:`, error);
               throw new Error(t("offer.error.attached-file-upload"));
             }
-          })
+          }),
       );
 
       const finalImageUrls = [
@@ -332,6 +334,7 @@ export default function OfferEditPage() {
             id: offerId,
             title: formData.title,
             description: formData.description,
+            deadline: formData.deadline,
             fee: formData.fee,
             imageUrl,
             category: formData.category,

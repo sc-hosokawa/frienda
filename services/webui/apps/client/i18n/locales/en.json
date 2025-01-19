@@ -258,5 +258,22 @@
   "dashboard.info.trending-rule": "Displaying the top 5 songs with the highest total number of views over the entire period among the songs released so far.",
   "dashboard.info.about-chart": "About Chart",
   "dashboard.info.about-chart-1": "Display multiple charts so that you can track trends in playback numbers.",
-  "dashboard.info.chart-rule": "Chart types are: "
+  "dashboard.info.chart-rule": "Chart types are: ",
+  "fsp.title": "FSP Portal",
+  "fsp.point-balance": "Point Balance",
+  "fsp.credential": "Credential",
+  "fsp.credential-info": "About Credential",
+  "fsp.credential-description": "A credential is a proof of contribution that is issued and managed on the blockchain. You can obtain it by meeting certain conditions and receive various benefits. You can register from your profile page.",
+  "fsp.unregistered": "Unregistered",
+  "fsp.exchangeable-items": "Exchangeable Items",
+  "fsp.no-available-prizes": "No available prizes",
+  "fsp.details": "Details",
+  "fsp.transaction-history": "Transaction History",
+  "fsp.view-more": "View More",
+  "fsp.transaction.date": "Date",
+  "fsp.transaction.type": "Type",
+  "fsp.transaction.amount": "Amount",
+  "fsp.transaction.counterparty": "Counterparty",
+  "fsp.transaction.note": "Note",
+  "fsp.no-transaction-history": "No transaction history"
 }

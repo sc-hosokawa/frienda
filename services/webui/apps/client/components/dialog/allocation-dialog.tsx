@@ -193,7 +193,7 @@ export function AllocationDialog() {
                 <ArrowLeft className="h-4 w-4" />
               </Button>
             )}
-            <DialogTitle className="font-light">
+            <DialogTitle className="text-6xl font-light mb-6">
               {showConfirmation
                 ? t("common.confirmation")
                 : selectedArtist
@@ -207,7 +207,7 @@ export function AllocationDialog() {
           {!showConfirmation ? (
             !selectedArtist ? (
               // アーティスト選択画面
-              <div className="space-y-2">
+              <div className="space-y-2 max-w-[70%] mx-auto">
                 {!user?.belongsToArtists?.length ? (
                   <div className="text-center text-gray-500 py-8">
                     {t("common.no-artist-to-select")}
@@ -231,7 +231,7 @@ export function AllocationDialog() {
               </div>
             ) : (
               // メンバー一覧と分配画面
-              <div className="space-y-4">
+              <div className="space-y-4 max-w-[70%] mx-auto">
                 <div className="flex justify-between items-center">
                   <span>
                     {t("common.allocateable-fsp")}: {selectedArtist.fsp}
@@ -285,7 +285,7 @@ export function AllocationDialog() {
             )
           ) : (
             // 確認画面
-            <div className="space-y-4">
+            <div className="space-y-4 max-w-[70%] mx-auto">
               {members.map((member) => (
                 <div key={member.id} className="flex justify-between p-2">
                   <span>{member.name}</span>

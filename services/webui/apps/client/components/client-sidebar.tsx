@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Send, Settings } from "lucide-react";
+import { Send, Settings, ExternalLink } from "lucide-react";
 
 import {
   Sidebar,
@@ -188,12 +188,17 @@ export function ClientSidebar({ locale }: { locale: string }) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side="right" align="start">
-                      <DropdownMenuItem asChild onClick={switchLocale}>
-                        <span>{switchedLabel}</span>
-                      </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/walkthrough">
                           <span>{t("common.tutorial")}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="https://forms.gle/1ZGguxTLQeNseW877">
+                          <span className="flex items-center gap-2">
+                            Feedback
+                            <ExternalLink className="h-3 w-3" />
+                          </span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
@@ -206,18 +211,12 @@ export function ClientSidebar({ locale }: { locale: string }) {
                           <span>{t("common.term-of-use")}</span>
                         </Link>
                       </DropdownMenuItem>
+                      <DropdownMenuItem asChild onClick={switchLocale}>
+                        <span>{switchedLabel}</span>
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                <Link
-                  className="w-full flex items-center gap-2 pl-3 py-2 font-light hover:bg-white rounded-md transition-colors duration-200 hover:text-black"
-                  href="https://forms.gle/1ZGguxTLQeNseW877"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Send className="w-4 h-4 mr-2" />
-                  <span>Feedback</span>
-                </Link>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

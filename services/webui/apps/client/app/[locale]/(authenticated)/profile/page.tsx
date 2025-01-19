@@ -168,9 +168,10 @@ export default function SettingPage() {
 
   useEffect(() => {
     if (userData?.getUserData) {
-      const hasChanges = Object.entries(formData).some(
-        ([key, value]) => value !== userData.getUserData[key]
-      ) || imageFile !== null;
+      const hasChanges =
+        Object.entries(formData).some(
+          ([key, value]) => value !== userData.getUserData[key],
+        ) || imageFile !== null;
       setIsDirty(hasChanges);
     }
   }, [formData, imageFile, userData]);
@@ -205,17 +206,23 @@ export default function SettingPage() {
 
   const handleSubmit = async (e?: FormEvent) => {
     e?.preventDefault();
-    
+
     // SNSハンドルのバリデーション
-    if (formData.xHandle && !validateSocialHandle(formData.xHandle, 'x')) {
+    if (formData.xHandle && !validateSocialHandle(formData.xHandle, "x")) {
       alert(t("profile.invalid-x-handle"));
       return;
     }
-    if (formData.instagramHandle && !validateSocialHandle(formData.instagramHandle, 'instagram')) {
+    if (
+      formData.instagramHandle &&
+      !validateSocialHandle(formData.instagramHandle, "instagram")
+    ) {
       alert(t("profile.invalid-instagram-handle"));
       return;
     }
-    if (formData.fbHandle && !validateSocialHandle(formData.fbHandle, 'facebook')) {
+    if (
+      formData.fbHandle &&
+      !validateSocialHandle(formData.fbHandle, "facebook")
+    ) {
       alert(t("profile.invalid-facebook-handle"));
       return;
     }
@@ -256,7 +263,6 @@ export default function SettingPage() {
       updateUser(res.data.updateUserData.userInfo);
       alert(t("profile.save-success"));
       router.push("/");
-
     } catch (error) {
       console.error("Profile update failed:", error);
       alert(t("profile.save-error"));
@@ -269,11 +275,14 @@ export default function SettingPage() {
   const interestOffers = ["Creation", "Event", "Promotion", "Other"];
 
   // SNSハンドルのバリデーション
-  const validateSocialHandle = (handle: string, platform: 'x' | 'instagram' | 'facebook') => {
+  const validateSocialHandle = (
+    handle: string,
+    platform: "x" | "instagram" | "facebook",
+  ) => {
     const patterns = {
       x: /^https:\/\/(www\.)?(x|twitter)\.com\/[a-zA-Z0-9_]{1,15}\/?$/,
       instagram: /^https:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9_.]{1,30}\/?$/,
-      facebook: /^https:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9.]{1,50}\/?$/
+      facebook: /^https:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9.]{1,50}\/?$/,
     };
     return patterns[platform].test(handle);
   };
@@ -436,7 +445,9 @@ export default function SettingPage() {
                                         : ""
                     }
                     className={`mt-1 block w-2/3 ${
-                      key === "xHandle" || key === "instagramHandle" || key === "fbHandle"
+                      key === "xHandle" ||
+                      key === "instagramHandle" ||
+                      key === "fbHandle"
                         ? "h-[48px]"
                         : "h-[90px]"
                     } rounded-2xl border border-white/50 bg-black text-white placeholder-gray-500 p-3`}

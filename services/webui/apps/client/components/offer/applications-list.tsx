@@ -92,7 +92,10 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
     return <p>Loading users...</p>;
   }
 
-  if (!usersData?.getUsersInOffer.users || usersData.getUsersInOffer.users.length === 0) {
+  if (
+    !usersData?.getUsersInOffer.users ||
+    usersData.getUsersInOffer.users.length === 0
+  ) {
     return (
       <div className="my-12">
         <h2 className="mb-4">Offer Management</h2>

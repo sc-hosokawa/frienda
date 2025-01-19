@@ -68,7 +68,9 @@ export default function CreditHistoryPage() {
     <main className="p-6">
       <Card className="dark:border dark:border-white dark:border-opacity-10">
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>クレジット登録履歴 (全 {trackCreditsHistory?.length}件)</CardTitle>
+          <CardTitle>
+            クレジット登録履歴 (全 {trackCreditsHistory?.length}件)
+          </CardTitle>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <MoreVertical className="h-5 w-5" />
