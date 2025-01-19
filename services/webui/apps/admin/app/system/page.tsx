@@ -55,6 +55,7 @@ export default function SettingPage() {
           (data: any) => data.getSystemOverview,
         );
       },
+      staleTime: 0,
     },
   );
 

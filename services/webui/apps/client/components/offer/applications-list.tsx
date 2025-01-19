@@ -12,6 +12,7 @@ import {
 } from "@ui/components/ui/dialog";
 import { Button } from "@ui/components/ui/button";
 import { useState } from "react";
+import { useTranslation } from "~/i18n/client";
 
 const GET_USERS_IN_OFFER = gql`
   query GetUsersInOffer($offerId: Int!, $userId: String!) {
@@ -66,6 +67,7 @@ interface ApplicantsListProps {
 export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
   const router = useRouter();
   const { user } = useUserStore();
+  const { t } = useTranslation();
   const [createRoom] = useMutation(CREATE_MESSAGE_ROOM);
   const [updateStatus] = useMutation(UPDATE_OFFER_STATUS);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,6 +90,17 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
 
   if (usersLoading) {
     return <p>Loading users...</p>;
+  }
+
+  if (!usersData?.getUsersInOffer.users || usersData.getUsersInOffer.users.length === 0) {
+    return (
+      <div className="my-12">
+        <h2 className="mb-4">Offer Management</h2>
+        <div className="p-6 bg-zinc-900 rounded-lg text-center">
+          <p className="text-md">{t("offer.no-applicant")}</p>
+        </div>
+      </div>
+    );
   }
 
   const ongoingUser = usersData?.getUsersInOffer.users.find(

@@ -57,6 +57,7 @@ export function MetadataUpload() {
         (data: any) => data.getAllArtists,
       );
     },
+    staleTime: 0,
   });
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,7 +97,7 @@ export function MetadataUpload() {
             (data: any) => data.getAllArtists,
           );
         },
-        staleTime: 10000,
+        staleTime: 0,
       });
       console.log("artists fetched");
 

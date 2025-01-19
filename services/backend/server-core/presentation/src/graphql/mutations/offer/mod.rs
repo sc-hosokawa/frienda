@@ -68,9 +68,9 @@ impl OfferMutation {
                         .target_role
                         .map(|s| models::users::from_string_to_user_category(&s).unwrap()),
                     publicity: input.publicity,
-                    attached_imgs: input.attached_media.clone(),
-                    attached_files: input.attached_media.clone(),
-                    deadline: None,
+                    attached_imgs: input.attached_imgs.clone(),
+                    attached_files: input.attached_files.clone(),
+                    deadline: input.deadline.map(|d| d.to_string()),
                 },
             )
             .await?;

@@ -74,6 +74,22 @@ type ArtistsData {
 	artistList: [ArtistData!]!
 }
 
+type BlockUserDataResponse {
+	id: Int!
+	blockedUserId: String!
+	blockerUserId: String!
+	isSolved: Boolean!
+}
+
+input BlockUserInput {
+	blockedUserId: String!
+	blockerUserId: String!
+}
+
+type BlockUserResponse {
+	id: Int!
+}
+
 
 type ChartData {
 	lineChartData: [LineChartData!]!
@@ -101,10 +117,6 @@ input ContactToAdminInput {
 	category: String!
 	email: String!
 	content: String!
-}
-
-type ContactToAdminResponse {
-	id: String!
 }
 
 type CreateNewArtistData {
@@ -412,7 +424,11 @@ type MutationRoot {
 	updateBelongsToArtistStatus(input: UpdateBelongsToArtistStatusInput!): UpdateBelongsToArtistStatusResponse!
 	joinWithInvitationCode(code: String!, joinedUserId: String!, joinedEmail: String!): Boolean!
 	invite(pass: String!): Boolean!
-	contactToAdmin(input: ContactToAdminInput!): ContactToAdminResponse!
+	reportUser(input: ReportUserInput!): ReportUserResponse!
+	contactToAdmin(input: ContactToAdminInput!): Boolean!
+	blockUser(input: BlockUserInput!): BlockUserResponse!
+	markAsSolved(id: Int!): Int!
+	deleteBlock(id: Int!): Boolean!
 	createNewMessageRoom(input: CreateNewMessageRoomInput!): CreateNewMessageRoomResponse!
 	sendMessage(input: SendMessageInput!): SendMessageResponse!
 	markAsRead(input: MarkAsReadInput!): MarkAsReadResponse!
@@ -421,6 +437,7 @@ type MutationRoot {
 	updateOfferInfo(input: UpdateOfferInput!): UpdateOfferResponse!
 	updateOfferStatus(input: UpdateOfferStatusInput!): UpdateOfferStatusResponse!
 	deleteOffer(input: DeleteOfferInput!): DeleteOfferResponse!
+	reportOffer(input: ReportOfferInput!): ReportOfferResponse!
 	createFspTx(input: CreateNewTransactionInput!): CreateNewTransactionResponse!
 	createFspTxBetweenUserids(input: CreateNewTransactionInput!): CreateNewTransactionResponse!
 	createBulkFspTx(input: [CreateNewTransactionInput!]!): CreateNewTransactionResponse!
@@ -436,6 +453,9 @@ type MutationRoot {
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
 	registerReleases(input: RegisterReleases!): RegisterReleasesResponse!
+	deleteUserReport(id: Int!): Boolean!
+	deleteOfferReport(id: Int!): Boolean!
+	deleteReleaseReport(id: Int!): Boolean!
 }
 
 type NotificationData {
@@ -484,6 +504,14 @@ type OfferDetailData {
 	createdAt: String!
 	updatedAt: String!
 	owner: UserSimpleData!
+}
+
+type OfferReport {
+	id: Int!
+	offerId: Int!
+	reporterUserId: String!
+	reportContent: String!
+	createdAt: String!
 }
 
 type OfferStatsByUserData {
@@ -602,6 +630,10 @@ type QueryRoot {
 	getTrackCreditsHistoryForAdmin(count: Int!): [Credit!]!
 	getAllUsersForAdmin: [User!]!
 	getAllTrackPlaybackHistoryForAdmin(period: Int!): ChartDataForAdmin!
+	getAllUserReports: [UserReport!]!
+	getAllOfferReports: [OfferReport!]!
+	getAllReleaseReports: [ReleaseReport!]!
+	getAllBlockData: [BlockUserDataResponse!]!
 	getOwnCommunity(userId: String!): ConnectedUsersData!
 	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
 	getUserProfile(viewerId: String!, userId: String!): UserDataOnDetailPage!
@@ -627,6 +659,7 @@ type QueryRoot {
 	searchUsers(username: String!): [UserSimpleData!]!
 	getPortfoliosByUserId(userId: String!): [Portfolio!]!
 	getAllPortfolios: [Portfolio!]!
+	getBlockData(id: Int!): BlockUserDataResponse!
 	getAllArtists: ArtistsData!
 	getArtistById(artistId: String!): ArtistFullData!
 	getArtistsByIds(artistIds: [String!]!): ArtistsData!
@@ -706,6 +739,34 @@ input ReleaseData {
 	trackTitleVersion: String!
 	artistId: String!
 	imageUrl: String
+}
+
+type ReleaseReport {
+	id: Int!
+	release: String!
+	reporterUserId: String!
+	reportContent: String!
+	createdAt: String!
+}
+
+input ReportOfferInput {
+	offerId: Int!
+	reporterUserId: String!
+	reportContent: String!
+}
+
+type ReportOfferResponse {
+	id: Int!
+}
+
+input ReportUserInput {
+	reportedUserId: String!
+	reporterUserId: String!
+	reportContent: String!
+}
+
+type ReportUserResponse {
+	id: Int!
 }
 
 input RequestToAccessArtistInput {
@@ -879,8 +940,10 @@ input UpdateOfferInput {
 	attention: String
 	requiredSkill: String
 	targetRole: String
-	attachedMedia: [String!]
+	attachedImgs: [String!]
+	attachedFiles: [String!]
 	publicity: Boolean
+	deadline: String
 }
 
 type UpdateOfferResponse {
@@ -995,6 +1058,7 @@ type UserDetailData {
 	isSuperAdmin: Boolean!
 	fspBalance: Int!
 	credentialBalance: Int!
+	evmAddr: String
 	role: String!
 	primaryRole: String!
 	greeting: String
@@ -1022,6 +1086,14 @@ type UserPointBalanceData {
 	fspBalanceTemp: Int!
 	credentialBalance: Int!
 	isCredentialAvailable: Boolean!
+}
+
+type UserReport {
+	id: Int!
+	reportedUserId: String!
+	reporterUserId: String!
+	reportContent: String!
+	createdAt: String!
 }
 
 type UserSimpleData {

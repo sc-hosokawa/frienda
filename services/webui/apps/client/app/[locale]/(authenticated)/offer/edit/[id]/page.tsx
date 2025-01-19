@@ -274,12 +274,22 @@ export default function OfferEditPage() {
   const handleConfirmedSubmit = async () => {
     setIsLoading(true);
     try {
-      let imageUrl = selectedImagePreview;
-      if (selectedImage) {
-        imageUrl = await handleImageUpload(selectedImage);
+      // バリデーションチェック
+      if (!formData.title || !formData.description || !formData.fee) {
+        throw new Error(t("offer.validation.required-fields"));
       }
 
-      // アップロード処理をtry-catchで個別に処理
+      let imageUrl = selectedImagePreview;
+      if (selectedImage) {
+        try {
+          imageUrl = await handleImageUpload(selectedImage);
+        } catch (error) {
+          console.error("Error uploading main image:", error);
+          throw new Error(t("offer.error.main-image-upload"));
+        }
+      }
+
+      // 添付画像のアップロード
       const newImageUrls = await Promise.all(
         attachedImages
           .filter((img) => img.isNew && img.file)
@@ -287,12 +297,13 @@ export default function OfferEditPage() {
             try {
               return await uploadAttachment(img.file!);
             } catch (error) {
-              console.error(`Failed to upload image: ${error}`);
-              throw error;
+              console.error(`Failed to upload attached image:`, error);
+              throw new Error(t("offer.error.attached-image-upload"));
             }
-          }),
+          })
       );
 
+      // 添付ファイルのアップロード
       const newFileUrls = await Promise.all(
         attachedFiles
           .filter((file) => file.isNew && file.file)
@@ -300,10 +311,10 @@ export default function OfferEditPage() {
             try {
               return await uploadAttachment(file.file!);
             } catch (error) {
-              console.error(`Failed to upload file: ${error}`);
-              throw error;
+              console.error(`Failed to upload attached file:`, error);
+              throw new Error(t("offer.error.attached-file-upload"));
             }
-          }),
+          })
       );
 
       const finalImageUrls = [
@@ -315,29 +326,34 @@ export default function OfferEditPage() {
         ...newFileUrls,
       ];
 
-      await updateOffer({
-        variables: {
-          id: offerId,
-          title: formData.title,
-          description: formData.description,
-          fee: formData.fee,
-          imageUrl,
-          category: formData.category,
-          place: formData.place,
-          attention: formData.attention,
-          requiredSkill: formData.requiredSkill,
-          targetRole: formData.targetRole,
-          publicity: formData.isPublic,
-          attachedImgs: finalImageUrls,
-          attachedFiles: finalFileUrls,
-        },
-      });
+      try {
+        await updateOffer({
+          variables: {
+            id: offerId,
+            title: formData.title,
+            description: formData.description,
+            fee: formData.fee,
+            imageUrl,
+            category: formData.category,
+            place: formData.place,
+            attention: formData.attention,
+            requiredSkill: formData.requiredSkill,
+            targetRole: formData.targetRole,
+            publicity: formData.isPublic,
+            attachedImgs: finalImageUrls,
+            attachedFiles: finalFileUrls,
+          },
+        });
 
-      setShowConfirmModal(false);
-      router.push("/offer");
+        setShowConfirmModal(false);
+        router.push("/offer");
+      } catch (error) {
+        console.error("Error in GraphQL mutation:", error);
+        throw new Error(t("offer.error.update-failed"));
+      }
     } catch (error) {
-      console.error("Error updating offer:", error);
-      alert("エラーが発生しました。ファイルサイズと形式を確認してください。");
+      console.error("Error in handleConfirmedSubmit:", error);
+      alert(error instanceof Error ? error.message : t("offer.error.unknown"));
     } finally {
       setIsLoading(false);
     }

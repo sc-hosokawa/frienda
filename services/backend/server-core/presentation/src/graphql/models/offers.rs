@@ -123,8 +123,10 @@ pub struct UpdateOfferInput {
     pub attention: Option<String>,
     pub required_skill: Option<String>,
     pub target_role: Option<String>,
-    pub attached_media: Option<Vec<String>>,
+    pub attached_imgs: Option<Vec<String>>,
+    pub attached_files: Option<Vec<String>>,
     pub publicity: Option<bool>,
+    pub deadline: Option<String>,
 }
 
 #[derive(InputObject)]

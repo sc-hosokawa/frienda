@@ -271,83 +271,117 @@ export default function OfferDetailPage({
               <p className="text-lg mb-2 text-white">{offer?.title}</p>
             </div>
 
-            <div className="flex gap-8 text-sm">
-              <div>
-                <div>{t("offer.date")}</div>
-                <div>{offer?.place}</div>
-              </div>
-              <div>
-                <div>{t("offer.place")}</div>
-                <div>{offer?.place}</div>
-              </div>
-              <div>
-                <div>{t("offer.target")}</div>
-                <div>{offer?.targetRole}</div>
-              </div>
-              <div>
-                <div>{t("offer.reward")}</div>
-                <div>{offer?.fee} FSP</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Image
-                  src={offer?.owner?.imageUrl || "/placeholder.svg"}
-                  alt="Profile"
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-                <span className="text-sm">{offer?.owner?.name}</span>
+            <div>
+              <div className="grid grid-cols-4 gap-2 text-sm">
+                {offer?.fee && (
+                  <div>
+                    <div className="text-gray-400">{t("offer.reward")}</div>
+                    <div className="text-white">{offer?.fee} FSP</div>
+                  </div>
+                )}
+                {offer?.place && (
+                  <div>
+                    <div className="text-gray-400">{t("offer.place")}</div>
+                    <div className="text-white">{offer?.place}</div>
+                  </div>
+                )}
+                {offer?.category && (
+                  <div>
+                    <div className="text-gray-400">{t("offer.category")}</div>
+                    <div className="text-white">{offer?.category}</div>
+                  </div>
+                )}
+                {offer?.targetRole && (
+                  <div>
+                    <div className="text-gray-400">{t("offer.target")}</div>
+                    <div className="text-white">{offer?.targetRole}</div>
+                  </div>
+                )}
               </div>
             </div>
 
-            <p className="text-gray-100 whitespace-pre-wrap break-words">
-              {offer?.description}
-            </p>
-            <p className="text-gray-100 whitespace-pre-wrap break-words">
-              {offer?.attention}
-            </p>
+            {offer?.owner && (
+              <div>
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={offer.owner.imageUrl || "/placeholder.svg"}
+                    alt="Profile"
+                    width={32}
+                    height={32}
+                    className="rounded-full"
+                  />
+                  <span className="text-white">{offer.owner.name}</span>
+                </div>
+              </div>
+            )}
+
+            {offer?.description && (
+              <div>
+                <h3 className="text-sm text-gray-400 mb-2">説明</h3>
+                <p className="text-white whitespace-pre-wrap break-words">
+                  {offer.description}
+                </p>
+              </div>
+            )}
+
+            {offer?.attention && (
+              <div>
+                <h3 className="text-sm text-gray-400 mb-2">注意事項</h3>
+                <p className="text-white whitespace-pre-wrap break-words">
+                  {offer.attention}
+                </p>
+              </div>
+            )}
+
+            {offer?.requiredSkill && (
+              <div>
+                <h3 className="text-sm text-gray-400 mb-2">必要なスキル</h3>
+                <p className="text-white whitespace-pre-wrap break-words">
+                  {offer.requiredSkill}
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="mt-12">
-          <h2 className="mb-4">( Attachments )</h2>
-          <div className="grid grid-cols-4 gap-4 mb-4">
-            {offer?.attachedImgs?.map((img, i) => (
-              <Image
+        {(offer?.attachedImgs?.length ?? 0) > 0 || (offer?.attachedFiles?.length ?? 0) > 0 && (
+          <div className="mt-12">
+            <h3 className="text-sm text-gray-400 mb-4">添付ファイル</h3>
+            {offer?.attachedImgs && offer.attachedImgs.length > 0 && (
+              <div className="grid grid-cols-4 gap-4 mb-4">
+                {offer.attachedImgs.map((img, i) => (
+                  <Image
+                    key={i}
+                    src={img}
+                    alt="Offer attachment"
+                    width={240}
+                    height={240}
+                    className="aspect-square bg-zinc-800 rounded-lg flex items-center justify-center"
+                  />
+                ))}
+              </div>
+            )}
+
+            {offer?.attachedFiles?.map((file, i) => (
+              <Button
                 key={i}
-                src={img}
-                alt="Offer attachment"
-                width={240}
-                height={240}
-                className="aspect-square bg-zinc-800 rounded-lg flex items-center justify-center"
-              />
+                variant="outline"
+                className="w-full justify-between text-left mb-6"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="bg-zinc-800 px-2 py-1 rounded text-sm text-white">
+                    {file.split(".")[1]}
+                  </span>
+                  {file.split(".")[0]}
+                </div>
+                <Download className="w-4 h-4" />
+              </Button>
             ))}
           </div>
-
-          {offer?.attachedFiles?.map((file, i) => (
-            <Button
-              key={i}
-              variant="outline"
-              className="w-full justify-between text-left mb-6"
-            >
-              <div className="flex items-center gap-2">
-                <span className="bg-zinc-800 px-2 py-1 rounded text-sm text-white">
-                  PDF
-                </span>
-                {/* TODO: fix this */}
-                ファイルの入り方です。ファイルの入ります。
-                <span className="text-sm text-gray-400">1.2MB</span>
-              </div>
-              <Download className="w-4 h-4" />
-            </Button>
-          ))}
-        </div>
+        )}
 
         <div className="mt-4 text-right text-gray-400 text-sm">
-          Last Updated: {new Date(offer?.updatedAt || "").toLocaleDateString()}
+          最終更新: {new Date(offer?.updatedAt || "").toLocaleDateString('ja-JP')}
         </div>
 
         {isOwner && (

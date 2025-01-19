@@ -344,7 +344,7 @@ export default function OfferCreatePage() {
                   <Textarea
                     id="description"
                     placeholder={t("offer.create.description-placeholder")}
-                    className={`border-[#707070] h-[calc(180px-24px)] rounded-2xl flex items-center pt-[calc((180px-24px-1.5rem)/2)] ${
+                    className={`border-[#707070] h-[calc(180px-24px)] rounded-2xl ${
                       errors.description ? "border-red-500" : ""
                     }`}
                     value={formData.description}

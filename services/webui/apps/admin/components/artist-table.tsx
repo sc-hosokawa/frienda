@@ -53,7 +53,10 @@ export function ArtistTable() {
         (data: any) => data.getAllArtists,
       );
     },
+    staleTime: 0,
   });
+
+  console.log(data);
 
   useEffect(() => {
     if (data?.artistList) {

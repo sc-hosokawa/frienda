@@ -13,6 +13,7 @@ import {
 } from "firebase/storage";
 import useUserStore from "~/store/user";
 import { useTranslation } from "~/i18n/client";
+import { isAddress } from "ethers";
 
 const GET_USER_DATA = gql`
   query GetUserData($userId: String!) {
@@ -135,6 +136,7 @@ export default function SettingPage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
 
   const userId = user?.id;
 
@@ -164,6 +166,15 @@ export default function SettingPage() {
     }
   }, [userData]);
 
+  useEffect(() => {
+    if (userData?.getUserData) {
+      const hasChanges = Object.entries(formData).some(
+        ([key, value]) => value !== userData.getUserData[key]
+      ) || imageFile !== null;
+      setIsDirty(hasChanges);
+    }
+  }, [formData, imageFile, userData]);
+
   const handleImageUpload = async (file: File) => {
     const storage = getStorage();
     const timestamp = Date.now();
@@ -192,8 +203,29 @@ export default function SettingPage() {
     }
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: FormEvent) => {
+    e?.preventDefault();
+    
+    // SNSハンドルのバリデーション
+    if (formData.xHandle && !validateSocialHandle(formData.xHandle, 'x')) {
+      alert(t("profile.invalid-x-handle"));
+      return;
+    }
+    if (formData.instagramHandle && !validateSocialHandle(formData.instagramHandle, 'instagram')) {
+      alert(t("profile.invalid-instagram-handle"));
+      return;
+    }
+    if (formData.fbHandle && !validateSocialHandle(formData.fbHandle, 'facebook')) {
+      alert(t("profile.invalid-facebook-handle"));
+      return;
+    }
+
+    // EVMアドレスのバリデーション
+    if (formData.evmAddr && !validateEvmAddr(formData.evmAddr)) {
+      alert(t("profile.invalid-evm-address"));
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -221,23 +253,34 @@ export default function SettingPage() {
         },
       });
 
-      console.log(res);
-
       updateUser(res.data.updateUserData.userInfo);
+      alert(t("profile.save-success"));
+      router.push("/");
 
-      //router.push("/");
     } catch (error) {
       console.error("Profile update failed:", error);
+      alert(t("profile.save-error"));
     } finally {
       setIsLoading(false);
     }
   };
 
-  // 役割の選択肢を定義
   const roles = ["Musician", "Curator", "Creator", "Supporter"];
-
-  // 興味のあるオファーの選択肢を定義
   const interestOffers = ["Creation", "Event", "Promotion", "Other"];
+
+  // SNSハンドルのバリデーション
+  const validateSocialHandle = (handle: string, platform: 'x' | 'instagram' | 'facebook') => {
+    const patterns = {
+      x: /^https:\/\/(www\.)?(x|twitter)\.com\/[a-zA-Z0-9_]{1,15}\/?$/,
+      instagram: /^https:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9_.]{1,30}\/?$/,
+      facebook: /^https:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9.]{1,50}\/?$/
+    };
+    return patterns[platform].test(handle);
+  };
+
+  const validateEvmAddr = (evmAddr: string) => {
+    return isAddress(evmAddr);
+  };
 
   if (userDataLoading) {
     return <div>Loading...</div>;
@@ -392,7 +435,11 @@ export default function SettingPage() {
                                         ? t("profile.enter-interested-offer")
                                         : ""
                     }
-                    className="mt-1 block w-2/3 h-[90px] rounded-2xl border border-white/50 bg-black text-white placeholder-gray-500 p-3"
+                    className={`mt-1 block w-2/3 ${
+                      key === "xHandle" || key === "instagramHandle" || key === "fbHandle"
+                        ? "h-[48px]"
+                        : "h-[90px]"
+                    } rounded-2xl border border-white/50 bg-black text-white placeholder-gray-500 p-3`}
                     required={key === "name"}
                   />
                 </div>
@@ -405,24 +452,43 @@ export default function SettingPage() {
             <label className="block text-sm font-medium w-1/3">
               {t("common.evm-address")}
             </label>
-            <textarea
-              value={formData.evmAddr}
-              onChange={(e) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  evmAddr: e.target.value,
-                }))
-              }
-              placeholder={t("profile.enter-evm-address")}
-              className="mt-1 block w-2/3 h-[90px] rounded-2xl border border-white/50 bg-black text-white placeholder-gray-500 p-3"
-            />
+            <div className="relative w-2/3">
+              <textarea
+                value={formData.evmAddr}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    evmAddr: e.target.value,
+                  }))
+                }
+                placeholder={t("profile.enter-evm-address")}
+                className="mt-1 block w-full h-[48px] rounded-2xl border border-white/50 bg-black text-white placeholder-gray-500 p-3"
+              />
+              {formData.evmAddr && validateEvmAddr(formData.evmAddr) && (
+                <div className="absolute top-1/2 -translate-y-1/2 right-4">
+                  <svg
+                    className="w-6 h-6 text-green-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="flex justify-end mt-8">
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={!isDirty || isLoading}
             className="h-[48px] w-[180px] rounded-full text-[18px] transition-colors bg-[#E4DBC0] hover:bg-gray-100 text-black border border-white hover:text-black disabled:opacity-50 text-sm"
           >
             {isLoading ? t("common.updating...") : t("profile.update-profile")}

@@ -31,9 +31,10 @@ export default function CreditHistoryPage() {
     queryKey: ["trackCreditsHistory"],
     queryFn: async () => {
       return await request(endpoint, GET_TRACK_CREDITS_HISTORY, {
-        count: 100,
+        count: 10000,
       }).then((data: any) => data.getTrackCreditsHistoryForAdmin);
     },
+    staleTime: 0,
   });
 
   const downloadCreditHistoryCSV = () => {
@@ -67,7 +68,7 @@ export default function CreditHistoryPage() {
     <main className="p-6">
       <Card className="dark:border dark:border-white dark:border-opacity-10">
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>クレジット登録履歴</CardTitle>
+          <CardTitle>クレジット登録履歴 (全 {trackCreditsHistory?.length}件)</CardTitle>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <MoreVertical className="h-5 w-5" />

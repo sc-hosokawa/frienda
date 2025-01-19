@@ -47,6 +47,7 @@ export default function AnalyticsPage() {
       const response = await request<ArtistsData>(endpoint, GET_ALL_ARTISTS);
       return response.getAllArtists.artistList;
     },
+    staleTime: 0,
   });
 
   console.log(artistData);

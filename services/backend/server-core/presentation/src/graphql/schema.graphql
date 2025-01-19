@@ -940,8 +940,10 @@ input UpdateOfferInput {
 	attention: String
 	requiredSkill: String
 	targetRole: String
-	attachedMedia: [String!]
+	attachedImgs: [String!]
+	attachedFiles: [String!]
 	publicity: Boolean
+	deadline: String
 }
 
 type UpdateOfferResponse {
