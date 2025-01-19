@@ -153,7 +153,25 @@ class _ManageOfferPageState extends ConsumerState<ManageOfferPage> {
           ),
         ),
         SizedBox(height: 16),
-        if (ongoingUser != null)
+        if (users.isEmpty)
+          Container(
+            padding: EdgeInsets.all(16),
+            margin: EdgeInsets.symmetric(vertical: 24),
+            decoration: BoxDecoration(
+              color: Colors.grey[900],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Text(
+                'Offerに応募したユーザーがここに表示されます',
+                style: TextStyle(
+                  color: Colors.grey[400],
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          )
+        else if (ongoingUser != null)
           _buildUserCard(ongoingUser, isOngoing: true)
         else
           ...users.map((user) => _buildUserCard(user)),

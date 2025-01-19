@@ -168,10 +168,17 @@ class UserNotifier extends Notifier<UserData?> {
     return null;
   }
 
-  // FSP残高を更新するメソッドを追加
+  // FSP残高を更新するメソッド
   void updateBalance(int newBalance) {
     if (state != null) {
       state = state!.copyWith(fspBalance: newBalance);
+    }
+  }
+
+  // プロフィール画像URLを更新するメソッドを追加
+  void updateImageUrl(String? newImageUrl) {
+    if (state != null) {
+      state = state!.copyWith(imageUrl: newImageUrl);
     }
   }
 

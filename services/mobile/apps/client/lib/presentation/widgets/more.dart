@@ -21,7 +21,7 @@ class More extends ConsumerWidget {
     {
       'icon': Icons.settings,
       'title': '設定',
-      'description': 'アプリの設定を変更します',
+      'description': '設定情報を変更します',
     },
     {
       'icon': Icons.help,

@@ -303,23 +303,54 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
   }
 
   Widget _buildDescription() {
-    return Text(
-      _offerData?['description'] ?? '',
-      style: TextStyle(color: Colors.white),
+    final description = _offerData?['description'];
+    if (description == null || description.isEmpty) return SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('説明', style: TextStyle(color: Colors.grey[400], fontSize: 14)),
+        SizedBox(height: 8),
+        Text(
+          description,
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
     );
   }
 
   Widget _buildAttention() {
-    return Text(
-      _offerData?['attention'] ?? '',
-      style: TextStyle(color: Colors.white),
+    final attention = _offerData?['attention'];
+    if (attention == null || attention.isEmpty) return SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('注意事項', style: TextStyle(color: Colors.grey[400], fontSize: 14)),
+        SizedBox(height: 8),
+        Text(
+          attention,
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
     );
   }
 
   Widget _buildRequiredSkill() {
-    return Text(
-      _offerData?['requiredSkill'] ?? '',
-      style: TextStyle(color: Colors.white),
+    final requiredSkill = _offerData?['requiredSkill'];
+    if (requiredSkill == null || requiredSkill.isEmpty)
+      return SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('必要なスキル', style: TextStyle(color: Colors.grey[400], fontSize: 14)),
+        SizedBox(height: 8),
+        Text(
+          requiredSkill,
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
     );
   }
 

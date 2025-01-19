@@ -23,9 +23,10 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
   late TextEditingController _xHandleController;
   late TextEditingController _instagramHandleController;
   late TextEditingController _fbHandleController;
+  late TextEditingController _evmAddrController;
   String? _selectedRole;
   String? _selectedPrimaryRole;
-  List<String> _selectedInterests = [];
+  String? _interestOffer;
   File? _imageFile;
   String? _currentImageUrl;
 
@@ -38,6 +39,7 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
     _xHandleController = TextEditingController();
     _instagramHandleController = TextEditingController();
     _fbHandleController = TextEditingController();
+    _evmAddrController = TextEditingController();
   }
 
   @override
@@ -59,6 +61,7 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
                 id
                 name
                 imageUrl
+                evmAddr
                 role
                 primaryRole
                 greeting
@@ -84,6 +87,7 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
               variables: {
                 'userId': userId,
               },
+              fetchPolicy: FetchPolicy.networkOnly,
             ),
           );
 
@@ -100,10 +104,10 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
           _xHandleController.text = userData['xHandle'] ?? '';
           _instagramHandleController.text = userData['instagramHandle'] ?? '';
           _fbHandleController.text = userData['fbHandle'] ?? '';
+          _evmAddrController.text = userData['evmAddr'] ?? '';
           _selectedRole = userData['role'];
           _selectedPrimaryRole = userData['primaryRole'];
-          _selectedInterests =
-              List<String>.from(userData['interestOffer'] ?? []);
+          _interestOffer = userData['interestOffer'];
           _currentImageUrl = userData['imageUrl'];
         });
       }
@@ -205,11 +209,9 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
     try {
       String? imageUrl;
       if (_imageFile != null) {
-        // 新しい画像をアップロード
         imageUrl = await _uploadImageToFirebase(_imageFile!);
-        if (imageUrl == null) return; // アップロード失敗
+        if (imageUrl == null) return;
 
-        // 新しい画像のアップロードが成功したら、古い画像を削除
         if (_currentImageUrl != null && _currentImageUrl!.isNotEmpty) {
           await _deleteOldImage(_currentImageUrl!);
         }
@@ -225,18 +227,29 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
               \$id: String!
               \$name: String
               \$imageUrl: String
+              \$evmAddr: String
+              \$greeting: String
+              \$skill: String
+              \$xHandle: String
+              \$instagramHandle: String
+              \$fbHandle: String
             ) {
               updateUserData(input: {
                 id: \$id
                 name: \$name
                 imageUrl: \$imageUrl
+                evmAddr: \$evmAddr
+                greeting: \$greeting
+                skill: \$skill
+                xHandle: \$xHandle
+                instagramHandle: \$instagramHandle
+                fbHandle: \$fbHandle
               }) {
                 userInfo {
                   id
                   name
                   imageUrl
-                  fspBalance
-                  credentialBalance
+                  evmAddr
                   role
                   primaryRole
                   greeting
@@ -272,6 +285,12 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
                 'id': userId,
                 'name': _nameController.text,
                 'imageUrl': imageUrl ?? _currentImageUrl,
+                'evmAddr': _evmAddrController.text,
+                'greeting': _greetingController.text,
+                'skill': _skillController.text,
+                'xHandle': _xHandleController.text,
+                'instagramHandle': _instagramHandleController.text,
+                'fbHandle': _fbHandleController.text,
               },
               fetchPolicy: FetchPolicy.noCache,
             ),
@@ -282,6 +301,10 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
       if (result.hasException) {
         throw result.exception!;
       }
+
+      // 更新が成功したら、プロバイダーのimageUrlを更新
+      final newImageUrl = imageUrl ?? _currentImageUrl;
+      ref.read(userProvider.notifier).updateImageUrl(newImageUrl);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -321,108 +344,128 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('プロフィール編集'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            Center(
-              child: Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: _imageFile != null
-                        ? FileImage(_imageFile!) as ImageProvider
-                        : (_currentImageUrl != null
-                                ? NetworkImage(_currentImageUrl!)
-                                : const AssetImage('assets/default_avatar.png'))
-                            as ImageProvider,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        icon: const Icon(Icons.camera_alt, color: Colors.white),
-                        onPressed: _pickImage,
+    return GestureDetector(
+      onTap: () {
+        // 現在のフォーカスを解除してキーボードを閉じる
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('プロフィール編集'),
+        ),
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              Center(
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: _imageFile != null
+                          ? FileImage(_imageFile!) as ImageProvider
+                          : (_currentImageUrl != null
+                                  ? NetworkImage(_currentImageUrl!)
+                                  : const AssetImage(
+                                      'assets/default_avatar.png'))
+                              as ImageProvider,
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          icon:
+                              const Icon(Icons.camera_alt, color: Colors.white),
+                          onPressed: _pickImage,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 24),
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: '名前',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 24),
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: '名前',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return '名前を入力してください';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return '名前を入力してください';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _greetingController,
-              decoration: const InputDecoration(
-                labelText: '自己紹介',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _greetingController,
+                decoration: const InputDecoration(
+                  labelText: '自己紹介',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
               ),
-              maxLines: 3,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _skillController,
-              decoration: const InputDecoration(
-                labelText: 'スキル',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _skillController,
+                decoration: const InputDecoration(
+                  labelText: 'スキル',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            // SNSハンドル入力フィールド
-            TextFormField(
-              controller: _xHandleController,
-              decoration: const InputDecoration(
-                labelText: 'X (Twitter)',
-                border: OutlineInputBorder(),
-                prefixText: '@',
+              const SizedBox(height: 16),
+              // SNSハンドル入力フィールド
+              TextFormField(
+                controller: _xHandleController,
+                decoration: const InputDecoration(
+                  labelText: 'X (Twitter)',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _instagramHandleController,
-              decoration: const InputDecoration(
-                labelText: 'Instagram',
-                border: OutlineInputBorder(),
-                prefixText: '@',
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _instagramHandleController,
+                decoration: const InputDecoration(
+                  labelText: 'Instagram',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _fbHandleController,
-              decoration: const InputDecoration(
-                labelText: 'Facebook',
-                border: OutlineInputBorder(),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _fbHandleController,
+                decoration: const InputDecoration(
+                  labelText: 'Facebook',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: _updateProfile,
-              child: const Text('プロフィールを更新'),
-            ),
-          ],
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _evmAddrController,
+                decoration: const InputDecoration(
+                  labelText: 'EVMアドレス',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: _updateProfile,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  elevation: 1,
+                  side: const BorderSide(color: Colors.grey),
+                ),
+                child: const Text('プロフィールを更新'),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -436,6 +479,7 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
     _xHandleController.dispose();
     _instagramHandleController.dispose();
     _fbHandleController.dispose();
+    _evmAddrController.dispose();
     super.dispose();
   }
 }

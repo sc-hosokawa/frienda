@@ -477,6 +477,12 @@ class _ArtistList extends ConsumerWidget {
     final userData = ref.watch(userProvider);
     final artists = userData?.belongsToArtists ?? [];
 
+    // AcceptとCheckのステータスのみフィルタリング
+    final filteredArtists = artists
+        .where(
+            (artist) => artist.status == 'Accept' || artist.status == 'Check')
+        .toList();
+
     return ListView(
       children: [
         const Padding(
@@ -485,7 +491,7 @@ class _ArtistList extends ConsumerWidget {
             child: Text('選択可能なアーティスト', style: TextStyle(fontSize: 16)),
           ),
         ),
-        if (artists.isEmpty)
+        if (filteredArtists.isEmpty)
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Center(
@@ -493,11 +499,14 @@ class _ArtistList extends ConsumerWidget {
             ),
           )
         else
-          for (final artist in artists)
+          for (final artist in filteredArtists)
             _ArtistListTile(
               artist: artist.name,
               imageUrl: artist.imageUrl,
-              onTap: () => onSelectArtist(artist.name),
+              status: artist.status,
+              onTap: artist.status == 'Accept'
+                  ? () => onSelectArtist(artist.name)
+                  : null, // Checkの場合は選択不可
             ),
       ],
     );
@@ -507,19 +516,51 @@ class _ArtistList extends ConsumerWidget {
 class _ArtistListTile extends StatelessWidget {
   final String artist;
   final String? imageUrl;
-  final VoidCallback onTap;
+  final String? status;
+  final VoidCallback? onTap;
 
   const _ArtistListTile({
     super.key,
     required this.artist,
     this.imageUrl,
-    required this.onTap,
+    this.status,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final bool isCheck = status == 'Check';
+
     return ListTile(
-      title: Text(artist),
+      title: Row(
+        children: [
+          Expanded(
+            child: Text(
+              artist,
+              style: TextStyle(
+                color: isCheck ? Colors.grey : null,
+              ),
+            ),
+          ),
+          if (status == 'Check') ...[
+            const SizedBox(width: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                '確認中',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[700],
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
       onTap: onTap,
     );
   }
