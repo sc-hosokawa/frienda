@@ -24,7 +24,7 @@ class Fsp extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FSP Wallet'),
+        title: const Text('FSP Portal'),
         centerTitle: true,
       ),
       body: RefreshIndicator(
@@ -167,8 +167,15 @@ class Fsp extends ConsumerWidget {
                       onPressed: () {
                         navigateWithFadeTransition(context, const Exchange());
                       },
-                      child: const Text('もっと見る',
-                          style: TextStyle(color: Colors.green)),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 4),
+                        side: const BorderSide(color: Colors.white),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Text('もっと見る'),
                     ),
                   ],
                 ),
@@ -276,7 +283,7 @@ class Fsp extends ConsumerWidget {
                   );
                 },
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -291,8 +298,15 @@ class Fsp extends ConsumerWidget {
                         navigateWithFadeTransition(
                             context, const Transactions());
                       },
-                      child: const Text('もっと見る',
-                          style: TextStyle(color: Colors.green)),
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 4),
+                        side: const BorderSide(color: Colors.white),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Text('もっと見る'),
                     ),
                   ],
                 ),

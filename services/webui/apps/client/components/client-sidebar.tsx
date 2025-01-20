@@ -211,6 +211,11 @@ export function ClientSidebar({ locale }: { locale: string }) {
                           <span>{t("common.term-of-use")}</span>
                         </Link>
                       </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/tokutei">
+                          <span>{t("common.tokutei")}</span>
+                        </Link>
+                      </DropdownMenuItem>
                       <DropdownMenuItem asChild onClick={switchLocale}>
                         <span>{switchedLabel}</span>
                       </DropdownMenuItem>

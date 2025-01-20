@@ -6,13 +6,6 @@ export default function TermOfService() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <button
-        onClick={() => router.back()}
-        className="mb-6 px-4 py-2 text-sm font-medium text-white rounded-md hover:bg-gray-200"
-      >
-        ← 戻る
-      </button>
-
       <h1 className="text-3xl font-bold mb-6">利用規約</h1>
 
       <section className="mb-8">
@@ -118,6 +111,12 @@ export default function TermOfService() {
         <p>公開日：2024年11月15日</p>
         <p>最終更新日：2024年11月17日</p>
       </footer>
+      <button
+        onClick={() => router.back()}
+        className="mb-6 px-4 py-2 text-sm font-medium text-white rounded-md hover:bg-gray-200 hover:text-black mt-12"
+      >
+        ← 戻る
+      </button>
     </div>
   );
 }

@@ -279,7 +279,11 @@ export default function Login({
                 className="text-white hover:underline"
               >
                 {t("common.privacy-policy")}
-              </Link>{" "}
+              </Link>
+              、
+              <Link href="/tokutei" className="text-white hover:underline">
+                {t("common.tokutei")}
+              </Link>
               をご確認ください。
             </p>
           </div>

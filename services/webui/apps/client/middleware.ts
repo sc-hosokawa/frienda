@@ -84,13 +84,15 @@ export function middleware(request: NextRequest) {
     pathname.startsWith(`/${locale}/login`) ||
     pathname.startsWith(`/${locale}/signin`) ||
     pathname.startsWith(`/${locale}/termofservice`) ||
-    pathname.startsWith(`/${locale}/privacypolicy`)
+    pathname.startsWith(`/${locale}/privacypolicy`) ||
+    pathname.startsWith(`/${locale}/tokutei`)
   ) {
     // セッションがある場合はダッシュボードにリダイレクト（利用規約とプライバシーポリシーページは除く）
     if (
       session &&
       !pathname.startsWith(`/${locale}/termofservice`) &&
-      !pathname.startsWith(`/${locale}/privacypolicy`)
+      !pathname.startsWith(`/${locale}/privacypolicy`) &&
+      !pathname.startsWith(`/${locale}/tokutei`)
     ) {
       return NextResponse.redirect(new URL(`/${locale}/home`, request.url));
     }
