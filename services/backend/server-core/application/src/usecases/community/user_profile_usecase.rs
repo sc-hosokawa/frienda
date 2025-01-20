@@ -1,6 +1,4 @@
 use async_trait::async_trait;
-use std::sync::Arc;
-
 use domain::entities::artists::Model as Artist;
 use domain::entities::offer_user::Model as OfferUser;
 use domain::entities::offers::Model as Offer;
@@ -8,6 +6,8 @@ use domain::entities::sea_orm_active_enums::{OfferCategory, OfferStatus, UserCat
 use domain::entities::short_notes::Model as ShortNote;
 use domain::entities::user_artist::Model as UserArtist;
 use domain::entities::users::Model as User;
+use std::sync::Arc;
+use uuid::Uuid;
 
 use domain::repositories::artists_repo::ArtistsRepository;
 use domain::repositories::offer_user_repo::OfferUserRepository;
@@ -25,6 +25,7 @@ pub struct GetUserProfileOutput {
     pub instagram_handle: Option<String>,
     pub fb_handle: Option<String>,
     pub short_note: Option<String>,
+    pub short_note_id: Option<Uuid>,
     pub greeting: Option<String>,
     pub skill: Option<String>,
     pub connections: Vec<String>,
@@ -132,6 +133,8 @@ impl GetUserProfileUsecaseTrait for GetUserProfileUsecase {
             .short_notes_repo
             .get_by_writer_and_to_user(&viewer_id, &user_id)
             .await?;
+        let short_note_clone = short_note.clone();
+        let short_note_id = short_note_clone.map(|short_note| short_note.id);
 
         Ok(GetUserProfileOutput {
             id: user_id,
@@ -142,6 +145,7 @@ impl GetUserProfileUsecaseTrait for GetUserProfileUsecase {
             instagram_handle: user.instagram_handle,
             fb_handle: user.fb_handle,
             short_note: short_note.map(|s| s.comment),
+            short_note_id,
             greeting: user.greeting,
             skill: user.skill,
             connections: vec![],

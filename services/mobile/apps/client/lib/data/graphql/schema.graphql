@@ -1039,6 +1039,7 @@ type UserDataOnDetailPage {
 	instagramHandle: String
 	fbHandle: String
 	shortNote: String
+	shortNoteId: String
 	greeting: String
 	skill: String
 	connections: [String!]!

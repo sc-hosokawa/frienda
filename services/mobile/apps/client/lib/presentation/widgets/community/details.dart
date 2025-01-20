@@ -28,6 +28,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
         instagramHandle
         fbHandle
         shortNote
+        shortNoteId
         greeting
         skill
         connections
@@ -283,32 +284,53 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
   Widget _buildHeader(Map<String, dynamic> profile) {
     return Container(
       padding: const EdgeInsets.all(16),
-      child: Row(
+      child: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: _getCategoryColor(profile['category']),
-                width: 2.0,
+          Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: _getCategoryColor(profile['category']),
+                    width: 2.0,
+                  ),
+                ),
+                child: CircleAvatar(
+                  radius: 40,
+                  backgroundImage: NetworkImage(
+                    profile['imageUrl'] ?? 'assets/logo_visualonly.jpg',
+                  ),
+                ),
               ),
-            ),
-            child: CircleAvatar(
-              radius: 40,
-              backgroundImage: NetworkImage(
-                profile['imageUrl'] ?? 'assets/logo_visualonly.jpg',
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // ショートノートの表示を削除
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          if (ref.read(userProvider)?.id != widget.id) ...[
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                if (profile['shortNote'] != null) Text(profile['shortNote']),
+                TextButton.icon(
+                  icon: const Icon(Icons.edit, size: 16),
+                  label: Text(
+                    profile['shortNote'] == null || profile['shortNote'].isEmpty
+                        ? 'ショートノートを編集'
+                        : profile['shortNote'],
+                  ),
+                  onPressed: () => _showShortNoteDialog(context, profile),
+                ),
               ],
             ),
-          ),
+          ],
         ],
       ),
     );
@@ -629,110 +651,67 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
               ),
               title: Text(member['name'] ?? 'Unknown'),
               subtitle: Text(member['category'] ?? ''),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (member['shortNote'] != null &&
-                      member['shortNote'].isNotEmpty)
-                    Flexible(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Text(
-                                member['shortNote'],
-                                style: TextStyle(
-                                  color: Colors.grey[300],
-                                  fontSize: 12,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.edit, size: 16),
-                            onPressed: () => _showShortNoteDialog(
-                              context,
-                              member,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  else
-                    IconButton(
-                      icon: const Icon(Icons.edit, size: 16),
-                      onPressed: () => _showShortNoteDialog(
-                        context,
-                        member,
-                      ),
-                    ),
-                  IconButton(
-                    icon: Icon(
-                      member['favoriteId'] != null
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: member['favoriteId'] != null
-                          ? Colors.red
-                          : Colors.grey,
-                      size: 20,
-                    ),
-                    onPressed: () async {
-                      final userId = ref.read(userProvider)?.id;
-                      if (userId == null) return;
+              trailing: IconButton(
+                icon: Icon(
+                  member['favoriteId'] != null
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color:
+                      member['favoriteId'] != null ? Colors.red : Colors.grey,
+                  size: 20,
+                ),
+                onPressed: () async {
+                  final userId = ref.read(userProvider)?.id;
+                  if (userId == null) return;
 
-                      final GraphQLClient client =
-                          GraphQLProvider.of(context).value;
-                      try {
-                        if (member['favoriteId'] != null) {
-                          await client.mutate(
-                            MutationOptions(
-                              document: gql('''
-                                mutation UnmarkFavorite(\$favoriteId: String!) {
-                                  unmarkFavorite(favoriteId: \$favoriteId) {
-                                    id
-                                  }
-                                }
-                              '''),
-                              variables: {
-                                'favoriteId': member['favoriteId'],
-                              },
-                            ),
-                          );
-                        } else {
-                          await client.mutate(
-                            MutationOptions(
-                              document: gql('''
-                                mutation MarkFavorite(\$targetUserId: String!, \$likedBy: String!) {
-                                  markFavorite(targetUserId: \$targetUserId, likedBy: \$likedBy) {
-                                    id
-                                  }
-                                }
-                              '''),
-                              variables: {
-                                'targetUserId': member['id'],
-                                'likedBy': userId,
-                              },
-                            ),
-                          );
-                        }
-                        if (!mounted) return;
-                        await client.resetStore();
-                      } catch (error) {
-                        if (!mounted) return;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                'Failed to update favorite status: $error'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                ],
+                  final GraphQLClient client =
+                      GraphQLProvider.of(context).value;
+                  try {
+                    if (member['favoriteId'] != null) {
+                      await client.mutate(
+                        MutationOptions(
+                          document: gql('''
+                            mutation UnmarkFavorite(\$favoriteId: String!) {
+                              unmarkFavorite(favoriteId: \$favoriteId) {
+                                id
+                              }
+                            }
+                          '''),
+                          variables: {
+                            'favoriteId': member['favoriteId'],
+                          },
+                        ),
+                      );
+                    } else {
+                      await client.mutate(
+                        MutationOptions(
+                          document: gql('''
+                            mutation MarkFavorite(\$targetUserId: String!, \$likedBy: String!) {
+                              markFavorite(targetUserId: \$targetUserId, likedBy: \$likedBy) {
+                                id
+                              }
+                            }
+                          '''),
+                          variables: {
+                            'targetUserId': member['id'],
+                            'likedBy': userId,
+                          },
+                        ),
+                      );
+                    }
+                    if (!mounted) return;
+                    await client.resetStore();
+                  } catch (error) {
+                    if (!mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:
+                            Text('Failed to update favorite status: $error'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
               ),
               onTap: () => Navigator.push(
                 context,
@@ -747,46 +726,42 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
     );
   }
 
-  // ショートノート編集ダイアログを表示する関数を追加
+  // ショートノート編集用のダイアログを表示する関数
   Future<void> _showShortNoteDialog(
-    BuildContext context,
-    Map<String, dynamic> member,
-  ) async {
-    final controller = TextEditingController(text: member['shortNote']);
+      BuildContext context, Map<String, dynamic> profile) async {
+    final controller = TextEditingController(text: profile['shortNote']);
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(member['shortNoteId'] != null
-            ? 'Edit Short Note'
-            : 'Add Short Note'),
+        title:
+            Text(profile['shortNoteId'] != null ? 'ショートノートを編集' : 'ショートノートを追加'),
         content: TextField(
           controller: controller,
           decoration: const InputDecoration(
-            hintText: 'Enter your short note',
+            hintText: 'ショートノートを入力',
           ),
           maxLength: 50,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('キャンセル'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, controller.text),
-            child: const Text('Save'),
+            child: const Text('保存'),
           ),
         ],
       ),
     );
 
     if (result != null) {
-      final userId = ref.read(userProvider)?.id;
-      if (userId == null) return;
+      final currentUserId = ref.read(userProvider)?.id;
+      if (currentUserId == null) return;
 
-      final GraphQLClient client = GraphQLProvider.of(context).value;
+      final client = ref.read(graphQLClientProvider);
       try {
-        if (member['shortNoteId'] == null) {
-          // ショートノートが存在しない場合追加
+        if (profile['shortNoteId'] == null) {
           await client.mutate(
             MutationOptions(
               document: gql('''
@@ -797,14 +772,13 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                 }
               '''),
               variables: {
-                'writer': userId,
-                'toUser': member['id'],
+                'writer': currentUserId,
+                'toUser': widget.id,
                 'comment': result,
               },
             ),
           );
         } else {
-          // ショートノートが存在する場合は編集
           await client.mutate(
             MutationOptions(
               document: gql('''
@@ -815,19 +789,18 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                 }
               '''),
               variables: {
-                'shortnoteId': member['shortNoteId'],
+                'shortnoteId': profile['shortNoteId'],
                 'comment': result,
               },
             ),
           );
         }
-        if (!mounted) return;
         await client.resetStore();
       } catch (error) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to update short note: $error'),
+            content: Text('ショートノートの更新に失敗しました: $error'),
             backgroundColor: Colors.red,
           ),
         );

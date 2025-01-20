@@ -46,23 +46,6 @@ const String unmarkFavoriteMutation = '''
   }
 ''';
 
-// GraphQL mutationの定義を修正
-const String addShortNoteMutation = '''
-  mutation AddShortNote(\$writer: String!, \$toUser: String!, \$comment: String!) {
-    addShortnote(writer: \$writer, toUser: \$toUser, comment: \$comment) {
-      id
-    }
-  }
-''';
-
-const String editShortNoteMutation = '''
-  mutation EditShortNote(\$shortnoteId: String!, \$comment: String!) {
-    editShortnote(shortnoteId: \$shortnoteId, comment: \$comment) {
-      id
-    }
-  }
-''';
-
 class Community extends ConsumerStatefulWidget {
   const Community({super.key});
 
@@ -201,86 +184,47 @@ class _CommunityState extends ConsumerState<Community> {
           ),
           title: Text(member.name ?? 'Unknown'),
           subtitle: Text(member.category ?? ''),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (member.shortNote != null && member.shortNote!.isNotEmpty)
-                Flexible(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Text(
-                            member.shortNote!,
-                            style: TextStyle(
-                              color: Colors.grey[300],
-                              fontSize: 12,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.edit, size: 16),
-                        onPressed: () => _showShortNoteDialog(
-                            context, member, userId, refetch),
-                      ),
-                    ],
-                  ),
-                )
-              else
-                IconButton(
-                  icon: const Icon(Icons.edit, size: 16),
-                  onPressed: () =>
-                      _showShortNoteDialog(context, member, userId, refetch),
-                ),
-              IconButton(
-                icon: Icon(
-                  member.favoriteId != null
-                      ? Icons.favorite
-                      : Icons.favorite_border,
-                  color: member.favoriteId != null ? Colors.red : Colors.grey,
-                ),
-                onPressed: () async {
-                  final GraphQLClient client =
-                      GraphQLProvider.of(context).value;
+          trailing: IconButton(
+            icon: Icon(
+              member.favoriteId != null
+                  ? Icons.favorite
+                  : Icons.favorite_border,
+              color: member.favoriteId != null ? Colors.red : Colors.grey,
+            ),
+            onPressed: () async {
+              final GraphQLClient client = GraphQLProvider.of(context).value;
 
-                  try {
-                    if (member.favoriteId != null) {
-                      await client.mutate(
-                        MutationOptions(
-                          document: gql(unmarkFavoriteMutation),
-                          variables: {
-                            'favoriteId': member.favoriteId,
-                          },
-                        ),
-                      );
-                    } else {
-                      await client.mutate(
-                        MutationOptions(
-                          document: gql(markFavoriteMutation),
-                          variables: {
-                            'targetUserId': member.id,
-                            'likedBy': userId,
-                          },
-                        ),
-                      );
-                    }
-                    refetch?.call();
-                  } catch (error) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content:
-                            Text('Failed to update favorite status: $error'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-              ),
-            ],
+              try {
+                if (member.favoriteId != null) {
+                  await client.mutate(
+                    MutationOptions(
+                      document: gql(unmarkFavoriteMutation),
+                      variables: {
+                        'favoriteId': member.favoriteId,
+                      },
+                    ),
+                  );
+                } else {
+                  await client.mutate(
+                    MutationOptions(
+                      document: gql(markFavoriteMutation),
+                      variables: {
+                        'targetUserId': member.id,
+                        'likedBy': userId,
+                      },
+                    ),
+                  );
+                }
+                refetch?.call();
+              } catch (error) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Failed to update favorite status: $error'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
           ),
           onTap: () => Navigator.push(
             context,
@@ -312,80 +256,6 @@ class _CommunityState extends ConsumerState<Community> {
         return const Color(0xFFE4DBC0);
       default:
         return Colors.black;
-    }
-  }
-
-  // ショートノート編集ダイアログを表示する関数を追加
-  Future<void> _showShortNoteDialog(
-    BuildContext context,
-    CommunityMember member,
-    String userId,
-    VoidCallback? refetch,
-  ) async {
-    final controller = TextEditingController(text: member.shortNote);
-    final result = await showDialog<String>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-            member.shortNoteId != null ? 'Edit Short Note' : 'Add Short Note'),
-        content: TextField(
-          controller: controller,
-          decoration: const InputDecoration(
-            hintText: 'Enter your short note',
-          ),
-          maxLength: 50,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, controller.text),
-            child: const Text('Save'),
-          ),
-        ],
-      ),
-    );
-
-    if (result != null) {
-      final GraphQLClient client = GraphQLProvider.of(context).value;
-      try {
-        if (member.shortNoteId == null) {
-          // ショートノートが存在しない場合は追加
-          await client.mutate(
-            MutationOptions(
-              document: gql(addShortNoteMutation),
-              variables: {
-                'writer': userId,
-                'toUser': member.id,
-                'comment': result,
-              },
-            ),
-          );
-        } else {
-          // ショートノートが存在する場合は編集
-          await client.mutate(
-            MutationOptions(
-              document: gql(editShortNoteMutation),
-              variables: {
-                'shortnoteId': member.shortNoteId,
-                'comment': result,
-              },
-            ),
-          );
-        }
-        refetch?.call();
-      } catch (error) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Failed to update short note: $error'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      }
     }
   }
 }
