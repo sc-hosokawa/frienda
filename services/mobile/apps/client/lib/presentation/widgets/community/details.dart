@@ -322,7 +322,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                   icon: const Icon(Icons.edit, size: 16),
                   label: Text(
                     profile['shortNote'] == null || profile['shortNote'].isEmpty
-                        ? 'ショートノートを編集'
+                        ? 'メモを編集'
                         : profile['shortNote'],
                   ),
                   onPressed: () => _showShortNoteDialog(context, profile, null),
@@ -733,12 +733,11 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title:
-            Text(profile['shortNoteId'] != null ? 'ショートノートを編集' : 'ショートノートを追加'),
+        title: Text(profile['shortNoteId'] != null ? 'メモを編集' : 'メモを追加'),
         content: TextField(
           controller: controller,
           decoration: const InputDecoration(
-            hintText: 'ショートノートを入力',
+            hintText: 'メモを入力',
           ),
           maxLength: 50,
         ),
@@ -803,7 +802,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('ショートノートの更新に失敗しました: $error'),
+            content: Text('メモの更新に失敗しました: $error'),
             backgroundColor: Colors.red,
           ),
         );

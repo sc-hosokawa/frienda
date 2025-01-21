@@ -420,36 +420,118 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
 
     return Column(
       children: attachedFiles.map((file) {
-        return Container(
-          margin: EdgeInsets.only(bottom: 8),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: Colors.grey[800],
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.picture_as_pdf, color: Colors.white),
-              SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(file['name'] ?? '不明なファイル',
-                        style: TextStyle(color: Colors.white)),
-                    Text('${file['size'] ?? '不明'} MB',
-                        style: TextStyle(color: Colors.grey)),
-                  ],
+        if (file is String) {
+          final fileUrl = file;
+          final fileName = _extractFileName(fileUrl);
+          final extension = _getFileExtension(fileUrl);
+          final isAudio = _isAudioFile(extension);
+
+          return _buildFileDownloadItem(
+            name: fileName,
+            extension: extension,
+            url: fileUrl,
+            isAudio: isAudio,
+          );
+        }
+        return SizedBox.shrink();
+      }).toList(),
+    );
+  }
+
+  String _extractFileName(String url) {
+    try {
+      final uri = Uri.parse(url);
+      final encodedFileName = uri.pathSegments.last.split('?')[0];
+
+      // ファイル名からタイムスタンプ部分を除去
+      final parts = encodedFileName.split('_');
+      if (parts.length > 1) {
+        // 最初のパート（タイムスタンプ）を除外して結合
+        final nameWithoutTimestamp = parts.sublist(1).join('_');
+        // 拡張子を除外
+        final nameWithoutExtension = nameWithoutTimestamp.split('.')[0];
+
+        // デコード処理を try-catch で囲む
+        try {
+          return Uri.decodeComponent(nameWithoutExtension);
+        } catch (e) {
+          // デコードに失敗した場合は、デコードせずに返す
+          return nameWithoutExtension;
+        }
+      }
+      return encodedFileName;
+    } catch (e) {
+      // URIのパース失敗時は空の文字列を返す
+      return '';
+    }
+  }
+
+  String _getFileExtension(String url) {
+    try {
+      final fileName = url.split('?')[0];
+      final parts = fileName.split('.');
+      if (parts.length > 1) {
+        return parts.last.toUpperCase();
+      }
+      return '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  bool _isAudioFile(String extension) {
+    final audioExtensions = ['MP3', 'WAV', 'M4A', 'OGG'];
+    return audioExtensions.contains(extension.toUpperCase());
+  }
+
+  Widget _buildFileDownloadItem({
+    required String name,
+    required String extension,
+    required String url,
+    required bool isAudio,
+  }) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(45),
+        border: Border.all(color: Colors.white, width: 1),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.white),
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                extension,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.download, color: Colors.white),
-                onPressed: () => _downloadFile(file['url']),
-              ),
-            ],
+            ),
           ),
-        );
-      }).toList(),
+          SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              name,
+              style: TextStyle(color: Colors.white),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.download, color: Colors.white, size: 16),
+            onPressed: () => _downloadFile(url),
+          ),
+        ],
+      ),
     );
   }
 
@@ -457,37 +539,22 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
     if (url == null) return;
 
     try {
-      // ダウンロード中の進捗を表示
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 16),
-                Text('ダウンロード中...'),
-              ],
-            ),
-          );
-        },
-      );
-
       final dio = Dio();
-      final fileName = url.split('/').last;
+      final originalFileName = url.split('/').last.split('?')[0];
+
+      // ファイル名を短く処理する
+      final String safeFileName = _createSafeFileName(originalFileName);
 
       // ダウンロード先のディレクトリを取得
       final dir = Platform.isAndroid
-          ? await getExternalStorageDirectory() // Android
-          : await getApplicationDocumentsDirectory(); // iOS
+          ? await getExternalStorageDirectory()
+          : await getApplicationDocumentsDirectory();
 
       if (dir == null) {
         throw Exception('ダウンロードディレクトリが見つかりません');
       }
 
-      final filePath = '${dir.path}/$fileName';
+      final filePath = '${dir.path}/$safeFileName';
 
       // ファイルをダウンロード
       await dio.download(
@@ -495,29 +562,62 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
         filePath,
       );
 
-      // ダウンロード完了後、ダイアログを閉じる
       if (mounted) {
-        Navigator.pop(context); // プログレスダイアログを閉じる
-
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('ダウンロードが完了しました\n保存先: $filePath'),
+            content: Text('ダウンロードが完了しました'),
             backgroundColor: Colors.green,
           ),
         );
       }
     } catch (e) {
-      // エラー時、ダイアログを閉じてエラーメッセージを表示
       if (mounted) {
-        Navigator.pop(context); // プログレスダイアログを閉じる
-
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('ダウンロードに失敗しました: ${e.toString()}'),
+            content: Text('ダウンロードに失敗しました'),
             backgroundColor: Colors.red,
           ),
         );
       }
+    }
+  }
+
+  String _createSafeFileName(String originalFileName) {
+    try {
+      // タイムスタンプ部分を除去
+      final parts = originalFileName.split('_');
+      if (parts.length > 1) {
+        parts.removeAt(0); // 最初のタイムスタンプ部分を削除
+      }
+
+      // 残りの部分を結合
+      String fileName = parts.join('_');
+
+      // デコード処理を試みる
+      try {
+        fileName = Uri.decodeComponent(fileName);
+      } catch (e) {
+        // デコードに失敗した場合は元のファイル名を使用
+      }
+
+      // 拡張子を取得
+      final extension = fileName.split('.').last;
+      // ファイル名部分を取得（拡張子を除く）
+      final nameWithoutExtension =
+          fileName.substring(0, fileName.length - extension.length - 1);
+
+      // ファイル名を32文字に制限（拡張子は除く）
+      String truncatedName = nameWithoutExtension;
+      if (truncatedName.length > 32) {
+        truncatedName = truncatedName.substring(0, 32);
+      }
+
+      // 拡張子を付けて返す
+      return '$truncatedName.$extension';
+    } catch (e) {
+      // エラーが発生した場合は、タイムスタンプ付きの汎用的な名前を返す
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      return 'download_$timestamp.file';
     }
   }
 
