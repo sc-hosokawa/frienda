@@ -207,6 +207,12 @@ export default function SettingPage() {
   const handleSubmit = async (e?: FormEvent) => {
     e?.preventDefault();
 
+    // 必須項目のバリデーション
+    if (!formData.name || !formData.role || !formData.interestOffer) {
+      alert(t("profile.required-fields"));
+      return;
+    }
+
     // SNSハンドルのバリデーション
     if (formData.xHandle && !validateSocialHandle(formData.xHandle, "x")) {
       alert(t("profile.invalid-x-handle"));
@@ -372,6 +378,7 @@ export default function SettingPage() {
                     {key === "role"
                       ? t("common.role")
                       : t("common.interested-offer")}
+                    <span className="text-red-500 ml-1">*</span>
                   </label>
                   <div className="flex flex-wrap gap-2 w-2/3">
                     {options.map((option) => (
@@ -414,6 +421,7 @@ export default function SettingPage() {
                               : key === "fbHandle"
                                 ? "Facebook"
                                 : key}
+                    {key === "name" && <span className="text-red-500 ml-1">*</span>}
                   </label>
                   <textarea
                     value={value}
