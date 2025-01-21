@@ -184,6 +184,7 @@
   "message.add-attach-file": "Add attached file",
   "message.enter-message-with-navigation": "Enter your message here. (Press Shift + Enter to enter)",
   "message.send-message": "Send message",
+  "message.allowed-file-types": "Allowed file types: PDF, MP4, MP3, WAV, M4A, OGG",
   "news.no-article-found": "No article found",
   "news.cannot-display-content": "Cannot display content",
   "notification.no-notification": "No notifications",

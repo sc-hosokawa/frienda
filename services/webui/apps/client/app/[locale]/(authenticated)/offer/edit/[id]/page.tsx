@@ -225,13 +225,17 @@ export default function OfferEditPage() {
     const files = Array.from(e.target.files || []);
     const validFiles = files
       .filter((file) => {
+        // 許可するファイルタイプを定義
         const isPDF = file.type === "application/pdf";
-        const isMP4 = file.type === "video/mp4";
-        if (!isPDF && !isMP4) {
-          alert("PDFまたはMP4ファイルのみアップロード可能です。");
+        const isVideo = file.type.startsWith("video/");  // video/mp4, video/webm など
+        const isAudio = file.type.startsWith("audio/");  // audio/mp3, audio/wav など
+
+        if (!isPDF && !isVideo && !isAudio) {
+          alert(t("message.allowed-file-types"));
           return false;
         }
-        if (file.size > 100 * 1024 * 1024) {
+
+        if (file.size > 100 * 1024 * 1024) {  // 100MB制限は維持
           alert(t("message.file-size-alert"));
           return false;
         }
@@ -725,7 +729,7 @@ export default function OfferEditPage() {
             <label className="mt-4 border border-dashed border-white rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer">
               <input
                 type="file"
-                accept=".pdf,.mp4"
+                accept=".pdf,video/*,audio/*"
                 multiple
                 className="hidden"
                 onChange={handleMediaFileSelect}

@@ -68,8 +68,7 @@ export function PurchaseDialog() {
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
         <Button
-          className="w-full cursor-not-allowed opacity-50"
-          disabled={true}
+          className="w-full"
         >
           <ShoppingCart className="mr-2 h-4 w-4" />
           {t("common.purchase")}

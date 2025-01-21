@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@ui/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, Play, Pause } from "lucide-react";
 import Image from "next/image";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { useState } from "react";
@@ -99,6 +99,8 @@ export default function OfferDetailPage({
     skip: !user?.id,
   });
 
+  console.log(data?.getOffersById);
+
   const [updateStatus] = useMutation(UPDATE_OFFER_STATUS);
 
   const isOwner = user?.id === data?.getOffersById?.owner?.id;
@@ -144,6 +146,27 @@ export default function OfferDetailPage({
       });
     } catch (error) {
       console.error("Delete error:", error);
+    }
+  };
+
+  const [playingAudio, setPlayingAudio] = useState<HTMLAudioElement | null>(null);
+
+  const handleFileClick = (file: string) => {
+    const extension = file.split('?')[0]?.split('.').pop()?.toLowerCase();
+    const isAudio = ['mp3', 'wav', 'm4a', 'ogg'].includes(extension ?? '');
+
+    if (isAudio) {
+      if (playingAudio) {
+        playingAudio.pause();
+        setPlayingAudio(null);
+      } else {
+        const audio = new Audio(file);
+        audio.play();
+        setPlayingAudio(audio);
+        audio.onended = () => setPlayingAudio(null);
+      }
+    } else {
+      window.open(file, '_blank', 'noopener,noreferrer');
     }
   };
 
@@ -344,8 +367,8 @@ export default function OfferDetailPage({
           </div>
         </div>
 
-        {(offer?.attachedImgs?.length ?? 0) > 0 ||
-          ((offer?.attachedFiles?.length ?? 0) > 0 && (
+        {((offer?.attachedImgs?.length ?? 0) > 0 ||
+          (offer?.attachedFiles?.length ?? 0) > 0) && (
             <div className="mt-12">
               <h3 className="text-sm text-gray-400 mb-4">添付ファイル</h3>
               {offer?.attachedImgs && offer.attachedImgs.length > 0 && (
@@ -363,23 +386,30 @@ export default function OfferDetailPage({
                 </div>
               )}
 
-              {offer?.attachedFiles?.map((file, i) => (
-                <Button
-                  key={i}
-                  variant="outline"
-                  className="w-full justify-between text-left mb-6"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="bg-zinc-800 px-2 py-1 rounded text-sm text-white">
-                      {file.split(".")[1]}
-                    </span>
-                    {file.split(".")[0]}
-                  </div>
-                  <Download className="w-4 h-4" />
-                </Button>
-              ))}
+              {offer?.attachedFiles?.map((file, i) => {
+                const extension = file.split('?')[0]?.split('.').pop()?.toLowerCase();
+                const isAudio = ['mp3', 'wav', 'm4a', 'ogg'].includes(extension ?? '');
+                const isPlaying = isAudio && playingAudio;
+
+                return (
+                  <Button
+                    key={i}
+                    variant="outline"
+                    className="w-full h-[90px] justify-between text-left mb-6 rounded-full border-white"
+                    onClick={() => handleFileClick(file)}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="w-[60px] h-[60px] rounded-full text-sm text-white font-light border-white border flex items-center justify-center">
+                        {isAudio ? (isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />) : file.split('?')[0]?.split('.').pop()?.toUpperCase()}
+                      </span>
+                      {decodeURIComponent(file.split('/').pop()?.split('?')[0]?.split('_').slice(1).join('_').split('.')[0] ?? '')}
+                    </div>
+                    {!isAudio && <Download className="w-4 h-4" />}
+                  </Button>
+                );
+              })}
             </div>
-          ))}
+          )}
 
         <div className="mt-4 text-right text-gray-400 text-sm">
           最終更新:{" "}

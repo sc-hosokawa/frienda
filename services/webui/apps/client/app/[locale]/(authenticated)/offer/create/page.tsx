@@ -236,11 +236,24 @@ export default function OfferCreatePage() {
 
   const handleMediaFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    const validFiles = files.filter((file) => {
-      const isPDF = file.type === "application/pdf";
-      const isMP4 = file.type === "video/mp4";
-      return isPDF || isMP4;
-    });
+    const validFiles = files
+      .filter((file) => {
+        // 許可するファイルタイプを定義
+        const isPDF = file.type === "application/pdf";
+        const isVideo = file.type.startsWith("video/");  // video/mp4, video/webm など
+        const isAudio = file.type.startsWith("audio/");  // audio/mp3, audio/wav など
+
+        if (!isPDF && !isVideo && !isAudio) {
+          alert(t("message.allowed-file-types"));
+          return false;
+        }
+
+        if (file.size > 100 * 1024 * 1024) {
+          alert(t("message.file-size-alert"));
+          return false;
+        }
+        return true;
+      });
     setSelectedFiles((prev) => [...prev, ...validFiles]);
   };
 
@@ -608,7 +621,7 @@ export default function OfferCreatePage() {
                 <label className="mt-2 border border-dashed border-white rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer">
                   <input
                     type="file"
-                    accept=".pdf,.mp4"
+                    accept=".pdf,video/*,audio/*"
                     multiple
                     className="hidden"
                     onChange={handleMediaFileSelect}
