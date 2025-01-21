@@ -298,18 +298,17 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                 ),
                 child: CircleAvatar(
                   radius: 40,
-                  backgroundImage: NetworkImage(
-                    profile['imageUrl'] ?? 'assets/logo_visualonly.jpg',
-                  ),
+                  backgroundImage: profile['imageUrl'] != null
+                      ? NetworkImage(profile['imageUrl'])
+                      : const AssetImage('assets/logo_visualonly.jpg')
+                          as ImageProvider,
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // ショートノートの表示を削除
-                  ],
+                  children: [],
                 ),
               ),
             ],
@@ -326,7 +325,7 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                         ? 'ショートノートを編集'
                         : profile['shortNote'],
                   ),
-                  onPressed: () => _showShortNoteDialog(context, profile),
+                  onPressed: () => _showShortNoteDialog(context, profile, null),
                 ),
               ],
             ),
@@ -727,9 +726,10 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
   }
 
   // ショートノート編集用のダイアログを表示する関数
-  Future<void> _showShortNoteDialog(
-      BuildContext context, Map<String, dynamic> profile) async {
+  Future<void> _showShortNoteDialog(BuildContext context,
+      Map<String, dynamic> profile, Function? refetch) async {
     final controller = TextEditingController(text: profile['shortNote']);
+    print('shortnoteid= ${profile['shortNoteId']}');
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
@@ -795,7 +795,10 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
             ),
           );
         }
+        // キャッシュをクリアしてデータを再取得
         await client.resetStore();
+        // ページを更新
+        refetch?.call();
       } catch (error) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
