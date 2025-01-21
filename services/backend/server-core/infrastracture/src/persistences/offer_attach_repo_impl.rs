@@ -94,12 +94,12 @@ impl OfferAttachRepository for OfferAttachRepoImpl {
     }
 
     async fn get_files_by_offer_id(&self, offer_id: i32) -> Result<Vec<OfferAttach>, DomainError> {
-        let offer_attaches = self.get_by_offer_id(offer_id).await?;
-        let files = offer_attaches
-            .iter()
-            .filter(|a| a.file_uri.is_none())
-            .cloned()
-            .collect();
-        Ok(files)
+        let res = OfferAttachEntity::find()
+            .filter(Column::OfferId.eq(offer_id))
+            .filter(Column::FileUri.is_not_null())
+            .filter(Column::FileUri.ne(""))
+            .all(&self.db)
+            .await?;
+        Ok(res)
     }
 }
