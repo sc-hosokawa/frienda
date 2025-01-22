@@ -9,22 +9,8 @@ import { GenderGenView } from "~/components/dashboard/gender-gen-data";
 import useUserStore from "~/store/user";
 import { RequestForViewDialog } from "~/components/reqest-for-view";
 import { DashboardInfo } from "~/components/dashboard/DashboardInfo";
-import { gql, useQuery } from "@apollo/client";
 import { SearchArtist } from "~/components/dashboard/search-artist";
-
-const GET_ALL_ARTISTS = gql`
-  query GetAllArtists {
-    getAllArtists {
-      artistList {
-        id
-        artistId
-        name
-        imageUrl
-        fsp
-      }
-    }
-  }
-`;
+import getAllArtists from "~/store/artist";
 
 export default function Dashboard() {
   const { user } = useUserStore();
@@ -40,7 +26,7 @@ export default function Dashboard() {
   );
   const [open, setOpen] = useState(false);
 
-  const { data, loading, error } = useQuery(GET_ALL_ARTISTS);
+  const { data, loading, error } = getAllArtists();
 
   return (
     <div className="bg-black text-white min-h-screen">

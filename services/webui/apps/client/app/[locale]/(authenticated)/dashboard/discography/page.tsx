@@ -12,6 +12,8 @@ import { Separator } from "@ui/components/ui/separator";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "~/store/user";
 import { ProductsData, ProductWithTracks } from "~/generated/graphql";
+import getAllArtists from "~/store/artist";
+import { SearchArtist } from "~/components/dashboard/search-artist";
 
 interface ResData {
   getProducts: ProductsData;
@@ -19,9 +21,14 @@ interface ResData {
 
 export default function DiscographyPage() {
   const { user } = useUserStore();
+  const isSuperAdmin = user?.isSuperAdmin;
   const artists = user?.belongsToArtists;
+  const { data: allArtists, loading, error } = getAllArtists();
+  const [open, setOpen] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState<string | null>(
-    artists?.[0]?.artistId || null,
+    !isSuperAdmin
+      ? artists?.[0]?.artistId || null
+      : "artist_00_000000000000000185"
   );
   const { data } = useQuery<ResData>(GET_PRODUCTS, {
     variables: {
@@ -29,7 +36,7 @@ export default function DiscographyPage() {
     },
   });
 
-  if (!artists?.length) {
+  if (!artists?.length && !isSuperAdmin) {
     return (
       <div className="min-h-screen bg-black text-gray-200 p-6 flex flex-col items-center justify-center">
         <h2 className="text-xl font-semibold mb-4">
@@ -57,7 +64,6 @@ export default function DiscographyPage() {
         <header className="flex items-center justify-between mb-8">
           <h1 className="text-6xl font-light">Discography</h1>
         </header>
-
         <div className="flex flex-col gap-1 mb-8 text-sm text-gray-400">
           <div className="flex items-center gap-2">
             <Info className="w-4 h-4 mr-1 shrink-0" />
@@ -65,21 +71,37 @@ export default function DiscographyPage() {
           </div>
         </div>
 
-        <div className="flex gap-2 mb-8 overflow-x-auto">
-          {artists?.map((artist) => (
-            <button
-              key={artist.artistId}
-              onClick={() => setSelectedArtist(artist.artistId)}
-              className={`flex items-center gap-2 px-3 py-1.5 transition-colors shrink-0 ${
-                selectedArtist === artist.artistId
-                  ? "border-b border-white border-dashed"
-                  : "hover:bg-zinc-900"
-              }`}
-            >
-              <div className="text-sm">{artist.name}</div>
-            </button>
-          ))}
-        </div>
+        {isSuperAdmin ? (
+          <div className="mb-4">
+            <SearchArtist
+              value={selectedArtist}
+              setValue={setSelectedArtist}
+              artists={allArtists?.getAllArtists.artistList}
+              open={open}
+              setOpen={setOpen}
+              isLoading={loading}
+              isError={error}
+            />
+          </div>
+        ) : (
+          <>
+            <div className="flex gap-2 mb-8 overflow-x-auto">
+              {artists?.map((artist) => (
+                <button
+                  key={artist.artistId}
+                  onClick={() => setSelectedArtist(artist.artistId)}
+                  className={`flex items-center gap-2 px-3 py-1.5 transition-colors shrink-0 ${
+                    selectedArtist === artist.artistId
+                      ? "border-b border-white border-dashed"
+                      : "hover:bg-zinc-900"
+                  }`}
+                >
+                  <div className="text-sm">{artist.name}</div>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
 
         <hr className="mb-8 mt-24 border-[#303030]" />
 
