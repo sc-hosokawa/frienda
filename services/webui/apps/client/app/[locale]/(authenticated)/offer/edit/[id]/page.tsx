@@ -227,15 +227,16 @@ export default function OfferEditPage() {
       .filter((file) => {
         // 許可するファイルタイプを定義
         const isPDF = file.type === "application/pdf";
-        const isVideo = file.type.startsWith("video/");  // video/mp4, video/webm など
-        const isAudio = file.type.startsWith("audio/");  // audio/mp3, audio/wav など
+        const isVideo = file.type.startsWith("video/"); // video/mp4, video/webm など
+        const isAudio = file.type.startsWith("audio/"); // audio/mp3, audio/wav など
 
         if (!isPDF && !isVideo && !isAudio) {
           alert(t("message.allowed-file-types"));
           return false;
         }
 
-        if (file.size > 100 * 1024 * 1024) {  // 100MB制限は維持
+        if (file.size > 100 * 1024 * 1024) {
+          // 100MB制限は維持
           alert(t("message.file-size-alert"));
           return false;
         }

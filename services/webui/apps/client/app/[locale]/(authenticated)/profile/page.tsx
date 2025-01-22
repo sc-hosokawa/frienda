@@ -421,7 +421,9 @@ export default function SettingPage() {
                               : key === "fbHandle"
                                 ? "Facebook"
                                 : key}
-                    {key === "name" && <span className="text-red-500 ml-1">*</span>}
+                    {key === "name" && (
+                      <span className="text-red-500 ml-1">*</span>
+                    )}
                   </label>
                   <textarea
                     value={value}

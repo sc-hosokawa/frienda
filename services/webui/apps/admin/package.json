@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.3.5",
     "recharts": "^2.13.3",
+    "stripe": "^17.4.0",
     "ui": "workspace:*",
     "xlsx": "^0.18.5"
   },

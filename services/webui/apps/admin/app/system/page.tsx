@@ -37,7 +37,21 @@ import {
 import Link from "next/link";
 import { UserListTable } from "../../components/system/user-list-table";
 
+async function fetchBalanceFromStripe() {
+  try {
+    const response = await fetch("/api/stripe");
+    const balance = await response.json();
+    return balance;
+  } catch (error) {
+    console.error("Failed to fetch balance from stripe:", error);
+    return null;
+  }
+}
+
 export default function SettingPage() {
+  const [stripeBalance, setStripeBalance] = React.useState<number>(0);
+  const [isLoadingStripe, setIsLoadingStripe] = React.useState(true);
+
   const { data: artistData, isLoading: isLoadingArtist } = useQuery({
     queryKey: ["artists"],
     queryFn: async () => {
@@ -95,6 +109,16 @@ export default function SettingPage() {
     },
   });
 
+  React.useEffect(() => {
+    const getStripeBalance = async () => {
+      setIsLoadingStripe(true);
+      const balance = await fetchBalanceFromStripe();
+      setStripeBalance(balance?.totalAmount || 0);
+      setIsLoadingStripe(false);
+    };
+    getStripeBalance();
+  }, []);
+
   return (
     <main>
       <div className="flex flex-col min-h-screen">
@@ -120,8 +144,8 @@ export default function SettingPage() {
           />
           <StatsCard
             title="総売上"
-            amount={systemOverview?.totalRevenue}
-            isLoading={isLoadingSystemOverview}
+            amount={stripeBalance || 0}
+            isLoading={isLoadingStripe}
             image={<JapaneseYen />}
             unit="円"
           />

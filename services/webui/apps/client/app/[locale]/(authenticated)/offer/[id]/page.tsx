@@ -149,11 +149,13 @@ export default function OfferDetailPage({
     }
   };
 
-  const [playingAudio, setPlayingAudio] = useState<HTMLAudioElement | null>(null);
+  const [playingAudio, setPlayingAudio] = useState<HTMLAudioElement | null>(
+    null,
+  );
 
   const handleFileClick = (file: string) => {
-    const extension = file.split('?')[0]?.split('.').pop()?.toLowerCase();
-    const isAudio = ['mp3', 'wav', 'm4a', 'ogg'].includes(extension ?? '');
+    const extension = file.split("?")[0]?.split(".").pop()?.toLowerCase();
+    const isAudio = ["mp3", "wav", "m4a", "ogg"].includes(extension ?? "");
 
     if (isAudio) {
       if (playingAudio) {
@@ -166,7 +168,7 @@ export default function OfferDetailPage({
         audio.onended = () => setPlayingAudio(null);
       }
     } else {
-      window.open(file, '_blank', 'noopener,noreferrer');
+      window.open(file, "_blank", "noopener,noreferrer");
     }
   };
 
@@ -369,47 +371,70 @@ export default function OfferDetailPage({
 
         {((offer?.attachedImgs?.length ?? 0) > 0 ||
           (offer?.attachedFiles?.length ?? 0) > 0) && (
-            <div className="mt-12">
-              <h3 className="text-sm text-gray-400 mb-4">添付ファイル</h3>
-              {offer?.attachedImgs && offer.attachedImgs.length > 0 && (
-                <div className="grid grid-cols-4 gap-4 mb-4">
-                  {offer.attachedImgs.map((img, i) => (
-                    <Image
-                      key={i}
-                      src={img}
-                      alt="Offer attachment"
-                      width={240}
-                      height={240}
-                      className="aspect-square bg-zinc-800 rounded-lg flex items-center justify-center"
-                    />
-                  ))}
-                </div>
-              )}
-
-              {offer?.attachedFiles?.map((file, i) => {
-                const extension = file.split('?')[0]?.split('.').pop()?.toLowerCase();
-                const isAudio = ['mp3', 'wav', 'm4a', 'ogg'].includes(extension ?? '');
-                const isPlaying = isAudio && playingAudio;
-
-                return (
-                  <Button
+          <div className="mt-12">
+            <h3 className="text-sm text-gray-400 mb-4">添付ファイル</h3>
+            {offer?.attachedImgs && offer.attachedImgs.length > 0 && (
+              <div className="grid grid-cols-4 gap-4 mb-4">
+                {offer.attachedImgs.map((img, i) => (
+                  <Image
                     key={i}
-                    variant="outline"
-                    className="w-full h-[90px] justify-between text-left mb-6 rounded-full border-white"
-                    onClick={() => handleFileClick(file)}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="w-[60px] h-[60px] rounded-full text-sm text-white font-light border-white border flex items-center justify-center">
-                        {isAudio ? (isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />) : file.split('?')[0]?.split('.').pop()?.toUpperCase()}
-                      </span>
-                      {decodeURIComponent(file.split('/').pop()?.split('?')[0]?.split('_').slice(1).join('_').split('.')[0] ?? '')}
-                    </div>
-                    {!isAudio && <Download className="w-4 h-4" />}
-                  </Button>
-                );
-              })}
-            </div>
-          )}
+                    src={img}
+                    alt="Offer attachment"
+                    width={240}
+                    height={240}
+                    className="aspect-square bg-zinc-800 rounded-lg flex items-center justify-center"
+                  />
+                ))}
+              </div>
+            )}
+
+            {offer?.attachedFiles?.map((file, i) => {
+              const extension = file
+                .split("?")[0]
+                ?.split(".")
+                .pop()
+                ?.toLowerCase();
+              const isAudio = ["mp3", "wav", "m4a", "ogg"].includes(
+                extension ?? "",
+              );
+              const isPlaying = isAudio && playingAudio;
+
+              return (
+                <Button
+                  key={i}
+                  variant="outline"
+                  className="w-full h-[90px] justify-between text-left mb-6 rounded-full border-white"
+                  onClick={() => handleFileClick(file)}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="w-[60px] h-[60px] rounded-full text-sm text-white font-light border-white border flex items-center justify-center">
+                      {isAudio ? (
+                        isPlaying ? (
+                          <Pause className="w-4 h-4" />
+                        ) : (
+                          <Play className="w-4 h-4" />
+                        )
+                      ) : (
+                        file.split("?")[0]?.split(".").pop()?.toUpperCase()
+                      )}
+                    </span>
+                    {decodeURIComponent(
+                      file
+                        .split("/")
+                        .pop()
+                        ?.split("?")[0]
+                        ?.split("_")
+                        .slice(1)
+                        .join("_")
+                        .split(".")[0] ?? "",
+                    )}
+                  </div>
+                  {!isAudio && <Download className="w-4 h-4" />}
+                </Button>
+              );
+            })}
+          </div>
+        )}
 
         <div className="mt-4 text-right text-gray-400 text-sm">
           最終更新:{" "}

@@ -63,7 +63,6 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <ModeToggle />
-          <ProfileMenu />
         </div>
       </div>
     </header>

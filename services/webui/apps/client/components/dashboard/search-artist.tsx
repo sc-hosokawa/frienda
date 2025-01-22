@@ -83,7 +83,7 @@ export function SearchArtist({
                     <Check
                       className={cn(
                         "ml-auto",
-                        value === artist.artistId ? "opacity-100" : "opacity-0"
+                        value === artist.artistId ? "opacity-100" : "opacity-0",
                       )}
                     />
                   </CommandItem>
