@@ -9,16 +9,38 @@ import { GenderGenView } from "~/components/dashboard/gender-gen-data";
 import useUserStore from "~/store/user";
 import { RequestForViewDialog } from "~/components/reqest-for-view";
 import { DashboardInfo } from "~/components/dashboard/DashboardInfo";
+import { gql, useQuery } from "@apollo/client";
+import { SearchArtist } from "~/components/dashboard/search-artist";
+
+const GET_ALL_ARTISTS = gql`
+  query GetAllArtists {
+    getAllArtists {
+      artistList {
+        id
+        artistId
+        name
+        imageUrl
+        fsp
+      }
+    }
+  }
+`;
 
 export default function Dashboard() {
   const { user } = useUserStore();
+  const isSuperAdmin = user?.isSuperAdmin;
   const artists = user?.belongsToArtists;
   const acceptedArtists = artists?.filter(
-    (artist) => artist.status === "Accept",
+    (artist) => artist.status === "Accept"
   );
   const [selectedArtist, setSelectedArtist] = useState<string | null>(
-    acceptedArtists?.[0]?.artistId || null,
+    !isSuperAdmin
+      ? acceptedArtists?.[0]?.artistId || null
+      : "artist_00_000000000000000185"
   );
+  const [open, setOpen] = useState(false);
+
+  const { data, loading, error } = useQuery(GET_ALL_ARTISTS);
 
   return (
     <div className="bg-black text-white min-h-screen">
@@ -44,38 +66,54 @@ export default function Dashboard() {
             <RequestForViewDialog />
           </div>
         </header>
-        <div className="flex space-x-4 mb-8 overflow-x-auto">
-          {acceptedArtists && acceptedArtists.length > 0 ? (
-            acceptedArtists.map((artist) => {
-              const isSelected = artist.artistId === selectedArtist;
-              return (
-                <button
-                  key={artist.artistId}
-                  onClick={() => setSelectedArtist(artist.artistId)}
-                  className={`flex items-center space-x-2 p-2 transition-colors shrink-0 ${
-                    isSelected
-                      ? "border-b border-white border-dashed"
-                      : "hover:bg-gray-900"
-                  }`}
-                >
-                  <span
-                    className={`text-sm ${isSelected ? "text-white" : "text-white/90"}`}
-                  >
-                    {artist.name}
-                  </span>
-                </button>
-              );
-            })
-          ) : (
-            <div className="w-full flex flex-col justify-center items-center py-8 text-gray-400">
-              <p>アーティスト閲覧権限を申請してください。</p>
-              <p className="mb-8">
-                すでに行った方はログアウトして再度ログインするか、しばらく時間をあけてからアクセスしてください。
-              </p>
-              <RequestForViewDialog />
+        {isSuperAdmin ? (
+          <div className="flex space-x-4 mb-8">
+            <SearchArtist
+              value={selectedArtist}
+              setValue={setSelectedArtist}
+              artists={data?.getAllArtists.artistList}
+              open={open}
+              setOpen={setOpen}
+              isLoading={loading}
+              isError={error}
+            />
+          </div>
+        ) : (
+          <>
+            <div className="flex space-x-4 mb-8 overflow-x-auto">
+              {acceptedArtists && acceptedArtists.length > 0 ? (
+                acceptedArtists.map((artist) => {
+                  const isSelected = artist.artistId === selectedArtist;
+                  return (
+                    <button
+                      key={artist.artistId}
+                      onClick={() => setSelectedArtist(artist.artistId)}
+                      className={`flex items-center space-x-2 p-2 transition-colors shrink-0 ${
+                        isSelected
+                          ? "border-b border-white border-dashed"
+                          : "hover:bg-gray-900"
+                      }`}
+                    >
+                      <span
+                        className={`text-sm ${isSelected ? "text-white" : "text-white/90"}`}
+                      >
+                        {artist.name}
+                      </span>
+                    </button>
+                  );
+                })
+              ) : (
+                <div className="w-full flex flex-col justify-center items-center py-8 text-gray-400">
+                  <p>アーティスト閲覧権限を申請してください。</p>
+                  <p className="mb-8">
+                    すでに行った方はログアウトして再度ログインするか、しばらく時間をあけてからアクセスしてください。
+                  </p>
+                  <RequestForViewDialog />
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
         <main className="space-y-16">
           {selectedArtist && (
             <>
