@@ -101,9 +101,11 @@ flutter_native_splash:
   fullscreen: true
   android_12:
     icon_background_color: '#010100'
-    image: 'assets/logo_visualonly.jpg'
+    image: 'assets/splash_android_12.jpg'
 
-flutter_icons:       
+flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/logo_visualonly.jpg"
+  image_path: 'assets/logo_visualonly.jpg'
+  adaptive_icon_background: '#ffffff'
+  adaptive_icon_foreground: 'assets/logo_visualonly.jpg'
