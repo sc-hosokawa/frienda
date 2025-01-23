@@ -277,7 +277,7 @@ export default function OfferDetailPage({
 
         <div className="grid md:grid-cols-[300px,1fr] gap-8">
           <Image
-            src={offer?.imageUrl || "/placeholder.svg"}
+            src={offer?.imageUrl || "/offer.svg"}
             alt={offer?.title || "offer image"}
             width={300}
             height={300}
@@ -329,11 +329,11 @@ export default function OfferDetailPage({
               <div>
                 <div className="flex items-center gap-2">
                   <Image
-                    src={offer.owner.imageUrl || "/placeholder.svg"}
+                    src={offer.owner.imageUrl || "/logo_visualonly.jpg"}
                     alt="Profile"
                     width={32}
                     height={32}
-                    className="rounded-full"
+                    className="rounded-full w-8 h-8 object-cover"
                   />
                   <span className="text-white">{offer.owner.name}</span>
                 </div>

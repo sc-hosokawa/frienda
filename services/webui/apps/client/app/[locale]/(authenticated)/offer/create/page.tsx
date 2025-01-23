@@ -87,6 +87,7 @@ type FormErrors = {
   place?: string;
   coverImage?: string;
   fee?: string;
+  category?: string;
 };
 
 // TODO: rewrite this component with React Hook Form
@@ -138,28 +139,47 @@ export default function OfferCreatePage() {
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
+    const errorMessages: string[] = [];
 
     if (!formData.title.trim()) {
       newErrors.title = "タイトルは必須です";
+      errorMessages.push("・タイトルは必須です");
     }
     if (!formData.description.trim()) {
       newErrors.description = "概要は必須です";
+      errorMessages.push("・概要は必須です");
     }
     if (!formData.place.trim()) {
       newErrors.place = "場所は必須です";
+      errorMessages.push("・場所は必須です");
     }
     if (!selectedImage) {
       newErrors.coverImage = "カバー画像は必須です";
+      errorMessages.push("・カバー画像は必須です");
     }
     if (!formData.fee || formData.fee <= 0) {
       newErrors.fee = "FSPは1以上を指定してください";
+      errorMessages.push("・FSPは1以上を指定してください");
     }
     if (formData.fee > (user?.fspBalance || 0)) {
       newErrors.fee = `保有FSP（${user?.fspBalance}）を超えて指定することはできません`;
+      errorMessages.push(
+        `・保有FSP（${user?.fspBalance}）を超えて指定することはできません`,
+      );
+    }
+    if (!formData.category) {
+      newErrors.category = "カテゴリーは必須です";
+      errorMessages.push("・カテゴリーは必須です");
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+
+    if (errorMessages.length > 0) {
+      alert(errorMessages.join("\n"));
+      return false;
+    }
+
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -303,7 +323,10 @@ export default function OfferCreatePage() {
               ( Offer Information )
             </h2>
             <div className="flex flex-col gap-2 mb-6">
-              <p className="text-sm text-white">{t("common.category")}</p>
+              <div className="flex items-center">
+                <p className="text-sm text-white">{t("common.category")}</p>
+                <span className="text-red-500 ml-1">*</span>
+              </div>
               <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <button
@@ -321,6 +344,9 @@ export default function OfferCreatePage() {
                   </button>
                 ))}
               </div>
+              {errors.category && (
+                <p className="text-red-500 text-sm mt-1">{errors.category}</p>
+              )}
             </div>
 
             <div className="grid gap-6 mt-12">

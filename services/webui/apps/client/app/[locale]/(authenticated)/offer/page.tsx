@@ -191,7 +191,7 @@ export default function OfferPage() {
           >
             <Image src="/search.svg" alt="list" width={24} height={24} />
           </Link>
-          {user?.fspBalance !== undefined && user.fspBalance >= 20 ? (
+          {user?.fspBalance !== undefined && user.fspBalance >= 1 ? (
             <Link
               href="/offer/create"
               className="p-2 rounded-full hover:bg-gray-700 transition-colors border border-white border-dashed w-[60px] h-[60px] flex items-center justify-center"

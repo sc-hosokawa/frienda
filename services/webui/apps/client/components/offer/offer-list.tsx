@@ -81,15 +81,27 @@ export default function OfferList() {
           onClick={() => router.push(`/offer/${offer.id}`)}
         >
           <CardContent className="p-6">
-            {offer.imageUrl && (
-              <div className="mb-4">
+            <div className="mb-4">
+              {offer.imageUrl ? (
                 <img
                   src={offer.imageUrl}
                   alt={offer.title}
                   className="w-full h-40 object-cover rounded-md"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "/offer.svg";
+                  }}
                 />
-              </div>
-            )}
+              ) : (
+                <div className="w-full h-40 bg-zinc-800 rounded-md flex items-center justify-center">
+                  <img
+                    src="/offer.svg"
+                    alt="placeholder"
+                    className="w-16 h-16 opacity-90"
+                  />
+                </div>
+              )}
+            </div>
 
             <div className="flex justify-between items-start mb-2">
               <div>

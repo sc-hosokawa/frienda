@@ -73,11 +73,17 @@ const OfferCard = ({ offer }: { offer: Offer }) => {
 
   return (
     <Card
-      className="bg-zinc-900 border-zinc-800 cursor-pointer hover:bg-zinc-800 transition-colors"
+      className="bg-zinc-900 border-zinc-800 cursor-pointer hover:bg-zinc-800 transition-colors overflow-hidden"
       onClick={handleClick}
     >
       <CardContent className="p-0">
-        <img src={offer.imageUrl} alt="" className="w-full h-48 object-cover" />
+        <div className="aspect-video relative">
+          <img
+            src={offer.imageUrl || "/offer.svg"}
+            alt="offer image"
+            className="w-full h-full object-contain bg-zinc-800"
+          />
+        </div>
         <div className="p-4">
           <div className="flex gap-2 mb-3">
             <Badge
