@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:client/presentation/widgets/offer/available_offers.dart';
+import 'package:client/presentation/providers/client_provider.dart';
 
 class Offer extends ConsumerStatefulWidget {
   const Offer({super.key});
@@ -29,11 +30,10 @@ class _OfferState extends ConsumerState<Offer> {
       OfferDetailPage(offerId: offerId),
     );
 
-    if (refetch != null) {
-      await refetch();
-    }
-
     if (mounted) {
+      final client = ref.read(graphQLClientProvider);
+      await client.resetStore();
+
       setState(() {
         _isTransitioning = false;
       });
@@ -462,13 +462,22 @@ class _OfferState extends ConsumerState<Offer> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (offer['imageUrl'] != null)
-                            Image.network(
-                              offer['imageUrl'],
-                              height: 60,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: offer['imageUrl'] != null
+                                ? Image.network(
+                                    offer['imageUrl'],
+                                    height: 60,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  )
+                                : SvgPicture.asset(
+                                    'assets/offer.svg',
+                                    height: 60,
+                                    width: 60,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
                           const SizedBox(height: 8),
                           SizedBox(
                             height: 40,
@@ -555,13 +564,22 @@ class _OfferState extends ConsumerState<Offer> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (offer['imageUrl'] != null)
-                        Image.network(
-                          offer['imageUrl'],
-                          height: 60,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: offer['imageUrl'] != null
+                            ? Image.network(
+                                offer['imageUrl'],
+                                height: 60,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              )
+                            : SvgPicture.asset(
+                                'assets/offer.svg',
+                                height: 60,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
                       const SizedBox(height: 8),
                       Text(
                         offer['title'],

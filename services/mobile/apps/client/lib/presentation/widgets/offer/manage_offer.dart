@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/widgets/message/message_room.dart';
+import 'package:client/presentation/providers/client_provider.dart';
 
 class ManageOfferPage extends ConsumerStatefulWidget {
   final int offerId;
@@ -45,13 +47,13 @@ class _ManageOfferPageState extends ConsumerState<ManageOfferPage> {
     }
   ''';
 
-  static const String CREATE_MESSAGE_ROOM = r'''
-    mutation CreateNewMessageRoom($input: CreateNewMessageRoomInput!) {
-      createNewMessageRoom(input: $input) {
+  static final CREATE_MESSAGE_ROOM = gql('''
+    mutation CreateNewMessageRoom(\$input: CreateNewMessageRoomInput!) {
+      createNewMessageRoom(input: \$input) {
         id
       }
     }
-  ''';
+  ''');
 
   void _showConfirmationDialog({
     required String userId,
@@ -229,6 +231,7 @@ class _ManageOfferPageState extends ConsumerState<ManageOfferPage> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
             backgroundImage: NetworkImage(user['imgUrl']),
@@ -246,59 +249,119 @@ class _ManageOfferPageState extends ConsumerState<ManageOfferPage> {
                     color: Colors.white,
                   ),
                 ),
-                Text(
-                  user['category'],
-                  style: TextStyle(
-                    color: Colors.grey[400],
-                    fontSize: 12,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      user['category'],
+                      style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: 12,
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: isOngoing ? Colors.blue[900] : Colors.grey[800],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        user['statusInOffer'],
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () => _handleMessageClick(
+                                  widget.userId, user['userId']),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey[800],
+                              ),
+                              child: Text('メッセージ'),
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () => isOngoing
+                                  ? _handleFinishClick(user['userId'])
+                                  : _handleRequestClick(user['userId']),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFFE4DBC0),
+                              ),
+                              child: Text(
+                                isOngoing ? '完了する' : '依頼する',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () => _handleMessageClick(user['userId']),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[800],
-                ),
-                child: Text('メッセージ'),
-              ),
-              SizedBox(width: 8),
-              ElevatedButton(
-                onPressed: () => isOngoing
-                    ? _handleFinishClick(user['userId'])
-                    : _handleRequestClick(user['userId']),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFE4DBC0),
-                ),
-                child: Text(
-                  isOngoing ? '完了する' : '依頼する',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              SizedBox(width: 16),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                decoration: BoxDecoration(
-                  color: isOngoing ? Colors.blue[900] : Colors.grey[800],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  user['statusInOffer'],
-                  style: TextStyle(fontSize: 12),
-                ),
-              ),
-            ],
           ),
         ],
       ),
     );
   }
 
-  void _handleMessageClick(String targetUserId) {
-    // TODO: Implement message room creation and navigation
+  Future<void> _handleMessageClick(
+      String currentUserId, String targetUserId) async {
+    if (currentUserId == null) return;
+
+    try {
+      final result = await ref.read(graphQLClientProvider).mutate(
+            MutationOptions(
+              document: CREATE_MESSAGE_ROOM,
+              variables: {
+                'input': {
+                  'createdBy': currentUserId,
+                  'userList': [currentUserId, targetUserId],
+                  'category': 'dm',
+                },
+              },
+            ),
+          );
+
+      if (result.hasException) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result.exception.toString())),
+        );
+        return;
+      }
+
+      final roomId = result.data?['createNewMessageRoom']['id'] as String?;
+
+      if (roomId != null && mounted) {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => MessageRoom(roomId: roomId),
+          ),
+        );
+
+        // メッセージルームから戻ってきた後にキャッシュをリセット
+        final client = ref.read(graphQLClientProvider);
+        await client.resetStore();
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
 
   void _handleRequestClick(String targetUserId) {
@@ -317,8 +380,43 @@ class _ManageOfferPageState extends ConsumerState<ManageOfferPage> {
     );
   }
 
-  void _updateOfferStatus(String targetUserId, String status) {
-    // TODO: Implement GraphQL mutation for updating offer status
+  void _updateOfferStatus(String targetUserId, String status) async {
+    try {
+      final result = await ref.read(graphQLClientProvider).mutate(
+            MutationOptions(
+              document: gql(UPDATE_OFFER_STATUS),
+              variables: {
+                'input': {
+                  'id': widget.offerId,
+                  'userId': targetUserId,
+                  'status': status,
+                },
+              },
+            ),
+          );
+
+      if (result.hasException) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result.exception.toString())),
+        );
+        return;
+      }
+
+      if (result.data?['updateOfferStatus']?['id'] != null) {
+        setState(() {
+          _isModalVisible = false;
+        });
+        // キャッシュをリセットしてデータを再取得
+        final client = ref.read(graphQLClientProvider);
+        await client.resetStore();
+      }
+    } catch (err) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error updating offer status: $err')),
+      );
+    }
   }
 
   @override

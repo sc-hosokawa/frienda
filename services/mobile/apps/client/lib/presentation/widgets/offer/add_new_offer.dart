@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 
 class AddNewOffer extends ConsumerStatefulWidget {
   const AddNewOffer({super.key});
@@ -139,163 +140,194 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
   }
 
   Future<void> _submitForm() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isUploading = true;
-      });
+    final user = ref.watch(userProvider);
+    final userBalance = user?.fspBalance ?? 0;
 
-      try {
-        final userId = ref.read(userProvider)?.id;
-        if (userId == null) {
-          throw Exception('ユーザーIDが取得できません');
-        }
+    // バリデーションを実行
+    if (!_formKey.currentState!.validate()) {
+      // バリデーション失敗時は処理を中止し、エラーメッセージを表示
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('入力内容を確認してください'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
 
-        print('userId: $userId');
+    // 報酬額の最終チェック
+    final feeValue = int.tryParse(_feeController.text);
+    if (feeValue == null || feeValue <= 0 || feeValue > userBalance) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('報酬額が不正です'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
 
-        // Upload image first if selected
-        String? imageUrl;
-        if (_selectedImage != null) {
-          imageUrl = await _uploadImage();
-        }
+    setState(() {
+      _isUploading = true;
+    });
 
-        List<String> fileUrls = [];
-        if (_selectedFiles.isNotEmpty) {
-          fileUrls = await _uploadFiles();
-        }
-
-        final GraphQLClient client = GraphQLProvider.of(context).value;
-
-        final MutationOptions options = MutationOptions(
-          document: gql('''
-            mutation CreateNewOffer(
-              \$owner: String!
-              \$deadline: String
-              \$title: String!
-              \$description: String!
-              \$fee: Int!
-              \$imageUrl: String
-              \$raidId: Int
-              \$category: String
-              \$place: String!
-              \$attention: String
-              \$requiredSkill: String
-              \$targetRole: String
-              \$publicity: Boolean
-              \$attachedImgs: [String!]
-              \$attachedFiles: [String!]
-            ) {
-              createNewOffer(input: {
-                owner: \$owner
-                deadline: \$deadline
-                title: \$title
-                description: \$description
-                fee: \$fee
-                imageUrl: \$imageUrl
-                raidId: \$raidId
-                category: \$category
-                place: \$place
-                attention: \$attention
-                requiredSkill: \$requiredSkill
-                targetRole: \$targetRole
-                publicity: \$publicity
-                attachedImgs: \$attachedImgs
-                attachedFiles: \$attachedFiles
-              }) {
-                id
-              }
-            }
-          '''),
-          variables: {
-            'owner': userId,
-            'deadline': _deadlineController.text.isEmpty
-                ? null
-                : _deadlineController.text,
-            'title': _titleController.text,
-            'description': _descriptionController.text,
-            'fee': int.parse(_feeController.text),
-            'imageUrl': imageUrl,
-            'raidId': null, // 必要に応じて設定
-            'category': _categoryController.text.isEmpty
-                ? null
-                : _categoryController.text,
-            'place': _placeController.text,
-            'attention': _attentionController.text.isEmpty
-                ? null
-                : _attentionController.text,
-            'requiredSkill': _requiredSkillController.text.isEmpty
-                ? null
-                : _requiredSkillController.text,
-            'targetRole': _targetRoleController.text.isEmpty
-                ? null
-                : _targetRoleController.text,
-            'publicity': _isPublic,
-            'attachedImgs': imageUrl != null ? [imageUrl] : [],
-            'attachedFiles': fileUrls,
-          },
-          fetchPolicy: FetchPolicy.noCache,
-          errorPolicy: ErrorPolicy.all,
-        );
-
-        final QueryResult result = await client.mutate(options).timeout(
-          const Duration(seconds: 30),
-          onTimeout: () {
-            throw TimeoutException('リクエストがタイムアウトしました');
-          },
-        );
-
-        print('GraphQL Response: ${result.data}');
-
-        if (result.hasException) {
-          throw Exception(result.exception.toString());
-        }
-
-        // Clear the form
-        _titleController.clear();
-        _descriptionController.clear();
-        _feeController.clear();
-        _deadlineController.clear();
-        _placeController.clear();
-        _categoryController.clear();
-        _attentionController.clear();
-        _requiredSkillController.clear();
-        _targetRoleController.clear();
-
-        // Show success message
-        if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('投稿が完了しました')),
-        );
-
-        // Return to the previous screen
-        Navigator.of(context).pop(true);
-      } on TimeoutException {
-        // タイムアウトの処理
-        if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('リクエストがタイムアウトしました。もう一度お試しください。'),
-            backgroundColor: Colors.orange,
-          ),
-        );
-      } catch (e) {
-        // Show error message
-        if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('エラーが発生しました: ${e.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      } finally {
-        setState(() {
-          _isUploading = false;
-        });
+    try {
+      final userId = ref.read(userProvider)?.id;
+      if (userId == null) {
+        throw Exception('ユーザーIDが取得できません');
       }
+
+      print('userId: $userId');
+
+      // Upload image first if selected
+      String? imageUrl;
+      if (_selectedImage != null) {
+        imageUrl = await _uploadImage();
+      }
+
+      List<String> fileUrls = [];
+      if (_selectedFiles.isNotEmpty) {
+        fileUrls = await _uploadFiles();
+      }
+
+      final GraphQLClient client = GraphQLProvider.of(context).value;
+
+      final MutationOptions options = MutationOptions(
+        document: gql('''
+          mutation CreateNewOffer(
+            \$owner: String!
+            \$deadline: String
+            \$title: String!
+            \$description: String!
+            \$fee: Int!
+            \$imageUrl: String
+            \$raidId: Int
+            \$category: String
+            \$place: String!
+            \$attention: String
+            \$requiredSkill: String
+            \$targetRole: String
+            \$publicity: Boolean
+            \$attachedImgs: [String!]
+            \$attachedFiles: [String!]
+          ) {
+            createNewOffer(input: {
+              owner: \$owner
+              deadline: \$deadline
+              title: \$title
+              description: \$description
+              fee: \$fee
+              imageUrl: \$imageUrl
+              raidId: \$raidId
+              category: \$category
+              place: \$place
+              attention: \$attention
+              requiredSkill: \$requiredSkill
+              targetRole: \$targetRole
+              publicity: \$publicity
+              attachedImgs: \$attachedImgs
+              attachedFiles: \$attachedFiles
+            }) {
+              id
+            }
+          }
+        '''),
+        variables: {
+          'owner': userId,
+          'deadline': _deadlineController.text.isEmpty
+              ? null
+              : _deadlineController.text,
+          'title': _titleController.text,
+          'description': _descriptionController.text,
+          'fee': int.parse(_feeController.text),
+          'imageUrl': imageUrl,
+          'raidId': null, // 必要に応じて設定
+          'category': _categoryController.text.isEmpty
+              ? null
+              : _categoryController.text,
+          'place': _placeController.text,
+          'attention': _attentionController.text.isEmpty
+              ? null
+              : _attentionController.text,
+          'requiredSkill': _requiredSkillController.text.isEmpty
+              ? null
+              : _requiredSkillController.text,
+          'targetRole': _targetRoleController.text.isEmpty
+              ? null
+              : _targetRoleController.text,
+          'publicity': _isPublic,
+          'attachedImgs': imageUrl != null ? [imageUrl] : [],
+          'attachedFiles': fileUrls,
+        },
+        fetchPolicy: FetchPolicy.noCache,
+        errorPolicy: ErrorPolicy.all,
+      );
+
+      final QueryResult result = await client.mutate(options).timeout(
+        const Duration(seconds: 30),
+        onTimeout: () {
+          throw TimeoutException('リクエストがタイムアウトしました');
+        },
+      );
+
+      print('GraphQL Response: ${result.data}');
+
+      if (result.hasException) {
+        throw Exception(result.exception.toString());
+      }
+
+      // Clear the form
+      _titleController.clear();
+      _descriptionController.clear();
+      _feeController.clear();
+      _deadlineController.clear();
+      _placeController.clear();
+      _categoryController.clear();
+      _attentionController.clear();
+      _requiredSkillController.clear();
+      _targetRoleController.clear();
+
+      // Show success message
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('投稿が完了しました')),
+      );
+
+      // Return to the previous screen
+      Navigator.of(context).pop(true);
+    } on TimeoutException {
+      // タイムアウトの処理
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('リクエストがタイムアウトしました。もう一度お試しください。'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+    } catch (e) {
+      // Show error message
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('エラーが発生しました: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() {
+        _isUploading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // ユーザーの残高を取得
+    final user = ref.watch(userProvider);
+    final userBalance = user?.fspBalance ?? 0;
+
+    print('userBalance: $userBalance');
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Stack(
@@ -347,12 +379,38 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                           controller: _feeController,
                           decoration: _inputDecoration.copyWith(
                             labelText: '報酬 (FSP)',
+                            helperText: '現在の残高: $userBalance FSP',
                           ),
-                          keyboardType: TextInputType.number,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: false,
+                            signed: false,
+                          ),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return '報酬を入力してください';
                             }
+
+                            // 数値として解析
+                            int? fee;
+                            try {
+                              fee = int.parse(value);
+                            } catch (e) {
+                              return '有効な数値を入力してください';
+                            }
+
+                            // 0以上の値であることを確認
+                            if (fee <= 0) {
+                              return '0より大きい値を入力してください';
+                            }
+
+                            // 残高以下であることを確認
+                            if (fee > userBalance) {
+                              return '残高を超える報酬は設定できません';
+                            }
+
                             return null;
                           },
                         ),
@@ -576,6 +634,10 @@ class _AddNewOfferState extends ConsumerState<AddNewOffer> {
                         const SizedBox(height: 24),
                         ElevatedButton(
                           onPressed: _submitForm,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                          ),
                           child: const Text('投稿する'),
                         ),
                       ],

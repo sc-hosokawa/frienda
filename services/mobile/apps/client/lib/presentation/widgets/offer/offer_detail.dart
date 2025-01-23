@@ -10,6 +10,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:client/presentation/widgets/offer/manage_offer.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class OfferDetailPage extends ConsumerStatefulWidget {
   final int offerId;
@@ -240,14 +241,29 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
     return Container(
       height: 200,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: _offerData?['imageUrl'] != null ? Colors.white : Colors.black,
         borderRadius: BorderRadius.circular(8),
-        image: _offerData?['imageUrl'] != null
-            ? DecorationImage(
-                image: NetworkImage(_offerData!['imageUrl']),
+        border: _offerData?['imageUrl'] == null
+            ? Border.all(color: Colors.white, width: 1)
+            : null,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: _offerData?['imageUrl'] != null
+            ? Image.network(
+                _offerData!['imageUrl'],
+                width: double.infinity,
+                height: double.infinity,
                 fit: BoxFit.cover,
               )
-            : null,
+            : Center(
+                child: SvgPicture.asset(
+                  'assets/offer.svg',
+                  width: 100, // サイズを50%程度に縮小
+                  height: 100, // サイズを50%程度に縮小
+                  fit: BoxFit.contain, // アイコン全体が表示されるように
+                ),
+              ),
       ),
     );
   }
@@ -624,6 +640,7 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
   Widget _buildApplyButton() {
     final currentUser = ref.read(userProvider);
     final isOwner = _offerData?['owner']?['id'] == currentUser?.id;
+    final isPublic = _offerData?['publicity'] ?? false;
 
     return Row(
       children: [
@@ -641,20 +658,30 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
                       ),
                     );
                   }
-                : (_isApplied ? null : _showConfirmationDialog),
+                : (!isPublic || _isApplied || _offerData?['status'] != null
+                    ? null // 非公開、Applied済み、またはステータスがある場合は無効化
+                    : _showConfirmationDialog),
             style: ElevatedButton.styleFrom(
               backgroundColor: isOwner
                   ? const Color(0xFFE4DBC0)
-                  : (_isApplied ? Colors.grey : const Color(0xFFE4DBC0)),
+                  : (_offerData?['status'] != null
+                      ? Colors.grey
+                      : const Color(0xFFE4DBC0)),
               padding: EdgeInsets.symmetric(vertical: 12),
             ),
             child: Text(
               isOwner
                   ? 'Offerを管理する'
-                  : (_isApplied ? 'Applied' : 'このOfferに申し込む'),
+                  : (_offerData?['status'] != null
+                      ? _offerData!['status']
+                      : (!isPublic
+                          ? '現在応募できません'
+                          : (_isApplied ? 'Applied' : 'このOfferに申し込む'))),
               style: TextStyle(
                 fontSize: 16,
-                color: _isApplied ? Colors.white : Colors.black,
+                color: _isApplied || _offerData?['status'] != null
+                    ? Colors.white
+                    : Colors.black,
               ),
             ),
           ),
