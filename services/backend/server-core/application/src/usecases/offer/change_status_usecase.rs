@@ -133,6 +133,14 @@ impl ChangeStatusUsecaseTrait for ChangeStatusUsecase {
             self.offer_user_repo
                 .cancel_other_applications(input.id, &input.user_id)
                 .await?;
+            info!("Change Public Status to false");
+            self.offers_repo
+                .update(OfferActiveModel {
+                    id: ActiveValue::Set(input.id),
+                    publicity: ActiveValue::Set(false),
+                    ..Default::default()
+                })
+                .await?;
         }
 
         let offer_user_mapping = self
