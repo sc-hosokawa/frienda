@@ -27,6 +27,45 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@ui/components/ui/select";
+import { useTranslation } from "~/i18n/client";
+
+const transformData = (data: any) => {
+  const { date, trackCount } = data;
+  const entries = Object.entries(trackCount);
+  const result = {
+    date: date,
+    ...Object.fromEntries(entries),
+  };
+  return result;
+};
+
+const generateChartConfig = (data: any) => {
+  if (!data?.length) {
+    return {};
+  }
+
+  const trackTitles = Object.keys(data[0]).filter((key) => key !== "date");
+
+  // 色のパレット（必要に応じて色を追加）
+  const colors = [
+    "#2563eb", // blue
+    "#16a34a", // green
+    "#dc2626", // red
+    "#9333ea", // purple
+    "#ea580c", // orange
+    "#0891b2", // cyan
+    "#4f46e5", // indigo
+    "#be185d", // pink
+  ];
+
+  return trackTitles.reduce((config, title, index) => {
+    config[title] = {
+      label: title,
+      color: colors[index % colors.length],
+    };
+    return config;
+  }, {} as ChartConfig);
+};
 
 const GET_PLAYCOUNT_HISTORY_BY_UPC = gql`
   query GetPlaycountHistoryByUpc($upc: String!, $period: Int!) {
@@ -54,12 +93,12 @@ const PERIOD_OPTIONS = [
 
 export function HistoricalByUPC({ upc }: { upc: string }) {
   const [selectedPeriod, setSelectedPeriod] = useState<number>(12);
-
+  const { t } = useTranslation();
   const { data, loading, error } = useQuery<ResData>(
     GET_PLAYCOUNT_HISTORY_BY_UPC,
     {
       variables: { upc, period: selectedPeriod },
-    },
+    }
   );
 
   const chartData =
@@ -79,7 +118,7 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
           <div>
             <CardTitle className="font-light">Stacked Chart</CardTitle>
             <CardDescription>
-              各楽曲の再生数が積み上げられて表示されます。
+              {t("dashboard.historical-description")}
             </CardDescription>
           </div>
           <Select
@@ -168,7 +207,7 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none text-muted-foreground">
               <Info className="w-4 h-4" />
-              各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。AmazonとYouTubeは日次のデータがありませんが今後対応予定です。
+              {t("dashboard.historical-notion")}
             </div>
           </div>
         </div>
@@ -176,41 +215,3 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
     </Card>
   );
 }
-
-const transformData = (data: any) => {
-  const { date, trackCount } = data;
-  const entries = Object.entries(trackCount);
-  const result = {
-    date: date,
-    ...Object.fromEntries(entries),
-  };
-  return result;
-};
-
-const generateChartConfig = (data: any) => {
-  if (!data?.length) {
-    return {};
-  }
-
-  const trackTitles = Object.keys(data[0]).filter((key) => key !== "date");
-
-  // 色のパレット（必要に応じて色を追加）
-  const colors = [
-    "#2563eb", // blue
-    "#16a34a", // green
-    "#dc2626", // red
-    "#9333ea", // purple
-    "#ea580c", // orange
-    "#0891b2", // cyan
-    "#4f46e5", // indigo
-    "#be185d", // pink
-  ];
-
-  return trackTitles.reduce((config, title, index) => {
-    config[title] = {
-      label: title,
-      color: colors[index % colors.length],
-    };
-    return config;
-  }, {} as ChartConfig);
-};

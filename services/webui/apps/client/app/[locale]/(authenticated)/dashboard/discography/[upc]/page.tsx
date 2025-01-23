@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { HistoricalByUPC } from "./histrical-chart";
+import { HistoricalByUPC } from "~/components/dashboard/histrical-chart";
 import GenderGenView from "~/components/dashboard/gender-gen-data";
 import { CreditDialog } from "~/components/dialog/credit-dialog";
 import { useQuery, gql } from "@apollo/client";
