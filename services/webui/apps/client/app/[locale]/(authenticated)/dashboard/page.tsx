@@ -5,28 +5,64 @@ import Image from "next/image";
 import { Overview } from "~/components/dashboard/overview";
 import { Trending } from "~/components/dashboard/trending";
 import { Historical } from "~/components/dashboard/histrical";
-import { GenderGenView } from "~/components/dashboard/gender-gen-data";
+import GenderGenView from "~/components/dashboard/gender-gen-data";
 import useUserStore from "~/store/user";
 import { RequestForViewDialog } from "~/components/reqest-for-view";
 import { DashboardInfo } from "~/components/dashboard/DashboardInfo";
 import { SearchArtist } from "~/components/dashboard/search-artist";
 import getAllArtists from "~/store/artist";
+import { gql, useQuery } from "@apollo/client";
+import { GenderGenRateData } from "~/generated/graphql";
+
+const GET_GENDER_GEN_RATE = gql`
+  query GetGenderGenRate($artistId: String!, $userId: String!) {
+    getGenderGenRateByArtist(artistId: $artistId, userId: $userId) {
+      genderRate {
+        maleCount
+        femaleCount
+      }
+      genRate {
+        under14
+        gen1519
+        gen2024
+        gen2529
+        gen3034
+        gen3539
+        gen4044
+        gen4549
+        gen50Over
+      }
+    }
+  }
+`;
+
+interface ResData {
+  getGenderGenRateByArtist: GenderGenRateData;
+}
 
 export default function Dashboard() {
   const { user } = useUserStore();
   const isSuperAdmin = user?.isSuperAdmin;
   const artists = user?.belongsToArtists;
   const acceptedArtists = artists?.filter(
-    (artist) => artist.status === "Accept",
+    (artist) => artist.status === "Accept"
   );
   const [selectedArtist, setSelectedArtist] = useState<string | null>(
     !isSuperAdmin
       ? acceptedArtists?.[0]?.artistId || null
-      : "artist_00_000000000000000445",
+      : "artist_00_000000000000000445"
   );
   const [open, setOpen] = useState(false);
 
   const { data, loading, error } = getAllArtists();
+
+  const { data: genderGenRateData, loading: LoadingGenderGenRateData } =
+    useQuery<ResData>(GET_GENDER_GEN_RATE, {
+      variables: {
+        artistId: selectedArtist,
+        userId: user?.id,
+      },
+    });
 
   return (
     <div className="bg-black text-white min-h-screen">
@@ -110,7 +146,10 @@ export default function Dashboard() {
               <hr className="mt-2 mb-8 border-t border-[#303030]" />
               <Historical selectedArtistId={selectedArtist} />
               <hr className="mt-2 mb-8 border-t border-[#303030]" />
-              <GenderGenView selectedArtistId={selectedArtist} />
+              <GenderGenView
+                data={genderGenRateData?.getGenderGenRateByArtist!}
+                isLoading={LoadingGenderGenRateData}
+              />
             </>
           )}
         </main>
