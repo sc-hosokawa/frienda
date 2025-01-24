@@ -31,7 +31,7 @@ import { useTranslation } from "~/i18n/client";
 const items = [
   {
     title: "Home",
-    url: "/",
+    url: "/home",
     icon: {
       default: "/home.svg",
       active: "/home_line.svg",
@@ -122,8 +122,9 @@ export function ClientSidebar({ locale }: { locale: string }) {
                 {items.map((item) => {
                   const isActive =
                     item.url === "/"
-                      ? pathname === item.url
-                      : pathname.startsWith(item.url);
+                      ? pathname === `/${locale}/`
+                      : pathname.startsWith(`/${locale}${item.url}`);
+
                   const showActiveIcon = isActive || hoveredItem === item.url;
 
                   return (
