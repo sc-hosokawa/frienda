@@ -4,9 +4,7 @@ import { Info } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { Card, CardContent, CardHeader } from "@ui/components/ui/card";
-
 import { ScrollArea } from "@ui/components/ui/scroll-area";
 import { Separator } from "@ui/components/ui/separator";
 import { useQuery, gql } from "@apollo/client";
@@ -28,7 +26,7 @@ export default function DiscographyPage() {
   const [selectedArtist, setSelectedArtist] = useState<string | null>(
     !isSuperAdmin
       ? artists?.[0]?.artistId || null
-      : "artist_00_000000000000000445",
+      : "artist_00_000000000000000445"
   );
   const { data } = useQuery<ResData>(GET_PRODUCTS, {
     variables: {
