@@ -8,6 +8,7 @@ pub mod messaging;
 pub mod news;
 pub mod notification;
 pub mod offer;
+pub mod pipeline;
 pub mod point;
 pub mod prize;
 pub mod quest;
