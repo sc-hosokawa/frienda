@@ -20,37 +20,9 @@ import {
   Legend,
 } from "recharts";
 import { Info } from "lucide-react";
-import { useQuery, gql } from "@apollo/client";
-import useUserStore from "../../store/user";
 import { GenderGenRateData } from "../../generated/graphql";
 import { ChartSkeleton } from "./gender-gen-chart-skelton";
 import { useTranslation } from "~/i18n/client";
-
-const GET_GENDER_GEN_RATE = gql`
-  query GetGenderGenRate($artistId: String!, $userId: String!) {
-    getGenderGenRateByArtist(artistId: $artistId, userId: $userId) {
-      genderRate {
-        maleCount
-        femaleCount
-      }
-      genRate {
-        under14
-        gen1519
-        gen2024
-        gen2529
-        gen3034
-        gen3539
-        gen4044
-        gen4549
-        gen50Over
-      }
-    }
-  }
-`;
-
-interface ResData {
-  getGenderGenRateByArtist: GenderGenRateData;
-}
 
 const GENERATION_COLORS = [
   "rgba(253, 224, 71, 0.6)", // 60% opacity
@@ -65,51 +37,45 @@ const GENERATION_COLORS = [
 ];
 const GENDER_COLORS = ["rgba(94, 234, 212, 0.6)", "rgba(248, 113, 113, 0.6)"];
 
-export function GenderGenView({
-  selectedArtistId,
-}: {
-  selectedArtistId: string | null;
-}) {
+interface GenderGenViewProps {
+  data: GenderGenRateData;
+  isLoading: boolean;
+}
+
+export default function GenderGenView({ data, isLoading }: GenderGenViewProps) {
   const { t } = useTranslation();
-  const { user } = useUserStore();
-  const { data, loading } = useQuery<ResData>(GET_GENDER_GEN_RATE, {
-    variables: {
-      artistId: selectedArtistId,
-      userId: user?.id,
-    },
-  });
 
   const generationData = [
-    { name: "Under 14", value: data?.getGenderGenRateByArtist.genRate.under14 },
-    { name: "15-19", value: data?.getGenderGenRateByArtist.genRate.gen1519 },
-    { name: "20-24", value: data?.getGenderGenRateByArtist.genRate.gen2024 },
-    { name: "25-29", value: data?.getGenderGenRateByArtist.genRate.gen2529 },
-    { name: "30-34", value: data?.getGenderGenRateByArtist.genRate.gen3034 },
-    { name: "35-39", value: data?.getGenderGenRateByArtist.genRate.gen3539 },
-    { name: "40-44", value: data?.getGenderGenRateByArtist.genRate.gen4044 },
-    { name: "45-49", value: data?.getGenderGenRateByArtist.genRate.gen4549 },
+    { name: "Under 14", value: data?.genRate.under14 },
+    { name: "15-19", value: data?.genRate.gen1519 },
+    { name: "20-24", value: data?.genRate.gen2024 },
+    { name: "25-29", value: data?.genRate.gen2529 },
+    { name: "30-34", value: data?.genRate.gen3034 },
+    { name: "35-39", value: data?.genRate.gen3539 },
+    { name: "40-44", value: data?.genRate.gen4044 },
+    { name: "45-49", value: data?.genRate.gen4549 },
     {
       name: "50 Over",
-      value: data?.getGenderGenRateByArtist.genRate.gen50Over,
+      value: data?.genRate.gen50Over,
     },
   ];
 
   const genderData = [
     {
       name: "Male",
-      value: data?.getGenderGenRateByArtist.genderRate.maleCount,
+      value: data?.genderRate.maleCount,
     },
     {
       name: "Female",
-      value: data?.getGenderGenRateByArtist.genderRate.femaleCount,
+      value: data?.genderRate.femaleCount,
     },
   ];
 
   const hasGenerationData = generationData.some(
-    (item) => item.value !== undefined && item.value !== null && item.value > 0,
+    (item) => item.value !== undefined && item.value !== null && item.value > 0
   );
   const hasGenderData = genderData.some(
-    (item) => item.value !== undefined && item.value !== null && item.value > 0,
+    (item) => item.value !== undefined && item.value !== null && item.value > 0
   );
 
   return (
@@ -120,7 +86,7 @@ export function GenderGenView({
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
-            {loading ? (
+            {isLoading ? (
               <ChartSkeleton />
             ) : hasGenerationData ? (
               <ResponsiveContainer width="100%" height="100%">
@@ -187,7 +153,7 @@ export function GenderGenView({
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
-            {loading ? (
+            {isLoading ? (
               <ChartSkeleton />
             ) : hasGenderData ? (
               <ResponsiveContainer width="100%" height="100%">

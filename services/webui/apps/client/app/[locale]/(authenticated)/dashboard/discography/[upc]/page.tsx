@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { HistoricalByUPC } from "./histrical-chart";
-import { GenderGenViewByUPC } from "./gender-gen-data";
+import { HistoricalByUPC } from "~/components/dashboard/histrical-chart";
+import GenderGenView from "~/components/dashboard/gender-gen-data";
 import { CreditDialog } from "~/components/dialog/credit-dialog";
 import { useQuery, gql } from "@apollo/client";
 import useUserStore from "~/store/user";
 import { DiscographyInfo } from "./DiscographyInfo";
 import * as Popover from "@radix-ui/react-popover";
+import { GenderGenRateData } from "~/generated/graphql";
 
 const GET_OVERVIEW_BY_UPC = gql`
   query GetOverviewByUpc($artistId: String!, $userId: String!, $upc: String!) {
@@ -51,6 +52,36 @@ const GET_TRENDING_BY_UPC = gql`
   }
 `;
 
+const GET_GENDER_GEN_RATE_BY_UPC = gql`
+  query GetGenderGenRateByUpc(
+    $artistId: String!
+    $userId: String!
+    $upc: String!
+  ) {
+    getGenderGenRateByUpc(artistId: $artistId, userId: $userId, upc: $upc) {
+      genderRate {
+        maleCount
+        femaleCount
+      }
+      genRate {
+        under14
+        gen1519
+        gen2024
+        gen2529
+        gen3034
+        gen3539
+        gen4044
+        gen4549
+        gen50Over
+      }
+    }
+  }
+`;
+
+interface ResData {
+  getGenderGenRateByUpc: GenderGenRateData;
+}
+
 type Props = {
   params: {
     upc: string;
@@ -65,6 +96,11 @@ export default function DiscographyAlbumPage({ params }: Props) {
   const { data: trendingData } = useQuery(GET_TRENDING_BY_UPC, {
     variables: { upc: params.upc, userId: user?.id },
   });
+
+  const { data: genderGenRateData, loading: loadingGenderGenRate } =
+    useQuery<ResData>(GET_GENDER_GEN_RATE_BY_UPC, {
+      variables: { upc: params.upc, artistId: "", userId: "" },
+    });
 
   return (
     <>
@@ -251,14 +287,17 @@ export default function DiscographyAlbumPage({ params }: Props) {
                         />
                       </div>
                     </div>
-                  ),
+                  )
                 )}
               </div>
             </div>
           </div>
         </div>
         <HistoricalByUPC upc={params.upc} />
-        <GenderGenViewByUPC upc={params.upc} />
+        <GenderGenView
+          data={genderGenRateData?.getGenderGenRateByUpc!}
+          isLoading={loadingGenderGenRate}
+        />
       </div>
     </>
   );
