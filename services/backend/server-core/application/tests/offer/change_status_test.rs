@@ -157,6 +157,7 @@ async fn test_change_status_success() {
     let owner_id = "owner123";
     let user_id = "user123";
     let test_offer = create_test_offer(offer_id, owner_id, 100);
+    let test_offer_clone = test_offer.clone();
     let test_offer_user = create_test_offer_user(1, offer_id, user_id, OfferStatus::Applied);
     let new_status = OfferStatus::Ongoing;
 
@@ -164,7 +165,7 @@ async fn test_change_status_success() {
     offers_repo
         .expect_mock_get_by_id()
         .with(eq(offer_id))
-        .returning(move |_| Ok(Some(test_offer.clone())));
+        .returning(move |_| Ok(Some(test_offer_clone.clone())));
 
     let test_offer_user_clone = test_offer_user.clone();
     offer_user_repo
@@ -217,6 +218,16 @@ async fn test_change_status_success() {
     push_notification_service
         .expect_mock_send_push_notification()
         .returning(|_| Ok("notification sent".to_string()));
+
+    // Add mock for offers_repo.mock_update
+    offers_repo
+        .expect_mock_update()
+        .returning(move |offer| {
+            Ok(Offer {
+                publicity: offer.publicity.unwrap(),
+                ..test_offer.clone()
+            })
+        });
 
     let usecase = ChangeStatusUsecase::new(
         Arc::new(offers_repo),
