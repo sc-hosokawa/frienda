@@ -1,27 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:client/presentation/widgets/more/faq.dart';
 import 'package:client/presentation/widgets/more/webview_page.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class About extends StatelessWidget {
+class About extends StatefulWidget {
   const About({super.key});
 
-  final List<Map<String, dynamic>> _aboutItems = const [
-    {
-      'icon': Icons.info_outline,
-      'title': 'アプリバージョン',
-      'description': '現在のバージョン: 1.0.3',
-    },
-    {
-      'icon': Icons.description,
-      'title': '利用規約',
-      'description': 'アプリの利用規約を確認します',
-    },
-    {
-      'icon': Icons.privacy_tip,
-      'title': 'プライバシーポリシー',
-      'description': '個人情報の取り扱いについて確認します',
-    },
-  ];
+  @override
+  State<About> createState() => _AboutState();
+}
+
+class _AboutState extends State<About> {
+  String _version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadVersion();
+  }
+
+  Future<void> _loadVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      _version = packageInfo.version;
+    });
+  }
+
+  List<Map<String, dynamic>> get _aboutItems => [
+        {
+          'icon': Icons.info_outline,
+          'title': 'アプリバージョン',
+          'description': '現在のバージョン: $_version',
+        },
+        {
+          'icon': Icons.description,
+          'title': '利用規約',
+          'description': 'アプリの利用規約を確認します',
+        },
+        {
+          'icon': Icons.privacy_tip,
+          'title': 'プライバシーポリシー',
+          'description': '個人情報の取り扱いについて確認します',
+        },
+      ];
 
   @override
   Widget build(BuildContext context) {
