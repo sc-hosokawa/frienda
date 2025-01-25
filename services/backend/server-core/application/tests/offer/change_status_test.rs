@@ -220,14 +220,12 @@ async fn test_change_status_success() {
         .returning(|_| Ok("notification sent".to_string()));
 
     // Add mock for offers_repo.mock_update
-    offers_repo
-        .expect_mock_update()
-        .returning(move |offer| {
-            Ok(Offer {
-                publicity: offer.publicity.unwrap(),
-                ..test_offer.clone()
-            })
-        });
+    offers_repo.expect_mock_update().returning(move |offer| {
+        Ok(Offer {
+            publicity: offer.publicity.unwrap(),
+            ..test_offer.clone()
+        })
+    });
 
     let usecase = ChangeStatusUsecase::new(
         Arc::new(offers_repo),

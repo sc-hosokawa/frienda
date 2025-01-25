@@ -58,13 +58,21 @@ impl DspFetcherServiceTrait for DspFetcherService {
 
         let query: String = match date.len() {
             6 => {
-                let query_template: String = std::env::var("DSP_QUERY_MONTHLY_TEMPLATE")
+                let encoded_template = std::env::var("DSP_QUERY_MONTHLY_TEMPLATE")
                     .map_err(|_| anyhow::anyhow!("DSP_QUERY_MONTHLY_TEMPLATE environment variable is not set"))?;
+                let query_template = base64::decode(&encoded_template)
+                    .map_err(|_| anyhow::anyhow!("Failed to decode DSP_QUERY_MONTHLY_TEMPLATE from base64"))?;
+                let query_template = String::from_utf8(query_template)
+                    .map_err(|_| anyhow::anyhow!("Failed to convert decoded template to UTF-8"))?;
                 query_template.replace("{}", &date)
             }
             8 => {
-                let query_template: String = std::env::var("DSP_QUERY_DAILY_TEMPLATE")
+                let encoded_template = std::env::var("DSP_QUERY_DAILY_TEMPLATE")
                     .map_err(|_| anyhow::anyhow!("DSP_QUERY_DAILY_TEMPLATE environment variable is not set"))?;
+                let query_template = base64::decode(&encoded_template)
+                    .map_err(|_| anyhow::anyhow!("Failed to decode DSP_QUERY_DAILY_TEMPLATE from base64"))?;
+                let query_template = String::from_utf8(query_template)
+                    .map_err(|_| anyhow::anyhow!("Failed to convert decoded template to UTF-8"))?;
                 query_template.replace("{}", &date)
             }
             _ => return Err(anyhow::anyhow!("Invalid date format. Expected 6 digits (YYYYMM) for monthly or 8 digits (YYYYMMDD) for daily")),
