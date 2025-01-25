@@ -1,7 +1,6 @@
 {
     "rust-analyzer.linkedProjects": [
       "./services/backend/Cargo.toml",
-      "./services/pipeline/Cargo.toml"
     ],
     "makefile.configureOnOpen": false
 }

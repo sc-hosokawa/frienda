@@ -14,6 +14,10 @@ pub trait PlaysMonthlyRepository: Send + Sync {
         &self,
         plays_monthly: PlaysMonthlyActiveModel,
     ) -> Result<PlaysMonthly, DomainError>;
+    async fn update_many(
+        &self,
+        plays_monthly: Vec<PlaysMonthlyActiveModel>,
+    ) -> Result<(), DomainError>;
 
     async fn find_by_isrc(&self, isrc: &str) -> Result<Vec<PlaysMonthly>, DomainError>;
     async fn find_by_isrcs(&self, isrcs: Vec<String>) -> Result<Vec<PlaysMonthly>, DomainError>;
@@ -31,4 +35,5 @@ pub trait PlaysMonthlyRepository: Send + Sync {
     async fn get_total_play_count_all(&self) -> Result<i64, DomainError>;
     async fn get_all(&self) -> Result<Vec<PlaysMonthly>, DomainError>;
     async fn get_all_by_period(&self, period: i32) -> Result<Vec<PlaysMonthly>, DomainError>;
+    async fn find_lastest_id(&self) -> Result<i32, DomainError>;
 }

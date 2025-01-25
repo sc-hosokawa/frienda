@@ -7,7 +7,7 @@ use async_graphql::{http::GraphiQLSource, EmptySubscription, Schema};
 use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
 use dotenvy::dotenv;
 use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSchema};
-use presentation::handlers;
+use presentation::{handlers, pipeline};
 use shared::db::connect::establish_db_connection;
 use shared::logger::init_logger;
 use std::env;
@@ -84,8 +84,20 @@ async fn bootstrap() -> Result<(), std::io::Error> {
                 "/contentful",
                 web::post().to(handlers::contentful_webhook::contentful_webhook_handler),
             )
+            .route(
+                "/pipeline/dsps/daily",
+                web::post().to(pipeline::dsp::dsp_daily_handler),
+            )
+            .route(
+                "/pipeline/dsps/monthly",
+                web::post().to(pipeline::dsp::dsp_monthly_handler),
+            )
+            .route(
+                "/pipeline/credentials",
+                web::post().to(pipeline::credential::credential_handler),
+            )
     })
-    .client_request_timeout(Duration::from_secs(30))
+    .client_request_timeout(Duration::from_secs(300))
     .bind((host, port))?
     .run()
     .await?;

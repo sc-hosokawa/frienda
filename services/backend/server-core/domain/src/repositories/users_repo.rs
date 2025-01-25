@@ -7,6 +7,7 @@ use shared::error::domain_err::DomainError;
 pub trait UsersRepository: Send + Sync {
     async fn create(&self, user: ActiveUser) -> Result<User, DomainError>;
     async fn update(&self, user: ActiveUser) -> Result<User, DomainError>;
+    async fn update_many(&self, users: Vec<ActiveUser>) -> Result<(), DomainError>;
     async fn update_fsp(&self, id: &str, fsp: i32) -> Result<User, DomainError>;
     async fn find_by_id_and_update_fsp(
         &self,
@@ -30,4 +31,5 @@ pub trait UsersRepository: Send + Sync {
         username_or_email: &str,
     ) -> Result<Option<User>, DomainError>;
     async fn search_users(&self, username: &str) -> Result<Vec<User>, DomainError>;
+    async fn find_users_have_evm_addr(&self) -> Result<Vec<User>, DomainError>;
 }

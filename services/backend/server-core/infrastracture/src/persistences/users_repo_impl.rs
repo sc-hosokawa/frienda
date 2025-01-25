@@ -30,6 +30,11 @@ impl UsersRepository for UsersRepoImpl {
         Ok(res)
     }
 
+    async fn update_many(&self, users: Vec<ActiveUser>) -> Result<(), DomainError> {
+        let _res: InsertResult<ActiveUser> = UserEntity::insert_many(users).exec(&self.db).await?;
+        Ok(())
+    }
+
     async fn update_fsp(&self, id: &str, fsp: i32) -> Result<User, DomainError> {
         let user = UserEntity::find_by_id(id).one(&self.db).await?.unwrap();
 
@@ -183,6 +188,14 @@ impl UsersRepository for UsersRepoImpl {
                     .add(Column::Email.like(&search_pattern)),
             )
             .order_by_desc(Column::UpdatedAt)
+            .all(&self.db)
+            .await?;
+        Ok(users)
+    }
+
+    async fn find_users_have_evm_addr(&self) -> Result<Vec<User>, DomainError> {
+        let users = UserEntity::find()
+            .filter(Column::EvmAddr.is_not_null())
             .all(&self.db)
             .await?;
         Ok(users)

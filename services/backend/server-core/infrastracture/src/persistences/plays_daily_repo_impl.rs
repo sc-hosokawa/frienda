@@ -31,6 +31,11 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
         Ok(res)
     }
 
+    async fn insert_many(&self, models: Vec<PlaysDailyActiveModel>) -> Result<(), DomainError> {
+        let _res = PlaysDailyEntity::insert_many(models).exec(&self.db).await?;
+        Ok(())
+    }
+
     async fn find_by_isrc(&self, isrc: &str) -> Result<Vec<PlaysDaily>, DomainError> {
         let res: Vec<PlaysDaily> = PlaysDailyEntity::find()
             .filter(Column::Isrc.eq(isrc))
@@ -112,5 +117,15 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
             .all(&self.db)
             .await?;
         Ok(res)
+    }
+
+    async fn find_lastest_id(&self) -> Result<i32, DomainError> {
+        let res: Vec<PlaysDaily> = PlaysDailyEntity::find()
+            .order_by(Column::Id, Order::Desc)
+            .limit(1)
+            .all(&self.db)
+            .await?;
+
+        Ok(res.first().map_or(0, |record| record.id))
     }
 }
