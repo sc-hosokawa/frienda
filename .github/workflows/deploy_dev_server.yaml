@@ -14,6 +14,14 @@ env:
   REGION: ${{ secrets.GCP_REGION }}
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
   SERVER_NAME: ${{ secrets.SERVER_NAME }}
+  SERVICE_ACCOUNT_DSP: ${{ secrets.SERVICE_ACCOUNT_DSP }}
+  ETH_RPC_URL: ${{ secrets.ETH_RPC_URL }}
+  CREDENTIAL_CONTRACT_ADDRESS: ${{ secrets.CREDENTIAL_CONTRACT_ADDRESS }}
+  DSP_QUERY_DAILY_TEMPLATE: ${{ secrets.DSP_QUERY_DAILY_TEMPLATE }}
+  DSP_QUERY_MONTHLY_TEMPLATE: ${{ secrets.DSP_QUERY_MONTHLY_TEMPLATE }}
+  LOCATION: ${{ secrets.LOCATION }}
+  DSP_PJ_ID: ${{ secrets.DSP_PJ_ID }}
+  HASH_SALT: ${{ secrets.HASH_SALT }}
   TAG: latest
 
 jobs:
@@ -51,4 +59,4 @@ jobs:
         run: docker push asia-northeast1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME/$IMAGE:$TAG
 
       - name: Deploy
-        run: gcloud run deploy ${{ secrets.SERVER_NAME }} --image asia-northeast1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME/$IMAGE:$TAG --region ${{ secrets.GCP_REGION }} --allow-unauthenticated --set-env-vars DATABASE_URL=$DATABASE_URL,GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }},SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }},ENVIRONMENT=dev
+        run: gcloud run deploy ${{ secrets.SERVER_NAME }} --image asia-northeast1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME/$IMAGE:$TAG --region ${{ secrets.GCP_REGION }} --allow-unauthenticated --set-env-vars DATABASE_URL=$DATABASE_URL,GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }},SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }},ENVIRONMENT=dev,SERVICE_ACCOUNT_DSP=$SERVICE_ACCOUNT_DSP,ETH_RPC_URL=$ETH_RPC_URL,CREDENTIAL_CONTRACT_ADDRESS=$CREDENTIAL_CONTRACT_ADDRESS,DSP_QUERY_DAILY_TEMPLATE=$DSP_QUERY_DAILY_TEMPLATE,DSP_QUERY_MONTHLY_TEMPLATE=$DSP_QUERY_MONTHLY_TEMPLATE,LOCATION=$LOCATION,DSP_PJ_ID=$DSP_PJ_ID,HASH_SALT=$HASH_SALT
