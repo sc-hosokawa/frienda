@@ -86,4 +86,9 @@ impl TracksRepository for TracksRepoImpl {
         let res: Vec<Tracks> = TracksEntity::find().all(&self.db).await?;
         Ok(res)
     }
+
+    async fn find_all_isrcs(&self) -> Result<Vec<String>, DomainError> {
+        let res: Vec<Tracks> = TracksEntity::find().all(&self.db).await?;
+        Ok(res.iter().map(|t| t.isrc.clone()).collect())
+    }
 }

@@ -38,6 +38,8 @@ pub trait MockUsersRepo {
         username_or_email: String,
     ) -> Result<Option<User>, DomainError>;
     async fn mock_search_users(&self, username: String) -> Result<Vec<User>, DomainError>;
+    async fn mock_update_many(&self, users: Vec<ActiveUser>) -> Result<(), DomainError>;
+    async fn mock_find_users_have_evm_addr(&self) -> Result<Vec<User>, DomainError>;
 }
 
 #[async_trait]
@@ -122,5 +124,13 @@ impl UsersRepository for MockMockUsersRepo {
 
     async fn search_users(&self, username: &str) -> Result<Vec<User>, DomainError> {
         self.mock_search_users(username.to_string()).await
+    }
+
+    async fn find_users_have_evm_addr(&self) -> Result<Vec<User>, DomainError> {
+        self.mock_find_users_have_evm_addr().await
+    }
+
+    async fn update_many(&self, users: Vec<ActiveUser>) -> Result<(), DomainError> {
+        self.mock_update_many(users).await
     }
 }

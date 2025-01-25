@@ -14,4 +14,5 @@ pub trait TracksRepository: Send + Sync {
     async fn find_by_artist_id(&self, artist_id: &str) -> Result<Vec<Track>, DomainError>;
     async fn count(&self) -> Result<i64, DomainError>;
     async fn find_all(&self) -> Result<Vec<Track>, DomainError>;
+    async fn find_all_isrcs(&self) -> Result<Vec<String>, DomainError>;
 }

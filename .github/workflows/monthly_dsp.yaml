@@ -1,0 +1,17 @@
+name: Monthly DSPs Update
+
+on:
+  schedule:
+    # 毎月2日 03:00 UTC (日本時間 12:00) に実行
+    - cron: '0 3 2 * *'
+
+jobs:
+  update-dsps:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Update DSPs
+        run: |
+          curl -X POST \
+            ${{ secrets.API_ENDPOINT }}/pipeline/dsps/monthly \
+            -d '${{ secrets.DSP_KEY }}'

@@ -76,6 +76,10 @@ use application::usecases::offer::{
     search_tasks_usecase::{SearchTasksUsecase, SearchTasksUsecaseTrait},
     update_task_usecase::{UpdateTaskUsecase, UpdateTaskUsecaseTrait},
 };
+use application::usecases::pipeline::{
+    credentials::{CredentialsUsecase, CredentialsUsecaseTrait},
+    dsps::{DspsUsecase, DspsUsecaseTrait},
+};
 use application::usecases::point::{
     get_point_transaction_history_usecase::{
         GetPointTransactionHistoryUsecase, GetPointTransactionHistoryUsecaseTrait,
@@ -122,12 +126,15 @@ use infrastracture::persistences::{
 };
 
 use application::services::{
+    dsp_fetcher::DspFetcherServiceTrait,
+    onchain_fetcher::OnchainFetcherServiceTrait,
     push_notification::PushNotificationServiceTrait,
     request_llm::{LlmService, LlmServiceTrait},
     send_email::EmailServiceTrait,
 };
 use infrastracture::services::{
-    fcm::FcmNotificationService, gemini::GeminiService, sendgrid::SendGridService,
+    dsp_fetcher::DspFetcherService, fcm::FcmNotificationService, gemini::GeminiService,
+    onchain_fetcher::OnchainFetcherService, sendgrid::SendGridService,
 };
 
 pub struct RepositoriesImpl {
@@ -170,10 +177,14 @@ pub struct ServicesImpl {
     pub llm_service: Arc<dyn LlmServiceTrait>,
     pub push_notification_service: Arc<dyn PushNotificationServiceTrait>,
     pub email_service: Arc<dyn EmailServiceTrait>,
+    pub dsp_fetcher_service: Arc<dyn DspFetcherServiceTrait>,
+    pub onchain_fetcher_service: Arc<dyn OnchainFetcherServiceTrait>,
 }
 
 pub struct Usecases {
     pub health_check: Arc<dyn HealthCheckUseCase>,
+    pub dsps: Arc<dyn DspsUsecaseTrait>,
+    pub credentials: Arc<dyn CredentialsUsecaseTrait>,
     pub create_user: Arc<dyn CreateUserUsecaseTrait>,
     pub get_user_basic_info: Arc<dyn GetUserBasicInfoUsecaseTrait>,
     pub update_user_profile: Arc<dyn UpdateUserProfileUsecaseTrait>,
@@ -281,17 +292,24 @@ pub async fn create_services() -> ServicesImpl {
     tracing::info!("Setup Services...");
     let gemini_service = GeminiService::new().expect("Failed to create GeminiService");
     let llm_service = LlmService::new(Arc::new(gemini_service));
+    let dsp_fetcher_service = DspFetcherService::new()
+        .await
+        .expect("Failed to create DspFetcherService");
     let push_notification_service = FcmNotificationService::new()
         .await
         .expect("Failed to create FcmNotificationService");
     let sendgrid_service = SendGridService::new()
         .await
         .expect("Failed to create SendGridService");
-
+    let onchain_fetcher_service = OnchainFetcherService::new()
+        .await
+        .expect("Failed to create OnchainFetcherService");
     ServicesImpl {
         llm_service: Arc::new(llm_service),
         push_notification_service: Arc::new(push_notification_service),
         email_service: Arc::new(sendgrid_service),
+        dsp_fetcher_service: Arc::new(dsp_fetcher_service),
+        onchain_fetcher_service: Arc::new(onchain_fetcher_service),
     }
 }
 
@@ -299,6 +317,16 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
     tracing::info!("Creating Usecases...");
     Usecases {
         health_check: Arc::new(HealthCheckUsecase::new(repos.health_check.clone())),
+        credentials: Arc::new(CredentialsUsecase::new(
+            repos.users.clone(),
+            services.onchain_fetcher_service.clone(),
+        )),
+        dsps: Arc::new(DspsUsecase::new(
+            repos.plays_daily.clone(),
+            repos.plays_monthly.clone(),
+            repos.tracks.clone(),
+            services.dsp_fetcher_service.clone(),
+        )),
         contact_to_admin: Arc::new(ContactToAdminUsecase::new(services.email_service.clone())),
         user_blocks: Arc::new(UserBlocksUsecase::new(repos.user_blocks.clone())),
         report: Arc::new(ReportUsecase::new(
