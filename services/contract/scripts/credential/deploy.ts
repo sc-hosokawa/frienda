@@ -6,7 +6,11 @@ async function main() {
 
   console.log("========== Deploying Contracts...");
   const factory = await ethers.getContractFactory("Credential");
-  const credential_contract = await upgrades.deployProxy(factory, [deployer.address]);
+  const credential_contract = await upgrades.deployProxy(factory, [
+    deployer.address, // initialOwner
+    deployer.address, // pauser
+    deployer.address  // minter
+  ]);
 
   await credential_contract.waitForDeployment();
   const credential_address = await credential_contract.getAddress();

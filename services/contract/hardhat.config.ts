@@ -73,6 +73,10 @@ const config: HardhatUserConfig = {
         mnemonic: mnemonic,
       },
     },
+    polygon: {
+      url: `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_KEY}`,
+      accounts: [process.env.SECRET_KEY || ""],
+    },
   },
   paths: { cache: "cache_hardhat" },
   gasReporter: {
