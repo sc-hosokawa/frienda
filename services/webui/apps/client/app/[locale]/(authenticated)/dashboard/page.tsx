@@ -45,12 +45,12 @@ export default function Dashboard() {
   const isSuperAdmin = user?.isSuperAdmin;
   const artists = user?.belongsToArtists;
   const acceptedArtists = artists?.filter(
-    (artist) => artist.status === "Accept"
+    (artist) => artist.status === "Accept",
   );
   const [selectedArtist, setSelectedArtist] = useState<string | null>(
     !isSuperAdmin
       ? acceptedArtists?.[0]?.artistId || null
-      : "artist_00_000000000000000445"
+      : "artist_00_000000000000000445",
   );
   const [open, setOpen] = useState(false);
 

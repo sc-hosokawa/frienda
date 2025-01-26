@@ -98,7 +98,7 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
     GET_PLAYCOUNT_HISTORY_BY_UPC,
     {
       variables: { upc, period: selectedPeriod },
-    }
+    },
   );
 
   const chartData =

@@ -195,7 +195,11 @@ export function ClientSidebar({ locale }: { locale: string }) {
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="https://forms.gle/1ZGguxTLQeNseW877">
+                        <Link
+                          href="https://forms.gle/1ZGguxTLQeNseW877"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <span className="flex items-center gap-2">
                             Feedback
                             <ExternalLink className="h-3 w-3" />
@@ -215,6 +219,18 @@ export function ClientSidebar({ locale }: { locale: string }) {
                       <DropdownMenuItem asChild>
                         <Link href="/tokutei">
                           <span>{t("common.tokutei")}</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link
+                          href="https://v1.snapshot.box/#/naokiakazawa.eth"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span className="flex items-center gap-2">
+                            Governance
+                            <ExternalLink className="h-3 w-3" />
+                          </span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild onClick={switchLocale}>
