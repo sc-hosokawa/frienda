@@ -13,6 +13,4 @@ pub mod recommend_tasks_for_user_usecase;
 pub mod register_task_usecase;
 pub mod report_task_issue_usecase;
 pub mod search_tasks_usecase;
-pub mod set_task_deadline_usecase;
-pub mod share_task_usecase;
 pub mod update_task_usecase;
