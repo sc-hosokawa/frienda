@@ -8,17 +8,6 @@ import { gql, useQuery } from "@apollo/client";
 import useUserStore from "../../store/user";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "~/i18n/client";
-import { Input } from "@ui/components/ui/input";
-import { ArrowDownUp, Settings2 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@ui/components/ui/dropdown-menu";
-import { Button } from "@ui/components/ui/button";
 import { OfferAllListSkeleton } from "./offer-all-list-skeleton";
 
 // Offer type definition
@@ -201,22 +190,6 @@ export default function AllOfferList() {
           <div className="flex flex-col space-y-0 mb-6">
             <h1 className="text-6xl font-light">Offer List</h1>
             <p className="text-sm -mt-2">オファー一覧</p>
-          </div>
-          <div className="flex flex-row items-center gap-3">
-            <Input placeholder="Search Offer" />
-            <Settings2 className="w-8 h-8 text-white cursor-pointer" />
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <ArrowDownUp className="w-8 h-8 text-white cursor-pointer" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Sort</DropdownMenuLabel>
-                <DropdownMenuItem>GitHub</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuItem disabled>API</DropdownMenuItem>
-                <DropdownMenuItem>Log out</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
         </div>
         <Suspense fallback={<OfferAllListSkeleton />}>
