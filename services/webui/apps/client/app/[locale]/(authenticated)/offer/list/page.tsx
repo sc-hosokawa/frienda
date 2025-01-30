@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslation } from "~/i18n/client";
 import { Input } from "@ui/components/ui/input";
-import { ArrowDownUp, Settings2 } from "lucide-react";
+import { ArrowDownUp } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -18,6 +18,10 @@ import {
   DropdownMenuContent,
 } from "@ui/components/ui/dropdown-menu";
 import { Button } from "@ui/components/ui/button";
+import {
+  SearchOfferDialog,
+  SearchOfferOptions,
+} from "~/components/dialog/search-offer-dialog";
 
 const SEARCH_OFFERS = gql`
   query searchOffers($query: String!, $options: SearchOptionsOffersInput!) {
@@ -63,13 +67,24 @@ const getCategoryBackgroundColor = (category: string | undefined | null) => {
 export default function OfferList() {
   // TODO: add translation
   const { t } = useTranslation();
-  const [sort, setSort] = useState<string>("newest");
+  const [sort, setSort] = useState<string>("");
   const [queryWord, setQueryWord] = useState<string>("");
+  const [searchOptions, setSearchOptions] = useState<SearchOfferOptions>({});
+
+  function handleSetOptions(options: SearchOfferOptions) {
+    setSearchOptions({
+      ...options,
+      sortBy: sort,
+    });
+  }
 
   const { data, loading, error } = useQuery(SEARCH_OFFERS, {
     variables: {
       query: queryWord,
-      options: { maxPrice: 10000000, category: "Creation" },
+      options: {
+        ...searchOptions,
+        sortBy: sort,
+      },
     },
   });
 
@@ -113,9 +128,11 @@ export default function OfferList() {
                 onChange={(e) => setQueryWord(e.target.value)}
                 className="w-96"
               />
-              <Button asChild variant="outline" size="icon" className="p-1">
-                <Settings2 className="w-8 h-8 cursor-pointer" />
-              </Button>
+              <SearchOfferDialog
+                options={searchOptions}
+                setOptions={setSearchOptions}
+                handleOption={handleSetOptions}
+              />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button asChild variant="outline" size="icon" className="p-1">
