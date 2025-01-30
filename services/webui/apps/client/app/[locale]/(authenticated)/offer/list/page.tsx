@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Card } from "@ui/components/ui/card";
 import { Skeleton } from "@ui/components/ui/skeleton";
 import Image from "next/image";
@@ -7,16 +8,25 @@ import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslation } from "~/i18n/client";
+import { Input } from "@ui/components/ui/input";
+import { ArrowDownUp, Settings2 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuContent,
+} from "@ui/components/ui/dropdown-menu";
+import { Button } from "@ui/components/ui/button";
 
-// GraphQLクエリの定義
-const GET_OFFERS = gql`
-  query GetOffers {
-    getOffers {
+const SEARCH_OFFERS = gql`
+  query searchOffers($query: String!, $options: SearchOptionsOffersInput!) {
+    searchOffers(query: $query, options: $options) {
       offerList {
         id
         title
-        imageUrl
         description
+        imageUrl
         fee
         category
       }
@@ -51,9 +61,19 @@ const getCategoryBackgroundColor = (category: string | undefined | null) => {
 };
 
 export default function OfferList() {
-  const { loading, error, data } = useQuery(GET_OFFERS);
-  const offers = data?.getOffers?.offerList ?? [];
+  // TODO: add translation
   const { t } = useTranslation();
+  const [sort, setSort] = useState<string>("newest");
+  const [queryWord, setQueryWord] = useState<string>("");
+
+  const { data, loading, error } = useQuery(SEARCH_OFFERS, {
+    variables: {
+      query: queryWord,
+      options: { maxPrice: 10000000, category: "Creation" },
+    },
+  });
+
+  const offers = data?.searchOffers?.offerList ?? [];
 
   if (error) {
     return (
@@ -85,36 +105,66 @@ export default function OfferList() {
             <div className="flex items-center gap-4">
               <h1 className="text-6xl font-light">Offer List</h1>
             </div>
+            <div className="flex flex-row items-center gap-3">
+              <Input
+                type="text"
+                placeholder={"Search Offer"}
+                value={queryWord}
+                onChange={(e) => setQueryWord(e.target.value)}
+                className="w-96"
+              />
+              <Button asChild variant="outline" size="icon" className="p-1">
+                <Settings2 className="w-8 h-8 cursor-pointer" />
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button asChild variant="outline" size="icon" className="p-1">
+                    <ArrowDownUp className="w-8 h-8 cursor-pointer" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuRadioGroup value={sort} onValueChange={setSort}>
+                    <DropdownMenuRadioItem
+                      value="newest"
+                      className="cursor-pointer"
+                    >
+                      新着順
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                      value="matched"
+                      className="cursor-pointer"
+                    >
+                      マッチ度（降順）
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                      value="point"
+                      className="cursor-pointer"
+                    >
+                      ポイント（降順）
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                      value="date"
+                      className="cursor-pointer"
+                    >
+                      期限までの日数（降順）
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                      value="member"
+                      className="cursor-pointer"
+                    >
+                      対象人数（降順）
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem
+                      value="rate"
+                      className="cursor-pointer"
+                    >
+                      ユーザーレーティング（降順）
+                    </DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </header>
-
-          {/*
-          <div className="flex gap-4">
-            <Button variant="outline" className="text-white">
-              <Filter className="w-4 h-4 mr-2" />
-              絞り込み
-            </Button>
-            <Button variant="outline" className="text-white">
-              並び替え
-            </Button>
-          </div>
-        </header>
-
-        <nav className="mb-8 border-b border-zinc-800">
-          <ul className="flex gap-8">
-            {categories.map((category, index) => (
-              <li key={index}>
-                <button
-                  className={`pb-2 ${
-                    index === 0 ? "border-b-2 border-blue-500" : "text-gray-400"
-                  }`}
-                >
-                  {category.name} ({category.count})
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        */}
 
           <div className="grid md:grid-cols-2 gap-6">
             {loading ? (
