@@ -67,6 +67,12 @@ const getCategoryBackgroundColor = (category: string | undefined | null) => {
 export default function OfferList() {
   // TODO: add translation
   const { t } = useTranslation();
+
+  /**
+   * default: "", this means sort by created date in ascending order
+   * fee_asc: sort by fee in ascending order
+   * fee_desc: sort by fee in descending order
+   */
   const [sort, setSort] = useState<string>("");
   const [queryWord, setQueryWord] = useState<string>("");
   const [searchOptions, setSearchOptions] = useState<SearchOfferOptions>({});
@@ -141,41 +147,20 @@ export default function OfferList() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                   <DropdownMenuRadioGroup value={sort} onValueChange={setSort}>
-                    <DropdownMenuRadioItem
-                      value="newest"
-                      className="cursor-pointer"
-                    >
+                    <DropdownMenuRadioItem value="" className="cursor-pointer">
                       新着順
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem
-                      value="matched"
+                      value="fee_asc"
                       className="cursor-pointer"
                     >
-                      マッチ度（降順）
+                      fee(昇順)
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem
-                      value="point"
+                      value="fee_desc"
                       className="cursor-pointer"
                     >
-                      ポイント（降順）
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem
-                      value="date"
-                      className="cursor-pointer"
-                    >
-                      期限までの日数（降順）
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem
-                      value="member"
-                      className="cursor-pointer"
-                    >
-                      対象人数（降順）
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem
-                      value="rate"
-                      className="cursor-pointer"
-                    >
-                      ユーザーレーティング（降順）
+                      fee(降順)
                     </DropdownMenuRadioItem>
                   </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
