@@ -57,12 +57,10 @@ async fn test_register_success() {
         Some("Great work!"),
     );
 
-    mock_repo
-        .expect_mock_create()
-        .returning({
-            let expected_track_credits = expected_track_credits.clone();
-            move |_| Ok(expected_track_credits.clone())
-        });
+    mock_repo.expect_mock_create().returning({
+        let expected_track_credits = expected_track_credits.clone();
+        move |_| Ok(expected_track_credits.clone())
+    });
 
     let usecase = RegisterUsecase::new(Arc::new(mock_repo));
 
@@ -111,7 +109,11 @@ async fn test_register_multiple_credits() {
                 &track_credits.credit_name.as_ref().unwrap(),
                 &track_credits.email.as_ref().unwrap(),
                 track_credits.is_invite.as_ref().unwrap().unwrap(),
-                track_credits.memo.as_ref().map(|v| v.as_ref()).unwrap_or(None),
+                track_credits
+                    .memo
+                    .as_ref()
+                    .map(|v| v.as_ref())
+                    .unwrap_or(None),
             ))
         });
 

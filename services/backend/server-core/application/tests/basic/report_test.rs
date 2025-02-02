@@ -56,7 +56,8 @@ async fn test_report_user_success() {
         report_content: "Inappropriate behavior".to_string(),
     };
 
-    let expected_report = create_test_user_report(1, &input.reported_user_id, &input.reporter_user_id);
+    let expected_report =
+        create_test_user_report(1, &input.reported_user_id, &input.reporter_user_id);
 
     user_report_repo
         .expect_mock_create()

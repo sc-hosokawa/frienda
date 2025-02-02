@@ -283,15 +283,14 @@ type FspHistory {
 }
 
 type GenPlaybackRate {
-	under14: Int!
-	gen1519: Int!
-	gen2024: Int!
-	gen2529: Int!
-	gen3034: Int!
-	gen3539: Int!
-	gen4044: Int!
-	gen4549: Int!
-	gen50Over: Int!
+	under17: Int!
+	gen1822: Int!
+	gen2327: Int!
+	gen2834: Int!
+	gen3544: Int!
+	gen4559: Int!
+	gen60150: Int!
+	genUnknown: Int!
 }
 
 type GenderGenRateData {
