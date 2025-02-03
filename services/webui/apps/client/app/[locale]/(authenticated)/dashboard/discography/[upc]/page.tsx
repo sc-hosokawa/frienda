@@ -64,15 +64,13 @@ const GET_GENDER_GEN_RATE_BY_UPC = gql`
         femaleCount
       }
       genRate {
-        under14
-        gen1519
-        gen2024
-        gen2529
-        gen3034
-        gen3539
-        gen4044
-        gen4549
-        gen50Over
+        under17
+        gen1822
+        gen2327
+        gen2834
+        gen3544
+        gen4559
+        gen60150
       }
     }
   }
