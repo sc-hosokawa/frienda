@@ -179,14 +179,14 @@ impl DspsUsecaseTrait for DspsUsecase {
         let isrcs: Vec<String> = self.tracks_repo.find_all_isrcs().await?;
         tracing::info!("PIPELINE::DSPsUsecase:: ISRCs: {}", isrcs.len());
 
-        let yesterday: String = (Utc::now().date_naive() - Duration::days(1))
+        let target_date: String = (Utc::now().date_naive() - Duration::days(2))
             .format("%Y/%m/%d")
             .to_string();
-        tracing::info!("PIPELINE::DSPsUsecase:: Yesterday: {}", yesterday);
+        tracing::info!("PIPELINE::DSPsUsecase:: Target Date: {}", target_date);
 
         let mut gender_gen_data: Vec<GenderGenData> = self
             .dsp_fetcher_service
-            .fetch_gender_gen_data(yesterday)
+            .fetch_gender_gen_data(target_date)
             .await?;
         tracing::info!(
             "PIPELINE::DSPsUsecase:: GenderGen Data: {}",

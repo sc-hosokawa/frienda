@@ -351,7 +351,10 @@ impl DspFetcherServiceTrait for DspFetcherService {
         &self,
         date: String,
     ) -> Result<Vec<GenderGenData>, anyhow::Error> {
-        tracing::info!("PIPELINE::DSPFetcherService:: Fetching gender gen data for {}", date);
+        tracing::info!(
+            "PIPELINE::DSPFetcherService:: Fetching gender gen data for {}",
+            date
+        );
 
         let client: Client = Client::new();
         let token: String = Self::get_authorization_token(&client).await?;
