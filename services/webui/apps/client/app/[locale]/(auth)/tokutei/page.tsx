@@ -51,8 +51,12 @@ export default function TokusyoPage() {
               <li>1,000 FSP：1,500円</li>
               <li>5,000 FSP：7,500円</li>
             </ul>
-            <p className="mt-4 text-sm">※表示価格はすべて消費税（10%）を含んだ金額です。</p>
-            <p className="mt-4 text-sm">※FSPは、当サービスでのみ利用可能なコミュニティ内ポイントの名称です。</p>
+            <p className="mt-4 text-sm">
+              ※表示価格はすべて消費税（10%）を含んだ金額です。
+            </p>
+            <p className="mt-4 text-sm">
+              ※FSPは、当サービスでのみ利用可能なコミュニティ内ポイントの名称です。
+            </p>
           </div>
         </section>
 

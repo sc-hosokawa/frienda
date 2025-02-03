@@ -12,7 +12,6 @@ import { DashboardInfo } from "~/components/dashboard/DashboardInfo";
 import { SearchArtist } from "~/components/dashboard/search-artist";
 import getAllArtists from "~/store/artist";
 import { gql, useQuery } from "@apollo/client";
-import { GenderGenRateData } from "~/generated/graphql";
 
 const GET_GENDER_GEN_RATE = gql`
   query GetGenderGenRate($artistId: String!, $userId: String!) {
@@ -22,23 +21,17 @@ const GET_GENDER_GEN_RATE = gql`
         femaleCount
       }
       genRate {
-        under14
-        gen1519
-        gen2024
-        gen2529
-        gen3034
-        gen3539
-        gen4044
-        gen4549
-        gen50Over
+        under17
+        gen1822
+        gen2327
+        gen2834
+        gen3544
+        gen4559
+        gen60150
       }
     }
   }
 `;
-
-interface ResData {
-  getGenderGenRateByArtist: GenderGenRateData;
-}
 
 export default function Dashboard() {
   const { user } = useUserStore();
@@ -57,7 +50,7 @@ export default function Dashboard() {
   const { data, loading, error } = getAllArtists();
 
   const { data: genderGenRateData, loading: LoadingGenderGenRateData } =
-    useQuery<ResData>(GET_GENDER_GEN_RATE, {
+    useQuery(GET_GENDER_GEN_RATE, {
       variables: {
         artistId: selectedArtist,
         userId: user?.id,
