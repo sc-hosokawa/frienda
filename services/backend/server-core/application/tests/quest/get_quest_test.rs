@@ -42,10 +42,7 @@ async fn test_get_all_quests_success() {
         .expect_mock_find_all()
         .returning(move || Ok(expected_quests.clone()));
 
-    let usecase = GetQuestsUsecase::new(
-        Arc::new(mock_quests_repo),
-        Arc::new(mock_quest_user_repo),
-    );
+    let usecase = GetQuestsUsecase::new(Arc::new(mock_quests_repo), Arc::new(mock_quest_user_repo));
 
     // Act
     let result = usecase.get_all().await;
@@ -64,27 +61,27 @@ async fn test_get_by_user_returns_uncompleted_quests() {
     // Arrange
     let mut mock_quests_repo = MockMockQuestsRepo::new();
     let mut mock_quest_user_repo = MockMockQuestUserRepo::new();
-    
+
     let user_id = "test_user";
     let completed_quest = create_test_quest(1);
     let uncompleted_quest = create_test_quest(2);
     let uncompleted_quest_clone = uncompleted_quest.clone();
-    
+
     let quest_user = create_test_quest_user(completed_quest.id, user_id);
-    
+
     mock_quest_user_repo
         .expect_mock_get_by_user_and_status()
         .with(eq(user_id.to_string()), eq(true))
         .returning(move |_, _| Ok(vec![quest_user.clone()]));
 
-    mock_quests_repo
-        .expect_mock_find_all()
-        .returning(move || Ok(vec![completed_quest.clone(), uncompleted_quest_clone.clone()]));
+    mock_quests_repo.expect_mock_find_all().returning(move || {
+        Ok(vec![
+            completed_quest.clone(),
+            uncompleted_quest_clone.clone(),
+        ])
+    });
 
-    let usecase = GetQuestsUsecase::new(
-        Arc::new(mock_quests_repo),
-        Arc::new(mock_quest_user_repo),
-    );
+    let usecase = GetQuestsUsecase::new(Arc::new(mock_quests_repo), Arc::new(mock_quest_user_repo));
 
     // Act
     let result = usecase.get_by_user(user_id).await;
@@ -101,14 +98,14 @@ async fn test_get_by_user_with_no_completed_quests() {
     // Arrange
     let mut mock_quests_repo = MockMockQuestsRepo::new();
     let mut mock_quest_user_repo = MockMockQuestUserRepo::new();
-    
+
     let user_id = "test_user";
     let all_quests = vec![
         create_test_quest(1),
         create_test_quest(2),
         create_test_quest(3),
     ];
-    
+
     mock_quest_user_repo
         .expect_mock_get_by_user_and_status()
         .with(eq(user_id.to_string()), eq(true))
@@ -118,10 +115,7 @@ async fn test_get_by_user_with_no_completed_quests() {
         .expect_mock_find_all()
         .returning(move || Ok(all_quests.clone()));
 
-    let usecase = GetQuestsUsecase::new(
-        Arc::new(mock_quests_repo),
-        Arc::new(mock_quest_user_repo),
-    );
+    let usecase = GetQuestsUsecase::new(Arc::new(mock_quests_repo), Arc::new(mock_quest_user_repo));
 
     // Act
     let result = usecase.get_by_user(user_id).await;

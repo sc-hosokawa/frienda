@@ -145,15 +145,14 @@ impl From<application::usecases::dashboard::get_playback_gender_gen_usecase::Gen
 }
 #[derive(SimpleObject)]
 pub struct GenPlaybackRate {
-    pub under_14: i32,
-    pub gen_15_19: i32,
-    pub gen_20_24: i32,
-    pub gen_25_29: i32,
-    pub gen_30_34: i32,
-    pub gen_35_39: i32,
-    pub gen_40_44: i32,
-    pub gen_45_49: i32,
-    pub gen_50_over: i32,
+    pub under_17: i32,
+    pub gen_18_22: i32,
+    pub gen_23_27: i32,
+    pub gen_28_34: i32,
+    pub gen_35_44: i32,
+    pub gen_45_59: i32,
+    pub gen_60_150: i32,
+    pub gen_unknown: i32,
 }
 impl From<application::usecases::dashboard::get_playback_gender_gen_usecase::GenPlaybackRate>
     for GenPlaybackRate
@@ -162,15 +161,14 @@ impl From<application::usecases::dashboard::get_playback_gender_gen_usecase::Gen
         d: application::usecases::dashboard::get_playback_gender_gen_usecase::GenPlaybackRate,
     ) -> Self {
         Self {
-            under_14: d.under_14,
-            gen_15_19: d._15_19,
-            gen_20_24: d._20_24,
-            gen_25_29: d._25_29,
-            gen_30_34: d._30_34,
-            gen_35_39: d._35_39,
-            gen_40_44: d._40_44,
-            gen_45_49: d._45_49,
-            gen_50_over: d._50_over,
+            under_17: d.under_17,
+            gen_18_22: d._18_22,
+            gen_23_27: d._23_27,
+            gen_28_34: d._28_34,
+            gen_35_44: d._35_44,
+            gen_45_59: d._45_59,
+            gen_60_150: d._60_150,
+            gen_unknown: d.unknown,
         }
     }
 }

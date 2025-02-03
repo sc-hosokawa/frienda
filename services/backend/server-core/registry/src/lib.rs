@@ -325,6 +325,7 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.plays_daily.clone(),
             repos.plays_monthly.clone(),
             repos.tracks.clone(),
+            repos.gender_gen_playback.clone(),
             services.dsp_fetcher_service.clone(),
         )),
         contact_to_admin: Arc::new(ContactToAdminUsecase::new(services.email_service.clone())),

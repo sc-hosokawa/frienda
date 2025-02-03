@@ -217,20 +217,36 @@ export default function CommunityAccountPage({
             })()}
           </div>
           <div className="flex gap-2">
-            <BorderDash
-              imageSrc={"/x-white.svg"}
-              alt="X"
-              width={24}
-              height={24}
-              className="w-12 h-12"
-            />
-            <BorderDash
-              imageSrc={"/instagram-white.svg"}
-              alt="Instagram"
-              width={24}
-              height={24}
-              className="w-12 h-12"
-            />
+            {data?.getUserProfile?.xHandle && (
+              <a
+                href={`${data.getUserProfile.xHandle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BorderDash
+                  imageSrc={"/x-white.svg"}
+                  alt="X"
+                  width={24}
+                  height={24}
+                  className="w-12 h-12"
+                />
+              </a>
+            )}
+            {data?.getUserProfile?.instagramHandle && (
+              <a
+                href={`${data.getUserProfile.instagramHandle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BorderDash
+                  imageSrc={"/instagram-white.svg"}
+                  alt="Instagram"
+                  width={24}
+                  height={24}
+                  className="w-12 h-12"
+                />
+              </a>
+            )}
           </div>
         </div>
         <div>

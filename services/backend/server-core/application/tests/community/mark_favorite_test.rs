@@ -27,14 +27,16 @@ async fn test_mark_favorite_success() {
 
     let expected_favorite = create_test_favorite(&input.user_id, &input.liked_by);
 
-    mock_repo.expect_mock_create().returning(move |favorite: FavoriteActiveModel| {
-        Ok(Favorite {
-            id: Uuid::new_v4(),
-            user_id: favorite.user_id.unwrap().to_string(),
-            liked_by: favorite.liked_by.unwrap().to_string(),
-            created_at: chrono::Utc::now().naive_utc(),
-        })
-    });
+    mock_repo
+        .expect_mock_create()
+        .returning(move |favorite: FavoriteActiveModel| {
+            Ok(Favorite {
+                id: Uuid::new_v4(),
+                user_id: favorite.user_id.unwrap().to_string(),
+                liked_by: favorite.liked_by.unwrap().to_string(),
+                created_at: chrono::Utc::now().naive_utc(),
+            })
+        });
 
     let usecase = MarkFavoriteUsecase::new(Arc::new(mock_repo));
 

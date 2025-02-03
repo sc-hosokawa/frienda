@@ -25,15 +25,14 @@ pub struct GenderPlaybackRate {
     pub female_count: i32,
 }
 pub struct GenPlaybackRate {
-    pub under_14: i32,
-    pub _15_19: i32,
-    pub _20_24: i32,
-    pub _25_29: i32,
-    pub _30_34: i32,
-    pub _35_39: i32,
-    pub _40_44: i32,
-    pub _45_49: i32,
-    pub _50_over: i32,
+    pub under_17: i32,
+    pub _18_22: i32,
+    pub _23_27: i32,
+    pub _28_34: i32,
+    pub _35_44: i32,
+    pub _45_59: i32,
+    pub _60_150: i32,
+    pub unknown: i32,
 }
 
 // Trait
@@ -88,14 +87,14 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             // Gender Balance
             let male_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.gender == Some("m".to_string()))
+                .filter(|p| p.gender == Some("male".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let female_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.gender == Some("f".to_string()))
+                .filter(|p| p.gender == Some("female".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
@@ -114,123 +113,110 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             };
 
             // Generation Balance
-            let under_14_count: i32 = gender_gen_playback_by_upc
+            let under_17_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.age == Some("under-14".to_string()))
+                .filter(|p| p.age == Some("0-17".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _15_19_count: i32 = gender_gen_playback_by_upc
+            let _18_22_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.age == Some("15-19".to_string()))
+                .filter(|p| p.age == Some("18-22".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _20_24_count: i32 = gender_gen_playback_by_upc
+            let _23_27_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.age == Some("20-24".to_string()))
+                .filter(|p| p.age == Some("23-27".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _25_29_count: i32 = gender_gen_playback_by_upc
+            let _28_34_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.age == Some("25-29".to_string()))
+                .filter(|p| p.age == Some("28-34".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _30_34_count: i32 = gender_gen_playback_by_upc
+            let _35_44_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.age == Some("30-34".to_string()))
+                .filter(|p| p.age == Some("35-44".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _35_39_count: i32 = gender_gen_playback_by_upc
+            let _45_59_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.age == Some("35-39".to_string()))
+                .filter(|p| p.age == Some("45-59".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _40_44_count: i32 = gender_gen_playback_by_upc
+            let _60_150_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.age == Some("40-44".to_string()))
+                .filter(|p| p.age == Some("60-150".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _45_49_count: i32 = gender_gen_playback_by_upc
+            let unknown_count: i32 = gender_gen_playback_by_upc
                 .iter()
-                .filter(|p| p.age == Some("45-49".to_string()))
+                .filter(|p| p.age == Some("unknown".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _50_over_count: i32 = gender_gen_playback_by_upc
-                .iter()
-                .filter(|p| p.age == Some("50-over".to_string()))
-                .filter(|p| p.play_count >= 0)
-                .map(|p| p.play_count)
-                .sum();
-
-            let total_gen_count: i32 = under_14_count
-                + _15_19_count
-                + _20_24_count
-                + _25_29_count
-                + _30_34_count
-                + _35_39_count
-                + _40_44_count
-                + _45_49_count
-                + _50_over_count;
+            let total_gen_count: i32 = under_17_count
+                + _18_22_count
+                + _23_27_count
+                + _28_34_count
+                + _35_44_count
+                + _45_59_count
+                + _60_150_count
+                + unknown_count;
 
             // GenPlaybackRateの更新（パーセンテージに変換）
             let gen_rate = GenPlaybackRate {
-                under_14: if total_gen_count > 0 {
-                    (under_14_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                under_17: if total_gen_count > 0 {
+                    (under_17_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _15_19: if total_gen_count > 0 {
-                    (_15_19_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _18_22: if total_gen_count > 0 {
+                    (_18_22_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _20_24: if total_gen_count > 0 {
-                    (_20_24_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _23_27: if total_gen_count > 0 {
+                    (_23_27_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _25_29: if total_gen_count > 0 {
-                    (_25_29_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _28_34: if total_gen_count > 0 {
+                    (_28_34_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _30_34: if total_gen_count > 0 {
-                    (_30_34_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _35_44: if total_gen_count > 0 {
+                    (_35_44_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _35_39: if total_gen_count > 0 {
-                    (_35_39_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _45_59: if total_gen_count > 0 {
+                    (_45_59_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _40_44: if total_gen_count > 0 {
-                    (_40_44_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _60_150: if total_gen_count > 0 {
+                    (_60_150_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _45_49: if total_gen_count > 0 {
-                    (_45_49_count as f64 / total_gen_count as f64 * 100.0).round() as i32
-                } else {
-                    0
-                },
-                _50_over: if total_gen_count > 0 {
-                    (_50_over_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                unknown: if total_gen_count > 0 {
+                    (unknown_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
@@ -270,14 +256,14 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             // Gender Balance
             let male_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.gender == Some("m".to_string()))
+                .filter(|p| p.gender == Some("male".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
             let female_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.gender == Some("f".to_string()))
+                .filter(|p| p.gender == Some("female".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
@@ -296,123 +282,110 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             };
 
             // Generation Balance
-            let under_14_count: i32 = gender_gen_playback_by_artist
+            let under_17_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.age == Some("under-14".to_string()))
+                .filter(|p| p.age == Some("under-17".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _15_19_count: i32 = gender_gen_playback_by_artist
+            let _18_22_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.age == Some("15-19".to_string()))
+                .filter(|p| p.age == Some("18-22".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _20_24_count: i32 = gender_gen_playback_by_artist
+            let _23_27_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.age == Some("20-24".to_string()))
+                .filter(|p| p.age == Some("23-27".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _25_29_count: i32 = gender_gen_playback_by_artist
+            let _28_34_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.age == Some("25-29".to_string()))
+                .filter(|p| p.age == Some("28-34".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _30_34_count: i32 = gender_gen_playback_by_artist
+            let _35_44_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.age == Some("30-34".to_string()))
+                .filter(|p| p.age == Some("35-44".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _35_39_count: i32 = gender_gen_playback_by_artist
+            let _45_59_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.age == Some("35-39".to_string()))
+                .filter(|p| p.age == Some("45-59".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _40_44_count: i32 = gender_gen_playback_by_artist
+            let _60_150_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.age == Some("40-44".to_string()))
+                .filter(|p| p.age == Some("60-150".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _45_49_count: i32 = gender_gen_playback_by_artist
+            let unknown_count: i32 = gender_gen_playback_by_artist
                 .iter()
-                .filter(|p| p.age == Some("45-49".to_string()))
+                .filter(|p| p.age == Some("unknown".to_string()))
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
 
-            let _50_over_count: i32 = gender_gen_playback_by_artist
-                .iter()
-                .filter(|p| p.age == Some("50-over".to_string()))
-                .filter(|p| p.play_count >= 0)
-                .map(|p| p.play_count)
-                .sum();
-
-            let total_gen_count: i32 = under_14_count
-                + _15_19_count
-                + _20_24_count
-                + _25_29_count
-                + _30_34_count
-                + _35_39_count
-                + _40_44_count
-                + _45_49_count
-                + _50_over_count;
+            let total_gen_count: i32 = under_17_count
+                + _18_22_count
+                + _23_27_count
+                + _28_34_count
+                + _35_44_count
+                + _45_59_count
+                + _60_150_count
+                + unknown_count;
 
             // GenPlaybackRateの更新（パーセンテージに変換）
             let gen_rate = GenPlaybackRate {
-                under_14: if total_gen_count > 0 {
-                    (under_14_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                under_17: if total_gen_count > 0 {
+                    (under_17_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _15_19: if total_gen_count > 0 {
-                    (_15_19_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _18_22: if total_gen_count > 0 {
+                    (_18_22_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _20_24: if total_gen_count > 0 {
-                    (_20_24_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _23_27: if total_gen_count > 0 {
+                    (_23_27_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _25_29: if total_gen_count > 0 {
-                    (_25_29_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _28_34: if total_gen_count > 0 {
+                    (_28_34_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _30_34: if total_gen_count > 0 {
-                    (_30_34_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _35_44: if total_gen_count > 0 {
+                    (_35_44_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _35_39: if total_gen_count > 0 {
-                    (_35_39_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _45_59: if total_gen_count > 0 {
+                    (_45_59_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _40_44: if total_gen_count > 0 {
-                    (_40_44_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                _60_150: if total_gen_count > 0 {
+                    (_60_150_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },
-                _45_49: if total_gen_count > 0 {
-                    (_45_49_count as f64 / total_gen_count as f64 * 100.0).round() as i32
-                } else {
-                    0
-                },
-                _50_over: if total_gen_count > 0 {
-                    (_50_over_count as f64 / total_gen_count as f64 * 100.0).round() as i32
+                unknown: if total_gen_count > 0 {
+                    (unknown_count as f64 / total_gen_count as f64 * 100.0).round() as i32
                 } else {
                     0
                 },

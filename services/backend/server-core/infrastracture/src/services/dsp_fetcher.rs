@@ -1,4 +1,4 @@
-use application::services::dsp_fetcher::{DspFetcherServiceTrait, DspsData};
+use application::services::dsp_fetcher::{DspFetcherServiceTrait, DspsData, GenderGenData};
 use async_trait::async_trait;
 
 use base64;
@@ -10,6 +10,13 @@ use std::env;
 use std::time::Instant;
 use tracing;
 
+use flate2::read::GzDecoder;
+use reqwest::Client;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::fs::File;
+use std::io::{self, BufReader, BufWriter, Write};
+
 #[derive(Debug)]
 pub struct StreamingData {
     pub date: String,
@@ -19,6 +26,19 @@ pub struct StreamingData {
     pub line: i32,
     pub youtube: Option<i32>,
     pub amazon: Option<i32>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct AuthResponse {
+    access_token: String,
+    token_type: String,
+    expires_in: i32,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct FileInfo {
+    description: String,
+    uri: String,
 }
 
 pub struct DspFetcherService {
@@ -48,6 +68,112 @@ impl DspFetcherService {
         );
         tracing::info!("DSPFetcherService initialized");
         Ok(Self { client: hub })
+    }
+
+    async fn get_authorization_token(client: &Client) -> Result<String, anyhow::Error> {
+        let client_id: String =
+            std::env::var("CLIENT_ID").expect("CLIENT_ID environment variable not set");
+        let client_secret: String =
+            std::env::var("CLIENT_SECRET").expect("CLIENT_SECRET environment variable not set");
+        let auth_url: String = std::env::var("GENDER_GEN_AUTH_URL")
+            .expect("GENDER_GEN_AUTH_URL environment variable not set");
+
+        let params = [
+            ("grant_type", "client_credentials"),
+            ("client_id", client_id.as_str()),
+            ("client_secret", client_secret.as_str()),
+        ];
+
+        tracing::info!("PIPELINE::DSPFetcherService:: Auth URL: {}", auth_url);
+
+        let response = client.post(auth_url).form(&params).send().await?;
+
+        if response.status().is_success() {
+            let auth_response: AuthResponse = response.json().await?;
+            println!("Access Token: {}", auth_response.access_token);
+            Ok(auth_response.access_token)
+        } else {
+            Err(anyhow::anyhow!(
+                "Failed to get token: {} - {}",
+                response.status(),
+                response.text().await?
+            ))
+        }
+    }
+
+    async fn get_data(client: &Client, token: &str, date: &str) -> Result<String, anyhow::Error> {
+        let url: String = std::env::var("GENDER_GEN_PLAYBACK_URL")
+            .expect("GENDER_GEN_PLAYBACK_URL environment variable not set");
+        let prefix: String = std::env::var("GENDER_GEN_PLAYBACK_PREFIX")
+            .expect("GENDER_GEN_PLAYBACK_PREFIX environment variable not set");
+        let gender_gen_source_url = format!("{}{}{}", url, date, prefix);
+        tracing::info!(
+            "PIPELINE::DSPFetcherService:: GenderGen Source URL: {}",
+            gender_gen_source_url
+        );
+
+        let response = client
+            .get(gender_gen_source_url)
+            .header("Authorization", format!("Bearer {}", token))
+            .send()
+            .await?;
+
+        if response.status().is_success() {
+            Ok(response.text().await?)
+        } else {
+            Err(anyhow::anyhow!(
+                "Failed to get data: {} - {}",
+                response.status(),
+                response.text().await?
+            ))
+        }
+    }
+
+    async fn combine_downloaded_files(
+        client: &Client,
+        jsonl_text: &str,
+        output_filename: &str,
+    ) -> Result<(), anyhow::Error> {
+        let output_file = File::create(output_filename)?;
+        let mut writer = BufWriter::new(output_file);
+
+        for line in jsonl_text.lines() {
+            let file_info: FileInfo = serde_json::from_str(line)
+                .map_err(|_| anyhow::anyhow!("Failed to parse file info"))?;
+
+            println!(
+                "Downloading and decompressing '{}' from {}",
+                file_info.description, file_info.uri
+            );
+
+            let response = client.get(&file_info.uri).send().await?;
+
+            if response.status().is_success() {
+                let content = response.bytes().await?;
+                let decompressed_text = Self::decompress_gz_content(&content)?;
+
+                writer.write_all(decompressed_text.as_bytes())?;
+                writer.write_all(b"\n")?;
+
+                println!("Appended content from {}", file_info.description);
+            } else {
+                println!(
+                    "Download failed for {}: HTTP {}",
+                    file_info.description,
+                    response.status()
+                );
+            }
+        }
+
+        writer.flush()?;
+        Ok(())
+    }
+
+    fn decompress_gz_content(content: &[u8]) -> Result<String, anyhow::Error> {
+        let mut decoder = GzDecoder::new(content);
+        let mut decompressed = String::new();
+        io::Read::read_to_string(&mut decoder, &mut decompressed)?;
+        Ok(decompressed)
     }
 }
 
@@ -219,5 +345,89 @@ impl DspFetcherServiceTrait for DspFetcherService {
             .collect();
 
         Ok(dsps_data)
+    }
+
+    async fn fetch_gender_gen_data(
+        &self,
+        date: String,
+    ) -> Result<Vec<GenderGenData>, anyhow::Error> {
+        tracing::info!("PIPELINE::DSPFetcherService:: Fetching gender gen data for {}", date);
+
+        let client: Client = Client::new();
+        let token: String = Self::get_authorization_token(&client).await?;
+        let jsonl_data: String = Self::get_data(&client, &token, &date).await?;
+        let formatted_date: String = date.replace("/", "");
+        let output_file: String = format!("combined_output_{}.jsonl", formatted_date);
+        Self::combine_downloaded_files(&client, &jsonl_data, output_file.as_str()).await?;
+
+        tracing::info!("Combined data saved to {}", output_file);
+
+        let file = File::open(output_file)?;
+        let reader = BufReader::new(file);
+        let mut records = Vec::new();
+
+        for line in io::BufRead::lines(reader) {
+            let line = line?;
+            if line.trim().is_empty() {
+                continue;
+            }
+
+            let data: Value = match serde_json::from_str(&line) {
+                Ok(v) => v,
+                Err(e) => {
+                    tracing::error!("JSON parse error: {} \nLine: {}", e, line);
+                    continue;
+                }
+            };
+
+            let isrc = match data.get("trackv2").and_then(|t| t.get("isrc")) {
+                Some(isrc) => isrc.as_str().unwrap_or("").to_string(),
+                None => {
+                    tracing::error!("Missing ISRC");
+                    continue;
+                }
+            };
+
+            let date = match data.get("date") {
+                Some(date) => date.as_str().unwrap_or("").to_string(),
+                None => {
+                    tracing::error!("Missing date");
+                    continue;
+                }
+            };
+
+            if let Some(streams) = data.get("streams") {
+                if let Some(countries) = streams.get("country").and_then(|c| c.as_object()) {
+                    for country_info in countries.values() {
+                        if let Some(sex_info) = country_info.get("sex").and_then(|s| s.as_object())
+                        {
+                            for (gender, gender_info) in sex_info {
+                                if let Some(age_info) =
+                                    gender_info.get("age").and_then(|a| a.as_object())
+                                {
+                                    for (age_group, count) in age_info {
+                                        if let Some(play_count) = count.as_i64() {
+                                            records.push(GenderGenData {
+                                                isrc: isrc.clone(),
+                                                date: date.clone(),
+                                                gender: gender.clone(),
+                                                age: age_group.clone(),
+                                                play_count,
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for record in &records {
+            tracing::info!("PIPELINE::DSPFetcherService:: GenderGenData: {:?}", record);
+        }
+
+        Ok(records)
     }
 }

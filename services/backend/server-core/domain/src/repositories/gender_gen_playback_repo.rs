@@ -14,6 +14,10 @@ pub trait GenderGenPlaybackRepository: Send + Sync {
         &self,
         gender_gen_playback: GenderGenPlaybackActiveModel,
     ) -> Result<GenderGenPlayback, DomainError>;
+    async fn insert_many(
+        &self,
+        gender_gen_playback: Vec<GenderGenPlaybackActiveModel>,
+    ) -> Result<(), DomainError>;
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
 
     async fn find_by_id(&self, id: i32) -> Result<Option<GenderGenPlayback>, DomainError>;
@@ -33,4 +37,5 @@ pub trait GenderGenPlaybackRepository: Send + Sync {
         isrcs: Vec<String>,
         year: &str,
     ) -> Result<Vec<GenderGenPlayback>, DomainError>;
+    async fn find_lastest_id(&self) -> Result<i32, DomainError>;
 }

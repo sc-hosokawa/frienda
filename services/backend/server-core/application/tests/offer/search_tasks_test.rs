@@ -32,7 +32,10 @@ async fn test_search_offers_with_empty_query() {
 
     mock_repo
         .expect_mock_search()
-        .with(eq(""), eq(domain::repositories::offers_repo::SearchOptions::default()))
+        .with(
+            eq(""),
+            eq(domain::repositories::offers_repo::SearchOptions::default()),
+        )
         .returning(move |_, _| Ok(expected_offers.clone()));
 
     let usecase = SearchTasksUsecase::new(Arc::new(mock_repo));
@@ -211,9 +214,7 @@ async fn test_search_offers_with_sorting() {
 #[tokio::test]
 async fn test_search_offers_with_no_results() {
     let mut mock_repo = MockMockOffersRepo::new();
-    mock_repo
-        .expect_mock_search()
-        .returning(|_, _| Ok(vec![]));
+    mock_repo.expect_mock_search().returning(|_, _| Ok(vec![]));
 
     let usecase = SearchTasksUsecase::new(Arc::new(mock_repo));
     let result = usecase
