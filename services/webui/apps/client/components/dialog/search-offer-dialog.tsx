@@ -17,6 +17,7 @@ import { Label } from "@ui/components/ui/label";
 import { Input } from "@ui/components/ui/input";
 import { SelectTargetRole } from "../offer/select-target-role";
 import { SelectCategory } from "../offer/select-category";
+import { useTranslation } from "~/i18n/client";
 
 export interface SearchOfferOptions {
   category?: string;
@@ -39,6 +40,7 @@ export function SearchOfferDialog({
   handleOption,
 }: SearchOfferDialogProps) {
   // TODO: consider using zod for validation
+  const { t } = useTranslation();
   function validateFee(): boolean {
     return options.minPrice &&
       options.maxPrice &&
@@ -63,16 +65,18 @@ export function SearchOfferDialog({
               className="w-[180px] h-[60px] rounded-[60px] hover:bg-gray-500 hover:text-black text-white bg-[#202020] "
               onClick={() => setOptions({})}
             >
-              全てクリアする
+              {t("common.clear-all")}
             </Button>
           </div>
           <AlertDialogDescription className="text-white">
-            {"オファーを以下の条件で絞り込みすることができます。"}
+            {t("offer.dialog-descrioption")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className="flex flex-col space-y-6">
           <div className="flex flex-col gap-4">
-            <Label className="flex justify-start">オファー対象</Label>
+            <Label className="flex justify-start">
+              {t("offer.dialog-targetRole")}
+            </Label>
             <SelectTargetRole
               setOptions={setOptions}
               selectedTargetRole={options.targetRole}
@@ -82,7 +86,7 @@ export function SearchOfferDialog({
             <Label className="flex justify-start">FSP</Label>
             <div className="flex items-center flex-row justify-between gap-4">
               <Input
-                placeholder="オファーの最低金額を入力してください"
+                placeholder={t("offer.dialog-enter-min-fee")}
                 value={options.minPrice?.toString() || ""}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -99,7 +103,7 @@ export function SearchOfferDialog({
 
               <p className="flex items-center">〜</p>
               <Input
-                placeholder="オファーの最高金額を入力してください"
+                placeholder={t("offer.dialog-enter-max-fee")}
                 value={options.maxPrice?.toString() || ""}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -116,12 +120,14 @@ export function SearchOfferDialog({
             </div>
             {!validateFee() && (
               <>
-                <p className="text-red-500">最低金額が最高金額より大きいです</p>
+                <p className="text-red-500">
+                  {t("offer.error.min-larger-than-max")}
+                </p>
               </>
             )}
           </div>
           <div className="flex flex-col gap-4">
-            <Label className="flex justify-start">カテゴリー</Label>
+            <Label className="flex justify-start">{t("common.category")}</Label>
             <SelectCategory
               setOptions={setOptions}
               selectedCategory={options.category}
@@ -137,7 +143,7 @@ export function SearchOfferDialog({
               variant="outline"
               className="border-none w-[180px] h-[60px] text-white bg-transparent hover:bg-transparent"
             >
-              <p className="underline">キャンセル</p>
+              <p className="underline">{t("common.cancel")}</p>
             </Button>
           </AlertDialogCancel>
           <AlertDialogAction
@@ -151,7 +157,7 @@ export function SearchOfferDialog({
               variant="outline"
               className="border-2 border-dashed w-[180px] h-[60px] rounded-[60px] text-white bg-transparent hover:bg-transparent"
             >
-              絞り込む
+              {t("offer.apply-filter")}
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>
