@@ -426,30 +426,61 @@ class _UpdateUserProfileState extends ConsumerState<UpdateUserProfile> {
                 controller: _xHandleController,
                 decoration: const InputDecoration(
                   labelText: 'X (Twitter)',
+                  hintText:
+                      'https://x.com/username または https://twitter.com/username',
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) return null;
+                  final pattern = RegExp(
+                      r'^https:\/\/(www\.)?(x|twitter)\.com\/[a-zA-Z0-9_]{1,15}\/?$');
+                  if (!pattern.hasMatch(value)) {
+                    return 'X(Twitter)のURLの形式が正しくありません';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _instagramHandleController,
                 decoration: const InputDecoration(
                   labelText: 'Instagram',
+                  hintText: 'https://instagram.com/username',
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) return null;
+                  final pattern = RegExp(
+                      r'^https:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9_.]{1,30}\/?$');
+                  if (!pattern.hasMatch(value)) {
+                    return 'InstagramのURLの形式が正しくありません';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _fbHandleController,
                 decoration: const InputDecoration(
                   labelText: 'Facebook',
+                  hintText: 'https://facebook.com/username',
                   border: OutlineInputBorder(),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) return null;
+                  final pattern = RegExp(
+                      r'^https:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9.]{1,50}\/?$');
+                  if (!pattern.hasMatch(value)) {
+                    return 'FacebookのURLの形式が正しくありません';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _evmAddrController,
                 decoration: const InputDecoration(
-                  labelText: 'EVMアドレス',
+                  labelText: 'ウォレットアドレス',
                   border: OutlineInputBorder(),
                 ),
               ),

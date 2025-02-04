@@ -20,22 +20,20 @@ class ProductTrendTab extends ConsumerWidget {
     return Query(
       options: QueryOptions(
         document: gql('''
-          query GetGenderGenRate(\$artistId: String!, \$userId: String!) {
-            getGenderGenRateByArtist(artistId: \$artistId, userId: \$userId) {
+          query GetGenderGenRate(\$artistId: String!, \$userId: String!, \$upc: String!) {
+            getGenderGenRateByUpc(artistId: \$artistId, userId: \$userId, upc: \$upc) {
               genderRate {
                 maleCount
                 femaleCount
               }
               genRate {
-                under14
-                gen1519
-                gen2024
-                gen2529
-                gen3034
-                gen3539
-                gen4044
-                gen4549
-                gen50Over
+                under17
+                gen1822
+                gen2327
+                gen2834
+                gen3544
+                gen4559
+                gen60150
               }
             }
           }
@@ -43,6 +41,7 @@ class ProductTrendTab extends ConsumerWidget {
         variables: {
           'artistId': artistId,
           'userId': userId,
+          'upc': upc,
         },
         fetchPolicy: FetchPolicy.networkOnly,
       ),
@@ -62,9 +61,9 @@ class ProductTrendTab extends ConsumerWidget {
         }
 
         final genderRates =
-            result.data?['getGenderGenRateByArtist']?['genderRate'];
+            result.data?['getGenderGenRateByUpc']?['genderRate'];
         final generationRates =
-            result.data?['getGenderGenRateByArtist']?['genRate'];
+            result.data?['getGenderGenRateByUpc']?['genRate'];
 
         print('Gender rates: $genderRates');
         print('Generation rates: $generationRates');
@@ -73,7 +72,7 @@ class ProductTrendTab extends ConsumerWidget {
           child: Column(
             children: [
               Text(
-                '以下のデータは現在LINE Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。',
+                '以下のデータは現在Spotifyのデータを利用しています。',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey,
@@ -135,9 +134,9 @@ class ProductTrendTab extends ConsumerWidget {
                   startDegreeOffset: 270,
                   sections: [
                     PieChartSectionData(
-                      color: const Color.fromRGBO(94, 234, 212, 0.6),
-                      value: malePercentage.toDouble(),
-                      title: '$malePercentage%',
+                      color: const Color.fromRGBO(248, 113, 113, 1),
+                      value: femalePercentage.toDouble(),
+                      title: '$femalePercentage%',
                       radius: 60,
                       titleStyle: const TextStyle(
                         fontSize: 18,
@@ -146,9 +145,9 @@ class ProductTrendTab extends ConsumerWidget {
                       ),
                     ),
                     PieChartSectionData(
-                      color: const Color.fromRGBO(248, 113, 113, 0.6),
-                      value: femalePercentage.toDouble(),
-                      title: '$femalePercentage%',
+                      color: const Color.fromRGBO(94, 234, 212, 1),
+                      value: malePercentage.toDouble(),
+                      title: '$malePercentage%',
                       radius: 60,
                       titleStyle: const TextStyle(
                         fontSize: 18,
@@ -161,9 +160,9 @@ class ProductTrendTab extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16),
-            _buildLegend('Male', const Color.fromRGBO(94, 234, 212, 0.6)),
+            _buildLegend('Male', const Color.fromRGBO(94, 234, 212, 1)),
             const SizedBox(height: 8),
-            _buildLegend('Female', const Color.fromRGBO(248, 113, 113, 0.6)),
+            _buildLegend('Female', const Color.fromRGBO(248, 113, 113, 1)),
           ],
         ),
       ),
@@ -202,23 +201,19 @@ class ProductTrendTab extends ConsumerWidget {
             const Text('Generation', style: TextStyle(color: Colors.white)),
             const SizedBox(height: 32),
             _buildGenerationBar(
-                'Under 14', generationRates['under14'] ?? 0, Colors.yellow),
+                'Under 17', generationRates['under17'] ?? 0, Colors.yellow),
             _buildGenerationBar(
-                '15-19', generationRates['gen1519'] ?? 0, Colors.pink),
+                '18-22', generationRates['gen1822'] ?? 0, Colors.pink),
             _buildGenerationBar(
-                '20-24', generationRates['gen2024'] ?? 0, Colors.green),
+                '23-27', generationRates['gen2327'] ?? 0, Colors.green),
             _buildGenerationBar(
-                '25-29', generationRates['gen2529'] ?? 0, Colors.orange),
+                '28-34', generationRates['gen2834'] ?? 0, Colors.orange),
             _buildGenerationBar(
-                '30-34', generationRates['gen3034'] ?? 0, Colors.purple),
+                '35-44', generationRates['gen3544'] ?? 0, Colors.purple),
             _buildGenerationBar(
-                '35-39', generationRates['gen3539'] ?? 0, Colors.blue),
+                '45-59', generationRates['gen4559'] ?? 0, Colors.blue),
             _buildGenerationBar(
-                '40-44', generationRates['gen4044'] ?? 0, Colors.teal),
-            _buildGenerationBar(
-                '45-49', generationRates['gen4549'] ?? 0, Colors.pink),
-            _buildGenerationBar(
-                '50 Over', generationRates['gen50Over'] ?? 0, Colors.purple),
+                '60-150', generationRates['gen60150'] ?? 0, Colors.purple),
           ],
         ),
       ),
