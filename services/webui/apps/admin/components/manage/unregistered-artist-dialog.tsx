@@ -113,6 +113,9 @@ export function UnregisteredArtistsDialog({
           variant: "default",
         });
         setShowDialog(false);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       },
       onError: (error) => {
         console.error("Error creating artists:", error);

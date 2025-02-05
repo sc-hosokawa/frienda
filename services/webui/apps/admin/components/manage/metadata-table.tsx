@@ -21,6 +21,7 @@ import { useMutation } from "@tanstack/react-query";
 import request from "graphql-request";
 import { endpoint } from "../../utils/query";
 import { useToast } from "@ui/hooks/use-toast";
+import { Image as ImageIcon } from "lucide-react";
 
 interface Metadata {
   upc: string;
@@ -47,7 +48,8 @@ interface EditableCellProps {
 }
 
 function EditableCell({ value, onChange, isEditing }: EditableCellProps) {
-  if (!isEditing) return <TableCell className="px-4">{value}</TableCell>;
+  if (!isEditing)
+    return <TableCell className="px-4 text-center">{value}</TableCell>;
 
   return (
     <TableCell className="p-0">
@@ -80,6 +82,18 @@ const REGISTER_RELEASES = `
   }
 `;
 
+// メタデータをグループ化するためのインターフェース
+interface GroupedMetadata {
+  key: string; // アーティスト名_UPC
+  artist_jp: string;
+  artist_en: string;
+  artist_kana: string;
+  upc: string;
+  title: string;
+  artistId?: string;
+  tracks: Metadata[];
+}
+
 export function MetadataTable({
   metadata,
   editingIndex,
@@ -89,13 +103,49 @@ export function MetadataTable({
 }: MetadataTableProps) {
   const { toast } = useToast();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
-  const totalPages = Math.ceil(metadata.length / itemsPerPage);
-  console.log("========== releases count = ", metadata.length);
-  const paginatedMetadata = metadata.slice(
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
+  const itemsPerPage = 10;
+
+  // メタデータをグループ化
+  const groupedMetadata: GroupedMetadata[] = metadata.reduce(
+    (groups: GroupedMetadata[], item) => {
+      const key = `${item.artist_jp}_${item.upc}`;
+      const existingGroup = groups.find((g) => g.key === key);
+
+      if (existingGroup) {
+        existingGroup.tracks.push(item);
+      } else {
+        groups.push({
+          key,
+          artist_jp: item.artist_jp,
+          artist_en: item.artist_en,
+          artist_kana: item.artist_kana,
+          upc: item.upc,
+          title: item.title,
+          artistId: item.artistId,
+          tracks: [item],
+        });
+      }
+      return groups;
+    },
+    [],
+  );
+
+  const totalPages = Math.ceil(groupedMetadata.length / itemsPerPage);
+  const paginatedGroups = groupedMetadata.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage,
   );
+
+  const toggleGroup = (key: string) => {
+    const newExpanded = new Set(expandedGroups);
+    if (newExpanded.has(key)) {
+      newExpanded.delete(key);
+    } else {
+      newExpanded.add(key);
+    }
+    setExpandedGroups(newExpanded);
+  };
 
   const mutation = useMutation({
     mutationFn: async (metadata: Metadata[]) => {
@@ -123,9 +173,12 @@ export function MetadataTable({
           title: "メタデータを登録しました",
           variant: "default",
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         toast({
-          title: "登録に失敗しました",
+          title: "登録に失敗しました。最初からやり直してください。",
           variant: "destructive",
         });
       }
@@ -133,7 +186,7 @@ export function MetadataTable({
     onError: (error) => {
       console.error("Registration error:", error);
       toast({
-        title: "登録中にエラーが発生しました",
+        title: "登録中にエラーが発生しました。最初からやり直してください。",
         variant: "destructive",
       });
     },
@@ -147,6 +200,7 @@ export function MetadataTable({
       });
       return;
     }
+    console.log(`metadata: ${metadata}`);
     mutation.mutate(metadata);
   };
 
@@ -252,135 +306,114 @@ export function MetadataTable({
         )}
       </div>
 
-      <Table className="text-sm">
-        <TableHeader>
-          <TableRow className="border-b border-gray-200 dark:border-gray-700">
-            <TableHead className="text-center">操作</TableHead>
-            <TableHead className="text-center">
-              アーティスト名(日本語)
-            </TableHead>
-            <TableHead className="text-center">アーティスト名(カナ)</TableHead>
-            <TableHead className="text-center">アーティスト名(英語)</TableHead>
-            <TableHead className="text-center">アーティストID</TableHead>
-            <TableHead className="text-center">UPC</TableHead>
-            <TableHead className="text-center">商品形態</TableHead>
-            <TableHead className="text-center">トラック数</TableHead>
-            <TableHead className="text-center">タイトル</TableHead>
-            <TableHead className="text-center">リリース日</TableHead>
-            <TableHead className="text-center">ISRC</TableHead>
-            <TableHead className="text-center">トラック番号</TableHead>
-            <TableHead className="text-center">トラックタイトル</TableHead>
-            <TableHead className="text-center">
-              トラックタイトルバージョン
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {paginatedMetadata.map((item, index) => (
-            <TableRow
-              key={(currentPage - 1) * itemsPerPage + index}
-              className={`border-b border-gray-200 dark:border-gray-700 whitespace-nowrap ${
-                editingIndex === index ? "bg-gray-50 dark:bg-gray-800" : ""
-              }`}
+      <div className="space-y-2">
+        {paginatedGroups.map((group) => (
+          <div key={group.key} className="border rounded-lg">
+            <div
+              className="flex items-center justify-between p-4 cursor-pointer bg-gray-50 hover:bg-gray-100"
+              onClick={() => toggleGroup(group.key)}
             >
-              <TableCell className="px-6">
-                {editingIndex === index ? (
-                  <Button onClick={() => setEditingIndex(null)}>保存</Button>
-                ) : (
-                  <Button onClick={() => setEditingIndex(index)}>編集</Button>
-                )}
-              </TableCell>
-              <EditableCell
-                value={item.artist_jp}
-                onChange={(value) =>
-                  handleMetadataChange(index, "artist_jp", value)
-                }
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.artist_kana}
-                onChange={(value) =>
-                  handleMetadataChange(index, "artist_kana", value)
-                }
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.artist_en}
-                onChange={(value) =>
-                  handleMetadataChange(index, "artist_en", value)
-                }
-                isEditing={editingIndex === index}
-              />
-              <TableCell className="px-4">
-                {item.artistId ? (
-                  <span className="text-green-500">{item.artistId}</span>
-                ) : (
-                  <span className="text-red-500">未登録</span>
-                )}
-              </TableCell>
-              <EditableCell
-                value={item.upc}
-                onChange={(value) => handleMetadataChange(index, "upc", value)}
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.format}
-                onChange={(value) =>
-                  handleMetadataChange(index, "format", value)
-                }
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.track_count}
-                onChange={(value) =>
-                  handleMetadataChange(index, "track_count", value)
-                }
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.title}
-                onChange={(value) =>
-                  handleMetadataChange(index, "title", value)
-                }
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.release_date}
-                onChange={(value) =>
-                  handleMetadataChange(index, "release_date", value)
-                }
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.isrc}
-                onChange={(value) => handleMetadataChange(index, "isrc", value)}
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.track_no}
-                onChange={(value) =>
-                  handleMetadataChange(index, "track_no", value)
-                }
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.track_title}
-                onChange={(value) =>
-                  handleMetadataChange(index, "track_title", value)
-                }
-                isEditing={editingIndex === index}
-              />
-              <EditableCell
-                value={item.track_title_version}
-                onChange={(value) =>
-                  handleMetadataChange(index, "track_title_version", value)
-                }
-                isEditing={editingIndex === index}
-              />
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+              <div className="flex-1 grid grid-cols-4 gap-4">
+                <div>
+                  <div className="font-medium">{group.artist_jp}</div>
+                  <div className="text-sm text-gray-500">{group.artist_en}</div>
+                </div>
+                <div>
+                  <div className="text-sm">{group.title}</div>
+                </div>
+                <div className="text-sm flex items-center gap-2">
+                  {group.tracks[0]?.imageUrl ? (
+                    <ImageIcon className="w-4 h-4 text-green-500" />
+                  ) : (
+                    <ImageIcon className="w-4 h-4 text-gray-300" />
+                  )}
+                  {group.upc}
+                </div>
+                <div>
+                  {group.artistId ? (
+                    <span className="text-green-500 text-sm">
+                      {group.artistId}
+                    </span>
+                  ) : (
+                    <span className="text-red-500 text-sm">未登録</span>
+                  )}
+                </div>
+              </div>
+              <div className="ml-4">
+                <span className="text-sm text-gray-500">
+                  {group.tracks.length} トラック
+                </span>
+                {expandedGroups.has(group.key) ? "▼" : "▶"}
+              </div>
+            </div>
+
+            {expandedGroups.has(group.key) && (
+              <div className="p-4 border-t">
+                <Table className="text-sm">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-center">操作</TableHead>
+                      <TableHead className="text-center">
+                        トラック番号
+                      </TableHead>
+                      <TableHead className="text-center">
+                        トラックタイトル
+                      </TableHead>
+                      <TableHead className="text-center">ISRC</TableHead>
+                      <TableHead className="text-center">リリース日</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {group.tracks.map((track, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="text-center">
+                          {editingIndex === index ? (
+                            <Button onClick={() => setEditingIndex(null)}>
+                              保存
+                            </Button>
+                          ) : (
+                            <Button onClick={() => setEditingIndex(index)}>
+                              編集
+                            </Button>
+                          )}
+                        </TableCell>
+                        <EditableCell
+                          value={track.track_no}
+                          onChange={(value) =>
+                            handleMetadataChange(index, "track_no", value)
+                          }
+                          isEditing={editingIndex === index}
+                        />
+                        <EditableCell
+                          value={track.track_title}
+                          onChange={(value) =>
+                            handleMetadataChange(index, "track_title", value)
+                          }
+                          isEditing={editingIndex === index}
+                        />
+                        <EditableCell
+                          value={track.isrc}
+                          onChange={(value) =>
+                            handleMetadataChange(index, "isrc", value)
+                          }
+                          isEditing={editingIndex === index}
+                        />
+                        <EditableCell
+                          value={track.release_date}
+                          onChange={(value) =>
+                            handleMetadataChange(index, "release_date", value)
+                          }
+                          isEditing={editingIndex === index}
+                        />
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
