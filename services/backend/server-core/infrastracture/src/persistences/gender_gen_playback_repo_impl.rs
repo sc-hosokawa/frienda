@@ -30,6 +30,7 @@ impl GenderGenPlaybackRepository for GenderGenPlaybackRepoImpl {
             .await?;
         Ok(inserted_model.unwrap())
     }
+
     async fn update(
         &self,
         model: GenderGenPlaybackActiveModel,
@@ -37,12 +38,24 @@ impl GenderGenPlaybackRepository for GenderGenPlaybackRepoImpl {
         let res: GenderGenPlayback = model.update(&self.db).await?;
         Ok(res)
     }
+
+    async fn insert_many(
+        &self,
+        models: Vec<GenderGenPlaybackActiveModel>,
+    ) -> Result<(), DomainError> {
+        GenderGenPlaybackEntity::insert_many(models)
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
+
     async fn delete(&self, id: i32) -> Result<(), DomainError> {
         GenderGenPlaybackEntity::delete_by_id(id)
             .exec(&self.db)
             .await?;
         Ok(())
     }
+
     async fn find_by_id(&self, id: i32) -> Result<Option<GenderGenPlayback>, DomainError> {
         let res: Option<GenderGenPlayback> = GenderGenPlaybackEntity::find_by_id(id)
             .one(&self.db)
@@ -93,5 +106,15 @@ impl GenderGenPlaybackRepository for GenderGenPlaybackRepoImpl {
             .all(&self.db)
             .await?;
         Ok(res)
+    }
+
+    async fn find_lastest_id(&self) -> Result<i32, DomainError> {
+        let res: Vec<GenderGenPlayback> = GenderGenPlaybackEntity::find()
+            .order_by(Column::Id, Order::Desc)
+            .limit(1)
+            .all(&self.db)
+            .await?;
+
+        Ok(res.first().map_or(0, |record| record.id))
     }
 }

@@ -114,7 +114,17 @@ export function PurchaseDialog() {
         </div>
 
         <div className="flex items-center justify-between gap-4">
-          <p className="text-sm text-zinc-400">{t("purchase-dialog.notion")}</p>
+          <div className="flex flex-col gap-1">
+            <p className="text-sm text-zinc-400">{t("purchase-dialog.notion")}</p>
+            <a
+              href="/tokutei"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-zinc-400 hover:text-white underline"
+            >
+              {t("common.tokutei")}
+            </a>
+          </div>
 
           <div className="flex gap-3">
             <Button

@@ -3,9 +3,11 @@ use chrono::{Duration, NaiveDate, Utc};
 use sea_orm::ActiveValue;
 use std::sync::Arc;
 
-use crate::services::dsp_fetcher::{DspFetcherServiceTrait, DspsData};
+use crate::services::dsp_fetcher::{DspFetcherServiceTrait, DspsData, GenderGenData};
+use domain::entities::gender_gen_playback::ActiveModel as GenderGenPlaybackActiveModel;
 use domain::entities::plays_daily::ActiveModel as PlaysDailyActiveModel;
 use domain::entities::plays_monthly::ActiveModel as PlaysMonthlyActiveModel;
+use domain::repositories::gender_gen_playback_repo::GenderGenPlaybackRepository;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
 use domain::repositories::plays_monthly_repo::PlaysMonthlyRepository;
 use domain::repositories::tracks_repo::TracksRepository;
@@ -14,12 +16,14 @@ use domain::repositories::tracks_repo::TracksRepository;
 pub trait DspsUsecaseTrait: Send + Sync {
     async fn add_daily_plays(&self) -> Result<(), anyhow::Error>;
     async fn add_monthly_plays(&self) -> Result<(), anyhow::Error>;
+    async fn add_gender_gen_plays(&self) -> Result<(), anyhow::Error>;
 }
 
 pub struct DspsUsecase {
     plays_daily_repo: Arc<dyn PlaysDailyRepository>,
     plays_monthly_repo: Arc<dyn PlaysMonthlyRepository>,
     tracks_repo: Arc<dyn TracksRepository>,
+    gender_gen_repo: Arc<dyn GenderGenPlaybackRepository>,
     dsp_fetcher_service: Arc<dyn DspFetcherServiceTrait>,
 }
 
@@ -28,12 +32,14 @@ impl DspsUsecase {
         plays_daily_repo: Arc<dyn PlaysDailyRepository>,
         plays_monthly_repo: Arc<dyn PlaysMonthlyRepository>,
         tracks_repo: Arc<dyn TracksRepository>,
+        gender_gen_repo: Arc<dyn GenderGenPlaybackRepository>,
         dsp_fetcher_service: Arc<dyn DspFetcherServiceTrait>,
     ) -> Self {
         Self {
             plays_daily_repo,
             plays_monthly_repo,
             tracks_repo,
+            gender_gen_repo,
             dsp_fetcher_service,
         }
     }
@@ -152,6 +158,68 @@ impl DspsUsecaseTrait for DspsUsecase {
 
         for chunk in models.chunks(BATCH_SIZE) {
             match self.plays_monthly_repo.update_many(chunk.to_vec()).await {
+                Ok(_) => {
+                    tracing::info!("Successfully inserted {} records", chunk.len());
+                }
+                Err(e) => {
+                    tracing::error!("Failed to insert batch: {}", e);
+                    return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
+                }
+            }
+        }
+
+        Ok(())
+    }
+
+    async fn add_gender_gen_plays(&self) -> Result<(), anyhow::Error> {
+        let lastest_id: i32 = self.gender_gen_repo.find_lastest_id().await?;
+        let mut next_id: i32 = lastest_id + 1;
+        tracing::info!("PIPELINE::DSPsUsecase:: Lastest ID: {}", lastest_id);
+
+        let isrcs: Vec<String> = self.tracks_repo.find_all_isrcs().await?;
+        tracing::info!("PIPELINE::DSPsUsecase:: ISRCs: {}", isrcs.len());
+
+        let target_date: String = (Utc::now().date_naive() - Duration::days(2))
+            .format("%Y/%m/%d")
+            .to_string();
+        tracing::info!("PIPELINE::DSPsUsecase:: Target Date: {}", target_date);
+
+        let mut gender_gen_data: Vec<GenderGenData> = self
+            .dsp_fetcher_service
+            .fetch_gender_gen_data(target_date)
+            .await?;
+        tracing::info!(
+            "PIPELINE::DSPsUsecase:: GenderGen Data: {}",
+            gender_gen_data.len()
+        );
+
+        gender_gen_data.retain(|data| isrcs.contains(&data.isrc));
+        tracing::info!(
+            "PIPELINE::DSPsUsecase:: Pruned GenderGen Data: {}",
+            gender_gen_data.len()
+        );
+
+        let mut models: Vec<GenderGenPlaybackActiveModel> = Vec::new();
+        for data in gender_gen_data {
+            models.push(GenderGenPlaybackActiveModel {
+                id: ActiveValue::Set(next_id),
+                isrc: ActiveValue::Set(data.isrc),
+                date: ActiveValue::Set(
+                    NaiveDate::parse_from_str(&data.date, "%Y-%m-%d").map_err(|e| {
+                        anyhow::anyhow!("Failed to parse date '{}': {}", data.date, e)
+                    })?,
+                ),
+                gender: ActiveValue::Set(Some(data.gender)),
+                age: ActiveValue::Set(Some(data.age)),
+                play_count: ActiveValue::Set(data.play_count as i32),
+            });
+            next_id += 1;
+        }
+
+        const BATCH_SIZE: usize = 1000;
+
+        for chunk in models.chunks(BATCH_SIZE) {
+            match self.gender_gen_repo.insert_many(chunk.to_vec()).await {
                 Ok(_) => {
                     tracing::info!("Successfully inserted {} records", chunk.len());
                 }

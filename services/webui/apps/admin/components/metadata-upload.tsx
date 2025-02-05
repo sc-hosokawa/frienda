@@ -246,7 +246,7 @@ export function MetadataUpload() {
       toast({
         title: "一部の画像が紐づけできません",
         description: `以下の画像のUPCがメタデータと一致しません：\n${unmatched.join(", ")}`,
-        variant: "destructive",
+        variant: "default",
       });
     }
   };

@@ -41,6 +41,26 @@ export default function TokusyoPage() {
         </section>
 
         <section>
+          <h2 className="text-xl font-semibold mb-3">販売価格</h2>
+          <div className="space-y-2">
+            <p>FSP価格表（消費税込み）：</p>
+            <ul className="list-disc pl-6">
+              <li>100 FSP：150円</li>
+              <li>300 FSP：450円</li>
+              <li>500 FSP：750円</li>
+              <li>1,000 FSP：1,500円</li>
+              <li>5,000 FSP：7,500円</li>
+            </ul>
+            <p className="mt-4 text-sm">
+              ※表示価格はすべて消費税（10%）を含んだ金額です。
+            </p>
+            <p className="mt-4 text-sm">
+              ※FSPは、当サービスでのみ利用可能なコミュニティ内ポイントの名称です。
+            </p>
+          </div>
+        </section>
+
+        <section>
           <h2 className="text-xl font-semibold mb-3">
             商品代金以外の追加手数料等の追加料金{" "}
           </h2>
@@ -49,7 +69,7 @@ export default function TokusyoPage() {
 
         <section>
           <h2 className="text-xl font-semibold mb-3">引渡し時期</h2>
-          <p>注文後すぐにご利用になれます。</p>
+          <p>注文後すぐにアカウントに反映され、ご利用になれます。</p>
         </section>
 
         <section>
@@ -57,8 +77,13 @@ export default function TokusyoPage() {
           <div className="space-y-4">
             <p>
               当サービスで購入されるポイントは、デジタルコンテンツの性質上、購入後の返品・キャンセル・返金はお受けできません。
-              ただし、システム障害等により正常にポイントが付与されなかった場合は、お客様サポートセンターまでご連絡ください。
+              ただし、システム障害等により正常にポイントが付与されなかった場合は、以下の連絡先までご連絡ください。
             </p>
+            <ul className="list-disc pl-6">
+              <li>メールアドレス: info@friendshipdao.xyz</li>
+              <li>電話番号: 03-5411-4800</li>
+              <li>受付時間: 10:00-18:00（土日祝を除く）</li>
+            </ul>
           </div>
         </section>
 
@@ -71,15 +96,10 @@ export default function TokusyoPage() {
           <h2 className="text-xl font-semibold mb-3">決済期間</h2>
           <p>クレジットカード決済の場合はただちに処理されます。</p>
         </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-3">販売価格</h2>
-          <p>各商品ページに記載の金額（消費税込み）</p>
-        </section>
       </div>
       <footer className="text-sm text-gray-400 mt-12 pt-4 border-t border-gray-200">
         <p>公開日：2025年1月18日</p>
-        <p>最終更新日：2025年1月18日</p>
+        <p>最終更新日：2025年1月31日</p>
       </footer>
       <button
         onClick={() => router.back()}
