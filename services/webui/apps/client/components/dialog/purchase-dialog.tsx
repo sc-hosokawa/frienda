@@ -67,7 +67,7 @@ export function PurchaseDialog() {
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
-        <Button className="w-full" disabled>
+        <Button className="w-full">
           <ShoppingCart className="mr-2 h-4 w-4" />
           {t("common.purchase")}
         </Button>
@@ -114,7 +114,17 @@ export function PurchaseDialog() {
         </div>
 
         <div className="flex items-center justify-between gap-4">
-          <p className="text-sm text-zinc-400">{t("purchase-dialog.notion")}</p>
+          <div className="flex flex-col gap-1">
+            <p className="text-sm text-zinc-400">{t("purchase-dialog.notion")}</p>
+            <a
+              href="/tokutei"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-zinc-400 hover:text-white underline"
+            >
+              {t("common.tokutei")}
+            </a>
+          </div>
 
           <div className="flex gap-3">
             <Button
