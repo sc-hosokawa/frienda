@@ -135,10 +135,12 @@ export function PurchaseDialog() {
               {t("common.cancel")}
             </Button>
             <Button
+              disabled
               className="bg-[#E6DFD3] text-black hover:bg-[#d6cfb3] transition-colors rounded-full w-[210px] h-[60px]"
               onClick={handlePayment}
             >
-              {t("purchase-dialog.process-payment")}
+              {/*t("purchase-dialog.process-payment")*/}
+              under maintenance
             </Button>
           </div>
         </div>
