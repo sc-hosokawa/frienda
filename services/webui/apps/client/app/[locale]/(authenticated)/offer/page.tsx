@@ -5,9 +5,7 @@ import Image from "next/image";
 import OfferList from "~/components/offer/offer-list";
 import OfferListSkeleton from "~/components/offer/offer-list-skeleton";
 import OfferStats from "~/components/offer/stats";
-import OfferAllList, {
-  OfferAllListSkeleton,
-} from "~/components/offer/offer-all-list";
+import OfferAllList from "~/components/offer/offer-all-list";
 import { OfferInfo } from "~/components/offer/offer-Info";
 import Link from "next/link";
 import useUserStore from "~/store/user";
@@ -25,6 +23,7 @@ import { Form, FormControl, FormField, FormItem } from "@ui/components/ui/form";
 import { gql, useApolloClient } from "@apollo/client";
 import { Skeleton } from "@ui/components/ui/skeleton";
 import { useTranslation } from "~/i18n/client";
+import { OfferAllListSkeleton } from "~/components/offer/offer-all-list-skeleton";
 
 const conciergeSchema = z.object({
   question: z.string(),
