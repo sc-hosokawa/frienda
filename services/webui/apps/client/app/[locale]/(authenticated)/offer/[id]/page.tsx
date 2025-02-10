@@ -119,7 +119,7 @@ export default function OfferDetailPage({
       onError: (error) => {
         console.error("Update status error:", error);
       },
-    },
+    }
   );
 
   const [deleteOffer, { loading: isDeleting }] = useMutation(
@@ -132,7 +132,7 @@ export default function OfferDetailPage({
       onError: (error) => {
         console.error("Delete offer error:", error);
       },
-    },
+    }
   );
 
   const handleCancel = async () => {
@@ -150,7 +150,7 @@ export default function OfferDetailPage({
   };
 
   const [playingAudio, setPlayingAudio] = useState<HTMLAudioElement | null>(
-    null,
+    null
   );
 
   const handleFileClick = (file: string) => {
@@ -215,14 +215,17 @@ export default function OfferDetailPage({
       <div className="p-6">
         <div className="mb-8">
           <div className="w-[60px]">
-            <Link href="/offer" className="block mb-2">
+            <div
+              className="block mb-2 cursor-pointer"
+              onClick={() => router.back()}
+            >
               <Image
                 src="/arrow-left.svg"
                 alt="arrow-left"
                 width={60}
                 height={60}
               />
-            </Link>
+            </div>
           </div>
           <div className="flex items-center justify-between">
             <h1 className="text-[42px] font-light">Offer Details</h1>
@@ -395,7 +398,7 @@ export default function OfferDetailPage({
                 .pop()
                 ?.toLowerCase();
               const isAudio = ["mp3", "wav", "m4a", "ogg"].includes(
-                extension ?? "",
+                extension ?? ""
               );
               const isPlaying = isAudio && playingAudio;
 
@@ -426,7 +429,7 @@ export default function OfferDetailPage({
                         ?.split("_")
                         .slice(1)
                         .join("_")
-                        .split(".")[0] ?? "",
+                        .split(".")[0] ?? ""
                     )}
                   </div>
                   {!isAudio && <Download className="w-4 h-4" />}
