@@ -21,8 +21,35 @@ pub struct RegisterCreditResponse {
     pub is_success: bool,
 }
 
+#[derive(InputObject)]
+pub struct UpdateCreditInput {
+    pub credit_id: i32,
+    pub commit_user: String, // varchar(28)
+    pub credit_role: Option<String>,
+    pub credit_name: Option<String>,
+    pub email: Option<String>,
+    pub is_invite: Option<bool>,
+    pub memo: Option<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct UpdateCreditResponse {
+    pub is_success: bool,
+}
+
+#[derive(InputObject)]
+pub struct DeleteCreditInput {
+    pub credit_id: i32,
+}
+
+#[derive(SimpleObject)]
+pub struct DeleteCreditResponse {
+    pub is_success: bool,
+}
+
 #[derive(SimpleObject)]
 pub struct TrackCredit {
+    pub id: i32,
     pub isrc: String,
     pub commit_user: String,
     pub credit_role: String,
@@ -35,6 +62,7 @@ pub struct TrackCredit {
 impl From<application::usecases::credit::get_credits_usecase::SimpleTrackCredit> for TrackCredit {
     fn from(value: application::usecases::credit::get_credits_usecase::SimpleTrackCredit) -> Self {
         Self {
+            id: value.id,
             isrc: value.isrc,
             commit_user: value.commit_user,
             credit_role: value.credit_role,

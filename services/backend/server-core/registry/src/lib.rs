@@ -37,6 +37,7 @@ use application::usecases::community::{
 use application::usecases::credit::{
     get_credits_usecase::{GetCreditsUsecase, GetCreditsUsecaseTrait},
     invitation_usecase::{InvitationUsecase, InvitationUsecaseTrait},
+    manage_credit_usecase::{ManageCreditUsecase, ManageCreditUsecaseTrait},
     register_usecase::{RegisterUsecase, RegisterUsecaseTrait},
 };
 use application::usecases::dashboard::{
@@ -247,6 +248,7 @@ pub struct Usecases {
     pub report: Arc<dyn ReportUsecaseTrait>,
     pub contact_to_admin: Arc<dyn ContactToAdminUsecaseTrait>,
     pub user_blocks: Arc<dyn UserBlocksUsecaseTrait>,
+    pub manage_credit: Arc<dyn ManageCreditUsecaseTrait>,
 }
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
@@ -405,6 +407,7 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         )),
         quest_mark_as_done: Arc::new(MarkAsDoneUsecase::new(repos.quest_user.clone())),
         register_credit: Arc::new(RegisterUsecase::new(repos.track_credits.clone())),
+        manage_credit: Arc::new(ManageCreditUsecase::new(repos.track_credits.clone())),
         request_to_access: Arc::new(RequestToAccessUsecase::new(
             repos.user_artist.clone(),
             repos.artists.clone(),

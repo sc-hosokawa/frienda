@@ -16,6 +16,7 @@ pub struct GetCreditsUsecaseOutput {
     pub credits: Vec<SimpleTrackCredit>,
 }
 pub struct SimpleTrackCredit {
+    pub id: i32,
     pub isrc: String,
     pub commit_user: String,
     pub credit_role: String,
@@ -70,6 +71,7 @@ impl GetCreditsUsecaseTrait for GetCreditsUsecase {
             credits: credits
                 .iter()
                 .map(|credit| SimpleTrackCredit {
+                    id: credit.id,
                     isrc: credit.isrc.clone(),
                     commit_user: credit.commit_user.clone(),
                     credit_role: credit.credit_role.clone(),

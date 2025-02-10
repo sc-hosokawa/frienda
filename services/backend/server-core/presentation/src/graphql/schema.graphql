@@ -238,6 +238,14 @@ type Credit {
 	email: String!
 }
 
+input DeleteCreditInput {
+	creditId: Int!
+}
+
+type DeleteCreditResponse {
+	isSuccess: Boolean!
+}
+
 input DeleteOfferInput {
 	id: Int!
 }
@@ -451,6 +459,8 @@ type MutationRoot {
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
+	updateCredit(input: UpdateCreditInput!): UpdateCreditResponse!
+	deleteCredit(input: DeleteCreditInput!): DeleteCreditResponse!
 	registerReleases(input: RegisterReleases!): RegisterReleasesResponse!
 	deleteUserReport(id: Int!): Boolean!
 	deleteOfferReport(id: Int!): Boolean!
@@ -482,6 +492,7 @@ type OfferData {
 	imageUrl: String
 	fee: Int!
 	category: String
+	place: String!
 }
 
 type OfferDetailData {
@@ -821,6 +832,7 @@ type Track {
 }
 
 type TrackCredit {
+	id: Int!
 	isrc: String!
 	commitUser: String!
 	creditRole: String!
@@ -926,6 +938,20 @@ input UpdateBelongsToArtistStatusInput {
 
 type UpdateBelongsToArtistStatusResponse {
 	updatedUserArtist: ArtistByUserData!
+}
+
+input UpdateCreditInput {
+	creditId: Int!
+	commitUser: String!
+	creditRole: String
+	creditName: String
+	email: String
+	isInvite: Boolean
+	memo: String
+}
+
+type UpdateCreditResponse {
+	isSuccess: Boolean!
 }
 
 input UpdateOfferInput {

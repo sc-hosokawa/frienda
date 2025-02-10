@@ -38,4 +38,44 @@ impl CreditMutation {
             .await?;
         Ok(models::credit::RegisterCreditResponse { is_success: true })
     }
+
+    async fn update_credit(
+        &self,
+        ctx: &Context<'_>,
+        input: models::credit::UpdateCreditInput,
+    ) -> Result<models::credit::UpdateCreditResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        usecases
+            .manage_credit
+            .update_credit(
+                application::usecases::credit::manage_credit_usecase::UpdateCreditUsecaseInput {
+                    credit_id: input.credit_id,
+                    commit_user: input.commit_user,
+                    credit_role: input.credit_role,
+                    credit_name: input.credit_name,
+                    email: input.email,
+                    is_invite: input.is_invite,
+                    memo: input.memo,
+                },
+            )
+            .await?;
+        Ok(models::credit::UpdateCreditResponse { is_success: true })
+    }
+
+    async fn delete_credit(
+        &self,
+        ctx: &Context<'_>,
+        input: models::credit::DeleteCreditInput,
+    ) -> Result<models::credit::DeleteCreditResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        usecases
+            .manage_credit
+            .delete_credit(
+                application::usecases::credit::manage_credit_usecase::DeleteCreditUsecaseInput {
+                    credit_id: input.credit_id,
+                },
+            )
+            .await?;
+        Ok(models::credit::DeleteCreditResponse { is_success: true })
+    }
 }

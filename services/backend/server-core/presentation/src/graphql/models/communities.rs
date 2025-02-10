@@ -147,6 +147,7 @@ impl From<application::usecases::community::user_profile_usecase::GetUserProfile
                     image_url: o.image_url.clone(),
                     fee: o.fee,
                     category: o.category.clone(),
+                    place: o.place,
                 })
                 .collect(),
         }
