@@ -160,6 +160,8 @@ CREATE TABLE "exchange_prize_history" (
   "point_used" int NOT NULL,
   "amount" int NOT NULL DEFAULT 1,
   "exchanged_at" timestamp NOT NULL DEFAULT (now()),
+  "is_requested" bool NOT NULL DEFAULT 'false',
+  "requested_at" timestamp,
   "is_used" bool NOT NULL DEFAULT 'false',
   "used_at" timestamp
 );

@@ -3,8 +3,11 @@ use std::sync::Arc;
 
 use domain::entities::exchange_prize_history::Model as ExchangePrizeHistory;
 use domain::entities::prizes::Model as Prize;
+use domain::entities::users::Model as User;
 use domain::repositories::exchange_prize_history_repo::ExchangePrizeHistoryRepository;
 use domain::repositories::prizes_repo::PrizesRepository;
+use domain::repositories::users_repo::UsersRepository;
+
 //
 // Define the input for the usecase
 //
@@ -20,6 +23,19 @@ pub struct GetPrizeListOutput {
 pub struct GetPrizeListByUserIdOutput {
     pub un_used_prizes: Vec<Prize>,
     pub used_prizes: Vec<Prize>,
+    pub requested_prizes: Vec<Prize>,
+}
+
+pub struct GetPrizeHistoryByUserIdOutput {
+    pub used_history: Vec<ExchangeHistory>,
+    pub requested_history: Vec<ExchangeHistory>,
+    pub un_used_history: Vec<ExchangeHistory>,
+}
+
+#[derive(Debug)]
+pub struct ExchangeHistory {
+    pub history: ExchangePrizeHistory,
+    pub user: User,
 }
 
 //
@@ -35,6 +51,10 @@ pub trait GetPrizeListUsecaseTrait: Send + Sync {
         &self,
         user_id: String,
     ) -> Result<GetPrizeListByUserIdOutput, anyhow::Error>;
+    async fn get_prize_history_by_user_id(
+        &self,
+        user_id: String,
+    ) -> Result<GetPrizeHistoryByUserIdOutput, anyhow::Error>;
 }
 
 //
@@ -43,16 +63,19 @@ pub trait GetPrizeListUsecaseTrait: Send + Sync {
 pub struct GetPrizeListUsecase {
     prizes_repo: Arc<dyn PrizesRepository>,
     exchange_prize_history_repo: Arc<dyn ExchangePrizeHistoryRepository>,
+    users_repo: Arc<dyn UsersRepository>,
 }
 
 impl GetPrizeListUsecase {
     pub fn new(
         prizes_repo: Arc<dyn PrizesRepository>,
         exchange_prize_history_repo: Arc<dyn ExchangePrizeHistoryRepository>,
+        users_repo: Arc<dyn UsersRepository>,
     ) -> Self {
         Self {
             prizes_repo,
             exchange_prize_history_repo,
+            users_repo,
         }
     }
 }
@@ -96,6 +119,7 @@ impl GetPrizeListUsecaseTrait for GetPrizeListUsecase {
         // 使用済みと未使用の景品に分類
         let mut used_prizes: Vec<Prize> = Vec::new();
         let mut un_used_prizes: Vec<Prize> = Vec::new();
+        let mut requested_prizes: Vec<Prize> = Vec::new();
 
         for history in exchange_prize_history {
             if let Some(prize) = prizes.iter().find(|p| p.id == history.prize_id) {
@@ -103,6 +127,8 @@ impl GetPrizeListUsecaseTrait for GetPrizeListUsecase {
                 for _ in 0..history.amount {
                     if history.is_used {
                         used_prizes.push(prize.clone());
+                    } else if history.is_requested {
+                        requested_prizes.push(prize.clone());
                     } else {
                         un_used_prizes.push(prize.clone());
                     }
@@ -112,7 +138,59 @@ impl GetPrizeListUsecaseTrait for GetPrizeListUsecase {
 
         Ok(GetPrizeListByUserIdOutput {
             un_used_prizes,
+            requested_prizes,
             used_prizes,
+        })
+    }
+
+    async fn get_prize_history_by_user_id(
+        &self,
+        user_id: String,
+    ) -> Result<GetPrizeHistoryByUserIdOutput, anyhow::Error> {
+        let exchange_prize_history: Vec<ExchangePrizeHistory> = self
+            .exchange_prize_history_repo
+            .get_by_user_id(&user_id)
+            .await?;
+
+        println!("exchange_prize_history: {:?}", exchange_prize_history);
+
+        let mut used_history: Vec<ExchangeHistory> = Vec::new();
+        let mut requested_history: Vec<ExchangeHistory> = Vec::new();
+        let mut un_used_history: Vec<ExchangeHistory> = Vec::new();
+
+        for history in exchange_prize_history {
+            let user: User = match self.users_repo.find_by_id(&history.user).await {
+                Ok(Some(user)) => user,
+                Ok(None) => {
+                    // ユーザーが見つからない場合はスキップして次へ
+                    continue;
+                }
+                Err(e) => {
+                    // データベースエラーなどの場合はエラーを伝播
+                    return Err(anyhow::anyhow!("Failed to fetch user: {}", e));
+                }
+            };
+
+            println!("user: {:?}", user);
+
+            let exchange_history = ExchangeHistory {
+                history: history.clone(),
+                user,
+            };
+
+            if history.is_used {
+                used_history.push(exchange_history);
+            } else if history.is_requested {
+                requested_history.push(exchange_history);
+            } else {
+                un_used_history.push(exchange_history);
+            }
+        }
+
+        Ok(GetPrizeHistoryByUserIdOutput {
+            used_history,
+            requested_history,
+            un_used_history,
         })
     }
 }

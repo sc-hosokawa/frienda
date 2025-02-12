@@ -79,6 +79,37 @@ impl PrizeQuery {
                 .into_iter()
                 .map(|p| p.into())
                 .collect(),
+            requested_prize_list: result
+                .requested_prizes
+                .into_iter()
+                .map(|p| p.into())
+                .collect(),
+        })
+    }
+
+    async fn get_prize_history_by_user_id(
+        &self,
+        ctx: &Context<'_>,
+        user_id: String,
+    ) -> Result<models::prizes::PrizesHistoryByUserIdData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_prize_list
+            .get_prize_history_by_user_id(user_id)
+            .await?;
+
+        Ok(models::prizes::PrizesHistoryByUserIdData {
+            used_history: result.used_history.into_iter().map(|p| p.into()).collect(),
+            requested_history: result
+                .requested_history
+                .into_iter()
+                .map(|p| p.into())
+                .collect(),
+            unused_history: result
+                .un_used_history
+                .into_iter()
+                .map(|p| p.into())
+                .collect(),
         })
     }
 }

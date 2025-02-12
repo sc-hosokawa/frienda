@@ -28,5 +28,5 @@ pub trait ExchangePrizeHistoryRepository: Send + Sync {
         &self,
         user_id: &str,
         prize_id: i32,
-    ) -> Result<Option<ExchangePrizeHistory>, DomainError>;
+    ) -> Result<Vec<ExchangePrizeHistory>, DomainError>;
 }

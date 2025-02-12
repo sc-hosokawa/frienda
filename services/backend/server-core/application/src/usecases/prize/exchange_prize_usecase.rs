@@ -23,6 +23,11 @@ pub struct ExchangePrizeInput {
     pub amount: Option<i32>,
 }
 
+pub struct RequestPrizeInput {
+    pub user_id: String,
+    pub prize_id: i32,
+}
+
 pub struct UsePrizeInput {
     pub representation_user_id: String,
     pub user_id: String,
@@ -36,6 +41,7 @@ pub struct UsePrizeInput {
 #[async_trait]
 pub trait ExchangePrizeUsecaseTrait: Send + Sync {
     async fn exchange(&self, input: ExchangePrizeInput) -> Result<(i32, Uuid), anyhow::Error>;
+    async fn request_prize(&self, input: RequestPrizeInput) -> Result<i32, anyhow::Error>;
     async fn use_prize(&self, input: UsePrizeInput) -> Result<i32, anyhow::Error>;
 }
 
@@ -129,15 +135,53 @@ impl ExchangePrizeUsecaseTrait for ExchangePrizeUsecase {
         Ok((created_exchange_prize_history.id, created_fsp_tx_id.id))
     }
 
-    async fn use_prize(&self, input: UsePrizeInput) -> Result<i32, anyhow::Error> {
-        let exchange_prize_history: ExchangePrizeHistory = self
+    async fn request_prize(&self, input: RequestPrizeInput) -> Result<i32, anyhow::Error> {
+        let exchange_prize_history: Vec<ExchangePrizeHistory> = self
             .exchange_prize_history_repo
             .get_by_user_id_and_prize_id(&input.user_id, input.prize_id)
-            .await?
-            .ok_or_else(|| anyhow::anyhow!("Exchange prize history not found"))?;
+            .await?;
 
-        if exchange_prize_history.is_used {
-            return Err(anyhow::anyhow!("Prize already used"));
+        // リクエスト可能（is_requested = false かつ is_used = false）の商品を抽出
+        let requestable: Vec<&ExchangePrizeHistory> = exchange_prize_history
+            .iter()
+            .filter(|history| !history.is_requested && !history.is_used)
+            .collect();
+
+        // バリデーション: リクエスト可能な商品があるかチェック
+        if requestable.is_empty() {
+            return Err(anyhow::anyhow!("No requestable prize"));
+        }
+
+        let updated_history: ExchangePrizeHistoryActiveModel = ExchangePrizeHistoryActiveModel {
+            id: ActiveValue::Set(requestable[0].id),
+            is_requested: ActiveValue::Set(true),
+            requested_at: ActiveValue::Set(Some(chrono::Utc::now().naive_utc())),
+            ..Default::default()
+        };
+
+        let updated_history = self
+            .exchange_prize_history_repo
+            .update(updated_history)
+            .await?;
+
+        Ok(updated_history.id)
+    }
+
+    async fn use_prize(&self, input: UsePrizeInput) -> Result<i32, anyhow::Error> {
+        let exchange_prize_history: Vec<ExchangePrizeHistory> = self
+            .exchange_prize_history_repo
+            .get_by_user_id_and_prize_id(&input.user_id, input.prize_id)
+            .await?;
+
+        // 使用可能（is_requested = true かつ is_used = false）の商品を抽出
+        let pending_requests: Vec<&ExchangePrizeHistory> = exchange_prize_history
+            .iter()
+            .filter(|history| history.is_requested && !history.is_used)
+            .collect();
+
+        // バリデーション: 使用可能な商品があるかチェック
+        if pending_requests.is_empty() {
+            return Err(anyhow::anyhow!("No usable prize"));
         }
 
         let prize: Prize = self
@@ -151,7 +195,7 @@ impl ExchangePrizeUsecaseTrait for ExchangePrizeUsecase {
         }
 
         let updated_history: ExchangePrizeHistoryActiveModel = ExchangePrizeHistoryActiveModel {
-            id: ActiveValue::Set(exchange_prize_history.id),
+            id: ActiveValue::Set(pending_requests[0].id),
             is_used: ActiveValue::Set(true),
             used_at: ActiveValue::Set(Some(chrono::Utc::now().naive_utc())),
             ..Default::default()

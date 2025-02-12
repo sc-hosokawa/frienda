@@ -12,6 +12,8 @@ pub struct Model {
     pub point_used: i32,
     pub amount: i32,
     pub exchanged_at: DateTime,
+    pub is_requested: bool,
+    pub requested_at: Option<DateTime>,
     pub is_used: bool,
     pub used_at: Option<DateTime>,
 }

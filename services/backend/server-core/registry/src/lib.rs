@@ -549,6 +549,7 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         get_prize_list: Arc::new(GetPrizeListUsecase::new(
             repos.prizes.clone(),
             repos.exchange_prize_history.clone(),
+            repos.users.clone(),
         )),
         get_prize: Arc::new(GetPrizeUsecase::new(repos.prizes.clone())),
         update_prize: Arc::new(UpdatePrizeUsecase::new(repos.prizes.clone())),

@@ -52,13 +52,31 @@ impl PrizeMutation {
         })
     }
 
+    async fn request_prize(
+        &self,
+        ctx: &Context<'_>,
+        input: models::prizes::RequestPrizeInput,
+    ) -> Result<models::prizes::RequestPrizeResponse> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result: i32 = usecases
+            .exchange_prize
+            .request_prize(
+                application::usecases::prize::exchange_prize_usecase::RequestPrizeInput {
+                    user_id: input.user_id,
+                    prize_id: input.prize_id,
+                },
+            )
+            .await?;
+        Ok(models::prizes::RequestPrizeResponse { id: result })
+    }
+
     async fn use_prize(
         &self,
         ctx: &Context<'_>,
         input: models::prizes::UsePrizeInput,
     ) -> Result<models::prizes::UsePrizeResponse> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        let result = usecases
+        let result: i32 = usecases
             .exchange_prize
             .use_prize(
                 application::usecases::prize::exchange_prize_usecase::UsePrizeInput {

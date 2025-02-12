@@ -270,6 +270,23 @@ type EditShortnoteResponse {
 	id: String!
 }
 
+type ExchangeHistoryData {
+	id: Int!
+	prizeId: Int!
+	userId: String!
+	imgUrl: String
+	username: String!
+	realname: String!
+	email: String!
+	pointUsed: Int!
+	amount: Int!
+	exchangedAt: String!
+	isRequested: Boolean!
+	requestedAt: String
+	isUsed: Boolean!
+	usedAt: String
+}
+
 input ExchangePrizeInput {
 	userId: String!
 	prizeId: Int!
@@ -450,6 +467,7 @@ type MutationRoot {
 	createBulkFspTx(input: [CreateNewTransactionInput!]!): CreateNewTransactionResponse!
 	createPrize(input: CreateNewPrizeInput!): CreateNewPrizeResponse!
 	exchangePrize(input: ExchangePrizeInput!): ExchangePrizeResponse!
+	requestPrize(input: RequestPrizeInput!): RequestPrizeResponse!
 	usePrize(input: UsePrizeInput!): UsePrizeResponse!
 	questMarkAsDone(questId: Int!, userId: String!): MarkAsDoneResponse!
 	createQuest(input: CreateQuestInput!): CreateQuestResponse!
@@ -601,8 +619,15 @@ type PrizeDetailData {
 }
 
 type PrizesByUserIdData {
-	usedPrizeList: [PrizeDetailData!]!
 	unusedPrizeList: [PrizeDetailData!]!
+	requestedPrizeList: [PrizeDetailData!]!
+	usedPrizeList: [PrizeDetailData!]!
+}
+
+type PrizesHistoryByUserIdData {
+	usedHistory: [ExchangeHistoryData!]!
+	requestedHistory: [ExchangeHistoryData!]!
+	unusedHistory: [ExchangeHistoryData!]!
 }
 
 type Product {
@@ -681,6 +706,7 @@ type QueryRoot {
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
 	getPrizeByUserId(userId: String!): PrizesByUserIdData!
+	getPrizeHistoryByUserId(userId: String!): PrizesHistoryByUserIdData!
 	getFspHistory(userId: String!, count: Int!): TransactionsData!
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
@@ -776,6 +802,15 @@ input ReportUserInput {
 }
 
 type ReportUserResponse {
+	id: Int!
+}
+
+input RequestPrizeInput {
+	userId: String!
+	prizeId: Int!
+}
+
+type RequestPrizeResponse {
 	id: Int!
 }
 

@@ -92,11 +92,11 @@ impl ExchangePrizeHistoryRepository for ExchangePrizeHistoryRepoImpl {
         &self,
         user_id: &str,
         prize_id: i32,
-    ) -> Result<Option<ExchangePrizeHistory>, DomainError> {
-        let history = ExchangePrizeHistoryEntity::find()
+    ) -> Result<Vec<ExchangePrizeHistory>, DomainError> {
+        let history: Vec<ExchangePrizeHistory> = ExchangePrizeHistoryEntity::find()
             .filter(Column::User.eq(user_id))
             .filter(Column::PrizeId.eq(prize_id))
-            .one(&self.db)
+            .all(&self.db)
             .await?;
         Ok(history)
     }
