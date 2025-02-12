@@ -91,11 +91,12 @@ impl PrizeQuery {
         &self,
         ctx: &Context<'_>,
         user_id: String,
+        prize_id: i32,
     ) -> Result<models::prizes::PrizesHistoryByUserIdData> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let result = usecases
             .get_prize_list
-            .get_prize_history_by_user_id(user_id)
+            .get_prize_history_by_user_id(user_id, prize_id)
             .await?;
 
         Ok(models::prizes::PrizesHistoryByUserIdData {

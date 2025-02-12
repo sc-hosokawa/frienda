@@ -54,6 +54,7 @@ pub trait GetPrizeListUsecaseTrait: Send + Sync {
     async fn get_prize_history_by_user_id(
         &self,
         user_id: String,
+        prize_id: i32,
     ) -> Result<GetPrizeHistoryByUserIdOutput, anyhow::Error>;
 }
 
@@ -146,10 +147,11 @@ impl GetPrizeListUsecaseTrait for GetPrizeListUsecase {
     async fn get_prize_history_by_user_id(
         &self,
         user_id: String,
+        prize_id: i32,
     ) -> Result<GetPrizeHistoryByUserIdOutput, anyhow::Error> {
         let exchange_prize_history: Vec<ExchangePrizeHistory> = self
             .exchange_prize_history_repo
-            .get_by_user_id(&user_id)
+            .get_by_prize_id(prize_id)
             .await?;
 
         println!("exchange_prize_history: {:?}", exchange_prize_history);
