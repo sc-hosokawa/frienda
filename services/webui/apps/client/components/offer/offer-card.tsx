@@ -27,6 +27,7 @@ export interface Offer {
   imageUrl?: string;
   fee: number;
   category: string;
+  place: string;
 }
 
 export function OfferCard({ offer }: { offer: Offer }) {
@@ -79,18 +80,16 @@ export function OfferCard({ offer }: { offer: Offer }) {
           <p className="text-sm text-gray-400 mb-2 line-clamp-2 break-words">
             {offer.description}
           </p>
-          {/*
-          <p className="text-xs text-gray-500 mb-4">
-            Last Updated: {offer.fee} FSP
-          </p>
-          */}
 
-          <div className="flex justify-between items-center mb-4">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="px-2 py-1 rounded bg-zinc-800">
-                報酬: {offer.fee} FSP
-              </span>
+          {offer.place && (
+            <div className="flex items-center gap-2 text-sm mb-2">
+              <span className="px-2 py-1">場所: {offer.place}</span>
             </div>
+          )}
+          <div className="flex items-center gap-2 text-sm">
+            <span className="px-2 py-1 rounded bg-zinc-800">
+              報酬: {offer.fee.toLocaleString()} FSP
+            </span>
           </div>
 
           {/*

@@ -78,7 +78,7 @@ const items = [
     },
   },
   {
-    title: "Notification",
+    title: "Notifications",
     url: "/notification",
     icon: {
       default: "/notification.svg",

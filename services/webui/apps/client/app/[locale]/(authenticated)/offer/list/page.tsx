@@ -32,6 +32,7 @@ const SEARCH_OFFERS = gql`
         imageUrl
         fee
         category
+        place
       }
     }
   }

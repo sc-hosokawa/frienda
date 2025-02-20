@@ -18,14 +18,11 @@ const GET_OFFERS_BY_OWNER = gql`
         imageUrl
         fee
         category
+        place
       }
     }
   }
 `;
-
-interface ResData {
-  getOffersByOwner: OffersData;
-}
 
 const getCategoryBackgroundColor = (category: string | undefined | null) => {
   switch (category) {
@@ -47,13 +44,10 @@ export default function OfferList() {
   const { t } = useTranslation();
   const router = useRouter();
 
-  const { data, loading, error, refetch } = useQuery<ResData>(
-    GET_OFFERS_BY_OWNER,
-    {
-      variables: { userId: user?.id },
-      skip: !user?.id,
-    },
-  );
+  const { data, loading, error, refetch } = useQuery(GET_OFFERS_BY_OWNER, {
+    variables: { userId: user?.id },
+    skip: !user?.id,
+  });
 
   useEffect(() => {
     refetch();
@@ -74,7 +68,7 @@ export default function OfferList() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {offers.map((offer) => (
+      {offers.map((offer: any) => (
         <Card
           key={offer.id}
           className="bg-zinc-900 border border-zinc-800 relative overflow-hidden cursor-pointer hover:bg-zinc-800 transition-colors"
@@ -125,7 +119,10 @@ export default function OfferList() {
                 {offer.category}
               </div>
               <div className="text-sm font-medium text-white">
-                {offer.fee} FSP
+                {offer.place}
+              </div>
+              <div className="text-sm font-medium text-white">
+                {offer.fee.toLocaleString()} FSP
               </div>
             </div>
           </CardContent>

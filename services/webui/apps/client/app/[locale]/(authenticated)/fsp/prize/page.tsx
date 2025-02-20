@@ -98,7 +98,7 @@ export default function Component() {
   return (
     <div className="bg-black min-h-screen text-white p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        <h2 className="text-2xl font-medium">利用可能な商品</h2>
+        <h2 className="text-2xl font-medium">利用可能な景品</h2>
         <Suspense fallback={<ProductSkeleton />}>
           <ProductList />
         </Suspense>

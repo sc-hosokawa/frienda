@@ -59,7 +59,7 @@ const chartConfig = {
     color: "#FF6B6B",
   },
   line: {
-    label: "Line",
+    label: "LINE",
     color: "#845EF7",
   },
   youtube: {

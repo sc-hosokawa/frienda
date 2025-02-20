@@ -119,7 +119,7 @@ export default function OfferDetailPage({
       onError: (error) => {
         console.error("Update status error:", error);
       },
-    }
+    },
   );
 
   const [deleteOffer, { loading: isDeleting }] = useMutation(
@@ -132,7 +132,7 @@ export default function OfferDetailPage({
       onError: (error) => {
         console.error("Delete offer error:", error);
       },
-    }
+    },
   );
 
   const handleCancel = async () => {
@@ -150,7 +150,7 @@ export default function OfferDetailPage({
   };
 
   const [playingAudio, setPlayingAudio] = useState<HTMLAudioElement | null>(
-    null
+    null,
   );
 
   const handleFileClick = (file: string) => {
@@ -398,7 +398,7 @@ export default function OfferDetailPage({
                 .pop()
                 ?.toLowerCase();
               const isAudio = ["mp3", "wav", "m4a", "ogg"].includes(
-                extension ?? ""
+                extension ?? "",
               );
               const isPlaying = isAudio && playingAudio;
 
@@ -429,7 +429,7 @@ export default function OfferDetailPage({
                         ?.split("_")
                         .slice(1)
                         .join("_")
-                        .split(".")[0] ?? ""
+                        .split(".")[0] ?? "",
                     )}
                   </div>
                   {!isAudio && <Download className="w-4 h-4" />}

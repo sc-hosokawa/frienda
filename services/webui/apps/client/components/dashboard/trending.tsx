@@ -119,7 +119,7 @@ export function Trending({
                               {song.totalPlayCountDetails.apple.toLocaleString()}
                             </p>
                             <p>
-                              <span className="text-gray-400">Line:</span>{" "}
+                              <span className="text-gray-400">LINE:</span>{" "}
                               {song.totalPlayCountDetails.line.toLocaleString()}
                             </p>
                             <p>
@@ -146,7 +146,7 @@ export function Trending({
                               {song.weeklyPlayCountDetails.apple.toLocaleString()}
                             </p>
                             <p>
-                              <span className="text-gray-400">Line:</span>{" "}
+                              <span className="text-gray-400">LINE:</span>{" "}
                               {song.weeklyPlayCountDetails.line.toLocaleString()}
                             </p>
                             <p>

@@ -115,7 +115,9 @@ export function PurchaseDialog() {
 
         <div className="flex items-center justify-between gap-4">
           <div className="flex flex-col gap-1">
-            <p className="text-sm text-zinc-400">{t("purchase-dialog.notion")}</p>
+            <p className="text-sm text-zinc-400">
+              {t("purchase-dialog.notion")}
+            </p>
             <a
               href="/tokutei"
               target="_blank"
@@ -135,12 +137,10 @@ export function PurchaseDialog() {
               {t("common.cancel")}
             </Button>
             <Button
-              disabled
               className="bg-[#E6DFD3] text-black hover:bg-[#d6cfb3] transition-colors rounded-full w-[210px] h-[60px]"
               onClick={handlePayment}
             >
-              {/*t("purchase-dialog.process-payment")*/}
-              under maintenance
+              {t("purchase-dialog.process-payment")}
             </Button>
           </div>
         </div>
