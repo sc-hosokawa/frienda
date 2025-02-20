@@ -123,15 +123,15 @@ export function CreditDialog({
     }
   };
 
-  const handleNewInputChange = (
-    index: number,
-    field: keyof CreditFormData,
-    value: string,
-  ) => {
+  const handleCreditChange = (index: number, field: string, value: string) => {
     const credits = [...newCredits];
-    if (credits[index]) {
-      credits[index][field] = value;
+    const targetCredit = credits[index];
+    
+    if (targetCredit && field in targetCredit) {
+      targetCredit[field as keyof CreditFormData] = value;
       setNewCredits(credits);
+    } else {
+      console.warn(`Credit at index ${index} or field ${field} not found`);
     }
   };
 
@@ -265,7 +265,7 @@ export function CreditDialog({
                     value={credit.role}
                     className="border-white"
                     onChange={(e) =>
-                      handleNewInputChange(index, "role", e.target.value)
+                      handleCreditChange(index, "role", e.target.value)
                     }
                   />
                 </div>
@@ -278,7 +278,7 @@ export function CreditDialog({
                     value={credit.name}
                     className="border-white"
                     onChange={(e) =>
-                      handleNewInputChange(index, "name", e.target.value)
+                      handleCreditChange(index, "name", e.target.value)
                     }
                   />
                 </div>
@@ -290,7 +290,7 @@ export function CreditDialog({
                     value={credit.email}
                     className="border-white"
                     onChange={(e) =>
-                      handleNewInputChange(index, "email", e.target.value)
+                      handleCreditChange(index, "email", e.target.value)
                     }
                   />
                 </div>
