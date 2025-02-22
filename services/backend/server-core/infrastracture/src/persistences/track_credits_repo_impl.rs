@@ -75,4 +75,12 @@ impl TrackCreditsRepository for TrackCreditsRepoImpl {
         let res: u64 = TrackCreditsEntity::find().count(&self.db).await?;
         Ok(res as i64)
     }
+
+    async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError> {
+        let _res = TrackCreditsEntity::delete_many()
+            .filter(Column::Isrc.eq(isrc))
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
 }

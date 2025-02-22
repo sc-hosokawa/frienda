@@ -130,6 +130,8 @@ pub struct GenderGenRateData {
 pub struct GenderPlaybackRate {
     pub male_count: i32,
     pub female_count: i32,
+    pub neutral_count: i32,
+    pub unknown_count: i32,
 }
 impl From<application::usecases::dashboard::get_playback_gender_gen_usecase::GenderPlaybackRate>
     for GenderPlaybackRate
@@ -140,6 +142,8 @@ impl From<application::usecases::dashboard::get_playback_gender_gen_usecase::Gen
         Self {
             male_count: d.male_count,
             female_count: d.female_count,
+            neutral_count: d.neutral_count,
+            unknown_count: d.unknown_count,
         }
     }
 }

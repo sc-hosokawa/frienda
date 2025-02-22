@@ -5,7 +5,7 @@ use sea_orm::*;
 use domain::entities::tracks::{
     ActiveModel as TracksActiveModel, Column, Entity as TracksEntity, Model as Tracks,
 };
-use domain::repositories::tracks_repo::TracksRepository;
+use domain::repositories::tracks_repo::{SearchTracksOptions, TracksRepository};
 use shared::error::domain_err::DomainError;
 use tracing::info;
 
@@ -90,5 +90,20 @@ impl TracksRepository for TracksRepoImpl {
     async fn find_all_isrcs(&self) -> Result<Vec<String>, DomainError> {
         let res: Vec<Tracks> = TracksEntity::find().all(&self.db).await?;
         Ok(res.iter().map(|t| t.isrc.clone()).collect())
+    }
+
+    async fn search(&self, options: SearchTracksOptions) -> Result<Vec<Tracks>, DomainError> {
+        let mut query: Select<TracksEntity> = TracksEntity::find();
+
+        if let Some(isrc) = options.isrc {
+            query = query.filter(Column::Isrc.eq(isrc));
+        }
+
+        if let Some(track_title) = options.track_title {
+            query = query.filter(Column::Title.contains(&track_title));
+        }
+
+        let res: Vec<Tracks> = query.all(&self.db).await?;
+        Ok(res)
     }
 }

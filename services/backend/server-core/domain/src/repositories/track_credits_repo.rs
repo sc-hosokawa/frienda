@@ -15,6 +15,7 @@ pub trait TrackCreditsRepository: Send + Sync {
         track_credits: TrackCreditsActiveModel,
     ) -> Result<TrackCredits, DomainError>;
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
+    async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError>;
 
     async fn find_all(&self) -> Result<Vec<TrackCredits>, DomainError>;
     async fn find_by_id(&self, id: i32) -> Result<Option<TrackCredits>, DomainError>;

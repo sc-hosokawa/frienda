@@ -115,15 +115,16 @@ use infrastracture::persistences::{
     notifications_repo_impl::NotificationsRepoImpl, offer_attach_repo_impl::OfferAttachRepoImpl,
     offer_report_repo_impl::OfferReportRepoImpl, offer_user_repo_impl::OfferUserRepoImpl,
     offers_repo_impl::OffersRepoImpl, plays_daily_repo_impl::PlaysDailyRepoImpl,
-    plays_monthly_repo_impl::PlaysMonthlyRepoImpl, portfolios_repo_impl::PortfoliosRepoImpl,
-    prizes_repo_impl::PrizesRepoImpl, product_track_repo_impl::ProductTrackRepoImpl,
-    products_repo_impl::ProductsRepoImpl, quest_user_repo_impl::QuestUserRepoImpl,
-    quests_repo_impl::QuestsRepoImpl, release_report_repo_impl::ReleaseReportRepoImpl,
-    room_user_repo_impl::RoomUserRepoImpl, rooms_repo_impl::RoomsRepoImpl,
-    short_notes_repo_impl::ShortNotesRepoImpl, track_credits_repo_impl::TrackCreditsRepoImpl,
-    tracks_repo_impl::TracksRepoImpl, txs_fsp_repo_impl::TxsFspRepoImpl,
-    user_artist_repo_impl::UserArtistRepoImpl, user_blocks_repo_impl::UserBlocksRepoImpl,
-    user_report_repo_impl::UserReportRepoImpl, users_repo_impl::UsersRepoImpl,
+    plays_monthly_repo_impl::PlaysMonthlyRepoImpl, plays_yearly_repo_impl::PlaysYearlyRepoImpl,
+    portfolios_repo_impl::PortfoliosRepoImpl, prizes_repo_impl::PrizesRepoImpl,
+    product_track_repo_impl::ProductTrackRepoImpl, products_repo_impl::ProductsRepoImpl,
+    quest_user_repo_impl::QuestUserRepoImpl, quests_repo_impl::QuestsRepoImpl,
+    release_report_repo_impl::ReleaseReportRepoImpl, room_user_repo_impl::RoomUserRepoImpl,
+    rooms_repo_impl::RoomsRepoImpl, short_notes_repo_impl::ShortNotesRepoImpl,
+    track_credits_repo_impl::TrackCreditsRepoImpl, tracks_repo_impl::TracksRepoImpl,
+    txs_fsp_repo_impl::TxsFspRepoImpl, user_artist_repo_impl::UserArtistRepoImpl,
+    user_blocks_repo_impl::UserBlocksRepoImpl, user_report_repo_impl::UserReportRepoImpl,
+    users_repo_impl::UsersRepoImpl,
 };
 
 use application::services::{
@@ -172,6 +173,7 @@ pub struct RepositoriesImpl {
     pub offer_report: Arc<OfferReportRepoImpl>,
     pub release_report: Arc<ReleaseReportRepoImpl>,
     pub user_blocks: Arc<UserBlocksRepoImpl>,
+    pub plays_yearly: Arc<PlaysYearlyRepoImpl>,
 }
 
 pub struct ServicesImpl {
@@ -287,6 +289,7 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
         offer_report: Arc::new(OfferReportRepoImpl::new(db.clone())),
         release_report: Arc::new(ReleaseReportRepoImpl::new(db.clone())),
         user_blocks: Arc::new(UserBlocksRepoImpl::new(db.clone())),
+        plays_yearly: Arc::new(PlaysYearlyRepoImpl::new(db.clone())),
     }
 }
 
@@ -357,6 +360,10 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.products.clone(),
             repos.artists.clone(),
             repos.product_track.clone(),
+            repos.track_credits.clone(),
+            repos.plays_daily.clone(),
+            repos.plays_monthly.clone(),
+            repos.plays_yearly.clone(),
         )),
         all_track_playback: Arc::new(AllTrackPlaybackHistoryUsecase::new(
             repos.plays_daily.clone(),

@@ -326,6 +326,8 @@ type GenderGenRateData {
 type GenderPlaybackRate {
 	maleCount: Int!
 	femaleCount: Int!
+	neutralCount: Int!
+	unknownCount: Int!
 }
 
 type GetAllCreditsOutput {
@@ -483,6 +485,10 @@ type MutationRoot {
 	deleteUserReport(id: Int!): Boolean!
 	deleteOfferReport(id: Int!): Boolean!
 	deleteReleaseReport(id: Int!): Boolean!
+	updateTrack(input: UpdateTrackInput!): String!
+	updateProduct(input: UpdateProductInput!): String!
+	deleteTrack(isrc: String!): Boolean!
+	deleteProduct(upc: String!): Boolean!
 }
 
 type NotificationData {
@@ -638,6 +644,17 @@ type Product {
 	artistId: String
 }
 
+type ProductData {
+	upc: String!
+	title: String!
+	imgUrl: String
+	productType: String
+	distributedAt: String
+	artistId: String!
+	artistNameJa: String!
+	numberOfTracks: Int!
+}
+
 type ProductWithTracks {
 	product: Product!
 	tracks: [Track!]!
@@ -669,6 +686,8 @@ type QueryRoot {
 	getAllOfferReports: [OfferReport!]!
 	getAllReleaseReports: [ReleaseReport!]!
 	getAllBlockData: [BlockUserDataResponse!]!
+	searchTracks(input: SearchTracksQuery!): [TrackData!]!
+	searchProducts(input: SearchProductsQuery!): [ProductData!]!
 	getOwnCommunity(userId: String!): ConnectedUsersData!
 	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
 	getUserProfile(viewerId: String!, userId: String!): UserDataOnDetailPage!
@@ -706,7 +725,7 @@ type QueryRoot {
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
 	getPrizeByUserId(userId: String!): PrizesByUserIdData!
-	getPrizeHistoryByUserId(userId: String!): PrizesHistoryByUserIdData!
+	getPrizeHistoryByUserId(userId: String!, prizeId: Int!): PrizesHistoryByUserIdData!
 	getFspHistory(userId: String!, count: Int!): TransactionsData!
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
@@ -833,6 +852,19 @@ input SearchOptionsOffersInput {
 	sortBy: String
 }
 
+input SearchProductsQuery {
+	upc: String
+	productTitle: String
+	artistId: String
+	productType: String
+}
+
+input SearchTracksQuery {
+	isrc: String
+	trackTitle: String
+	artistId: String
+}
+
 input SendMessageInput {
 	roomId: String!
 	sentBy: String!
@@ -889,6 +921,14 @@ type TrackCreditsByAdmin {
 	isInvite: Boolean
 	memo: String
 	createdAt: String!
+}
+
+type TrackData {
+	isrc: String!
+	trackTitle: String!
+	artistId: String!
+	artistName: String!
+	productTitle: String!
 }
 
 type TransactionByUserData {
@@ -1033,6 +1073,20 @@ input UpdatePortfolioInput {
 
 type UpdatePortfolioResponse {
 	portfolioId: Int!
+}
+
+input UpdateProductInput {
+	upc: String!
+	title: String
+	imgUrl: String
+	type: String
+	distributedAt: String
+	artistId: String
+}
+
+input UpdateTrackInput {
+	isrc: String!
+	title: String
 }
 
 input UpdateUserDataInput {

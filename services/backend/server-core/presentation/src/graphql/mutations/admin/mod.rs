@@ -1,5 +1,6 @@
 use crate::graphql::models;
 use async_graphql::{Context, Object, Result};
+use chrono::NaiveDate;
 use registry::Usecases;
 use std::sync::Arc;
 
@@ -66,6 +67,60 @@ impl AdminMutation {
     async fn delete_release_report(&self, ctx: &Context<'_>, id: i32) -> Result<bool> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let _res = usecases.report.delete_release_report(id).await?;
+        Ok(true)
+    }
+
+    async fn update_track(
+        &self,
+        ctx: &Context<'_>,
+        input: models::admin::UpdateTrackInput,
+    ) -> Result<String> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .manage_tracks
+            .update_track(
+                application::usecases::admin::manage_tracks_usecase::UpdateTrackInput {
+                    isrc: input.isrc,
+                    title: input.title,
+                },
+            )
+            .await?;
+        Ok(result.isrc)
+    }
+
+    async fn update_product(
+        &self,
+        ctx: &Context<'_>,
+        input: models::admin::UpdateProductInput,
+    ) -> Result<String> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .manage_tracks
+            .update_product(
+                application::usecases::admin::manage_tracks_usecase::UpdateProductInput {
+                    upc: input.upc,
+                    title: input.title,
+                    img_url: input.img_url,
+                    r#type: input.r#type,
+                    distributed_at: input
+                        .distributed_at
+                        .map(|d| NaiveDate::parse_from_str(&d, "%Y-%m-%d").unwrap()),
+                    artist_id: input.artist_id,
+                },
+            )
+            .await?;
+        Ok(result.upc)
+    }
+
+    async fn delete_track(&self, ctx: &Context<'_>, isrc: String) -> Result<bool> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let _res: bool = usecases.manage_tracks.delete_track(isrc).await?;
+        Ok(true)
+    }
+
+    async fn delete_product(&self, ctx: &Context<'_>, upc: String) -> Result<bool> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let _res: bool = usecases.manage_tracks.delete_product(upc).await?;
         Ok(true)
     }
 }

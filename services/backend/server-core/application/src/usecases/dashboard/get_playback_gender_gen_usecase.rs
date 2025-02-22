@@ -23,6 +23,8 @@ pub struct GetPlaybackGenderGenUsecaseOutput {
 pub struct GenderPlaybackRate {
     pub male_count: i32,
     pub female_count: i32,
+    pub neutral_count: i32,
+    pub unknown_count: i32,
 }
 pub struct GenPlaybackRate {
     pub under_17: i32,
@@ -98,18 +100,36 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
-            let total_count = male_count + female_count;
 
-            let male_percentage: i32 = if total_count > 0 {
-                (male_count as f64 / total_count as f64 * 100.0).round() as i32
-            } else {
-                0
+            let neutral_count: i32 = gender_gen_playback_by_upc
+                .iter()
+                .filter(|p| p.gender == Some("neutral".to_string()))
+                .filter(|p| p.play_count >= 0)
+                .map(|p| p.play_count)
+                .sum();
+
+            let unknown_gender_count: i32 = gender_gen_playback_by_upc
+                .iter()
+                .filter(|p| p.gender == Some("unknown".to_string()) || p.gender.is_none())
+                .filter(|p| p.play_count >= 0)
+                .map(|p| p.play_count)
+                .sum();
+
+            let total_count = male_count + female_count + neutral_count + unknown_gender_count;
+
+            let calculate_percentage = |count: i32| -> i32 {
+                if total_count > 0 {
+                    (count as f64 / total_count as f64 * 100.0).round() as i32
+                } else {
+                    0
+                }
             };
 
-            let female_percentage: i32 = if total_count > 0 {
-                (female_count as f64 / total_count as f64 * 100.0).round() as i32
-            } else {
-                0
+            let gender_rate = GenderPlaybackRate {
+                male_count: calculate_percentage(male_count),
+                female_count: calculate_percentage(female_count),
+                neutral_count: calculate_percentage(neutral_count),
+                unknown_count: calculate_percentage(unknown_gender_count),
             };
 
             // Generation Balance
@@ -223,10 +243,7 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             };
 
             Ok(GetPlaybackGenderGenUsecaseOutput {
-                gender_rate: GenderPlaybackRate {
-                    male_count: male_percentage,
-                    female_count: female_percentage,
-                },
+                gender_rate,
                 gen_rate,
             })
         } else {
@@ -267,18 +284,36 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
                 .filter(|p| p.play_count >= 0)
                 .map(|p| p.play_count)
                 .sum();
-            let total_count = male_count + female_count;
 
-            let male_percentage: i32 = if total_count > 0 {
-                (male_count as f64 / total_count as f64 * 100.0).round() as i32
-            } else {
-                0
+            let neutral_count: i32 = gender_gen_playback_by_artist
+                .iter()
+                .filter(|p| p.gender == Some("neutral".to_string()))
+                .filter(|p| p.play_count >= 0)
+                .map(|p| p.play_count)
+                .sum();
+
+            let unknown_gender_count: i32 = gender_gen_playback_by_artist
+                .iter()
+                .filter(|p| p.gender == Some("unknown".to_string()) || p.gender.is_none())
+                .filter(|p| p.play_count >= 0)
+                .map(|p| p.play_count)
+                .sum();
+
+            let total_count = male_count + female_count + neutral_count + unknown_gender_count;
+
+            let calculate_percentage = |count: i32| -> i32 {
+                if total_count > 0 {
+                    (count as f64 / total_count as f64 * 100.0).round() as i32
+                } else {
+                    0
+                }
             };
 
-            let female_percentage: i32 = if total_count > 0 {
-                (female_count as f64 / total_count as f64 * 100.0).round() as i32
-            } else {
-                0
+            let gender_rate = GenderPlaybackRate {
+                male_count: calculate_percentage(male_count),
+                female_count: calculate_percentage(female_count),
+                neutral_count: calculate_percentage(neutral_count),
+                unknown_count: calculate_percentage(unknown_gender_count),
             };
 
             // Generation Balance
@@ -392,10 +427,7 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
             };
 
             Ok(GetPlaybackGenderGenUsecaseOutput {
-                gender_rate: GenderPlaybackRate {
-                    male_count: male_percentage,
-                    female_count: female_percentage,
-                },
+                gender_rate,
                 gen_rate,
             })
         }

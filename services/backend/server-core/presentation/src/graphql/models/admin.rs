@@ -108,6 +108,58 @@ pub struct ReleaseReport {
     pub created_at: String,
 }
 
+#[derive(InputObject)]
+pub struct SearchTracksQuery {
+    pub isrc: Option<String>,
+    pub track_title: Option<String>,
+    pub artist_id: Option<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct TrackData {
+    pub isrc: String,
+    pub track_title: String,
+    pub artist_id: String,
+    pub artist_name: String,
+    pub product_title: String,
+}
+
+#[derive(InputObject)]
+pub struct SearchProductsQuery {
+    pub upc: Option<String>,
+    pub product_title: Option<String>,
+    pub artist_id: Option<String>,
+    pub product_type: Option<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct ProductData {
+    pub upc: String,
+    pub title: String,
+    pub img_url: Option<String>,
+    pub product_type: Option<String>,
+    pub distributed_at: Option<String>,
+    pub artist_id: String,
+    pub artist_name_ja: String,
+    pub number_of_tracks: i32,
+}
+
+#[derive(InputObject)]
+pub struct UpdateTrackInput {
+    pub isrc: String,
+    pub title: Option<String>,
+}
+
+#[derive(InputObject)]
+pub struct UpdateProductInput {
+    pub upc: String,
+    pub title: Option<String>,
+    pub img_url: Option<String>,
+    pub r#type: Option<String>,
+    pub distributed_at: Option<String>,
+    pub artist_id: Option<String>,
+}
+
 impl From<application::usecases::admin::all_track_playback_usecase::ChartDataByDSPForAdmin>
     for LineChartDataForAdmin
 {

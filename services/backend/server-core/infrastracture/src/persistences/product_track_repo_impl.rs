@@ -99,4 +99,20 @@ impl ProductTrackRepository for ProductTrackRepoImpl {
 
         Ok(res)
     }
+
+    async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError> {
+        let _res = ProductTrackEntity::delete_many()
+            .filter(Column::Isrc.eq(isrc))
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
+
+    async fn delete_by_upc(&self, upc: &str) -> Result<(), DomainError> {
+        let _res = ProductTrackEntity::delete_many()
+            .filter(Column::Upc.eq(upc))
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
 }

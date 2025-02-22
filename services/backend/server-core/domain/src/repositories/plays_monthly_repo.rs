@@ -36,4 +36,5 @@ pub trait PlaysMonthlyRepository: Send + Sync {
     async fn get_all(&self) -> Result<Vec<PlaysMonthly>, DomainError>;
     async fn get_all_by_period(&self, period: i32) -> Result<Vec<PlaysMonthly>, DomainError>;
     async fn find_lastest_id(&self) -> Result<i32, DomainError>;
+    async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError>;
 }

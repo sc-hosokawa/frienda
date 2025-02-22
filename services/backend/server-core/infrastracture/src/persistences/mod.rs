@@ -14,6 +14,7 @@ pub mod offer_user_repo_impl;
 pub mod offers_repo_impl;
 pub mod plays_daily_repo_impl;
 pub mod plays_monthly_repo_impl;
+pub mod plays_yearly_repo_impl;
 pub mod portfolios_repo_impl;
 pub mod prizes_repo_impl;
 pub mod product_track_repo_impl;

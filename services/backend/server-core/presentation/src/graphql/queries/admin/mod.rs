@@ -191,4 +191,64 @@ impl AdminQuery {
             })
             .collect())
     }
+
+    async fn search_tracks(
+        &self,
+        ctx: &Context<'_>,
+        input: models::admin::SearchTracksQuery,
+    ) -> Result<Vec<models::admin::TrackData>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .manage_tracks
+            .search_tracks(
+                application::usecases::admin::manage_tracks_usecase::SearchTracksInput {
+                    isrc: input.isrc,
+                    track_title: input.track_title,
+                    artist_id: input.artist_id,
+                },
+            )
+            .await?;
+        Ok(result
+            .into_iter()
+            .map(|track| models::admin::TrackData {
+                isrc: track.isrc,
+                track_title: track.title,
+                artist_id: track.artist_id,
+                artist_name: track.artist_name_ja,
+                product_title: track.product_title,
+            })
+            .collect())
+    }
+
+    async fn search_products(
+        &self,
+        ctx: &Context<'_>,
+        input: models::admin::SearchProductsQuery,
+    ) -> Result<Vec<models::admin::ProductData>> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .manage_tracks
+            .search_products(
+                application::usecases::admin::manage_tracks_usecase::SearchProductsInput {
+                    upc: input.upc,
+                    product_title: input.product_title,
+                    artist_id: input.artist_id,
+                    product_type: input.product_type,
+                },
+            )
+            .await?;
+        Ok(result
+            .into_iter()
+            .map(|product| models::admin::ProductData {
+                upc: product.upc,
+                title: product.title,
+                img_url: product.img_url,
+                product_type: product.product_type,
+                distributed_at: product.distributed_at.map(|d| d.to_string()),
+                artist_id: product.artist_id,
+                artist_name_ja: product.artist_name_ja,
+                number_of_tracks: product.number_of_tracks,
+            })
+            .collect())
+    }
 }

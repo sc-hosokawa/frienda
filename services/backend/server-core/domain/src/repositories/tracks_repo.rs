@@ -2,6 +2,12 @@ use crate::entities::tracks::{ActiveModel as TrackActiveModel, Model as Track};
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
+#[derive(Default)]
+pub struct SearchTracksOptions {
+    pub isrc: Option<String>,
+    pub track_title: Option<String>,
+}
+
 #[async_trait]
 pub trait TracksRepository: Send + Sync {
     async fn create(&self, track: TrackActiveModel) -> Result<Track, DomainError>;
@@ -15,4 +21,5 @@ pub trait TracksRepository: Send + Sync {
     async fn count(&self) -> Result<i64, DomainError>;
     async fn find_all(&self) -> Result<Vec<Track>, DomainError>;
     async fn find_all_isrcs(&self) -> Result<Vec<String>, DomainError>;
+    async fn search(&self, options: SearchTracksOptions) -> Result<Vec<Track>, DomainError>;
 }

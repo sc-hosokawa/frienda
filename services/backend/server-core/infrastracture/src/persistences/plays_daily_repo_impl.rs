@@ -128,4 +128,12 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
 
         Ok(res.first().map_or(0, |record| record.id))
     }
+
+    async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError> {
+        let _res = PlaysDailyEntity::delete_many()
+            .filter(Column::Isrc.eq(isrc))
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
 }

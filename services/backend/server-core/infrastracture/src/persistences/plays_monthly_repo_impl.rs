@@ -182,4 +182,12 @@ impl PlaysMonthlyRepository for PlaysMonthlyRepoImpl {
 
         Ok(res.first().map_or(0, |record| record.id))
     }
+
+    async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError> {
+        let _res = PlaysMonthlyEntity::delete_many()
+            .filter(Column::Isrc.eq(isrc))
+            .exec(&self.db)
+            .await?;
+        Ok(())
+    }
 }
