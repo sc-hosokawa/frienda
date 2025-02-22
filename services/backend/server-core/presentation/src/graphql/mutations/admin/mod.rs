@@ -104,7 +104,9 @@ impl AdminMutation {
                     r#type: input.r#type,
                     distributed_at: input
                         .distributed_at
-                        .map(|d| NaiveDate::parse_from_str(&d, "%Y-%m-%d").unwrap()),
+                        .filter(|s| !s.is_empty())
+                        .map(|d| NaiveDate::parse_from_str(&d, "%Y-%m-%d"))
+                        .transpose()?,
                     artist_id: input.artist_id,
                 },
             )
