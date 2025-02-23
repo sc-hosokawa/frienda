@@ -11,6 +11,18 @@ export default function Home() {
               <p>Manage artists, albums, and tracks</p>
             </div>
           </Link>
+          <Link href="/product">
+            <div className="p-4 rounded-lg shadow-md hover:shadow-lg cursor-pointer dark:border dark:border-white dark:border-opacity-10">
+              <h2 className="text-lg font-bold">作品管理</h2>
+              <p>product management</p>
+            </div>
+          </Link>
+          <Link href="/track">
+            <div className="p-4 rounded-lg shadow-md hover:shadow-lg cursor-pointer dark:border dark:border-white dark:border-opacity-10">
+              <h2 className="text-lg font-bold">トラック管理</h2>
+              <p>track management</p>
+            </div>
+          </Link>
           <Link href="/analytics">
             <div className="p-4 rounded-lg shadow-md hover:shadow-lg cursor-pointer dark:border dark:border-white dark:border-opacity-10">
               <h2 className="text-lg font-bold">アナリティクス</h2>
@@ -19,7 +31,7 @@ export default function Home() {
           </Link>
           <Link href="/system">
             <div className="p-4 rounded-lg shadow-md hover:shadow-lg cursor-pointer dark:border dark:border-white dark:border-opacity-10">
-              <h2 className="text-lg font-bold">システム管理</h2>
+              <h2 className="text-lg font-bold">システム情報</h2>
               <p>settings</p>
             </div>
           </Link>

@@ -179,3 +179,54 @@ export const GET_ALL_USERS = gql`
     }
   }
 `;
+
+export const SEARCH_PRODUCTS = gql`
+  query SearchProducts($input: SearchProductsQuery!) {
+    searchProducts(input: $input) {
+      upc
+      title
+      imgUrl
+      productType
+      distributedAt
+      artistId
+      artistNameJa
+      numberOfTracks
+    }
+  }
+`;
+
+export const UPDATE_PRODUCT = `
+  mutation UpdateProduct($input: UpdateProductInput!) {
+    updateProduct(input: $input)
+  }
+`;
+
+export const DELETE_PRODUCT = `
+  mutation DeleteProduct($upc: String!) {
+    deleteProduct(upc: $upc)
+  }
+`;
+
+export const SEARCH_TRACKS = gql`
+  query SearchTracks($input: SearchTracksQuery!) {
+    searchTracks(input: $input) {
+      isrc
+      trackTitle
+      artistId
+      artistName
+      productTitle
+    }
+  }
+`;
+
+export const UPDATE_TRACK = gql`
+  mutation UpdateTrack($input: UpdateTrackInput!) {
+    updateTrack(input: $input)
+  }
+`;
+
+export const DELETE_TRACK = gql`
+  mutation DeleteTrack($isrc: String!) {
+    deleteTrack(isrc: $isrc)
+  }
+`;

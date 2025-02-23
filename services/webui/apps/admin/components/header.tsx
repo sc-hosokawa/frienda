@@ -41,6 +41,24 @@ export function Header() {
               Manage
             </Link>
             <Link
+              href="/product"
+              className={`text-sm hover:text-primary relative ${
+                pathname.startsWith("/product") &&
+                "after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary"
+              }`}
+            >
+              Product
+            </Link>
+            <Link
+              href="/track"
+              className={`text-sm hover:text-primary relative ${
+                pathname.startsWith("/track") &&
+                "after:absolute after:left-0 after:bottom-[-4px] after:w-full after:h-[2px] after:bg-primary"
+              }`}
+            >
+              Track
+            </Link>
+            <Link
               href="/analytics"
               className={`text-sm hover:text-primary relative ${
                 pathname.startsWith("/analytics") &&

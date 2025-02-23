@@ -50,8 +50,6 @@ export default function AnalyticsPage() {
     staleTime: 0,
   });
 
-  console.log(artistData);
-
   const { data: trendingData, isLoading: isLoadingTrendingData } = useQuery({
     queryKey: ["trendingData", selectedArtistId],
     queryFn: async () => {
