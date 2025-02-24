@@ -3,9 +3,9 @@ use chrono::{Duration, NaiveDate, Utc};
 use sea_orm::ActiveValue;
 use std::sync::Arc;
 
-use crate::services::dsp_fetcher::{DspFetcherServiceTrait, DspsData, GenderGenData};
+use crate::services::dsp_fetcher::{DspFetcherServiceTrait, DspsData, GenderGenData, SparseData};
 use domain::entities::gender_gen_playback::ActiveModel as GenderGenPlaybackActiveModel;
-use domain::entities::plays_daily::ActiveModel as PlaysDailyActiveModel;
+use domain::entities::plays_daily::{ActiveModel as PlaysDailyActiveModel, Model as PlaysDaily};
 use domain::entities::plays_monthly::ActiveModel as PlaysMonthlyActiveModel;
 use domain::repositories::gender_gen_playback_repo::GenderGenPlaybackRepository;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
@@ -17,6 +17,7 @@ pub trait DspsUsecaseTrait: Send + Sync {
     async fn add_daily_plays(&self) -> Result<(), anyhow::Error>;
     async fn add_monthly_plays(&self) -> Result<(), anyhow::Error>;
     async fn add_gender_gen_plays(&self) -> Result<(), anyhow::Error>;
+    async fn add_sparse_data(&self, target_date: Option<String>) -> Result<(), anyhow::Error>;
 }
 
 pub struct DspsUsecase {
@@ -220,6 +221,93 @@ impl DspsUsecaseTrait for DspsUsecase {
 
         for chunk in models.chunks(BATCH_SIZE) {
             match self.gender_gen_repo.insert_many(chunk.to_vec()).await {
+                Ok(_) => {
+                    tracing::info!("Successfully inserted {} records", chunk.len());
+                }
+                Err(e) => {
+                    tracing::error!("Failed to insert batch: {}", e);
+                    return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
+                }
+            }
+        }
+
+        Ok(())
+    }
+
+    async fn add_sparse_data(&self, target_date: Option<String>) -> Result<(), anyhow::Error> {
+        let target_date: String = match target_date {
+            Some(date) => {
+                if date.len() == 8 {
+                    format!("{}/{}/{}", &date[0..4], &date[4..6], &date[6..8])
+                } else {
+                    date
+                }
+            }
+            None => (Utc::now().date_naive() - Duration::days(2))
+                .format("%Y/%m/%d")
+                .to_string(),
+        };
+        tracing::info!("PIPELINE::DSPsUsecase:: Target Date: {}", target_date);
+
+        let plays_on_target_date: Vec<PlaysDaily> =
+            self.plays_daily_repo.find_by_date(&target_date).await?;
+        tracing::info!(
+            "PIPELINE::DSPsUsecase:: Plays on Target Date: {}",
+            plays_on_target_date.len()
+        );
+
+        let mut sparse_data: Vec<SparseData> = self
+            .dsp_fetcher_service
+            .fetch_sparse_data(target_date)
+            .await?;
+        tracing::info!(
+            "PIPELINE::DSPsUsecase:: Count of Sparse Data: {}",
+            sparse_data.len()
+        );
+        tracing::info!("PIPELINE::DSPsUsecase:: Sparse Data: {:?}", sparse_data);
+
+        sparse_data.retain(|data| {
+            plays_on_target_date
+                .iter()
+                .any(|play| play.isrc == Some(data.isrc.clone()))
+        });
+        tracing::info!(
+            "PIPELINE::DSPsUsecase:: Pruned Sparse Data: {}",
+            sparse_data.len()
+        );
+
+        let mut models: Vec<PlaysDailyActiveModel> = Vec::new();
+        for data in plays_on_target_date {
+            let new_spotify_play_count: i32 = sparse_data
+                .iter()
+                .filter(|sparse| sparse.isrc == data.isrc.as_ref().unwrap().as_str())
+                .filter_map(|sparse| sparse.spotify)
+                .sum();
+            models.push(PlaysDailyActiveModel {
+                id: ActiveValue::Set(data.id),
+                isrc: ActiveValue::Set(data.isrc),
+                date: ActiveValue::Set(data.date),
+                spotify: ActiveValue::Set(new_spotify_play_count),
+                apple: ActiveValue::Set(data.apple),
+                line: ActiveValue::Set(data.line),
+                amazon: ActiveValue::Set(data.amazon),
+                youtube: ActiveValue::Set(data.youtube),
+                sum: ActiveValue::Set(Some(
+                    new_spotify_play_count
+                        + data.apple
+                        + data.line
+                        + data.amazon.unwrap_or(0)
+                        + data.youtube.unwrap_or(0),
+                )),
+            });
+        }
+
+        println!("Models: {:?}", models);
+
+        const BATCH_SIZE: usize = 1000;
+
+        for chunk in models.chunks(BATCH_SIZE) {
+            match self.plays_daily_repo.update_many(chunk.to_vec()).await {
                 Ok(_) => {
                     tracing::info!("Successfully inserted {} records", chunk.len());
                 }

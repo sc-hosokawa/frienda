@@ -6,6 +6,8 @@ use shared::error::domain_err::DomainError;
 pub trait PlaysDailyRepository: Send + Sync {
     async fn create(&self, plays_daily: PlaysDailyActiveModel) -> Result<PlaysDaily, DomainError>;
     async fn update(&self, plays_daily: PlaysDailyActiveModel) -> Result<PlaysDaily, DomainError>;
+    async fn update_many(&self, plays_daily: Vec<PlaysDailyActiveModel>)
+        -> Result<(), DomainError>;
     async fn insert_many(&self, plays_daily: Vec<PlaysDailyActiveModel>)
         -> Result<(), DomainError>;
 
@@ -25,4 +27,5 @@ pub trait PlaysDailyRepository: Send + Sync {
     async fn get_all_by_period(&self, period: i32) -> Result<Vec<PlaysDaily>, DomainError>;
     async fn find_lastest_id(&self) -> Result<i32, DomainError>;
     async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError>;
+    async fn find_by_date(&self, date: &str) -> Result<Vec<PlaysDaily>, DomainError>;
 }

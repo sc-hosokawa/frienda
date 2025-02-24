@@ -31,6 +31,16 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
         Ok(res)
     }
 
+    async fn update_many(&self, models: Vec<PlaysDailyActiveModel>) -> Result<(), DomainError> {
+        for model in models {
+            PlaysDailyEntity::update_many()
+                .set(model)
+                .exec(&self.db)
+                .await?;
+        }
+        Ok(())
+    }
+
     async fn insert_many(&self, models: Vec<PlaysDailyActiveModel>) -> Result<(), DomainError> {
         let _res = PlaysDailyEntity::insert_many(models).exec(&self.db).await?;
         Ok(())
@@ -135,5 +145,13 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
             .exec(&self.db)
             .await?;
         Ok(())
+    }
+
+    async fn find_by_date(&self, date: &str) -> Result<Vec<PlaysDaily>, DomainError> {
+        let res: Vec<PlaysDaily> = PlaysDailyEntity::find()
+            .filter(Column::Date.eq(date))
+            .all(&self.db)
+            .await?;
+        Ok(res)
     }
 }

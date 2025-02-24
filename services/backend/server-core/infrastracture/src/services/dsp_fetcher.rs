@@ -1,4 +1,6 @@
-use application::services::dsp_fetcher::{DspFetcherServiceTrait, DspsData, GenderGenData};
+use application::services::dsp_fetcher::{
+    DspFetcherServiceTrait, DspsData, GenderGenData, SparseData,
+};
 use async_trait::async_trait;
 
 use base64;
@@ -24,6 +26,17 @@ pub struct StreamingData {
     pub spotify: i32,
     pub apple: i32,
     pub line: i32,
+    pub youtube: Option<i32>,
+    pub amazon: Option<i32>,
+}
+
+#[derive(Debug, Clone)]
+pub struct PartialSparseData {
+    pub isrc: String,
+    pub date: String,
+    pub spotify: Option<i32>,
+    pub apple: Option<i32>,
+    pub line: Option<i32>,
     pub youtube: Option<i32>,
     pub amazon: Option<i32>,
 }
@@ -432,5 +445,79 @@ impl DspFetcherServiceTrait for DspFetcherService {
         }
 
         Ok(records)
+    }
+
+    async fn fetch_sparse_data(&self, date: String) -> Result<Vec<SparseData>, anyhow::Error> {
+        tracing::info!(
+            "PIPELINE::DSPFetcherService:: Fetching sparse data for {}",
+            date
+        );
+
+        let client: Client = Client::new();
+        let token: String = Self::get_authorization_token(&client).await?;
+        let jsonl_data: String = Self::get_data(&client, &token, &date).await?;
+        let formatted_date: String = date.replace("/", "");
+        let output_file: String = format!("combined_output_{}.jsonl", formatted_date);
+        Self::combine_downloaded_files(&client, &jsonl_data, output_file.as_str()).await?;
+
+        tracing::info!("Combined data saved to {}", output_file);
+
+        let file = File::open(output_file)?;
+        let reader = BufReader::new(file);
+        let mut sparse_records = Vec::new();
+
+        for line in io::BufRead::lines(reader) {
+            let line: String = line?;
+            if line.trim().is_empty() {
+                continue;
+            }
+
+            let data: Value = match serde_json::from_str(&line) {
+                Ok(v) => v,
+                Err(e) => {
+                    tracing::error!("JSON parse error: {} \nLine: {}", e, line);
+                    continue;
+                }
+            };
+
+            let stream_count: i32 = data
+                .get("streams")
+                .and_then(|streams| streams.get("total"))
+                .and_then(|total| total.as_i64())
+                .unwrap_or(0) as i32;
+
+            let isrc = match data.get("trackv2").and_then(|t| t.get("isrc")) {
+                Some(isrc) => isrc.as_str().unwrap_or("").to_string(),
+                None => {
+                    tracing::error!("Missing ISRC");
+                    continue;
+                }
+            };
+
+            let date = match data.get("date") {
+                Some(date) => date.as_str().unwrap_or("").to_string(),
+                None => {
+                    tracing::error!("Missing date");
+                    continue;
+                }
+            };
+
+            sparse_records.push(SparseData {
+                isrc,
+                date,
+                spotify: Some(stream_count),
+                apple: None,
+                line: None,
+                youtube: None,
+                amazon: None,
+            });
+        }
+
+        tracing::info!(
+            "PIPELINE::DSPFetcherService:: Found {} sparse records",
+            sparse_records.len()
+        );
+
+        Ok(sparse_records)
     }
 }

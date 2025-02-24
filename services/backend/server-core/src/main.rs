@@ -100,6 +100,10 @@ async fn bootstrap() -> Result<(), std::io::Error> {
                 "/pipeline/dsps/gendergen",
                 web::post().to(pipeline::dsp::gender_gen_playback_handler),
             )
+            .route(
+                "/pipeline/dsps/sparse",
+                web::post().to(pipeline::dsp::sparse_data_handler),
+            )
     })
     .client_request_timeout(Duration::from_secs(300))
     .bind((host, port))?
