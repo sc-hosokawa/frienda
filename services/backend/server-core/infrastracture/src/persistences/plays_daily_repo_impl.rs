@@ -27,16 +27,13 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
     }
 
     async fn update(&self, model: PlaysDailyActiveModel) -> Result<PlaysDaily, DomainError> {
-        let res = model.update(&self.db).await?;
+        let res: PlaysDaily = model.update(&self.db).await?;
         Ok(res)
     }
 
     async fn update_many(&self, models: Vec<PlaysDailyActiveModel>) -> Result<(), DomainError> {
         for model in models {
-            PlaysDailyEntity::update_many()
-                .set(model)
-                .exec(&self.db)
-                .await?;
+            let _res: PlaysDaily = model.update(&self.db).await?;
         }
         Ok(())
     }
