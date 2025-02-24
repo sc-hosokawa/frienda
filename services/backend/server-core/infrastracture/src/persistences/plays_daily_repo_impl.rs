@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use chrono::{Duration, Utc};
+use chrono::{Duration, NaiveDate, Utc};
 use derive_new::new;
 use sea_orm::*;
 
@@ -148,10 +148,22 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
     }
 
     async fn find_by_date(&self, date: &str) -> Result<Vec<PlaysDaily>, DomainError> {
+        tracing::info!("Attempting to parse date: {}", date);
+
+        // まず日付文字列を一貫したフォーマットに変換
+        let normalized_date = date.replace("/", "-");
+
+        let target_date: NaiveDate = NaiveDate::parse_from_str(&normalized_date, "%Y-%m-%d")
+            .map_err(|e| {
+                tracing::error!("Date parse error: {} for input: {}", e, normalized_date);
+                DomainError::DatabaseError(e.to_string())
+            })?;
+
         let res: Vec<PlaysDaily> = PlaysDailyEntity::find()
-            .filter(Column::Date.eq(date))
+            .filter(Column::Date.eq(target_date))
             .all(&self.db)
-            .await?;
+            .await
+            .map_err(|e| DomainError::DatabaseError(e.to_string()))?;
         Ok(res)
     }
 }
