@@ -31,6 +31,13 @@ pub struct GetUPCHistoryUsecaseOutput {
     pub chart_data: Vec<ChartDataByISRC>,
 }
 
+pub struct GetISRCHistoryUsecaseInput {
+    pub isrc: String,
+    pub period: i32,
+}
+pub struct GetISRCHistoryUsecaseOutput {
+    pub chart_data: Vec<ChartDataByDSP>,
+}
 pub struct ChartDataByDSP {
     pub date: String,
     pub spotify: i32,
@@ -57,6 +64,10 @@ pub trait GetPlayCountHistoryUsecaseTrait: Send + Sync {
         &self,
         input: GetUPCHistoryUsecaseInput,
     ) -> Result<GetUPCHistoryUsecaseOutput, anyhow::Error>;
+    async fn get_play_count_by_isrc(
+        &self,
+        input: GetISRCHistoryUsecaseInput,
+    ) -> Result<GetISRCHistoryUsecaseOutput, anyhow::Error>;
 }
 
 pub struct GetPlayCountHistoryUsecase {
@@ -347,5 +358,62 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
         }
 
         Ok(GetUPCHistoryUsecaseOutput { chart_data })
+    }
+
+    async fn get_play_count_by_isrc(
+        &self,
+        input: GetISRCHistoryUsecaseInput,
+    ) -> Result<GetISRCHistoryUsecaseOutput, anyhow::Error> {
+        let chart_data = if input.period == 7 || input.period == 30 {
+            let plays_daily_by_isrcs: Vec<PlaysDaily> = self
+                .plays_daily_repo
+                .find_by_isrc_and_period(&input.isrc, input.period)
+                .await?;
+            plays_daily_by_isrcs
+                .iter()
+                .map(|p| ChartDataByDSP {
+                    date: p.date.unwrap().format("%Y-%m-%d").to_string(),
+                    spotify: p.spotify,
+                    apple: p.apple,
+                    line: p.line,
+                    amazon: p.amazon.unwrap_or(0),
+                    youtube: p.youtube.unwrap_or(0),
+                })
+                .collect::<Vec<ChartDataByDSP>>()
+        } else if input.period == 12 || input.period == 36 {
+            let plays_monthly_by_isrcs: Vec<PlaysMonthly> = self
+                .plays_monthly_repo
+                .find_by_isrc_and_period(&input.isrc, input.period)
+                .await?;
+            plays_monthly_by_isrcs
+                .iter()
+                .map(|p| ChartDataByDSP {
+                    date: p.month.unwrap().format("%Y-%m").to_string(),
+                    spotify: p.spotify,
+                    apple: p.apple,
+                    line: p.line,
+                    amazon: p.amazon,
+                    youtube: p.youtube,
+                })
+                .collect::<Vec<ChartDataByDSP>>()
+        } else if input.period == -1 {
+            let plays_monthly_by_isrcs: Vec<PlaysMonthly> =
+                self.plays_monthly_repo.find_by_isrc(&input.isrc).await?;
+            plays_monthly_by_isrcs
+                .iter()
+                .map(|p| ChartDataByDSP {
+                    date: p.month.unwrap().format("%Y-%m").to_string(),
+                    spotify: p.spotify,
+                    apple: p.apple,
+                    line: p.line,
+                    amazon: p.amazon,
+                    youtube: p.youtube,
+                })
+                .collect::<Vec<ChartDataByDSP>>()
+        } else {
+            return Err(anyhow::anyhow!("Invalid period"));
+        };
+
+        Ok(GetISRCHistoryUsecaseOutput { chart_data })
     }
 }

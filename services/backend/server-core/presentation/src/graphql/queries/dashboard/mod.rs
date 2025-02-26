@@ -116,6 +116,24 @@ impl DashboardQuery {
         })
     }
 
+    async fn get_playcount_history_by_isrc(
+        &self,
+        ctx: &Context<'_>,
+        isrc: String,
+        period: i32,
+    ) -> Result<models::dashboard::ChartData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.get_play_count_history.get_play_count_by_isrc(application::usecases::dashboard::get_play_count_history_usecase::GetISRCHistoryUsecaseInput{
+            isrc,
+            period,
+            },
+        ).await?;
+
+        Ok(models::dashboard::ChartData {
+            line_chart_data: result.chart_data.into_iter().map(|d| d.into()).collect(),
+        })
+    }
+
     async fn get_gender_gen_rate_by_artist(
         &self,
         ctx: &Context<'_>,
@@ -146,8 +164,8 @@ impl DashboardQuery {
     ) -> Result<models::dashboard::GenderGenRateData> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let result = usecases.get_playback_gender_gen.get_playback_gender_gen(application::usecases::dashboard::get_playback_gender_gen_usecase::GetPlaybackGenderGenUsecaseInput{
-            artist_id: artist_id,
-            user_id: user_id,
+            artist_id,
+            user_id,
             isrc: None,
             upc: Some(upc),
         })
