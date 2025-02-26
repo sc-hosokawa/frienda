@@ -13,6 +13,7 @@ import {
 import { Button } from "@ui/components/ui/button";
 import { useState } from "react";
 import { useTranslation } from "~/i18n/client";
+import Link from "next/link";
 
 const GET_USERS_IN_OFFER = gql`
   query GetUsersInOffer($offerId: Int!, $userId: String!) {
@@ -122,14 +123,19 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
           <p className="text-lg">このOfferは終了しました</p>
           <p className="text-sm text-gray-400 mt-2">貢献したユーザー</p>
           <div className="flex items-center justify-center gap-2 mt-4">
-            <Image
-              src={finishedUser.imgUrl || "/logo_visualonly.jpg"}
-              alt={finishedUser.username}
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
-            <span>{finishedUser.username}</span>
+            <Link
+              href={`/community/${finishedUser.userId}`}
+              className="flex items-center gap-2 hover:opacity-80"
+            >
+              <Image
+                src={finishedUser.imgUrl || "/logo_visualonly.jpg"}
+                alt={finishedUser.username}
+                width={40}
+                height={40}
+                className="rounded-full object-cover"
+              />
+              <span>{finishedUser.username}</span>
+            </Link>
           </div>
         </div>
       </div>
@@ -219,17 +225,22 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
             key={ongoingUser.userId}
             className="flex items-center gap-4 p-4 bg-black rounded-lg border border-blue-500"
           >
-            <Image
-              src={ongoingUser.imgUrl || "/logo_visualonly.jpg"}
-              alt={ongoingUser.username}
-              width={40}
-              height={40}
-              className="rounded-full"
-            />
-            <div>
-              <p className="font-medium">{ongoingUser.username}</p>
-              <p className="text-sm text-gray-400">{ongoingUser.category}</p>
-            </div>
+            <Link
+              href={`/community/${ongoingUser.userId}`}
+              className="flex items-center gap-2 hover:opacity-80"
+            >
+              <Image
+                src={ongoingUser.imgUrl || "/logo_visualonly.jpg"}
+                alt={ongoingUser.username}
+                width={40}
+                height={40}
+                className="rounded-full object-cover"
+              />
+              <div>
+                <p className="font-medium">{ongoingUser.username}</p>
+                <p className="text-sm text-gray-400">{ongoingUser.category}</p>
+              </div>
+            </Link>
             <div className="ml-auto flex items-center gap-2">
               <button
                 className="px-4 py-2 text-sm rounded-md bg-zinc-800 hover:bg-zinc-700 transition-colors"
@@ -254,17 +265,22 @@ export function ApplicantsList({ offerId, userId }: ApplicantsListProps) {
               key={user.userId}
               className="flex items-center gap-4 p-4 bg-zinc-900 rounded-lg"
             >
-              <Image
-                src={user.imgUrl || "/logo_visualonly.jpg"}
-                alt={user.username}
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
-              <div>
-                <p className="font-medium">{user.username}</p>
-                <p className="text-sm text-gray-400">{user.category}</p>
-              </div>
+              <Link
+                href={`/community/${user.userId}`}
+                className="flex items-center gap-2 hover:opacity-80"
+              >
+                <Image
+                  src={user.imgUrl || "/logo_visualonly.jpg"}
+                  alt={user.username}
+                  width={40}
+                  height={40}
+                  className="rounded-full object-cover"
+                />
+                <div>
+                  <p className="font-medium">{user.username}</p>
+                  <p className="text-sm text-gray-400">{user.category}</p>
+                </div>
+              </Link>
               <div className="ml-auto flex items-center gap-2">
                 <button
                   className="px-4 py-2 text-sm rounded-md bg-zinc-800 hover:bg-zinc-700 transition-colors"

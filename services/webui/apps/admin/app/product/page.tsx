@@ -163,7 +163,7 @@ export default function ProductManagementPage() {
           </Card>
 
           <div className="mt-4 mr-4 text-right">
-            <Link href="/manage/track" className="w-full underline">
+            <Link href="/track" className="w-full underline">
               トラックの管理はこちら
             </Link>
           </div>

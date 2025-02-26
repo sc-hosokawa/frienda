@@ -30,9 +30,9 @@ import {
 import { useState } from "react";
 import { useTranslation } from "~/i18n/client";
 
-const GET_HISTORICAL = gql`
-  query GetHistorical($artistId: String!, $userId: String!, $period: Int!) {
-    getPlayCountHistory(artistId: $artistId, userId: $userId, period: $period) {
+const GET_HISTORICAL_BY_ISRC = gql`
+  query GetPlaycountHistoryByIsrc($isrc: String!, $period: Int!) {
+    getPlaycountHistoryByIsrc(isrc: $isrc, period: $period) {
       lineChartData {
         date
         spotify
@@ -44,10 +44,6 @@ const GET_HISTORICAL = gql`
     }
   }
 `;
-
-interface ResData {
-  getPlayCountHistory: ChartData;
-}
 
 const chartConfig = {
   spotify: {
@@ -80,20 +76,16 @@ const PERIOD_OPTIONS = [
   { label: "All", value: -1 },
 ] as const;
 
-export function Historical({
-  selectedArtistId,
-}: {
-  selectedArtistId: string | null;
-}) {
+export function HistoricalByIsrc({ isrc }: { isrc: string }) {
   const { t } = useTranslation();
-  const [selectedPeriod, setSelectedPeriod] = useState<number>(7);
+  const [selectedPeriod, setSelectedPeriod] = useState<number>(30);
   const { user } = useUserStore();
-  const { data } = useQuery<ResData>(GET_HISTORICAL, {
+  const { data } = useQuery(GET_HISTORICAL_BY_ISRC, {
     variables: {
-      artistId: selectedArtistId,
-      userId: user?.id,
+      isrc,
       period: selectedPeriod,
     },
+    fetchPolicy: "no-cache",
   });
 
   return (
@@ -127,7 +119,7 @@ export function Historical({
         <ChartContainer config={chartConfig}>
           <AreaChart
             accessibilityLayer
-            data={data?.getPlayCountHistory.lineChartData}
+            data={data?.getPlaycountHistoryByIsrc.lineChartData}
             margin={{
               left: 12,
               right: 12,

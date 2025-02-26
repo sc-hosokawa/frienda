@@ -62,6 +62,8 @@ const GET_GENDER_GEN_RATE_BY_UPC = gql`
       genderRate {
         maleCount
         femaleCount
+        neutralCount
+        unknownCount
       }
       genRate {
         under17
@@ -216,7 +218,7 @@ export default function DiscographyAlbumPage({ params }: Props) {
                                     </p>
                                     <p>
                                       <span className="text-gray-400">
-                                        Line:
+                                        LINE:
                                       </span>{" "}
                                       {track.totalPlayCountDetails.line.toLocaleString()}
                                     </p>
@@ -253,21 +255,9 @@ export default function DiscographyAlbumPage({ params }: Props) {
                                     </p>
                                     <p>
                                       <span className="text-gray-400">
-                                        Line:
+                                        LINE:
                                       </span>{" "}
                                       {track.weeklyPlayCountDetails.line.toLocaleString()}
-                                    </p>
-                                    <p>
-                                      <span className="text-gray-400">
-                                        Amazon:
-                                      </span>{" "}
-                                      {track.weeklyPlayCountDetails.amazon.toLocaleString()}
-                                    </p>
-                                    <p>
-                                      <span className="text-gray-400">
-                                        YouTube:
-                                      </span>{" "}
-                                      {track.weeklyPlayCountDetails.youtube.toLocaleString()}
                                     </p>
                                   </div>
                                 </div>
@@ -283,6 +273,12 @@ export default function DiscographyAlbumPage({ params }: Props) {
                           trackName={track.trackTitle ?? ""}
                           artistId={""}
                         />
+                        <Link
+                          href={`/dashboard/discography/isrc/${track.isrc}`}
+                          className="p-2 hover:bg-gray-700 text-sm rounded-md bg-zinc-800"
+                        >
+                          詳細
+                        </Link>
                       </div>
                     </div>
                   ),

@@ -92,7 +92,7 @@ const PERIOD_OPTIONS = [
 ] as const;
 
 export function HistoricalByUPC({ upc }: { upc: string }) {
-  const [selectedPeriod, setSelectedPeriod] = useState<number>(12);
+  const [selectedPeriod, setSelectedPeriod] = useState<number>(7);
   const { t } = useTranslation();
   const { data, loading, error } = useQuery<ResData>(
     GET_PLAYCOUNT_HISTORY_BY_UPC,
@@ -192,7 +192,7 @@ export function HistoricalByUPC({ upc }: { upc: string }) {
               <Area
                 key={key}
                 dataKey={key}
-                type="natural"
+                type="monotone"
                 fill={`url(#fill${key})`}
                 fillOpacity={0.4}
                 stroke={generatedChartConfig[key]?.color}

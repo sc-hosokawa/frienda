@@ -159,7 +159,7 @@ function AlbumCard({
   category: "album" | "single" | "ep";
 }) {
   return (
-    <Link href={`/dashboard/discography/${album.product.upc}`}>
+    <Link href={`/dashboard/discography/upc/${album.product.upc}`}>
       <Card className="bg-zinc-900 border-zinc-800 text-gray-200 hover:bg-zinc-800 transition-colors">
         <CardHeader className="flex-row items-start gap-4 space-y-0">
           <Image

@@ -32,7 +32,12 @@ const GENERATION_COLORS = [
   "rgba(96, 165, 250, 0.6)",
   "rgba(74, 222, 128, 0.6)",
 ];
-const GENDER_COLORS = ["rgba(94, 234, 212, 0.6)", "rgba(248, 113, 113, 0.6)"];
+const GENDER_COLORS = [
+  "rgba(94, 234, 212, 0.6)",
+  "rgba(248, 113, 113, 0.6)",
+  "rgba(251, 146, 60, 0.6)",
+  "rgba(192, 132, 252, 0.6)",
+];
 
 interface GenderGenViewProps {
   data: any;
@@ -60,6 +65,14 @@ export default function GenderGenView({ data, isLoading }: GenderGenViewProps) {
     {
       name: "Female",
       value: data?.genderRate.femaleCount,
+    },
+    {
+      name: "Neutral",
+      value: data?.genderRate.neutralCount,
+    },
+    {
+      name: "Unknown",
+      value: data?.genderRate.unknownCount,
     },
   ];
 

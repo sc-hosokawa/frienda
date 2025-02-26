@@ -300,17 +300,19 @@ export default function Component() {
 
       <header className="flex-none items-center justify-between p-4 sticky top-0">
         <div className="flex items-center gap-2">
-          <Avatar className="w-10 h-10">
-            <AvatarImage
-              src={recipient?.imageUrl || "/logo_visualonly.jpg"}
-              alt={recipient?.name || "Unknown User"}
-            />
-          </Avatar>
-          <div className="flex items-center gap-2">
-            <span className="text-2xl tracking-wide">
-              {recipient?.name || "Unknown User"}
-            </span>
-          </div>
+          <Link href={`/community/${recipient?.id}`}>
+            <div className="flex items-center gap-2 hover:opacity-80">
+              <Avatar className="w-10 h-10">
+                <AvatarImage
+                  src={recipient?.imageUrl || "/logo_visualonly.jpg"}
+                  alt={recipient?.name || "Unknown User"}
+                />
+              </Avatar>
+              <span className="text-2xl tracking-wide">
+                {recipient?.name || "Unknown User"}
+              </span>
+            </div>
+          </Link>
         </div>
       </header>
 

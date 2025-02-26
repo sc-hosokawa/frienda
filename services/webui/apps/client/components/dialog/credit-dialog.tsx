@@ -126,7 +126,7 @@ export function CreditDialog({
   const handleCreditChange = (index: number, field: string, value: string) => {
     const credits = [...newCredits];
     const targetCredit = credits[index];
-    
+
     if (targetCredit && field in targetCredit) {
       targetCredit[field as keyof CreditFormData] = value;
       setNewCredits(credits);

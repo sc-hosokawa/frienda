@@ -19,6 +19,8 @@ const GET_GENDER_GEN_RATE = gql`
       genderRate {
         maleCount
         femaleCount
+        neutralCount
+        unknownCount
       }
       genRate {
         under17

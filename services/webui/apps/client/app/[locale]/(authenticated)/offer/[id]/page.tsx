@@ -331,14 +331,18 @@ export default function OfferDetailPage({
             {offer?.owner && (
               <div>
                 <div className="flex items-center gap-2">
-                  <Image
-                    src={offer.owner.imageUrl || "/logo_visualonly.jpg"}
-                    alt="Profile"
-                    width={32}
-                    height={32}
-                    className="rounded-full w-8 h-8 object-cover"
-                  />
-                  <span className="text-white">{offer.owner.name}</span>
+                  <Link href={`/community/${offer.owner.id}`}>
+                    <div className="flex items-center gap-2 hover:opacity-80">
+                      <Image
+                        src={offer.owner.imageUrl || "/logo_visualonly.jpg"}
+                        alt="Profile"
+                        width={32}
+                        height={32}
+                        className="rounded-full w-8 h-8 object-cover"
+                      />
+                      <span className="text-white">{offer.owner.name}</span>
+                    </div>
+                  </Link>
                 </div>
               </div>
             )}

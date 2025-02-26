@@ -205,170 +205,173 @@ export function EditDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[70vw] w-full max-h-[70vh] h-full">
+      <DialogContent className="max-w-[70vw] w-full max-h-[90vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>Edit Product</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-3 gap-8 mb-4">
-            {/* 現在の画像表示 */}
-            <div className="flex flex-col items-center">
-              <p className="text-sm text-gray-500 mb-2">現在の画像</p>
-              <div className="h-[200px] w-full flex items-center justify-center border rounded-lg">
-                {product?.imgUrl ? (
-                  <Image
-                    src={product.imgUrl}
-                    alt={product.title}
-                    width={200}
-                    height={200}
-                    className="rounded-md object-contain"
-                  />
-                ) : (
-                  <div className="text-sm text-gray-400">画像なし</div>
-                )}
-              </div>
-            </div>
-
-            {/* アップロードされた新しい画像 */}
-            <div className="flex flex-col items-center">
-              <p className="text-sm text-gray-500 mb-2">新しい画像</p>
-              <div className="h-[200px] w-full flex items-center justify-center border rounded-lg">
-                {previewUrl ? (
-                  <Image
-                    src={previewUrl}
-                    alt="New image"
-                    width={200}
-                    height={200}
-                    className="rounded-md object-contain"
-                  />
-                ) : (
-                  <div className="text-sm text-gray-400">
-                    新しい画像がアップロードされていません
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* 画像アップロードエリア */}
-            <div className="flex flex-col items-center">
-              <p className="text-sm text-gray-500 mb-2">
-                新しい画像をアップロード
-              </p>
-              <div
-                {...getRootProps()}
-                className={`
-                  w-full h-[200px]
-                  border-2 border-dashed rounded-lg
-                  flex flex-col justify-center
-                  transition-colors duration-200 ease-in-out
-                  ${
-                    isDragActive
-                      ? "border-primary bg-primary/5"
-                      : "border-gray-300 dark:border-gray-700"
-                  }
-                  ${imageFile ? "bg-green-50 dark:bg-green-900/10" : ""}
-                `}
-              >
-                <input {...getInputProps()} />
-                <div className="flex flex-col items-center justify-center space-y-2 text-center p-4">
-                  <Upload className="h-8 w-8 text-gray-400" />
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">
-                      {isDragActive
-                        ? "ここにファイルをドロップ"
-                        : "クリックまたはドラッグ＆ドロップでファイルを選択"}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      画像ファイルをアップロード
-                    </p>
-                  </div>
+        <div className="flex-1 overflow-y-auto pr-2">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-3 gap-8 mb-4">
+              {/* 現在の画像表示 */}
+              <div className="flex flex-col items-center">
+                <p className="text-sm text-gray-500 mb-2">現在の画像</p>
+                <div className="h-[200px] w-full flex items-center justify-center border rounded-lg">
+                  {product?.imgUrl ? (
+                    <Image
+                      src={product.imgUrl}
+                      alt={product.title}
+                      width={200}
+                      height={200}
+                      className="rounded-md object-contain"
+                    />
+                  ) : (
+                    <div className="text-sm text-gray-400">画像なし</div>
+                  )}
                 </div>
-                {uploadingImage && (
-                  <div className="mt-2 flex items-center justify-center">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span className="ml-2 text-sm">アップロード中...</span>
+              </div>
+
+              {/* アップロードされた新しい画像 */}
+              <div className="flex flex-col items-center">
+                <p className="text-sm text-gray-500 mb-2">新しい画像</p>
+                <div className="h-[200px] w-full flex items-center justify-center border rounded-lg">
+                  {previewUrl ? (
+                    <Image
+                      src={previewUrl}
+                      alt="New image"
+                      width={200}
+                      height={200}
+                      className="rounded-md object-contain"
+                    />
+                  ) : (
+                    <div className="text-sm text-gray-400">
+                      新しい画像がアップロードされていません
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* 画像アップロードエリア */}
+              <div className="flex flex-col items-center">
+                <p className="text-sm text-gray-500 mb-2">
+                  新しい画像をアップロード
+                </p>
+                <div
+                  {...getRootProps()}
+                  className={`
+                    w-full h-[200px]
+                    border-2 border-dashed rounded-lg
+                    flex flex-col justify-center
+                    transition-colors duration-200 ease-in-out
+                    ${
+                      isDragActive
+                        ? "border-primary bg-primary/5"
+                        : "border-gray-300 dark:border-gray-700"
+                    }
+                    ${imageFile ? "bg-green-50 dark:bg-green-900/10" : ""}
+                  `}
+                >
+                  <input {...getInputProps()} />
+                  <div className="flex flex-col items-center justify-center space-y-2 text-center p-4">
+                    <Upload className="h-8 w-8 text-gray-400" />
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium">
+                        {isDragActive
+                          ? "ここにファイルをドロップ"
+                          : "クリックまたはドラッグ＆ドロップでファイルを選択"}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        画像ファイルをアップロード
+                      </p>
+                    </div>
                   </div>
-                )}
-                {imageFile && !uploadingImage && (
-                  <div className="mt-2 text-sm text-green-600 dark:text-green-400 text-center">
-                    ✓ {imageFile.name}
-                  </div>
-                )}
+                  {uploadingImage && (
+                    <div className="mt-2 flex items-center justify-center">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span className="ml-2 text-sm">アップロード中...</span>
+                    </div>
+                  )}
+                  {imageFile && !uploadingImage && (
+                    <div className="mt-2 text-sm text-green-600 dark:text-green-400 text-center">
+                      ✓ {imageFile.name}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="title">Title</Label>
-            <div className="text-sm text-muted-foreground mb-2">
-              Current: <span className="font-bold">{product?.title}</span>
+            <div className="space-y-2">
+              <Label htmlFor="title">Title</Label>
+              <div className="text-sm text-muted-foreground mb-2">
+                Current: <span className="font-bold">{product?.title}</span>
+              </div>
+              <Input
+                id="title"
+                value={formData.title || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
+              />
             </div>
-            <Input
-              id="title"
-              value={formData.title || ""}
-              onChange={(e) =>
-                setFormData({ ...formData, title: e.target.value })
-              }
-            />
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="type">Type</Label>
-            <div className="text-sm text-muted-foreground mb-2">
-              Current: <span className="font-bold">{product?.productType}</span>
+            <div className="space-y-2">
+              <Label htmlFor="type">Type</Label>
+              <div className="text-sm text-muted-foreground mb-2">
+                Current:{" "}
+                <span className="font-bold">{product?.productType}</span>
+              </div>
+              <Select
+                value={formData.type}
+                onValueChange={(value) =>
+                  setFormData({ ...formData, type: value })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="album">Album</SelectItem>
+                  <SelectItem value="single">Single</SelectItem>
+                  <SelectItem value="ep">EP</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            <Select
-              value={formData.type}
-              onValueChange={(value) =>
-                setFormData({ ...formData, type: value })
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="album">Album</SelectItem>
-                <SelectItem value="single">Single</SelectItem>
-                <SelectItem value="ep">EP</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="distributedAt">Distribution Date</Label>
-            <div className="text-sm text-muted-foreground mb-2">
-              Current:{" "}
-              <span className="font-bold">
-                {product?.distributedAt?.split("T")[0]}
-              </span>
+            <div className="space-y-2">
+              <Label htmlFor="distributedAt">Distribution Date</Label>
+              <div className="text-sm text-muted-foreground mb-2">
+                Current:{" "}
+                <span className="font-bold">
+                  {product?.distributedAt?.split("T")[0]}
+                </span>
+              </div>
+              <Input
+                id="distributedAt"
+                type="date"
+                value={formData.distributedAt?.split("T")[0] || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, distributedAt: e.target.value })
+                }
+              />
             </div>
-            <Input
-              id="distributedAt"
-              type="date"
-              value={formData.distributedAt?.split("T")[0] || ""}
-              onChange={(e) =>
-                setFormData({ ...formData, distributedAt: e.target.value })
-              }
-            />
-          </div>
-
-          <DialogFooter className="gap-2">
-            <Button
-              type="submit"
-              disabled={updateProductMutation.isPending || uploadingImage}
-            >
-              {updateProductMutation.isPending ? "Updating..." : "Update"}
-            </Button>
-            <Button
-              type="button"
-              variant="destructive"
-              onClick={handleDelete}
-              disabled={deleteProductMutation.isPending || uploadingImage}
-            >
-              {deleteProductMutation.isPending ? "Deleting..." : "Delete"}
-            </Button>
-          </DialogFooter>
-        </form>
+          </form>
+        </div>
+        <DialogFooter className="gap-2 mt-4 border-t pt-4">
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={handleDelete}
+            disabled={deleteProductMutation.isPending || uploadingImage}
+          >
+            {deleteProductMutation.isPending ? "Deleting..." : "Delete"}
+          </Button>
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            disabled={updateProductMutation.isPending || uploadingImage}
+          >
+            {updateProductMutation.isPending ? "Updating..." : "Update"}
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

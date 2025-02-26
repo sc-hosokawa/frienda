@@ -67,7 +67,10 @@ export function Trending({
               key={index}
               className={`flex items-center justify-between p-4 rounded-lg ${index % 2 === 1 ? "bg-[#23231f]" : ""}`}
             >
-              <div className="flex items-center space-x-4">
+              <Link
+                href={`/dashboard/discography/isrc/${song.isrc}`}
+                className="flex items-center space-x-4 hover:opacity-80"
+              >
                 <span className="text-2xl w-8">{index + 1}</span>
                 <Image
                   src={song.imageUrl || "/placeholder.svg"}
@@ -80,7 +83,7 @@ export function Trending({
                   <h3 className="font-medium">{song.trackTitle}</h3>
                   <p className="text-gray-400 text-sm">{song.upcTitle}</p>
                 </div>
-              </div>
+              </Link>
               <div className="flex items-center space-x-64">
                 <Popover.Root>
                   <Popover.Trigger asChild>
@@ -148,14 +151,6 @@ export function Trending({
                             <p>
                               <span className="text-gray-400">LINE:</span>{" "}
                               {song.weeklyPlayCountDetails.line.toLocaleString()}
-                            </p>
-                            <p>
-                              <span className="text-gray-400">Amazon:</span>{" "}
-                              {song.weeklyPlayCountDetails.amazon.toLocaleString()}
-                            </p>
-                            <p>
-                              <span className="text-gray-400">YouTube:</span>{" "}
-                              {song.weeklyPlayCountDetails.youtube.toLocaleString()}
                             </p>
                           </div>
                         </div>

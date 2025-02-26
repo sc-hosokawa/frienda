@@ -117,9 +117,6 @@ export function EditDialog({
           </div>
 
           <DialogFooter className="gap-2">
-            <Button type="submit" disabled={updateTrackMutation.isPending}>
-              {updateTrackMutation.isPending ? "Updating..." : "Update"}
-            </Button>
             <Button
               type="button"
               variant="destructive"
@@ -127,6 +124,9 @@ export function EditDialog({
               disabled={deleteTrackMutation.isPending}
             >
               {deleteTrackMutation.isPending ? "Deleting..." : "Delete"}
+            </Button>
+            <Button type="submit" disabled={updateTrackMutation.isPending}>
+              {updateTrackMutation.isPending ? "Updating..." : "Update"}
             </Button>
           </DialogFooter>
         </form>
