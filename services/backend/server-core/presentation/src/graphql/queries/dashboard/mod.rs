@@ -245,4 +245,21 @@ impl DashboardQuery {
             trending_tracks: result.trending.into_iter().map(|t| t.into()).collect(),
         })
     }
+
+    async fn get_track_info(
+        &self,
+        ctx: &Context<'_>,
+        isrc: String,
+    ) -> Result<models::dashboard::TrackInfoData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases
+            .get_products
+            .get_track_info(isrc)
+            .await?;
+
+        Ok(models::dashboard::TrackInfoData {
+            track: result.track.into(),
+            product: result.product.into_iter().map(|p| p.into()).collect(),
+        })
+    }
 }

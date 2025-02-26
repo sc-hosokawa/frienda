@@ -679,6 +679,7 @@ type QueryRoot {
 	getGenderGenRateByIsrc(artistId: String!, userId: String!, isrc: String!): GenderGenRateData!
 	getProducts(artistId: String!): ProductsData!
 	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
+	getTrackInfo(isrc: String!): TrackInfoData!
 	getSystemOverview: OverviewData!
 	getFspHistoryForAdmin(count: Int!): [FspHistory!]!
 	getTrackCreditsHistoryForAdmin(count: Int!): [Credit!]!
@@ -931,6 +932,11 @@ type TrackData {
 	artistId: String!
 	artistName: String!
 	productTitle: String!
+}
+
+type TrackInfoData {
+	track: Track!
+	product: [Product!]!
 }
 
 type TransactionByUserData {

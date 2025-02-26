@@ -22,12 +22,22 @@ pub struct ProductWithTracks {
     pub tracks: Vec<Track>,
 }
 
+pub struct GetTrackInfoUsecaseOutput {
+    pub track: Track,
+    pub product: Vec<Product>,
+}
+
 #[async_trait]
 pub trait GetProductsUsecaseTrait: Send + Sync {
     async fn get_products(
         &self,
         input: GetProductsUsecaseInput,
     ) -> Result<GetProductsUsecaseOutput, anyhow::Error>;
+
+    async fn get_track_info(
+        &self,
+        isrc: String,
+    ) -> Result<GetTrackInfoUsecaseOutput, anyhow::Error>;
 }
 
 pub struct GetProductsUsecase {
@@ -107,5 +117,29 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
             }
         }
         Ok(output)
+    }
+
+    async fn get_track_info(
+        &self,
+        isrc: String,
+    ) -> Result<GetTrackInfoUsecaseOutput, anyhow::Error> {
+        let track: Option<Track> = self.tracks_repo.get_by_isrc(&isrc).await?;
+        if track.is_none() {
+            return Err(anyhow::anyhow!("Track not found"));
+        }
+        let track: Track = track.unwrap();
+
+        let product_track_map: Vec<ProductTrack> =
+            self.product_track_repo.get_by_isrc(&isrc).await?;
+
+        let products: Vec<Product> = self
+            .products_repo
+            .get_by_upcs(product_track_map.iter().map(|pt| pt.upc.clone()).collect())
+            .await?;
+
+        Ok(GetTrackInfoUsecaseOutput {
+            track,
+            product: products,
+        })
     }
 }

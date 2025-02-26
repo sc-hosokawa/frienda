@@ -35,6 +35,12 @@ pub struct PlayCountByDSPDetails {
     pub youtube: i32,
 }
 
+#[derive(SimpleObject)]
+pub struct TrackInfoData {
+    pub track: Track,
+    pub product: Vec<Product>,
+}
+
 impl From<application::usecases::dashboard::get_trending_usecase::TrendTrack> for TrendTrack {
     fn from(t: application::usecases::dashboard::get_trending_usecase::TrendTrack) -> Self {
         Self {
