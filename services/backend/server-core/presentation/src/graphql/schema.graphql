@@ -673,8 +673,10 @@ type QueryRoot {
 	getTrending(artistId: String!, userId: String!): TrendingData!
 	getPlayCountHistory(artistId: String!, userId: String!, period: Int!): ChartData!
 	getPlaycountHistoryByUpc(upc: String!, period: Int!): ChartDataByUPC!
+	getPlaycountHistoryByIsrc(isrc: String!, period: Int!): ChartData!
 	getGenderGenRateByArtist(artistId: String!, userId: String!): GenderGenRateData!
 	getGenderGenRateByUpc(artistId: String!, userId: String!, upc: String!): GenderGenRateData!
+	getGenderGenRateByIsrc(artistId: String!, userId: String!, isrc: String!): GenderGenRateData!
 	getProducts(artistId: String!): ProductsData!
 	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
 	getSystemOverview: OverviewData!

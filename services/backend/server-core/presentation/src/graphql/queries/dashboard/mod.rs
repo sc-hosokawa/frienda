@@ -177,6 +177,28 @@ impl DashboardQuery {
         })
     }
 
+    async fn get_gender_gen_rate_by_isrc(
+        &self,
+        ctx: &Context<'_>,
+        artist_id: String,
+        user_id: String,
+        isrc: String,
+    ) -> Result<models::dashboard::GenderGenRateData> {
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let result = usecases.get_playback_gender_gen.get_playback_gender_gen(application::usecases::dashboard::get_playback_gender_gen_usecase::GetPlaybackGenderGenUsecaseInput{
+            artist_id,
+            user_id,
+            isrc: Some(isrc),
+            upc: None,
+        })
+        .await?;
+
+        Ok(models::dashboard::GenderGenRateData {
+            gender_rate: result.gender_rate.into(),
+            gen_rate: result.gen_rate.into(),
+        })
+    }
+
     async fn get_products(
         &self,
         ctx: &Context<'_>,
