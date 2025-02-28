@@ -252,10 +252,7 @@ impl DashboardQuery {
         isrc: String,
     ) -> Result<models::dashboard::TrackInfoData> {
         let usecases = ctx.data::<Arc<Usecases>>()?;
-        let result = usecases
-            .get_products
-            .get_track_info(isrc)
-            .await?;
+        let result = usecases.get_products.get_track_info(isrc).await?;
 
         Ok(models::dashboard::TrackInfoData {
             track: result.track.into(),
