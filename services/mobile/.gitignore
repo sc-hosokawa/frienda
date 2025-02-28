@@ -44,3 +44,4 @@ obfuscate/
 /android/app/release
 
 .DS_Store
+*.hprof
