@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:client/presentation/widgets/fsp/prizeRequest.dart';
+import 'package:client/presentation/widgets/fsp/manage_prize.dart';
 
 class PrizeDetail extends ConsumerWidget {
   final String prizeId;
@@ -58,6 +60,20 @@ class PrizeDetail extends ConsumerWidget {
               SafeArea(
                 child: AppBar(
                   title: Text(prizeDetail['name'] ?? ''),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.info_outline),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RequestWidget(),
+                          ),
+                        );
+                      },
+                      tooltip: '利用申請',
+                    ),
+                  ],
                 ),
               ),
               Expanded(
@@ -111,6 +127,28 @@ class PrizeDetail extends ConsumerWidget {
                                         prizeDetail['point'] as int;
                                     final hasEnoughPoints =
                                         userPoints >= requiredPoints;
+                                    final isOwner =
+                                        prizeDetail['representation'] ==
+                                            user?.id;
+
+                                    if (isOwner) {
+                                      return ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          foregroundColor: Colors.black,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ManagePrize(prizeId: prizeId),
+                                            ),
+                                          );
+                                        },
+                                        child: const Text('管理'),
+                                      );
+                                    }
 
                                     return ElevatedButton(
                                       style: ElevatedButton.styleFrom(
@@ -118,12 +156,12 @@ class PrizeDetail extends ConsumerWidget {
                                         foregroundColor: Colors.black,
                                       ),
                                       onPressed: hasEnoughPoints
-                                          ? () => _exchangePrize(
+                                          ? () => _showExchangeConfirmDialog(
                                               context, ref, prizeDetail['name'])
                                           : null,
                                       child: Text(hasEnoughPoints
                                           ? '交換する'
-                                          : '保有ポイントが足りません'),
+                                          : 'ポイントが足りません'),
                                     );
                                   },
                                 ),
@@ -181,6 +219,32 @@ class PrizeDetail extends ConsumerWidget {
     );
   }
 
+  Future<void> _showExchangeConfirmDialog(
+      BuildContext context, WidgetRef ref, String itemName) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('確認'),
+          content: Text('$itemNameを交換しますか？'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('キャンセル'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _exchangePrize(context, ref, itemName);
+              },
+              child: const Text('交換する'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _exchangePrize(
       BuildContext context, WidgetRef ref, String itemName) async {
     try {
@@ -206,7 +270,7 @@ class PrizeDetail extends ConsumerWidget {
         ),
       );
 
-      print(result.data);
+      print(user?.id);
 
       if (result.hasException) {
         throw result.exception!;
@@ -215,7 +279,7 @@ class PrizeDetail extends ConsumerWidget {
       if (!context.mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('$itemNameを交換しました。確認メールをご確認ください。')),
+        SnackBar(content: Text('$itemNameを交換しました。')),
       );
     } catch (e) {
       if (!context.mounted) return;

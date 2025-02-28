@@ -4,27 +4,41 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class ProductTrendTab extends ConsumerWidget {
-  final String upc;
+  final String? upc;
+  final String? isrc;
   final String userId;
   final String artistId;
 
   const ProductTrendTab({
     super.key,
-    required this.upc,
+    this.upc,
+    this.isrc,
     required this.userId,
     required this.artistId,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // クエリタイプの決定
+    String queryType;
+    if (upc != null) {
+      queryType = 'Upc';
+    } else if (isrc != null) {
+      queryType = 'Isrc';
+    } else {
+      queryType = 'Artist';
+    }
+
     return Query(
       options: QueryOptions(
         document: gql('''
-          query GetGenderGenRate(\$artistId: String!, \$userId: String!, \$upc: String!) {
-            getGenderGenRateByUpc(artistId: \$artistId, userId: \$userId, upc: \$upc) {
+          query GetGenderGenRate(\$artistId: String!, \$userId: String!${queryType != 'Artist' ? ', \$${queryType.toLowerCase()}: String!' : ''}) {
+            getGenderGenRateBy${queryType}(artistId: \$artistId, userId: \$userId${queryType != 'Artist' ? ', ${queryType.toLowerCase()}: \$${queryType.toLowerCase()}' : ''}) {
               genderRate {
                 maleCount
                 femaleCount
+                neutralCount
+                unknownCount
               }
               genRate {
                 under17
@@ -41,17 +55,12 @@ class ProductTrendTab extends ConsumerWidget {
         variables: {
           'artistId': artistId,
           'userId': userId,
-          'upc': upc,
+          if (upc != null) 'upc': upc,
+          if (isrc != null) 'isrc': isrc,
         },
         fetchPolicy: FetchPolicy.networkOnly,
       ),
       builder: (result, {refetch, fetchMore}) {
-        print('Query result: ${result.data}');
-        print('Has exception: ${result.hasException}');
-        if (result.hasException) {
-          print('Exception details: ${result.exception}');
-        }
-
         if (result.hasException) {
           return Center(child: Text('Error loading data'));
         }
@@ -60,17 +69,14 @@ class ProductTrendTab extends ConsumerWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        final genderRates =
-            result.data?['getGenderGenRateByUpc']?['genderRate'];
-        final generationRates =
-            result.data?['getGenderGenRateByUpc']?['genRate'];
-
-        print('Gender rates: $genderRates');
-        print('Generation rates: $generationRates');
+        final queryResult = result.data?['getGenderGenRateBy$queryType'];
+        final genderRates = queryResult?['genderRate'];
+        final generationRates = queryResult?['genRate'];
 
         return SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(height: 16),
               Text(
                 '以下のデータは現在Spotifyのデータを利用しています。',
                 style: TextStyle(
@@ -95,7 +101,9 @@ class ProductTrendTab extends ConsumerWidget {
 
     final maleCount = genderRates['maleCount'].toDouble();
     final femaleCount = genderRates['femaleCount'].toDouble();
-    final total = maleCount + femaleCount;
+    final neutralCount = genderRates['neutralCount'].toDouble();
+    final unknownCount = genderRates['unknownCount'].toDouble();
+    final total = maleCount + femaleCount + neutralCount + unknownCount;
 
     if (total == 0) {
       return Card(
@@ -115,6 +123,8 @@ class ProductTrendTab extends ConsumerWidget {
 
     final malePercentage = (maleCount / total * 100).round();
     final femalePercentage = (femaleCount / total * 100).round();
+    final neutralPercentage = (neutralCount / total * 100).round();
+    final unknownPercentage = (unknownCount / total * 100).round();
 
     return Card(
       color: Colors.grey[850],
@@ -134,6 +144,17 @@ class ProductTrendTab extends ConsumerWidget {
                   startDegreeOffset: 270,
                   sections: [
                     PieChartSectionData(
+                      color: const Color.fromRGBO(94, 234, 212, 1),
+                      value: malePercentage.toDouble(),
+                      title: '$malePercentage%',
+                      radius: 60,
+                      titleStyle: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    PieChartSectionData(
                       color: const Color.fromRGBO(248, 113, 113, 1),
                       value: femalePercentage.toDouble(),
                       title: '$femalePercentage%',
@@ -145,9 +166,20 @@ class ProductTrendTab extends ConsumerWidget {
                       ),
                     ),
                     PieChartSectionData(
-                      color: const Color.fromRGBO(94, 234, 212, 1),
-                      value: malePercentage.toDouble(),
-                      title: '$malePercentage%',
+                      color: const Color.fromRGBO(147, 197, 253, 1),
+                      value: neutralPercentage.toDouble(),
+                      title: '$neutralPercentage%',
+                      radius: 60,
+                      titleStyle: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    PieChartSectionData(
+                      color: const Color.fromRGBO(156, 163, 175, 1),
+                      value: unknownPercentage.toDouble(),
+                      title: '$unknownPercentage%',
                       radius: 60,
                       titleStyle: const TextStyle(
                         fontSize: 18,
@@ -163,6 +195,10 @@ class ProductTrendTab extends ConsumerWidget {
             _buildLegend('Male', const Color.fromRGBO(94, 234, 212, 1)),
             const SizedBox(height: 8),
             _buildLegend('Female', const Color.fromRGBO(248, 113, 113, 1)),
+            const SizedBox(height: 8),
+            _buildLegend('Neutral', const Color.fromRGBO(147, 197, 253, 1)),
+            const SizedBox(height: 8),
+            _buildLegend('Unknown', const Color.fromRGBO(156, 163, 175, 1)),
           ],
         ),
       ),
@@ -213,7 +249,7 @@ class ProductTrendTab extends ConsumerWidget {
             _buildGenerationBar(
                 '45-59', generationRates['gen4559'] ?? 0, Colors.blue),
             _buildGenerationBar(
-                '60-150', generationRates['gen60150'] ?? 0, Colors.purple),
+                '60 Over', generationRates['gen60150'] ?? 0, Colors.purple),
           ],
         ),
       ),

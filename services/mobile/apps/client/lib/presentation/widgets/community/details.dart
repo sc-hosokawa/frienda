@@ -6,6 +6,7 @@ import 'package:client/presentation/widgets/message/message_room.dart';
 import 'package:client/presentation/providers/client_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:client/presentation/widgets/offer/offer_detail.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NodeDetailPage extends ConsumerStatefulWidget {
   final String id;
@@ -515,25 +516,29 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (offer['imageUrl'] != null)
-                          ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(12)),
-                            child: Image.network(
-                              offer['imageUrl'],
-                              height: 160,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                          SizedBox(
+                            height: 160,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(12)),
+                              child: Image.network(
+                                offer['imageUrl'],
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           )
                         else
-                          ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(12)),
-                            child: Image.asset(
-                              'assets/logo_visualonly.jpg',
-                              height: 160,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+                          SizedBox(
+                            height: 160,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(12)),
+                              child: SvgPicture.asset(
+                                'assets/offer.svg',
+                                width: 280,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         Padding(

@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:client/presentation/widgets/offer/manage_offer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:client/presentation/widgets/community/details.dart';
 
 class OfferDetailPage extends ConsumerStatefulWidget {
   final int offerId;
@@ -307,13 +308,32 @@ class _OfferDetailPageState extends ConsumerState<OfferDetailPage> {
     final owner = _offerData?['owner'];
     return Row(
       children: [
-        CircleAvatar(
-          backgroundImage: owner?['imageUrl'] != null
-              ? NetworkImage(owner['imageUrl'])
-              : null,
+        IntrinsicWidth(
+          child: InkWell(
+            onTap: () {
+              if (owner?['id'] != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NodeDetailPage(id: owner['id']),
+                  ),
+                );
+              }
+            },
+            child: Row(
+              children: [
+                CircleAvatar(
+                  backgroundImage: owner?['imageUrl'] != null
+                      ? NetworkImage(owner['imageUrl'])
+                      : null,
+                ),
+                SizedBox(width: 8),
+                Text(owner?['name'] ?? '',
+                    style: TextStyle(color: Colors.white)),
+              ],
+            ),
+          ),
         ),
-        SizedBox(width: 8),
-        Text(owner?['name'] ?? '', style: TextStyle(color: Colors.white)),
       ],
     );
   }

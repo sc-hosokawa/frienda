@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/widgets/fsp/prize_detail.dart';
 import 'package:intl/intl.dart';
+import 'package:client/presentation/widgets/fsp/prizeRequest.dart';
 
 class Exchange extends StatelessWidget {
   const Exchange({super.key});
@@ -24,9 +25,23 @@ class Exchange extends StatelessWidget {
         children: [
           SafeArea(
             child: AppBar(
-              title: const Text('交換'),
+              title: const Text('景品'),
               titleTextStyle: Theme.of(context).textTheme.titleMedium,
               centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.info_outline),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RequestWidget(),
+                      ),
+                    );
+                  },
+                  tooltip: '詳細',
+                ),
+              ],
             ),
           ),
           Expanded(

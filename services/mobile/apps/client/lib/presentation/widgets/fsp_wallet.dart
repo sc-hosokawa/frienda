@@ -149,7 +149,7 @@ class Fsp extends ConsumerWidget {
                   _buildMenuButton(context, '送付', Icons.send),
                   _buildMenuButton(context, '受取', Icons.call_received),
                   //_buildMenuButton(context, '購入', Icons.shopping_cart),
-                  _buildMenuButton(context, '交換', Icons.swap_horiz),
+                  _buildMenuButton(context, '景品', Icons.swap_horiz),
                   _buildMenuButton(context, '分配', Icons.pie_chart),
                 ],
               ),
@@ -160,7 +160,7 @@ class Fsp extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'おすすめの景品',
+                      '交換できる景品',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     TextButton(
@@ -418,7 +418,7 @@ class Fsp extends ConsumerWidget {
             //case '購入':
             //  destinationWidget = const Purchase();
             //  break;
-            case '交換':
+            case '景品':
               destinationWidget = const Exchange();
               break;
             case '分配':

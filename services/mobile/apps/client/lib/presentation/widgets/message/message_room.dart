@@ -14,6 +14,7 @@ import 'package:dio/dio.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:path/path.dart' as path;
 import 'package:client/presentation/widgets/message/message_list.dart';
+import 'package:client/presentation/widgets/community/details.dart';
 
 class MessageRoom extends ConsumerStatefulWidget {
   const MessageRoom({super.key, required this.roomId});
@@ -91,31 +92,47 @@ class _MessageRoomState extends ConsumerState<MessageRoom> {
                 icon: Icon(Icons.arrow_back),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              title: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: result.data?['getMessagesByMessageRoomId']
-                                ['to']['imageUrl'] !=
-                            null
-                        ? NetworkImage(
-                            result.data!['getMessagesByMessageRoomId']['to']
-                                ['imageUrl'] as String)
-                        : null,
-                    radius: 16,
-                    child: result.data?['getMessagesByMessageRoomId']['to']
-                                ['imageUrl'] ==
-                            null
-                        ? const Icon(Icons.person, size: 20)
-                        : null,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    result.data?['getMessagesByMessageRoomId']['to']['name'] ??
-                        '不明なユーザー',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
+              title: InkWell(
+                onTap: () {
+                  final userId =
+                      result.data?['getMessagesByMessageRoomId']['to']['id'];
+                  if (userId != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NodeDetailPage(id: userId),
+                      ),
+                    );
+                  }
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          result.data?['getMessagesByMessageRoomId']['to']
+                                      ['imageUrl'] !=
+                                  null
+                              ? NetworkImage(
+                                  result.data!['getMessagesByMessageRoomId']
+                                      ['to']['imageUrl'] as String)
+                              : null,
+                      radius: 16,
+                      child: result.data?['getMessagesByMessageRoomId']['to']
+                                  ['imageUrl'] ==
+                              null
+                          ? const Icon(Icons.person, size: 20)
+                          : null,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      result.data?['getMessagesByMessageRoomId']['to']
+                              ['name'] ??
+                          '不明なユーザー',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ],
+                ),
               ),
               centerTitle: true,
               actions: [

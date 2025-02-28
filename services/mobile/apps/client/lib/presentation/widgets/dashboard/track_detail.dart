@@ -1,46 +1,81 @@
-import 'dart:math' show max;
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:client/presentation/providers/client_provider.dart';
-import 'package:client/presentation/providers/user_provider.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:client/presentation/providers/user_provider.dart';
+import 'package:client/presentation/providers/client_provider.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'dart:math' show max;
 import 'package:client/presentation/widgets/dashboard/balance_screen.dart';
-import 'package:client/presentation/widgets/dashboard/credit_dialog.dart';
-import 'package:client/presentation/widgets/dashboard/track_detail.dart';
+import 'package:client/presentation/widgets/dashboard/product_detail_screen.dart';
 
-class ProductDetailScreen extends ConsumerStatefulWidget {
+class TrackDetailScreen extends ConsumerStatefulWidget {
+  final String isrc;
   final String title;
-  final String upc;
-  final String artistId;
-  final List<dynamic> tracks;
+  final String? imageUrl;
 
-  const ProductDetailScreen({
+  const TrackDetailScreen({
     super.key,
+    required this.isrc,
     required this.title,
-    required this.upc,
-    required this.artistId,
-    required this.tracks,
+    this.imageUrl,
   });
 
   @override
-  ConsumerState<ProductDetailScreen> createState() =>
-      _ProductDetailScreenState();
+  ConsumerState<TrackDetailScreen> createState() => _TrackDetailScreenState();
 }
 
-class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen>
+class _TrackDetailScreenState extends ConsumerState<TrackDetailScreen>
     with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   String _selectedPeriod = '7';
   Map<String, dynamic>? _chartData;
   bool _isLoading = false;
-  late TabController _tabController;
-  late final String? userId;
+
+  final _getTrackInfoQuery = gql('''
+    query GetTrackInfo(\$isrc: String!) {
+      getTrackInfo(isrc: \$isrc) {
+        track {
+          isrc
+          title
+          imgUrl
+        }
+        product {
+          upc
+          title
+          imgUrl
+          type
+          artistId
+        }
+      }
+    }
+  ''');
+
+  final _getGenderGenRateQuery = gql('''
+    query GetGenderGenRateByIsrc(\$artistId: String!, \$userId: String!, \$isrc: String!) {
+      getGenderGenRateByIsrc(artistId: \$artistId, userId: \$userId, isrc: \$isrc) {
+        genderRate {
+          maleCount
+          femaleCount
+          neutralCount
+          unknownCount
+        }
+        genRate {
+          under17
+          gen1822
+          gen2327
+          gen2834
+          gen3544
+          gen4559
+          gen60150
+        }
+      }
+    }
+  ''');
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    userId = ref.read(userProvider)?.id;
     _fetchChartData();
   }
 
@@ -54,23 +89,24 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen>
     setState(() => _isLoading = true);
 
     try {
-      print(
-          'Fetching chart data for UPC: ${widget.upc}, Period: $_selectedPeriod');
-
       final result = await ref.read(graphQLClientProvider).query(
             QueryOptions(
               document: gql('''
-                query GetPlaycountHistory(\$upc: String!, \$period: Int!) {
-                  getPlaycountHistoryByUpc(upc: \$upc, period: \$period) {
+                query GetPlaycountHistory(\$isrc: String!, \$period: Int!) {
+                  getPlaycountHistoryByIsrc(isrc: \$isrc, period: \$period) {
                     lineChartData {
                       date
-                      trackCount
+                      spotify
+                      apple
+                      line
+                      amazon
+                      youtube
                     }
                   }
                 }
               '''),
               variables: {
-                'upc': widget.upc,
+                'isrc': widget.isrc,
                 'period': int.parse(_selectedPeriod),
               },
               fetchPolicy: FetchPolicy.networkOnly,
@@ -81,24 +117,107 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen>
         throw result.exception!;
       }
 
-      if (result.data == null ||
-          result.data!['getPlaycountHistoryByUpc'] == null) {
-        throw Exception('No data received from the server');
-      }
-
       setState(() {
-        _chartData = result.data!['getPlaycountHistoryByUpc'];
+        _chartData = result.data!['getPlaycountHistoryByIsrc'];
       });
-
-      print('Updated Chart Data: $_chartData');
     } catch (e) {
-      print('Error fetching chart data: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('データの取得に失敗しました: ${e.toString()}')),
       );
     } finally {
       setState(() => _isLoading = false);
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(widget.title),
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: const [
+            Tab(text: 'チャート'),
+            Tab(text: '傾向'),
+          ],
+        ),
+      ),
+      body: Query(
+        options: QueryOptions(
+          document: _getTrackInfoQuery,
+          variables: {'isrc': widget.isrc},
+        ),
+        builder: (result, {fetchMore, refetch}) {
+          if (result.hasException) {
+            return Center(child: Text('Error loading track info'));
+          }
+
+          if (result.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          final trackInfo = result.data!['getTrackInfo'];
+
+          return TabBarView(
+            controller: _tabController,
+            children: [
+              _buildChartTab(trackInfo),
+              _buildTrendTab(trackInfo),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildChartTab(Map<String, dynamic> trackInfo) {
+    return ListView(
+      padding: const EdgeInsets.all(16.0),
+      children: [
+        if (trackInfo['product'] != null) ...[
+          const Text('収録作品', style: TextStyle(color: Colors.grey)),
+          const SizedBox(height: 8),
+          _buildProductList(trackInfo['product'] as List),
+        ],
+        const SizedBox(height: 24),
+        _buildLineChartSection(),
+      ],
+    );
+  }
+
+  Widget _buildTrendTab(Map<String, dynamic> trackInfo) {
+    final user = ref.watch(userProvider);
+    final artistId = (trackInfo['product'] as List).first['artistId'];
+
+    return Query(
+      options: QueryOptions(
+        document: _getGenderGenRateQuery,
+        variables: {
+          'isrc': widget.isrc,
+          'artistId': artistId,
+          'userId': user?.id ?? '',
+        },
+      ),
+      builder: (result, {fetchMore, refetch}) {
+        if (result.hasException) {
+          return Center(child: Text('Error loading trend data'));
+        }
+
+        if (result.isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        return ProductTrendTab(
+          isrc: widget.isrc,
+          userId: user?.id ?? '',
+          artistId: artistId,
+        );
+      },
+    );
   }
 
   Widget _buildLineChartSection() {
@@ -118,10 +237,12 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen>
     final spots = chartData.asMap().entries.map((entry) {
       final index = entry.key;
       final data = entry.value;
-      final trackCount = (data['trackCount'] as Map<String, dynamic>)
-          .values
-          .fold<int>(0, (sum, count) => sum + (count as int));
-      return FlSpot(index.toDouble(), trackCount.toDouble());
+      final total = (data['spotify'] as int) +
+          (data['apple'] as int) +
+          (data['line'] as int) +
+          (data['amazon'] as int) +
+          (data['youtube'] as int);
+      return FlSpot(index.toDouble(), total.toDouble());
     }).toList();
 
     return Column(
@@ -262,110 +383,58 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen>
     );
   }
 
-  Widget _buildTrackList() {
-    if (_chartData == null ||
-        _chartData!['lineChartData'] == null ||
-        (_chartData!['lineChartData'] as List).isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    // 期間内の各楽曲の合計再生数を計算
-    final chartData = _chartData!['lineChartData'] as List;
-    final Map<String, int> totalPlayCounts = {};
-
-    for (final track in widget.tracks) {
-      final title = track['title'] as String;
-      int total = 0;
-
-      for (final dayData in chartData) {
-        final trackCount =
-            (dayData['trackCount'] as Map<String, dynamic>)[title] as int? ?? 0;
-        total += trackCount;
-      }
-
-      totalPlayCounts[title] = total;
-    }
-
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: widget.tracks.length,
-      itemBuilder: (context, index) {
-        final track = widget.tracks[index];
-        final title = track['title'] ?? 'Unknown Track';
-        final totalPlayCount =
-            totalPlayCounts[title]?.toString().replaceAllMapped(
-                      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                      (Match m) => '${m[1]},',
-                    ) ??
-                '0';
-
-        return ListTile(
-          title: Text(title),
-          subtitle: Text(
-            track['isrc'] ?? 'N/A',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 12,
-            ),
-          ),
-          trailing: Text(
-            totalPlayCount,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TrackDetailScreen(
-                  isrc: track['isrc'] ?? '',
-                  title: title,
-                  imageUrl: track['imgUrl'],
-                ),
+  Widget _buildProductList(List products) {
+    return SizedBox(
+      height: 120,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          final product = products[index];
+          return Card(
+            child: Container(
+              width: 280,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  if (product['imgUrl'] != null)
+                    Image.network(
+                      product['imgUrl'],
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                    )
+                  else
+                    Container(
+                      width: 80,
+                      height: 80,
+                      color: Colors.grey,
+                      child: const Icon(Icons.music_note),
+                    ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          product['title'] ?? 'Unknown',
+                          style: Theme.of(context).textTheme.titleMedium,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          product['type'] ?? '',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(text: 'チャート'),
-            Tab(text: '傾向'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          ListView(
-            padding: const EdgeInsets.all(16.0),
-            children: [
-              _buildLineChartSection(),
-              const SizedBox(height: 20),
-              _buildTrackList(),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ProductTrendTab(
-              upc: widget.upc,
-              userId: userId ?? '',
-              artistId: widget.artistId,
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

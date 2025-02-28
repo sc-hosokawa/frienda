@@ -9,6 +9,7 @@ import 'package:client/presentation/providers/client_provider.dart';
 import 'package:gql_link/gql_link.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/widgets/dashboard/all_track_screen.dart';
+import 'package:client/presentation/widgets/dashboard/track_detail.dart';
 
 class Dashboard extends ConsumerStatefulWidget {
   const Dashboard({super.key});
@@ -311,6 +312,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                 return _buildTrendingItem(
                   index,
                   track['trackTitle'] ?? 'Unknown Track',
+                  track['isrc'] ?? '',
                   track['imageUrl'],
                   track['totalPlayCount'] ?? 0,
                   track['weeklyPlayCount'] ?? 0,
@@ -323,87 +325,101 @@ class _DashboardState extends ConsumerState<Dashboard> {
     );
   }
 
-  Widget _buildTrendingItem(int index, String title, String? imageUrl,
-      int totalCount, int weeklyCount) {
+  Widget _buildTrendingItem(int index, String title, String isrc,
+      String? imageUrl, int totalCount, int weeklyCount) {
     final rank = index + 1;
     final numberFormat = NumberFormat('#,###');
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 30,
-            child: Text(
-              '$rank',
-              style: Theme.of(context).textTheme.titleSmall,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TrackDetailScreen(
+              isrc: isrc,
+              title: title,
+              imageUrl: imageUrl,
             ),
           ),
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              image: imageUrl != null
-                  ? DecorationImage(
-                      image: NetworkImage(imageUrl),
-                      fit: BoxFit.cover,
-                    )
-                  : null,
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 30,
+              child: Text(
+                '$rank',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
             ),
-            child: imageUrl == null ? const Icon(Icons.music_note) : null,
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                image: imageUrl != null
+                    ? DecorationImage(
+                        image: NetworkImage(imageUrl),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
+              ),
+              child: imageUrl == null ? const Icon(Icons.music_note) : null,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleMedium,
-                  overflow: TextOverflow.ellipsis,
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Total: ',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: Colors.grey,
+                            ),
+                      ),
+                      TextSpan(
+                        text: numberFormat.format(totalCount),
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                ),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Week: ',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: Colors.grey,
+                            ),
+                      ),
+                      TextSpan(
+                        text: numberFormat.format(weeklyCount),
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Total: ',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Colors.grey,
-                          ),
-                    ),
-                    TextSpan(
-                      text: numberFormat.format(totalCount),
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ],
-                ),
-              ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Week: ',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Colors.grey,
-                          ),
-                    ),
-                    TextSpan(
-                      text: numberFormat.format(weeklyCount),
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
