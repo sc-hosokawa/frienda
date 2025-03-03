@@ -10,6 +10,7 @@ import 'package:gql_link/gql_link.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:client/presentation/widgets/dashboard/all_track_screen.dart';
 import 'package:client/presentation/widgets/dashboard/track_detail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends ConsumerStatefulWidget {
   const Dashboard({super.key});
@@ -26,6 +27,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
   static const _gridColor = Color(0xffe7e8ec);
   static const _borderColor = Color(0xff37434d);
   static const _textColor = Color(0xff67727d);
+  static const String _selectedArtistKey = 'selected_artist_key';
+  static const String _userIdKey = 'user_id_key';
 
   Widget _buildBottomTitleWidget(String title) {
     return Text(
@@ -66,19 +69,57 @@ class _DashboardState extends ConsumerState<Dashboard> {
     );
   }
 
-  void _selectArtist(String artist) {
+  @override
+  void initState() {
+    super.initState();
+    _initializeSelectedArtist();
+  }
+
+  Future<void> _initializeSelectedArtist() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userRef = ref.read(userProvider);
+    final userId = userRef?.id;
+    final savedUserId = prefs.getString(_userIdKey);
+
+    // 異なるユーザーでログインした場合は保存されたアーティストをクリア
+    if (userId != savedUserId) {
+      await prefs.remove(_selectedArtistKey);
+      await prefs.setString(_userIdKey, userId ?? '');
+    }
+
+    final savedArtist = prefs.getString(_selectedArtistKey);
+    if (savedArtist != null && userRef != null) {
+      // 保存されたアーティストが現在のユーザーのアーティストリストに存在するか確認
+      final artistExists = userRef.belongsToArtists.any(
+        (artist) => artist.name == savedArtist && artist.status == 'Accept',
+      );
+      if (artistExists) {
+        setState(() {
+          _selectedArtist = savedArtist;
+        });
+        _fetchOverviewData();
+        return;
+      }
+    }
+
+    // 保存されたアーティストがない場合や無効な場合は最初のアーティストを選択
+    setState(() {
+      _selectedArtist = userRef?.belongsToArtists
+          .where((artist) => artist.status == 'Accept')
+          .firstOrNull
+          ?.name;
+    });
+    _fetchOverviewData();
+  }
+
+  void _selectArtist(String artist) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_selectedArtistKey, artist);
+
     setState(() {
       _selectedArtist = artist;
     });
     Navigator.pop(context);
-    _fetchOverviewData();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    final userRef = ProviderContainer().read(userProvider);
-    _selectedArtist = userRef?.belongsToArtists.firstOrNull?.name;
     _fetchOverviewData();
   }
 
