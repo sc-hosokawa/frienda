@@ -20,7 +20,6 @@ import {
   CardTitle,
 } from "@ui/components/ui/card";
 import { Info } from "lucide-react";
-import { GenderGenRateData } from "../../generated/graphql";
 import { ChartSkeleton } from "./gender-gen-chart-skelton";
 
 const GENERATION_COLORS = [
@@ -34,27 +33,28 @@ const GENERATION_COLORS = [
   "rgba(244, 114, 182, 0.6)",
   "rgba(167, 139, 250, 0.6)",
 ];
-const GENDER_COLORS = ["rgba(94, 234, 212, 0.6)", "rgba(248, 113, 113, 0.6)"];
+
+const GENDER_COLORS = [
+  "rgba(94, 234, 212, 0.6)",
+  "rgba(248, 113, 113, 0.6)",
+  "rgba(251, 146, 60, 0.6)",
+  "rgba(192, 132, 252, 0.6)",
+];
 
 interface GenderGenViewProps {
-  data: GenderGenRateData;
+  data: any;
   isLoading: boolean;
 }
 
 export default function GenderGenView({ data, isLoading }: GenderGenViewProps) {
   const generationData = [
-    { name: "Under 14", value: data?.genRate.under14 },
-    { name: "15-19", value: data?.genRate.gen1519 },
-    { name: "20-24", value: data?.genRate.gen2024 },
-    { name: "25-29", value: data?.genRate.gen2529 },
-    { name: "30-34", value: data?.genRate.gen3034 },
-    { name: "35-39", value: data?.genRate.gen3539 },
-    { name: "40-44", value: data?.genRate.gen4044 },
-    { name: "45-49", value: data?.genRate.gen4549 },
-    {
-      name: "50 Over",
-      value: data?.genRate.gen50Over,
-    },
+    { name: "Under 17", value: data?.genRate.under17 },
+    { name: "18-22", value: data?.genRate.gen1822 },
+    { name: "23-27", value: data?.genRate.gen2327 },
+    { name: "28-34", value: data?.genRate.gen2834 },
+    { name: "35-44", value: data?.genRate.gen3544 },
+    { name: "45-59", value: data?.genRate.gen4559 },
+    { name: "60 Over", value: data?.genRate.gen60150 },
   ];
 
   const genderData = [
@@ -65,6 +65,14 @@ export default function GenderGenView({ data, isLoading }: GenderGenViewProps) {
     {
       name: "Female",
       value: data?.genderRate.femaleCount,
+    },
+    {
+      name: "Neutral",
+      value: data?.genderRate.neutralCount,
+    },
+    {
+      name: "Unknown",
+      value: data?.genderRate.unknownCount,
     },
   ];
 
@@ -137,8 +145,7 @@ export default function GenderGenView({ data, isLoading }: GenderGenViewProps) {
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
                 <Info className="w-4 h-4" />
-                世代比データはLINE
-                Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。
+                世代比データはSpotifyのデータを利用しています。
               </div>
             </div>
           </div>
@@ -213,8 +220,7 @@ export default function GenderGenView({ data, isLoading }: GenderGenViewProps) {
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium text-sm leading-none text-muted-foreground">
                 <Info className="w-4 h-4" />
-                性別比データはLINE
-                Musicのデータを利用しています。今後、他のDSPのデータも統合予定です。
+                性別比データはSpotifyのデータを利用しています。
               </div>
             </div>
           </div>

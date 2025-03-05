@@ -80,7 +80,7 @@ export function ArtistChart({ data }: { data: any }) {
           <Area
             key={key}
             dataKey={key}
-            type="natural"
+            type="monotone"
             fill={`url(#fill${key})`}
             fillOpacity={0.4}
             stroke={chartConfig[key as keyof typeof chartConfig].color}
