@@ -12,6 +12,7 @@ import { DashboardInfo } from "~/components/dashboard/DashboardInfo";
 import { SearchArtist } from "~/components/dashboard/search-artist";
 import getAllArtists from "~/store/artist";
 import { gql, useQuery } from "@apollo/client";
+import useSelectedArtistStore from "~/store/selectedArtist";
 
 const GET_GENDER_GEN_RATE = gql`
   query GetGenderGenRate($artistId: String!, $userId: String!) {
@@ -42,12 +43,28 @@ export default function Dashboard() {
   const acceptedArtists = artists?.filter(
     (artist) => artist.status === "Accept",
   );
-  const [selectedArtist, setSelectedArtist] = useState<string | null>(
-    !isSuperAdmin
-      ? acceptedArtists?.[0]?.artistId || null
-      : "artist_00_000000000000000445",
-  );
+
   const [open, setOpen] = useState(false);
+
+  const { artistId: storedArtistId, setArtistId } = useSelectedArtistStore();
+
+  const [selectedArtist, setSelectedArtistState] = useState<string | null>(
+    storedArtistId ||
+      (!isSuperAdmin
+        ? acceptedArtists?.[0]?.artistId || null
+        : "artist_00_000000000000000445"),
+  );
+
+  const handleArtistChangeWrapper: React.Dispatch<
+    React.SetStateAction<string | null>
+  > = (value) => {
+    const newValue =
+      typeof value === "function" ? value(selectedArtist) : value;
+
+    setSelectedArtistState(newValue);
+
+    setArtistId(newValue);
+  };
 
   const { data, loading, error } = getAllArtists();
 
@@ -87,7 +104,7 @@ export default function Dashboard() {
           <div className="flex space-x-4 mb-8">
             <SearchArtist
               value={selectedArtist}
-              setValue={setSelectedArtist}
+              setValue={handleArtistChangeWrapper}
               artists={data?.getAllArtists.artistList}
               open={open}
               setOpen={setOpen}
@@ -104,7 +121,7 @@ export default function Dashboard() {
                   return (
                     <button
                       key={artist.artistId}
-                      onClick={() => setSelectedArtist(artist.artistId)}
+                      onClick={() => handleArtistChangeWrapper(artist.artistId)}
                       className={`flex items-center space-x-2 p-2 transition-colors shrink-0 ${
                         isSelected
                           ? "border-b border-white border-dashed"

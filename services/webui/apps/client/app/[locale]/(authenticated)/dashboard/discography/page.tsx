@@ -12,6 +12,7 @@ import useUserStore from "~/store/user";
 import { ProductsData, ProductWithTracks } from "~/generated/graphql";
 import getAllArtists from "~/store/artist";
 import { SearchArtist } from "~/components/dashboard/search-artist";
+import useSelectedArtistStore from "~/store/selectedArtist";
 
 interface ResData {
   getProducts: ProductsData;
@@ -23,11 +24,33 @@ export default function DiscographyPage() {
   const artists = user?.belongsToArtists;
   const { data: allArtists, loading, error } = getAllArtists();
   const [open, setOpen] = useState(false);
-  const [selectedArtist, setSelectedArtist] = useState<string | null>(
-    !isSuperAdmin
-      ? artists?.[0]?.artistId || null
-      : "artist_00_000000000000000445",
+
+  // グローバルストアを使用
+  const { artistId: storedArtistId, setArtistId } = useSelectedArtistStore();
+
+  // 元の useState の setter を保持
+  const [selectedArtist, setSelectedArtistState] = useState<string | null>(
+    storedArtistId ||
+      (!isSuperAdmin
+        ? artists?.[0]?.artistId || null
+        : "artist_00_000000000000000445"),
   );
+
+  // SearchArtist コンポーネント用のラッパー関数
+  const handleArtistChangeWrapper: React.Dispatch<
+    React.SetStateAction<string | null>
+  > = (value) => {
+    // value が関数の場合（setState の関数形式）と値の場合の両方に対応
+    const newValue =
+      typeof value === "function" ? value(selectedArtist) : value;
+
+    // ローカル state を更新
+    setSelectedArtistState(newValue);
+
+    // グローバルストアも更新
+    setArtistId(newValue);
+  };
+
   const { data } = useQuery<ResData>(GET_PRODUCTS, {
     variables: {
       artistId: selectedArtist || "",
@@ -73,7 +96,7 @@ export default function DiscographyPage() {
           <div className="mb-4">
             <SearchArtist
               value={selectedArtist}
-              setValue={setSelectedArtist}
+              setValue={handleArtistChangeWrapper}
               artists={allArtists?.getAllArtists.artistList}
               open={open}
               setOpen={setOpen}
@@ -87,7 +110,7 @@ export default function DiscographyPage() {
               {artists?.map((artist) => (
                 <button
                   key={artist.artistId}
-                  onClick={() => setSelectedArtist(artist.artistId)}
+                  onClick={() => handleArtistChangeWrapper(artist.artistId)}
                   className={`flex items-center gap-2 px-3 py-1.5 transition-colors shrink-0 ${
                     selectedArtist === artist.artistId
                       ? "border-b border-white border-dashed"
