@@ -40,7 +40,10 @@ interface TrendingProps {
   isHomePage?: boolean;
 }
 
-export const Trending = ({ selectedArtistId, isHomePage = false }: TrendingProps) => {
+export const Trending = ({
+  selectedArtistId,
+  isHomePage = false,
+}: TrendingProps) => {
   const { t } = useTranslation();
   const { user } = useUserStore();
   const { data } = useQuery(GET_TRENDING, {

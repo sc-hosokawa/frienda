@@ -40,17 +40,19 @@ export default function Home() {
   const pendingArtists = user?.belongsToArtists.filter(
     (artist) => artist.status === "Check",
   );
-  
+
   // ローカルストレージから選択されたアーティストIDを取得するロジック
   const [selectedArtistId, setSelectedArtistId] = useState<string | null>(null);
-  
+
   useEffect(() => {
     // コンポーネントマウント時にローカルストレージから選択済みアーティストIDを取得
-    const storedArtistId = localStorage.getItem('selectedHomeArtistId');
-    
+    const storedArtistId = localStorage.getItem("selectedHomeArtistId");
+
     // ローカルストレージに保存されたIDがあり、そのIDを持つアーティストにアクセス権がある場合はそれを使用
-    const artistExists = acceptedArtists?.some(artist => artist.artistId === storedArtistId);
-    
+    const artistExists = acceptedArtists?.some(
+      (artist) => artist.artistId === storedArtistId,
+    );
+
     if (storedArtistId && artistExists) {
       setSelectedArtistId(storedArtistId);
     } else if (acceptedArtists && acceptedArtists.length > 0) {
@@ -58,15 +60,17 @@ export default function Home() {
       setSelectedArtistId(acceptedArtists[0]?.artistId || null);
     }
   }, [acceptedArtists]);
-  
+
   // アーティスト選択を処理する関数
   const handleArtistSelect = (artistId: string) => {
     setSelectedArtistId(artistId);
-    localStorage.setItem('selectedHomeArtistId', artistId);
+    localStorage.setItem("selectedHomeArtistId", artistId);
   };
-  
+
   // 選択されたアーティストオブジェクトを取得
-  const selectedArtist = acceptedArtists?.find(artist => artist.artistId === selectedArtistId) || null;
+  const selectedArtist =
+    acceptedArtists?.find((artist) => artist.artistId === selectedArtistId) ||
+    null;
 
   console.log({
     belongsToArtists: user?.belongsToArtists,
@@ -162,7 +166,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            
+
             {/* アーティスト選択UI - 改善版 */}
             <div className="flex space-x-4 overflow-x-auto pb-4 max-w-full">
               {acceptedArtists.map((artist) => (
@@ -179,9 +183,12 @@ export default function Home() {
                 </button>
               ))}
             </div>
-            
+
             <Overview selectedArtistId={selectedArtistId || ""} />
-            <Trending selectedArtistId={selectedArtistId || ""} isHomePage={true} />
+            <Trending
+              selectedArtistId={selectedArtistId || ""}
+              isHomePage={true}
+            />
           </div>
         </>
       ) : (
