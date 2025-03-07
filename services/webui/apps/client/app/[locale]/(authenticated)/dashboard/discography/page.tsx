@@ -1,7 +1,7 @@
 "use client";
 
 import { Info } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@ui/components/ui/card";
@@ -22,19 +22,57 @@ export default function DiscographyPage() {
   const { user } = useUserStore();
   const isSuperAdmin = user?.isSuperAdmin;
   const artists = user?.belongsToArtists;
+  const acceptedArtists = artists?.filter(
+    (artist) => artist.status === "Accept",
+  );
   const { data: allArtists, loading, error } = getAllArtists();
   const [open, setOpen] = useState(false);
 
   // グローバルストアを使用
-  const { artistId: storedArtistId, setArtistId } = useSelectedArtistStore();
+  const { artistId: storedArtistId, userId: storedUserId, setArtistId, setUserId } = useSelectedArtistStore();
 
   // 元の useState の setter を保持
-  const [selectedArtist, setSelectedArtistState] = useState<string | null>(
-    storedArtistId ||
-      (!isSuperAdmin
-        ? artists?.[0]?.artistId || null
-        : "artist_00_000000000000000445"),
-  );
+  const [selectedArtist, setSelectedArtistState] = useState<string | null>(null);
+
+  // ユーザーIDが変わったらストアを更新
+  useEffect(() => {
+    if (user?.id) {
+      // 現在のユーザーIDをストアに保存
+      setUserId(user.id);
+    }
+  }, [user?.id, setUserId]);
+
+  // 初期選択アーティストの決定
+  useEffect(() => {
+    // acceptedArtistsが存在しない場合は処理をスキップ
+    if (!acceptedArtists || acceptedArtists.length === 0) return;
+
+    let newArtistId: string | null;
+
+    if (user?.id && storedUserId === user.id && storedArtistId) {
+      const artistExists = acceptedArtists.some(
+        artist => artist.artistId === storedArtistId
+      );
+      
+      if (artistExists) {
+        newArtistId = storedArtistId;
+      } else {
+        newArtistId = !isSuperAdmin
+          ? acceptedArtists[0]?.artistId || null
+          : "artist_00_000000000000000445";
+      }
+    } else {
+      newArtistId = !isSuperAdmin
+        ? acceptedArtists[0]?.artistId || null
+        : "artist_00_000000000000000445";
+    }
+
+    // 新しいアーティストIDがnullでなく、現在の選択と異なる場合のみ更新
+    if (newArtistId && newArtistId !== selectedArtist) {
+      setSelectedArtistState(newArtistId);
+      setArtistId(newArtistId);
+    }
+  }, [user?.id, storedUserId, storedArtistId, acceptedArtists, isSuperAdmin, setArtistId, selectedArtist]);
 
   // SearchArtist コンポーネント用のラッパー関数
   const handleArtistChangeWrapper: React.Dispatch<
@@ -107,7 +145,7 @@ export default function DiscographyPage() {
         ) : (
           <>
             <div className="flex gap-2 mb-8 overflow-x-auto">
-              {artists?.map((artist) => (
+              {acceptedArtists?.map((artist) => (
                 <button
                   key={artist.artistId}
                   onClick={() => handleArtistChangeWrapper(artist.artistId)}
