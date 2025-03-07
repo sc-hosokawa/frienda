@@ -15,6 +15,7 @@ import { RequestForViewDialog } from "~/components/reqest-for-view";
 import { Overview } from "~/components/dashboard/overview";
 import { Trending } from "~/components/dashboard/trending";
 import { useTranslation } from "~/i18n/client";
+import { useState, useEffect } from "react";
 
 const GET_QUESTS_BY_USER = gql`
   query GetQuestsByUser($userId: String!) {
@@ -39,18 +40,40 @@ export default function Home() {
   const pendingArtists = user?.belongsToArtists.filter(
     (artist) => artist.status === "Check",
   );
-  const timestamp = Date.now();
-  const artistsLength = acceptedArtists?.length || 0;
-  const randomIndex = artistsLength ? timestamp % artistsLength : 0;
-  const randomArtist = artistsLength ? acceptedArtists?.[randomIndex] : null;
+  
+  // ローカルストレージから選択されたアーティストIDを取得するロジック
+  const [selectedArtistId, setSelectedArtistId] = useState<string | null>(null);
+  
+  useEffect(() => {
+    // コンポーネントマウント時にローカルストレージから選択済みアーティストIDを取得
+    const storedArtistId = localStorage.getItem('selectedHomeArtistId');
+    
+    // ローカルストレージに保存されたIDがあり、そのIDを持つアーティストにアクセス権がある場合はそれを使用
+    const artistExists = acceptedArtists?.some(artist => artist.artistId === storedArtistId);
+    
+    if (storedArtistId && artistExists) {
+      setSelectedArtistId(storedArtistId);
+    } else if (acceptedArtists && acceptedArtists.length > 0) {
+      // なければ最初のアーティストを選択
+      setSelectedArtistId(acceptedArtists[0]?.artistId || null);
+    }
+  }, [acceptedArtists]);
+  
+  // アーティスト選択を処理する関数
+  const handleArtistSelect = (artistId: string) => {
+    setSelectedArtistId(artistId);
+    localStorage.setItem('selectedHomeArtistId', artistId);
+  };
+  
+  // 選択されたアーティストオブジェクトを取得
+  const selectedArtist = acceptedArtists?.find(artist => artist.artistId === selectedArtistId) || null;
 
   console.log({
     belongsToArtists: user?.belongsToArtists,
     acceptedArtists,
     pendingArtists,
-    artistsLength,
-    randomIndex,
-    randomArtist,
+    selectedArtistId,
+    selectedArtist,
   });
 
   const { data } = useQuery<QuestsResData>(GET_QUESTS_BY_USER, {
@@ -127,35 +150,40 @@ export default function Home() {
       <hr className="mb-8 mt-24 border-[#303030]" />
       <Actions />
       <hr className="mb-8 mt-48 border-[#303030]" />
-      {randomArtist ? (
-        randomArtist.status === "Accept" ? (
-          <>
+      {acceptedArtists && acceptedArtists.length > 0 ? (
+        <>
+          <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <div>
-                <span className="text-xl mr-2">{randomArtist.name}</span>
+                <span className="text-xl mr-2">{selectedArtist?.name}</span>
                 のサマリー
                 <p className="text-sm text-gray-400">
-                  {t("home.showing-random-artist")}
+                  {t("home.showing-selected-artist")}
                 </p>
               </div>
             </div>
-            <Overview selectedArtistId={randomArtist.artistId} />
-            <Trending selectedArtistId={randomArtist.artistId} />
-          </>
-        ) : (
-          <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400 space-y-4">
-            {pendingArtists?.length ? (
-              <>
-                <div>
-                  {pendingArtists?.map((artist) => artist.name).join(", ")}
-                </div>
-                <div>{t("home.asking-permission-to-view-1")}</div>
-              </>
-            ) : (
-              <div>{t("home.asking-permission-to-view")}</div>
-            )}
+            
+            {/* アーティスト選択UI - 改善版 */}
+            <div className="flex space-x-4 overflow-x-auto pb-4 max-w-full">
+              {acceptedArtists.map((artist) => (
+                <button
+                  key={artist.artistId}
+                  onClick={() => handleArtistSelect(artist.artistId)}
+                  className={`px-4 py-2 rounded-full text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
+                    selectedArtistId === artist.artistId
+                      ? "bg-white/20 text-white"
+                      : "bg-transparent text-gray-400 hover:bg-white/10"
+                  }`}
+                >
+                  {artist.name}
+                </button>
+              ))}
+            </div>
+            
+            <Overview selectedArtistId={selectedArtistId || ""} />
+            <Trending selectedArtistId={selectedArtistId || ""} isHomePage={true} />
           </div>
-        )
+        </>
       ) : (
         <div className="p-6 rounded-xl bg-white/5 text-center text-gray-400">
           <p className="text-sm">{t("home.plz-ask-permission-to-view")}</p>

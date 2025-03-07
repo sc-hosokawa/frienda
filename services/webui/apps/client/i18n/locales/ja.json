@@ -159,6 +159,7 @@
   "purchase-dialog.notion": "FRIENDSHIP.DAO内でのお支払いはStripeにて安全にお支払いいただけます。",
   "purchase-dialog.process-payment": "お支払いにすすむ",
   "home.showing-random-artist": "所属しているアーティストからランダムで表示しています。",
+  "home.showing-selected-artist": "選択したアーティストのデータを表示しています。選択すると再度アクセスした際に固定できます。",
   "home.asking-permission-to-view": "閲覧許可申請中です",
   "home.asking-permission-to-view-1": "に閲覧許可を申請中です",
   "home.no-permission-to-view-artist": "このアーティストの管理権限がありません",

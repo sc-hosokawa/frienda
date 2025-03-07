@@ -159,6 +159,7 @@
   "purchase-dialog.notion": "Payments within FRIENDSHIP.DAO can be made safely with Stripe.",
   "purchase-dialog.process-payment": "Proceed to payment",
   "home.showing-random-artist": "Showing random artist.",
+  "home.showing-selected-artist": "Showing selected artist. Selecting an artist will fix the display when you access again.",
   "home.asking-permission-to-view": "Asking permission to view",
   "home.asking-permission-to-view-1": "Asking permission to view",
   "home.no-permission-to-view-artist": "No permission to view this artist",

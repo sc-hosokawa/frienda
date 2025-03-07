@@ -35,11 +35,12 @@ const GET_TRENDING = gql`
   }
 `;
 
-export function Trending({
-  selectedArtistId,
-}: {
-  selectedArtistId: string | null;
-}) {
+interface TrendingProps {
+  selectedArtistId: string;
+  isHomePage?: boolean;
+}
+
+export const Trending = ({ selectedArtistId, isHomePage = false }: TrendingProps) => {
   const { t } = useTranslation();
   const { user } = useUserStore();
   const { data } = useQuery(GET_TRENDING, {
@@ -47,17 +48,21 @@ export function Trending({
   });
 
   return (
-    <div className="mb-8">
+    <section className="space-y-8">
       <div className="flex justify-between items-center mb-4">
         <div className="flex flex-col space-y-0">
           <h2 className="text-2xl font-light">( Trending )</h2>
         </div>
 
-        <Link href={`/dashboard/discography`}>
-          <button className="text-white px-8 py-4 rounded-full text-sm border border-dashed border-white">
-            {t("dashboard.view-all-music")}
-          </button>
-        </Link>
+        {!isHomePage && (
+          <div className="flex justify-center">
+            <Link href={`/dashboard/discography`}>
+              <button className="text-white px-8 py-4 rounded-full text-sm border border-dashed border-white">
+                {t("dashboard.view-all-music")}
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
       <div className="space-y-4">
         {[...(data?.getTrending.trendingTracks ?? [])]
@@ -168,6 +173,6 @@ export function Trending({
             </div>
           ))}
       </div>
-    </div>
+    </section>
   );
-}
+};
