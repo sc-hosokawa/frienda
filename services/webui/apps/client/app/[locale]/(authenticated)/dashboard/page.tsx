@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Overview } from "~/components/dashboard/overview";
 import { Trending } from "~/components/dashboard/trending";
@@ -46,44 +46,14 @@ export default function Dashboard() {
 
   const [open, setOpen] = useState(false);
 
-  const { artistId: storedArtistId, userId: storedUserId, setArtistId, setUserId } = useSelectedArtistStore();
+  const { artistId: storedArtistId, setArtistId } = useSelectedArtistStore();
 
-  useEffect(() => {
-    if (user?.id) {
-      setUserId(user.id);
-    }
-  }, [user?.id, setUserId]);
-
-  const [selectedArtist, setSelectedArtistState] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!acceptedArtists || acceptedArtists.length === 0) return;
-
-    let newArtistId: string | null;
-
-    if (user?.id && storedUserId === user.id && storedArtistId) {
-      const artistExists = acceptedArtists.some(
-        artist => artist.artistId === storedArtistId
-      );
-      
-      if (artistExists) {
-        newArtistId = storedArtistId;
-      } else {
-        newArtistId = !isSuperAdmin
-          ? acceptedArtists[0]?.artistId || null
-          : "artist_00_000000000000000445";
-      }
-    } else {
-      newArtistId = !isSuperAdmin
-        ? acceptedArtists[0]?.artistId || null
-        : "artist_00_000000000000000445";
-    }
-
-    if (newArtistId && newArtistId !== selectedArtist) {
-      setSelectedArtistState(newArtistId);
-      setArtistId(newArtistId);
-    }
-  }, [user?.id, storedUserId, storedArtistId, acceptedArtists, isSuperAdmin, setArtistId, selectedArtist]);
+  const [selectedArtist, setSelectedArtistState] = useState<string | null>(
+    storedArtistId ||
+      (!isSuperAdmin
+        ? acceptedArtists?.[0]?.artistId || null
+        : "artist_00_000000000000000445"),
+  );
 
   const handleArtistChangeWrapper: React.Dispatch<
     React.SetStateAction<string | null>
@@ -92,6 +62,7 @@ export default function Dashboard() {
       typeof value === "function" ? value(selectedArtist) : value;
 
     setSelectedArtistState(newValue);
+
     setArtistId(newValue);
   };
 
