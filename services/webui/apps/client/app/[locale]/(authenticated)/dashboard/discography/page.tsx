@@ -21,7 +21,9 @@ interface ResData {
 export default function DiscographyPage() {
   const { user } = useUserStore();
   const isSuperAdmin = user?.isSuperAdmin;
-  const artists = user?.belongsToArtists;
+  const artists = user?.belongsToArtists.filter(
+    (artist) => artist.status === "Accept",
+  );
   const { data: allArtists, loading, error } = getAllArtists();
   const [open, setOpen] = useState(false);
 
