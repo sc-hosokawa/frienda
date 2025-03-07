@@ -44,9 +44,18 @@ export default function Home() {
   // ローカルストレージから選択されたアーティストIDを取得するロジック
   const [selectedArtistId, setSelectedArtistId] = useState<string | null>(null);
 
+  // ユーザー固有のストレージキーを生成
+  const getStorageKey = () => {
+    return `selectedHomeArtistId_${user?.id}`;
+  };
+
   useEffect(() => {
-    // コンポーネントマウント時にローカルストレージから選択済みアーティストIDを取得
-    const storedArtistId = localStorage.getItem("selectedHomeArtistId");
+    // ユーザーIDがない場合は処理しない
+    if (!user?.id) return;
+
+    // ユーザー固有のキーでローカルストレージから選択済みアーティストIDを取得
+    const storageKey = getStorageKey();
+    const storedArtistId = localStorage.getItem(storageKey);
 
     // ローカルストレージに保存されたIDがあり、そのIDを持つアーティストにアクセス権がある場合はそれを使用
     const artistExists = acceptedArtists?.some(
@@ -59,12 +68,14 @@ export default function Home() {
       // なければ最初のアーティストを選択
       setSelectedArtistId(acceptedArtists[0]?.artistId || null);
     }
-  }, [acceptedArtists]);
+  }, [acceptedArtists, user?.id]); // user?.idも依存配列に追加
 
   // アーティスト選択を処理する関数
   const handleArtistSelect = (artistId: string) => {
     setSelectedArtistId(artistId);
-    localStorage.setItem("selectedHomeArtistId", artistId);
+    // ユーザー固有のキーでローカルストレージに保存
+    const storageKey = getStorageKey();
+    localStorage.setItem(storageKey, artistId);
   };
 
   // 選択されたアーティストオブジェクトを取得
