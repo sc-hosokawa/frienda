@@ -1,31 +1,104 @@
-# client
+# FRIENDSHIP. DAO Mobile Client
 
-A new Flutter project.
+## Versioning
+- staging testflight: x.yy.zz
+ステージング環境のアプリリリースはzzをインクリメントする
 
-## Getting Started
+- production: x.yy.zz
+Production環境のアプリリリースはyyをインクリメントする
 
-This project is a starting point for a Flutter application.
+## Build and Run
 
-A few resources to get you started if this is your first Flutter project:
+### iOS App (Staging)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Configure Bundle Identifer to `com.frienda.client.staging`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Run command and Override firebase_options.dart. Select only android and ios on terminal.
 
-## Command
 ```
-flutter pub run build_runner build --delete-conflicting-outputs 
+flutterfire configure --project frienda-auth-test1
 ```
 
-## Build and upload to App Store Connect
+- Run an app on the Simulator
+
+```
+flutter run --dart-define-from-file=dart_defines/staging.json
+```
+
+- Build iOS App
+```
+flutter build ipa --dart-define-from-file=dart_defines/staging.json
+```
+
+- Edit ExportOptions.plist
+
+- Upload to App Store Connect
+```
+flutter build ipa --dart-define-from-file=dart_defines/staging.json --export-options-plist="build/ios/ipa/ExportOptions.plist"
+```
+
+
+### iOS App (Production)
+
+- Configure Bundle Identifer to `com.frienda.client`
+
+- Run command and Override firebase_options.dart. Select only android and ios on terminal.
+```
+flutterfire configure --project friendship-dao
+```
+
+- Run an app on the Simulator
+```
+flutter run --dart-define-from-file=dart_defines/prod.json
+```
+
+- Check Versioning
+increase miner version!
+
+- Build iOS App and upload to App Store Connect
+```
+flutter build ipa --dart-define-from-file=dart_defines/prod.json
+```
 ```
 flutter build ipa --dart-define-from-file=dart_defines/prod.json --export-options-plist="build/ios/ipa/ExportOptions.plist"
 ```
 
-## Build and upload to Google Play Store
+## Android App (Staging)
+
+- Configure package name to `com.frienda.staging`
+
+- Run command and Override firebase_options.dart. Select only android and ios on terminal.
+
+```
+flutterfire configure --project frienda-auth-test1
+```
+
+- Run an app on the Emulator
+
+```
+flutter run --dart-define-from-file=dart_defines/staging.json
+```
+
+- Build Android App and upload to Google Play Console
+```
+flutter build appbundle --dart-define-from-file=dart_defines/staging.json
+```
+
+- Upload via Google Play Console
+
+## Android App (Production)
+
+- Configure Bundle Identifer to `com.frienda.friendshipdao`
+
+- Check versioning.
+
+- Run an app on the Simulator
+```
+flutter run --dart-define-from-file=dart_defines/prod.json
+```
+
+- Build Android App and upload to Google Play Console
+
 ```
 flutter build appbundle --release --dart-define-from-file=dart_defines/prod.json
 ```
