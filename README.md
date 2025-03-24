@@ -10,36 +10,3 @@
 ```
 git clone --recursive https://github.com/FRIENDSHIP-DAO/frienda.git
 ```
-
-## How to build
-
-### Backend
-```
-make api-dev
-```
-
-### WebUI
-Terminal1
-```
-make api
-```
-
-Terminal2
-```
-// Client
-make webui-client-dev
-
-// Admin
-make webui-admin-dev
-```
-
-### Mobile
-Terminal1
-```
-make api-dev
-```
-
-Terminal2
-```
-make mobile-dev
-```
