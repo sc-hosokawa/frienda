@@ -319,7 +319,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                   .artistId,
               'userId': userState?.id ?? '',
             },
-            fetchPolicy: FetchPolicy.networkOnly,
+            fetchPolicy: FetchPolicy.noCache,
           ),
           builder: (result, {refetch, fetchMore}) {
             print('result: ${result.data}');
@@ -344,12 +344,17 @@ class _DashboardState extends ConsumerState<Dashboard> {
               );
             }
 
+            // totalPlayCountで降順にソート
+            final sortedTracks = List<dynamic>.from(tracks)
+              ..sort((a, b) => (b['totalPlayCount'] as int)
+                  .compareTo(a['totalPlayCount'] as int));
+
             return ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: tracks.length,
+              itemCount: sortedTracks.length,
               itemBuilder: (context, index) {
-                final track = tracks[index];
+                final track = sortedTracks[index];
                 return _buildTrendingItem(
                   index,
                   track['trackTitle'] ?? 'Unknown Track',
@@ -500,7 +505,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                 'artistId': selectedArtistData.artistId,
                 'userId': user.id,
               },
-              fetchPolicy: FetchPolicy.cacheAndNetwork,
+              fetchPolicy: FetchPolicy.noCache,
             ),
           );
       print('result: ${result.data}');
