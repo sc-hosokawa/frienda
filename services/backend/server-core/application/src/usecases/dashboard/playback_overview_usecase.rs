@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use chrono::{Duration, Local};
+use chrono::{Datelike, Duration, Local, TimeZone};
 use std::sync::Arc;
 
 use domain::entities::plays_daily::Model as PlaysDaily;
@@ -77,7 +77,35 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
             self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
 
         let all_month_play_count: i32 = plays_monthly.iter().map(|p| p.sum.unwrap_or(0)).sum();
-        let all_day_play_count: i32 = plays_daily.iter().map(|p| p.sum.unwrap_or(0)).sum();
+        let current_month_day_play_count: i32 = {
+            let today = Local::now().date_naive();
+            let year = today.year();
+            let month = today.month();
+
+            let first_day_of_month = Local.ymd(year, month, 1).naive_local();
+
+            let yesterday = today - Duration::days(1);
+
+            isrcs
+                .iter()
+                .map(|isrc| {
+                    plays_daily
+                        .iter()
+                        .filter(|p| {
+                            if let Some(date) = p.date {
+                                // 当月の1日から昨日までの日付かつISRCが一致するものをフィルタリング
+                                date >= first_day_of_month
+                                    && date <= yesterday
+                                    && p.isrc.as_ref().unwrap() == isrc
+                            } else {
+                                false
+                            }
+                        })
+                        .map(|p| p.sum.unwrap_or(0))
+                        .sum::<i32>()
+                })
+                .sum()
+        };
         let weekly_play_count: i32 = {
             let today = Local::now().date_naive();
             // 集計開始日（9日前）と終了日（2日前）を設定
@@ -106,7 +134,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         };
 
         Ok(PlaybackOverviewUsecaseOutput {
-            total_play_count: all_month_play_count + all_day_play_count,
+            total_play_count: all_month_play_count + current_month_day_play_count,
             weekly_play_count,
         })
     }
@@ -125,7 +153,31 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                 self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
 
             let all_month_play_count: i32 = plays_monthly.iter().map(|p| p.sum.unwrap_or(0)).sum();
-            let all_day_play_count: i32 = plays_daily.iter().map(|p| p.sum.unwrap_or(0)).sum();
+            let current_month_day_play_count: i32 = {
+                let today = Local::now().date_naive();
+                let first_day_of_month = Local.ymd(today.year(), today.month(), 1).naive_local();
+                let yesterday = today - Duration::days(1);
+
+                isrcs
+                    .iter()
+                    .map(|isrc| {
+                        plays_daily
+                            .iter()
+                            .filter(|p| {
+                                if let Some(date) = p.date {
+                                    // 当月の1日から昨日までの日付かつISRCが一致するものをフィルタリング
+                                    date >= first_day_of_month
+                                        && date <= yesterday
+                                        && p.isrc.as_ref().unwrap() == isrc
+                                } else {
+                                    false
+                                }
+                            })
+                            .map(|p| p.sum.unwrap_or(0))
+                            .sum::<i32>()
+                    })
+                    .sum()
+            };
             let weekly_play_count: i32 = {
                 let today = Local::now().date_naive();
                 // 集計開始日（9日前）と終了日（2日前）を設定
@@ -154,7 +206,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
             };
 
             Ok(PlaybackOverviewUsecaseOutput {
-                total_play_count: all_month_play_count,
+                total_play_count: all_month_play_count + current_month_day_play_count,
                 weekly_play_count,
             })
         } else {
