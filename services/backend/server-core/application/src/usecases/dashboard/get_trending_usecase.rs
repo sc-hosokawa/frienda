@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use chrono::{Duration, Utc};
+use chrono::{Datelike, Duration, Local, TimeZone};
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::sync::Arc;
@@ -122,6 +122,10 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         let plays_monthly: Vec<PlaysMonthly> =
             self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
 
+        // 全 ISRC の日次データを取得（月次の補完用）
+        let plays_daily_all: Vec<PlaysDaily> =
+            self.plays_daily_repo.find_by_isrcs(isrcs.clone()).await?;
+
         // ISRCごとのDSP別合計を計算
         let mut plays_by_isrc: HashMap<String, i32> = HashMap::new();
         let mut plays_by_isrc_details: HashMap<String, PlayCountDetails> = HashMap::new();
@@ -149,6 +153,39 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             }
         }
 
+        // 当月分の日次データを月次データに追加
+        let today = Local::now().date_naive();
+        let current_month = today.month();
+        let current_year = today.year();
+        let first_day_of_month = Local.ymd(current_year, current_month, 1).naive_local();
+        let yesterday = today - Duration::days(1);
+
+        for play in &plays_daily_all {
+            if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
+                if date >= first_day_of_month && date <= yesterday {
+                    // 当月の日次データをカウントに追加
+                    let details =
+                        plays_by_isrc_details
+                            .entry(isrc.clone())
+                            .or_insert(PlayCountDetails {
+                                spotify: 0,
+                                apple: 0,
+                                line: 0,
+                                amazon: 0,
+                                youtube: 0,
+                            });
+
+                    details.spotify += play.spotify;
+                    details.apple += play.apple;
+                    details.line += play.line;
+                    details.amazon += play.amazon.unwrap_or(0);
+                    details.youtube += play.youtube.unwrap_or(0);
+
+                    *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                }
+            }
+        }
+
         // 再生数で降順ソートして上位5件を取得
         let mut top_plays: Vec<(String, i32)> = plays_by_isrc.into_iter().collect();
         top_plays.sort_by(|a, b| b.1.cmp(&a.1));
@@ -160,7 +197,7 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         tracing::info!("top_5_isrcs: {:?}", top_5_isrcs);
 
         // 過去7日間の再生数を取得
-        let today = Utc::now().date_naive();
+        let today = Local::now().date_naive();
         let seven_days_ago = today - Duration::days(9);
         let two_days_ago = today - Duration::days(2);
 
@@ -298,16 +335,50 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             }
         }
 
-        // 週間再生数の集計とDSP別内訳の計算
+        // 日次データを取得
         let plays_daily: Vec<PlaysDaily> = self
             .plays_daily_repo
             .find_by_isrcs(isrcs_in_upc.clone())
             .await?;
 
+        // 当月分の日次データを月次データに追加
+        let today = Local::now().date_naive();
+        let current_month = today.month();
+        let current_year = today.year();
+        let first_day_of_month = Local.ymd(current_year, current_month, 1).naive_local();
+        let yesterday = today - Duration::days(1);
+
+        for play in &plays_daily {
+            if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
+                if date >= first_day_of_month && date <= yesterday {
+                    // 当月の日次データをカウントに追加
+                    let details =
+                        plays_by_isrc_details
+                            .entry(isrc.clone())
+                            .or_insert(PlayCountDetails {
+                                spotify: 0,
+                                apple: 0,
+                                line: 0,
+                                amazon: 0,
+                                youtube: 0,
+                            });
+
+                    details.spotify += play.spotify;
+                    details.apple += play.apple;
+                    details.line += play.line;
+                    details.amazon += play.amazon.unwrap_or(0);
+                    details.youtube += play.youtube.unwrap_or(0);
+
+                    *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                }
+            }
+        }
+
+        // 週間再生数の集計とDSP別内訳の計算
         let mut plays_by_isrc_daily: HashMap<String, i32> = HashMap::new();
         let mut plays_by_isrc_daily_details: HashMap<String, PlayCountDetails> = HashMap::new();
 
-        let today = Utc::now().date_naive();
+        let today = Local::now().date_naive();
         let seven_days_ago = today - Duration::days(9);
         let two_days_ago = today - Duration::days(2);
 
