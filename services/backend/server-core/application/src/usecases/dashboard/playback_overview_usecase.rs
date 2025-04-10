@@ -154,7 +154,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
             };
 
             Ok(PlaybackOverviewUsecaseOutput {
-                total_play_count: all_month_play_count + all_day_play_count,
+                total_play_count: all_month_play_count,
                 weekly_play_count,
             })
         } else {
