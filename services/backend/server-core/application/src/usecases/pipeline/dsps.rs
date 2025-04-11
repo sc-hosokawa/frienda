@@ -56,7 +56,7 @@ impl DspsUsecaseTrait for DspsUsecase {
         let mut next_id: i32 = lastest_id + 1;
         tracing::info!("PIPELINE::DSPsUsecase:: Lastest ID: {}", lastest_id);
 
-        let two_days_ago: String = (Utc::now().date_naive() - Duration::days(2))
+        let two_days_ago: String = (Utc::now().date_naive() - Duration::days(3))
             .format("%Y%m%d")
             .to_string();
         tracing::info!("PIPELINE::DSPsUsecase:: Two Days Ago: {}", two_days_ago);
