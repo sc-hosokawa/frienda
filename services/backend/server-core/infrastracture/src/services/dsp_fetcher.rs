@@ -264,6 +264,7 @@ impl DspFetcherServiceTrait for DspFetcherService {
                     if let Some(rows) = result.1.rows {
                         for row in rows {
                             if let Some(cells) = row.f {
+                                println!("PIPELINE::DSPFetcherService:: Cells: {:?}", cells);
                                 let data = StreamingData {
                                     date: cells[0]
                                         .v
@@ -272,13 +273,15 @@ impl DspFetcherServiceTrait for DspFetcherService {
                                         .to_string()
                                         .trim_matches('"')
                                         .to_string(),
-                                    isrc: cells[1]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string(),
+                                    isrc: match cells[1].v.as_ref() {
+                                        Some(v)
+                                            if v.to_string() != "null"
+                                                && !v.to_string().trim_matches('"').is_empty() =>
+                                        {
+                                            v.to_string().trim_matches('"').to_string()
+                                        }
+                                        _ => continue, // Skip this record if ISRC is null or empty
+                                    },
                                     spotify: cells[2]
                                         .v
                                         .as_ref()
