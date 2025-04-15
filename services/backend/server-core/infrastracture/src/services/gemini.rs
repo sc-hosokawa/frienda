@@ -4,6 +4,7 @@ use async_trait::async_trait;
 use domain::services::llm::{Answer, Question};
 use google_generative_ai_rs::v1::{
     api::Client,
+    gemini::Model::Gemini2_0Flash,
     gemini::{request::Request, Content, Part, Role},
 };
 use std::env;
@@ -16,7 +17,7 @@ impl GeminiService {
     pub fn new() -> Result<Self, anyhow::Error> {
         tracing::info!("Setting up GeminiService...");
         let api_key = env::var("GEMINI_API_KEY").map_err(|_| anyhow!("GEMINI_API_KEY not set"))?;
-        let client = Client::new(api_key);
+        let client = Client::new_from_model(Gemini2_0Flash, api_key);
         Ok(Self { client })
     }
 }
