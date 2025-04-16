@@ -88,6 +88,7 @@ type FormErrors = {
   coverImage?: string;
   fee?: string;
   category?: string;
+  targetRole?: string;
 };
 
 // TODO: rewrite this component with React Hook Form
@@ -170,6 +171,10 @@ export default function OfferCreatePage() {
     if (!formData.category) {
       newErrors.category = "カテゴリーは必須です";
       errorMessages.push("・カテゴリーは必須です");
+    }
+    if (!formData.targetRole) {
+      newErrors.targetRole = "オファー対象は必須です";
+      errorMessages.push("・オファー対象は必須です");
     }
 
     setErrors(newErrors);
@@ -495,6 +500,11 @@ export default function OfferCreatePage() {
                     </button>
                   ))}
                 </div>
+                {errors.targetRole && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.targetRole}
+                  </p>
+                )}
               </div>
 
               <div className="grid gap-6 md:grid-cols-2 mt-12">
