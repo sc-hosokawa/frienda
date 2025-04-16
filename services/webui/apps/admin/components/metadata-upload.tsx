@@ -180,7 +180,7 @@ export function MetadataUpload() {
                 artistStatus: artistId ? "登録済み" : "未登録",
                 release_date: rowArray[73] || "",
                 isrc: rowArray[81] || "",
-                track_no: rowArray[88] || "",
+                track_no: rowArray[89] || "",
                 track_title: fullTrackTitle,
                 track_title_version: rowArray[104] || "",
               };
