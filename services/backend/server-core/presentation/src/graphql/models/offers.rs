@@ -31,6 +31,7 @@ pub struct OfferData {
     pub fee: i32,
     pub category: Option<String>,
     pub place: String,
+    pub publicity: bool,
 }
 
 #[derive(SimpleObject)]
@@ -299,6 +300,7 @@ impl From<domain::entities::offers::Model> for OfferData {
                 OfferCategory::Other => "Other".to_string(),
             }),
             place: offer.place,
+            publicity: offer.publicity,
         }
     }
 }

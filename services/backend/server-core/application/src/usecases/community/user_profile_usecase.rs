@@ -44,6 +44,7 @@ pub struct OfferData {
     pub fee: i32,
     pub category: Option<String>,
     pub place: String,
+    pub publicity: bool,
 }
 
 #[async_trait]
@@ -168,6 +169,7 @@ impl GetUserProfileUsecaseTrait for GetUserProfileUsecase {
                         OfferCategory::Other => "Other".to_string(),
                     }),
                     place: o.place.clone(),
+                    publicity: o.publicity,
                 })
                 .collect(),
             // portfolios: vec![],

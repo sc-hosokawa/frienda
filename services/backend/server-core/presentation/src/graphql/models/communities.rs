@@ -148,6 +148,7 @@ impl From<application::usecases::community::user_profile_usecase::GetUserProfile
                     fee: o.fee,
                     category: o.category.clone(),
                     place: o.place,
+                    publicity: o.publicity,
                 })
                 .collect(),
         }

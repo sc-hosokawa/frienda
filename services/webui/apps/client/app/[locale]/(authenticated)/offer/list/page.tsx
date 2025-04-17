@@ -33,6 +33,7 @@ const SEARCH_OFFERS = gql`
         fee
         category
         place
+        publicity
       }
     }
   }
@@ -67,7 +68,11 @@ export default function OfferList() {
     },
   });
 
-  const offers = data?.searchOffers?.offerList ?? [];
+  console.log(data?.searchOffers?.offerList);
+
+  const offers = (data?.searchOffers?.offerList ?? []).filter(
+    (offer: any) => offer.publicity !== false,
+  );
 
   if (error) {
     return (
