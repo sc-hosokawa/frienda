@@ -70,9 +70,7 @@ export default function OfferList() {
 
   console.log(data?.searchOffers?.offerList);
 
-  const offers = (data?.searchOffers?.offerList ?? []).filter(
-    (offer: any) => offer.publicity !== false,
-  );
+  const offers = data?.searchOffers?.offerList ?? [];
 
   if (error) {
     return (
