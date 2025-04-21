@@ -106,6 +106,8 @@ type FormErrors = {
   place?: string;
   coverImage?: string;
   fee?: string;
+  category?: string;
+  targetRole?: string;
 };
 
 type AttachedFile = {
@@ -278,14 +280,54 @@ export default function OfferEditPage() {
     }
   };
 
+  // validateForm関数を追加
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    const errorMessages: string[] = [];
+
+    if (!formData.title) {
+      newErrors.title = t("offer.validation.title-required");
+      errorMessages.push(`・${t("offer.validation.title-required")}`);
+    }
+    if (!formData.description) {
+      newErrors.description = t("offer.validation.description-required");
+      errorMessages.push(`・${t("offer.validation.description-required")}`);
+    }
+    if (!formData.fee) {
+      newErrors.fee = t("offer.validation.fee-minimum");
+      errorMessages.push(`・${t("offer.validation.fee-minimum")}`);
+    }
+    if (!formData.targetRole) {
+      newErrors.targetRole = t("offer.validation.target-role-required");
+      errorMessages.push(`・${t("offer.validation.target-role-required")}`);
+    }
+    if (!formData.category) {
+      newErrors.category = t("offer.validation.category-required");
+      errorMessages.push(`・${t("offer.validation.category-required")}`);
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      alert(errorMessages.join("\n"));
+      return false;
+    }
+
+    return true;
+  };
+
+  // handleSubmit関数を修正
+  const handleSubmit = () => {
+    if (!validateForm()) {
+      return;
+    }
+    setShowConfirmModal(true);
+  };
+
+  // handleConfirmedSubmit関数からバリデーションロジックを削除
   const handleConfirmedSubmit = async () => {
     setIsLoading(true);
-    try {
-      // バリデーションチェック
-      if (!formData.title || !formData.description || !formData.fee) {
-        throw new Error(t("offer.validation.required-fields"));
-      }
-
+    try {      
       let imageUrl = selectedImagePreview;
       if (selectedImage) {
         try {
@@ -346,7 +388,10 @@ export default function OfferEditPage() {
             place: formData.place,
             attention: formData.attention,
             requiredSkill: formData.requiredSkill,
-            targetRole: formData.targetRole,
+            targetRole:
+              formData.targetRole === t("common.not-specified")
+                ? null
+                : formData.targetRole,
             publicity: formData.isPublic,
             attachedImgs: finalImageUrls,
             attachedFiles: finalFileUrls,
@@ -410,14 +455,17 @@ export default function OfferEditPage() {
     };
   }, [selectedImagePreview, attachedImages, attachedFiles]);
 
-  const handleSubmit = () => {
-    setShowConfirmModal(true);
-  };
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   const categories = ["Creation", "Event", "Promotion", "Other"];
+  const targetRoles = [
+    t("common.musician"),
+    t("common.curator"),
+    t("common.creator"),
+    t("common.supporter"),
+    t("common.not-specified"),
+  ];
 
   return (
     <>
@@ -444,7 +492,10 @@ export default function OfferEditPage() {
               ( Offer Information )
             </h2>
             <div className="flex flex-col gap-2 mb-6">
-              <p className="text-sm text-white">{t("common.category")}</p>
+              <div className="flex items-center">
+                <p className="text-sm text-white">{t("common.category")}</p>
+                <span className="text-red-500 ml-1">*</span>
+              </div>
               <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <button
@@ -462,6 +513,9 @@ export default function OfferEditPage() {
                   </button>
                 ))}
               </div>
+              {errors.category && (
+                <p className="text-red-500 text-sm mt-1">{errors.category}</p>
+              )}
             </div>
 
             <div className="grid gap-6 mt-12">
@@ -568,14 +622,9 @@ export default function OfferEditPage() {
 
               <div className="space-y-4 mt-12">
                 <Label>{t("offer.offer-subject")}</Label>
+                <span className="text-red-500 ml-1">*</span>
                 <div className="flex flex-wrap gap-2">
-                  {[
-                    "Musician",
-                    "Curator",
-                    "Creator",
-                    "Supporter",
-                    "特になし",
-                  ].map((role) => (
+                  {targetRoles.map((role) => (
                     <button
                       key={role}
                       onClick={() =>
@@ -591,6 +640,11 @@ export default function OfferEditPage() {
                     </button>
                   ))}
                 </div>
+                {errors.targetRole && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.targetRole}
+                  </p>
+                )}
               </div>
 
               <div className="grid gap-6 md:grid-cols-2 mt-12">
