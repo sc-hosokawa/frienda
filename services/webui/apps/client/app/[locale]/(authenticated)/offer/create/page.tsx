@@ -143,38 +143,40 @@ export default function OfferCreatePage() {
     const errorMessages: string[] = [];
 
     if (!formData.title.trim()) {
-      newErrors.title = "タイトルは必須です";
-      errorMessages.push("・タイトルは必須です");
+      newErrors.title = t("offer.validation.title-required");
+      errorMessages.push(`・${t("offer.validation.title-required")}`);
     }
     if (!formData.description.trim()) {
-      newErrors.description = "概要は必須です";
-      errorMessages.push("・概要は必須です");
+      newErrors.description = t("offer.validation.description-required");
+      errorMessages.push(`・${t("offer.validation.description-required")}`);
     }
     if (!formData.place.trim()) {
-      newErrors.place = "場所は必須です";
-      errorMessages.push("・場所は必須です");
+      newErrors.place = t("offer.validation.place-required");
+      errorMessages.push(`・${t("offer.validation.place-required")}`);
     }
     if (!selectedImage) {
-      newErrors.coverImage = "カバー画像は必須です";
-      errorMessages.push("・カバー画像は必須です");
+      newErrors.coverImage = t("offer.validation.cover-image-required");
+      errorMessages.push(`・${t("offer.validation.cover-image-required")}`);
     }
     if (!formData.fee || formData.fee <= 0) {
-      newErrors.fee = "FSPは1以上を指定してください";
-      errorMessages.push("・FSPは1以上を指定してください");
+      newErrors.fee = t("offer.validation.fee-minimum");
+      errorMessages.push(`・${t("offer.validation.fee-minimum")}`);
     }
     if (formData.fee > (user?.fspBalance || 0)) {
-      newErrors.fee = `保有FSP（${user?.fspBalance}）を超えて指定することはできません`;
-      errorMessages.push(
-        `・保有FSP（${user?.fspBalance}）を超えて指定することはできません`,
+      const errorMsg = t("offer.validation.fee-exceeds-balance").replace(
+        "{{balance}}",
+        user?.fspBalance?.toString() || "0",
       );
+      newErrors.fee = errorMsg;
+      errorMessages.push(`・${errorMsg}`);
     }
     if (!formData.category) {
-      newErrors.category = "カテゴリーは必須です";
-      errorMessages.push("・カテゴリーは必須です");
+      newErrors.category = t("offer.validation.category-required");
+      errorMessages.push(`・${t("offer.validation.category-required")}`);
     }
     if (!formData.targetRole) {
-      newErrors.targetRole = "オファー対象は必須です";
-      errorMessages.push("・オファー対象は必須です");
+      newErrors.targetRole = t("offer.validation.target-role-required");
+      errorMessages.push(`・${t("offer.validation.target-role-required")}`);
     }
 
     setErrors(newErrors);
@@ -214,6 +216,10 @@ export default function OfferCreatePage() {
         variables: {
           owner: user?.id,
           ...formData,
+          targetRole:
+            formData.targetRole === t("common.not-specified")
+              ? null
+              : formData.targetRole,
           imageUrl,
           fee: formData.fee,
           publicity: formData.isPublic,
@@ -294,11 +300,11 @@ export default function OfferCreatePage() {
 
   // オファー対象の選択肢を定義
   const targetRoles = [
-    "Musician",
-    "Curator",
-    "Creator",
-    "Supporter",
-    "特になし",
+    t("common.musician"),
+    t("common.curator"),
+    t("common.creator"),
+    t("common.supporter"),
+    t("common.not-specified"),
   ];
 
   return (
@@ -574,7 +580,7 @@ export default function OfferCreatePage() {
                     <div className="absolute inset-0 w-full h-full">
                       <img
                         src={selectedImagePreview}
-                        alt="Preview"
+                        alt={t("offer.cover-image")}
                         className="w-full h-full object-contain rounded-lg"
                       />
                     </div>
@@ -616,7 +622,7 @@ export default function OfferCreatePage() {
                           <>
                             <img
                               src={attachedImage.previewUrl}
-                              alt={`Attached ${i + 1}`}
+                              alt={`${t("offer.attached-image")} ${i + 1}`}
                               className="absolute inset-0 w-full h-full object-cover"
                             />
                             <button
@@ -683,7 +689,7 @@ export default function OfferCreatePage() {
                           }
                           className="text-red-500"
                         >
-                          削除
+                          {t("common.delete")}
                         </button>
                       </div>
                     ))}
@@ -753,7 +759,7 @@ export default function OfferCreatePage() {
                 <div className="relative w-full h-[200px] bg-gray-800 rounded-lg overflow-hidden">
                   <Image
                     src={selectedImagePreview}
-                    alt="メイン画像"
+                    alt={t("offer.cover-image")}
                     fill
                     className="object-contain"
                     unoptimized
@@ -819,7 +825,7 @@ export default function OfferCreatePage() {
                     >
                       <img
                         src={img.previewUrl}
-                        alt={`添付画像 ${index + 1}`}
+                        alt={`${t("offer.attached-image")} ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
                     </div>
