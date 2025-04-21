@@ -214,6 +214,8 @@ export default function OfferCreatePage() {
         variables: {
           owner: user?.id,
           ...formData,
+          targetRole:
+            formData.targetRole === "特になし" ? null : formData.targetRole,
           imageUrl,
           fee: formData.fee,
           publicity: formData.isPublic,
