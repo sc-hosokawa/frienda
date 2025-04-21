@@ -169,7 +169,7 @@ export default function OfferEditPage() {
         requiredSkill: offer.requiredSkill || "",
         fee: offer.fee,
         isPublic: offer.publicity,
-        targetRole: offer.targetRole || "",
+        targetRole: offer.targetRole || t("common.not-specified"),
       });
 
       if (offer.imageUrl) {
@@ -327,7 +327,7 @@ export default function OfferEditPage() {
   // handleConfirmedSubmit関数からバリデーションロジックを削除
   const handleConfirmedSubmit = async () => {
     setIsLoading(true);
-    try {      
+    try {
       let imageUrl = selectedImagePreview;
       if (selectedImage) {
         try {
