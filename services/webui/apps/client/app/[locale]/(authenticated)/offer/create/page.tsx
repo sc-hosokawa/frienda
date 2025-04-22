@@ -728,12 +728,14 @@ export default function OfferCreatePage() {
           </div>
 
           <div className="flex justify-end gap-4">
-            <Button
-              variant="outline"
-              className="text-white hover:bg-gray-600 border-white"
-            >
-              {t("common.cancel")}
-            </Button>
+            <Link href="/offer">
+              <Button
+                variant="outline"
+                className="text-white hover:bg-gray-600 border-white"
+              >
+                {t("common.cancel")}
+              </Button>
+            </Link>
             <Button
               className="bg-[#E4DBC0] hover:bg-gray-100 text-black"
               onClick={handleSubmit}
