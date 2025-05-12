@@ -53,14 +53,15 @@ const items = [
       active: "/news_line.svg",
     },
   },
-  {
-    title: "Offers",
-    url: "/offer",
-    icon: {
-      default: "/offer.svg",
-      active: "/offers_line.svg",
-    },
-  },
+  // TODO: オファー画面を作成したら表示する
+  // {
+  //   title: "Offers",
+  //   url: "/offer",
+  //   icon: {
+  //     default: "/offer.svg",
+  //     active: "/offers_line.svg",
+  //   },
+  // },
   {
     title: "Community",
     url: "/community",
