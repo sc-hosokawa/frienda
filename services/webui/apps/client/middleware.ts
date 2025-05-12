@@ -79,6 +79,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 
+  // /offerへのアクセスを常に/homeにリダイレクト
+  if (pathname.startsWith(`/${locale}/offer`)) {
+    return NextResponse.redirect(new URL(`/${locale}/home`, request.url));
+  }
+
   // パブリックにアクセス可能なページの場合はセッションをチェックしない
   if (
     pathname.startsWith(`/${locale}/login`) ||
