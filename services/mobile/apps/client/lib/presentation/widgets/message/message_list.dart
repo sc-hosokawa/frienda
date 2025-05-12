@@ -359,17 +359,17 @@ class _MessageListState extends ConsumerState<MessageList> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (context) => ConciergeBottomSheet(userId: userId),
-          );
-        },
-        shape: const CircleBorder(),
-        child: const Icon(Icons.notifications_active),
-      ),
+      //floatingActionButton: FloatingActionButton(
+      //  onPressed: () {
+      //    showModalBottomSheet(
+      //      context: context,
+      //      isScrollControlled: true,
+      //      builder: (context) => ConciergeBottomSheet(userId: userId),
+      //    );
+      //  },
+      //  shape: const CircleBorder(),
+      //  child: const Icon(Icons.notifications_active),
+      //),
     );
   }
 

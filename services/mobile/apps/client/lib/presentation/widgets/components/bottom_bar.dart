@@ -38,19 +38,20 @@ class CustomBottomNavigationBar extends StatelessWidget {
       ),
       label: 'Dashboard',
     ),
-    BottomNavigationBarItem(
-      icon: SvgPicture.asset(
-        'assets/offer.svg',
-        width: 20,
-        height: 20,
-      ),
-      activeIcon: SvgPicture.asset(
-        'assets/offer.svg',
-        width: 20,
-        height: 20,
-      ),
-      label: 'Offers',
-    ),
+    // TODO: オファー画面を作成したら表示する
+    // BottomNavigationBarItem(
+    //   icon: SvgPicture.asset(
+    //     'assets/offer.svg',
+    //     width: 20,
+    //     height: 20,
+    //   ),
+    //   activeIcon: SvgPicture.asset(
+    //     'assets/offer.svg',
+    //     width: 20,
+    //     height: 20,
+    //   ),
+    //   label: 'Offers',
+    // ),
     BottomNavigationBarItem(
       icon: SvgPicture.asset(
         'assets/message.svg',

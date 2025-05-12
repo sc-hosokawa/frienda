@@ -21,13 +21,14 @@ class _MainScreenState extends State<MainScreen> {
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
+    // GlobalKey<NavigatorState>(),
   ];
 
   final List<String> _sectionTitles = [
     'HOME',
     'DASHBOARD',
-    'OFFERS',
+    // TODO: オファー画面を作成したら表示する
+    // 'OFFERS',
     'MESSAGE',
     'COMMUNITY',
   ];
@@ -103,7 +104,7 @@ class _MainScreenState extends State<MainScreen> {
             _buildOffstageNavigator(1),
             _buildOffstageNavigator(2),
             _buildOffstageNavigator(3),
-            _buildOffstageNavigator(4),
+            // _buildOffstageNavigator(4),
           ],
         ),
         bottomNavigationBar: CustomBottomNavigationBar(
@@ -130,13 +131,14 @@ class _MainScreenState extends State<MainScreen> {
                 case 1:
                   page = Dashboard();
                   break;
+                // TODO: オファー画面を作成したら表示する
+                // case 2:
+                //   page = Offer();
+                //   break;
                 case 2:
-                  page = Offer();
-                  break;
-                case 3:
                   page = MessageList();
                   break;
-                case 4:
+                case 3:
                   page = Community();
                   break;
                 default:
