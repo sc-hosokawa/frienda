@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCcBNXUqgoPfdQJ63ut3kwrZmRsoJ-V0ow</string>
+	<string>AIzaSyCxsXn4qfEelWu8Y0ui90VHRUXGAH8Hz5c</string>
 	<key>GCM_SENDER_ID</key>
-	<string>955799892508</string>
+	<string>23181195188</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.frienda.client</string>
+	<string>com.frienda.client.staging</string>
 	<key>PROJECT_ID</key>
-	<string>friendship-dao</string>
+	<string>frienda-auth-test1</string>
 	<key>STORAGE_BUCKET</key>
-	<string>friendship-dao.firebasestorage.app</string>
+	<string>frienda-auth-test1.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:955799892508:ios:5b5e149135c011f5b125d9</string>
+	<string>1:23181195188:ios:559ae693908dcdc57fe4e1</string>
 </dict>
 </plist>
