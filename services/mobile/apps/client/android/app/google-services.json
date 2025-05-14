@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "23181195188",
-    "project_id": "frienda-auth-test1",
-    "storage_bucket": "frienda-auth-test1.appspot.com"
+    "project_number": "955799892508",
+    "project_id": "friendship-dao",
+    "storage_bucket": "friendship-dao.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:23181195188:android:44676d3009695dbc7fe4e1",
+        "mobilesdk_app_id": "1:955799892508:android:1813210a68c16c54b125d9",
         "android_client_info": {
           "package_name": "com.frienda.friendshipdao"
         }
@@ -15,26 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCiIj7IcHQ4a31-rRJBtMW_vSyxWCZYnFQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:23181195188:android:1f27a84b7b3600457fe4e1",
-        "android_client_info": {
-          "package_name": "com.frienda.staging"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCiIj7IcHQ4a31-rRJBtMW_vSyxWCZYnFQ"
+          "current_key": "AIzaSyD5FWV8kjyaJexlDhYlCr35r9hea0ailEk"
         }
       ],
       "services": {
