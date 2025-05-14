@@ -258,8 +258,8 @@ class _NodeDetailPageState extends ConsumerState<NodeDetailPage> {
                           const SizedBox(height: 32),
                           _buildInfoSection(profile),
                           const SizedBox(height: 32),
-                          if (profile['offers'] != null)
-                            _buildOffersList(profile['offers']),
+                          //if (profile['offers'] != null)
+                          //  _buildOffersList(profile['offers']),
                         ],
                       ),
                     ),

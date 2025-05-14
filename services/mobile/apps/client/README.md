@@ -46,7 +46,7 @@ flutter build ipa --dart-define-from-file=dart_defines/staging.json --export-opt
 ```
 flutterfire configure --project friendship-dao
 ```
-
+ 
 - Run an app on the Simulator
 ```
 flutter run --dart-define-from-file=dart_defines/prod.json
