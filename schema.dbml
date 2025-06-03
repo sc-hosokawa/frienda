@@ -1,0 +1,650 @@
+Enum "artist_status" {
+  "visible"
+  "hidden"
+  "unknown"
+}
+
+Enum "message_room_type" {
+  "dm"
+  "group"
+}
+
+Enum "offer_category" {
+  "creation"
+  "event"
+  "promotion"
+  "other"
+}
+
+Enum "offer_status" {
+  "applied"
+  "rejected"
+  "ongoing"
+  "suspend"
+  "finished"
+  "canceled"
+}
+
+Enum "purchase_status" {
+  "success"
+  "fail"
+  "pending"
+}
+
+Enum "user_artist_status" {
+  "accept"
+  "reject"
+  "check"
+}
+
+Enum "user_category" {
+  "musician"
+  "curator"
+  "creator"
+  "supporter"
+}
+
+Enum "user_role" {
+  "admin"
+  "member"
+}
+
+Enum "user_status" {
+  "invited"
+  "rejected"
+  "joined"
+}
+
+Table "artists" {
+  "id" uuid [pk, not null, default: `gen_random_uuid()`]
+  "artist_id" varchar(28) [unique, not null]
+  "display_name_jp" varchar [not null]
+  "display_name_en" varchar [not null]
+  "display_name_kana" varchar
+  "img_url" varchar [note: 'JAN code']
+  "fsp" int4 [not null, default: 0]
+  "status" artist_status [not null]
+  "since" date
+  "universal_id" varchar
+  "apple_key" varchar
+  "spotify_key" varchar
+  "line_key" varchar
+  "amazon_key" varchar
+  "youtube_key" varchar
+
+  Indexes {
+    artist_id [type: btree, name: "artists_artist_id_idx"]
+  }
+}
+
+Table "comments" {
+  "id" int4 [pk, not null]
+  "commented_user_id" varchar(28) [not null]
+  "offer_id" int4 [not null]
+  "created_at" timestamp [not null, default: `now()`]
+  "content" varchar [not null]
+
+  Indexes {
+    commented_user_id [type: btree, name: "comments_commented_user_id_idx"]
+    offer_id [type: btree, name: "comments_offer_id_idx"]
+  }
+}
+
+Table "exchange_prize_history" {
+  "id" int4 [pk, not null, increment]
+  "prize_id" int4 [not null]
+  "user" varchar(28) [not null]
+  "point_used" int4 [not null]
+  "amount" int4 [not null, default: 1]
+  "exchanged_at" timestamp [not null, default: `now()`]
+  "is_used" bool [not null, default: false]
+  "used_at" timestamp
+  "is_requested" bool [not null, default: false]
+  "requested_at" timestamp
+
+  Indexes {
+    (user, is_used) [type: btree, name: "exchange_prize_history_user_is_used_idx"]
+  }
+}
+
+Table "favorites" {
+  "id" uuid [pk, not null, default: `gen_random_uuid()`]
+  "user_id" varchar(28) [not null]
+  "liked_by" varchar(28) [not null]
+  "created_at" timestamp [not null, default: `now()`]
+
+  Indexes {
+    liked_by [type: btree, name: "favorites_liked_by_idx"]
+    user_id [type: btree, name: "favorites_user_id_idx"]
+  }
+}
+
+Table "gender_gen_playback" {
+  "id" int4 [pk, not null, increment]
+  "isrc" varchar [not null]
+  "date" date [not null]
+  "gender" varchar
+  "age" varchar
+  "play_count" int4 [not null, default: 0]
+
+  Indexes {
+    (isrc, date) [type: btree, name: "gender_gen_playback_isrc_date_idx"]
+  }
+}
+
+Table "indicators" {
+  "id" int2 [pk, not null, increment]
+  "name" varchar [not null]
+  "description" varchar(140)
+  "logic" varchar [not null]
+}
+
+Table "invitations" {
+  "id" int4 [pk, not null, increment]
+  "invitee" varchar(28) [not null]
+  "inviter_email" varchar [not null]
+  "digest_code" varchar
+  "invited_at" timestamp [not null, default: `now()`]
+  "is_joined" bool [not null, default: false]
+  "joined_email" varchar
+  "joined_at" timestamp
+}
+
+Table "maps" {
+  "id" uuid [pk, not null, default: `gen_random_uuid()`]
+  "following_user_id" varchar(28) [not null]
+  "followed_user_id" varchar(28) [not null]
+  "created_at" timestamp [not null, default: `now()`]
+
+  Indexes {
+    (followed_user_id, following_user_id) [type: btree, name: "maps_followed_user_id_following_user_id_idx"]
+    id [type: btree, name: "maps_id_idx"]
+  }
+}
+
+Table "message_attach" {
+  "id" int4 [pk, not null, increment]
+  "sender" varchar(28)
+  "message_id" uuid
+  "attached_img_url" varchar
+  "attached_file_url" varchar
+  "created_at" timestamp [not null, default: `now()`]
+  "deleted_at" timestamp
+}
+
+Table "messages" {
+  "id" uuid [pk, not null, default: `gen_random_uuid()`]
+  "room_id" uuid [not null]
+  "send_by" varchar(28) [not null]
+  "message" varchar [not null, default: '']
+  "created_at" timestamp [not null, default: `now()`]
+
+  Indexes {
+    room_id [type: btree, name: "messages_room_id_idx"]
+    send_by [type: btree, name: "messages_send_by_idx"]
+  }
+}
+
+Table "news" {
+  "id" int4 [pk, not null, increment]
+  "title" varchar [not null]
+  "contents" text [not null]
+  "user_id" varchar(28)
+  "category" varchar
+  "created_at" timestamp [not null, default: `now()`]
+}
+
+Table "notification_user" {
+  "id" int4 [pk, not null, increment]
+  "notification_id" int4 [not null]
+  "user" varchar(28) [not null]
+  "is_read" bool [not null, default: false]
+  "is_deleted" bool [not null, default: false]
+
+  Indexes {
+    (user, notification_id) [type: btree, name: "notification_user_user_notification_id_idx"]
+  }
+}
+
+Table "notifications" {
+  "id" int4 [pk, not null, increment]
+  "title" varchar [not null]
+  "content" varchar [not null]
+  "created_at" timestamp [not null, default: `now()`]
+  "category" varchar [default: 'info']
+}
+
+Table "offer_attach" {
+  "id" int4 [pk, not null, increment]
+  "offer_id" int4 [not null]
+  "file_uri" varchar
+  "image_uri" varchar
+}
+
+Table "offer_report" {
+  "id" int4 [pk, not null, increment]
+  "offer_id" int4 [not null]
+  "reporter_user_id" varchar(28) [not null]
+  "report_content" varchar [not null]
+  "created_at" timestamp [not null, default: `now()`]
+}
+
+Table "offer_user" {
+  "id" int4 [pk, not null, increment]
+  "offer_id" int4 [not null]
+  "user_id" varchar(28) [not null]
+  "status" offer_status [not null]
+
+  Indexes {
+    (offer_id, user_id) [type: btree, name: "offer_user_offer_id_user_id_idx"]
+  }
+}
+
+Table "offers" {
+  "id" int4 [pk, not null, increment]
+  "raid_id" int4
+  "owner" varchar(28) [not null]
+  "title" varchar [not null]
+  "description" varchar [not null]
+  "deadline" varchar
+  "place" varchar [not null]
+  "attention" varchar
+  "required_skill" varchar
+  "target_role" user_category
+  "img_url" varchar
+  "publicity" bool [not null, default: true]
+  "category" offer_category
+  "fee" int4 [not null, default: 0]
+  "created_at" timestamp [not null, default: `now()`]
+  "updated_at" timestamp [not null, default: `now()`]
+
+  Indexes {
+    owner [type: btree, name: "offers_owner_idx"]
+  }
+}
+
+Table "plays_daily" {
+  "id" int4 [pk, not null, increment]
+  "isrc" varchar
+  "date" date
+  "spotify" int4 [not null, default: 0]
+  "apple" int4 [not null, default: 0]
+  "line" int4 [not null, default: 0]
+  "amazon" int4 [default: 0]
+  "youtube" int4 [default: 0]
+  "sum" int4
+
+  Indexes {
+    (isrc, date) [type: btree, name: "plays_daily_isrc_date_idx"]
+  }
+}
+
+Table "plays_monthly" {
+  "id" int4 [pk, not null, increment]
+  "isrc" varchar
+  "month" date
+  "spotify" int4 [not null, default: 0]
+  "apple" int4 [not null, default: 0]
+  "line" int4 [not null, default: 0]
+  "amazon" int4 [not null, default: 0]
+  "youtube" int4 [not null, default: 0]
+  "sum" int4
+
+  Indexes {
+    (isrc, month) [type: btree, name: "plays_monthly_isrc_month_idx"]
+  }
+}
+
+Table "plays_yearly" {
+  "id" int4 [pk, not null, increment]
+  "isrc" varchar
+  "year" varchar
+  "spotify" int4 [not null, default: 0]
+  "apple" int4 [not null, default: 0]
+  "line" int4 [not null, default: 0]
+  "amazon" int4 [not null, default: 0]
+  "youtube" int4 [not null, default: 0]
+  "sum" int4
+
+  Indexes {
+    (isrc, year) [type: btree, name: "plays_yearly_isrc_year_idx"]
+  }
+}
+
+Table "portfolios" {
+  "id" int4 [pk, not null, increment]
+  "user_id" varchar(28) [not null]
+  "title" varchar [not null]
+  "description" varchar [not null]
+  "img_url" varchar
+  "category" varchar [not null]
+  "release_date" date
+  "external_url" varchar
+  "created_at" timestamp [not null, default: `now()`]
+  "updated_at" timestamp [not null, default: `now()`]
+
+  Indexes {
+    user_id [type: btree, name: "portfolios_user_id_idx"]
+  }
+}
+
+Table "prizes" {
+  "id" int4 [pk, not null, increment]
+  "img_url" varchar
+  "name" varchar [not null]
+  "point" int4 [not null]
+  "description" varchar [not null]
+  "representation" varchar(28) [not null]
+  "condition" varchar [note: '条件（月件までなど）']
+  "publicity" bool [not null, default: true]
+
+  Indexes {
+    representation [type: btree, name: "prizes_representation_idx"]
+  }
+}
+
+Table "product_track" {
+  "id" int4 [pk, not null, increment]
+  "upc" varchar [not null]
+  "isrc" varchar [not null]
+  "track_no" int4
+
+  Indexes {
+    id [type: btree, name: "product_track_id_idx"]
+    (upc, isrc) [type: btree, name: "product_track_upc_isrc_idx"]
+  }
+}
+
+Table "products" {
+  "upc" varchar [pk, not null]
+  "title" varchar [not null]
+  "img_url" varchar
+  "type" varchar
+  "artist_id" varchar(28)
+  "distributed_at" date
+}
+
+Table "purchase_history" {
+  "purchase_id" uuid [pk, not null, default: `gen_random_uuid()`]
+  "event_id" int4
+  "user_id" varchar(28) [not null]
+  "amount" int4 [not null, default: 0]
+  "payment_method" varchar
+  "status" purchase_status
+  "timestamp" timestamp [not null, default: `now()`]
+  "stripe_payment_intent_id" varchar
+}
+
+Table "quest_user" {
+  "id" int4 [pk, not null, increment]
+  "user" varchar(28) [not null]
+  "quest" int4 [not null]
+  "is_done" bool [not null, default: false]
+
+  Indexes {
+    (user, quest) [type: btree, name: "quest_user_user_quest_idx"]
+  }
+}
+
+Table "quests" {
+  "id" int4 [pk, not null, increment]
+  "name" varchar [not null]
+  "description" varchar [not null]
+  "category" varchar
+  "point" int4 [not null, default: 0]
+  "created_at" timestamp [not null, default: `now()`]
+}
+
+Table "raids" {
+  "id" int4 [pk, not null, increment]
+  "owner" varchar(28) [not null]
+  "title" varchar [not null]
+  "description" varchar [not null]
+  "category" offer_category [not null]
+  "created_at" timestamp [not null, default: `now()`]
+  "updated_at" timestamp [not null, default: `now()`]
+
+  Indexes {
+    owner [type: btree, name: "raids_owner_idx"]
+  }
+}
+
+Table "release_report" {
+  "id" int4 [pk, not null, increment]
+  "release" varchar [not null]
+  "reporter_user_id" varchar(28) [not null]
+  "report_content" varchar [not null]
+  "created_at" timestamp [not null, default: `now()`]
+}
+
+Table "room_user" {
+  "id" int4 [pk, not null, increment]
+  "room_id" uuid [not null]
+  "user_id" varchar(28) [not null]
+  "last_read_message_id" uuid
+
+  Indexes {
+    (room_id, user_id) [type: btree, name: "room_user_room_id_user_id_idx"]
+  }
+}
+
+Table "rooms" {
+  "id" uuid [pk, not null, default: `gen_random_uuid()`]
+  "type" message_room_type [not null, default: 'dm']
+  "created_at" timestamp [not null, default: `now()`]
+  "latest_sent_at" timestamp
+  "latest_message_id" uuid
+  "latest_message" varchar
+}
+
+Table "short_notes" {
+  "id" uuid [pk, not null, default: `gen_random_uuid()`]
+  "comment" varchar(140) [not null]
+  "created_at" timestamp [not null, default: `now()`]
+  "writer" varchar(28) [not null]
+  "to_user" varchar(28) [not null]
+
+  Indexes {
+    (id, created_at) [type: btree, name: "short_notes_id_created_at_idx"]
+  }
+}
+
+Table "temp_updates" {
+  "upc" varchar
+  "isrc" varchar
+  "track_no" int4
+}
+
+Table "track_credits" {
+  "id" int4 [pk, not null, increment]
+  "isrc" varchar [not null]
+  "commit_user" varchar(28) [not null]
+  "credit_role" varchar [not null]
+  "credit_name" varchar [not null]
+  "credit_user" varchar(28)
+  "email" varchar [not null]
+  "is_invite" bool
+  "memo" varchar
+  "created_at" timestamp [not null, default: `now()`]
+
+  Indexes {
+    isrc [type: btree, name: "track_credits_isrc_idx"]
+  }
+}
+
+Table "tracks" {
+  "isrc" varchar [pk, not null]
+  "img_url" varchar
+  "title" varchar [not null]
+  "artist_id" varchar(28)
+}
+
+Table "txs_fsp" {
+  "id" uuid [pk, not null, default: `gen_random_uuid()`]
+  "from" varchar(28)
+  "to" varchar(28) [not null]
+  "amount" int4 [not null, default: 0]
+  "tx_at" timestamp [not null, default: `now()`]
+  "notes" varchar [note: '摘要']
+
+  Indexes {
+    from [type: btree, name: "txs_fsp_from_idx"]
+    (id, tx_at) [type: btree, name: "txs_fsp_id_tx_at_idx"]
+    to [type: btree, name: "txs_fsp_to_idx"]
+  }
+}
+
+Table "user_artist" {
+  "id" int4 [pk, not null, increment]
+  "user_id" varchar(28) [not null]
+  "artist_id" varchar(28) [not null]
+  "is_admin" bool [not null, default: false]
+  "status" user_artist_status [not null, default: 'check']
+
+  Indexes {
+    id [type: btree, name: "user_artist_id_idx"]
+    (user_id, artist_id) [type: btree, name: "user_artist_user_id_artist_id_idx"]
+  }
+}
+
+Table "user_blocks" {
+  "id" int4 [pk, not null, increment]
+  "blocked_user_id" varchar(28) [not null]
+  "blocker_user_id" varchar(28) [not null]
+  "is_solved" bool [not null, default: false]
+  "created_at" timestamp [not null, default: `now()`]
+}
+
+Table "user_report" {
+  "id" int4 [pk, not null, increment]
+  "reported_user_id" varchar(28) [not null]
+  "reporter_user_id" varchar(28) [not null]
+  "report_content" varchar [not null]
+  "created_at" timestamp [not null, default: `now()`]
+}
+
+Table "users" {
+  "id" varchar(28) [pk, not null]
+  "id_token" varchar [note: 'Token from firebase auth']
+  "username" varchar [not null]
+  "realname" varchar [not null]
+  "email" varchar [not null]
+  "img_url" varchar
+  "evm_addr" varchar
+  "status" user_status [not null, default: 'invited']
+  "invited_by" varchar(28)
+  "fsp" int4 [not null, default: 1]
+  "fsp_temp" int4 [not null, default: 0]
+  "credential" int4 [not null, default: 0]
+  "category" user_category [not null]
+  "primary_category" user_category [not null]
+  "is_superadmin" bool [default: false]
+  "publicity" bool [not null, default: true]
+  "greeting" varchar
+  "skill" varchar
+  "x_handle" varchar
+  "instagram_handle" varchar
+  "fb_handle" varchar
+  "interest_offer" offer_category
+  "created_at" timestamp [not null, default: `now()`]
+  "updated_at" timestamp [not null, default: `now()`]
+  "last_login_at" timestamp
+  "fcm_token" varchar
+
+  Indexes {
+    evm_addr [type: btree, name: "users_evm_addr_idx"]
+  }
+}
+
+Table "webhook_stripe" {
+  "event_id" int4 [pk, not null, increment]
+  "payload" json
+  "timestamp" timestamp [not null, default: `now()`]
+  "processed" bool [not null, default: false]
+}
+
+Ref "comments_commented_user_id_fkey":"users"."id" < "comments"."commented_user_id"
+
+Ref "comments_offer_id_fkey":"offers"."id" < "comments"."offer_id"
+
+Ref "exchange_prize_history_prize_id_fkey":"prizes"."id" < "exchange_prize_history"."prize_id"
+
+Ref "exchange_prize_history_user_fkey":"users"."id" < "exchange_prize_history"."user"
+
+Ref "favorites_liked_by_fkey":"users"."id" < "favorites"."liked_by"
+
+Ref "favorites_user_id_fkey":"users"."id" < "favorites"."user_id"
+
+Ref "invitations_invitee_fkey":"users"."id" < "invitations"."invitee"
+
+Ref "maps_followed_user_id_fkey":"users"."id" < "maps"."followed_user_id"
+
+Ref "maps_following_user_id_fkey":"users"."id" < "maps"."following_user_id"
+
+Ref "message_attach_message_id_fkey":"messages"."id" < "message_attach"."message_id"
+
+Ref "messages_room_id_fkey":"rooms"."id" < "messages"."room_id"
+
+Ref "messages_send_by_fkey":"users"."id" < "messages"."send_by"
+
+Ref "news_user_id_fkey":"users"."id" < "news"."user_id"
+
+Ref "notification_user_notification_id_fkey":"notifications"."id" < "notification_user"."notification_id"
+
+Ref "notification_user_user_fkey":"users"."id" < "notification_user"."user"
+
+Ref "offer_attach_offer_id_fkey":"offers"."id" < "offer_attach"."offer_id"
+
+Ref "offer_user_offer_id_fkey":"offers"."id" < "offer_user"."offer_id"
+
+Ref "offer_user_user_id_fkey":"users"."id" < "offer_user"."user_id"
+
+Ref "offers_owner_fkey":"users"."id" < "offers"."owner"
+
+Ref "offers_raid_id_fkey":"raids"."id" < "offers"."raid_id"
+
+Ref "plays_daily_isrc_fkey":"tracks"."isrc" < "plays_daily"."isrc"
+
+Ref "plays_monthly_isrc_fkey":"tracks"."isrc" < "plays_monthly"."isrc"
+
+Ref "plays_yearly_isrc_fkey":"tracks"."isrc" < "plays_yearly"."isrc"
+
+Ref "portfolios_user_id_fkey":"users"."id" < "portfolios"."user_id"
+
+Ref "prizes_representation_fkey":"users"."id" < "prizes"."representation"
+
+Ref "product_track_isrc_fkey":"tracks"."isrc" < "product_track"."isrc"
+
+Ref "product_track_upc_fkey":"products"."upc" < "product_track"."upc"
+
+Ref "products_artist_id_fkey":"artists"."artist_id" < "products"."artist_id"
+
+Ref "purchase_history_event_id_fkey":"webhook_stripe"."event_id" < "purchase_history"."event_id"
+
+Ref "purchase_history_user_id_fkey":"users"."id" < "purchase_history"."user_id"
+
+Ref "raids_owner_fkey":"users"."id" < "raids"."owner"
+
+Ref "room_user_room_id_fkey":"rooms"."id" < "room_user"."room_id"
+
+Ref "room_user_user_id_fkey":"users"."id" < "room_user"."user_id"
+
+Ref "rooms_latest_message_id_fkey":"messages"."id" < "rooms"."latest_message_id"
+
+Ref "track_credits_commit_user_fkey":"users"."id" < "track_credits"."commit_user"
+
+Ref "track_credits_isrc_fkey":"tracks"."isrc" < "track_credits"."isrc"
+
+Ref "tracks_artist_id_fkey":"artists"."artist_id" < "tracks"."artist_id"
+
+Ref "txs_fsp_from_fkey":"users"."id" < "txs_fsp"."from"
+
+Ref "txs_fsp_to_fkey":"users"."id" < "txs_fsp"."to"
+
+Ref "user_artist_artist_id_fkey":"artists"."artist_id" < "user_artist"."artist_id"
+
+Ref "user_artist_user_id_fkey":"users"."id" < "user_artist"."user_id"
+
+Ref "user_blocks_blocked_user_id_fkey":"users"."id" < "user_blocks"."blocked_user_id"
+
+Ref "user_blocks_blocker_user_id_fkey":"users"."id" < "user_blocks"."blocker_user_id"
