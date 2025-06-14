@@ -120,10 +120,12 @@ async fn index(schema: web::Data<AppSchema>, req: GraphQLRequest) -> GraphQLResp
 async fn index_graphiql() -> Result<HttpResponse> {
     Ok(HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
-        .body(GraphiQLSource::build()
-            .endpoint("/graphql")
-            .title("GraphiQL IDE")
-            .finish()))
+        .body(
+            GraphiQLSource::build()
+                .endpoint("/graphql")
+                .title("GraphiQL IDE")
+                .finish(),
+        ))
 }
 
 async fn validator(
