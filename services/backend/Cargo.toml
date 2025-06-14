@@ -7,16 +7,16 @@ members = [
 resolver = "2"
 
 [workspace.dependencies]
-actix-web = "4.9.0"
-actix-cors = "0.7.0"
+actix-web = "4.11.0"
+actix-cors = "0.7.1"
 futures = "0.3.31"
 sea-orm = { version = "1.0.1", features = ["sqlx-postgres", "runtime-tokio-rustls", "debug-print"] }
 dotenvy = "0.15.7"
 tracing-subscriber = { version = "0.3.19", features = ["env-filter", "json"] }
 tracing = { version = "0.1.41" }
 tracing-actix-web = "0.7.15"
-async-graphql = { version = "7.0.11", features = ["chrono"] }
-async-graphql-actix-web = "7.0.11"
+async-graphql = { version = "7.0.17", features = ["chrono"] }
+async-graphql-actix-web = "7.0.17"
 async-trait = "0.1.83"
 uuid = { version = "1.11.0", features = ["v4", "serde"] }
 thiserror = "2.0.3"
