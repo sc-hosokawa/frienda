@@ -1,6 +1,7 @@
 use crate::graphql::models;
 use async_graphql::{Context, Object, Result};
 use registry::Usecases;
+use std::sync::Arc;
 
 #[derive(Default)]
 pub struct HealthCheckQuery;
@@ -8,7 +9,7 @@ pub struct HealthCheckQuery;
 #[Object]
 impl HealthCheckQuery {
     async fn health_check(&self, ctx: &Context<'_>) -> Result<models::health_check::HealthCheck> {
-        let usecases: &Usecases = ctx.data_unchecked::<Usecases>();
+        let usecases = ctx.data::<Arc<Usecases>>()?;
 
         let is_healthy = usecases.health_check.health_check().await?;
         Ok(models::health_check::HealthCheck {
