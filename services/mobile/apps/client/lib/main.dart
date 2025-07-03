@@ -150,7 +150,7 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.lightGreen,
           ),
         ),
-        cardTheme: CardTheme(color: Colors.white),
+        cardTheme: CardThemeData(color: Colors.white),
         textSelectionTheme: TextSelectionThemeData(
           selectionColor: Colors.green.withOpacity(0.3),
           cursorColor: Colors.green,
@@ -190,7 +190,7 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
-        cardTheme: CardTheme(color: Colors.grey[800]),
+        cardTheme: CardThemeData(color: Colors.grey[800]),
         textSelectionTheme: TextSelectionThemeData(
           selectionColor: Colors.white.withOpacity(0.3),
           cursorColor: Colors.white,
