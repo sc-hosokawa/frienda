@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql/client.dart';
@@ -21,6 +21,15 @@ class _TransferState extends ConsumerState<Transfer> {
 
   // フォームのキーを追加
   final _formKey = GlobalKey<FormState>();
+
+  // MobileScannerController を追加
+  late MobileScannerController cameraController;
+
+  @override
+  void initState() {
+    super.initState();
+    cameraController = MobileScannerController();
+  }
 
   Future<void> _executeFspTransfer(String recipientId, int amount) async {
     try {
@@ -62,24 +71,28 @@ class _TransferState extends ConsumerState<Transfer> {
     _recipientController.dispose();
     _pointsController.dispose();
     _noteController.dispose();
+    cameraController.dispose();
     super.dispose();
   }
 
-  void _onQRViewCreated(QRViewController controller) {
-    controller.scannedDataStream.listen((scanData) {
-      try {
-        final decodedData = jsonDecode(scanData.code ?? '');
-        setState(() {
-          _recipientController.text = decodedData['email']?.toString() ?? '';
-          _pointsController.text = decodedData['points']?.toString() ?? '';
-          _noteController.text = decodedData['note']?.toString() ?? '';
-        });
-      } catch (e) {
-        print('Invalid QR code data: $e');
+  void _onQRDetected(BarcodeCapture capture) {
+    final List<Barcode> barcodes = capture.barcodes;
+    if (barcodes.isNotEmpty) {
+      final String? code = barcodes.first.rawValue;
+      if (code != null) {
+        try {
+          final decodedData = jsonDecode(code);
+          setState(() {
+            _recipientController.text = decodedData['email']?.toString() ?? '';
+            _pointsController.text = decodedData['points']?.toString() ?? '';
+            _noteController.text = decodedData['note']?.toString() ?? '';
+          });
+        } catch (e) {
+          print('Invalid QR code data: $e');
+        }
+        Navigator.pop(context);
       }
-      controller.dispose();
-      Navigator.pop(context);
-    });
+    }
   }
 
   void _startQRScanner() {
@@ -88,9 +101,9 @@ class _TransferState extends ConsumerState<Transfer> {
       MaterialPageRoute(
         builder: (context) => Scaffold(
           appBar: AppBar(title: const Text('受取人のQRコードをスキャン')),
-          body: QRView(
-            key: GlobalKey(debugLabel: 'QR'),
-            onQRViewCreated: _onQRViewCreated,
+          body: MobileScanner(
+            controller: cameraController,
+            onDetect: _onQRDetected,
           ),
         ),
       ),
