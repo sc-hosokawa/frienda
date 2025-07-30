@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use chrono::{Duration, NaiveDate, Utc, FixedOffset};
+use chrono::{Duration, FixedOffset, NaiveDate, Utc};
 use sea_orm::ActiveValue;
 use std::sync::Arc;
 
@@ -59,10 +59,11 @@ impl DspsUsecaseTrait for DspsUsecase {
         // 日本時間基準で2日前の日付を計算
         let jst = FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = Utc::now().with_timezone(&jst).date_naive();
-        let two_days_ago: String = (today_jst - Duration::days(2))
-            .format("%Y%m%d")
-            .to_string();
-        tracing::info!("PIPELINE::DSPsUsecase:: Two Days Ago (JST): {}", two_days_ago);
+        let two_days_ago: String = (today_jst - Duration::days(2)).format("%Y%m%d").to_string();
+        tracing::info!(
+            "PIPELINE::DSPsUsecase:: Two Days Ago (JST): {}",
+            two_days_ago
+        );
 
         let mut dsps_data: Vec<DspsData> = self
             .dsp_fetcher_service
@@ -121,10 +122,11 @@ impl DspsUsecaseTrait for DspsUsecase {
         // 日本時間基準で1ヶ月前の日付を計算
         let jst = FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = Utc::now().with_timezone(&jst).date_naive();
-        let one_month_ago: String = (today_jst - Duration::days(30))
-            .format("%Y%m")
-            .to_string();
-        tracing::info!("PIPELINE::DSPsUsecase:: One Month Ago (JST): {}", one_month_ago);
+        let one_month_ago: String = (today_jst - Duration::days(30)).format("%Y%m").to_string();
+        tracing::info!(
+            "PIPELINE::DSPsUsecase:: One Month Ago (JST): {}",
+            one_month_ago
+        );
 
         let mut dsps_data: Vec<DspsData> = self
             .dsp_fetcher_service

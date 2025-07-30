@@ -126,11 +126,48 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         let plays_daily_all: Vec<PlaysDaily> =
             self.plays_daily_repo.find_by_isrcs(isrcs.clone()).await?;
 
+        // 日本時間基準での現在時刻を取得
+        let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
+        let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
+        let day = today_jst.day();
+
+        // データ更新タイミングを考慮した月次データの選択
+        let effective_monthly_data = if day < 4 {
+            // 4日未満の場合、前月までの月次データのみ使用
+            let last_month = if today_jst.month() == 1 {
+                12
+            } else {
+                today_jst.month() - 1
+            };
+            let last_month_year = if today_jst.month() == 1 {
+                today_jst.year() - 1
+            } else {
+                today_jst.year()
+            };
+
+            plays_monthly
+                .iter()
+                .filter(|p| {
+                    if let Some(month_date) = p.month {
+                        month_date.year() < last_month_year
+                            || (month_date.year() == last_month_year
+                                && month_date.month() <= last_month)
+                    } else {
+                        false
+                    }
+                })
+                .collect::<Vec<_>>()
+        } else {
+            // 4日以降の場合、全月次データを使用
+            plays_monthly.iter().collect::<Vec<_>>()
+        };
+
         // ISRCごとのDSP別合計を計算
         let mut plays_by_isrc: HashMap<String, i32> = HashMap::new();
         let mut plays_by_isrc_details: HashMap<String, PlayCountDetails> = HashMap::new();
 
-        for play in plays_monthly {
+        // 有効な月次データのみを処理
+        for play in effective_monthly_data {
             if let Some(isrc) = play.isrc.clone() {
                 let details =
                     plays_by_isrc_details
@@ -153,35 +190,111 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             }
         }
 
-        // 当月分の日次データを月次データに追加
-        let today = Local::now().date_naive();
-        let current_month = today.month();
-        let current_year = today.year();
-        let first_day_of_month = Local.ymd(current_year, current_month, 1).naive_local();
-        let yesterday = today - Duration::days(1);
+        // データ更新タイミングを考慮した日次データの集計
+        let year = today_jst.year();
+        let month = today_jst.month();
+        let first_day_of_month = jst.ymd(year, month, 1).naive_local();
 
-        for play in &plays_daily_all {
-            if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                if date >= first_day_of_month && date <= yesterday {
-                    // 当月の日次データをカウントに追加
-                    let details =
-                        plays_by_isrc_details
-                            .entry(isrc.clone())
-                            .or_insert(PlayCountDetails {
-                                spotify: 0,
-                                apple: 0,
-                                line: 0,
-                                amazon: 0,
-                                youtube: 0,
-                            });
+        if day < 4 {
+            // 4日未満の場合: 前月分の日次データ + 当月分の日次データ
+            let last_month = if month == 1 { 12 } else { month - 1 };
+            let last_month_year = if month == 1 { year - 1 } else { year };
+            let first_day_of_last_month = jst.ymd(last_month_year, last_month, 1).naive_local();
+            let last_day_of_last_month = jst
+                .ymd(last_month_year, last_month, 1)
+                .naive_local()
+                .with_month(last_month)
+                .unwrap()
+                .with_day(if last_month == 2 {
+                    if last_month_year % 4 == 0
+                        && (last_month_year % 100 != 0 || last_month_year % 400 == 0)
+                    {
+                        29
+                    } else {
+                        28
+                    }
+                } else if [4, 6, 9, 11].contains(&last_month) {
+                    30
+                } else {
+                    31
+                })
+                .unwrap();
 
-                    details.spotify += play.spotify;
-                    details.apple += play.apple;
-                    details.line += play.line;
-                    details.amazon += play.amazon.unwrap_or(0);
-                    details.youtube += play.youtube.unwrap_or(0);
+            // 前月分の日次データ
+            for play in &plays_daily_all {
+                if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
+                    if date >= first_day_of_last_month && date <= last_day_of_last_month {
+                        let details =
+                            plays_by_isrc_details
+                                .entry(isrc.clone())
+                                .or_insert(PlayCountDetails {
+                                    spotify: 0,
+                                    apple: 0,
+                                    line: 0,
+                                    amazon: 0,
+                                    youtube: 0,
+                                });
 
-                    *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                        details.spotify += play.spotify;
+                        details.apple += play.apple;
+                        details.line += play.line;
+                        details.amazon += play.amazon.unwrap_or(0);
+                        details.youtube += play.youtube.unwrap_or(0);
+
+                        *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                    }
+                }
+            }
+
+            // 当月分の日次データ（昨日まで）
+            for play in &plays_daily_all {
+                if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(1) {
+                        let details =
+                            plays_by_isrc_details
+                                .entry(isrc.clone())
+                                .or_insert(PlayCountDetails {
+                                    spotify: 0,
+                                    apple: 0,
+                                    line: 0,
+                                    amazon: 0,
+                                    youtube: 0,
+                                });
+
+                        details.spotify += play.spotify;
+                        details.apple += play.apple;
+                        details.line += play.line;
+                        details.amazon += play.amazon.unwrap_or(0);
+                        details.youtube += play.youtube.unwrap_or(0);
+
+                        *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                    }
+                }
+            }
+        } else {
+            // 4日以降の場合: 当月分の日次データのみ（昨日まで）
+            for play in &plays_daily_all {
+                if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(1) {
+                        let details =
+                            plays_by_isrc_details
+                                .entry(isrc.clone())
+                                .or_insert(PlayCountDetails {
+                                    spotify: 0,
+                                    apple: 0,
+                                    line: 0,
+                                    amazon: 0,
+                                    youtube: 0,
+                                });
+
+                        details.spotify += play.spotify;
+                        details.apple += play.apple;
+                        details.line += play.line;
+                        details.amazon += play.amazon.unwrap_or(0);
+                        details.youtube += play.youtube.unwrap_or(0);
+
+                        *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                    }
                 }
             }
         }
@@ -309,11 +422,48 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             .find_by_isrcs(isrcs_in_upc.clone())
             .await?;
 
+        // 日本時間基準での現在時刻を取得
+        let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
+        let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
+        let day = today_jst.day();
+
+        // データ更新タイミングを考慮した月次データの選択
+        let effective_monthly_data = if day < 4 {
+            // 4日未満の場合、前月までの月次データのみ使用
+            let last_month = if today_jst.month() == 1 {
+                12
+            } else {
+                today_jst.month() - 1
+            };
+            let last_month_year = if today_jst.month() == 1 {
+                today_jst.year() - 1
+            } else {
+                today_jst.year()
+            };
+
+            plays_monthly
+                .iter()
+                .filter(|p| {
+                    if let Some(month_date) = p.month {
+                        month_date.year() < last_month_year
+                            || (month_date.year() == last_month_year
+                                && month_date.month() <= last_month)
+                    } else {
+                        false
+                    }
+                })
+                .collect::<Vec<_>>()
+        } else {
+            // 4日以降の場合、全月次データを使用
+            plays_monthly.iter().collect::<Vec<_>>()
+        };
+
         // 月間再生数の集計とDSP別内訳の計算
         let mut plays_by_isrc: HashMap<String, i32> = HashMap::new();
         let mut plays_by_isrc_details: HashMap<String, PlayCountDetails> = HashMap::new();
 
-        for play in plays_monthly {
+        // 有効な月次データのみを処理
+        for play in effective_monthly_data {
             if let Some(isrc) = play.isrc.clone() {
                 let details =
                     plays_by_isrc_details
@@ -336,41 +486,119 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             }
         }
 
-        // 日次データを取得
-        let plays_daily: Vec<PlaysDaily> = self
-            .plays_daily_repo
-            .find_by_isrcs(isrcs_in_upc.clone())
-            .await?;
+        // データ更新タイミングを考慮した日次データの集計
+        let year = today_jst.year();
+        let month = today_jst.month();
+        let first_day_of_month = jst.ymd(year, month, 1).naive_local();
 
-        // 当月分の日次データを月次データに追加
-        let today = Local::now().date_naive();
-        let current_month = today.month();
-        let current_year = today.year();
-        let first_day_of_month = Local.ymd(current_year, current_month, 1).naive_local();
-        let yesterday = today - Duration::days(1);
+        if day < 4 {
+            // 4日未満の場合: 前月分の日次データ + 当月分の日次データ
+            let last_month = if month == 1 { 12 } else { month - 1 };
+            let last_month_year = if month == 1 { year - 1 } else { year };
+            let first_day_of_last_month = jst.ymd(last_month_year, last_month, 1).naive_local();
+            let last_day_of_last_month = jst
+                .ymd(last_month_year, last_month, 1)
+                .naive_local()
+                .with_month(last_month)
+                .unwrap()
+                .with_day(if last_month == 2 {
+                    if last_month_year % 4 == 0
+                        && (last_month_year % 100 != 0 || last_month_year % 400 == 0)
+                    {
+                        29
+                    } else {
+                        28
+                    }
+                } else if [4, 6, 9, 11].contains(&last_month) {
+                    30
+                } else {
+                    31
+                })
+                .unwrap();
 
-        for play in &plays_daily {
-            if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                if date >= first_day_of_month && date <= yesterday {
-                    // 当月の日次データをカウントに追加
-                    let details =
-                        plays_by_isrc_details
-                            .entry(isrc.clone())
-                            .or_insert(PlayCountDetails {
-                                spotify: 0,
-                                apple: 0,
-                                line: 0,
-                                amazon: 0,
-                                youtube: 0,
-                            });
+            // 前月分の日次データ
+            let plays_daily: Vec<PlaysDaily> = self
+                .plays_daily_repo
+                .find_by_isrcs(isrcs_in_upc.clone())
+                .await?;
+            for play in &plays_daily {
+                if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
+                    if date >= first_day_of_last_month && date <= last_day_of_last_month {
+                        let details =
+                            plays_by_isrc_details
+                                .entry(isrc.clone())
+                                .or_insert(PlayCountDetails {
+                                    spotify: 0,
+                                    apple: 0,
+                                    line: 0,
+                                    amazon: 0,
+                                    youtube: 0,
+                                });
 
-                    details.spotify += play.spotify;
-                    details.apple += play.apple;
-                    details.line += play.line;
-                    details.amazon += play.amazon.unwrap_or(0);
-                    details.youtube += play.youtube.unwrap_or(0);
+                        details.spotify += play.spotify;
+                        details.apple += play.apple;
+                        details.line += play.line;
+                        details.amazon += play.amazon.unwrap_or(0);
+                        details.youtube += play.youtube.unwrap_or(0);
 
-                    *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                        *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                    }
+                }
+            }
+
+            // 当月分の日次データ（昨日まで）
+            for play in &plays_daily {
+                if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(1) {
+                        let details =
+                            plays_by_isrc_details
+                                .entry(isrc.clone())
+                                .or_insert(PlayCountDetails {
+                                    spotify: 0,
+                                    apple: 0,
+                                    line: 0,
+                                    amazon: 0,
+                                    youtube: 0,
+                                });
+
+                        details.spotify += play.spotify;
+                        details.apple += play.apple;
+                        details.line += play.line;
+                        details.amazon += play.amazon.unwrap_or(0);
+                        details.youtube += play.youtube.unwrap_or(0);
+
+                        *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                    }
+                }
+            }
+        } else {
+            // 4日以降の場合: 当月分の日次データのみ（昨日まで）
+            let plays_daily: Vec<PlaysDaily> = self
+                .plays_daily_repo
+                .find_by_isrcs(isrcs_in_upc.clone())
+                .await?;
+            for play in &plays_daily {
+                if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(1) {
+                        let details =
+                            plays_by_isrc_details
+                                .entry(isrc.clone())
+                                .or_insert(PlayCountDetails {
+                                    spotify: 0,
+                                    apple: 0,
+                                    line: 0,
+                                    amazon: 0,
+                                    youtube: 0,
+                                });
+
+                        details.spotify += play.spotify;
+                        details.apple += play.apple;
+                        details.line += play.line;
+                        details.amazon += play.amazon.unwrap_or(0);
+                        details.youtube += play.youtube.unwrap_or(0);
+
+                        *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                    }
                 }
             }
         }
@@ -382,10 +610,14 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         // 日本時間基準での週間集計
         let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
-        let start_date = today_jst - Duration::days(8);  // 8日前
-        let end_date = today_jst - Duration::days(2);    // 2日前
+        let start_date = today_jst - Duration::days(8); // 8日前
+        let end_date = today_jst - Duration::days(2); // 2日前
 
         // フィルタリング処理
+        let plays_daily: Vec<PlaysDaily> = self
+            .plays_daily_repo
+            .find_by_isrcs(isrcs_in_upc.clone())
+            .await?;
         for play in plays_daily {
             if let Some(date) = play.date {
                 if date <= end_date && date >= start_date {
