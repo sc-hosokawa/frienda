@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use chrono::{Duration, NaiveDate, Utc};
+use chrono::{Duration, NaiveDate, Utc, FixedOffset};
 use sea_orm::ActiveValue;
 use std::sync::Arc;
 
@@ -56,10 +56,13 @@ impl DspsUsecaseTrait for DspsUsecase {
         let mut next_id: i32 = lastest_id + 1;
         tracing::info!("PIPELINE::DSPsUsecase:: Lastest ID: {}", lastest_id);
 
-        let two_days_ago: String = (Utc::now().date_naive() - Duration::days(2))
+        // 日本時間基準で2日前の日付を計算
+        let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+        let today_jst = Utc::now().with_timezone(&jst).date_naive();
+        let two_days_ago: String = (today_jst - Duration::days(2))
             .format("%Y%m%d")
             .to_string();
-        tracing::info!("PIPELINE::DSPsUsecase:: Two Days Ago: {}", two_days_ago);
+        tracing::info!("PIPELINE::DSPsUsecase:: Two Days Ago (JST): {}", two_days_ago);
 
         let mut dsps_data: Vec<DspsData> = self
             .dsp_fetcher_service
@@ -115,10 +118,13 @@ impl DspsUsecaseTrait for DspsUsecase {
         let mut next_id: i32 = lastest_id + 1;
         tracing::info!("PIPELINE::DSPsUsecase:: Lastest ID: {}", lastest_id);
 
-        let one_month_ago: String = (Utc::now().date_naive() - Duration::days(30))
+        // 日本時間基準で1ヶ月前の日付を計算
+        let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+        let today_jst = Utc::now().with_timezone(&jst).date_naive();
+        let one_month_ago: String = (today_jst - Duration::days(30))
             .format("%Y%m")
             .to_string();
-        tracing::info!("PIPELINE::DSPsUsecase:: One Month Ago: {}", one_month_ago);
+        tracing::info!("PIPELINE::DSPsUsecase:: One Month Ago (JST): {}", one_month_ago);
 
         let mut dsps_data: Vec<DspsData> = self
             .dsp_fetcher_service
@@ -180,10 +186,13 @@ impl DspsUsecaseTrait for DspsUsecase {
         let isrcs: Vec<String> = self.tracks_repo.find_all_isrcs().await?;
         tracing::info!("PIPELINE::DSPsUsecase:: ISRCs: {}", isrcs.len());
 
-        let target_date: String = (Utc::now().date_naive() - Duration::days(2))
+        // 日本時間基準で2日前の日付を計算
+        let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+        let today_jst = Utc::now().with_timezone(&jst).date_naive();
+        let target_date: String = (today_jst - Duration::days(2))
             .format("%Y/%m/%d")
             .to_string();
-        tracing::info!("PIPELINE::DSPsUsecase:: Target Date: {}", target_date);
+        tracing::info!("PIPELINE::DSPsUsecase:: Target Date (JST): {}", target_date);
 
         let mut gender_gen_data: Vec<GenderGenData> = self
             .dsp_fetcher_service
@@ -243,11 +252,16 @@ impl DspsUsecaseTrait for DspsUsecase {
                     date
                 }
             }
-            None => (Utc::now().date_naive() - Duration::days(2))
-                .format("%Y/%m/%d")
-                .to_string(),
+            None => {
+                // 日本時間基準で2日前の日付を計算
+                let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+                let today_jst = Utc::now().with_timezone(&jst).date_naive();
+                (today_jst - Duration::days(2))
+                    .format("%Y/%m/%d")
+                    .to_string()
+            }
         };
-        tracing::info!("PIPELINE::DSPsUsecase:: Target Date: {}", target_date);
+        tracing::info!("PIPELINE::DSPsUsecase:: Target Date (JST): {}", target_date);
 
         let plays_on_target_date: Vec<PlaysDaily> =
             self.plays_daily_repo.find_by_date(&target_date).await?;
