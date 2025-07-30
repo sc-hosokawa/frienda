@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use chrono::{Datelike, Duration, Local, TimeZone};
+use chrono::{Datelike, Duration, FixedOffset, TimeZone, Utc};
 use std::sync::Arc;
 
 use domain::entities::plays_daily::Model as PlaysDaily;
@@ -76,42 +76,149 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         let plays_monthly: Vec<PlaysMonthly> =
             self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
 
-        let all_month_play_count: i32 = plays_monthly.iter().map(|p| p.sum.unwrap_or(0)).sum();
-        let current_month_day_play_count: i32 = {
-            let today = Local::now().date_naive();
-            let year = today.year();
-            let month = today.month();
+        // 日本時間基準での現在時刻を取得
+        let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+        let today_jst = Utc::now().with_timezone(&jst).date_naive();
+        let day = today_jst.day();
 
-            let first_day_of_month = Local.ymd(year, month, 1).naive_local();
+        // データ更新タイミングを考慮した月次データの選択
+        let effective_monthly_data = if day < 4 {
+            // 4日未満の場合、前月までの月次データのみ使用
+            let last_month = if today_jst.month() == 1 {
+                12
+            } else {
+                today_jst.month() - 1
+            };
+            let last_month_year = if today_jst.month() == 1 {
+                today_jst.year() - 1
+            } else {
+                today_jst.year()
+            };
 
-            let yesterday = today - Duration::days(1);
-
-            isrcs
+            plays_monthly
                 .iter()
-                .map(|isrc| {
-                    plays_daily
-                        .iter()
-                        .filter(|p| {
-                            if let Some(date) = p.date {
-                                // 当月の1日から昨日までの日付かつISRCが一致するものをフィルタリング
-                                date >= first_day_of_month
-                                    && date <= yesterday
-                                    && p.isrc.as_ref().unwrap() == isrc
-                            } else {
-                                false
-                            }
-                        })
-                        .map(|p| p.sum.unwrap_or(0))
-                        .sum::<i32>()
+                .filter(|p| {
+                    if let Some(month_date) = p.month {
+                        month_date.year() < last_month_year
+                            || (month_date.year() == last_month_year
+                                && month_date.month() <= last_month)
+                    } else {
+                        false
+                    }
                 })
-                .sum()
+                .collect::<Vec<_>>()
+        } else {
+            // 4日以降の場合、全月次データを使用
+            plays_monthly.iter().collect::<Vec<_>>()
         };
-        let weekly_play_count: i32 = {
-            let today = Local::now().date_naive();
-            // 集計開始日（9日前）と終了日（2日前）を設定
-            let start_date = today - Duration::days(9);
-            let end_date = today - Duration::days(2);
 
+        let all_month_play_count: i32 = effective_monthly_data
+            .iter()
+            .map(|p| p.sum.unwrap_or(0))
+            .sum();
+
+        // データ更新タイミングを考慮した日次データの集計
+        let current_month_day_play_count: i32 = {
+            let year = today_jst.year();
+            let month = today_jst.month();
+            let first_day_of_month = jst.ymd(year, month, 1).naive_local();
+
+            if day < 4 {
+                // 4日未満の場合: 前月分の日次データ + 当月分の日次データ
+                let last_month = if month == 1 { 12 } else { month - 1 };
+                let last_month_year = if month == 1 { year - 1 } else { year };
+                let first_day_of_last_month = jst.ymd(last_month_year, last_month, 1).naive_local();
+                let last_day_of_last_month = jst
+                    .ymd(last_month_year, last_month, 1)
+                    .naive_local()
+                    .with_month(last_month)
+                    .unwrap()
+                    .with_day(if last_month == 2 {
+                        if last_month_year % 4 == 0
+                            && (last_month_year % 100 != 0 || last_month_year % 400 == 0)
+                        {
+                            29
+                        } else {
+                            28
+                        }
+                    } else if [4, 6, 9, 11].contains(&last_month) {
+                        30
+                    } else {
+                        31
+                    })
+                    .unwrap();
+
+                // 前月分の日次データ
+                let last_month_daily_count: i32 = isrcs
+                    .iter()
+                    .map(|isrc| {
+                        plays_daily
+                            .iter()
+                            .filter(|p| {
+                                if let Some(date) = p.date {
+                                    date >= first_day_of_last_month
+                                        && date <= last_day_of_last_month
+                                        && p.isrc.as_ref().unwrap() == isrc
+                                } else {
+                                    false
+                                }
+                            })
+                            .map(|p| p.sum.unwrap_or(0))
+                            .sum::<i32>()
+                    })
+                    .sum();
+
+                // 当月分の日次データ（昨日まで）
+                let current_month_daily_count: i32 = isrcs
+                    .iter()
+                    .map(|isrc| {
+                        plays_daily
+                            .iter()
+                            .filter(|p| {
+                                if let Some(date) = p.date {
+                                    date >= first_day_of_month
+                                        && date <= today_jst - Duration::days(1)
+                                        && p.isrc.as_ref().unwrap() == isrc
+                                } else {
+                                    false
+                                }
+                            })
+                            .map(|p| p.sum.unwrap_or(0))
+                            .sum::<i32>()
+                    })
+                    .sum();
+
+                last_month_daily_count + current_month_daily_count
+            } else {
+                // 4日以降の場合: 当月分の日次データのみ（昨日まで）
+                isrcs
+                    .iter()
+                    .map(|isrc| {
+                        plays_daily
+                            .iter()
+                            .filter(|p| {
+                                if let Some(date) = p.date {
+                                    date >= first_day_of_month
+                                        && date <= today_jst - Duration::days(1)
+                                        && p.isrc.as_ref().unwrap() == isrc
+                                } else {
+                                    false
+                                }
+                            })
+                            .map(|p| p.sum.unwrap_or(0))
+                            .sum::<i32>()
+                    })
+                    .sum()
+            }
+        };
+
+        let weekly_play_count: i32 = {
+            let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+            let today_jst = Utc::now().with_timezone(&jst).date_naive();
+            let start_date = today_jst - Duration::days(8);
+            let end_date = today_jst - Duration::days(2);
+
+            // 日本時間基準でフィルタリング
             isrcs
                 .iter()
                 .map(|isrc| {
@@ -152,37 +259,148 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
             let plays_monthly: Vec<PlaysMonthly> =
                 self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
 
-            let all_month_play_count: i32 = plays_monthly.iter().map(|p| p.sum.unwrap_or(0)).sum();
-            let current_month_day_play_count: i32 = {
-                let today = Local::now().date_naive();
-                let first_day_of_month = Local.ymd(today.year(), today.month(), 1).naive_local();
-                let yesterday = today - Duration::days(1);
+            // 日本時間基準での現在時刻を取得
+            let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+            let today_jst = Utc::now().with_timezone(&jst).date_naive();
+            let day = today_jst.day();
 
-                isrcs
+            // データ更新タイミングを考慮した月次データの選択
+            let effective_monthly_data = if day < 4 {
+                // 4日未満の場合、前月までの月次データのみ使用
+                let last_month = if today_jst.month() == 1 {
+                    12
+                } else {
+                    today_jst.month() - 1
+                };
+                let last_month_year = if today_jst.month() == 1 {
+                    today_jst.year() - 1
+                } else {
+                    today_jst.year()
+                };
+
+                plays_monthly
                     .iter()
-                    .map(|isrc| {
-                        plays_daily
-                            .iter()
-                            .filter(|p| {
-                                if let Some(date) = p.date {
-                                    // 当月の1日から昨日までの日付かつISRCが一致するものをフィルタリング
-                                    date >= first_day_of_month
-                                        && date <= yesterday
-                                        && p.isrc.as_ref().unwrap() == isrc
-                                } else {
-                                    false
-                                }
-                            })
-                            .map(|p| p.sum.unwrap_or(0))
-                            .sum::<i32>()
+                    .filter(|p| {
+                        if let Some(month_date) = p.month {
+                            month_date.year() < last_month_year
+                                || (month_date.year() == last_month_year
+                                    && month_date.month() <= last_month)
+                        } else {
+                            false
+                        }
                     })
-                    .sum()
+                    .collect::<Vec<_>>()
+            } else {
+                // 4日以降の場合、全月次データを使用
+                plays_monthly.iter().collect::<Vec<_>>()
             };
+
+            let all_month_play_count: i32 = effective_monthly_data
+                .iter()
+                .map(|p| p.sum.unwrap_or(0))
+                .sum();
+
+            // データ更新タイミングを考慮した日次データの集計
+            let current_month_day_play_count: i32 = {
+                let year = today_jst.year();
+                let month = today_jst.month();
+                let first_day_of_month = jst.ymd(year, month, 1).naive_local();
+
+                if day < 4 {
+                    // 4日未満の場合: 前月分の日次データ + 当月分の日次データ
+                    let last_month = if month == 1 { 12 } else { month - 1 };
+                    let last_month_year = if month == 1 { year - 1 } else { year };
+                    let first_day_of_last_month =
+                        jst.ymd(last_month_year, last_month, 1).naive_local();
+                    let last_day_of_last_month = jst
+                        .ymd(last_month_year, last_month, 1)
+                        .naive_local()
+                        .with_month(last_month)
+                        .unwrap()
+                        .with_day(if last_month == 2 {
+                            if last_month_year % 4 == 0
+                                && (last_month_year % 100 != 0 || last_month_year % 400 == 0)
+                            {
+                                29
+                            } else {
+                                28
+                            }
+                        } else if [4, 6, 9, 11].contains(&last_month) {
+                            30
+                        } else {
+                            31
+                        })
+                        .unwrap();
+
+                    // 前月分の日次データ
+                    let last_month_daily_count: i32 = isrcs
+                        .iter()
+                        .map(|isrc| {
+                            plays_daily
+                                .iter()
+                                .filter(|p| {
+                                    if let Some(date) = p.date {
+                                        date >= first_day_of_last_month
+                                            && date <= last_day_of_last_month
+                                            && p.isrc.as_ref().unwrap() == isrc
+                                    } else {
+                                        false
+                                    }
+                                })
+                                .map(|p| p.sum.unwrap_or(0))
+                                .sum::<i32>()
+                        })
+                        .sum();
+
+                    // 当月分の日次データ（昨日まで）
+                    let current_month_daily_count: i32 = isrcs
+                        .iter()
+                        .map(|isrc| {
+                            plays_daily
+                                .iter()
+                                .filter(|p| {
+                                    if let Some(date) = p.date {
+                                        date >= first_day_of_month
+                                            && date <= today_jst - Duration::days(1)
+                                            && p.isrc.as_ref().unwrap() == isrc
+                                    } else {
+                                        false
+                                    }
+                                })
+                                .map(|p| p.sum.unwrap_or(0))
+                                .sum::<i32>()
+                        })
+                        .sum();
+
+                    last_month_daily_count + current_month_daily_count
+                } else {
+                    // 4日以降の場合: 当月分の日次データのみ（昨日まで）
+                    isrcs
+                        .iter()
+                        .map(|isrc| {
+                            plays_daily
+                                .iter()
+                                .filter(|p| {
+                                    if let Some(date) = p.date {
+                                        date >= first_day_of_month
+                                            && date <= today_jst - Duration::days(1)
+                                            && p.isrc.as_ref().unwrap() == isrc
+                                    } else {
+                                        false
+                                    }
+                                })
+                                .map(|p| p.sum.unwrap_or(0))
+                                .sum::<i32>()
+                        })
+                        .sum()
+                }
+            };
+
             let weekly_play_count: i32 = {
-                let today = Local::now().date_naive();
-                // 集計開始日（9日前）と終了日（2日前）を設定
-                let start_date = today - Duration::days(9);
-                let end_date = today - Duration::days(2);
+                let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+                let today_jst = Utc::now().with_timezone(&jst).date_naive();
+                let start_date = today_jst - Duration::days(8);
+                let end_date = today_jst - Duration::days(2);
 
                 isrcs
                     .iter()
