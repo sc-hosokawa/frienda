@@ -197,9 +197,10 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         tracing::info!("top_5_isrcs: {:?}", top_5_isrcs);
 
         // 過去7日間の再生数を取得
-        let today = Local::now().date_naive();
-        let seven_days_ago = today - Duration::days(9);
-        let two_days_ago = today - Duration::days(2);
+        let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
+        let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
+        let start_date = today_jst - Duration::days(8);
+        let end_date = today_jst - Duration::days(2);
 
         let plays_daily_in_top5: Vec<PlaysDaily> = self
             .plays_daily_repo
@@ -211,7 +212,7 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
 
         for play in plays_daily_in_top5 {
             if let Some(date) = play.date {
-                if date <= two_days_ago && date >= seven_days_ago {
+                if date <= end_date && date >= start_date {
                     if let Some(isrc) = play.isrc.clone() {
                         let details = plays_by_isrc_daily_details.entry(isrc.clone()).or_insert(
                             PlayCountDetails {
@@ -378,13 +379,17 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         let mut plays_by_isrc_daily: HashMap<String, i32> = HashMap::new();
         let mut plays_by_isrc_daily_details: HashMap<String, PlayCountDetails> = HashMap::new();
 
-        let today = Local::now().date_naive();
-        let seven_days_ago = today - Duration::days(9);
-        let two_days_ago = today - Duration::days(2);
+        // 日本時間基準での週間集計
+        let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
+        let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
+        let start_date = today_jst - Duration::days(8);  // 8日前
+        let end_date = today_jst - Duration::days(2);    // 2日前
 
+        // フィルタリング処理
         for play in plays_daily {
             if let Some(date) = play.date {
-                if date <= two_days_ago && date >= seven_days_ago {
+                if date <= end_date && date >= start_date {
+                    // 週間集計に含める
                     if let Some(isrc) = play.isrc.clone() {
                         let details = plays_by_isrc_daily_details.entry(isrc.clone()).or_insert(
                             PlayCountDetails {

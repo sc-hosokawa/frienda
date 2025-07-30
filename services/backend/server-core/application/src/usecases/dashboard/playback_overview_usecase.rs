@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use chrono::{Datelike, Duration, Local, TimeZone};
+use chrono::{Datelike, Duration, Local, TimeZone, Utc, FixedOffset};
 use std::sync::Arc;
 
 use domain::entities::plays_daily::Model as PlaysDaily;
@@ -107,11 +107,12 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                 .sum()
         };
         let weekly_play_count: i32 = {
-            let today = Local::now().date_naive();
-            // 集計開始日（9日前）と終了日（2日前）を設定
-            let start_date = today - Duration::days(9);
-            let end_date = today - Duration::days(2);
-
+            let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+            let today_jst = Utc::now().with_timezone(&jst).date_naive();
+            let start_date = today_jst - Duration::days(8);
+            let end_date = today_jst - Duration::days(2);
+            
+            // 日本時間基準でフィルタリング
             isrcs
                 .iter()
                 .map(|isrc| {
@@ -179,10 +180,10 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                     .sum()
             };
             let weekly_play_count: i32 = {
-                let today = Local::now().date_naive();
-                // 集計開始日（9日前）と終了日（2日前）を設定
-                let start_date = today - Duration::days(9);
-                let end_date = today - Duration::days(2);
+                let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+                let today_jst = Utc::now().with_timezone(&jst).date_naive();
+                let start_date = today_jst - Duration::days(8);
+                let end_date = today_jst - Duration::days(2);
 
                 isrcs
                     .iter()
