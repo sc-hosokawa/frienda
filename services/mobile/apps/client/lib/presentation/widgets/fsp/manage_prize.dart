@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:client/presentation/providers/user_provider.dart';
 import 'package:intl/intl.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ManagePrize extends ConsumerWidget {
   final String prizeId;
@@ -132,54 +132,9 @@ class ManagePrize extends ConsumerWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: const Text('QRコードをスキャン'),
-          ),
-          body: QRView(
-            key: GlobalKey(debugLabel: 'QR'),
-            onQRViewCreated: (QRViewController controller) {
-              controller.scannedDataStream.listen((scanData) async {
-                try {
-                  final code = scanData.code;
-                  if (code != null) {
-                    final parts = code.split('|');
-                    if (parts.length == 2) {
-                      final userId = parts[0];
-                      final scannedPrizeId = parts[1];
-
-                      if (scannedPrizeId == prizeId) {
-                        // QRスキャナーを停止
-                        controller.dispose();
-
-                        // BuildContextを使用する前にmountedチェック
-                        if (!context.mounted) return;
-
-                        // スキャナー画面を閉じて元の画面に戻る
-                        Navigator.of(context).pop();
-
-                        // 新しい画面遷移が完了するのを待つ
-                        await Future.microtask(() {});
-
-                        // 再度BuildContextを使用する前にmountedチェック
-                        if (!context.mounted) return;
-
-                        // QR専用の承認処理を実行
-                        await _approveRequestFromQR(
-                          context,
-                          userId,
-                          representationUserId,
-                          scannedPrizeId,
-                        );
-                      }
-                    }
-                  }
-                } catch (e) {
-                  print('Error in QR scan: $e');
-                }
-              });
-            },
-          ),
+        builder: (context) => _QRScannerScreen(
+          prizeId: prizeId,
+          representationUserId: representationUserId,
         ),
       ),
     );
@@ -518,6 +473,139 @@ class ManagePrize extends ConsumerWidget {
           ],
         ),
         trailing: trailing,
+      ),
+    );
+  }
+}
+
+// QRスキャナー用の新しいStatefulWidget
+class _QRScannerScreen extends StatefulWidget {
+  final String prizeId;
+  final String representationUserId;
+
+  const _QRScannerScreen({
+    required this.prizeId,
+    required this.representationUserId,
+  });
+
+  @override
+  State<_QRScannerScreen> createState() => _QRScannerScreenState();
+}
+
+class _QRScannerScreenState extends State<_QRScannerScreen> {
+  late MobileScannerController cameraController;
+
+  @override
+  void initState() {
+    super.initState();
+    cameraController = MobileScannerController();
+  }
+
+  @override
+  void dispose() {
+    cameraController.dispose();
+    super.dispose();
+  }
+
+  void _onDetect(BarcodeCapture capture) async {
+    final List<Barcode> barcodes = capture.barcodes;
+    if (barcodes.isNotEmpty) {
+      final String? code = barcodes.first.rawValue;
+      if (code != null) {
+        try {
+          final parts = code.split('|');
+          if (parts.length == 2) {
+            final userId = parts[0];
+            final scannedPrizeId = parts[1];
+
+            if (scannedPrizeId == widget.prizeId) {
+              // BuildContextを使用する前にmountedチェック
+              if (!mounted) return;
+
+              // スキャナー画面を閉じて元の画面に戻る
+              Navigator.of(context).pop();
+
+              // 新しい画面遷移が完了するのを待つ
+              await Future.microtask(() {});
+
+              // 再度BuildContextを使用する前にmountedチェック
+              if (!mounted) return;
+
+              // QR専用の承認処理を実行
+              await _approveRequestFromQR(
+                context,
+                userId,
+                widget.representationUserId,
+                scannedPrizeId,
+              );
+            }
+          }
+        } catch (e) {
+          print('Error in QR scan: $e');
+        }
+      }
+    }
+  }
+
+  // QRコードスキャン用の承認処理
+  Future<void> _approveRequestFromQR(
+    BuildContext context,
+    String targetUserId,
+    String representationUserId,
+    String scannedPrizeId,
+  ) async {
+    try {
+      final client = GraphQLProvider.of(context).value;
+      final prizeIdInt = int.parse(scannedPrizeId);
+
+      final result = await client.mutate(
+        MutationOptions(
+          document: gql('''
+            mutation UsePrize(\$input: UsePrizeInput!) {
+              usePrize(input: \$input) {
+                id
+              }
+            }
+          '''),
+          variables: {
+            'input': {
+              'representationUserId': representationUserId,
+              'userId': targetUserId,
+              'prizeId': prizeIdInt,
+            },
+          },
+        ),
+      );
+
+      if (result.hasException) {
+        throw result.exception!;
+      }
+
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('QRコードによる承認が完了しました')),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('QRコードによる承認に失敗しました'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('QRコードをスキャン'),
+      ),
+      body: MobileScanner(
+        controller: cameraController,
+        onDetect: _onDetect,
       ),
     );
   }
