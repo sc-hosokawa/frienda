@@ -2,8 +2,8 @@ name: Monthly DSPs Update
 
 on:
   schedule:
-    # 毎月3日 21:00 UTC (日本時間 4日 06:00) に実行
-    - cron: '0 21 3 * *'
+    # 毎月3日 15:00 UTC (日本時間 4日 00:00) に実行
+    - cron: '0 15 3 * *'
 
 jobs:
   update-staging:
