@@ -249,8 +249,8 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             // 当月分の日次データ（昨日まで）
             for play in &plays_daily_all {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    // 当月分は今日から3日引いた日付が当月内の場合のみ取得
-                    let end_date = today_jst - Duration::days(3);
+                    // 当月分は今日から2日引いた日付が当月内の場合のみ取得
+                    let end_date = today_jst - Duration::days(2);
                     if end_date >= first_day_of_month {
                         // 当月分の日次データを取得
                         if date >= first_day_of_month && date <= end_date {
@@ -281,7 +281,7 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             // 4日以降の場合: 当月分の日次データのみ（昨日まで）
             for play in &plays_daily_all {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    if date >= first_day_of_month && date <= today_jst - Duration::days(3) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(2) {
                         let details =
                             plays_by_isrc_details
                                 .entry(isrc.clone())
@@ -555,8 +555,8 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             // 当月分の日次データ（昨日まで）
             for play in &plays_daily {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    // 当月分は今日から3日引いた日付が当月内の場合のみ取得
-                    let end_date = today_jst - Duration::days(3);
+                    // 当月分は今日から2日引いた日付が当月内の場合のみ取得
+                    let end_date = today_jst - Duration::days(2);
                     if end_date >= first_day_of_month {
                         // 当月分の日次データを取得
                         if date >= first_day_of_month && date <= end_date {
@@ -591,7 +591,7 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                 .await?;
             for play in &plays_daily {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    if date >= first_day_of_month && date <= today_jst - Duration::days(3) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(2) {
                         let details =
                             plays_by_isrc_details
                                 .entry(isrc.clone())

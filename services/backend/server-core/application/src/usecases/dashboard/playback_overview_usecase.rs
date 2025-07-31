@@ -176,8 +176,8 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                             .iter()
                             .filter(|p| {
                                 if let Some(date) = p.date {
-                                    // 当月分は今日から3日引いた日付が当月内の場合のみ取得
-                                    let end_date = today_jst - Duration::days(3);
+                                    // 当月分は今日から2日引いた日付が当月内の場合のみ取得
+                                    let end_date = today_jst - Duration::days(2);
                                     if end_date >= first_day_of_month {
                                         // 当月分の日次データを取得
                                         date >= first_day_of_month
@@ -207,7 +207,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                             .filter(|p| {
                                 if let Some(date) = p.date {
                                     date >= first_day_of_month
-                                        && date <= today_jst - Duration::days(3)
+                                        && date <= today_jst - Duration::days(2)
                                         && p.isrc.as_ref().unwrap() == isrc
                                 } else {
                                     false
@@ -369,7 +369,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                                 .filter(|p| {
                                     if let Some(date) = p.date {
                                         // 当月分は今日から3日引いた日付が当月内の場合のみ取得
-                                        let end_date = today_jst - Duration::days(3);
+                                        let end_date = today_jst - Duration::days(2);
                                         if end_date >= first_day_of_month {
                                             // 当月分の日次データを取得
                                             date >= first_day_of_month
@@ -399,7 +399,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                                 .filter(|p| {
                                     if let Some(date) = p.date {
                                         // 当月分は今日から3日引いた日付が当月内の場合のみ取得
-                                        let end_date = today_jst - Duration::days(3);
+                                        let end_date = today_jst - Duration::days(2);
                                         if end_date >= first_day_of_month {
                                             // 当月分の日次データを取得
                                             date >= first_day_of_month
