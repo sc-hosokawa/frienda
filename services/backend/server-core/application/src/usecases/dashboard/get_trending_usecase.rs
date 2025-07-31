@@ -249,33 +249,39 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             // 当月分の日次データ（昨日まで）
             for play in &plays_daily_all {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    if date >= first_day_of_month && date <= today_jst - Duration::days(1) {
-                        let details =
-                            plays_by_isrc_details
-                                .entry(isrc.clone())
-                                .or_insert(PlayCountDetails {
-                                    spotify: 0,
-                                    apple: 0,
-                                    line: 0,
-                                    amazon: 0,
-                                    youtube: 0,
-                                });
+                    // 当月分は今日から3日引いた日付が当月内の場合のみ取得
+                    let end_date = today_jst - Duration::days(3);
+                    if end_date >= first_day_of_month {
+                        // 当月分の日次データを取得
+                        if date >= first_day_of_month && date <= end_date {
+                            let details =
+                                plays_by_isrc_details
+                                    .entry(isrc.clone())
+                                    .or_insert(PlayCountDetails {
+                                        spotify: 0,
+                                        apple: 0,
+                                        line: 0,
+                                        amazon: 0,
+                                        youtube: 0,
+                                    });
 
-                        details.spotify += play.spotify;
-                        details.apple += play.apple;
-                        details.line += play.line;
-                        details.amazon += play.amazon.unwrap_or(0);
-                        details.youtube += play.youtube.unwrap_or(0);
+                            details.spotify += play.spotify;
+                            details.apple += play.apple;
+                            details.line += play.line;
+                            details.amazon += play.amazon.unwrap_or(0);
+                            details.youtube += play.youtube.unwrap_or(0);
 
-                        *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                            *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                        }
                     }
+                    // 当月分はデータなし（前月分のみ使用）の場合は何もしない
                 }
             }
         } else {
             // 4日以降の場合: 当月分の日次データのみ（昨日まで）
             for play in &plays_daily_all {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    if date >= first_day_of_month && date <= today_jst - Duration::days(1) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(3) {
                         let details =
                             plays_by_isrc_details
                                 .entry(isrc.clone())
@@ -549,26 +555,32 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             // 当月分の日次データ（昨日まで）
             for play in &plays_daily {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    if date >= first_day_of_month && date <= today_jst - Duration::days(1) {
-                        let details =
-                            plays_by_isrc_details
-                                .entry(isrc.clone())
-                                .or_insert(PlayCountDetails {
-                                    spotify: 0,
-                                    apple: 0,
-                                    line: 0,
-                                    amazon: 0,
-                                    youtube: 0,
-                                });
+                    // 当月分は今日から3日引いた日付が当月内の場合のみ取得
+                    let end_date = today_jst - Duration::days(3);
+                    if end_date >= first_day_of_month {
+                        // 当月分の日次データを取得
+                        if date >= first_day_of_month && date <= end_date {
+                            let details =
+                                plays_by_isrc_details
+                                    .entry(isrc.clone())
+                                    .or_insert(PlayCountDetails {
+                                        spotify: 0,
+                                        apple: 0,
+                                        line: 0,
+                                        amazon: 0,
+                                        youtube: 0,
+                                    });
 
-                        details.spotify += play.spotify;
-                        details.apple += play.apple;
-                        details.line += play.line;
-                        details.amazon += play.amazon.unwrap_or(0);
-                        details.youtube += play.youtube.unwrap_or(0);
+                            details.spotify += play.spotify;
+                            details.apple += play.apple;
+                            details.line += play.line;
+                            details.amazon += play.amazon.unwrap_or(0);
+                            details.youtube += play.youtube.unwrap_or(0);
 
-                        *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                            *plays_by_isrc.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
+                        }
                     }
+                    // 当月分はデータなし（前月分のみ使用）の場合は何もしない
                 }
             }
         } else {
@@ -579,7 +591,7 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                 .await?;
             for play in &plays_daily {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    if date >= first_day_of_month && date <= today_jst - Duration::days(1) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(3) {
                         let details =
                             plays_by_isrc_details
                                 .entry(isrc.clone())
