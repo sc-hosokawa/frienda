@@ -223,8 +223,8 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         let weekly_play_count: i32 = {
             let jst = FixedOffset::east_opt(9 * 3600).unwrap();
             let today_jst = Utc::now().with_timezone(&jst).date_naive();
-            let start_date = today_jst - Duration::days(9);
-            let end_date = today_jst - Duration::days(3);
+            let start_date = today_jst - Duration::days(8);
+            let end_date = today_jst - Duration::days(2);
 
             // 日本時間基準でフィルタリング
             isrcs
@@ -423,8 +423,8 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
             let weekly_play_count: i32 = {
                 let jst = FixedOffset::east_opt(9 * 3600).unwrap();
                 let today_jst = Utc::now().with_timezone(&jst).date_naive();
-                let start_date = today_jst - Duration::days(9);
-                let end_date = today_jst - Duration::days(3);
+                let start_date = today_jst - Duration::days(8);
+                let end_date = today_jst - Duration::days(2);
 
                 isrcs
                     .iter()
