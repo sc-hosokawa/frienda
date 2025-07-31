@@ -10,6 +10,7 @@ use domain::entities::release_report::{
 };
 use domain::entities::user_report::{ActiveModel as UserReportActiveModel, Model as UserReport};
 use mockall::predicate::*;
+use shared::error::domain_err::DomainError;
 use std::sync::Arc;
 
 // テストデータ生成用のヘルパー関数
@@ -87,7 +88,7 @@ async fn test_report_user_duplicate() {
 
     user_report_repo
         .expect_mock_create()
-        .returning(|_| Err(anyhow::anyhow!("Duplicate report")));
+        .returning(|_| Err(DomainError::ValidationError("Duplicate report".to_string())));
 
     let usecase = ReportUsecase::new(
         Arc::new(user_report_repo),
@@ -250,13 +251,13 @@ async fn test_error_cases() {
     // 各リポジトリでエラーを返すように設定
     user_report_repo
         .expect_mock_get_all()
-        .returning(|| Err(anyhow::anyhow!("Database error")));
+        .returning(|| Err(DomainError::ValidationError("Database error".to_string())));
     offer_report_repo
         .expect_mock_delete()
-        .returning(|_| Err(anyhow::anyhow!("Not found")));
+        .returning(|_| Err(DomainError::ValidationError("Not found".to_string())));
     release_report_repo
         .expect_mock_create()
-        .returning(|_| Err(anyhow::anyhow!("Invalid input")));
+        .returning(|_| Err(DomainError::ValidationError("Invalid input".to_string())));
 
     let usecase = ReportUsecase::new(
         Arc::new(user_report_repo),

@@ -3,7 +3,7 @@ use application::usecases::offer::search_tasks_usecase::{
     SearchInput, SearchTasksUsecase, SearchTasksUsecaseTrait, SearchUsecaseOptions,
 };
 use domain::entities::offers::Model as Offer;
-use domain::entities::sea_orm_active_enums::{OfferCategory, OfferStatus, UserCategory};
+use domain::entities::sea_orm_active_enums::{OfferCategory, UserCategory};
 use mockall::predicate::*;
 use std::sync::Arc;
 
@@ -13,14 +13,18 @@ fn create_test_offer(id: i32) -> Offer {
         owner: format!("user{}", id),
         title: format!("Offer {}", id),
         description: format!("Description for offer {}", id),
-        category: OfferCategory::Creation,
-        target_role: UserCategory::Creator,
-        place: Some("Tokyo".to_string()),
-        price: Some(1000),
-        status: OfferStatus::Open,
+        category: Some(OfferCategory::Creation),
+        target_role: Some(UserCategory::Creator),
+        place: "Tokyo".to_string(),
+        fee: 1000,
+        attention: Some("Test attention".to_string()),
+        required_skill: Some("Test skill".to_string()),
+        img_url: Some("http://example.com/image.jpg".to_string()),
+        publicity: true,
+        raid_id: None,
         created_at: chrono::Utc::now().naive_utc(),
         updated_at: chrono::Utc::now().naive_utc(),
-        deadline: Some(chrono::Utc::now().naive_utc()),
+        deadline: Some(chrono::Utc::now().naive_utc().to_string()),
     }
 }
 
@@ -79,7 +83,7 @@ async fn test_search_offers_by_category() {
         .await;
 
     assert!(result.is_ok());
-    assert_eq!(result.unwrap()[0].category, OfferCategory::Creation);
+    assert_eq!(result.unwrap()[0].category, Some(OfferCategory::Creation));
 }
 
 // 価格範囲による検索テスト
@@ -144,7 +148,7 @@ async fn test_search_offers_by_place() {
         .await;
 
     assert!(result.is_ok());
-    assert_eq!(result.unwrap()[0].place, Some("Tokyo".to_string()));
+    assert_eq!(result.unwrap()[0].place, "Tokyo".to_string());
 }
 
 // ターゲットロールによる検索テスト
@@ -176,7 +180,7 @@ async fn test_search_offers_by_target_role() {
         .await;
 
     assert!(result.is_ok());
-    assert_eq!(result.unwrap()[0].target_role, UserCategory::Creator);
+    assert_eq!(result.unwrap()[0].target_role, Some(UserCategory::Creator));
 }
 
 // ソート順による検索テスト

@@ -4,6 +4,7 @@ use application::usecases::community::mark_favorite_usecase::{
 };
 use domain::entities::favorites::{ActiveModel as FavoriteActiveModel, Model as Favorite};
 use mockall::predicate::*;
+use shared::error::domain_err::DomainError;
 use std::sync::Arc;
 use uuid::Uuid;
 
@@ -80,7 +81,7 @@ async fn test_mark_favorite_repository_error() {
 
     mock_repo
         .expect_mock_create()
-        .returning(|_| Err(DomainError::Unknown));
+        .returning(|_| Err(DomainError::ValidationError("Test error".to_string())));
 
     let usecase = MarkFavoriteUsecase::new(Arc::new(mock_repo));
 
@@ -100,7 +101,7 @@ async fn test_unmark_favorite_repository_error() {
     mock_repo
         .expect_mock_delete()
         .with(eq(favorite_id))
-        .returning(|_| Err(shared::error::domain_err::DomainError::Unknown));
+        .returning(|_| Err(DomainError::ValidationError("Test error".to_string())));
 
     let usecase = MarkFavoriteUsecase::new(Arc::new(mock_repo));
 

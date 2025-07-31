@@ -2,6 +2,7 @@
 
 use crate::mocks::exchange_prize_history_mock::MockMockExchangePrizeHistoryRepo;
 use crate::mocks::prize_mock::MockMockPrizesRepo;
+use crate::mocks::user_mock::MockMockUsersRepo;
 use application::usecases::prize::get_prize_list_usecase::{
     GetPrizeListByUserIdOutput, GetPrizeListInput, GetPrizeListUsecase, GetPrizeListUsecaseTrait,
 };
@@ -41,9 +42,11 @@ async fn test_get_prize_list_success() {
             Ok(prizes)
         });
 
+    let mock_users_repo = MockMockUsersRepo::new();
     let usecase = GetPrizeListUsecase::new(
         Arc::new(mock_repo),
         Arc::new(mock_exchange_prize_history_repo),
+        Arc::new(mock_users_repo),
     );
     let input = GetPrizeListInput {
         limit: 10,
@@ -86,9 +89,11 @@ async fn test_get_prize_list_empty() {
         .expect_mock_get_by_user_id()
         .returning(|user_id| Ok(vec![]));
 
+    let mock_users_repo = MockMockUsersRepo::new();
     let usecase = GetPrizeListUsecase::new(
         Arc::new(mock_repo),
         Arc::new(mock_exchange_prize_history_repo),
+        Arc::new(mock_users_repo),
     );
     let input = GetPrizeListInput {
         limit: 10,
@@ -120,9 +125,11 @@ async fn test_get_prize_list_with_pagination() {
             Ok(prizes[start..end].to_vec())
         });
 
+    let mock_users_repo = MockMockUsersRepo::new();
     let usecase = GetPrizeListUsecase::new(
         Arc::new(mock_repo),
         Arc::new(mock_exchange_prize_history_repo),
+        Arc::new(mock_users_repo),
     );
     let input = GetPrizeListInput {
         limit: 2,

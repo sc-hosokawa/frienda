@@ -3,7 +3,7 @@ use crate::entities::sea_orm_active_enums::{OfferCategory, UserCategory};
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
-#[derive(Default)]
+#[derive(Default, Debug, PartialEq)]
 pub struct SearchOptions {
     pub owner: Option<String>, // varchar(28)
     pub category: Option<OfferCategory>,
