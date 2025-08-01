@@ -317,7 +317,7 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         // 過去7日間の再生数を取得
         let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
-        let start_date = today_jst - Duration::days(9); 
+        let start_date = today_jst - Duration::days(9);
         let end_date = today_jst - Duration::days(3);
 
         let plays_daily_in_top5: Vec<PlaysDaily> = self
