@@ -56,18 +56,17 @@ impl DspsUsecaseTrait for DspsUsecase {
         let mut next_id: i32 = lastest_id + 1;
         tracing::info!("PIPELINE::DSPsUsecase:: Lastest ID: {}", lastest_id);
 
-        // 日本時間基準で2日前の日付を計算
         let jst = FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = Utc::now().with_timezone(&jst).date_naive();
-        let two_days_ago: String = (today_jst - Duration::days(2)).format("%Y%m%d").to_string();
+        let three_days_ago: String = (today_jst - Duration::days(3)).format("%Y%m%d").to_string();
         tracing::info!(
-            "PIPELINE::DSPsUsecase:: Two Days Ago (JST): {}",
-            two_days_ago
+            "PIPELINE::DSPsUsecase:: Three Days Ago (JST): {}",
+            three_days_ago
         );
 
         let mut dsps_data: Vec<DspsData> = self
             .dsp_fetcher_service
-            .fetch_dsps_data(two_days_ago)
+            .fetch_dsps_data(three_days_ago)
             .await?;
         tracing::info!("PIPELINE::DSPsUsecase:: DSPs Data: {}", dsps_data.len());
 

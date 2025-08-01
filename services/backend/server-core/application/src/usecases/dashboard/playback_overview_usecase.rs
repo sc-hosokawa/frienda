@@ -176,8 +176,8 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                             .iter()
                             .filter(|p| {
                                 if let Some(date) = p.date {
-                                    // 当月分は今日から2日引いた日付が当月内の場合のみ取得
-                                    let end_date = today_jst - Duration::days(2);
+                                    // 当月分は今日から3日引いた日付が当月内の場合のみ取得
+                                    let end_date = today_jst - Duration::days(3);
                                     if end_date >= first_day_of_month {
                                         // 当月分の日次データを取得
                                         date >= first_day_of_month
@@ -207,7 +207,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                             .filter(|p| {
                                 if let Some(date) = p.date {
                                     date >= first_day_of_month
-                                        && date <= today_jst - Duration::days(2)
+                                        && date <= today_jst - Duration::days(3)
                                         && p.isrc.as_ref().unwrap() == isrc
                                 } else {
                                     false
@@ -223,8 +223,8 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         let weekly_play_count: i32 = {
             let jst = FixedOffset::east_opt(9 * 3600).unwrap();
             let today_jst = Utc::now().with_timezone(&jst).date_naive();
-            let start_date = today_jst - Duration::days(8);
-            let end_date = today_jst - Duration::days(2);
+            let start_date = today_jst - Duration::days(9);
+            let end_date = today_jst - Duration::days(3);
 
             // 日本時間基準でフィルタリング
             isrcs
@@ -369,7 +369,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                                 .filter(|p| {
                                     if let Some(date) = p.date {
                                         // 当月分は今日から3日引いた日付が当月内の場合のみ取得
-                                        let end_date = today_jst - Duration::days(2);
+                                        let end_date = today_jst - Duration::days(3);
                                         if end_date >= first_day_of_month {
                                             // 当月分の日次データを取得
                                             date >= first_day_of_month
@@ -399,7 +399,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
                                 .filter(|p| {
                                     if let Some(date) = p.date {
                                         // 当月分は今日から3日引いた日付が当月内の場合のみ取得
-                                        let end_date = today_jst - Duration::days(2);
+                                        let end_date = today_jst - Duration::days(3);
                                         if end_date >= first_day_of_month {
                                             // 当月分の日次データを取得
                                             date >= first_day_of_month
@@ -423,8 +423,8 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
             let weekly_play_count: i32 = {
                 let jst = FixedOffset::east_opt(9 * 3600).unwrap();
                 let today_jst = Utc::now().with_timezone(&jst).date_naive();
-                let start_date = today_jst - Duration::days(8);
-                let end_date = today_jst - Duration::days(2);
+                let start_date = today_jst - Duration::days(9);
+                let end_date = today_jst - Duration::days(3);
 
                 isrcs
                     .iter()

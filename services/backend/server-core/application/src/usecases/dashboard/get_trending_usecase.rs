@@ -246,11 +246,11 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                 }
             }
 
-            // 当月分の日次データ（昨日まで）
+            // 当月分の日次データ（3日前まで）
             for play in &plays_daily_all {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    // 当月分は今日から2日引いた日付が当月内の場合のみ取得
-                    let end_date = today_jst - Duration::days(2);
+                    // 当月分は今日から3日引いた日付が当月内の場合のみ取得
+                    let end_date = today_jst - Duration::days(3);
                     if end_date >= first_day_of_month {
                         // 当月分の日次データを取得
                         if date >= first_day_of_month && date <= end_date {
@@ -277,10 +277,10 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                 }
             }
         } else {
-            // 4日以降の場合: 当月分の日次データのみ（昨日まで）
+            // 4日以降の場合: 当月分の日次データのみ（3日前まで）
             for play in &plays_daily_all {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    if date >= first_day_of_month && date <= today_jst - Duration::days(2) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(3) {
                         let details =
                             plays_by_isrc_details
                                 .entry(isrc.clone())
@@ -317,8 +317,8 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         // 過去7日間の再生数を取得
         let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
-        let start_date = today_jst - Duration::days(8);
-        let end_date = today_jst - Duration::days(2);
+        let start_date = today_jst - Duration::days(9); 
+        let end_date = today_jst - Duration::days(3);
 
         let plays_daily_in_top5: Vec<PlaysDaily> = self
             .plays_daily_repo
@@ -551,11 +551,11 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                 }
             }
 
-            // 当月分の日次データ（昨日まで）
+            // 当月分の日次データ（3日前まで）
             for play in &plays_daily {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    // 当月分は今日から2日引いた日付が当月内の場合のみ取得
-                    let end_date = today_jst - Duration::days(2);
+                    // 当月分は今日から3日引いた日付が当月内の場合のみ取得
+                    let end_date = today_jst - Duration::days(3);
                     if end_date >= first_day_of_month {
                         // 当月分の日次データを取得
                         if date >= first_day_of_month && date <= end_date {
@@ -582,14 +582,14 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                 }
             }
         } else {
-            // 4日以降の場合: 当月分の日次データのみ（昨日まで）
+            // 4日以降の場合: 当月分の日次データのみ（3日前まで）
             let plays_daily: Vec<PlaysDaily> = self
                 .plays_daily_repo
                 .find_by_isrcs(isrcs_in_upc.clone())
                 .await?;
             for play in &plays_daily {
                 if let (Some(date), Some(isrc)) = (play.date, play.isrc.clone()) {
-                    if date >= first_day_of_month && date <= today_jst - Duration::days(2) {
+                    if date >= first_day_of_month && date <= today_jst - Duration::days(3) {
                         let details =
                             plays_by_isrc_details
                                 .entry(isrc.clone())
@@ -620,8 +620,8 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         // 日本時間基準での週間集計
         let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
-        let start_date = today_jst - Duration::days(8); // 8日前
-        let end_date = today_jst - Duration::days(2); // 2日前
+        let start_date = today_jst - Duration::days(9); // 9日前
+        let end_date = today_jst - Duration::days(3); // 3日前
 
         // フィルタリング処理
         let plays_daily: Vec<PlaysDaily> = self
