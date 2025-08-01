@@ -4,6 +4,7 @@ use application::usecases::credit::register_usecase::{
 };
 use domain::entities::track_credits::Model as TrackCredits;
 use mockall::predicate::*;
+use sea_orm::ActiveValue;
 use std::sync::Arc;
 
 fn create_test_track_credits(
@@ -99,21 +100,51 @@ async fn test_register_multiple_credits() {
     };
 
     mock_repo
-        .expect_create()
+        .expect_mock_create()
         .times(2)
         .returning(move |track_credits| {
+            let isrc = match &track_credits.isrc {
+                ActiveValue::Set(v) => v.as_str(),
+                _ => "default_isrc",
+            };
+            let commit_user = match &track_credits.commit_user {
+                ActiveValue::Set(v) => v.as_str(),
+                _ => "default_user",
+            };
+            let credit_role = match &track_credits.credit_role {
+                ActiveValue::Set(v) => v.as_str(),
+                _ => "default_role",
+            };
+            let credit_name = match &track_credits.credit_name {
+                ActiveValue::Set(v) => v.as_str(),
+                _ => "default_name",
+            };
+            let credit_user = match &track_credits.credit_user {
+                ActiveValue::Set(v) => v.as_deref().unwrap_or(""),
+                _ => "",
+            };
+            let email = match &track_credits.email {
+                ActiveValue::Set(v) => v.as_str(),
+                _ => "default@email.com",
+            };
+            let is_invite = match &track_credits.is_invite {
+                ActiveValue::Set(v) => v.unwrap_or(false),
+                _ => false,
+            };
+            let memo = match &track_credits.memo {
+                ActiveValue::Set(v) => v.as_deref(),
+                _ => None,
+            };
+
             Ok(create_test_track_credits(
-                &track_credits.isrc.as_ref().unwrap(),
-                &track_credits.commit_user.as_ref().unwrap(),
-                &track_credits.credit_role.as_ref().unwrap(),
-                &track_credits.credit_name.as_ref().unwrap(),
-                &track_credits.email.as_ref().unwrap(),
-                track_credits.is_invite.as_ref().unwrap().unwrap(),
-                track_credits
-                    .memo
-                    .as_ref()
-                    .map(|v| v.as_ref())
-                    .unwrap_or(None),
+                isrc,
+                commit_user,
+                credit_role,
+                credit_name,
+                credit_user,
+                email,
+                is_invite,
+                memo,
             ))
         });
 

@@ -117,6 +117,8 @@ async fn test_exchange_prize_success() {
                 point_used: 100,
                 amount: 1,
                 exchanged_at: chrono::Utc::now().naive_utc(),
+                is_requested: false,
+                requested_at: None,
                 is_used: false,
                 used_at: None,
             })

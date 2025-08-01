@@ -28,6 +28,7 @@ pub trait MockTrackCreditsRepo {
     ) -> Result<Vec<TrackCredits>, DomainError>;
     async fn mock_all_credits(&self, count: i32) -> Result<Vec<TrackCredits>, DomainError>;
     async fn mock_count_credits(&self) -> Result<i64, DomainError>;
+    async fn mock_delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError>;
 }
 
 #[async_trait]
@@ -72,5 +73,9 @@ impl TrackCreditsRepository for MockMockTrackCreditsRepo {
 
     async fn count_credits(&self) -> Result<i64, DomainError> {
         self.mock_count_credits().await
+    }
+
+    async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError> {
+        self.mock_delete_by_isrc(isrc).await
     }
 }

@@ -33,7 +33,7 @@ pub trait MockExchangePrizeHistoryRepo {
         &self,
         user_id: &str,
         prize_id: i32,
-    ) -> Result<Option<ExchangePrizeHistory>, DomainError>;
+    ) -> Result<Vec<ExchangePrizeHistory>, DomainError>;
 }
 
 #[async_trait]
@@ -82,7 +82,7 @@ impl ExchangePrizeHistoryRepository for MockMockExchangePrizeHistoryRepo {
         &self,
         user_id: &str,
         prize_id: i32,
-    ) -> Result<Option<ExchangePrizeHistory>, DomainError> {
+    ) -> Result<Vec<ExchangePrizeHistory>, DomainError> {
         self.mock_get_by_user_id_and_prize_id(user_id, prize_id)
             .await
     }

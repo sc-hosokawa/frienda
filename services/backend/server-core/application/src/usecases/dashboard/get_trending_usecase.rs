@@ -254,16 +254,15 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                     if end_date >= first_day_of_month {
                         // 当月分の日次データを取得
                         if date >= first_day_of_month && date <= end_date {
-                            let details =
-                                plays_by_isrc_details
-                                    .entry(isrc.clone())
-                                    .or_insert(PlayCountDetails {
-                                        spotify: 0,
-                                        apple: 0,
-                                        line: 0,
-                                        amazon: 0,
-                                        youtube: 0,
-                                    });
+                            let details = plays_by_isrc_details.entry(isrc.clone()).or_insert(
+                                PlayCountDetails {
+                                    spotify: 0,
+                                    apple: 0,
+                                    line: 0,
+                                    amazon: 0,
+                                    youtube: 0,
+                                },
+                            );
 
                             details.spotify += play.spotify;
                             details.apple += play.apple;
@@ -560,16 +559,15 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                     if end_date >= first_day_of_month {
                         // 当月分の日次データを取得
                         if date >= first_day_of_month && date <= end_date {
-                            let details =
-                                plays_by_isrc_details
-                                    .entry(isrc.clone())
-                                    .or_insert(PlayCountDetails {
-                                        spotify: 0,
-                                        apple: 0,
-                                        line: 0,
-                                        amazon: 0,
-                                        youtube: 0,
-                                    });
+                            let details = plays_by_isrc_details.entry(isrc.clone()).or_insert(
+                                PlayCountDetails {
+                                    spotify: 0,
+                                    apple: 0,
+                                    line: 0,
+                                    amazon: 0,
+                                    youtube: 0,
+                                },
+                            );
 
                             details.spotify += play.spotify;
                             details.apple += play.apple;

@@ -10,6 +10,7 @@ pub struct SearchInput {
     pub options: SearchUsecaseOptions,
 }
 
+#[derive(Default)]
 pub struct SearchUsecaseOptions {
     pub owner: Option<String>,
     pub category: Option<OfferCategory>,
