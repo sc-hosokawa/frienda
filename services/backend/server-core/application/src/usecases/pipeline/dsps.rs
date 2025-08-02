@@ -142,9 +142,9 @@ impl DspsUsecaseTrait for DspsUsecase {
                 id: ActiveValue::Set(next_id),
                 isrc: ActiveValue::Set(Some(data.isrc)),
                 month: ActiveValue::Set(Some(
-                    NaiveDate::parse_from_str(&data.date, "%Y%m").map_err(|e| {
-                        anyhow::anyhow!("Failed to parse date '{}': {}", data.date, e)
-                    })?,
+                    NaiveDate::parse_from_str(&format!("{}01", data.date), "%Y%m%d").map_err(
+                        |e| anyhow::anyhow!("Failed to parse month '{}': {}", data.date, e),
+                    )?,
                 )),
                 spotify: ActiveValue::Set(data.spotify),
                 apple: ActiveValue::Set(data.apple),
