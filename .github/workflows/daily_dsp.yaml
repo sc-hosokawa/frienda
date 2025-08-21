@@ -6,17 +6,17 @@ on:
     - cron: '0 15 * * *'
 
 jobs:
-  update-staging:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Update DSPs (Staging)
-        run: |
-          curl -X POST \
-            ${{ secrets.API_ENDPOINT }}/pipeline/dsps/daily \
-            -d '${{ secrets.DSP_KEY }}'
+#  update-staging:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Update DSPs (Staging)
+#        run: |
+#          curl -X POST \
+#            ${{ secrets.API_ENDPOINT }}/pipeline/dsps/daily \
+#            -d '${{ secrets.DSP_KEY }}'
 
   update-production:
-    needs: [update-staging]
+#    needs: [update-staging]
     runs-on: ubuntu-latest
     steps:
       - name: Update DSPs (Production)
