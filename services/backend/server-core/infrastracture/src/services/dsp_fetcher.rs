@@ -60,8 +60,8 @@ pub struct DspFetcherService {
 
 impl DspFetcherService {
     pub async fn new() -> Result<Self, anyhow::Error> {
-        let service_account_json: String = env::var("SERVICE_ACCOUNT_DSP")
-            .expect("SERVICE_ACCOUNT_DSP environment variable not set");
+        let service_account_json: String = env::var("SCR_SERVICE_ACCOUNT_DSP")
+            .expect("SCR_SERVICE_ACCOUNT_DSP environment variable not set");
 
         let decoded: Vec<u8> = base64::decode(service_account_json)?;
         let secret: oauth2::ServiceAccountKey = serde_json::from_slice(&decoded)?;
@@ -83,6 +83,7 @@ impl DspFetcherService {
         Ok(Self { client: hub })
     }
 
+    // Spotify Authorization
     async fn get_authorization_token(client: &Client) -> Result<String, anyhow::Error> {
         let client_id: String =
             std::env::var("CLIENT_ID").expect("CLIENT_ID environment variable not set");
@@ -206,20 +207,20 @@ impl DspFetcherServiceTrait for DspFetcherService {
                 query_template.replace("{}", &date)
             }
             8 => {
-                let encoded_template = std::env::var("DSP_QUERY_DAILY_TEMPLATE")
+                let encoded_template = std::env::var("SCR_DSP_QUERY_DAILY_TEMPLATE")
                     .map_err(|_| anyhow::anyhow!("DSP_QUERY_DAILY_TEMPLATE environment variable is not set"))?;
                 let query_template = base64::decode(&encoded_template)
-                    .map_err(|_| anyhow::anyhow!("Failed to decode DSP_QUERY_DAILY_TEMPLATE from base64"))?;
+                    .map_err(|_| anyhow::anyhow!("Failed to decode SCR_DSP_QUERY_DAILY_TEMPLATE from base64"))?;
                 let query_template = String::from_utf8(query_template)
                     .map_err(|_| anyhow::anyhow!("Failed to convert decoded template to UTF-8"))?;
                 query_template.replace("{}", &date)
             }
             _ => return Err(anyhow::anyhow!("Invalid date format. Expected 6 digits (YYYYMM) for monthly or 8 digits (YYYYMMDD) for daily")),
         };
-        let location = std::env::var("LOCATION")
-            .map_err(|_| anyhow::anyhow!("LOCATION environment variable is not set"))?;
-        let pj_id: String = std::env::var("DSP_PJ_ID")
-            .map_err(|_| anyhow::anyhow!("DSP_PJ_ID environment variable is not set"))?;
+        let location = std::env::var("SCR_LOCATION")
+            .map_err(|_| anyhow::anyhow!("SCR_LOCATION environment variable is not set"))?;
+        let pj_id: String = std::env::var("SCR_DSP_PJ_ID")
+            .map_err(|_| anyhow::anyhow!("SCR_DSP_PJ_ID environment variable is not set"))?;
 
         tracing::info!("PIPELINE::DSPFetcherService:: Query: {}", query);
 
