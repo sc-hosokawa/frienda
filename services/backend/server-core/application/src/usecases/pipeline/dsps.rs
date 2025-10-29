@@ -86,9 +86,11 @@ impl DspsUsecaseTrait for DspsUsecase {
                 spotify: ActiveValue::Set(data.spotify),
                 apple: ActiveValue::Set(data.apple),
                 line: ActiveValue::Set(data.line),
-                amazon: ActiveValue::Set(Some(0)),
-                youtube: ActiveValue::Set(Some(0)),
-                sum: ActiveValue::Set(Some(data.spotify + data.apple + data.line)),
+                amazon: ActiveValue::Set(Some(data.amazon)),
+                youtube: ActiveValue::Set(Some(data.youtube)),
+                sum: ActiveValue::Set(Some(
+                    data.spotify + data.apple + data.line + data.amazon + data.youtube,
+                )),
             });
             next_id += 1;
         }
@@ -149,14 +151,10 @@ impl DspsUsecaseTrait for DspsUsecase {
                 spotify: ActiveValue::Set(data.spotify),
                 apple: ActiveValue::Set(data.apple),
                 line: ActiveValue::Set(data.line),
-                amazon: ActiveValue::Set(data.amazon.unwrap_or(0)),
-                youtube: ActiveValue::Set(data.youtube.unwrap_or(0)),
+                amazon: ActiveValue::Set(data.amazon),
+                youtube: ActiveValue::Set(data.youtube),
                 sum: ActiveValue::Set(Some(
-                    data.spotify
-                        + data.apple
-                        + data.line
-                        + data.amazon.unwrap_or(0)
-                        + data.youtube.unwrap_or(0),
+                    data.spotify + data.apple + data.line + data.amazon + data.youtube,
                 )),
             });
             next_id += 1;

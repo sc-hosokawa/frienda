@@ -26,8 +26,8 @@ pub struct StreamingData {
     pub spotify: i32,
     pub apple: i32,
     pub line: i32,
-    pub youtube: Option<i32>,
-    pub amazon: Option<i32>,
+    pub youtube: i32,
+    pub amazon: i32,
 }
 
 #[derive(Debug, Clone)]
@@ -237,6 +237,8 @@ impl DspFetcherServiceTrait for DspFetcherService {
         if let Some(job_ref) = query_res.job_reference {
             let job_id = job_ref.job_id.unwrap();
             let project_id = job_ref.project_id.unwrap();
+            println!("PIPELINE::DSPFetcherService:: Project ID: {}", project_id);
+            println!("PIPELINE::DSPFetcherService:: Job ID: {}", job_id);
             let location = job_ref
                 .location
                 .unwrap_or_else(|| "asia-northeast1".to_string());
@@ -265,7 +267,6 @@ impl DspFetcherServiceTrait for DspFetcherService {
                     if let Some(rows) = result.1.rows {
                         for row in rows {
                             if let Some(cells) = row.f {
-                                println!("PIPELINE::DSPFetcherService:: Cells: {:?}", cells);
                                 let data = StreamingData {
                                     date: cells[0]
                                         .v
@@ -310,22 +311,24 @@ impl DspFetcherServiceTrait for DspFetcherService {
                                         .to_string()
                                         .parse::<i32>()
                                         .unwrap_or(0),
-                                    youtube: cells.get(5).and_then(|cell| cell.v.as_ref()).map(
-                                        |v| {
-                                            v.to_string()
-                                                .trim_matches('"')
-                                                .parse::<i32>()
-                                                .unwrap_or(0)
-                                        },
-                                    ),
-                                    amazon: cells.get(6).and_then(|cell| cell.v.as_ref()).map(
-                                        |v| {
-                                            v.to_string()
-                                                .trim_matches('"')
-                                                .parse::<i32>()
-                                                .unwrap_or(0)
-                                        },
-                                    ),
+                                    youtube: cells[5]
+                                        .v
+                                        .as_ref()
+                                        .unwrap()
+                                        .to_string()
+                                        .trim_matches('"')
+                                        .to_string()
+                                        .parse::<i32>()
+                                        .unwrap_or(0),
+                                    amazon: cells[6]
+                                        .v
+                                        .as_ref()
+                                        .unwrap()
+                                        .to_string()
+                                        .trim_matches('"')
+                                        .to_string()
+                                        .parse::<i32>()
+                                        .unwrap_or(0),
                                 };
                                 streaming_data.push(data);
                             }
