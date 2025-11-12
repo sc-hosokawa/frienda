@@ -193,10 +193,14 @@ impl DspFetcherService {
 
 #[async_trait]
 impl DspFetcherServiceTrait for DspFetcherService {
-    async fn fetch_dsps_data(&self, date: String) -> Result<Vec<DspsData>, anyhow::Error> {
+    async fn fetch_dsps_data(
+        &self,
+        start_date: Option<String>,
+        end_date: String,
+    ) -> Result<Vec<DspsData>, anyhow::Error> {
         let start_time = Instant::now();
 
-        let query: String = match date.len() {
+        let query: String = match end_date.len() {
             6 => {
                 let encoded_template = std::env::var("DSP_QUERY_MONTHLY_TEMPLATE")
                     .map_err(|_| anyhow::anyhow!("DSP_QUERY_MONTHLY_TEMPLATE environment variable is not set"))?;
@@ -204,16 +208,21 @@ impl DspFetcherServiceTrait for DspFetcherService {
                     .map_err(|_| anyhow::anyhow!("Failed to decode DSP_QUERY_MONTHLY_TEMPLATE from base64"))?;
                 let query_template = String::from_utf8(query_template)
                     .map_err(|_| anyhow::anyhow!("Failed to convert decoded template to UTF-8"))?;
-                query_template.replace("{}", &date)
+                query_template.replace("{}", &end_date)
             }
             8 => {
+                let start_date = start_date
+                    .as_deref()
+                    .ok_or_else(|| anyhow::anyhow!("start_date is required for daily query"))?;
                 let encoded_template = std::env::var("SCR_DSP_QUERY_DAILY_TEMPLATE")
                     .map_err(|_| anyhow::anyhow!("DSP_QUERY_DAILY_TEMPLATE environment variable is not set"))?;
                 let query_template = base64::decode(&encoded_template)
                     .map_err(|_| anyhow::anyhow!("Failed to decode SCR_DSP_QUERY_DAILY_TEMPLATE from base64"))?;
                 let query_template = String::from_utf8(query_template)
                     .map_err(|_| anyhow::anyhow!("Failed to convert decoded template to UTF-8"))?;
-                query_template.replace("{}", &date)
+                query_template
+                    .replace("{start_date}", start_date)
+                    .replace("{end_date}", &end_date)
             }
             _ => return Err(anyhow::anyhow!("Invalid date format. Expected 6 digits (YYYYMM) for monthly or 8 digits (YYYYMMDD) for daily")),
         };
@@ -237,6 +246,8 @@ impl DspFetcherServiceTrait for DspFetcherService {
         if let Some(job_ref) = query_res.job_reference {
             let job_id = job_ref.job_id.unwrap();
             let project_id = job_ref.project_id.unwrap();
+            println!("PIPELINE::DSPFetcherService:: Start Date: {:?}", start_date);
+            println!("PIPELINE::DSPFetcherService:: End Date: {:?}", end_date);
             println!("PIPELINE::DSPFetcherService:: Project ID: {}", project_id);
             println!("PIPELINE::DSPFetcherService:: Job ID: {}", job_id);
             let location = job_ref
@@ -256,84 +267,102 @@ impl DspFetcherServiceTrait for DspFetcherService {
                     .await?;
 
                 if job_status.1.status.unwrap().state.unwrap() == "DONE" {
-                    let result = self
-                        .client
-                        .jobs()
-                        .get_query_results(project_id.as_str(), job_id.as_str())
-                        .location(&location)
-                        .doit()
-                        .await?;
+                    let mut page_token: Option<String> = None;
 
-                    if let Some(rows) = result.1.rows {
-                        for row in rows {
-                            if let Some(cells) = row.f {
-                                let data = StreamingData {
-                                    date: cells[0]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string(),
-                                    isrc: match cells[1].v.as_ref() {
-                                        Some(v)
-                                            if v.to_string() != "null"
-                                                && !v.to_string().trim_matches('"').is_empty() =>
-                                        {
-                                            v.to_string().trim_matches('"').to_string()
-                                        }
-                                        _ => continue, // Skip this record if ISRC is null or empty
-                                    },
-                                    spotify: cells[2]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string()
-                                        .parse::<i32>()
-                                        .unwrap_or(0),
-                                    apple: cells[3]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string()
-                                        .parse::<i32>()
-                                        .unwrap_or(0),
-                                    line: cells[4]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string()
-                                        .parse::<i32>()
-                                        .unwrap_or(0),
-                                    youtube: cells[5]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string()
-                                        .parse::<i32>()
-                                        .unwrap_or(0),
-                                    amazon: cells[6]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string()
-                                        .parse::<i32>()
-                                        .unwrap_or(0),
-                                };
-                                streaming_data.push(data);
+                    loop {
+                        let mut query_results_call = self
+                            .client
+                            .jobs()
+                            .get_query_results(project_id.as_str(), job_id.as_str())
+                            .location(&location)
+                            .max_results(1000);
+
+                        if let Some(ref token) = page_token {
+                            query_results_call = query_results_call.page_token(token);
+                        }
+
+                        let result = query_results_call.doit().await?;
+
+                        if let Some(rows) = result.1.rows {
+                            for row in rows {
+                                if let Some(cells) = row.f {
+                                    let data = StreamingData {
+                                        date: cells[0]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string(),
+                                        isrc: match cells[1].v.as_ref() {
+                                            Some(v)
+                                                if v.to_string() != "null"
+                                                    && !v
+                                                        .to_string()
+                                                        .trim_matches('"')
+                                                        .is_empty() =>
+                                            {
+                                                v.to_string().trim_matches('"').to_string()
+                                            }
+                                            _ => continue, // Skip this record if ISRC is null or empty
+                                        },
+                                        spotify: cells[2]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                        apple: cells[3]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                        line: cells[4]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                        youtube: cells[5]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                        amazon: cells[6]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                    };
+                                    streaming_data.push(data);
+                                }
                             }
                         }
+
+                        match result.1.page_token {
+                            Some(token) => page_token = Some(token),
+                            None => break,
+                        }
                     }
+
                     break;
                 }
 

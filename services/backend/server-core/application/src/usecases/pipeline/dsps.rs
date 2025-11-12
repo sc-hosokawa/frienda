@@ -49,6 +49,9 @@ impl DspsUsecase {
 #[async_trait]
 impl DspsUsecaseTrait for DspsUsecase {
     async fn add_daily_plays(&self) -> Result<(), anyhow::Error> {
+        const START_OFFSET_DAYS: i64 = 3;
+        const WINDOW_DAYS: i64 = 14;
+
         let isrcs: Vec<String> = self.tracks_repo.find_all_isrcs().await?;
         tracing::info!("PIPELINE::DSPsUsecase:: ISRCs: {}", isrcs.len());
 
@@ -58,15 +61,18 @@ impl DspsUsecaseTrait for DspsUsecase {
 
         let jst = FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = Utc::now().with_timezone(&jst).date_naive();
-        let three_days_ago: String = (today_jst - Duration::days(3)).format("%Y%m%d").to_string();
-        tracing::info!(
-            "PIPELINE::DSPsUsecase:: Three Days Ago (JST): {}",
-            three_days_ago
-        );
+        let end_date: String = (today_jst - Duration::days(START_OFFSET_DAYS))
+            .format("%Y%m%d")
+            .to_string();
+        let start_date: String = (today_jst - Duration::days(START_OFFSET_DAYS + WINDOW_DAYS))
+            .format("%Y%m%d")
+            .to_string();
+        tracing::info!("PIPELINE::DSPsUsecase:: Start Date (JST): {}", start_date);
+        tracing::info!("PIPELINE::DSPsUsecase:: End Date (JST): {}", end_date);
 
         let mut dsps_data: Vec<DspsData> = self
             .dsp_fetcher_service
-            .fetch_dsps_data(three_days_ago)
+            .fetch_dsps_data(Some(start_date), end_date)
             .await?;
         tracing::info!("PIPELINE::DSPsUsecase:: DSPs Data: {}", dsps_data.len());
 
@@ -131,7 +137,7 @@ impl DspsUsecaseTrait for DspsUsecase {
 
         let mut dsps_data: Vec<DspsData> = self
             .dsp_fetcher_service
-            .fetch_dsps_data(one_month_ago)
+            .fetch_dsps_data(None, one_month_ago)
             .await?;
         tracing::info!("PIPELINE::DSPsUsecase:: DSPs Data: {}", dsps_data.len());
 
