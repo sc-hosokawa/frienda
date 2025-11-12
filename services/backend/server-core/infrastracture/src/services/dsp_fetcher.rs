@@ -246,10 +246,6 @@ impl DspFetcherServiceTrait for DspFetcherService {
         if let Some(job_ref) = query_res.job_reference {
             let job_id = job_ref.job_id.unwrap();
             let project_id = job_ref.project_id.unwrap();
-            println!("PIPELINE::DSPFetcherService:: Start Date: {:?}", start_date);
-            println!("PIPELINE::DSPFetcherService:: End Date: {:?}", end_date);
-            println!("PIPELINE::DSPFetcherService:: Project ID: {}", project_id);
-            println!("PIPELINE::DSPFetcherService:: Job ID: {}", job_id);
             let location = job_ref
                 .location
                 .unwrap_or_else(|| "asia-northeast1".to_string());
