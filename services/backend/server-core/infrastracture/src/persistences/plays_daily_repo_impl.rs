@@ -163,4 +163,35 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
             .map_err(|e| DomainError::DatabaseError(e.to_string()))?;
         Ok(res)
     }
+
+    async fn find_between_start_and_end(
+        &self,
+        start_date: &str,
+        end_date: &str,
+    ) -> Result<Vec<PlaysDaily>, DomainError> {
+        // まず日付文字列を一貫したフォーマットに変換
+        let normalized_date = date.replace("/", "-");
+
+        let start_date: NaiveDate = NaiveDate::parse_from_str(&normalized_date, "%Y-%m-%d")
+            .map_err(|e| {
+                tracing::error!("Date parse error: {} for input: {}", e, normalized_date);
+                DomainError::DatabaseError(e.to_string())
+            })?;
+        let end_date: NaiveDate =
+            NaiveDate::parse_from_str(&normalized_date, "%Y-%m-%d").map_err(|e| {
+                tracing::error!("Date parse error: {} for input: {}", e, normalized_date);
+                DomainError::DatabaseError(e.to_string())
+            })?;
+
+        tracing::trace!("Query data between {} and {}", start_date, end_date);
+
+        // Query records within date range
+        let res: Vec<PlaysDaily> = PlaysDailyEntity::find()
+            .filter(Column::Date.gte(start_date))
+            .filter(Column::Date.lte(end_date))
+            .all(&self.db)
+            .await?;
+
+        Ok(res)
+    }
 }
