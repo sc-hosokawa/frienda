@@ -147,7 +147,6 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
     async fn find_by_date(&self, date: &str) -> Result<Vec<PlaysDaily>, DomainError> {
         tracing::info!("Attempting to parse date: {}", date);
 
-        // まず日付文字列を一貫したフォーマットに変換
         let normalized_date = date.replace("/", "-");
 
         let target_date: NaiveDate = NaiveDate::parse_from_str(&normalized_date, "%Y-%m-%d")
@@ -169,23 +168,26 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
         start_date: &str,
         end_date: &str,
     ) -> Result<Vec<PlaysDaily>, DomainError> {
-        // まず日付文字列を一貫したフォーマットに変換
-        let normalized_date = date.replace("/", "-");
+        let normalized_start_date = start_date.replace("/", "-");
+        let normalized_end_date = end_date.replace("/", "-");
 
-        let start_date: NaiveDate = NaiveDate::parse_from_str(&normalized_date, "%Y-%m-%d")
+        let start_date: NaiveDate = NaiveDate::parse_from_str(&normalized_start_date, "%Y-%m-%d")
             .map_err(|e| {
-                tracing::error!("Date parse error: {} for input: {}", e, normalized_date);
-                DomainError::DatabaseError(e.to_string())
-            })?;
-        let end_date: NaiveDate =
-            NaiveDate::parse_from_str(&normalized_date, "%Y-%m-%d").map_err(|e| {
-                tracing::error!("Date parse error: {} for input: {}", e, normalized_date);
+            tracing::error!(
+                "Date parse error: {} for input: {}",
+                e,
+                normalized_start_date
+            );
+            DomainError::DatabaseError(e.to_string())
+        })?;
+        let end_date: NaiveDate = NaiveDate::parse_from_str(&normalized_end_date, "%Y-%m-%d")
+            .map_err(|e| {
+                tracing::error!("Date parse error: {} for input: {}", e, normalized_end_date);
                 DomainError::DatabaseError(e.to_string())
             })?;
 
         tracing::trace!("Query data between {} and {}", start_date, end_date);
 
-        // Query records within date range
         let res: Vec<PlaysDaily> = PlaysDailyEntity::find()
             .filter(Column::Date.gte(start_date))
             .filter(Column::Date.lte(end_date))

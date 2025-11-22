@@ -134,7 +134,8 @@ impl DspsUsecaseTrait for DspsUsecase {
                 let matched_record = other_dates_vec
                     .iter()
                     .find(|d: &&DspsData| {
-                        d.isrc == records.isrc.unwrap() && d.date == records.date.unwrap()
+                        records.isrc.as_ref() == Some(&d.isrc)
+                            && NaiveDate::parse_from_str(&d.date, "%Y%m%d").ok() == records.date
                     })
                     .unwrap();
 
