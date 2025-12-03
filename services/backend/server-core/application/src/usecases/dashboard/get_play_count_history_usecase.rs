@@ -1,15 +1,14 @@
 use async_trait::async_trait;
+use chrono::{Datelike, Months, NaiveDate, Utc};
 use serde::Serialize;
 use std::collections::HashMap;
 use std::sync::Arc;
 
 use domain::entities::plays_daily::Model as PlaysDaily;
-use domain::entities::plays_monthly::Model as PlaysMonthly;
 use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::tracks::Model as Tracks;
 use domain::repositories::gender_gen_playback_repo::GenderGenPlaybackRepository;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
-use domain::repositories::plays_monthly_repo::PlaysMonthlyRepository;
 use domain::repositories::product_track_repo::ProductTrackRepository;
 use domain::repositories::products_repo::ProductsRepository;
 use domain::repositories::tracks_repo::TracksRepository;
@@ -71,7 +70,6 @@ pub trait GetPlayCountHistoryUsecaseTrait: Send + Sync {
 }
 
 pub struct GetPlayCountHistoryUsecase {
-    plays_monthly_repo: Arc<dyn PlaysMonthlyRepository>,
     plays_daily_repo: Arc<dyn PlaysDailyRepository>,
     gender_gen_playback_repo: Arc<dyn GenderGenPlaybackRepository>,
     products_repo: Arc<dyn ProductsRepository>,
@@ -81,7 +79,6 @@ pub struct GetPlayCountHistoryUsecase {
 
 impl GetPlayCountHistoryUsecase {
     pub fn new(
-        plays_monthly_repo: Arc<dyn PlaysMonthlyRepository>,
         plays_daily_repo: Arc<dyn PlaysDailyRepository>,
         gender_gen_playback_repo: Arc<dyn GenderGenPlaybackRepository>,
         products_repo: Arc<dyn ProductsRepository>,
@@ -89,13 +86,144 @@ impl GetPlayCountHistoryUsecase {
         tracks_repo: Arc<dyn TracksRepository>,
     ) -> Self {
         Self {
-            plays_monthly_repo,
             plays_daily_repo,
             gender_gen_playback_repo,
             products_repo,
             product_track_repo,
             tracks_repo,
         }
+    }
+
+    fn monthly_range(period: i32) -> Result<(NaiveDate, NaiveDate), anyhow::Error> {
+        if period <= 0 {
+            return Err(anyhow::anyhow!("Invalid period"));
+        }
+
+        let today = Utc::now().date_naive();
+        let first_day_this_month = NaiveDate::from_ymd_opt(today.year(), today.month(), 1)
+            .ok_or_else(|| {
+                anyhow::anyhow!("Failed to compute the first day of the current month")
+            })?;
+        let latest_month_start = first_day_this_month
+            .checked_sub_months(Months::new(1))
+            .ok_or_else(|| anyhow::anyhow!("Invalid date calculation"))?;
+        let start_month = latest_month_start
+            .checked_sub_months(Months::new((period - 1) as u32))
+            .ok_or_else(|| anyhow::anyhow!("Invalid date calculation"))?;
+        let end_date = first_day_this_month
+            .pred_opt()
+            .ok_or_else(|| anyhow::anyhow!("Invalid date calculation"))?;
+
+        Ok((start_month, end_date))
+    }
+
+    fn aggregate_daily_by_month(
+        plays: Vec<PlaysDaily>,
+        start: Option<NaiveDate>,
+        end: Option<NaiveDate>,
+    ) -> Vec<ChartDataByDSP> {
+        let mut aggregated_data: HashMap<String, ChartDataByDSP> = HashMap::new();
+
+        for play in plays.into_iter() {
+            let date = match play.date {
+                Some(date) => date,
+                None => continue,
+            };
+
+            if let Some(start_date) = start {
+                if date < start_date {
+                    continue;
+                }
+            }
+            if let Some(end_date) = end {
+                if date > end_date {
+                    continue;
+                }
+            }
+
+            let month_key = date.format("%Y-%m").to_string();
+            aggregated_data
+                .entry(month_key.clone())
+                .and_modify(|e| {
+                    e.spotify += play.spotify;
+                    e.apple += play.apple;
+                    e.line += play.line;
+                    e.amazon += play.amazon.unwrap_or(0);
+                    e.youtube += play.youtube.unwrap_or(0);
+                })
+                .or_insert(ChartDataByDSP {
+                    date: month_key,
+                    spotify: play.spotify,
+                    apple: play.apple,
+                    line: play.line,
+                    amazon: play.amazon.unwrap_or(0),
+                    youtube: play.youtube.unwrap_or(0),
+                });
+        }
+
+        let mut chart_data = aggregated_data
+            .into_values()
+            .collect::<Vec<ChartDataByDSP>>();
+        chart_data.sort_by(|a, b| a.date.cmp(&b.date));
+        chart_data
+    }
+
+    fn aggregate_daily_sum_by_month(
+        plays: Vec<PlaysDaily>,
+        start: Option<NaiveDate>,
+        end: Option<NaiveDate>,
+        isrc_to_title: &HashMap<String, String>,
+    ) -> Vec<ChartDataByISRC> {
+        let mut aggregated: HashMap<String, HashMap<String, i32>> = HashMap::new();
+
+        for play in plays.into_iter() {
+            let date = match play.date {
+                Some(date) => date,
+                None => continue,
+            };
+
+            if let Some(start_date) = start {
+                if date < start_date {
+                    continue;
+                }
+            }
+            if let Some(end_date) = end {
+                if date > end_date {
+                    continue;
+                }
+            }
+
+            let isrc = match play.isrc {
+                Some(isrc) => isrc,
+                None => continue,
+            };
+
+            let title = match isrc_to_title.get(&isrc) {
+                Some(title) => title.clone(),
+                None => continue,
+            };
+
+            let month_key = date.format("%Y-%m").to_string();
+            let total = play.sum.unwrap_or(0);
+
+            aggregated
+                .entry(month_key)
+                .and_modify(|entry| {
+                    *entry.entry(title.clone()).or_insert(0) += total;
+                })
+                .or_insert_with(|| {
+                    let mut map = HashMap::new();
+                    map.insert(title, total);
+                    map
+                });
+        }
+
+        let mut chart_data = aggregated
+            .into_iter()
+            .map(|(date, track_count)| ChartDataByISRC { date, track_count })
+            .collect::<Vec<ChartDataByISRC>>();
+        chart_data.sort_by(|a, b| a.date.cmp(&b.date));
+        chart_data
     }
 }
 
@@ -157,73 +285,17 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
             // Sort by date in ascending order
             chart_data.sort_by(|a, b| a.date.cmp(&b.date));
         } else if input.period == 12 || input.period == 36 {
-            let plays_monthly_by_isrcs: Vec<PlaysMonthly> = self
-                .plays_monthly_repo
-                .find_by_isrcs_and_period(isrcs, input.period)
-                .await?;
+            let (start, end) = Self::monthly_range(input.period)?;
+            let plays_daily_by_isrcs: Vec<PlaysDaily> =
+                self.plays_daily_repo.find_by_isrcs(isrcs).await?;
 
-            let mut aggregated_data: HashMap<String, ChartDataByDSP> = HashMap::new();
-
-            for play in plays_monthly_by_isrcs.iter() {
-                let date = play.month.unwrap().format("%Y-%m").to_string();
-                aggregated_data
-                    .entry(date)
-                    .and_modify(|e| {
-                        e.spotify += play.spotify;
-                        e.apple += play.apple;
-                        e.line += play.line;
-                        e.amazon += play.amazon;
-                        e.youtube += play.youtube;
-                    })
-                    .or_insert(ChartDataByDSP {
-                        date: play.month.unwrap().format("%Y-%m").to_string(),
-                        spotify: play.spotify,
-                        apple: play.apple,
-                        line: play.line,
-                        amazon: play.amazon,
-                        youtube: play.youtube,
-                    });
-            }
-
-            chart_data = aggregated_data
-                .into_values()
-                .collect::<Vec<ChartDataByDSP>>();
-
-            // Sort by date in ascending order
-            chart_data.sort_by(|a, b| a.date.cmp(&b.date));
+            chart_data =
+                Self::aggregate_daily_by_month(plays_daily_by_isrcs, Some(start), Some(end));
         } else if input.period == -1 {
-            let plays_monthly_by_isrcs: Vec<PlaysMonthly> =
-                self.plays_monthly_repo.find_by_isrcs(isrcs).await?;
+            let plays_daily_by_isrcs: Vec<PlaysDaily> =
+                self.plays_daily_repo.find_by_isrcs(isrcs).await?;
 
-            let mut aggregated_data: HashMap<String, ChartDataByDSP> = HashMap::new();
-
-            for play in plays_monthly_by_isrcs.iter() {
-                let date = play.month.unwrap().format("%Y-%m").to_string();
-                aggregated_data
-                    .entry(date)
-                    .and_modify(|e| {
-                        e.spotify += play.spotify;
-                        e.apple += play.apple;
-                        e.line += play.line;
-                        e.amazon += play.amazon;
-                        e.youtube += play.youtube;
-                    })
-                    .or_insert(ChartDataByDSP {
-                        date: play.month.unwrap().format("%Y-%m").to_string(),
-                        spotify: play.spotify,
-                        apple: play.apple,
-                        line: play.line,
-                        amazon: play.amazon,
-                        youtube: play.youtube,
-                    });
-            }
-
-            chart_data = aggregated_data
-                .into_values()
-                .collect::<Vec<ChartDataByDSP>>();
-
-            // Sort by date in ascending order
-            chart_data.sort_by(|a, b| a.date.cmp(&b.date));
+            chart_data = Self::aggregate_daily_by_month(plays_daily_by_isrcs, None, None);
         } else {
             return Err(anyhow::anyhow!("Invalid period"));
         }
@@ -286,73 +358,26 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
 
             chart_data.sort_by(|a, b| a.date.cmp(&b.date));
         } else if input.period == 12 || input.period == 36 {
-            let plays_monthly_by_isrcs: Vec<PlaysMonthly> = self
-                .plays_monthly_repo
-                .find_by_isrcs_and_period(isrcs.clone(), input.period)
-                .await?;
-            chart_data = plays_monthly_by_isrcs
-                .iter()
-                .filter_map(|p| {
-                    let isrc = p.isrc.clone()?;
-                    let title = isrc_to_title.get(&isrc)?.clone();
+            let (start, end) = Self::monthly_range(input.period)?;
+            let plays_daily_by_isrcs: Vec<PlaysDaily> =
+                self.plays_daily_repo.find_by_isrcs(isrcs.clone()).await?;
 
-                    let mut title_count: HashMap<String, i32> = HashMap::new();
-                    title_count.insert(title, p.sum.unwrap_or(0));
-
-                    Some(ChartDataByISRC {
-                        date: p.month.unwrap().format("%Y-%m").to_string(),
-                        track_count: title_count,
-                    })
-                })
-                .collect::<Vec<ChartDataByISRC>>();
-
-            let mut merged_data: HashMap<String, HashMap<String, i32>> = HashMap::new();
-            for data in chart_data {
-                merged_data
-                    .entry(data.date)
-                    .and_modify(|e| e.extend(data.track_count.clone()))
-                    .or_insert(data.track_count.clone());
-            }
-
-            chart_data = merged_data
-                .into_iter()
-                .map(|(date, track_count)| ChartDataByISRC { date, track_count })
-                .collect();
-
-            chart_data.sort_by(|a, b| a.date.cmp(&b.date));
+            chart_data = Self::aggregate_daily_sum_by_month(
+                plays_daily_by_isrcs,
+                Some(start),
+                Some(end),
+                &isrc_to_title,
+            );
         } else if input.period == -1 {
-            let plays_monthly_by_isrcs: Vec<PlaysMonthly> =
-                self.plays_monthly_repo.find_by_isrcs(isrcs.clone()).await?;
-            chart_data = plays_monthly_by_isrcs
-                .iter()
-                .filter_map(|p| {
-                    let isrc = p.isrc.clone()?;
-                    let title = isrc_to_title.get(&isrc)?.clone();
+            let plays_daily_by_isrcs: Vec<PlaysDaily> =
+                self.plays_daily_repo.find_by_isrcs(isrcs.clone()).await?;
 
-                    let mut title_count: HashMap<String, i32> = HashMap::new();
-                    title_count.insert(title, p.sum.unwrap_or(0));
-
-                    Some(ChartDataByISRC {
-                        date: p.month.unwrap().format("%Y-%m").to_string(),
-                        track_count: title_count,
-                    })
-                })
-                .collect::<Vec<ChartDataByISRC>>();
-
-            let mut merged_data: HashMap<String, HashMap<String, i32>> = HashMap::new();
-            for data in chart_data {
-                merged_data
-                    .entry(data.date)
-                    .and_modify(|e| e.extend(data.track_count.clone()))
-                    .or_insert(data.track_count.clone());
-            }
-
-            chart_data = merged_data
-                .into_iter()
-                .map(|(date, track_count)| ChartDataByISRC { date, track_count })
-                .collect();
-
-            chart_data.sort_by(|a, b| a.date.cmp(&b.date));
+            chart_data = Self::aggregate_daily_sum_by_month(
+                plays_daily_by_isrcs,
+                None,
+                None,
+                &isrc_to_title,
+            );
         } else {
             return Err(anyhow::anyhow!("Invalid period"));
         }
@@ -381,35 +406,16 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 })
                 .collect::<Vec<ChartDataByDSP>>()
         } else if input.period == 12 || input.period == 36 {
-            let plays_monthly_by_isrcs: Vec<PlaysMonthly> = self
-                .plays_monthly_repo
-                .find_by_isrc_and_period(&input.isrc, input.period)
-                .await?;
-            plays_monthly_by_isrcs
-                .iter()
-                .map(|p| ChartDataByDSP {
-                    date: p.month.unwrap().format("%Y-%m").to_string(),
-                    spotify: p.spotify,
-                    apple: p.apple,
-                    line: p.line,
-                    amazon: p.amazon,
-                    youtube: p.youtube,
-                })
-                .collect::<Vec<ChartDataByDSP>>()
+            let (start, end) = Self::monthly_range(input.period)?;
+            let plays_daily_by_isrcs: Vec<PlaysDaily> =
+                self.plays_daily_repo.find_by_isrc(&input.isrc).await?;
+
+            Self::aggregate_daily_by_month(plays_daily_by_isrcs, Some(start), Some(end))
         } else if input.period == -1 {
-            let plays_monthly_by_isrcs: Vec<PlaysMonthly> =
-                self.plays_monthly_repo.find_by_isrc(&input.isrc).await?;
-            plays_monthly_by_isrcs
-                .iter()
-                .map(|p| ChartDataByDSP {
-                    date: p.month.unwrap().format("%Y-%m").to_string(),
-                    spotify: p.spotify,
-                    apple: p.apple,
-                    line: p.line,
-                    amazon: p.amazon,
-                    youtube: p.youtube,
-                })
-                .collect::<Vec<ChartDataByDSP>>()
+            let plays_daily_by_isrcs: Vec<PlaysDaily> =
+                self.plays_daily_repo.find_by_isrc(&input.isrc).await?;
+
+            Self::aggregate_daily_by_month(plays_daily_by_isrcs, None, None)
         } else {
             return Err(anyhow::anyhow!("Invalid period"));
         };

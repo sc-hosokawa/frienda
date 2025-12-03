@@ -431,7 +431,6 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         create_user: Arc::new(CreateUserUsecase::new(repos.users.clone())),
         get_artist: Arc::new(GetArtistUsecase::new(repos.artists.clone())),
         get_trending: Arc::new(GetTrendingUsecase::new(
-            repos.plays_monthly.clone(),
             repos.plays_daily.clone(),
             repos.products.clone(),
             repos.tracks.clone(),
@@ -439,7 +438,6 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.artists.clone(),
         )),
         get_play_count_history: Arc::new(GetPlayCountHistoryUsecase::new(
-            repos.plays_monthly.clone(),
             repos.plays_daily.clone(),
             repos.gender_gen_playback.clone(),
             repos.products.clone(),
@@ -452,7 +450,6 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.products.clone(),
         )),
         get_playback_overview: Arc::new(PlaybackOverviewUsecase::new(
-            repos.plays_monthly.clone(),
             repos.plays_daily.clone(),
             repos.products.clone(),
             repos.product_track.clone(),
