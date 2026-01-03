@@ -1,0 +1,17 @@
+# Frienda Project Overview
+- **Purpose**: FRIENDSHIP DAO / Frienda platform combining backend, web, mobile, and smart contracts to support artists and fans (streaming analytics, offers/marketplace, messaging/community, quests/points).
+- **Architecture**: Monorepo using `services/` to organize components.
+- **Tech Stack**:
+    - **Backend**: Rust (Actix-web, async-graphql, SeaORM, Polars, Alloy, tracing).
+    - **Web UI**: Next.js (App Router), TypeScript, pnpm + turbo, shadcn/tailwind. Apps: `client`, `admin`.
+    - **Mobile**: Flutter (Melos workspace). Apps: `client`, `admin`.
+    - **Smart Contracts**: Solidity (Hardhat + Foundry + TypeChain).
+    - **Database**: PostgreSQL (Docker Compose).
+    - **Cloud/Infra**: Terraform, GitHub Actions.
+    - **Integrations**: Firebase Admin (Web), Google Generative AI (Gemini).
+- **Core Structure**:
+    - `services/backend/server-core`: Main backend logic (Clean Architecture).
+    - `services/webui/apps/client`: Fan-facing web application.
+    - `services/mobile`: Flutter mobile applications.
+    - `services/contract`: Blockchain smart contracts.
+- **GraphQL**: API schema is maintained in backend and synchronized to frontend/mobile via `make setup-gql`.

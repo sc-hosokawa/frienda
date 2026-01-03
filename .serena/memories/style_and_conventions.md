@@ -1,0 +1,16 @@
+# Style and Conventions
+- **General Architecture**:
+    - Clean Architecture patterns are favored, especially in the Rust backend.
+    - Domain logic should be separated from presentation and infrastructure layers.
+- **Rust (Backend)**:
+    - **Usecases**: Defined as traits (e.g., `GetPlayCountHistoryUsecaseTrait`) with `#[async_trait]` and implemented by structs.
+    - **Error Handling**: Use `anyhow::Error` for general error propagation in application/service layers.
+    - **Data Types**: Extensive use of `chrono`, `serde`, and `uuid`.
+    - **Naming**: Standard Rust snake_case for functions/files, PascalCase for traits/structs.
+- **Next.js (Web)**:
+    - **Routing**: Next.js App Router (files in `app/`).
+    - **Components**: Reusable UI components in `components/` using Shadcn/Tailwind.
+    - **Types**: GraphQL types are auto-generated and should be imported from `generated/`.
+- **State Management**:
+    - Web: Likely using React Context or specialized stores (Zustand/Jotai if found).
+    - Mobile: Flutter patterns (Riverpod/Bloc if found).

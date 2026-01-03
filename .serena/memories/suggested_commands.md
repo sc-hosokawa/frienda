@@ -1,0 +1,17 @@
+# Suggested Development Commands
+- **Environment Setup**:
+    - `make run-pg`: Start PostgreSQL via Docker Compose.
+- **Backend Development**:
+    - `make api-dev`: Start backend server with `cargo watch` for auto-reloading.
+    - `make api`: Start backend server (standard run).
+    - `make update-entities`: Generate SeaORM entities from the database schema.
+    - `make update-models`: Run model generation and format.
+- **Frontend Development**:
+    - `make webui-client-dev`: Start the web `client` application.
+    - `make webui-admin-dev`: Start the web `admin` application.
+    - `make setup-gql`: Sync GraphQL schema and regenerate types for Web and Mobile.
+- **Mobile Development**:
+    - `make mobile-dev`: Start the Flutter mobile application in a simulator.
+- **General Cleanup**:
+    - `make down-pg`: Stop and remove PostgreSQL containers.
+    - `make stop-pg`: Stop PostgreSQL containers.

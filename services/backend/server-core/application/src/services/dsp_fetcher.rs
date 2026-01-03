@@ -8,8 +8,8 @@ pub struct DspsData {
     pub spotify: i32,
     pub apple: i32,
     pub line: i32,
-    pub youtube: Option<i32>,
-    pub amazon: Option<i32>,
+    pub youtube: i32,
+    pub amazon: i32,
 }
 
 #[derive(Debug, Clone)]
@@ -34,7 +34,11 @@ pub struct SparseData {
 
 #[async_trait]
 pub trait DspFetcherServiceTrait: Send + Sync {
-    async fn fetch_dsps_data(&self, date: String) -> Result<Vec<DspsData>, anyhow::Error>;
+    async fn fetch_dsps_data(
+        &self,
+        start_date: Option<String>,
+        end_date: String,
+    ) -> Result<Vec<DspsData>, anyhow::Error>;
     async fn fetch_gender_gen_data(
         &self,
         date: String,
@@ -56,8 +60,15 @@ impl DspFetcherService {
 
 #[async_trait]
 impl DspFetcherServiceTrait for DspFetcherService {
-    async fn fetch_dsps_data(&self, date: String) -> Result<Vec<DspsData>, anyhow::Error> {
-        let res: Vec<DspsData> = self.dsp_fetcher_service.fetch_dsps_data(date).await?;
+    async fn fetch_dsps_data(
+        &self,
+        start_date: Option<String>,
+        end_date: String,
+    ) -> Result<Vec<DspsData>, anyhow::Error> {
+        let res: Vec<DspsData> = self
+            .dsp_fetcher_service
+            .fetch_dsps_data(start_date, end_date)
+            .await?;
         Ok(res)
     }
 

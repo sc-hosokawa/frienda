@@ -49,6 +49,10 @@ impl DspsUsecase {
 #[async_trait]
 impl DspsUsecaseTrait for DspsUsecase {
     async fn add_daily_plays(&self) -> Result<(), anyhow::Error> {
+        const START_OFFSET_DAYS: i64 = 3;
+        const WINDOW_DAYS: i64 = 14;
+        const BATCH_SIZE: usize = 1000;
+
         let isrcs: Vec<String> = self.tracks_repo.find_all_isrcs().await?;
         tracing::info!("PIPELINE::DSPsUsecase:: ISRCs: {}", isrcs.len());
 
@@ -58,54 +62,115 @@ impl DspsUsecaseTrait for DspsUsecase {
 
         let jst = FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = Utc::now().with_timezone(&jst).date_naive();
-        let three_days_ago: String = (today_jst - Duration::days(3)).format("%Y%m%d").to_string();
-        tracing::info!(
-            "PIPELINE::DSPsUsecase:: Three Days Ago (JST): {}",
-            three_days_ago
-        );
+        let end_date: String = (today_jst - Duration::days(START_OFFSET_DAYS))
+            .format("%Y%m%d")
+            .to_string();
+        let start_date: String = (today_jst - Duration::days(START_OFFSET_DAYS + WINDOW_DAYS))
+            .format("%Y%m%d")
+            .to_string();
+        tracing::info!("PIPELINE::DSPsUsecase:: Start Date (JST): {}", start_date);
+        tracing::info!("PIPELINE::DSPsUsecase:: End Date (JST): {}", end_date);
 
         let mut dsps_data: Vec<DspsData> = self
             .dsp_fetcher_service
-            .fetch_dsps_data(three_days_ago)
+            .fetch_dsps_data(Some(start_date.clone()), end_date.clone())
             .await?;
         tracing::info!("PIPELINE::DSPsUsecase:: DSPs Data: {}", dsps_data.len());
 
         dsps_data.retain(|data| isrcs.contains(&data.isrc));
         tracing::info!("PIPELINE::DSPsUsecase:: DSPs Data: {}", dsps_data.len());
 
-        let mut models: Vec<PlaysDailyActiveModel> = Vec::new();
-        for data in dsps_data {
-            models.push(PlaysDailyActiveModel {
-                id: ActiveValue::Set(next_id),
-                isrc: ActiveValue::Set(Some(data.isrc)),
-                date: ActiveValue::Set(Some(
-                    NaiveDate::parse_from_str(&data.date, "%Y%m%d").map_err(|e| {
-                        anyhow::anyhow!("Failed to parse date '{}': {}", data.date, e)
-                    })?,
-                )),
-                spotify: ActiveValue::Set(data.spotify),
-                apple: ActiveValue::Set(data.apple),
-                line: ActiveValue::Set(data.line),
-                amazon: ActiveValue::Set(Some(0)),
-                youtube: ActiveValue::Set(Some(0)),
-                sum: ActiveValue::Set(Some(data.spotify + data.apple + data.line)),
-            });
-            next_id += 1;
-        }
+        if !dsps_data.is_empty() {
+            let (latest_date_vec, other_dates_vec): (Vec<DspsData>, Vec<DspsData>) =
+                dsps_data.into_iter().partition(|d| d.date == end_date);
 
-        const BATCH_SIZE: usize = 1000;
+            tracing::info!(
+                "PIPELINE::DSPsUsecase:: latest: {}, others: {}",
+                latest_date_vec.len(),
+                other_dates_vec.len()
+            );
 
-        for chunk in models.chunks(BATCH_SIZE) {
-            match self.plays_daily_repo.insert_many(chunk.to_vec()).await {
-                Ok(_) => {
-                    tracing::info!("Successfully inserted {} records", chunk.len());
-                }
-                Err(e) => {
-                    tracing::error!("Failed to insert batch: {}", e);
-                    return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
+            let mut models: Vec<PlaysDailyActiveModel> = Vec::new();
+            for data in latest_date_vec {
+                models.push(PlaysDailyActiveModel {
+                    id: ActiveValue::Set(next_id),
+                    isrc: ActiveValue::Set(Some(data.isrc)),
+                    date: ActiveValue::Set(Some(
+                        NaiveDate::parse_from_str(&data.date, "%Y%m%d").map_err(|e| {
+                            anyhow::anyhow!("Failed to parse date '{}': {}", data.date, e)
+                        })?,
+                    )),
+                    spotify: ActiveValue::Set(data.spotify),
+                    apple: ActiveValue::Set(data.apple),
+                    line: ActiveValue::Set(data.line),
+                    amazon: ActiveValue::Set(Some(data.amazon)),
+                    youtube: ActiveValue::Set(Some(data.youtube)),
+                    sum: ActiveValue::Set(Some(
+                        data.spotify + data.apple + data.line + data.amazon + data.youtube,
+                    )),
+                });
+                next_id += 1;
+            }
+
+            for chunk in models.chunks(BATCH_SIZE) {
+                match self.plays_daily_repo.insert_many(chunk.to_vec()).await {
+                    Ok(_) => {
+                        tracing::info!("Successfully inserted {} records", chunk.len());
+                    }
+                    Err(e) => {
+                        tracing::error!("Failed to insert batch: {}", e);
+                        return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
+                    }
                 }
             }
-        }
+
+            let mut updated_record: Vec<PlaysDailyActiveModel> = Vec::new();
+
+            let window_dsp_data: Vec<PlaysDaily> = self
+                .plays_daily_repo
+                .find_between_start_and_end(&start_date.clone(), &end_date.clone())
+                .await?;
+            for records in window_dsp_data {
+                let matched_record = other_dates_vec
+                    .iter()
+                    .find(|d: &&DspsData| {
+                        records.isrc.as_ref() == Some(&d.isrc)
+                            && NaiveDate::parse_from_str(&d.date, "%Y%m%d").ok() == records.date
+                    })
+                    .unwrap();
+
+                let exist_daily_data: PlaysDailyActiveModel = PlaysDailyActiveModel {
+                    id: ActiveValue::Set(records.id),
+                    isrc: ActiveValue::Set(records.isrc),
+                    date: ActiveValue::Set(records.date),
+                    spotify: ActiveValue::Set(matched_record.spotify),
+                    apple: ActiveValue::Set(matched_record.apple),
+                    line: ActiveValue::Set(matched_record.line),
+                    amazon: ActiveValue::Set(Some(matched_record.amazon)),
+                    youtube: ActiveValue::Set(Some(matched_record.youtube)),
+                    sum: ActiveValue::Set(Some(
+                        matched_record.spotify
+                            + matched_record.apple
+                            + matched_record.line
+                            + matched_record.amazon
+                            + matched_record.youtube,
+                    )),
+                };
+                updated_record.push(exist_daily_data);
+            }
+
+            for chunk in updated_record.chunks(BATCH_SIZE) {
+                match self.plays_daily_repo.update_many(chunk.to_vec()).await {
+                    Ok(_) => {
+                        tracing::info!("Successfully updateed {} records", chunk.len());
+                    }
+                    Err(e) => {
+                        tracing::error!("Failed to insert batch: {}", e);
+                        return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
+                    }
+                }
+            }
+        };
 
         Ok(())
     }
@@ -129,7 +194,7 @@ impl DspsUsecaseTrait for DspsUsecase {
 
         let mut dsps_data: Vec<DspsData> = self
             .dsp_fetcher_service
-            .fetch_dsps_data(one_month_ago)
+            .fetch_dsps_data(None, one_month_ago)
             .await?;
         tracing::info!("PIPELINE::DSPsUsecase:: DSPs Data: {}", dsps_data.len());
 
@@ -149,14 +214,10 @@ impl DspsUsecaseTrait for DspsUsecase {
                 spotify: ActiveValue::Set(data.spotify),
                 apple: ActiveValue::Set(data.apple),
                 line: ActiveValue::Set(data.line),
-                amazon: ActiveValue::Set(data.amazon.unwrap_or(0)),
-                youtube: ActiveValue::Set(data.youtube.unwrap_or(0)),
+                amazon: ActiveValue::Set(data.amazon),
+                youtube: ActiveValue::Set(data.youtube),
                 sum: ActiveValue::Set(Some(
-                    data.spotify
-                        + data.apple
-                        + data.line
-                        + data.amazon.unwrap_or(0)
-                        + data.youtube.unwrap_or(0),
+                    data.spotify + data.apple + data.line + data.amazon + data.youtube,
                 )),
             });
             next_id += 1;

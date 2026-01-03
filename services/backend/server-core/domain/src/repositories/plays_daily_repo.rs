@@ -28,4 +28,9 @@ pub trait PlaysDailyRepository: Send + Sync {
     async fn find_lastest_id(&self) -> Result<i32, DomainError>;
     async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError>;
     async fn find_by_date(&self, date: &str) -> Result<Vec<PlaysDaily>, DomainError>;
+    async fn find_between_start_and_end(
+        &self,
+        start_date: &str,
+        end_date: &str,
+    ) -> Result<Vec<PlaysDaily>, DomainError>;
 }

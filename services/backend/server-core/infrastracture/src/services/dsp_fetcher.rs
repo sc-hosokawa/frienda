@@ -26,8 +26,8 @@ pub struct StreamingData {
     pub spotify: i32,
     pub apple: i32,
     pub line: i32,
-    pub youtube: Option<i32>,
-    pub amazon: Option<i32>,
+    pub youtube: i32,
+    pub amazon: i32,
 }
 
 #[derive(Debug, Clone)]
@@ -60,8 +60,8 @@ pub struct DspFetcherService {
 
 impl DspFetcherService {
     pub async fn new() -> Result<Self, anyhow::Error> {
-        let service_account_json: String = env::var("SERVICE_ACCOUNT_DSP")
-            .expect("SERVICE_ACCOUNT_DSP environment variable not set");
+        let service_account_json: String = env::var("SCR_SERVICE_ACCOUNT_DSP")
+            .expect("SCR_SERVICE_ACCOUNT_DSP environment variable not set");
 
         let decoded: Vec<u8> = base64::decode(service_account_json)?;
         let secret: oauth2::ServiceAccountKey = serde_json::from_slice(&decoded)?;
@@ -83,6 +83,7 @@ impl DspFetcherService {
         Ok(Self { client: hub })
     }
 
+    // Spotify Authorization
     async fn get_authorization_token(client: &Client) -> Result<String, anyhow::Error> {
         let client_id: String =
             std::env::var("CLIENT_ID").expect("CLIENT_ID environment variable not set");
@@ -192,10 +193,14 @@ impl DspFetcherService {
 
 #[async_trait]
 impl DspFetcherServiceTrait for DspFetcherService {
-    async fn fetch_dsps_data(&self, date: String) -> Result<Vec<DspsData>, anyhow::Error> {
+    async fn fetch_dsps_data(
+        &self,
+        start_date: Option<String>,
+        end_date: String,
+    ) -> Result<Vec<DspsData>, anyhow::Error> {
         let start_time = Instant::now();
 
-        let query: String = match date.len() {
+        let query: String = match end_date.len() {
             6 => {
                 let encoded_template = std::env::var("DSP_QUERY_MONTHLY_TEMPLATE")
                     .map_err(|_| anyhow::anyhow!("DSP_QUERY_MONTHLY_TEMPLATE environment variable is not set"))?;
@@ -203,23 +208,28 @@ impl DspFetcherServiceTrait for DspFetcherService {
                     .map_err(|_| anyhow::anyhow!("Failed to decode DSP_QUERY_MONTHLY_TEMPLATE from base64"))?;
                 let query_template = String::from_utf8(query_template)
                     .map_err(|_| anyhow::anyhow!("Failed to convert decoded template to UTF-8"))?;
-                query_template.replace("{}", &date)
+                query_template.replace("{}", &end_date)
             }
             8 => {
-                let encoded_template = std::env::var("DSP_QUERY_DAILY_TEMPLATE")
+                let start_date = start_date
+                    .as_deref()
+                    .ok_or_else(|| anyhow::anyhow!("start_date is required for daily query"))?;
+                let encoded_template = std::env::var("SCR_DSP_QUERY_DAILY_TEMPLATE")
                     .map_err(|_| anyhow::anyhow!("DSP_QUERY_DAILY_TEMPLATE environment variable is not set"))?;
                 let query_template = base64::decode(&encoded_template)
-                    .map_err(|_| anyhow::anyhow!("Failed to decode DSP_QUERY_DAILY_TEMPLATE from base64"))?;
+                    .map_err(|_| anyhow::anyhow!("Failed to decode SCR_DSP_QUERY_DAILY_TEMPLATE from base64"))?;
                 let query_template = String::from_utf8(query_template)
                     .map_err(|_| anyhow::anyhow!("Failed to convert decoded template to UTF-8"))?;
-                query_template.replace("{}", &date)
+                query_template
+                    .replace("{start_date}", start_date)
+                    .replace("{end_date}", &end_date)
             }
             _ => return Err(anyhow::anyhow!("Invalid date format. Expected 6 digits (YYYYMM) for monthly or 8 digits (YYYYMMDD) for daily")),
         };
-        let location = std::env::var("LOCATION")
-            .map_err(|_| anyhow::anyhow!("LOCATION environment variable is not set"))?;
-        let pj_id: String = std::env::var("DSP_PJ_ID")
-            .map_err(|_| anyhow::anyhow!("DSP_PJ_ID environment variable is not set"))?;
+        let location = std::env::var("SCR_LOCATION")
+            .map_err(|_| anyhow::anyhow!("SCR_LOCATION environment variable is not set"))?;
+        let pj_id: String = std::env::var("SCR_DSP_PJ_ID")
+            .map_err(|_| anyhow::anyhow!("SCR_DSP_PJ_ID environment variable is not set"))?;
 
         tracing::info!("PIPELINE::DSPFetcherService:: Query: {}", query);
 
@@ -253,83 +263,102 @@ impl DspFetcherServiceTrait for DspFetcherService {
                     .await?;
 
                 if job_status.1.status.unwrap().state.unwrap() == "DONE" {
-                    let result = self
-                        .client
-                        .jobs()
-                        .get_query_results(project_id.as_str(), job_id.as_str())
-                        .location(&location)
-                        .doit()
-                        .await?;
+                    let mut page_token: Option<String> = None;
 
-                    if let Some(rows) = result.1.rows {
-                        for row in rows {
-                            if let Some(cells) = row.f {
-                                println!("PIPELINE::DSPFetcherService:: Cells: {:?}", cells);
-                                let data = StreamingData {
-                                    date: cells[0]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string(),
-                                    isrc: match cells[1].v.as_ref() {
-                                        Some(v)
-                                            if v.to_string() != "null"
-                                                && !v.to_string().trim_matches('"').is_empty() =>
-                                        {
-                                            v.to_string().trim_matches('"').to_string()
-                                        }
-                                        _ => continue, // Skip this record if ISRC is null or empty
-                                    },
-                                    spotify: cells[2]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string()
-                                        .parse::<i32>()
-                                        .unwrap_or(0),
-                                    apple: cells[3]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string()
-                                        .parse::<i32>()
-                                        .unwrap_or(0),
-                                    line: cells[4]
-                                        .v
-                                        .as_ref()
-                                        .unwrap()
-                                        .to_string()
-                                        .trim_matches('"')
-                                        .to_string()
-                                        .parse::<i32>()
-                                        .unwrap_or(0),
-                                    youtube: cells.get(5).and_then(|cell| cell.v.as_ref()).map(
-                                        |v| {
-                                            v.to_string()
-                                                .trim_matches('"')
-                                                .parse::<i32>()
-                                                .unwrap_or(0)
+                    loop {
+                        let mut query_results_call = self
+                            .client
+                            .jobs()
+                            .get_query_results(project_id.as_str(), job_id.as_str())
+                            .location(&location)
+                            .max_results(1000);
+
+                        if let Some(ref token) = page_token {
+                            query_results_call = query_results_call.page_token(token);
+                        }
+
+                        let result = query_results_call.doit().await?;
+
+                        if let Some(rows) = result.1.rows {
+                            for row in rows {
+                                if let Some(cells) = row.f {
+                                    let data = StreamingData {
+                                        date: cells[0]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string(),
+                                        isrc: match cells[1].v.as_ref() {
+                                            Some(v)
+                                                if v.to_string() != "null"
+                                                    && !v
+                                                        .to_string()
+                                                        .trim_matches('"')
+                                                        .is_empty() =>
+                                            {
+                                                v.to_string().trim_matches('"').to_string()
+                                            }
+                                            _ => continue, // Skip this record if ISRC is null or empty
                                         },
-                                    ),
-                                    amazon: cells.get(6).and_then(|cell| cell.v.as_ref()).map(
-                                        |v| {
-                                            v.to_string()
-                                                .trim_matches('"')
-                                                .parse::<i32>()
-                                                .unwrap_or(0)
-                                        },
-                                    ),
-                                };
-                                streaming_data.push(data);
+                                        spotify: cells[2]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                        apple: cells[3]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                        line: cells[4]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                        youtube: cells[5]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                        amazon: cells[6]
+                                            .v
+                                            .as_ref()
+                                            .unwrap()
+                                            .to_string()
+                                            .trim_matches('"')
+                                            .to_string()
+                                            .parse::<i32>()
+                                            .unwrap_or(0),
+                                    };
+                                    streaming_data.push(data);
+                                }
                             }
                         }
+
+                        match result.1.page_token {
+                            Some(token) => page_token = Some(token),
+                            None => break,
+                        }
                     }
+
                     break;
                 }
 
