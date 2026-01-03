@@ -472,10 +472,6 @@ impl DspFetcherServiceTrait for DspFetcherService {
             }
         }
 
-        for record in &records {
-            tracing::info!("PIPELINE::DSPFetcherService:: GenderGenData: {:?}", record);
-        }
-
         Ok(records)
     }
 
@@ -492,7 +488,7 @@ impl DspFetcherServiceTrait for DspFetcherService {
         let output_file: String = format!("combined_output_{}.jsonl", formatted_date);
         Self::combine_downloaded_files(&client, &jsonl_data, output_file.as_str()).await?;
 
-        tracing::info!("Combined data saved to {}", output_file);
+        tracing::debug!("Combined data saved to {}", output_file);
 
         let file = File::open(output_file)?;
         let reader = BufReader::new(file);
