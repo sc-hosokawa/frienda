@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use chrono::{Duration, FixedOffset, NaiveDate, TimeZone, Utc};
+use chrono::{Duration, FixedOffset, NaiveDate, Utc};
 use std::sync::Arc;
 
 use domain::entities::plays_daily::Model as PlaysDaily;
