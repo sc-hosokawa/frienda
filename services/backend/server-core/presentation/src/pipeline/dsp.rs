@@ -39,9 +39,18 @@ pub async fn dsp_daily_handler(
     };
 
     if body == expected_hash {
-        tracing::info!("Hash verification successful");
-        usecases.dsps.add_daily_plays().await.unwrap();
-        HttpResponse::Ok().body("Pipeline DAILY DSPs successful!")
+        tracing::info!(
+            "Hash verification successful. Starting Pipeline DAILY DSPs in background..."
+        );
+        let usecases_clone = Arc::clone(&usecases);
+        tokio::spawn(async move {
+            if let Err(e) = usecases_clone.dsps.add_daily_plays().await {
+                tracing::error!("Background Pipeline DAILY DSPs failed: {:?}", e);
+            } else {
+                tracing::info!("Background Pipeline DAILY DSPs completed successfully.");
+            }
+        });
+        HttpResponse::Accepted().body("Pipeline DAILY DSPs started")
     } else {
         tracing::error!("Hash verification failed");
         HttpResponse::BadRequest().body("Invalid Key")
@@ -80,9 +89,18 @@ pub async fn dsp_monthly_handler(
     };
 
     if body == expected_hash {
-        tracing::info!("Hash verification successful");
-        usecases.dsps.add_monthly_plays().await.unwrap();
-        HttpResponse::Ok().body("Pipeline MONTHLY DSPs successful!")
+        tracing::info!(
+            "Hash verification successful. Starting Pipeline MONTHLY DSPs in background..."
+        );
+        let usecases_clone = Arc::clone(&usecases);
+        tokio::spawn(async move {
+            if let Err(e) = usecases_clone.dsps.add_monthly_plays().await {
+                tracing::error!("Background Pipeline MONTHLY DSPs failed: {:?}", e);
+            } else {
+                tracing::info!("Background Pipeline MONTHLY DSPs completed successfully.");
+            }
+        });
+        HttpResponse::Accepted().body("Pipeline MONTHLY DSPs started")
     } else {
         tracing::error!("Hash verification failed");
         HttpResponse::BadRequest().body("Invalid Key")
@@ -121,9 +139,18 @@ pub async fn gender_gen_playback_handler(
     };
 
     if body == expected_hash {
-        tracing::info!("Hash verification successful");
-        usecases.dsps.add_gender_gen_plays().await.unwrap();
-        HttpResponse::Ok().body("Pipeline GenderGen Playback successful!")
+        tracing::info!(
+            "Hash verification successful. Starting Pipeline GenderGen Playback in background..."
+        );
+        let usecases_clone = Arc::clone(&usecases);
+        tokio::spawn(async move {
+            if let Err(e) = usecases_clone.dsps.add_gender_gen_plays().await {
+                tracing::error!("Background Pipeline GenderGen Playback failed: {:?}", e);
+            } else {
+                tracing::info!("Background Pipeline GenderGen Playback completed successfully.");
+            }
+        });
+        HttpResponse::Accepted().body("Pipeline GenderGen Playback started")
     } else {
         tracing::error!("Hash verification failed");
         HttpResponse::BadRequest().body("Invalid Key")
@@ -169,9 +196,18 @@ pub async fn sparse_data_handler(
     };
 
     if hash_part == expected_hash {
-        tracing::info!("Hash verification successful");
-        usecases.dsps.add_sparse_data(date_part).await.unwrap();
-        HttpResponse::Ok().body("Pipeline Sparse Data successful!")
+        tracing::info!(
+            "Hash verification successful. Starting Pipeline Sparse Data in background..."
+        );
+        let usecases_clone = Arc::clone(&usecases);
+        tokio::spawn(async move {
+            if let Err(e) = usecases_clone.dsps.add_sparse_data(date_part).await {
+                tracing::error!("Background Pipeline Sparse Data failed: {:?}", e);
+            } else {
+                tracing::info!("Background Pipeline Sparse Data completed successfully.");
+            }
+        });
+        HttpResponse::Accepted().body("Pipeline Sparse Data started")
     } else {
         tracing::error!("Hash verification failed");
         HttpResponse::BadRequest().body("Invalid Key")
