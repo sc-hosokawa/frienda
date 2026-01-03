@@ -5,7 +5,7 @@ use sea_orm::ActiveValue;
 use std::collections::HashMap;
 use std::sync::Arc;
 
-use domain::entities::artists::{ActiveModel as ArtistActiveModel, Model as Artist};
+use domain::entities::artists::ActiveModel as ArtistActiveModel;
 use domain::entities::product_track::{
     ActiveModel as ProductTrackActiveModel, Model as ProductTrack,
 };
