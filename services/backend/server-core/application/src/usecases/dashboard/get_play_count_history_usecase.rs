@@ -6,7 +6,6 @@ use std::sync::Arc;
 
 use domain::entities::plays_daily::Model as PlaysDaily;
 use domain::entities::product_track::Model as ProductTrack;
-use domain::entities::tracks::Model as Tracks;
 use domain::repositories::gender_gen_playback_repo::GenderGenPlaybackRepository;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
 use domain::repositories::product_track_repo::ProductTrackRepository;
