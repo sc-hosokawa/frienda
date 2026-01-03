@@ -52,7 +52,6 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     .finish();
 
     tracing::info!("Starting server...");
-    tracing::info!("GraphiQL IDE: http://{}:{}/graphql", host, port);
 
     HttpServer::new(move || {
         // let auth = HttpAuthentication::bearer(validator);
