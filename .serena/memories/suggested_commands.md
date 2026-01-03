@@ -1,7 +1,17 @@
-# Suggested commands
-- Database: `make run-pg` to start Postgres via Docker; `make stop-pg` to stop; `make down-pg` to remove containers.
-- Backend dev/run: `make api-dev` (starts DB, cargo watch run); one-off `make api`. GraphQL schema sync: `make setup-gql` (copies schema then runs web/mobile codegen). Model generation: `make update-models` (runs backend generator + `cargo fmt`). Entities via `make update-entities` (SeaORM). Standard Rust cmds: `cargo fmt`, `cargo check`, `cargo build`, `cargo clean`, `cargo nextest run`, `cargo test` (from server README/AGENTS).
-- Web UI: `make webui-client-dev` / `make webui-admin-dev` (pnpm dev with filters). Workspace scripts: `pnpm -C services/webui dev|build|lint`; format with `pnpm -C services/webui format`; GraphQL codegen `pnpm -C services/webui gql-codegen`.
-- Mobile: `make mobile-dev` (opens iOS Simulator then `flutter run`); codegen `cd services/mobile && flutter pub run build_runner build --delete-conflicting-outputs`; tests `flutter test` under apps.
-- Contracts: Hardhat tests `pnpm -C services/contract test`; Foundry `forge test`; build `forge build`; deploy prep `cp .env.example .env` then fill env; upgrade `cd services/contract && source .env && pnpm run upgrade`.
-- Infra/util: Docker compose in repo (`docker-compose.yaml`); Terraform dir at `terraform/`. Use pnpm (not npm/yarn) per engines.
+# Suggested Development Commands
+- **Environment Setup**:
+    - `make run-pg`: Start PostgreSQL via Docker Compose.
+- **Backend Development**:
+    - `make api-dev`: Start backend server with `cargo watch` for auto-reloading.
+    - `make api`: Start backend server (standard run).
+    - `make update-entities`: Generate SeaORM entities from the database schema.
+    - `make update-models`: Run model generation and format.
+- **Frontend Development**:
+    - `make webui-client-dev`: Start the web `client` application.
+    - `make webui-admin-dev`: Start the web `admin` application.
+    - `make setup-gql`: Sync GraphQL schema and regenerate types for Web and Mobile.
+- **Mobile Development**:
+    - `make mobile-dev`: Start the Flutter mobile application in a simulator.
+- **General Cleanup**:
+    - `make down-pg`: Stop and remove PostgreSQL containers.
+    - `make stop-pg`: Stop PostgreSQL containers.

@@ -1,5 +1,17 @@
-# What to do before finishing tasks
-- Run relevant checks: backend `cargo test` (or `cargo nextest run`), web UI `pnpm -C services/webui lint` and `pnpm -C services/webui format`, contracts `pnpm -C services/contract test` or `forge test`, mobile `flutter test` when touched. Start DB via `make run-pg` if backend needs Postgres.
-- Keep GraphQL schema in sync: after backend schema changes run `make setup-gql` then regenerate clients (`pnpm -C services/webui gql-codegen`, Flutter build_runner).
-- Note schema/migration impacts in PRs; avoid committing secrets (.env). Follow commit message style `feat/fix/docs/...` with optional scope `[backend|client|admin|mobile|contract]-` to trigger CI jobs (`backend`, `client`, `contract`).
-- PR hygiene: clear description, linked issues, screenshots for UI changes, reproduction steps; ensure local tests pass.
+# Task Completion Checklist
+Before marking a task as complete and notifying the user, ensure the following:
+1. **Formatting**:
+    - Backend: Run `cargo fmt` in `services/backend`.
+    - Frontend/Web: Run `pnpm format` (if available) or ensure prettier rules are followed.
+2. **Linting**:
+    - Backend: Run `cargo clippy --fix`.
+    - Frontend: Run `pnpm lint` in the relevant app directory.
+3. **GraphQL Sync**:
+    - If the API schema changed, run `make setup-gql` to update frontend and mobile types.
+4. **Database Migration**:
+    - If the schema changed, ensure database entities are updated via `make update-entities`.
+5. **Verification**:
+    - Run the dev server (`make api-dev` / `make webui-client-dev`) and verify changes locally.
+6. **Documentation**:
+    - Update relevant `README.md` or memory files if new patterns or commands are introduced.
+    - Create a detailed `walkthrough.md` with proof of work (recordings/screenshots).

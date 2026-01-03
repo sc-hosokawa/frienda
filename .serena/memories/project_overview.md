@@ -1,5 +1,17 @@
-# Frienda project overview
-- Purpose: FRIENDSHIP DAO / Frienda platform combining backend, web, mobile, and smart contracts to support artists and fans (streaming analytics, offers/marketplace, messaging/community, quests/points); API exposes rich GraphQL types for artists, tracks, offers, notifications, and user community features (schema at `services/backend/server-core/presentation/src/graphql/schema.graphql`).
-- Stack: monorepo. Backend in Rust (Actix + async-graphql, SeaORM, tracing). Web UI in TypeScript using pnpm + turbo + shadcn/tailwind (apps `client`, `admin`). Mobile in Flutter (melos workspace apps `client`, `admin`). Smart contracts in Solidity (Hardhat + Foundry + TypeChain). Postgres via Docker Compose; Terraform directory for infra; GitHub Actions workflows present.
-- Structure: top-level `services/` with `backend/{server-core,server-extension,shared}`, `webui/{apps,packages}`, `mobile/{apps,packages}`, `contract/{contracts,test,script,typechain-types}`, plus `services/postgres`, `terraform/`, `docker-compose.yaml`, `makefile` orchestrating common tasks.
-- GraphQL: schema copied from backend to web/mobile via `make setup-gql`; API entrypoints defined in `services/backend/server-core`.
+# Frienda Project Overview
+- **Purpose**: FRIENDSHIP DAO / Frienda platform combining backend, web, mobile, and smart contracts to support artists and fans (streaming analytics, offers/marketplace, messaging/community, quests/points).
+- **Architecture**: Monorepo using `services/` to organize components.
+- **Tech Stack**:
+    - **Backend**: Rust (Actix-web, async-graphql, SeaORM, Polars, Alloy, tracing).
+    - **Web UI**: Next.js (App Router), TypeScript, pnpm + turbo, shadcn/tailwind. Apps: `client`, `admin`.
+    - **Mobile**: Flutter (Melos workspace). Apps: `client`, `admin`.
+    - **Smart Contracts**: Solidity (Hardhat + Foundry + TypeChain).
+    - **Database**: PostgreSQL (Docker Compose).
+    - **Cloud/Infra**: Terraform, GitHub Actions.
+    - **Integrations**: Firebase Admin (Web), Google Generative AI (Gemini).
+- **Core Structure**:
+    - `services/backend/server-core`: Main backend logic (Clean Architecture).
+    - `services/webui/apps/client`: Fan-facing web application.
+    - `services/mobile`: Flutter mobile applications.
+    - `services/contract`: Blockchain smart contracts.
+- **GraphQL**: API schema is maintained in backend and synchronized to frontend/mobile via `make setup-gql`.
