@@ -50,8 +50,8 @@ impl DspsUsecase {
 impl DspsUsecaseTrait for DspsUsecase {
     async fn add_daily_plays(&self) -> Result<(), anyhow::Error> {
         const START_OFFSET_DAYS: i64 = 3;
-        const WINDOW_DAYS: i64 = 14;
-        const BATCH_SIZE: usize = 1000;
+        const WINDOW_DAYS: i64 = 7;
+        const BATCH_SIZE: usize = 10000;
 
         let isrcs: Vec<String> = self.tracks_repo.find_all_isrcs().await?;
         tracing::info!("PIPELINE::DSPsUsecase:: ISRCs: {}", isrcs.len());
@@ -113,22 +113,22 @@ impl DspsUsecaseTrait for DspsUsecase {
             }
 
             for chunk in models.chunks(BATCH_SIZE) {
-                match self.plays_daily_repo.insert_many(chunk.to_vec()).await {
-                    Ok(_) => {
-                        tracing::info!("Successfully inserted {} records", chunk.len());
-                    }
-                    Err(e) => {
-                        tracing::error!("Failed to insert batch: {}", e);
-                        return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
-                    }
+                if let Err(e) = self.plays_daily_repo.insert_many(chunk.to_vec()).await {
+                    tracing::error!("Failed to insert batch: {}", e);
+                    return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
                 }
             }
+            tracing::info!("Successfully inserted {} total records", models.len());
 
             let mut updated_record: Vec<PlaysDailyActiveModel> = Vec::new();
 
+            let update_end_date: String = (today_jst - Duration::days(START_OFFSET_DAYS + 1))
+                .format("%Y%m%d")
+                .to_string();
+
             let window_dsp_data: Vec<PlaysDaily> = self
                 .plays_daily_repo
-                .find_between_start_and_end(&start_date.clone(), &end_date.clone())
+                .find_between_start_and_end(&start_date.clone(), &update_end_date)
                 .await?;
             for records in window_dsp_data {
                 let matched_record = match other_dates_vec.iter().find(|d: &&DspsData| {
@@ -166,18 +166,24 @@ impl DspsUsecaseTrait for DspsUsecase {
                 updated_record.push(exist_daily_data);
             }
 
+            tracing::info!(
+                "PIPELINE::DSPsUsecase:: Updated Total Record: {}",
+                updated_record.len()
+            );
+
             for chunk in updated_record.chunks(BATCH_SIZE) {
-                match self.plays_daily_repo.update_many(chunk.to_vec()).await {
-                    Ok(_) => {
-                        tracing::info!("Successfully updateed {} records", chunk.len());
-                    }
-                    Err(e) => {
-                        tracing::error!("Failed to insert batch: {}", e);
-                        return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
-                    }
+                if let Err(e) = self.plays_daily_repo.update_many(chunk.to_vec()).await {
+                    tracing::error!("Failed to update batch: {}", e);
+                    return Err(anyhow::anyhow!("Failed to update batch: {}", e));
                 }
             }
+            tracing::info!(
+                "Successfully updated {} total records",
+                updated_record.len()
+            );
         };
+
+        tracing::info!("daily operation finished!");
 
         Ok(())
     }
@@ -233,16 +239,15 @@ impl DspsUsecaseTrait for DspsUsecase {
         const BATCH_SIZE: usize = 1000;
 
         for chunk in models.chunks(BATCH_SIZE) {
-            match self.plays_monthly_repo.update_many(chunk.to_vec()).await {
-                Ok(_) => {
-                    tracing::info!("Successfully inserted {} records", chunk.len());
-                }
-                Err(e) => {
-                    tracing::error!("Failed to insert batch: {}", e);
-                    return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
-                }
+            if let Err(e) = self.plays_monthly_repo.update_many(chunk.to_vec()).await {
+                tracing::error!("Failed to insert batch: {}", e);
+                return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
             }
         }
+        tracing::info!(
+            "Successfully processed {} total monthly records",
+            models.len()
+        );
 
         Ok(())
     }
@@ -298,16 +303,15 @@ impl DspsUsecaseTrait for DspsUsecase {
         const BATCH_SIZE: usize = 1000;
 
         for chunk in models.chunks(BATCH_SIZE) {
-            match self.gender_gen_repo.insert_many(chunk.to_vec()).await {
-                Ok(_) => {
-                    tracing::info!("Successfully inserted {} records", chunk.len());
-                }
-                Err(e) => {
-                    tracing::error!("Failed to insert batch: {}", e);
-                    return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
-                }
+            if let Err(e) = self.gender_gen_repo.insert_many(chunk.to_vec()).await {
+                tracing::error!("Failed to insert batch: {}", e);
+                return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
             }
         }
+        tracing::info!(
+            "Successfully inserted {} total gender/gen records",
+            models.len()
+        );
 
         Ok(())
     }
@@ -398,16 +402,12 @@ impl DspsUsecaseTrait for DspsUsecase {
         const BATCH_SIZE: usize = 1000;
 
         for chunk in models.chunks(BATCH_SIZE) {
-            match self.plays_daily_repo.update_many(chunk.to_vec()).await {
-                Ok(_) => {
-                    tracing::info!("Successfully inserted {} records", chunk.len());
-                }
-                Err(e) => {
-                    tracing::error!("Failed to insert batch: {}", e);
-                    return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
-                }
+            if let Err(e) = self.plays_daily_repo.update_many(chunk.to_vec()).await {
+                tracing::error!("Failed to insert batch: {}", e);
+                return Err(anyhow::anyhow!("Failed to insert batch: {}", e));
             }
         }
+        tracing::info!("Successfully updated {} total sparse records", models.len());
 
         Ok(())
     }
