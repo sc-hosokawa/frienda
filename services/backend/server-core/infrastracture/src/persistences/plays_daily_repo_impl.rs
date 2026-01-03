@@ -145,15 +145,7 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
     }
 
     async fn find_by_date(&self, date: &str) -> Result<Vec<PlaysDaily>, DomainError> {
-        tracing::info!("Attempting to parse date: {}", date);
-
-        let normalized_date = date.replace("/", "-");
-
-        let target_date: NaiveDate = NaiveDate::parse_from_str(&normalized_date, "%Y-%m-%d")
-            .map_err(|e| {
-                tracing::error!("Date parse error: {} for input: {}", e, normalized_date);
-                DomainError::DatabaseError(e.to_string())
-            })?;
+        let target_date = parse_date_flexible(date)?;
 
         let res: Vec<PlaysDaily> = PlaysDailyEntity::find()
             .filter(Column::Date.eq(target_date))
@@ -168,23 +160,8 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
         start_date: &str,
         end_date: &str,
     ) -> Result<Vec<PlaysDaily>, DomainError> {
-        let normalized_start_date = start_date.replace("/", "-");
-        let normalized_end_date = end_date.replace("/", "-");
-
-        let start_date: NaiveDate = NaiveDate::parse_from_str(&normalized_start_date, "%Y-%m-%d")
-            .map_err(|e| {
-            tracing::error!(
-                "Date parse error: {} for input: {}",
-                e,
-                normalized_start_date
-            );
-            DomainError::DatabaseError(e.to_string())
-        })?;
-        let end_date: NaiveDate = NaiveDate::parse_from_str(&normalized_end_date, "%Y-%m-%d")
-            .map_err(|e| {
-                tracing::error!("Date parse error: {} for input: {}", e, normalized_end_date);
-                DomainError::DatabaseError(e.to_string())
-            })?;
+        let start_date = parse_date_flexible(start_date)?;
+        let end_date = parse_date_flexible(end_date)?;
 
         tracing::trace!("Query data between {} and {}", start_date, end_date);
 
@@ -196,4 +173,33 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
 
         Ok(res)
     }
+}
+
+fn parse_flexible_date_from_str(date: &str) -> Result<NaiveDate, DomainError> {
+    tracing::info!("Attempting to parse date: {}", date);
+
+    let normalized_date = date.replace("/", "-");
+
+    // Try YYYY-MM-DD (also handles YYYY/MM/DD after normalization)
+    if let Ok(d) = NaiveDate::parse_from_str(&normalized_date, "%Y-%m-%d") {
+        return Ok(d);
+    }
+
+    // Try YYYYMMDD
+    if let Ok(d) = NaiveDate::parse_from_str(&normalized_date, "%Y%m%d") {
+        return Ok(d);
+    }
+
+    tracing::error!(
+        "Date parse error: input contains invalid characters or format for input: {}",
+        normalized_date
+    );
+    Err(DomainError::DatabaseError(format!(
+        "Invalid date format: {}",
+        normalized_date
+    )))
+}
+
+fn parse_date_flexible(date: &str) -> Result<NaiveDate, DomainError> {
+    parse_flexible_date_from_str(date)
 }

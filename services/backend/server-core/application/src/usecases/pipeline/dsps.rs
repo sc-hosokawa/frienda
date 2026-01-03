@@ -131,13 +131,20 @@ impl DspsUsecaseTrait for DspsUsecase {
                 .find_between_start_and_end(&start_date.clone(), &end_date.clone())
                 .await?;
             for records in window_dsp_data {
-                let matched_record = other_dates_vec
-                    .iter()
-                    .find(|d: &&DspsData| {
-                        records.isrc.as_ref() == Some(&d.isrc)
-                            && NaiveDate::parse_from_str(&d.date, "%Y%m%d").ok() == records.date
-                    })
-                    .unwrap();
+                let matched_record = match other_dates_vec.iter().find(|d: &&DspsData| {
+                    records.isrc.as_ref() == Some(&d.isrc)
+                        && NaiveDate::parse_from_str(&d.date, "%Y%m%d").ok() == records.date
+                }) {
+                    Some(r) => r,
+                    None => {
+                        tracing::warn!(
+                            "No matching record found in fetched data for ISRC: {:?}, Date: {:?}. Skipping update.",
+                            records.isrc,
+                            records.date
+                        );
+                        continue;
+                    }
+                };
 
                 let exist_daily_data: PlaysDailyActiveModel = PlaysDailyActiveModel {
                     id: ActiveValue::Set(records.id),
@@ -354,9 +361,17 @@ impl DspsUsecaseTrait for DspsUsecase {
 
         let mut models: Vec<PlaysDailyActiveModel> = Vec::new();
         for data in plays_on_target_date {
+            let isrc_str = match data.isrc.as_ref() {
+                Some(isrc) => isrc.as_str(),
+                None => {
+                    tracing::warn!("PlaysDaily record ID {} has no ISRC. Skipping.", data.id);
+                    continue;
+                }
+            };
+
             let new_spotify_play_count: i32 = sparse_data
                 .iter()
-                .filter(|sparse| sparse.isrc == data.isrc.as_ref().unwrap().as_str())
+                .filter(|sparse| sparse.isrc == isrc_str)
                 .filter_map(|sparse| sparse.spotify)
                 .sum();
             models.push(PlaysDailyActiveModel {
