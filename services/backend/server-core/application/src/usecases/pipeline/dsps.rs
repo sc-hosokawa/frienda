@@ -50,7 +50,7 @@ impl DspsUsecase {
 impl DspsUsecaseTrait for DspsUsecase {
     async fn add_daily_plays(&self) -> Result<(), anyhow::Error> {
         const START_OFFSET_DAYS: i64 = 3;
-        const WINDOW_DAYS: i64 = 4;
+        const WINDOW_DAYS: i64 = 1;
         const BATCH_SIZE: usize = 5000;
 
         let isrcs: Vec<String> = self.tracks_repo.find_all_isrcs().await?;
