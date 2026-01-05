@@ -272,7 +272,7 @@
   "dashboard.notion": "世代比データはSpotifyのデータを利用しています。集計対象は2025年2月1日以降のデータとなります。",
   "dashboard.no-data-collected": "算出に必要なデータが収集できませんでした。",
   "dashboard.no-data-collected-1": "今後十分な再生数がある場合に算出できるようになります。",
-  "dashboard.historical-notion": "各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。AmazonとYouTubeは日次のデータがありません。",
+  "dashboard.historical-notion": "各種DSP経由でデータ取得している関係で多少のタイムラグと誤差があります。",
   "dashboard.historical-description": "各DSPの再生数が積み上げられて表示されます",
   "dashboard.view-all-music": "全ての曲を見る",
   "dashboard.info.title": "ダッシュボードでは、ダッシュボードはアーティストが発表した楽曲の再生数などのデータをDSPを横断して確認できます。",

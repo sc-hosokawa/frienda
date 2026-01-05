@@ -272,7 +272,7 @@
   "dashboard.notion": "Generation ratio data is based on data from Spotify. The data will be aggregated from February 1, 2025 onward. Data from other DSPs will be integrated in the future.",
   "dashboard.no-data-collected": "The data necessary for the calculation could not be collected.",
   "dashboard.no-data-collected-1": "It will be able to be calculated in the future when there are enough views.",
-  "dashboard.historical-notion": "There is a slight time lag and error due to data acquisition via various DSPs. Daily data for Amazon and YouTube is not available.",
+  "dashboard.historical-notion": "There is a slight time lag and error due to data acquisition via various DSPs.",
   "dashboard.historical-description": "The number of plays for each DSP is stacked and displayed",
   "dashboard.view-all-music": "View all music",
   "dashboard.info.title": "On the dashboard, the dashboard provides data across DSPs, such as the number of plays of songs released by an artist.",
