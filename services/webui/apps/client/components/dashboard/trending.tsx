@@ -160,6 +160,14 @@ export const Trending = ({
                               <span className="text-gray-400">LINE:</span>{" "}
                               {song.weeklyPlayCountDetails.line.toLocaleString()}
                             </p>
+                            <p>
+                              <span className="text-gray-400">Amazon:</span>{" "}
+                              {song.weeklyPlayCountDetails.amazon.toLocaleString()}
+                            </p>
+                            <p>
+                              <span className="text-gray-400">YouTube:</span>{" "}
+                              {song.weeklyPlayCountDetails.youtube.toLocaleString()}
+                            </p>
                           </div>
                         </div>
                       </div>
