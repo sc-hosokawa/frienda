@@ -5,10 +5,6 @@ class FAQPage extends StatelessWidget {
 
   final List<Map<String, String>> faqItems = const [
     {
-      'question': 'アプリの使い方がわかりません',
-      'answer': 'アプリの基本的な使い方については、ホーム画面の「使い方ガイド」をご覧ください。詳細な操作方法や機能の説明が記載されています。'
-    },
-    {
       'question': 'パスワードを忘れてしまいました',
       'answer':
           'ログイン画面の「パスワードを忘れた方」リンクをタップし、登録されているメールアドレスを入力してください。パスワードリセットの手順をメールでお送りします。'
@@ -18,7 +14,6 @@ class FAQPage extends StatelessWidget {
       'answer':
           '設定画面の「アカウント設定」から「アカウント削除」を選択してください。注意：アカウントを削除すると、すべてのデータが永久に失われます。'
     },
-    // 必要に応じて他のFAQ項目を追加してください
   ];
 
   @override
