@@ -1,1 +1,5 @@
 target/
+
+# Google Cloud service account credentials
+*-adminsdk-*.json
+frienda-auth-test1-*.json
