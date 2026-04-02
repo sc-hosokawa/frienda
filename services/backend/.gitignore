@@ -2,3 +2,4 @@
 .env
 .DS_Store
 combined_output*.jsonl
+bench_query/
