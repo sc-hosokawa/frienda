@@ -1,4 +1,4 @@
-# Frienda server
+# frienda backend server
 
 ## Commands
 

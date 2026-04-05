@@ -1,4 +1,4 @@
-FROM rust:1.94.1 AS builder
+FROM rust:1.94.1-bookworm AS builder
 WORKDIR /app
 COPY . .
 RUN cargo build --release --package server-core
@@ -8,4 +8,4 @@ COPY --from=builder /app/target/release/server-core /
 COPY --from=builder /app/server-core/frienda-auth-test1-a490c287d01b.json /
 COPY --from=builder /app/server-core/friendship-dao-firebase-adminsdk-a2w15-e1854b252a.json /
 EXPOSE 8080
-CMD ["./server-core"]
+ENTRYPOINT ["/server-core"]
