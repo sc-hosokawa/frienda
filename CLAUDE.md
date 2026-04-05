@@ -35,7 +35,7 @@ This will: verify tool versions, start PostgreSQL, install dependencies for all 
 
 ### Prerequisites
 - Rust (stable) — https://rustup.rs
-- Node.js 18+ — https://nodejs.org
+- Node.js 20+ — https://nodejs.org
 - pnpm 9+ — `npm install -g pnpm`
 - Docker — https://www.docker.com
 - Flutter 3.3.1+ (mobile dev) — https://flutter.dev

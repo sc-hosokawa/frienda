@@ -57,14 +57,14 @@ mobile-dev:
 # Setup
 setup: check-tools
 	@echo "=== PostgreSQL ==="
-	@test -f docker-compose.yaml || test -f docker-compose.yml || test -f compose.yaml || (echo "ERROR: docker-compose.yaml not found" && exit 1)
-	docker compose up -d --build
+	@test -f docker-compose.yaml || test -f docker-compose.yml || test -f compose.yaml || test -f compose.yml || (echo "ERROR: docker compose file not found" && exit 1)
+	@docker compose up -d --build
 	@echo "=== Backend dependencies ==="
-	cd services/backend && cargo check
+	@cd services/backend && cargo fetch
 	@echo "=== WebUI dependencies ==="
-	cd services/webui && pnpm install
+	@cd services/webui && pnpm install
 	@echo "=== Contract dependencies ==="
-	cd services/contract && pnpm install
+	@cd services/contract && pnpm install
 	@echo "=== Mobile dependencies ==="
 	@command -v melos >/dev/null 2>&1 && (cd services/mobile && melos bootstrap) || echo "Skipped (melos not installed — optional for mobile dev)"
 	@echo "=== Environment files ==="
@@ -83,9 +83,11 @@ check-tools:
 	@command -v rustc >/dev/null 2>&1 && echo "  rustc: $$(rustc --version)" || (echo "  rustc: NOT FOUND (install from https://rustup.rs)" && exit 1)
 	@command -v cargo >/dev/null 2>&1 && echo "  cargo: $$(cargo --version)" || (echo "  cargo: NOT FOUND" && exit 1)
 	@command -v cargo-watch >/dev/null 2>&1 && echo "  cargo-watch: installed" || echo "  cargo-watch: NOT FOUND (optional: cargo install cargo-watch)"
-	@command -v node >/dev/null 2>&1 && echo "  node: $$(node --version)" || (echo "  node: NOT FOUND (install Node.js 18+)" && exit 1)
+	@command -v node >/dev/null 2>&1 && echo "  node: $$(node --version)" || (echo "  node: NOT FOUND (install Node.js 20+)" && exit 1)
+	@command -v node >/dev/null 2>&1 && NODE_MAJOR=$$(node --version | sed 's/v\([0-9]*\).*/\1/') && [ "$$NODE_MAJOR" -ge 20 ] || (echo "  WARNING: Node.js 20+ recommended (current: $$(node --version))" )
 	@command -v pnpm >/dev/null 2>&1 && echo "  pnpm: $$(pnpm --version)" || (echo "  pnpm: NOT FOUND (npm install -g pnpm)" && exit 1)
-	@command -v flutter >/dev/null 2>&1 && echo "  flutter: installed ($$(which flutter))" || echo "  flutter: NOT FOUND (optional for mobile dev)"
+	@command -v pnpm >/dev/null 2>&1 && PNPM_MAJOR=$$(pnpm --version | sed 's/\([0-9]*\).*/\1/') && [ "$$PNPM_MAJOR" -ge 9 ] || (echo "  WARNING: pnpm 9+ recommended (current: $$(pnpm --version))" )
+	@command -v flutter >/dev/null 2>&1 && echo "  flutter: $$(flutter --version 2>/dev/null | head -1)" || echo "  flutter: NOT FOUND (optional for mobile dev)"
 	@command -v melos >/dev/null 2>&1 && echo "  melos: installed" || echo "  melos: NOT FOUND (optional: dart pub global activate melos)"
 	@command -v docker >/dev/null 2>&1 && echo "  docker: $$(docker --version)" || (echo "  docker: NOT FOUND (install Docker Desktop)" && exit 1)
 	@command -v forge >/dev/null 2>&1 && echo "  forge: $$(forge --version 2>/dev/null | head -1)" || echo "  forge: NOT FOUND (optional for contract dev: https://getfoundry.sh)"
