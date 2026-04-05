@@ -80,6 +80,7 @@ setup: check-tools
 	@echo ""
 	@echo "Note: DB schema is auto-initialized on first 'docker compose up --build'."
 	@echo "      To reset DB: 'make down-pg && make run-pg'"
+	@echo "      'make setup' is safe to run multiple times."
 
 check-tools:
 	@echo "=== Checking required tools ==="

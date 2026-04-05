@@ -1,2 +1,4 @@
 [toolchain]
+# CI (.github/actions/backend-test) も stable を使用
+# バージョン固定が必要な場合は channel = "1.xx.x" に変更
 channel = "stable"
