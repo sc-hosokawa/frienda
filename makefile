@@ -11,7 +11,7 @@ gql-webui:
 	cd services/webui && pnpm --filter client codegen
 
 gql-mobile:
-	cd services/mobile && flutter pub run build_runner build --delete-conflicting-outputs 
+	cd services/mobile && dart run build_runner build --delete-conflicting-outputs
 
 # Postgres
 run-pg:
@@ -77,17 +77,22 @@ setup: check-tools
 	@echo "  1. Edit .env files with your credentials"
 	@echo "  2. Run 'make api-dev' to start the backend"
 	@echo "  3. Run 'make webui-client-dev' to start the client"
+	@echo ""
+	@echo "Note: DB schema is auto-initialized on first 'docker compose up --build'."
+	@echo "      To reset DB: 'make down-pg && make run-pg'"
 
 check-tools:
 	@echo "=== Checking required tools ==="
 	@command -v rustc >/dev/null 2>&1 && echo "  rustc: $$(rustc --version)" || (echo "  rustc: NOT FOUND (install from https://rustup.rs)" && exit 1)
 	@command -v cargo >/dev/null 2>&1 && echo "  cargo: $$(cargo --version)" || (echo "  cargo: NOT FOUND" && exit 1)
 	@command -v cargo-watch >/dev/null 2>&1 && echo "  cargo-watch: installed" || echo "  cargo-watch: NOT FOUND (optional: cargo install cargo-watch)"
-	@command -v node >/dev/null 2>&1 && echo "  node: $$(node --version)" || (echo "  node: NOT FOUND (install Node.js 20+)" && exit 1)
-	@command -v node >/dev/null 2>&1 && NODE_MAJOR=$$(node --version | sed 's/v\([0-9]*\).*/\1/') && [ "$$NODE_MAJOR" -ge 20 ] || (echo "  WARNING: Node.js 20+ recommended (current: $$(node --version))" )
-	@command -v pnpm >/dev/null 2>&1 && echo "  pnpm: $$(pnpm --version)" || (echo "  pnpm: NOT FOUND (npm install -g pnpm)" && exit 1)
-	@command -v pnpm >/dev/null 2>&1 && PNPM_MAJOR=$$(pnpm --version | sed 's/\([0-9]*\).*/\1/') && [ "$$PNPM_MAJOR" -ge 9 ] || (echo "  WARNING: pnpm 9+ recommended (current: $$(pnpm --version))" )
-	@command -v flutter >/dev/null 2>&1 && echo "  flutter: $$(flutter --version 2>/dev/null | head -1)" || echo "  flutter: NOT FOUND (optional for mobile dev)"
+	@command -v node >/dev/null 2>&1 \
+		&& (echo "  node: $$(node --version)"; NODE_MAJOR=$$(node --version | sed 's/v\([0-9]*\).*/\1/'); [ "$$NODE_MAJOR" -ge 20 ] || echo "  WARNING: Node.js 20+ recommended") \
+		|| (echo "  node: NOT FOUND (install Node.js 20+)" && exit 1)
+	@command -v pnpm >/dev/null 2>&1 \
+		&& (echo "  pnpm: $$(pnpm --version)"; PNPM_MAJOR=$$(pnpm --version | sed 's/\([0-9]*\).*/\1/'); [ "$$PNPM_MAJOR" -ge 9 ] || echo "  WARNING: pnpm 9+ recommended") \
+		|| (echo "  pnpm: NOT FOUND (npm install -g pnpm)" && exit 1)
+	@command -v flutter >/dev/null 2>&1 && echo "  flutter: installed ($$(which flutter))" || echo "  flutter: NOT FOUND (optional for mobile dev)"
 	@command -v melos >/dev/null 2>&1 && echo "  melos: installed" || echo "  melos: NOT FOUND (optional: dart pub global activate melos)"
 	@command -v docker >/dev/null 2>&1 && echo "  docker: $$(docker --version)" || (echo "  docker: NOT FOUND (install Docker Desktop)" && exit 1)
 	@command -v forge >/dev/null 2>&1 && echo "  forge: $$(forge --version 2>/dev/null | head -1)" || echo "  forge: NOT FOUND (optional for contract dev: https://getfoundry.sh)"
