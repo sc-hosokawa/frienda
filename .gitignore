@@ -1,5 +1,10 @@
 target/
 
+# Environment files
+**/.env
+**/.env.local
+**/.env.*.local
+
 # Google Cloud service account credentials
 *-adminsdk-*.json
 frienda-auth-test1-*.json
