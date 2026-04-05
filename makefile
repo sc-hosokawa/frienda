@@ -1,3 +1,6 @@
+SHELL := /bin/bash
+.SHELLFLAGS := -ec
+
 .PHONY: setup check-tools setup-gql gql-webui gql-mobile api-dev api webui-client-dev webui-admin-dev mobile-dev update-entities update-models run-pg down-pg stop-pg
 
 # GraphQL Schema
@@ -55,10 +58,9 @@ mobile-dev:
 	cd services/mobile && flutter run
 
 # Setup
-setup: check-tools
+setup: check-tools run-pg
 	@echo "=== PostgreSQL ==="
-	@test -f docker-compose.yaml || test -f docker-compose.yml || test -f compose.yaml || test -f compose.yml || (echo "ERROR: docker compose file not found" && exit 1)
-	@docker compose up -d --build
+	@echo "  Started (via run-pg)"
 	@echo "=== Backend dependencies ==="
 	@cd services/backend && cargo fetch
 	@echo "=== WebUI dependencies ==="
