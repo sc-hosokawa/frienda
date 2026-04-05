@@ -24,6 +24,23 @@ services/
 └── terraform/        # Infrastructure as code
 ```
 
+## Initial Setup
+
+```bash
+# Check required tools and install all dependencies
+make setup
+```
+
+This will: verify tool versions, start PostgreSQL, install dependencies for all services, and copy `.env.example` files. After setup, edit the `.env` files with your credentials.
+
+### Prerequisites
+- Rust (stable) — https://rustup.rs
+- Node.js 18+ — https://nodejs.org
+- pnpm 9+ — `npm install -g pnpm`
+- Docker — https://www.docker.com
+- Flutter 3.3.1+ (mobile dev) — https://flutter.dev
+- Foundry (contract dev) — https://getfoundry.sh
+
 ## Development Commands
 
 ### Backend (Rust)
