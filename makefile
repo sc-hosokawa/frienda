@@ -66,7 +66,7 @@ setup: check-tools
 	@echo "=== Contract dependencies ==="
 	cd services/contract && pnpm install
 	@echo "=== Mobile dependencies ==="
-	cd services/mobile && melos bootstrap
+	@command -v melos >/dev/null 2>&1 && (cd services/mobile && melos bootstrap) || echo "Skipped (melos not installed — optional for mobile dev)"
 	@echo "=== Environment files ==="
 	@test -f services/backend/.env || (cp services/backend/.env.example services/backend/.env && echo "Created services/backend/.env")
 	@test -f services/webui/apps/client/.env.local || (cp services/webui/apps/client/.env.example services/webui/apps/client/.env.local && echo "Created services/webui/apps/client/.env.local")
@@ -85,7 +85,7 @@ check-tools:
 	@command -v cargo-watch >/dev/null 2>&1 && echo "  cargo-watch: installed" || echo "  cargo-watch: NOT FOUND (optional: cargo install cargo-watch)"
 	@command -v node >/dev/null 2>&1 && echo "  node: $$(node --version)" || (echo "  node: NOT FOUND (install Node.js 18+)" && exit 1)
 	@command -v pnpm >/dev/null 2>&1 && echo "  pnpm: $$(pnpm --version)" || (echo "  pnpm: NOT FOUND (npm install -g pnpm)" && exit 1)
-	@command -v flutter >/dev/null 2>&1 && echo "  flutter: $$(flutter --version 2>/dev/null | head -1)" || echo "  flutter: NOT FOUND (optional for mobile dev)"
+	@command -v flutter >/dev/null 2>&1 && echo "  flutter: installed ($$(which flutter))" || echo "  flutter: NOT FOUND (optional for mobile dev)"
 	@command -v melos >/dev/null 2>&1 && echo "  melos: installed" || echo "  melos: NOT FOUND (optional: dart pub global activate melos)"
 	@command -v docker >/dev/null 2>&1 && echo "  docker: $$(docker --version)" || (echo "  docker: NOT FOUND (install Docker Desktop)" && exit 1)
 	@command -v forge >/dev/null 2>&1 && echo "  forge: $$(forge --version 2>/dev/null | head -1)" || echo "  forge: NOT FOUND (optional for contract dev: https://getfoundry.sh)"
