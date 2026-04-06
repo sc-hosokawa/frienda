@@ -30,7 +30,8 @@ help: ## Show this help
 	@echo "  update-models      Generate models and format Rust code"
 
 # GraphQL Schema
-setup-gql: copy-schema .WAIT gql-webui gql-mobile
+setup-gql: copy-schema
+	$(MAKE) gql-webui gql-mobile
 
 copy-schema:
 	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/webui/
