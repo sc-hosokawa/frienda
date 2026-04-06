@@ -38,8 +38,7 @@ This will: verify tool versions, start PostgreSQL, install dependencies for all 
 - Node.js 20+ — https://nodejs.org
 - pnpm 9+ — `npm install -g pnpm`
 - Docker — https://www.docker.com
-- fvm (Flutter Version Management) — https://fvm.app
-- Flutter 3.3.1+ (mobile dev, managed via fvm) — https://flutter.dev
+- Flutter 3.3.1+ (mobile dev) — https://flutter.dev
 - Foundry (contract dev) — https://getfoundry.sh
 
 ## Development Commands
@@ -84,7 +83,7 @@ cd services/webui && pnpm format
 # Start iOS simulator and run app
 make mobile-dev
 
-# Flutter commands via fvm + melos
+# Flutter commands via melos
 cd services/mobile && melos bootstrap
 cd services/mobile && melos run test
 cd services/mobile && melos run analyze
