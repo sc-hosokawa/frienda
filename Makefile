@@ -62,8 +62,8 @@ update-entities:
 
 update-models:
 	cd services/backend/server-core && \
-	cargo run --bin generate-models
-	cd services/backend && \
+	cargo run --bin generate-models && \
+	cd .. && \
 	cargo fmt
 
 api-dev:
@@ -76,10 +76,10 @@ api:
 
 # WebUI
 webui-client-dev:
-	cd services/webui && pnpm dev --filter=client
+	cd services/webui && pnpm --filter=client dev
 
 webui-admin-dev:
-	cd services/webui && pnpm dev --filter=admin
+	cd services/webui && pnpm --filter=admin dev
 
 # Mobile
 mobile-dev:
@@ -130,5 +130,3 @@ check-tools:
 	@command -v docker >/dev/null 2>&1 && echo "  docker: $$(docker --version)" || (echo "  docker: NOT FOUND (install Docker Desktop)" && exit 1)
 	@command -v forge >/dev/null 2>&1 && echo "  forge: $$(forge --version 2>/dev/null | head -1)" || echo "  forge: NOT FOUND (optional for contract dev: https://getfoundry.sh)"
 	@echo ""
-
-# Contract
