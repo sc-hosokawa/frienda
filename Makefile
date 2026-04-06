@@ -85,7 +85,7 @@ webui-admin-dev:
 # Mobile
 mobile-dev:
 	open -a Simulator
-	cd services/mobile && flutter run
+	cd services/mobile && fvm flutter run
 
 # Setup
 setup: check-tools run-pg
@@ -125,9 +125,9 @@ check-tools:
 	@command -v pnpm >/dev/null 2>&1 \
 		&& (echo "  pnpm: $$(pnpm --version)"; PNPM_MAJOR=$$(pnpm --version | sed 's/\([0-9]*\).*/\1/'); [ "$$PNPM_MAJOR" -ge 9 ] || echo "  WARNING: pnpm 9+ recommended") \
 		|| (echo "  pnpm: NOT FOUND (npm install -g pnpm)" && exit 1)
-	@# flutter --version is slow (SDK integrity check), so only show path
-	@command -v flutter >/dev/null 2>&1 && echo "  flutter: installed ($$(which flutter))" || echo "  flutter: NOT FOUND (optional for mobile dev)"
-	@command -v melos >/dev/null 2>&1 && echo "  melos: installed" || echo "  melos: NOT FOUND (optional: dart pub global activate melos)"
+	@command -v fvm >/dev/null 2>&1 && echo "  fvm: installed ($$(fvm --version 2>/dev/null))" || echo "  fvm: NOT FOUND (optional for mobile dev: https://fvm.app)"
+	@command -v fvm >/dev/null 2>&1 && (fvm flutter --version >/dev/null 2>&1 && echo "  flutter (via fvm): installed" || echo "  flutter (via fvm): NOT CONFIGURED (run: fvm install)") || true
+	@command -v melos >/dev/null 2>&1 && echo "  melos: installed" || echo "  melos: NOT FOUND (optional: fvm dart pub global activate melos)"
 	@command -v docker >/dev/null 2>&1 && echo "  docker: $$(docker --version)" || (echo "  docker: NOT FOUND (install Docker Desktop)" && exit 1)
 	@command -v forge >/dev/null 2>&1 && echo "  forge: $$(forge --version 2>/dev/null | head -1)" || echo "  forge: NOT FOUND (optional for contract dev: https://getfoundry.sh)"
 	@echo ""
