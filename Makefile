@@ -10,7 +10,7 @@ help: ## Show this help
 	@echo ""
 	@echo "Targets:"
 	@echo "  setup              Install dependencies, start DB, create .env files"
-	@echo "  check-tools        Verify required tools are installed"
+	@echo "  check-tools        Verify required tools and versions"
 	@echo ""
 	@echo "  api-dev            Start backend with hot reload (cargo watch)"
 	@echo "  api                Start backend without hot reload"
@@ -39,7 +39,7 @@ copy-schema:
 	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/apps/client/lib/data/graphql/
 
 gql-webui:
-	cd services/webui && pnpm --filter client codegen
+	cd services/webui && pnpm --filter=client codegen
 
 gql-mobile:
 	cd services/mobile/apps/client && dart run build_runner build --delete-conflicting-outputs
@@ -63,7 +63,7 @@ update-entities:
 update-models:
 	cd services/backend/server-core && \
 	cargo run --bin generate-models && \
-	cd .. && \
+	cd services/backend && \
 	cargo fmt
 
 api-dev:
