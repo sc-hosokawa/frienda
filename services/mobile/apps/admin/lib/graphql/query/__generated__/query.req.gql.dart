@@ -19,7 +19,7 @@ abstract class GHealthCheckReq
         _i1.OperationRequest<_i2.GHealthCheckData, _i3.GHealthCheckVars> {
   GHealthCheckReq._();
 
-  factory GHealthCheckReq([void Function(GHealthCheckReqBuilder b) updates]) =
+  factory GHealthCheckReq([Function(GHealthCheckReqBuilder b) updates]) =
       _$GHealthCheckReq;
 
   static void _initializeBuilder(GHealthCheckReqBuilder b) => b
@@ -37,7 +37,6 @@ abstract class GHealthCheckReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -59,9 +58,6 @@ abstract class GHealthCheckReq
   @override
   bool get executeOnListen;
   @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
   _i2.GHealthCheckData? parseData(Map<String, dynamic> json) =>
       _i2.GHealthCheckData.fromJson(json);
 
@@ -69,7 +65,7 @@ abstract class GHealthCheckReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(_i2.GHealthCheckData data) => data.toJson();
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GHealthCheckData, _i3.GHealthCheckVars>
@@ -91,43 +87,42 @@ abstract class GHealthCheckReq
       );
 }
 
-abstract class GGetUserDataReq
+abstract class GGetUserInfoReq
     implements
-        Built<GGetUserDataReq, GGetUserDataReqBuilder>,
-        _i1.OperationRequest<_i2.GGetUserDataData, _i3.GGetUserDataVars> {
-  GGetUserDataReq._();
+        Built<GGetUserInfoReq, GGetUserInfoReqBuilder>,
+        _i1.OperationRequest<_i2.GGetUserInfoData, _i3.GGetUserInfoVars> {
+  GGetUserInfoReq._();
 
-  factory GGetUserDataReq([void Function(GGetUserDataReqBuilder b) updates]) =
-      _$GGetUserDataReq;
+  factory GGetUserInfoReq([Function(GGetUserInfoReqBuilder b) updates]) =
+      _$GGetUserInfoReq;
 
-  static void _initializeBuilder(GGetUserDataReqBuilder b) => b
+  static void _initializeBuilder(GGetUserInfoReqBuilder b) => b
     ..operation = _i4.Operation(
       document: _i5.document,
-      operationName: 'GetUserData',
+      operationName: 'GetUserInfo',
     )
     ..executeOnListen = true;
 
   @override
-  _i3.GGetUserDataVars get vars;
+  _i3.GGetUserInfoVars get vars;
   @override
   _i4.Operation get operation;
   @override
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
       );
 
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
-  _i2.GGetUserDataData? Function(
-    _i2.GGetUserDataData?,
-    _i2.GGetUserDataData?,
+  _i2.GGetUserInfoData? Function(
+    _i2.GGetUserInfoData?,
+    _i2.GGetUserInfoData?,
   )? get updateResult;
   @override
-  _i2.GGetUserDataData? get optimisticResponse;
+  _i2.GGetUserInfoData? get optimisticResponse;
   @override
   String? get updateCacheHandlerKey;
   @override
@@ -137,75 +132,71 @@ abstract class GGetUserDataReq
   @override
   bool get executeOnListen;
   @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
-  _i2.GGetUserDataData? parseData(Map<String, dynamic> json) =>
-      _i2.GGetUserDataData.fromJson(json);
+  _i2.GGetUserInfoData? parseData(Map<String, dynamic> json) =>
+      _i2.GGetUserInfoData.fromJson(json);
 
   @override
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(_i2.GGetUserDataData data) => data.toJson();
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
   @override
-  _i1.OperationRequest<_i2.GGetUserDataData, _i3.GGetUserDataVars>
+  _i1.OperationRequest<_i2.GGetUserInfoData, _i3.GGetUserInfoVars>
       transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
           this.rebuild((b) => b..operation = transform(operation));
 
-  static Serializer<GGetUserDataReq> get serializer =>
-      _$gGetUserDataReqSerializer;
+  static Serializer<GGetUserInfoReq> get serializer =>
+      _$gGetUserInfoReqSerializer;
 
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GGetUserDataReq.serializer,
+        GGetUserInfoReq.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GGetUserDataReq? fromJson(Map<String, dynamic> json) =>
+  static GGetUserInfoReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
-        GGetUserDataReq.serializer,
+        GGetUserInfoReq.serializer,
         json,
       );
 }
 
-abstract class GGetOffersReq
+abstract class GGetAllOffersReq
     implements
-        Built<GGetOffersReq, GGetOffersReqBuilder>,
-        _i1.OperationRequest<_i2.GGetOffersData, _i3.GGetOffersVars> {
-  GGetOffersReq._();
+        Built<GGetAllOffersReq, GGetAllOffersReqBuilder>,
+        _i1.OperationRequest<_i2.GGetAllOffersData, _i3.GGetAllOffersVars> {
+  GGetAllOffersReq._();
 
-  factory GGetOffersReq([void Function(GGetOffersReqBuilder b) updates]) =
-      _$GGetOffersReq;
+  factory GGetAllOffersReq([Function(GGetAllOffersReqBuilder b) updates]) =
+      _$GGetAllOffersReq;
 
-  static void _initializeBuilder(GGetOffersReqBuilder b) => b
+  static void _initializeBuilder(GGetAllOffersReqBuilder b) => b
     ..operation = _i4.Operation(
       document: _i5.document,
-      operationName: 'GetOffers',
+      operationName: 'GetAllOffers',
     )
     ..executeOnListen = true;
 
   @override
-  _i3.GGetOffersVars get vars;
+  _i3.GGetAllOffersVars get vars;
   @override
   _i4.Operation get operation;
   @override
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
       );
 
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
-  _i2.GGetOffersData? Function(
-    _i2.GGetOffersData?,
-    _i2.GGetOffersData?,
+  _i2.GGetAllOffersData? Function(
+    _i2.GGetAllOffersData?,
+    _i2.GGetAllOffersData?,
   )? get updateResult;
   @override
-  _i2.GGetOffersData? get optimisticResponse;
+  _i2.GGetAllOffersData? get optimisticResponse;
   @override
   String? get updateCacheHandlerKey;
   @override
@@ -215,33 +206,31 @@ abstract class GGetOffersReq
   @override
   bool get executeOnListen;
   @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
-  _i2.GGetOffersData? parseData(Map<String, dynamic> json) =>
-      _i2.GGetOffersData.fromJson(json);
+  _i2.GGetAllOffersData? parseData(Map<String, dynamic> json) =>
+      _i2.GGetAllOffersData.fromJson(json);
 
   @override
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(_i2.GGetOffersData data) => data.toJson();
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
   @override
-  _i1.OperationRequest<_i2.GGetOffersData, _i3.GGetOffersVars>
+  _i1.OperationRequest<_i2.GGetAllOffersData, _i3.GGetAllOffersVars>
       transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
           this.rebuild((b) => b..operation = transform(operation));
 
-  static Serializer<GGetOffersReq> get serializer => _$gGetOffersReqSerializer;
+  static Serializer<GGetAllOffersReq> get serializer =>
+      _$gGetAllOffersReqSerializer;
 
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GGetOffersReq.serializer,
+        GGetAllOffersReq.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GGetOffersReq? fromJson(Map<String, dynamic> json) =>
+  static GGetAllOffersReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
-        GGetOffersReq.serializer,
+        GGetAllOffersReq.serializer,
         json,
       );
 }
@@ -254,8 +243,7 @@ abstract class GGetMessageRoomsReq
   GGetMessageRoomsReq._();
 
   factory GGetMessageRoomsReq(
-          [void Function(GGetMessageRoomsReqBuilder b) updates]) =
-      _$GGetMessageRoomsReq;
+      [Function(GGetMessageRoomsReqBuilder b) updates]) = _$GGetMessageRoomsReq;
 
   static void _initializeBuilder(GGetMessageRoomsReqBuilder b) => b
     ..operation = _i4.Operation(
@@ -272,7 +260,6 @@ abstract class GGetMessageRoomsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -294,9 +281,6 @@ abstract class GGetMessageRoomsReq
   @override
   bool get executeOnListen;
   @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
   _i2.GGetMessageRoomsData? parseData(Map<String, dynamic> json) =>
       _i2.GGetMessageRoomsData.fromJson(json);
 
@@ -304,8 +288,7 @@ abstract class GGetMessageRoomsReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(_i2.GGetMessageRoomsData data) =>
-      data.toJson();
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GGetMessageRoomsData, _i3.GGetMessageRoomsVars>
@@ -336,7 +319,7 @@ abstract class GGetMessagesByMessageRoomIdReq
   GGetMessagesByMessageRoomIdReq._();
 
   factory GGetMessagesByMessageRoomIdReq(
-          [void Function(GGetMessagesByMessageRoomIdReqBuilder b) updates]) =
+          [Function(GGetMessagesByMessageRoomIdReqBuilder b) updates]) =
       _$GGetMessagesByMessageRoomIdReq;
 
   static void _initializeBuilder(GGetMessagesByMessageRoomIdReqBuilder b) => b
@@ -354,7 +337,6 @@ abstract class GGetMessagesByMessageRoomIdReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -376,9 +358,6 @@ abstract class GGetMessagesByMessageRoomIdReq
   @override
   bool get executeOnListen;
   @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
   _i2.GGetMessagesByMessageRoomIdData? parseData(Map<String, dynamic> json) =>
       _i2.GGetMessagesByMessageRoomIdData.fromJson(json);
 
@@ -386,8 +365,7 @@ abstract class GGetMessagesByMessageRoomIdReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(_i2.GGetMessagesByMessageRoomIdData data) =>
-      data.toJson();
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GGetMessagesByMessageRoomIdData,
@@ -418,7 +396,7 @@ abstract class GGetNotificationsReq
   GGetNotificationsReq._();
 
   factory GGetNotificationsReq(
-          [void Function(GGetNotificationsReqBuilder b) updates]) =
+          [Function(GGetNotificationsReqBuilder b) updates]) =
       _$GGetNotificationsReq;
 
   static void _initializeBuilder(GGetNotificationsReqBuilder b) => b
@@ -436,7 +414,6 @@ abstract class GGetNotificationsReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
-        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -458,9 +435,6 @@ abstract class GGetNotificationsReq
   @override
   bool get executeOnListen;
   @override
-  @BuiltValueField(serialize: false)
-  _i4.Context? get context;
-  @override
   _i2.GGetNotificationsData? parseData(Map<String, dynamic> json) =>
       _i2.GGetNotificationsData.fromJson(json);
 
@@ -468,8 +442,7 @@ abstract class GGetNotificationsReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(_i2.GGetNotificationsData data) =>
-      data.toJson();
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GGetNotificationsData, _i3.GGetNotificationsVars>
@@ -487,6 +460,80 @@ abstract class GGetNotificationsReq
   static GGetNotificationsReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
         GGetNotificationsReq.serializer,
+        json,
+      );
+}
+
+abstract class GGetUserDataReq
+    implements
+        Built<GGetUserDataReq, GGetUserDataReqBuilder>,
+        _i1.OperationRequest<_i2.GGetUserDataData, _i3.GGetUserDataVars> {
+  GGetUserDataReq._();
+
+  factory GGetUserDataReq([Function(GGetUserDataReqBuilder b) updates]) =
+      _$GGetUserDataReq;
+
+  static void _initializeBuilder(GGetUserDataReqBuilder b) => b
+    ..operation = _i4.Operation(
+      document: _i5.document,
+      operationName: 'GetUserData',
+    )
+    ..executeOnListen = true;
+
+  @override
+  _i3.GGetUserDataVars get vars;
+  @override
+  _i4.Operation get operation;
+  @override
+  _i4.Request get execRequest => _i4.Request(
+        operation: operation,
+        variables: vars.toJson(),
+      );
+
+  @override
+  String? get requestId;
+  @override
+  @BuiltValueField(serialize: false)
+  _i2.GGetUserDataData? Function(
+    _i2.GGetUserDataData?,
+    _i2.GGetUserDataData?,
+  )? get updateResult;
+  @override
+  _i2.GGetUserDataData? get optimisticResponse;
+  @override
+  String? get updateCacheHandlerKey;
+  @override
+  Map<String, dynamic>? get updateCacheHandlerContext;
+  @override
+  _i1.FetchPolicy? get fetchPolicy;
+  @override
+  bool get executeOnListen;
+  @override
+  _i2.GGetUserDataData? parseData(Map<String, dynamic> json) =>
+      _i2.GGetUserDataData.fromJson(json);
+
+  @override
+  Map<String, dynamic> varsToJson() => vars.toJson();
+
+  @override
+  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+
+  @override
+  _i1.OperationRequest<_i2.GGetUserDataData, _i3.GGetUserDataVars>
+      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
+          this.rebuild((b) => b..operation = transform(operation));
+
+  static Serializer<GGetUserDataReq> get serializer =>
+      _$gGetUserDataReqSerializer;
+
+  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
+        GGetUserDataReq.serializer,
+        this,
+      ) as Map<String, dynamic>);
+
+  static GGetUserDataReq? fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(
+        GGetUserDataReq.serializer,
         json,
       );
 }

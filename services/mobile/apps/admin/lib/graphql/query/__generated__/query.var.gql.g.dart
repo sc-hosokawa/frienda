@@ -8,10 +8,10 @@ part of 'query.var.gql.dart';
 
 Serializer<GHealthCheckVars> _$gHealthCheckVarsSerializer =
     new _$GHealthCheckVarsSerializer();
-Serializer<GGetUserDataVars> _$gGetUserDataVarsSerializer =
-    new _$GGetUserDataVarsSerializer();
-Serializer<GGetOffersVars> _$gGetOffersVarsSerializer =
-    new _$GGetOffersVarsSerializer();
+Serializer<GGetUserInfoVars> _$gGetUserInfoVarsSerializer =
+    new _$GGetUserInfoVarsSerializer();
+Serializer<GGetAllOffersVars> _$gGetAllOffersVarsSerializer =
+    new _$GGetAllOffersVarsSerializer();
 Serializer<GGetMessageRoomsVars> _$gGetMessageRoomsVarsSerializer =
     new _$GGetMessageRoomsVarsSerializer();
 Serializer<GGetMessagesByMessageRoomIdVars>
@@ -19,6 +19,8 @@ Serializer<GGetMessagesByMessageRoomIdVars>
     new _$GGetMessagesByMessageRoomIdVarsSerializer();
 Serializer<GGetNotificationsVars> _$gGetNotificationsVarsSerializer =
     new _$GGetNotificationsVarsSerializer();
+Serializer<GGetUserDataVars> _$gGetUserDataVarsSerializer =
+    new _$GGetUserDataVarsSerializer();
 
 class _$GHealthCheckVarsSerializer
     implements StructuredSerializer<GHealthCheckVars> {
@@ -41,66 +43,45 @@ class _$GHealthCheckVarsSerializer
   }
 }
 
-class _$GGetUserDataVarsSerializer
-    implements StructuredSerializer<GGetUserDataVars> {
+class _$GGetUserInfoVarsSerializer
+    implements StructuredSerializer<GGetUserInfoVars> {
   @override
-  final Iterable<Type> types = const [GGetUserDataVars, _$GGetUserDataVars];
+  final Iterable<Type> types = const [GGetUserInfoVars, _$GGetUserInfoVars];
   @override
-  final String wireName = 'GGetUserDataVars';
+  final String wireName = 'GGetUserInfoVars';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GGetUserDataVars object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'userId',
-      serializers.serialize(object.userId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GGetUserDataVars deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserDataVarsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'userId':
-          result.userId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GGetOffersVarsSerializer
-    implements StructuredSerializer<GGetOffersVars> {
-  @override
-  final Iterable<Type> types = const [GGetOffersVars, _$GGetOffersVars];
-  @override
-  final String wireName = 'GGetOffersVars';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GGetOffersVars object,
+  Iterable<Object?> serialize(Serializers serializers, GGetUserInfoVars object,
       {FullType specifiedType = FullType.unspecified}) {
     return <Object?>[];
   }
 
   @override
-  GGetOffersVars deserialize(
+  GGetUserInfoVars deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    return new GGetOffersVarsBuilder().build();
+    return new GGetUserInfoVarsBuilder().build();
+  }
+}
+
+class _$GGetAllOffersVarsSerializer
+    implements StructuredSerializer<GGetAllOffersVars> {
+  @override
+  final Iterable<Type> types = const [GGetAllOffersVars, _$GGetAllOffersVars];
+  @override
+  final String wireName = 'GGetAllOffersVars';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GGetAllOffersVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    return <Object?>[];
+  }
+
+  @override
+  GGetAllOffersVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    return new GGetAllOffersVarsBuilder().build();
   }
 }
 
@@ -118,35 +99,14 @@ class _$GGetMessageRoomsVarsSerializer
   Iterable<Object?> serialize(
       Serializers serializers, GGetMessageRoomsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'userId',
-      serializers.serialize(object.userId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
+    return <Object?>[];
   }
 
   @override
   GGetMessageRoomsVars deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetMessageRoomsVarsBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'userId':
-          result.userId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
+    return new GGetMessageRoomsVarsBuilder().build();
   }
 }
 
@@ -165,9 +125,6 @@ class _$GGetMessagesByMessageRoomIdVarsSerializer
       Serializers serializers, GGetMessagesByMessageRoomIdVars object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'userId',
-      serializers.serialize(object.userId,
-          specifiedType: const FullType(String)),
       'messageRoomId',
       serializers.serialize(object.messageRoomId,
           specifiedType: const FullType(String)),
@@ -188,10 +145,6 @@ class _$GGetMessagesByMessageRoomIdVarsSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'userId':
-          result.userId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
         case 'messageRoomId':
           result.messageRoomId = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
@@ -217,35 +170,35 @@ class _$GGetNotificationsVarsSerializer
   Iterable<Object?> serialize(
       Serializers serializers, GGetNotificationsVars object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'userId',
-      serializers.serialize(object.userId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
+    return <Object?>[];
   }
 
   @override
   GGetNotificationsVars deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetNotificationsVarsBuilder();
+    return new GGetNotificationsVarsBuilder().build();
+  }
+}
 
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'userId':
-          result.userId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
+class _$GGetUserDataVarsSerializer
+    implements StructuredSerializer<GGetUserDataVars> {
+  @override
+  final Iterable<Type> types = const [GGetUserDataVars, _$GGetUserDataVars];
+  @override
+  final String wireName = 'GGetUserDataVars';
 
-    return result.build();
+  @override
+  Iterable<Object?> serialize(Serializers serializers, GGetUserDataVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    return <Object?>[];
+  }
+
+  @override
+  GGetUserDataVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    return new GGetUserDataVarsBuilder().build();
   }
 }
 
@@ -308,162 +261,130 @@ class GHealthCheckVarsBuilder
   }
 }
 
-class _$GGetUserDataVars extends GGetUserDataVars {
-  @override
-  final String userId;
+class _$GGetUserInfoVars extends GGetUserInfoVars {
+  factory _$GGetUserInfoVars(
+          [void Function(GGetUserInfoVarsBuilder)? updates]) =>
+      (new GGetUserInfoVarsBuilder()..update(updates))._build();
 
-  factory _$GGetUserDataVars(
-          [void Function(GGetUserDataVarsBuilder)? updates]) =>
-      (new GGetUserDataVarsBuilder()..update(updates))._build();
-
-  _$GGetUserDataVars._({required this.userId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        userId, r'GGetUserDataVars', 'userId');
-  }
+  _$GGetUserInfoVars._() : super._();
 
   @override
-  GGetUserDataVars rebuild(void Function(GGetUserDataVarsBuilder) updates) =>
+  GGetUserInfoVars rebuild(void Function(GGetUserInfoVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GGetUserDataVarsBuilder toBuilder() =>
-      new GGetUserDataVarsBuilder()..replace(this);
+  GGetUserInfoVarsBuilder toBuilder() =>
+      new GGetUserInfoVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GGetUserDataVars && userId == other.userId;
+    return other is GGetUserInfoVars;
   }
 
   @override
   int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, userId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
+    return 909751917;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GGetUserDataVars')
-          ..add('userId', userId))
-        .toString();
+    return newBuiltValueToStringHelper(r'GGetUserInfoVars').toString();
   }
 }
 
-class GGetUserDataVarsBuilder
-    implements Builder<GGetUserDataVars, GGetUserDataVarsBuilder> {
-  _$GGetUserDataVars? _$v;
+class GGetUserInfoVarsBuilder
+    implements Builder<GGetUserInfoVars, GGetUserInfoVarsBuilder> {
+  _$GGetUserInfoVars? _$v;
 
-  String? _userId;
-  String? get userId => _$this._userId;
-  set userId(String? userId) => _$this._userId = userId;
-
-  GGetUserDataVarsBuilder();
-
-  GGetUserDataVarsBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _userId = $v.userId;
-      _$v = null;
-    }
-    return this;
-  }
+  GGetUserInfoVarsBuilder();
 
   @override
-  void replace(GGetUserDataVars other) {
+  void replace(GGetUserInfoVars other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserDataVars;
+    _$v = other as _$GGetUserInfoVars;
   }
 
   @override
-  void update(void Function(GGetUserDataVarsBuilder)? updates) {
+  void update(void Function(GGetUserInfoVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GGetUserDataVars build() => _build();
+  GGetUserInfoVars build() => _build();
 
-  _$GGetUserDataVars _build() {
-    final _$result = _$v ??
-        new _$GGetUserDataVars._(
-            userId: BuiltValueNullFieldError.checkNotNull(
-                userId, r'GGetUserDataVars', 'userId'));
+  _$GGetUserInfoVars _build() {
+    final _$result = _$v ?? new _$GGetUserInfoVars._();
     replace(_$result);
     return _$result;
   }
 }
 
-class _$GGetOffersVars extends GGetOffersVars {
-  factory _$GGetOffersVars([void Function(GGetOffersVarsBuilder)? updates]) =>
-      (new GGetOffersVarsBuilder()..update(updates))._build();
+class _$GGetAllOffersVars extends GGetAllOffersVars {
+  factory _$GGetAllOffersVars(
+          [void Function(GGetAllOffersVarsBuilder)? updates]) =>
+      (new GGetAllOffersVarsBuilder()..update(updates))._build();
 
-  _$GGetOffersVars._() : super._();
+  _$GGetAllOffersVars._() : super._();
 
   @override
-  GGetOffersVars rebuild(void Function(GGetOffersVarsBuilder) updates) =>
+  GGetAllOffersVars rebuild(void Function(GGetAllOffersVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GGetOffersVarsBuilder toBuilder() =>
-      new GGetOffersVarsBuilder()..replace(this);
+  GGetAllOffersVarsBuilder toBuilder() =>
+      new GGetAllOffersVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GGetOffersVars;
+    return other is GGetAllOffersVars;
   }
 
   @override
   int get hashCode {
-    return 704756872;
+    return 1064331430;
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper(r'GGetOffersVars').toString();
+    return newBuiltValueToStringHelper(r'GGetAllOffersVars').toString();
   }
 }
 
-class GGetOffersVarsBuilder
-    implements Builder<GGetOffersVars, GGetOffersVarsBuilder> {
-  _$GGetOffersVars? _$v;
+class GGetAllOffersVarsBuilder
+    implements Builder<GGetAllOffersVars, GGetAllOffersVarsBuilder> {
+  _$GGetAllOffersVars? _$v;
 
-  GGetOffersVarsBuilder();
+  GGetAllOffersVarsBuilder();
 
   @override
-  void replace(GGetOffersVars other) {
+  void replace(GGetAllOffersVars other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetOffersVars;
+    _$v = other as _$GGetAllOffersVars;
   }
 
   @override
-  void update(void Function(GGetOffersVarsBuilder)? updates) {
+  void update(void Function(GGetAllOffersVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GGetOffersVars build() => _build();
+  GGetAllOffersVars build() => _build();
 
-  _$GGetOffersVars _build() {
-    final _$result = _$v ?? new _$GGetOffersVars._();
+  _$GGetAllOffersVars _build() {
+    final _$result = _$v ?? new _$GGetAllOffersVars._();
     replace(_$result);
     return _$result;
   }
 }
 
 class _$GGetMessageRoomsVars extends GGetMessageRoomsVars {
-  @override
-  final String userId;
-
   factory _$GGetMessageRoomsVars(
           [void Function(GGetMessageRoomsVarsBuilder)? updates]) =>
       (new GGetMessageRoomsVarsBuilder()..update(updates))._build();
 
-  _$GGetMessageRoomsVars._({required this.userId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        userId, r'GGetMessageRoomsVars', 'userId');
-  }
+  _$GGetMessageRoomsVars._() : super._();
 
   @override
   GGetMessageRoomsVars rebuild(
@@ -477,22 +398,17 @@ class _$GGetMessageRoomsVars extends GGetMessageRoomsVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GGetMessageRoomsVars && userId == other.userId;
+    return other is GGetMessageRoomsVars;
   }
 
   @override
   int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, userId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
+    return 753535444;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GGetMessageRoomsVars')
-          ..add('userId', userId))
-        .toString();
+    return newBuiltValueToStringHelper(r'GGetMessageRoomsVars').toString();
   }
 }
 
@@ -500,20 +416,7 @@ class GGetMessageRoomsVarsBuilder
     implements Builder<GGetMessageRoomsVars, GGetMessageRoomsVarsBuilder> {
   _$GGetMessageRoomsVars? _$v;
 
-  String? _userId;
-  String? get userId => _$this._userId;
-  set userId(String? userId) => _$this._userId = userId;
-
   GGetMessageRoomsVarsBuilder();
-
-  GGetMessageRoomsVarsBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _userId = $v.userId;
-      _$v = null;
-    }
-    return this;
-  }
 
   @override
   void replace(GGetMessageRoomsVars other) {
@@ -530,10 +433,7 @@ class GGetMessageRoomsVarsBuilder
   GGetMessageRoomsVars build() => _build();
 
   _$GGetMessageRoomsVars _build() {
-    final _$result = _$v ??
-        new _$GGetMessageRoomsVars._(
-            userId: BuiltValueNullFieldError.checkNotNull(
-                userId, r'GGetMessageRoomsVars', 'userId'));
+    final _$result = _$v ?? new _$GGetMessageRoomsVars._();
     replace(_$result);
     return _$result;
   }
@@ -542,19 +442,14 @@ class GGetMessageRoomsVarsBuilder
 class _$GGetMessagesByMessageRoomIdVars
     extends GGetMessagesByMessageRoomIdVars {
   @override
-  final String userId;
-  @override
   final String messageRoomId;
 
   factory _$GGetMessagesByMessageRoomIdVars(
           [void Function(GGetMessagesByMessageRoomIdVarsBuilder)? updates]) =>
       (new GGetMessagesByMessageRoomIdVarsBuilder()..update(updates))._build();
 
-  _$GGetMessagesByMessageRoomIdVars._(
-      {required this.userId, required this.messageRoomId})
+  _$GGetMessagesByMessageRoomIdVars._({required this.messageRoomId})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        userId, r'GGetMessagesByMessageRoomIdVars', 'userId');
     BuiltValueNullFieldError.checkNotNull(
         messageRoomId, r'GGetMessagesByMessageRoomIdVars', 'messageRoomId');
   }
@@ -572,14 +467,12 @@ class _$GGetMessagesByMessageRoomIdVars
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GGetMessagesByMessageRoomIdVars &&
-        userId == other.userId &&
         messageRoomId == other.messageRoomId;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, userId.hashCode);
     _$hash = $jc(_$hash, messageRoomId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -588,7 +481,6 @@ class _$GGetMessagesByMessageRoomIdVars
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GGetMessagesByMessageRoomIdVars')
-          ..add('userId', userId)
           ..add('messageRoomId', messageRoomId))
         .toString();
   }
@@ -600,10 +492,6 @@ class GGetMessagesByMessageRoomIdVarsBuilder
             GGetMessagesByMessageRoomIdVarsBuilder> {
   _$GGetMessagesByMessageRoomIdVars? _$v;
 
-  String? _userId;
-  String? get userId => _$this._userId;
-  set userId(String? userId) => _$this._userId = userId;
-
   String? _messageRoomId;
   String? get messageRoomId => _$this._messageRoomId;
   set messageRoomId(String? messageRoomId) =>
@@ -614,7 +502,6 @@ class GGetMessagesByMessageRoomIdVarsBuilder
   GGetMessagesByMessageRoomIdVarsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _userId = $v.userId;
       _messageRoomId = $v.messageRoomId;
       _$v = null;
     }
@@ -638,8 +525,6 @@ class GGetMessagesByMessageRoomIdVarsBuilder
   _$GGetMessagesByMessageRoomIdVars _build() {
     final _$result = _$v ??
         new _$GGetMessagesByMessageRoomIdVars._(
-            userId: BuiltValueNullFieldError.checkNotNull(
-                userId, r'GGetMessagesByMessageRoomIdVars', 'userId'),
             messageRoomId: BuiltValueNullFieldError.checkNotNull(messageRoomId,
                 r'GGetMessagesByMessageRoomIdVars', 'messageRoomId'));
     replace(_$result);
@@ -648,17 +533,11 @@ class GGetMessagesByMessageRoomIdVarsBuilder
 }
 
 class _$GGetNotificationsVars extends GGetNotificationsVars {
-  @override
-  final String userId;
-
   factory _$GGetNotificationsVars(
           [void Function(GGetNotificationsVarsBuilder)? updates]) =>
       (new GGetNotificationsVarsBuilder()..update(updates))._build();
 
-  _$GGetNotificationsVars._({required this.userId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        userId, r'GGetNotificationsVars', 'userId');
-  }
+  _$GGetNotificationsVars._() : super._();
 
   @override
   GGetNotificationsVars rebuild(
@@ -672,22 +551,17 @@ class _$GGetNotificationsVars extends GGetNotificationsVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GGetNotificationsVars && userId == other.userId;
+    return other is GGetNotificationsVars;
   }
 
   @override
   int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, userId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
+    return 646619994;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GGetNotificationsVars')
-          ..add('userId', userId))
-        .toString();
+    return newBuiltValueToStringHelper(r'GGetNotificationsVars').toString();
   }
 }
 
@@ -695,20 +569,7 @@ class GGetNotificationsVarsBuilder
     implements Builder<GGetNotificationsVars, GGetNotificationsVarsBuilder> {
   _$GGetNotificationsVars? _$v;
 
-  String? _userId;
-  String? get userId => _$this._userId;
-  set userId(String? userId) => _$this._userId = userId;
-
   GGetNotificationsVarsBuilder();
-
-  GGetNotificationsVarsBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _userId = $v.userId;
-      _$v = null;
-    }
-    return this;
-  }
 
   @override
   void replace(GGetNotificationsVars other) {
@@ -725,10 +586,66 @@ class GGetNotificationsVarsBuilder
   GGetNotificationsVars build() => _build();
 
   _$GGetNotificationsVars _build() {
-    final _$result = _$v ??
-        new _$GGetNotificationsVars._(
-            userId: BuiltValueNullFieldError.checkNotNull(
-                userId, r'GGetNotificationsVars', 'userId'));
+    final _$result = _$v ?? new _$GGetNotificationsVars._();
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetUserDataVars extends GGetUserDataVars {
+  factory _$GGetUserDataVars(
+          [void Function(GGetUserDataVarsBuilder)? updates]) =>
+      (new GGetUserDataVarsBuilder()..update(updates))._build();
+
+  _$GGetUserDataVars._() : super._();
+
+  @override
+  GGetUserDataVars rebuild(void Function(GGetUserDataVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetUserDataVarsBuilder toBuilder() =>
+      new GGetUserDataVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetUserDataVars;
+  }
+
+  @override
+  int get hashCode {
+    return 914364733;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper(r'GGetUserDataVars').toString();
+  }
+}
+
+class GGetUserDataVarsBuilder
+    implements Builder<GGetUserDataVars, GGetUserDataVarsBuilder> {
+  _$GGetUserDataVars? _$v;
+
+  GGetUserDataVarsBuilder();
+
+  @override
+  void replace(GGetUserDataVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetUserDataVars;
+  }
+
+  @override
+  void update(void Function(GGetUserDataVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GGetUserDataVars build() => _build();
+
+  _$GGetUserDataVars _build() {
+    final _$result = _$v ?? new _$GGetUserDataVars._();
     replace(_$result);
     return _$result;
   }

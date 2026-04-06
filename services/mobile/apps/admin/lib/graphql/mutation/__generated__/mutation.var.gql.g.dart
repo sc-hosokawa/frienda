@@ -6,16 +6,65 @@ part of 'mutation.var.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<GAddNewConnectionVars> _$gAddNewConnectionVarsSerializer =
+    new _$GAddNewConnectionVarsSerializer();
 Serializer<GCreateNewMessageRoomVars> _$gCreateNewMessageRoomVarsSerializer =
     new _$GCreateNewMessageRoomVarsSerializer();
 Serializer<GSendMessageVars> _$gSendMessageVarsSerializer =
     new _$GSendMessageVarsSerializer();
 Serializer<GCreateNewOfferVars> _$gCreateNewOfferVarsSerializer =
     new _$GCreateNewOfferVarsSerializer();
-Serializer<GUpdateOfferInfoVars> _$gUpdateOfferInfoVarsSerializer =
-    new _$GUpdateOfferInfoVarsSerializer();
+Serializer<GUpdateOfferVars> _$gUpdateOfferVarsSerializer =
+    new _$GUpdateOfferVarsSerializer();
 Serializer<GDeleteOfferVars> _$gDeleteOfferVarsSerializer =
     new _$GDeleteOfferVarsSerializer();
+
+class _$GAddNewConnectionVarsSerializer
+    implements StructuredSerializer<GAddNewConnectionVars> {
+  @override
+  final Iterable<Type> types = const [
+    GAddNewConnectionVars,
+    _$GAddNewConnectionVars
+  ];
+  @override
+  final String wireName = 'GAddNewConnectionVars';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GAddNewConnectionVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'input',
+      serializers.serialize(object.input,
+          specifiedType: const FullType(_i1.GAddNewConnectionInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GAddNewConnectionVars deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GAddNewConnectionVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'input':
+          result.input.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.GAddNewConnectionInput))!
+              as _i1.GAddNewConnectionInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
 
 class _$GCreateNewMessageRoomVarsSerializer
     implements StructuredSerializer<GCreateNewMessageRoomVars> {
@@ -155,19 +204,15 @@ class _$GCreateNewOfferVarsSerializer
   }
 }
 
-class _$GUpdateOfferInfoVarsSerializer
-    implements StructuredSerializer<GUpdateOfferInfoVars> {
+class _$GUpdateOfferVarsSerializer
+    implements StructuredSerializer<GUpdateOfferVars> {
   @override
-  final Iterable<Type> types = const [
-    GUpdateOfferInfoVars,
-    _$GUpdateOfferInfoVars
-  ];
+  final Iterable<Type> types = const [GUpdateOfferVars, _$GUpdateOfferVars];
   @override
-  final String wireName = 'GUpdateOfferInfoVars';
+  final String wireName = 'GUpdateOfferVars';
 
   @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GUpdateOfferInfoVars object,
+  Iterable<Object?> serialize(Serializers serializers, GUpdateOfferVars object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'input',
@@ -179,10 +224,10 @@ class _$GUpdateOfferInfoVarsSerializer
   }
 
   @override
-  GUpdateOfferInfoVars deserialize(
+  GUpdateOfferVars deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateOfferInfoVarsBuilder();
+    final result = new GUpdateOfferVarsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -242,6 +287,104 @@ class _$GDeleteOfferVarsSerializer
     }
 
     return result.build();
+  }
+}
+
+class _$GAddNewConnectionVars extends GAddNewConnectionVars {
+  @override
+  final _i1.GAddNewConnectionInput input;
+
+  factory _$GAddNewConnectionVars(
+          [void Function(GAddNewConnectionVarsBuilder)? updates]) =>
+      (new GAddNewConnectionVarsBuilder()..update(updates))._build();
+
+  _$GAddNewConnectionVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        input, r'GAddNewConnectionVars', 'input');
+  }
+
+  @override
+  GAddNewConnectionVars rebuild(
+          void Function(GAddNewConnectionVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GAddNewConnectionVarsBuilder toBuilder() =>
+      new GAddNewConnectionVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GAddNewConnectionVars && input == other.input;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, input.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GAddNewConnectionVars')
+          ..add('input', input))
+        .toString();
+  }
+}
+
+class GAddNewConnectionVarsBuilder
+    implements Builder<GAddNewConnectionVars, GAddNewConnectionVarsBuilder> {
+  _$GAddNewConnectionVars? _$v;
+
+  _i1.GAddNewConnectionInputBuilder? _input;
+  _i1.GAddNewConnectionInputBuilder get input =>
+      _$this._input ??= new _i1.GAddNewConnectionInputBuilder();
+  set input(_i1.GAddNewConnectionInputBuilder? input) => _$this._input = input;
+
+  GAddNewConnectionVarsBuilder();
+
+  GAddNewConnectionVarsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _input = $v.input.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GAddNewConnectionVars other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GAddNewConnectionVars;
+  }
+
+  @override
+  void update(void Function(GAddNewConnectionVarsBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GAddNewConnectionVars build() => _build();
+
+  _$GAddNewConnectionVars _build() {
+    _$GAddNewConnectionVars _$result;
+    try {
+      _$result = _$v ?? new _$GAddNewConnectionVars._(input: input.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'input';
+        input.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GAddNewConnectionVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
   }
 }
 
@@ -539,32 +682,30 @@ class GCreateNewOfferVarsBuilder
   }
 }
 
-class _$GUpdateOfferInfoVars extends GUpdateOfferInfoVars {
+class _$GUpdateOfferVars extends GUpdateOfferVars {
   @override
   final _i1.GUpdateOfferInput input;
 
-  factory _$GUpdateOfferInfoVars(
-          [void Function(GUpdateOfferInfoVarsBuilder)? updates]) =>
-      (new GUpdateOfferInfoVarsBuilder()..update(updates))._build();
+  factory _$GUpdateOfferVars(
+          [void Function(GUpdateOfferVarsBuilder)? updates]) =>
+      (new GUpdateOfferVarsBuilder()..update(updates))._build();
 
-  _$GUpdateOfferInfoVars._({required this.input}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        input, r'GUpdateOfferInfoVars', 'input');
+  _$GUpdateOfferVars._({required this.input}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(input, r'GUpdateOfferVars', 'input');
   }
 
   @override
-  GUpdateOfferInfoVars rebuild(
-          void Function(GUpdateOfferInfoVarsBuilder) updates) =>
+  GUpdateOfferVars rebuild(void Function(GUpdateOfferVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateOfferInfoVarsBuilder toBuilder() =>
-      new GUpdateOfferInfoVarsBuilder()..replace(this);
+  GUpdateOfferVarsBuilder toBuilder() =>
+      new GUpdateOfferVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateOfferInfoVars && input == other.input;
+    return other is GUpdateOfferVars && input == other.input;
   }
 
   @override
@@ -577,24 +718,24 @@ class _$GUpdateOfferInfoVars extends GUpdateOfferInfoVars {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateOfferInfoVars')
+    return (newBuiltValueToStringHelper(r'GUpdateOfferVars')
           ..add('input', input))
         .toString();
   }
 }
 
-class GUpdateOfferInfoVarsBuilder
-    implements Builder<GUpdateOfferInfoVars, GUpdateOfferInfoVarsBuilder> {
-  _$GUpdateOfferInfoVars? _$v;
+class GUpdateOfferVarsBuilder
+    implements Builder<GUpdateOfferVars, GUpdateOfferVarsBuilder> {
+  _$GUpdateOfferVars? _$v;
 
   _i1.GUpdateOfferInputBuilder? _input;
   _i1.GUpdateOfferInputBuilder get input =>
       _$this._input ??= new _i1.GUpdateOfferInputBuilder();
   set input(_i1.GUpdateOfferInputBuilder? input) => _$this._input = input;
 
-  GUpdateOfferInfoVarsBuilder();
+  GUpdateOfferVarsBuilder();
 
-  GUpdateOfferInfoVarsBuilder get _$this {
+  GUpdateOfferVarsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _input = $v.input.toBuilder();
@@ -604,23 +745,23 @@ class GUpdateOfferInfoVarsBuilder
   }
 
   @override
-  void replace(GUpdateOfferInfoVars other) {
+  void replace(GUpdateOfferVars other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateOfferInfoVars;
+    _$v = other as _$GUpdateOfferVars;
   }
 
   @override
-  void update(void Function(GUpdateOfferInfoVarsBuilder)? updates) {
+  void update(void Function(GUpdateOfferVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateOfferInfoVars build() => _build();
+  GUpdateOfferVars build() => _build();
 
-  _$GUpdateOfferInfoVars _build() {
-    _$GUpdateOfferInfoVars _$result;
+  _$GUpdateOfferVars _build() {
+    _$GUpdateOfferVars _$result;
     try {
-      _$result = _$v ?? new _$GUpdateOfferInfoVars._(input: input.build());
+      _$result = _$v ?? new _$GUpdateOfferVars._(input: input.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -628,7 +769,7 @@ class GUpdateOfferInfoVarsBuilder
         input.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUpdateOfferInfoVars', _$failedField, e.toString());
+            r'GUpdateOfferVars', _$failedField, e.toString());
       }
       rethrow;
     }

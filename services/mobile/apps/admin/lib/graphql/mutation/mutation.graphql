@@ -1,3 +1,9 @@
+mutation AddNewConnection($input: AddNewConnectionInput!) {
+  addNewConnection(input: $input) {
+    mapId
+  }
+}
+
 mutation CreateNewMessageRoom($input: CreateNewMessageRoomInput!) {
   createNewMessageRoom(input: $input) {
     id
@@ -7,10 +13,6 @@ mutation CreateNewMessageRoom($input: CreateNewMessageRoomInput!) {
 mutation SendMessage($input: SendMessageInput!) {
   sendMessage(input: $input) {
     id
-    message
-    sentAt
-    attachedFile
-    attachedImg
   }
 }
 
@@ -20,8 +22,8 @@ mutation CreateNewOffer($input: CreateNewOfferInput!) {
   }
 }
 
-mutation UpdateOfferInfo($input: UpdateOfferInput!) {
-  updateOfferInfo(input: $input) {
+mutation UpdateOffer($input: UpdateOfferInput!) {
+  updateOffer(input: $input) {
     id
   }
 }

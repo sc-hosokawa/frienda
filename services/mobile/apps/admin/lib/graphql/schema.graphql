@@ -238,14 +238,6 @@ type Credit {
 	email: String!
 }
 
-input DeleteCreditInput {
-	creditId: Int!
-}
-
-type DeleteCreditResponse {
-	isSuccess: Boolean!
-}
-
 input DeleteOfferInput {
 	id: Int!
 }
@@ -270,23 +262,6 @@ type EditShortnoteResponse {
 	id: String!
 }
 
-type ExchangeHistoryData {
-	id: Int!
-	prizeId: Int!
-	userId: String!
-	imgUrl: String
-	username: String!
-	realname: String!
-	email: String!
-	pointUsed: Int!
-	amount: Int!
-	exchangedAt: String!
-	isRequested: Boolean!
-	requestedAt: String
-	isUsed: Boolean!
-	usedAt: String
-}
-
 input ExchangePrizeInput {
 	userId: String!
 	prizeId: Int!
@@ -308,14 +283,15 @@ type FspHistory {
 }
 
 type GenPlaybackRate {
-	under17: Int!
-	gen1822: Int!
-	gen2327: Int!
-	gen2834: Int!
-	gen3544: Int!
-	gen4559: Int!
-	gen60150: Int!
-	genUnknown: Int!
+	under14: Int!
+	gen1519: Int!
+	gen2024: Int!
+	gen2529: Int!
+	gen3034: Int!
+	gen3539: Int!
+	gen4044: Int!
+	gen4549: Int!
+	gen50Over: Int!
 }
 
 type GenderGenRateData {
@@ -326,8 +302,6 @@ type GenderGenRateData {
 type GenderPlaybackRate {
 	maleCount: Int!
 	femaleCount: Int!
-	neutralCount: Int!
-	unknownCount: Int!
 }
 
 type GetAllCreditsOutput {
@@ -469,7 +443,6 @@ type MutationRoot {
 	createBulkFspTx(input: [CreateNewTransactionInput!]!): CreateNewTransactionResponse!
 	createPrize(input: CreateNewPrizeInput!): CreateNewPrizeResponse!
 	exchangePrize(input: ExchangePrizeInput!): ExchangePrizeResponse!
-	requestPrize(input: RequestPrizeInput!): RequestPrizeResponse!
 	usePrize(input: UsePrizeInput!): UsePrizeResponse!
 	questMarkAsDone(questId: Int!, userId: String!): MarkAsDoneResponse!
 	createQuest(input: CreateQuestInput!): CreateQuestResponse!
@@ -479,16 +452,10 @@ type MutationRoot {
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
-	updateCredit(input: UpdateCreditInput!): UpdateCreditResponse!
-	deleteCredit(input: DeleteCreditInput!): DeleteCreditResponse!
 	registerReleases(input: RegisterReleases!): RegisterReleasesResponse!
 	deleteUserReport(id: Int!): Boolean!
 	deleteOfferReport(id: Int!): Boolean!
 	deleteReleaseReport(id: Int!): Boolean!
-	updateTrack(input: UpdateTrackInput!): String!
-	updateProduct(input: UpdateProductInput!): String!
-	deleteTrack(isrc: String!): Boolean!
-	deleteProduct(upc: String!): Boolean!
 }
 
 type NotificationData {
@@ -516,7 +483,6 @@ type OfferData {
 	imageUrl: String
 	fee: Int!
 	category: String
-	place: String!
 }
 
 type OfferDetailData {
@@ -625,15 +591,8 @@ type PrizeDetailData {
 }
 
 type PrizesByUserIdData {
-	unusedPrizeList: [PrizeDetailData!]!
-	requestedPrizeList: [PrizeDetailData!]!
 	usedPrizeList: [PrizeDetailData!]!
-}
-
-type PrizesHistoryByUserIdData {
-	usedHistory: [ExchangeHistoryData!]!
-	requestedHistory: [ExchangeHistoryData!]!
-	unusedHistory: [ExchangeHistoryData!]!
+	unusedPrizeList: [PrizeDetailData!]!
 }
 
 type Product {
@@ -642,17 +601,6 @@ type Product {
 	imgUrl: String
 	type: String
 	artistId: String
-}
-
-type ProductData {
-	upc: String!
-	title: String!
-	imgUrl: String
-	productType: String
-	distributedAt: String
-	artistId: String!
-	artistNameJa: String!
-	numberOfTracks: Int!
 }
 
 type ProductWithTracks {
@@ -673,13 +621,10 @@ type QueryRoot {
 	getTrending(artistId: String!, userId: String!): TrendingData!
 	getPlayCountHistory(artistId: String!, userId: String!, period: Int!): ChartData!
 	getPlaycountHistoryByUpc(upc: String!, period: Int!): ChartDataByUPC!
-	getPlaycountHistoryByIsrc(isrc: String!, period: Int!): ChartData!
 	getGenderGenRateByArtist(artistId: String!, userId: String!): GenderGenRateData!
 	getGenderGenRateByUpc(artistId: String!, userId: String!, upc: String!): GenderGenRateData!
-	getGenderGenRateByIsrc(artistId: String!, userId: String!, isrc: String!): GenderGenRateData!
 	getProducts(artistId: String!): ProductsData!
 	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
-	getTrackInfo(isrc: String!): TrackInfoData!
 	getSystemOverview: OverviewData!
 	getFspHistoryForAdmin(count: Int!): [FspHistory!]!
 	getTrackCreditsHistoryForAdmin(count: Int!): [Credit!]!
@@ -689,8 +634,6 @@ type QueryRoot {
 	getAllOfferReports: [OfferReport!]!
 	getAllReleaseReports: [ReleaseReport!]!
 	getAllBlockData: [BlockUserDataResponse!]!
-	searchTracks(input: SearchTracksQuery!): [TrackData!]!
-	searchProducts(input: SearchProductsQuery!): [ProductData!]!
 	getOwnCommunity(userId: String!): ConnectedUsersData!
 	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
 	getUserProfile(viewerId: String!, userId: String!): UserDataOnDetailPage!
@@ -728,7 +671,6 @@ type QueryRoot {
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
 	getPrizeByUserId(userId: String!): PrizesByUserIdData!
-	getPrizeHistoryByUserId(userId: String!, prizeId: Int!): PrizesHistoryByUserIdData!
 	getFspHistory(userId: String!, count: Int!): TransactionsData!
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
@@ -827,15 +769,6 @@ type ReportUserResponse {
 	id: Int!
 }
 
-input RequestPrizeInput {
-	userId: String!
-	prizeId: Int!
-}
-
-type RequestPrizeResponse {
-	id: Int!
-}
-
 input RequestToAccessArtistInput {
 	userId: String!
 	artistIds: [String!]!
@@ -853,19 +786,6 @@ input SearchOptionsOffersInput {
 	minPrice: Int
 	maxPrice: Int
 	sortBy: String
-}
-
-input SearchProductsQuery {
-	upc: String
-	productTitle: String
-	artistId: String
-	productType: String
-}
-
-input SearchTracksQuery {
-	isrc: String
-	trackTitle: String
-	artistId: String
 }
 
 input SendMessageInput {
@@ -902,7 +822,6 @@ type Track {
 }
 
 type TrackCredit {
-	id: Int!
 	isrc: String!
 	commitUser: String!
 	creditRole: String!
@@ -924,19 +843,6 @@ type TrackCreditsByAdmin {
 	isInvite: Boolean
 	memo: String
 	createdAt: String!
-}
-
-type TrackData {
-	isrc: String!
-	trackTitle: String!
-	artistId: String!
-	artistName: String!
-	productTitle: String!
-}
-
-type TrackInfoData {
-	track: Track!
-	product: [Product!]!
 }
 
 type TransactionByUserData {
@@ -1023,20 +929,6 @@ type UpdateBelongsToArtistStatusResponse {
 	updatedUserArtist: ArtistByUserData!
 }
 
-input UpdateCreditInput {
-	creditId: Int!
-	commitUser: String!
-	creditRole: String
-	creditName: String
-	email: String
-	isInvite: Boolean
-	memo: String
-}
-
-type UpdateCreditResponse {
-	isSuccess: Boolean!
-}
-
 input UpdateOfferInput {
 	id: Int!
 	title: String
@@ -1081,20 +973,6 @@ input UpdatePortfolioInput {
 
 type UpdatePortfolioResponse {
 	portfolioId: Int!
-}
-
-input UpdateProductInput {
-	upc: String!
-	title: String
-	imgUrl: String
-	type: String
-	distributedAt: String
-	artistId: String
-}
-
-input UpdateTrackInput {
-	isrc: String!
-	title: String
 }
 
 input UpdateUserDataInput {
@@ -1161,7 +1039,6 @@ type UserDataOnDetailPage {
 	instagramHandle: String
 	fbHandle: String
 	shortNote: String
-	shortNoteId: String
 	greeting: String
 	skill: String
 	connections: [String!]!

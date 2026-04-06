@@ -6,16 +6,140 @@ part of 'mutation.req.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<GAddNewConnectionReq> _$gAddNewConnectionReqSerializer =
+    new _$GAddNewConnectionReqSerializer();
 Serializer<GCreateNewMessageRoomReq> _$gCreateNewMessageRoomReqSerializer =
     new _$GCreateNewMessageRoomReqSerializer();
 Serializer<GSendMessageReq> _$gSendMessageReqSerializer =
     new _$GSendMessageReqSerializer();
 Serializer<GCreateNewOfferReq> _$gCreateNewOfferReqSerializer =
     new _$GCreateNewOfferReqSerializer();
-Serializer<GUpdateOfferInfoReq> _$gUpdateOfferInfoReqSerializer =
-    new _$GUpdateOfferInfoReqSerializer();
+Serializer<GUpdateOfferReq> _$gUpdateOfferReqSerializer =
+    new _$GUpdateOfferReqSerializer();
 Serializer<GDeleteOfferReq> _$gDeleteOfferReqSerializer =
     new _$GDeleteOfferReqSerializer();
+
+class _$GAddNewConnectionReqSerializer
+    implements StructuredSerializer<GAddNewConnectionReq> {
+  @override
+  final Iterable<Type> types = const [
+    GAddNewConnectionReq,
+    _$GAddNewConnectionReq
+  ];
+  @override
+  final String wireName = 'GAddNewConnectionReq';
+
+  @override
+  Iterable<Object?> serialize(
+      Serializers serializers, GAddNewConnectionReq object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'vars',
+      serializers.serialize(object.vars,
+          specifiedType: const FullType(_i3.GAddNewConnectionVars)),
+      'operation',
+      serializers.serialize(object.operation,
+          specifiedType: const FullType(_i4.Operation)),
+      'executeOnListen',
+      serializers.serialize(object.executeOnListen,
+          specifiedType: const FullType(bool)),
+    ];
+    Object? value;
+    value = object.requestId;
+    if (value != null) {
+      result
+        ..add('requestId')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.optimisticResponse;
+    if (value != null) {
+      result
+        ..add('optimisticResponse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i2.GAddNewConnectionData)));
+    }
+    value = object.updateCacheHandlerKey;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerKey')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.updateCacheHandlerContext;
+    if (value != null) {
+      result
+        ..add('updateCacheHandlerContext')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                Map, const [const FullType(String), const FullType(dynamic)])));
+    }
+    value = object.fetchPolicy;
+    if (value != null) {
+      result
+        ..add('fetchPolicy')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(_i1.FetchPolicy)));
+    }
+    return result;
+  }
+
+  @override
+  GAddNewConnectionReq deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GAddNewConnectionReqBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current! as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'vars':
+          result.vars.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i3.GAddNewConnectionVars))!
+              as _i3.GAddNewConnectionVars);
+          break;
+        case 'operation':
+          result.operation = serializers.deserialize(value,
+              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
+          break;
+        case 'requestId':
+          result.requestId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'optimisticResponse':
+          result.optimisticResponse.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GAddNewConnectionData))!
+              as _i2.GAddNewConnectionData);
+          break;
+        case 'updateCacheHandlerKey':
+          result.updateCacheHandlerKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'updateCacheHandlerContext':
+          result.updateCacheHandlerContext = serializers.deserialize(value,
+              specifiedType: const FullType(Map, const [
+                const FullType(String),
+                const FullType(dynamic)
+              ])) as Map<String, dynamic>?;
+          break;
+        case 'fetchPolicy':
+          result.fetchPolicy = serializers.deserialize(value,
+                  specifiedType: const FullType(_i1.FetchPolicy))
+              as _i1.FetchPolicy?;
+          break;
+        case 'executeOnListen':
+          result.executeOnListen = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
 
 class _$GCreateNewMessageRoomReqSerializer
     implements StructuredSerializer<GCreateNewMessageRoomReq> {
@@ -376,24 +500,20 @@ class _$GCreateNewOfferReqSerializer
   }
 }
 
-class _$GUpdateOfferInfoReqSerializer
-    implements StructuredSerializer<GUpdateOfferInfoReq> {
+class _$GUpdateOfferReqSerializer
+    implements StructuredSerializer<GUpdateOfferReq> {
   @override
-  final Iterable<Type> types = const [
-    GUpdateOfferInfoReq,
-    _$GUpdateOfferInfoReq
-  ];
+  final Iterable<Type> types = const [GUpdateOfferReq, _$GUpdateOfferReq];
   @override
-  final String wireName = 'GUpdateOfferInfoReq';
+  final String wireName = 'GUpdateOfferReq';
 
   @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GUpdateOfferInfoReq object,
+  Iterable<Object?> serialize(Serializers serializers, GUpdateOfferReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GUpdateOfferInfoVars)),
+          specifiedType: const FullType(_i3.GUpdateOfferVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -414,7 +534,7 @@ class _$GUpdateOfferInfoReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GUpdateOfferInfoData)));
+            specifiedType: const FullType(_i2.GUpdateOfferData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -442,10 +562,10 @@ class _$GUpdateOfferInfoReqSerializer
   }
 
   @override
-  GUpdateOfferInfoReq deserialize(
+  GUpdateOfferReq deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateOfferInfoReqBuilder();
+    final result = new GUpdateOfferReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -455,8 +575,8 @@ class _$GUpdateOfferInfoReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUpdateOfferInfoVars))!
-              as _i3.GUpdateOfferInfoVars);
+                  specifiedType: const FullType(_i3.GUpdateOfferVars))!
+              as _i3.GUpdateOfferVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -468,8 +588,8 @@ class _$GUpdateOfferInfoReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GUpdateOfferInfoData))!
-              as _i2.GUpdateOfferInfoData);
+                  specifiedType: const FullType(_i2.GUpdateOfferData))!
+              as _i2.GUpdateOfferData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -616,6 +736,234 @@ class _$GDeleteOfferReqSerializer
   }
 }
 
+class _$GAddNewConnectionReq extends GAddNewConnectionReq {
+  @override
+  final _i3.GAddNewConnectionVars vars;
+  @override
+  final _i4.Operation operation;
+  @override
+  final String? requestId;
+  @override
+  final _i2.GAddNewConnectionData? Function(
+      _i2.GAddNewConnectionData?, _i2.GAddNewConnectionData?)? updateResult;
+  @override
+  final _i2.GAddNewConnectionData? optimisticResponse;
+  @override
+  final String? updateCacheHandlerKey;
+  @override
+  final Map<String, dynamic>? updateCacheHandlerContext;
+  @override
+  final _i1.FetchPolicy? fetchPolicy;
+  @override
+  final bool executeOnListen;
+
+  factory _$GAddNewConnectionReq(
+          [void Function(GAddNewConnectionReqBuilder)? updates]) =>
+      (new GAddNewConnectionReqBuilder()..update(updates))._build();
+
+  _$GAddNewConnectionReq._(
+      {required this.vars,
+      required this.operation,
+      this.requestId,
+      this.updateResult,
+      this.optimisticResponse,
+      this.updateCacheHandlerKey,
+      this.updateCacheHandlerContext,
+      this.fetchPolicy,
+      required this.executeOnListen})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        vars, r'GAddNewConnectionReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(
+        operation, r'GAddNewConnectionReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, r'GAddNewConnectionReq', 'executeOnListen');
+  }
+
+  @override
+  GAddNewConnectionReq rebuild(
+          void Function(GAddNewConnectionReqBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GAddNewConnectionReqBuilder toBuilder() =>
+      new GAddNewConnectionReqBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
+    return other is GAddNewConnectionReq &&
+        vars == other.vars &&
+        operation == other.operation &&
+        requestId == other.requestId &&
+        updateResult == _$dynamicOther.updateResult &&
+        optimisticResponse == other.optimisticResponse &&
+        updateCacheHandlerKey == other.updateCacheHandlerKey &&
+        updateCacheHandlerContext == other.updateCacheHandlerContext &&
+        fetchPolicy == other.fetchPolicy &&
+        executeOnListen == other.executeOnListen;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, vars.hashCode);
+    _$hash = $jc(_$hash, operation.hashCode);
+    _$hash = $jc(_$hash, requestId.hashCode);
+    _$hash = $jc(_$hash, updateResult.hashCode);
+    _$hash = $jc(_$hash, optimisticResponse.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
+    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
+    _$hash = $jc(_$hash, fetchPolicy.hashCode);
+    _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'GAddNewConnectionReq')
+          ..add('vars', vars)
+          ..add('operation', operation)
+          ..add('requestId', requestId)
+          ..add('updateResult', updateResult)
+          ..add('optimisticResponse', optimisticResponse)
+          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
+          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
+          ..add('fetchPolicy', fetchPolicy)
+          ..add('executeOnListen', executeOnListen))
+        .toString();
+  }
+}
+
+class GAddNewConnectionReqBuilder
+    implements Builder<GAddNewConnectionReq, GAddNewConnectionReqBuilder> {
+  _$GAddNewConnectionReq? _$v;
+
+  _i3.GAddNewConnectionVarsBuilder? _vars;
+  _i3.GAddNewConnectionVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GAddNewConnectionVarsBuilder();
+  set vars(_i3.GAddNewConnectionVarsBuilder? vars) => _$this._vars = vars;
+
+  _i4.Operation? _operation;
+  _i4.Operation? get operation => _$this._operation;
+  set operation(_i4.Operation? operation) => _$this._operation = operation;
+
+  String? _requestId;
+  String? get requestId => _$this._requestId;
+  set requestId(String? requestId) => _$this._requestId = requestId;
+
+  _i2.GAddNewConnectionData? Function(
+      _i2.GAddNewConnectionData?, _i2.GAddNewConnectionData?)? _updateResult;
+  _i2.GAddNewConnectionData? Function(
+          _i2.GAddNewConnectionData?, _i2.GAddNewConnectionData?)?
+      get updateResult => _$this._updateResult;
+  set updateResult(
+          _i2.GAddNewConnectionData? Function(
+                  _i2.GAddNewConnectionData?, _i2.GAddNewConnectionData?)?
+              updateResult) =>
+      _$this._updateResult = updateResult;
+
+  _i2.GAddNewConnectionDataBuilder? _optimisticResponse;
+  _i2.GAddNewConnectionDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GAddNewConnectionDataBuilder();
+  set optimisticResponse(
+          _i2.GAddNewConnectionDataBuilder? optimisticResponse) =>
+      _$this._optimisticResponse = optimisticResponse;
+
+  String? _updateCacheHandlerKey;
+  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
+  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
+      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
+
+  Map<String, dynamic>? _updateCacheHandlerContext;
+  Map<String, dynamic>? get updateCacheHandlerContext =>
+      _$this._updateCacheHandlerContext;
+  set updateCacheHandlerContext(
+          Map<String, dynamic>? updateCacheHandlerContext) =>
+      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
+
+  _i1.FetchPolicy? _fetchPolicy;
+  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
+  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
+      _$this._fetchPolicy = fetchPolicy;
+
+  bool? _executeOnListen;
+  bool? get executeOnListen => _$this._executeOnListen;
+  set executeOnListen(bool? executeOnListen) =>
+      _$this._executeOnListen = executeOnListen;
+
+  GAddNewConnectionReqBuilder() {
+    GAddNewConnectionReq._initializeBuilder(this);
+  }
+
+  GAddNewConnectionReqBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _vars = $v.vars.toBuilder();
+      _operation = $v.operation;
+      _requestId = $v.requestId;
+      _updateResult = $v.updateResult;
+      _optimisticResponse = $v.optimisticResponse?.toBuilder();
+      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
+      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
+      _fetchPolicy = $v.fetchPolicy;
+      _executeOnListen = $v.executeOnListen;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GAddNewConnectionReq other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GAddNewConnectionReq;
+  }
+
+  @override
+  void update(void Function(GAddNewConnectionReqBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  GAddNewConnectionReq build() => _build();
+
+  _$GAddNewConnectionReq _build() {
+    _$GAddNewConnectionReq _$result;
+    try {
+      _$result = _$v ??
+          new _$GAddNewConnectionReq._(
+              vars: vars.build(),
+              operation: BuiltValueNullFieldError.checkNotNull(
+                  operation, r'GAddNewConnectionReq', 'operation'),
+              requestId: requestId,
+              updateResult: updateResult,
+              optimisticResponse: _optimisticResponse?.build(),
+              updateCacheHandlerKey: updateCacheHandlerKey,
+              updateCacheHandlerContext: updateCacheHandlerContext,
+              fetchPolicy: fetchPolicy,
+              executeOnListen: BuiltValueNullFieldError.checkNotNull(
+                  executeOnListen, r'GAddNewConnectionReq', 'executeOnListen'));
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'vars';
+        vars.build();
+
+        _$failedField = 'optimisticResponse';
+        _optimisticResponse?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GAddNewConnectionReq', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$GCreateNewMessageRoomReq extends GCreateNewMessageRoomReq {
   @override
   final _i3.GCreateNewMessageRoomVars vars;
@@ -637,8 +985,6 @@ class _$GCreateNewMessageRoomReq extends GCreateNewMessageRoomReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
-  @override
-  final _i4.Context? context;
 
   factory _$GCreateNewMessageRoomReq(
           [void Function(GCreateNewMessageRoomReqBuilder)? updates]) =>
@@ -653,8 +999,7 @@ class _$GCreateNewMessageRoomReq extends GCreateNewMessageRoomReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
+      required this.executeOnListen})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         vars, r'GCreateNewMessageRoomReq', 'vars');
@@ -686,8 +1031,7 @@ class _$GCreateNewMessageRoomReq extends GCreateNewMessageRoomReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
+        executeOnListen == other.executeOnListen;
   }
 
   @override
@@ -702,7 +1046,6 @@ class _$GCreateNewMessageRoomReq extends GCreateNewMessageRoomReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -718,8 +1061,7 @@ class _$GCreateNewMessageRoomReq extends GCreateNewMessageRoomReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
+          ..add('executeOnListen', executeOnListen))
         .toString();
   }
 }
@@ -784,10 +1126,6 @@ class GCreateNewMessageRoomReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
   GCreateNewMessageRoomReqBuilder() {
     GCreateNewMessageRoomReq._initializeBuilder(this);
   }
@@ -804,7 +1142,6 @@ class GCreateNewMessageRoomReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -841,8 +1178,7 @@ class GCreateNewMessageRoomReqBuilder
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
                   executeOnListen,
                   r'GCreateNewMessageRoomReq',
-                  'executeOnListen'),
-              context: context);
+                  'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -882,8 +1218,6 @@ class _$GSendMessageReq extends GSendMessageReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
-  @override
-  final _i4.Context? context;
 
   factory _$GSendMessageReq([void Function(GSendMessageReqBuilder)? updates]) =>
       (new GSendMessageReqBuilder()..update(updates))._build();
@@ -897,8 +1231,7 @@ class _$GSendMessageReq extends GSendMessageReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
+      required this.executeOnListen})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GSendMessageReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -928,8 +1261,7 @@ class _$GSendMessageReq extends GSendMessageReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
+        executeOnListen == other.executeOnListen;
   }
 
   @override
@@ -944,7 +1276,6 @@ class _$GSendMessageReq extends GSendMessageReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -960,8 +1291,7 @@ class _$GSendMessageReq extends GSendMessageReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
+          ..add('executeOnListen', executeOnListen))
         .toString();
   }
 }
@@ -1021,10 +1351,6 @@ class GSendMessageReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
   GSendMessageReqBuilder() {
     GSendMessageReq._initializeBuilder(this);
   }
@@ -1041,7 +1367,6 @@ class GSendMessageReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -1076,8 +1401,7 @@ class GSendMessageReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GSendMessageReq', 'executeOnListen'),
-              context: context);
+                  executeOnListen, r'GSendMessageReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -1117,8 +1441,6 @@ class _$GCreateNewOfferReq extends GCreateNewOfferReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
-  @override
-  final _i4.Context? context;
 
   factory _$GCreateNewOfferReq(
           [void Function(GCreateNewOfferReqBuilder)? updates]) =>
@@ -1133,8 +1455,7 @@ class _$GCreateNewOfferReq extends GCreateNewOfferReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
+      required this.executeOnListen})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GCreateNewOfferReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -1165,8 +1486,7 @@ class _$GCreateNewOfferReq extends GCreateNewOfferReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
+        executeOnListen == other.executeOnListen;
   }
 
   @override
@@ -1181,7 +1501,6 @@ class _$GCreateNewOfferReq extends GCreateNewOfferReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1197,8 +1516,7 @@ class _$GCreateNewOfferReq extends GCreateNewOfferReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
+          ..add('executeOnListen', executeOnListen))
         .toString();
   }
 }
@@ -1259,10 +1577,6 @@ class GCreateNewOfferReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
   GCreateNewOfferReqBuilder() {
     GCreateNewOfferReq._initializeBuilder(this);
   }
@@ -1279,7 +1593,6 @@ class GCreateNewOfferReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -1314,8 +1627,7 @@ class GCreateNewOfferReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GCreateNewOfferReq', 'executeOnListen'),
-              context: context);
+                  executeOnListen, r'GCreateNewOfferReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -1335,18 +1647,18 @@ class GCreateNewOfferReqBuilder
   }
 }
 
-class _$GUpdateOfferInfoReq extends GUpdateOfferInfoReq {
+class _$GUpdateOfferReq extends GUpdateOfferReq {
   @override
-  final _i3.GUpdateOfferInfoVars vars;
+  final _i3.GUpdateOfferVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GUpdateOfferInfoData? Function(
-      _i2.GUpdateOfferInfoData?, _i2.GUpdateOfferInfoData?)? updateResult;
+  final _i2.GUpdateOfferData? Function(
+      _i2.GUpdateOfferData?, _i2.GUpdateOfferData?)? updateResult;
   @override
-  final _i2.GUpdateOfferInfoData? optimisticResponse;
+  final _i2.GUpdateOfferData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -1355,14 +1667,11 @@ class _$GUpdateOfferInfoReq extends GUpdateOfferInfoReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
-  @override
-  final _i4.Context? context;
 
-  factory _$GUpdateOfferInfoReq(
-          [void Function(GUpdateOfferInfoReqBuilder)? updates]) =>
-      (new GUpdateOfferInfoReqBuilder()..update(updates))._build();
+  factory _$GUpdateOfferReq([void Function(GUpdateOfferReqBuilder)? updates]) =>
+      (new GUpdateOfferReqBuilder()..update(updates))._build();
 
-  _$GUpdateOfferInfoReq._(
+  _$GUpdateOfferReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -1371,30 +1680,28 @@ class _$GUpdateOfferInfoReq extends GUpdateOfferInfoReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
+      required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GUpdateOfferInfoReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GUpdateOfferReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, r'GUpdateOfferInfoReq', 'operation');
+        operation, r'GUpdateOfferReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GUpdateOfferInfoReq', 'executeOnListen');
+        executeOnListen, r'GUpdateOfferReq', 'executeOnListen');
   }
 
   @override
-  GUpdateOfferInfoReq rebuild(
-          void Function(GUpdateOfferInfoReqBuilder) updates) =>
+  GUpdateOfferReq rebuild(void Function(GUpdateOfferReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateOfferInfoReqBuilder toBuilder() =>
-      new GUpdateOfferInfoReqBuilder()..replace(this);
+  GUpdateOfferReqBuilder toBuilder() =>
+      new GUpdateOfferReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GUpdateOfferInfoReq &&
+    return other is GUpdateOfferReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -1403,8 +1710,7 @@ class _$GUpdateOfferInfoReq extends GUpdateOfferInfoReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
+        executeOnListen == other.executeOnListen;
   }
 
   @override
@@ -1419,14 +1725,13 @@ class _$GUpdateOfferInfoReq extends GUpdateOfferInfoReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateOfferInfoReq')
+    return (newBuiltValueToStringHelper(r'GUpdateOfferReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -1435,20 +1740,19 @@ class _$GUpdateOfferInfoReq extends GUpdateOfferInfoReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
+          ..add('executeOnListen', executeOnListen))
         .toString();
   }
 }
 
-class GUpdateOfferInfoReqBuilder
-    implements Builder<GUpdateOfferInfoReq, GUpdateOfferInfoReqBuilder> {
-  _$GUpdateOfferInfoReq? _$v;
+class GUpdateOfferReqBuilder
+    implements Builder<GUpdateOfferReq, GUpdateOfferReqBuilder> {
+  _$GUpdateOfferReq? _$v;
 
-  _i3.GUpdateOfferInfoVarsBuilder? _vars;
-  _i3.GUpdateOfferInfoVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GUpdateOfferInfoVarsBuilder();
-  set vars(_i3.GUpdateOfferInfoVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GUpdateOfferVarsBuilder? _vars;
+  _i3.GUpdateOfferVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GUpdateOfferVarsBuilder();
+  set vars(_i3.GUpdateOfferVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -1458,21 +1762,20 @@ class GUpdateOfferInfoReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GUpdateOfferInfoData? Function(
-      _i2.GUpdateOfferInfoData?, _i2.GUpdateOfferInfoData?)? _updateResult;
-  _i2.GUpdateOfferInfoData? Function(
-          _i2.GUpdateOfferInfoData?, _i2.GUpdateOfferInfoData?)?
+  _i2.GUpdateOfferData? Function(_i2.GUpdateOfferData?, _i2.GUpdateOfferData?)?
+      _updateResult;
+  _i2.GUpdateOfferData? Function(_i2.GUpdateOfferData?, _i2.GUpdateOfferData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GUpdateOfferInfoData? Function(
-                  _i2.GUpdateOfferInfoData?, _i2.GUpdateOfferInfoData?)?
+          _i2.GUpdateOfferData? Function(
+                  _i2.GUpdateOfferData?, _i2.GUpdateOfferData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GUpdateOfferInfoDataBuilder? _optimisticResponse;
-  _i2.GUpdateOfferInfoDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GUpdateOfferInfoDataBuilder();
-  set optimisticResponse(_i2.GUpdateOfferInfoDataBuilder? optimisticResponse) =>
+  _i2.GUpdateOfferDataBuilder? _optimisticResponse;
+  _i2.GUpdateOfferDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GUpdateOfferDataBuilder();
+  set optimisticResponse(_i2.GUpdateOfferDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -1497,15 +1800,11 @@ class GUpdateOfferInfoReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
-  GUpdateOfferInfoReqBuilder() {
-    GUpdateOfferInfoReq._initializeBuilder(this);
+  GUpdateOfferReqBuilder() {
+    GUpdateOfferReq._initializeBuilder(this);
   }
 
-  GUpdateOfferInfoReqBuilder get _$this {
+  GUpdateOfferReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -1517,34 +1816,33 @@ class GUpdateOfferInfoReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GUpdateOfferInfoReq other) {
+  void replace(GUpdateOfferReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateOfferInfoReq;
+    _$v = other as _$GUpdateOfferReq;
   }
 
   @override
-  void update(void Function(GUpdateOfferInfoReqBuilder)? updates) {
+  void update(void Function(GUpdateOfferReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateOfferInfoReq build() => _build();
+  GUpdateOfferReq build() => _build();
 
-  _$GUpdateOfferInfoReq _build() {
-    _$GUpdateOfferInfoReq _$result;
+  _$GUpdateOfferReq _build() {
+    _$GUpdateOfferReq _$result;
     try {
       _$result = _$v ??
-          new _$GUpdateOfferInfoReq._(
+          new _$GUpdateOfferReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GUpdateOfferInfoReq', 'operation'),
+                  operation, r'GUpdateOfferReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -1552,8 +1850,7 @@ class GUpdateOfferInfoReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GUpdateOfferInfoReq', 'executeOnListen'),
-              context: context);
+                  executeOnListen, r'GUpdateOfferReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -1564,7 +1861,7 @@ class GUpdateOfferInfoReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUpdateOfferInfoReq', _$failedField, e.toString());
+            r'GUpdateOfferReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1593,8 +1890,6 @@ class _$GDeleteOfferReq extends GDeleteOfferReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
-  @override
-  final _i4.Context? context;
 
   factory _$GDeleteOfferReq([void Function(GDeleteOfferReqBuilder)? updates]) =>
       (new GDeleteOfferReqBuilder()..update(updates))._build();
@@ -1608,8 +1903,7 @@ class _$GDeleteOfferReq extends GDeleteOfferReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen,
-      this.context})
+      required this.executeOnListen})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GDeleteOfferReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -1639,8 +1933,7 @@ class _$GDeleteOfferReq extends GDeleteOfferReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen &&
-        context == other.context;
+        executeOnListen == other.executeOnListen;
   }
 
   @override
@@ -1655,7 +1948,6 @@ class _$GDeleteOfferReq extends GDeleteOfferReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1671,8 +1963,7 @@ class _$GDeleteOfferReq extends GDeleteOfferReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen)
-          ..add('context', context))
+          ..add('executeOnListen', executeOnListen))
         .toString();
   }
 }
@@ -1732,10 +2023,6 @@ class GDeleteOfferReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  _i4.Context? _context;
-  _i4.Context? get context => _$this._context;
-  set context(_i4.Context? context) => _$this._context = context;
-
   GDeleteOfferReqBuilder() {
     GDeleteOfferReq._initializeBuilder(this);
   }
@@ -1752,7 +2039,6 @@ class GDeleteOfferReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
-      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -1787,8 +2073,7 @@ class GDeleteOfferReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GDeleteOfferReq', 'executeOnListen'),
-              context: context);
+                  executeOnListen, r'GDeleteOfferReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
