@@ -1,7 +1,33 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -ec
 
-.PHONY: setup check-tools setup-gql gql-webui gql-mobile api-dev api webui-client-dev webui-admin-dev mobile-dev update-entities update-models run-pg down-pg stop-pg
+.PHONY: help setup check-tools setup-gql gql-webui gql-mobile api-dev api webui-client-dev webui-admin-dev mobile-dev update-entities update-models run-pg down-pg stop-pg
+
+.DEFAULT_GOAL := help
+
+help: ## Show this help
+	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Targets:"
+	@echo "  setup              Install dependencies, start DB, create .env files"
+	@echo "  check-tools        Verify required tools are installed"
+	@echo ""
+	@echo "  api-dev            Start backend with hot reload (cargo watch)"
+	@echo "  api                Start backend without hot reload"
+	@echo "  webui-client-dev   Start WebUI client dev server"
+	@echo "  webui-admin-dev    Start WebUI admin dev server"
+	@echo "  mobile-dev         Start iOS simulator and run Flutter app"
+	@echo ""
+	@echo "  setup-gql          Copy schema and regenerate GraphQL code for all services"
+	@echo "  gql-webui          Regenerate GraphQL code for WebUI"
+	@echo "  gql-mobile         Regenerate GraphQL code for mobile apps"
+	@echo ""
+	@echo "  run-pg             Start PostgreSQL container"
+	@echo "  stop-pg            Stop PostgreSQL container"
+	@echo "  down-pg            Remove PostgreSQL container"
+	@echo ""
+	@echo "  update-entities    Generate Sea-ORM entities from DB schema"
+	@echo "  update-models      Generate models and format Rust code"
 
 # GraphQL Schema
 setup-gql: copy-schema .WAIT gql-webui gql-mobile
