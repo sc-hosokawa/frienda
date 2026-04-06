@@ -16,82 +16,6 @@ import 'package:gql_exec/gql_exec.dart' as _i4;
 
 part 'mutation.req.gql.g.dart';
 
-abstract class GAddNewConnectionReq
-    implements
-        Built<GAddNewConnectionReq, GAddNewConnectionReqBuilder>,
-        _i1.OperationRequest<_i2.GAddNewConnectionData,
-            _i3.GAddNewConnectionVars> {
-  GAddNewConnectionReq._();
-
-  factory GAddNewConnectionReq(
-          [Function(GAddNewConnectionReqBuilder b) updates]) =
-      _$GAddNewConnectionReq;
-
-  static void _initializeBuilder(GAddNewConnectionReqBuilder b) => b
-    ..operation = _i4.Operation(
-      document: _i5.document,
-      operationName: 'AddNewConnection',
-    )
-    ..executeOnListen = true;
-
-  @override
-  _i3.GAddNewConnectionVars get vars;
-  @override
-  _i4.Operation get operation;
-  @override
-  _i4.Request get execRequest => _i4.Request(
-        operation: operation,
-        variables: vars.toJson(),
-      );
-
-  @override
-  String? get requestId;
-  @override
-  @BuiltValueField(serialize: false)
-  _i2.GAddNewConnectionData? Function(
-    _i2.GAddNewConnectionData?,
-    _i2.GAddNewConnectionData?,
-  )? get updateResult;
-  @override
-  _i2.GAddNewConnectionData? get optimisticResponse;
-  @override
-  String? get updateCacheHandlerKey;
-  @override
-  Map<String, dynamic>? get updateCacheHandlerContext;
-  @override
-  _i1.FetchPolicy? get fetchPolicy;
-  @override
-  bool get executeOnListen;
-  @override
-  _i2.GAddNewConnectionData? parseData(Map<String, dynamic> json) =>
-      _i2.GAddNewConnectionData.fromJson(json);
-
-  @override
-  Map<String, dynamic> varsToJson() => vars.toJson();
-
-  @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
-
-  @override
-  _i1.OperationRequest<_i2.GAddNewConnectionData, _i3.GAddNewConnectionVars>
-      transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
-          this.rebuild((b) => b..operation = transform(operation));
-
-  static Serializer<GAddNewConnectionReq> get serializer =>
-      _$gAddNewConnectionReqSerializer;
-
-  Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GAddNewConnectionReq.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GAddNewConnectionReq? fromJson(Map<String, dynamic> json) =>
-      _i6.serializers.deserializeWith(
-        GAddNewConnectionReq.serializer,
-        json,
-      );
-}
-
 abstract class GCreateNewMessageRoomReq
     implements
         Built<GCreateNewMessageRoomReq, GCreateNewMessageRoomReqBuilder>,
@@ -100,7 +24,7 @@ abstract class GCreateNewMessageRoomReq
   GCreateNewMessageRoomReq._();
 
   factory GCreateNewMessageRoomReq(
-          [Function(GCreateNewMessageRoomReqBuilder b) updates]) =
+          [void Function(GCreateNewMessageRoomReqBuilder b) updates]) =
       _$GCreateNewMessageRoomReq;
 
   static void _initializeBuilder(GCreateNewMessageRoomReqBuilder b) => b
@@ -118,6 +42,7 @@ abstract class GCreateNewMessageRoomReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -139,6 +64,9 @@ abstract class GCreateNewMessageRoomReq
   @override
   bool get executeOnListen;
   @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
   _i2.GCreateNewMessageRoomData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateNewMessageRoomData.fromJson(json);
 
@@ -146,7 +74,8 @@ abstract class GCreateNewMessageRoomReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GCreateNewMessageRoomData data) =>
+      data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GCreateNewMessageRoomData,
@@ -175,7 +104,7 @@ abstract class GSendMessageReq
         _i1.OperationRequest<_i2.GSendMessageData, _i3.GSendMessageVars> {
   GSendMessageReq._();
 
-  factory GSendMessageReq([Function(GSendMessageReqBuilder b) updates]) =
+  factory GSendMessageReq([void Function(GSendMessageReqBuilder b) updates]) =
       _$GSendMessageReq;
 
   static void _initializeBuilder(GSendMessageReqBuilder b) => b
@@ -193,6 +122,7 @@ abstract class GSendMessageReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -214,6 +144,9 @@ abstract class GSendMessageReq
   @override
   bool get executeOnListen;
   @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
   _i2.GSendMessageData? parseData(Map<String, dynamic> json) =>
       _i2.GSendMessageData.fromJson(json);
 
@@ -221,7 +154,7 @@ abstract class GSendMessageReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GSendMessageData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GSendMessageData, _i3.GSendMessageVars>
@@ -249,7 +182,8 @@ abstract class GCreateNewOfferReq
         _i1.OperationRequest<_i2.GCreateNewOfferData, _i3.GCreateNewOfferVars> {
   GCreateNewOfferReq._();
 
-  factory GCreateNewOfferReq([Function(GCreateNewOfferReqBuilder b) updates]) =
+  factory GCreateNewOfferReq(
+          [void Function(GCreateNewOfferReqBuilder b) updates]) =
       _$GCreateNewOfferReq;
 
   static void _initializeBuilder(GCreateNewOfferReqBuilder b) => b
@@ -267,6 +201,7 @@ abstract class GCreateNewOfferReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -288,6 +223,9 @@ abstract class GCreateNewOfferReq
   @override
   bool get executeOnListen;
   @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
   _i2.GCreateNewOfferData? parseData(Map<String, dynamic> json) =>
       _i2.GCreateNewOfferData.fromJson(json);
 
@@ -295,7 +233,8 @@ abstract class GCreateNewOfferReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GCreateNewOfferData data) =>
+      data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GCreateNewOfferData, _i3.GCreateNewOfferVars>
@@ -317,42 +256,45 @@ abstract class GCreateNewOfferReq
       );
 }
 
-abstract class GUpdateOfferReq
+abstract class GUpdateOfferInfoReq
     implements
-        Built<GUpdateOfferReq, GUpdateOfferReqBuilder>,
-        _i1.OperationRequest<_i2.GUpdateOfferData, _i3.GUpdateOfferVars> {
-  GUpdateOfferReq._();
+        Built<GUpdateOfferInfoReq, GUpdateOfferInfoReqBuilder>,
+        _i1
+        .OperationRequest<_i2.GUpdateOfferInfoData, _i3.GUpdateOfferInfoVars> {
+  GUpdateOfferInfoReq._();
 
-  factory GUpdateOfferReq([Function(GUpdateOfferReqBuilder b) updates]) =
-      _$GUpdateOfferReq;
+  factory GUpdateOfferInfoReq(
+          [void Function(GUpdateOfferInfoReqBuilder b) updates]) =
+      _$GUpdateOfferInfoReq;
 
-  static void _initializeBuilder(GUpdateOfferReqBuilder b) => b
+  static void _initializeBuilder(GUpdateOfferInfoReqBuilder b) => b
     ..operation = _i4.Operation(
       document: _i5.document,
-      operationName: 'UpdateOffer',
+      operationName: 'UpdateOfferInfo',
     )
     ..executeOnListen = true;
 
   @override
-  _i3.GUpdateOfferVars get vars;
+  _i3.GUpdateOfferInfoVars get vars;
   @override
   _i4.Operation get operation;
   @override
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
   String? get requestId;
   @override
   @BuiltValueField(serialize: false)
-  _i2.GUpdateOfferData? Function(
-    _i2.GUpdateOfferData?,
-    _i2.GUpdateOfferData?,
+  _i2.GUpdateOfferInfoData? Function(
+    _i2.GUpdateOfferInfoData?,
+    _i2.GUpdateOfferInfoData?,
   )? get updateResult;
   @override
-  _i2.GUpdateOfferData? get optimisticResponse;
+  _i2.GUpdateOfferInfoData? get optimisticResponse;
   @override
   String? get updateCacheHandlerKey;
   @override
@@ -362,31 +304,35 @@ abstract class GUpdateOfferReq
   @override
   bool get executeOnListen;
   @override
-  _i2.GUpdateOfferData? parseData(Map<String, dynamic> json) =>
-      _i2.GUpdateOfferData.fromJson(json);
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
+  _i2.GUpdateOfferInfoData? parseData(Map<String, dynamic> json) =>
+      _i2.GUpdateOfferInfoData.fromJson(json);
 
   @override
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GUpdateOfferInfoData data) =>
+      data.toJson();
 
   @override
-  _i1.OperationRequest<_i2.GUpdateOfferData, _i3.GUpdateOfferVars>
+  _i1.OperationRequest<_i2.GUpdateOfferInfoData, _i3.GUpdateOfferInfoVars>
       transformOperation(_i4.Operation Function(_i4.Operation) transform) =>
           this.rebuild((b) => b..operation = transform(operation));
 
-  static Serializer<GUpdateOfferReq> get serializer =>
-      _$gUpdateOfferReqSerializer;
+  static Serializer<GUpdateOfferInfoReq> get serializer =>
+      _$gUpdateOfferInfoReqSerializer;
 
   Map<String, dynamic> toJson() => (_i6.serializers.serializeWith(
-        GUpdateOfferReq.serializer,
+        GUpdateOfferInfoReq.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateOfferReq? fromJson(Map<String, dynamic> json) =>
+  static GUpdateOfferInfoReq? fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(
-        GUpdateOfferReq.serializer,
+        GUpdateOfferInfoReq.serializer,
         json,
       );
 }
@@ -397,7 +343,7 @@ abstract class GDeleteOfferReq
         _i1.OperationRequest<_i2.GDeleteOfferData, _i3.GDeleteOfferVars> {
   GDeleteOfferReq._();
 
-  factory GDeleteOfferReq([Function(GDeleteOfferReqBuilder b) updates]) =
+  factory GDeleteOfferReq([void Function(GDeleteOfferReqBuilder b) updates]) =
       _$GDeleteOfferReq;
 
   static void _initializeBuilder(GDeleteOfferReqBuilder b) => b
@@ -415,6 +361,7 @@ abstract class GDeleteOfferReq
   _i4.Request get execRequest => _i4.Request(
         operation: operation,
         variables: vars.toJson(),
+        context: context ?? const _i4.Context(),
       );
 
   @override
@@ -436,6 +383,9 @@ abstract class GDeleteOfferReq
   @override
   bool get executeOnListen;
   @override
+  @BuiltValueField(serialize: false)
+  _i4.Context? get context;
+  @override
   _i2.GDeleteOfferData? parseData(Map<String, dynamic> json) =>
       _i2.GDeleteOfferData.fromJson(json);
 
@@ -443,7 +393,7 @@ abstract class GDeleteOfferReq
   Map<String, dynamic> varsToJson() => vars.toJson();
 
   @override
-  Map<String, dynamic> dataToJson(dynamic data) => data.toJson();
+  Map<String, dynamic> dataToJson(_i2.GDeleteOfferData data) => data.toJson();
 
   @override
   _i1.OperationRequest<_i2.GDeleteOfferData, _i3.GDeleteOfferVars>
