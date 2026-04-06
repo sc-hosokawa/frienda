@@ -8,10 +8,10 @@ part of 'query.req.gql.dart';
 
 Serializer<GHealthCheckReq> _$gHealthCheckReqSerializer =
     new _$GHealthCheckReqSerializer();
-Serializer<GGetUserInfoReq> _$gGetUserInfoReqSerializer =
-    new _$GGetUserInfoReqSerializer();
-Serializer<GGetAllOffersReq> _$gGetAllOffersReqSerializer =
-    new _$GGetAllOffersReqSerializer();
+Serializer<GGetUserDataReq> _$gGetUserDataReqSerializer =
+    new _$GGetUserDataReqSerializer();
+Serializer<GGetOffersReq> _$gGetOffersReqSerializer =
+    new _$GGetOffersReqSerializer();
 Serializer<GGetMessageRoomsReq> _$gGetMessageRoomsReqSerializer =
     new _$GGetMessageRoomsReqSerializer();
 Serializer<GGetMessagesByMessageRoomIdReq>
@@ -19,8 +19,6 @@ Serializer<GGetMessagesByMessageRoomIdReq>
     new _$GGetMessagesByMessageRoomIdReqSerializer();
 Serializer<GGetNotificationsReq> _$gGetNotificationsReqSerializer =
     new _$GGetNotificationsReqSerializer();
-Serializer<GGetUserDataReq> _$gGetUserDataReqSerializer =
-    new _$GGetUserDataReqSerializer();
 
 class _$GHealthCheckReqSerializer
     implements StructuredSerializer<GHealthCheckReq> {
@@ -140,20 +138,20 @@ class _$GHealthCheckReqSerializer
   }
 }
 
-class _$GGetUserInfoReqSerializer
-    implements StructuredSerializer<GGetUserInfoReq> {
+class _$GGetUserDataReqSerializer
+    implements StructuredSerializer<GGetUserDataReq> {
   @override
-  final Iterable<Type> types = const [GGetUserInfoReq, _$GGetUserInfoReq];
+  final Iterable<Type> types = const [GGetUserDataReq, _$GGetUserDataReq];
   @override
-  final String wireName = 'GGetUserInfoReq';
+  final String wireName = 'GGetUserDataReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GGetUserInfoReq object,
+  Iterable<Object?> serialize(Serializers serializers, GGetUserDataReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GGetUserInfoVars)),
+          specifiedType: const FullType(_i3.GGetUserDataVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -174,7 +172,7 @@ class _$GGetUserInfoReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GGetUserInfoData)));
+            specifiedType: const FullType(_i2.GGetUserDataData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -202,10 +200,10 @@ class _$GGetUserInfoReqSerializer
   }
 
   @override
-  GGetUserInfoReq deserialize(
+  GGetUserDataReq deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserInfoReqBuilder();
+    final result = new GGetUserDataReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -215,8 +213,8 @@ class _$GGetUserInfoReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GGetUserInfoVars))!
-              as _i3.GGetUserInfoVars);
+                  specifiedType: const FullType(_i3.GGetUserDataVars))!
+              as _i3.GGetUserDataVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -228,8 +226,8 @@ class _$GGetUserInfoReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GGetUserInfoData))!
-              as _i2.GGetUserInfoData);
+                  specifiedType: const FullType(_i2.GGetUserDataData))!
+              as _i2.GGetUserDataData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -258,20 +256,19 @@ class _$GGetUserInfoReqSerializer
   }
 }
 
-class _$GGetAllOffersReqSerializer
-    implements StructuredSerializer<GGetAllOffersReq> {
+class _$GGetOffersReqSerializer implements StructuredSerializer<GGetOffersReq> {
   @override
-  final Iterable<Type> types = const [GGetAllOffersReq, _$GGetAllOffersReq];
+  final Iterable<Type> types = const [GGetOffersReq, _$GGetOffersReq];
   @override
-  final String wireName = 'GGetAllOffersReq';
+  final String wireName = 'GGetOffersReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GGetAllOffersReq object,
+  Iterable<Object?> serialize(Serializers serializers, GGetOffersReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GGetAllOffersVars)),
+          specifiedType: const FullType(_i3.GGetOffersVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -292,7 +289,7 @@ class _$GGetAllOffersReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GGetAllOffersData)));
+            specifiedType: const FullType(_i2.GGetOffersData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -320,10 +317,10 @@ class _$GGetAllOffersReqSerializer
   }
 
   @override
-  GGetAllOffersReq deserialize(
+  GGetOffersReq deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetAllOffersReqBuilder();
+    final result = new GGetOffersReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -333,8 +330,8 @@ class _$GGetAllOffersReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GGetAllOffersVars))!
-              as _i3.GGetAllOffersVars);
+                  specifiedType: const FullType(_i3.GGetOffersVars))!
+              as _i3.GGetOffersVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -346,8 +343,8 @@ class _$GGetAllOffersReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GGetAllOffersData))!
-              as _i2.GGetAllOffersData);
+                  specifiedType: const FullType(_i2.GGetOffersData))!
+              as _i2.GGetOffersData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -745,124 +742,6 @@ class _$GGetNotificationsReqSerializer
   }
 }
 
-class _$GGetUserDataReqSerializer
-    implements StructuredSerializer<GGetUserDataReq> {
-  @override
-  final Iterable<Type> types = const [GGetUserDataReq, _$GGetUserDataReq];
-  @override
-  final String wireName = 'GGetUserDataReq';
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, GGetUserDataReq object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'vars',
-      serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GGetUserDataVars)),
-      'operation',
-      serializers.serialize(object.operation,
-          specifiedType: const FullType(_i4.Operation)),
-      'executeOnListen',
-      serializers.serialize(object.executeOnListen,
-          specifiedType: const FullType(bool)),
-    ];
-    Object? value;
-    value = object.requestId;
-    if (value != null) {
-      result
-        ..add('requestId')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.optimisticResponse;
-    if (value != null) {
-      result
-        ..add('optimisticResponse')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GGetUserDataData)));
-    }
-    value = object.updateCacheHandlerKey;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerKey')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.updateCacheHandlerContext;
-    if (value != null) {
-      result
-        ..add('updateCacheHandlerContext')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                Map, const [const FullType(String), const FullType(dynamic)])));
-    }
-    value = object.fetchPolicy;
-    if (value != null) {
-      result
-        ..add('fetchPolicy')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i1.FetchPolicy)));
-    }
-    return result;
-  }
-
-  @override
-  GGetUserDataReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetUserDataReqBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case 'vars':
-          result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GGetUserDataVars))!
-              as _i3.GGetUserDataVars);
-          break;
-        case 'operation':
-          result.operation = serializers.deserialize(value,
-              specifiedType: const FullType(_i4.Operation))! as _i4.Operation;
-          break;
-        case 'requestId':
-          result.requestId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'optimisticResponse':
-          result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GGetUserDataData))!
-              as _i2.GGetUserDataData);
-          break;
-        case 'updateCacheHandlerKey':
-          result.updateCacheHandlerKey = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'updateCacheHandlerContext':
-          result.updateCacheHandlerContext = serializers.deserialize(value,
-              specifiedType: const FullType(Map, const [
-                const FullType(String),
-                const FullType(dynamic)
-              ])) as Map<String, dynamic>?;
-          break;
-        case 'fetchPolicy':
-          result.fetchPolicy = serializers.deserialize(value,
-                  specifiedType: const FullType(_i1.FetchPolicy))
-              as _i1.FetchPolicy?;
-          break;
-        case 'executeOnListen':
-          result.executeOnListen = serializers.deserialize(value,
-              specifiedType: const FullType(bool))! as bool;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
 class _$GHealthCheckReq extends GHealthCheckReq {
   @override
   final _i3.GHealthCheckVars vars;
@@ -883,6 +762,8 @@ class _$GHealthCheckReq extends GHealthCheckReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GHealthCheckReq([void Function(GHealthCheckReqBuilder)? updates]) =>
       (new GHealthCheckReqBuilder()..update(updates))._build();
@@ -896,7 +777,8 @@ class _$GHealthCheckReq extends GHealthCheckReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GHealthCheckReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -926,7 +808,8 @@ class _$GHealthCheckReq extends GHealthCheckReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -941,6 +824,7 @@ class _$GHealthCheckReq extends GHealthCheckReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -956,7 +840,8 @@ class _$GHealthCheckReq extends GHealthCheckReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -1016,6 +901,10 @@ class GHealthCheckReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GHealthCheckReqBuilder() {
     GHealthCheckReq._initializeBuilder(this);
   }
@@ -1032,6 +921,7 @@ class GHealthCheckReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -1066,7 +956,8 @@ class GHealthCheckReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GHealthCheckReq', 'executeOnListen'));
+                  executeOnListen, r'GHealthCheckReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {
@@ -1086,18 +977,18 @@ class GHealthCheckReqBuilder
   }
 }
 
-class _$GGetUserInfoReq extends GGetUserInfoReq {
+class _$GGetUserDataReq extends GGetUserDataReq {
   @override
-  final _i3.GGetUserInfoVars vars;
+  final _i3.GGetUserDataVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GGetUserInfoData? Function(
-      _i2.GGetUserInfoData?, _i2.GGetUserInfoData?)? updateResult;
+  final _i2.GGetUserDataData? Function(
+      _i2.GGetUserDataData?, _i2.GGetUserDataData?)? updateResult;
   @override
-  final _i2.GGetUserInfoData? optimisticResponse;
+  final _i2.GGetUserDataData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -1106,11 +997,13 @@ class _$GGetUserInfoReq extends GGetUserInfoReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
-  factory _$GGetUserInfoReq([void Function(GGetUserInfoReqBuilder)? updates]) =>
-      (new GGetUserInfoReqBuilder()..update(updates))._build();
+  factory _$GGetUserDataReq([void Function(GGetUserDataReqBuilder)? updates]) =>
+      (new GGetUserDataReqBuilder()..update(updates))._build();
 
-  _$GGetUserInfoReq._(
+  _$GGetUserDataReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -1119,28 +1012,29 @@ class _$GGetUserInfoReq extends GGetUserInfoReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GGetUserInfoReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GGetUserDataReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, r'GGetUserInfoReq', 'operation');
+        operation, r'GGetUserDataReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GGetUserInfoReq', 'executeOnListen');
+        executeOnListen, r'GGetUserDataReq', 'executeOnListen');
   }
 
   @override
-  GGetUserInfoReq rebuild(void Function(GGetUserInfoReqBuilder) updates) =>
+  GGetUserDataReq rebuild(void Function(GGetUserDataReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GGetUserInfoReqBuilder toBuilder() =>
-      new GGetUserInfoReqBuilder()..replace(this);
+  GGetUserDataReqBuilder toBuilder() =>
+      new GGetUserDataReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GGetUserInfoReq &&
+    return other is GGetUserDataReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -1149,7 +1043,8 @@ class _$GGetUserInfoReq extends GGetUserInfoReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -1164,13 +1059,14 @@ class _$GGetUserInfoReq extends GGetUserInfoReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GGetUserInfoReq')
+    return (newBuiltValueToStringHelper(r'GGetUserDataReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -1179,19 +1075,20 @@ class _$GGetUserInfoReq extends GGetUserInfoReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
 
-class GGetUserInfoReqBuilder
-    implements Builder<GGetUserInfoReq, GGetUserInfoReqBuilder> {
-  _$GGetUserInfoReq? _$v;
+class GGetUserDataReqBuilder
+    implements Builder<GGetUserDataReq, GGetUserDataReqBuilder> {
+  _$GGetUserDataReq? _$v;
 
-  _i3.GGetUserInfoVarsBuilder? _vars;
-  _i3.GGetUserInfoVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GGetUserInfoVarsBuilder();
-  set vars(_i3.GGetUserInfoVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GGetUserDataVarsBuilder? _vars;
+  _i3.GGetUserDataVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GGetUserDataVarsBuilder();
+  set vars(_i3.GGetUserDataVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -1201,20 +1098,20 @@ class GGetUserInfoReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GGetUserInfoData? Function(_i2.GGetUserInfoData?, _i2.GGetUserInfoData?)?
+  _i2.GGetUserDataData? Function(_i2.GGetUserDataData?, _i2.GGetUserDataData?)?
       _updateResult;
-  _i2.GGetUserInfoData? Function(_i2.GGetUserInfoData?, _i2.GGetUserInfoData?)?
+  _i2.GGetUserDataData? Function(_i2.GGetUserDataData?, _i2.GGetUserDataData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GGetUserInfoData? Function(
-                  _i2.GGetUserInfoData?, _i2.GGetUserInfoData?)?
+          _i2.GGetUserDataData? Function(
+                  _i2.GGetUserDataData?, _i2.GGetUserDataData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GGetUserInfoDataBuilder? _optimisticResponse;
-  _i2.GGetUserInfoDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GGetUserInfoDataBuilder();
-  set optimisticResponse(_i2.GGetUserInfoDataBuilder? optimisticResponse) =>
+  _i2.GGetUserDataDataBuilder? _optimisticResponse;
+  _i2.GGetUserDataDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GGetUserDataDataBuilder();
+  set optimisticResponse(_i2.GGetUserDataDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -1239,11 +1136,15 @@ class GGetUserInfoReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GGetUserInfoReqBuilder() {
-    GGetUserInfoReq._initializeBuilder(this);
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GGetUserDataReqBuilder() {
+    GGetUserDataReq._initializeBuilder(this);
   }
 
-  GGetUserInfoReqBuilder get _$this {
+  GGetUserDataReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -1255,33 +1156,34 @@ class GGetUserInfoReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GGetUserInfoReq other) {
+  void replace(GGetUserDataReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserInfoReq;
+    _$v = other as _$GGetUserDataReq;
   }
 
   @override
-  void update(void Function(GGetUserInfoReqBuilder)? updates) {
+  void update(void Function(GGetUserDataReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GGetUserInfoReq build() => _build();
+  GGetUserDataReq build() => _build();
 
-  _$GGetUserInfoReq _build() {
-    _$GGetUserInfoReq _$result;
+  _$GGetUserDataReq _build() {
+    _$GGetUserDataReq _$result;
     try {
       _$result = _$v ??
-          new _$GGetUserInfoReq._(
+          new _$GGetUserDataReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GGetUserInfoReq', 'operation'),
+                  operation, r'GGetUserDataReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -1289,7 +1191,8 @@ class GGetUserInfoReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GGetUserInfoReq', 'executeOnListen'));
+                  executeOnListen, r'GGetUserDataReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {
@@ -1300,7 +1203,7 @@ class GGetUserInfoReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GGetUserInfoReq', _$failedField, e.toString());
+            r'GGetUserDataReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1309,18 +1212,18 @@ class GGetUserInfoReqBuilder
   }
 }
 
-class _$GGetAllOffersReq extends GGetAllOffersReq {
+class _$GGetOffersReq extends GGetOffersReq {
   @override
-  final _i3.GGetAllOffersVars vars;
+  final _i3.GGetOffersVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GGetAllOffersData? Function(
-      _i2.GGetAllOffersData?, _i2.GGetAllOffersData?)? updateResult;
+  final _i2.GGetOffersData? Function(_i2.GGetOffersData?, _i2.GGetOffersData?)?
+      updateResult;
   @override
-  final _i2.GGetAllOffersData? optimisticResponse;
+  final _i2.GGetOffersData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -1329,12 +1232,13 @@ class _$GGetAllOffersReq extends GGetAllOffersReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
-  factory _$GGetAllOffersReq(
-          [void Function(GGetAllOffersReqBuilder)? updates]) =>
-      (new GGetAllOffersReqBuilder()..update(updates))._build();
+  factory _$GGetOffersReq([void Function(GGetOffersReqBuilder)? updates]) =>
+      (new GGetOffersReqBuilder()..update(updates))._build();
 
-  _$GGetAllOffersReq._(
+  _$GGetOffersReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -1343,28 +1247,28 @@ class _$GGetAllOffersReq extends GGetAllOffersReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GGetAllOffersReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, r'GGetOffersReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, r'GGetAllOffersReq', 'operation');
+        operation, r'GGetOffersReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GGetAllOffersReq', 'executeOnListen');
+        executeOnListen, r'GGetOffersReq', 'executeOnListen');
   }
 
   @override
-  GGetAllOffersReq rebuild(void Function(GGetAllOffersReqBuilder) updates) =>
+  GGetOffersReq rebuild(void Function(GGetOffersReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GGetAllOffersReqBuilder toBuilder() =>
-      new GGetAllOffersReqBuilder()..replace(this);
+  GGetOffersReqBuilder toBuilder() => new GGetOffersReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GGetAllOffersReq &&
+    return other is GGetOffersReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -1373,7 +1277,8 @@ class _$GGetAllOffersReq extends GGetAllOffersReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -1388,13 +1293,14 @@ class _$GGetAllOffersReq extends GGetAllOffersReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GGetAllOffersReq')
+    return (newBuiltValueToStringHelper(r'GGetOffersReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -1403,19 +1309,20 @@ class _$GGetAllOffersReq extends GGetAllOffersReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
 
-class GGetAllOffersReqBuilder
-    implements Builder<GGetAllOffersReq, GGetAllOffersReqBuilder> {
-  _$GGetAllOffersReq? _$v;
+class GGetOffersReqBuilder
+    implements Builder<GGetOffersReq, GGetOffersReqBuilder> {
+  _$GGetOffersReq? _$v;
 
-  _i3.GGetAllOffersVarsBuilder? _vars;
-  _i3.GGetAllOffersVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GGetAllOffersVarsBuilder();
-  set vars(_i3.GGetAllOffersVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GGetOffersVarsBuilder? _vars;
+  _i3.GGetOffersVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GGetOffersVarsBuilder();
+  set vars(_i3.GGetOffersVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -1425,21 +1332,20 @@ class GGetAllOffersReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GGetAllOffersData? Function(
-      _i2.GGetAllOffersData?, _i2.GGetAllOffersData?)? _updateResult;
-  _i2.GGetAllOffersData? Function(
-          _i2.GGetAllOffersData?, _i2.GGetAllOffersData?)?
+  _i2.GGetOffersData? Function(_i2.GGetOffersData?, _i2.GGetOffersData?)?
+      _updateResult;
+  _i2.GGetOffersData? Function(_i2.GGetOffersData?, _i2.GGetOffersData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GGetAllOffersData? Function(
-                  _i2.GGetAllOffersData?, _i2.GGetAllOffersData?)?
+          _i2.GGetOffersData? Function(
+                  _i2.GGetOffersData?, _i2.GGetOffersData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GGetAllOffersDataBuilder? _optimisticResponse;
-  _i2.GGetAllOffersDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GGetAllOffersDataBuilder();
-  set optimisticResponse(_i2.GGetAllOffersDataBuilder? optimisticResponse) =>
+  _i2.GGetOffersDataBuilder? _optimisticResponse;
+  _i2.GGetOffersDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GGetOffersDataBuilder();
+  set optimisticResponse(_i2.GGetOffersDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -1464,11 +1370,15 @@ class GGetAllOffersReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GGetAllOffersReqBuilder() {
-    GGetAllOffersReq._initializeBuilder(this);
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
+  GGetOffersReqBuilder() {
+    GGetOffersReq._initializeBuilder(this);
   }
 
-  GGetAllOffersReqBuilder get _$this {
+  GGetOffersReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -1480,33 +1390,34 @@ class GGetAllOffersReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GGetAllOffersReq other) {
+  void replace(GGetOffersReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetAllOffersReq;
+    _$v = other as _$GGetOffersReq;
   }
 
   @override
-  void update(void Function(GGetAllOffersReqBuilder)? updates) {
+  void update(void Function(GGetOffersReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GGetAllOffersReq build() => _build();
+  GGetOffersReq build() => _build();
 
-  _$GGetAllOffersReq _build() {
-    _$GGetAllOffersReq _$result;
+  _$GGetOffersReq _build() {
+    _$GGetOffersReq _$result;
     try {
       _$result = _$v ??
-          new _$GGetAllOffersReq._(
+          new _$GGetOffersReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GGetAllOffersReq', 'operation'),
+                  operation, r'GGetOffersReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -1514,7 +1425,8 @@ class GGetAllOffersReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GGetAllOffersReq', 'executeOnListen'));
+                  executeOnListen, r'GGetOffersReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {
@@ -1525,7 +1437,7 @@ class GGetAllOffersReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GGetAllOffersReq', _$failedField, e.toString());
+            r'GGetOffersReq', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1554,6 +1466,8 @@ class _$GGetMessageRoomsReq extends GGetMessageRoomsReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GGetMessageRoomsReq(
           [void Function(GGetMessageRoomsReqBuilder)? updates]) =>
@@ -1568,7 +1482,8 @@ class _$GGetMessageRoomsReq extends GGetMessageRoomsReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(vars, r'GGetMessageRoomsReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
@@ -1599,7 +1514,8 @@ class _$GGetMessageRoomsReq extends GGetMessageRoomsReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -1614,6 +1530,7 @@ class _$GGetMessageRoomsReq extends GGetMessageRoomsReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1629,7 +1546,8 @@ class _$GGetMessageRoomsReq extends GGetMessageRoomsReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -1690,6 +1608,10 @@ class GGetMessageRoomsReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GGetMessageRoomsReqBuilder() {
     GGetMessageRoomsReq._initializeBuilder(this);
   }
@@ -1706,6 +1628,7 @@ class GGetMessageRoomsReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -1740,7 +1663,8 @@ class GGetMessageRoomsReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GGetMessageRoomsReq', 'executeOnListen'));
+                  executeOnListen, r'GGetMessageRoomsReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {
@@ -1781,6 +1705,8 @@ class _$GGetMessagesByMessageRoomIdReq extends GGetMessagesByMessageRoomIdReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GGetMessagesByMessageRoomIdReq(
           [void Function(GGetMessagesByMessageRoomIdReqBuilder)? updates]) =>
@@ -1795,7 +1721,8 @@ class _$GGetMessagesByMessageRoomIdReq extends GGetMessagesByMessageRoomIdReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         vars, r'GGetMessagesByMessageRoomIdReq', 'vars');
@@ -1827,7 +1754,8 @@ class _$GGetMessagesByMessageRoomIdReq extends GGetMessagesByMessageRoomIdReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -1842,6 +1770,7 @@ class _$GGetMessagesByMessageRoomIdReq extends GGetMessagesByMessageRoomIdReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1857,7 +1786,8 @@ class _$GGetMessagesByMessageRoomIdReq extends GGetMessagesByMessageRoomIdReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -1926,6 +1856,10 @@ class GGetMessagesByMessageRoomIdReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GGetMessagesByMessageRoomIdReqBuilder() {
     GGetMessagesByMessageRoomIdReq._initializeBuilder(this);
   }
@@ -1942,6 +1876,7 @@ class GGetMessagesByMessageRoomIdReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -1978,7 +1913,8 @@ class GGetMessagesByMessageRoomIdReqBuilder
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
                   executeOnListen,
                   r'GGetMessagesByMessageRoomIdReq',
-                  'executeOnListen'));
+                  'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {
@@ -2018,6 +1954,8 @@ class _$GGetNotificationsReq extends GGetNotificationsReq {
   final _i1.FetchPolicy? fetchPolicy;
   @override
   final bool executeOnListen;
+  @override
+  final _i4.Context? context;
 
   factory _$GGetNotificationsReq(
           [void Function(GGetNotificationsReqBuilder)? updates]) =>
@@ -2032,7 +1970,8 @@ class _$GGetNotificationsReq extends GGetNotificationsReq {
       this.updateCacheHandlerKey,
       this.updateCacheHandlerContext,
       this.fetchPolicy,
-      required this.executeOnListen})
+      required this.executeOnListen,
+      this.context})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         vars, r'GGetNotificationsReq', 'vars');
@@ -2064,7 +2003,8 @@ class _$GGetNotificationsReq extends GGetNotificationsReq {
         updateCacheHandlerKey == other.updateCacheHandlerKey &&
         updateCacheHandlerContext == other.updateCacheHandlerContext &&
         fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
+        executeOnListen == other.executeOnListen &&
+        context == other.context;
   }
 
   @override
@@ -2079,6 +2019,7 @@ class _$GGetNotificationsReq extends GGetNotificationsReq {
     _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
     _$hash = $jc(_$hash, fetchPolicy.hashCode);
     _$hash = $jc(_$hash, executeOnListen.hashCode);
+    _$hash = $jc(_$hash, context.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -2094,7 +2035,8 @@ class _$GGetNotificationsReq extends GGetNotificationsReq {
           ..add('updateCacheHandlerKey', updateCacheHandlerKey)
           ..add('updateCacheHandlerContext', updateCacheHandlerContext)
           ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
+          ..add('executeOnListen', executeOnListen)
+          ..add('context', context))
         .toString();
   }
 }
@@ -2156,6 +2098,10 @@ class GGetNotificationsReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
+  _i4.Context? _context;
+  _i4.Context? get context => _$this._context;
+  set context(_i4.Context? context) => _$this._context = context;
+
   GGetNotificationsReqBuilder() {
     GGetNotificationsReq._initializeBuilder(this);
   }
@@ -2172,6 +2118,7 @@ class GGetNotificationsReqBuilder
       _updateCacheHandlerContext = $v.updateCacheHandlerContext;
       _fetchPolicy = $v.fetchPolicy;
       _executeOnListen = $v.executeOnListen;
+      _context = $v.context;
       _$v = null;
     }
     return this;
@@ -2206,7 +2153,8 @@ class GGetNotificationsReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GGetNotificationsReq', 'executeOnListen'));
+                  executeOnListen, r'GGetNotificationsReq', 'executeOnListen'),
+              context: context);
     } catch (_) {
       late String _$failedField;
       try {
@@ -2218,229 +2166,6 @@ class GGetNotificationsReqBuilder
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'GGetNotificationsReq', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GGetUserDataReq extends GGetUserDataReq {
-  @override
-  final _i3.GGetUserDataVars vars;
-  @override
-  final _i4.Operation operation;
-  @override
-  final String? requestId;
-  @override
-  final _i2.GGetUserDataData? Function(
-      _i2.GGetUserDataData?, _i2.GGetUserDataData?)? updateResult;
-  @override
-  final _i2.GGetUserDataData? optimisticResponse;
-  @override
-  final String? updateCacheHandlerKey;
-  @override
-  final Map<String, dynamic>? updateCacheHandlerContext;
-  @override
-  final _i1.FetchPolicy? fetchPolicy;
-  @override
-  final bool executeOnListen;
-
-  factory _$GGetUserDataReq([void Function(GGetUserDataReqBuilder)? updates]) =>
-      (new GGetUserDataReqBuilder()..update(updates))._build();
-
-  _$GGetUserDataReq._(
-      {required this.vars,
-      required this.operation,
-      this.requestId,
-      this.updateResult,
-      this.optimisticResponse,
-      this.updateCacheHandlerKey,
-      this.updateCacheHandlerContext,
-      this.fetchPolicy,
-      required this.executeOnListen})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, r'GGetUserDataReq', 'vars');
-    BuiltValueNullFieldError.checkNotNull(
-        operation, r'GGetUserDataReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, r'GGetUserDataReq', 'executeOnListen');
-  }
-
-  @override
-  GGetUserDataReq rebuild(void Function(GGetUserDataReqBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GGetUserDataReqBuilder toBuilder() =>
-      new GGetUserDataReqBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    final dynamic _$dynamicOther = other;
-    return other is GGetUserDataReq &&
-        vars == other.vars &&
-        operation == other.operation &&
-        requestId == other.requestId &&
-        updateResult == _$dynamicOther.updateResult &&
-        optimisticResponse == other.optimisticResponse &&
-        updateCacheHandlerKey == other.updateCacheHandlerKey &&
-        updateCacheHandlerContext == other.updateCacheHandlerContext &&
-        fetchPolicy == other.fetchPolicy &&
-        executeOnListen == other.executeOnListen;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, vars.hashCode);
-    _$hash = $jc(_$hash, operation.hashCode);
-    _$hash = $jc(_$hash, requestId.hashCode);
-    _$hash = $jc(_$hash, updateResult.hashCode);
-    _$hash = $jc(_$hash, optimisticResponse.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerKey.hashCode);
-    _$hash = $jc(_$hash, updateCacheHandlerContext.hashCode);
-    _$hash = $jc(_$hash, fetchPolicy.hashCode);
-    _$hash = $jc(_$hash, executeOnListen.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GGetUserDataReq')
-          ..add('vars', vars)
-          ..add('operation', operation)
-          ..add('requestId', requestId)
-          ..add('updateResult', updateResult)
-          ..add('optimisticResponse', optimisticResponse)
-          ..add('updateCacheHandlerKey', updateCacheHandlerKey)
-          ..add('updateCacheHandlerContext', updateCacheHandlerContext)
-          ..add('fetchPolicy', fetchPolicy)
-          ..add('executeOnListen', executeOnListen))
-        .toString();
-  }
-}
-
-class GGetUserDataReqBuilder
-    implements Builder<GGetUserDataReq, GGetUserDataReqBuilder> {
-  _$GGetUserDataReq? _$v;
-
-  _i3.GGetUserDataVarsBuilder? _vars;
-  _i3.GGetUserDataVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GGetUserDataVarsBuilder();
-  set vars(_i3.GGetUserDataVarsBuilder? vars) => _$this._vars = vars;
-
-  _i4.Operation? _operation;
-  _i4.Operation? get operation => _$this._operation;
-  set operation(_i4.Operation? operation) => _$this._operation = operation;
-
-  String? _requestId;
-  String? get requestId => _$this._requestId;
-  set requestId(String? requestId) => _$this._requestId = requestId;
-
-  _i2.GGetUserDataData? Function(_i2.GGetUserDataData?, _i2.GGetUserDataData?)?
-      _updateResult;
-  _i2.GGetUserDataData? Function(_i2.GGetUserDataData?, _i2.GGetUserDataData?)?
-      get updateResult => _$this._updateResult;
-  set updateResult(
-          _i2.GGetUserDataData? Function(
-                  _i2.GGetUserDataData?, _i2.GGetUserDataData?)?
-              updateResult) =>
-      _$this._updateResult = updateResult;
-
-  _i2.GGetUserDataDataBuilder? _optimisticResponse;
-  _i2.GGetUserDataDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GGetUserDataDataBuilder();
-  set optimisticResponse(_i2.GGetUserDataDataBuilder? optimisticResponse) =>
-      _$this._optimisticResponse = optimisticResponse;
-
-  String? _updateCacheHandlerKey;
-  String? get updateCacheHandlerKey => _$this._updateCacheHandlerKey;
-  set updateCacheHandlerKey(String? updateCacheHandlerKey) =>
-      _$this._updateCacheHandlerKey = updateCacheHandlerKey;
-
-  Map<String, dynamic>? _updateCacheHandlerContext;
-  Map<String, dynamic>? get updateCacheHandlerContext =>
-      _$this._updateCacheHandlerContext;
-  set updateCacheHandlerContext(
-          Map<String, dynamic>? updateCacheHandlerContext) =>
-      _$this._updateCacheHandlerContext = updateCacheHandlerContext;
-
-  _i1.FetchPolicy? _fetchPolicy;
-  _i1.FetchPolicy? get fetchPolicy => _$this._fetchPolicy;
-  set fetchPolicy(_i1.FetchPolicy? fetchPolicy) =>
-      _$this._fetchPolicy = fetchPolicy;
-
-  bool? _executeOnListen;
-  bool? get executeOnListen => _$this._executeOnListen;
-  set executeOnListen(bool? executeOnListen) =>
-      _$this._executeOnListen = executeOnListen;
-
-  GGetUserDataReqBuilder() {
-    GGetUserDataReq._initializeBuilder(this);
-  }
-
-  GGetUserDataReqBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _vars = $v.vars.toBuilder();
-      _operation = $v.operation;
-      _requestId = $v.requestId;
-      _updateResult = $v.updateResult;
-      _optimisticResponse = $v.optimisticResponse?.toBuilder();
-      _updateCacheHandlerKey = $v.updateCacheHandlerKey;
-      _updateCacheHandlerContext = $v.updateCacheHandlerContext;
-      _fetchPolicy = $v.fetchPolicy;
-      _executeOnListen = $v.executeOnListen;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GGetUserDataReq other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetUserDataReq;
-  }
-
-  @override
-  void update(void Function(GGetUserDataReqBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GGetUserDataReq build() => _build();
-
-  _$GGetUserDataReq _build() {
-    _$GGetUserDataReq _$result;
-    try {
-      _$result = _$v ??
-          new _$GGetUserDataReq._(
-              vars: vars.build(),
-              operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, r'GGetUserDataReq', 'operation'),
-              requestId: requestId,
-              updateResult: updateResult,
-              optimisticResponse: _optimisticResponse?.build(),
-              updateCacheHandlerKey: updateCacheHandlerKey,
-              updateCacheHandlerContext: updateCacheHandlerContext,
-              fetchPolicy: fetchPolicy,
-              executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, r'GGetUserDataReq', 'executeOnListen'));
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'vars';
-        vars.build();
-
-        _$failedField = 'optimisticResponse';
-        _optimisticResponse?.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GGetUserDataReq', _$failedField, e.toString());
       }
       rethrow;
     }
