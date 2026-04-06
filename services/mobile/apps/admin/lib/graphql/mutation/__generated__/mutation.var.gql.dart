@@ -9,37 +9,13 @@ import 'package:built_value/serializer.dart';
 
 part 'mutation.var.gql.g.dart';
 
-abstract class GAddNewConnectionVars
-    implements Built<GAddNewConnectionVars, GAddNewConnectionVarsBuilder> {
-  GAddNewConnectionVars._();
-
-  factory GAddNewConnectionVars(
-          [Function(GAddNewConnectionVarsBuilder b) updates]) =
-      _$GAddNewConnectionVars;
-
-  _i1.GAddNewConnectionInput get input;
-  static Serializer<GAddNewConnectionVars> get serializer =>
-      _$gAddNewConnectionVarsSerializer;
-
-  Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GAddNewConnectionVars.serializer,
-        this,
-      ) as Map<String, dynamic>);
-
-  static GAddNewConnectionVars? fromJson(Map<String, dynamic> json) =>
-      _i2.serializers.deserializeWith(
-        GAddNewConnectionVars.serializer,
-        json,
-      );
-}
-
 abstract class GCreateNewMessageRoomVars
     implements
         Built<GCreateNewMessageRoomVars, GCreateNewMessageRoomVarsBuilder> {
   GCreateNewMessageRoomVars._();
 
   factory GCreateNewMessageRoomVars(
-          [Function(GCreateNewMessageRoomVarsBuilder b) updates]) =
+          [void Function(GCreateNewMessageRoomVarsBuilder b) updates]) =
       _$GCreateNewMessageRoomVars;
 
   _i1.GCreateNewMessageRoomInput get input;
@@ -62,7 +38,7 @@ abstract class GSendMessageVars
     implements Built<GSendMessageVars, GSendMessageVarsBuilder> {
   GSendMessageVars._();
 
-  factory GSendMessageVars([Function(GSendMessageVarsBuilder b) updates]) =
+  factory GSendMessageVars([void Function(GSendMessageVarsBuilder b) updates]) =
       _$GSendMessageVars;
 
   _i1.GSendMessageInput get input;
@@ -86,7 +62,8 @@ abstract class GCreateNewOfferVars
   GCreateNewOfferVars._();
 
   factory GCreateNewOfferVars(
-      [Function(GCreateNewOfferVarsBuilder b) updates]) = _$GCreateNewOfferVars;
+          [void Function(GCreateNewOfferVarsBuilder b) updates]) =
+      _$GCreateNewOfferVars;
 
   _i1.GCreateNewOfferInput get input;
   static Serializer<GCreateNewOfferVars> get serializer =>
@@ -104,25 +81,26 @@ abstract class GCreateNewOfferVars
       );
 }
 
-abstract class GUpdateOfferVars
-    implements Built<GUpdateOfferVars, GUpdateOfferVarsBuilder> {
-  GUpdateOfferVars._();
+abstract class GUpdateOfferInfoVars
+    implements Built<GUpdateOfferInfoVars, GUpdateOfferInfoVarsBuilder> {
+  GUpdateOfferInfoVars._();
 
-  factory GUpdateOfferVars([Function(GUpdateOfferVarsBuilder b) updates]) =
-      _$GUpdateOfferVars;
+  factory GUpdateOfferInfoVars(
+          [void Function(GUpdateOfferInfoVarsBuilder b) updates]) =
+      _$GUpdateOfferInfoVars;
 
   _i1.GUpdateOfferInput get input;
-  static Serializer<GUpdateOfferVars> get serializer =>
-      _$gUpdateOfferVarsSerializer;
+  static Serializer<GUpdateOfferInfoVars> get serializer =>
+      _$gUpdateOfferInfoVarsSerializer;
 
   Map<String, dynamic> toJson() => (_i2.serializers.serializeWith(
-        GUpdateOfferVars.serializer,
+        GUpdateOfferInfoVars.serializer,
         this,
       ) as Map<String, dynamic>);
 
-  static GUpdateOfferVars? fromJson(Map<String, dynamic> json) =>
+  static GUpdateOfferInfoVars? fromJson(Map<String, dynamic> json) =>
       _i2.serializers.deserializeWith(
-        GUpdateOfferVars.serializer,
+        GUpdateOfferInfoVars.serializer,
         json,
       );
 }
@@ -131,7 +109,7 @@ abstract class GDeleteOfferVars
     implements Built<GDeleteOfferVars, GDeleteOfferVarsBuilder> {
   GDeleteOfferVars._();
 
-  factory GDeleteOfferVars([Function(GDeleteOfferVarsBuilder b) updates]) =
+  factory GDeleteOfferVars([void Function(GDeleteOfferVarsBuilder b) updates]) =
       _$GDeleteOfferVars;
 
   _i1.GDeleteOfferInput get input;

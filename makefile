@@ -9,12 +9,15 @@ setup-gql: copy-schema .WAIT gql-webui gql-mobile
 copy-schema:
 	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/webui/
 	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/
+	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/apps/admin/lib/graphql/
+	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/apps/client/lib/data/graphql/
 
 gql-webui:
 	cd services/webui && pnpm --filter client codegen
 
 gql-mobile:
-	cd services/mobile && dart run build_runner build --delete-conflicting-outputs
+	cd services/mobile/apps/client && dart run build_runner build --delete-conflicting-outputs
+	cd services/mobile/apps/admin && dart run build_runner build --delete-conflicting-outputs
 
 # Postgres
 run-pg:

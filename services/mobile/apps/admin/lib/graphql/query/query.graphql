@@ -4,64 +4,84 @@ query HealthCheck {
   }
 }
 
-query GetUserInfo {
-  getUserInfo {
-    id
-    firstName
-    lastName
-    imageUrl
-    createdAt
-    updatedAt
-  }
-}
-
-query GetAllOffers {
-  getAllOffers {
-    id
-    title
-    content
-    createdAt
-    updatedAt
-  }
-}
-
-query GetMessageRooms {
-  getMessageRooms {
+query GetUserData($userId: String!) {
+  getUserData(userId: $userId) {
     id
     name
-    createdAt
-    updatedAt
-  }
-}
-
-query GetMessagesByMessageRoomId($messageRoomId: String!) {
-  getMessagesByMessageRoomId(messageRoomId: $messageRoomId) {
-    id
-    title
-    content
-    createdAt
-    updatedAt
-  }
-}
-
-query GetNotifications {
-  getNotifications {
-    id
-    title
-    content
-    createdAt
-    updatedAt
-  }
-}
-
-query GetUserData {
-  getUserData {
-    id
     email
-    firstName
-    lastName
+    realname
     imageUrl
+    isSuperAdmin
+    fspBalance
+    credentialBalance
+    evmAddr
+    role
+    primaryRole
+    greeting
+    skill
+    xHandle
+    instagramHandle
+    fbHandle
+    interestOffer
     createdAt
-    updatedAt
+  }
+}
+
+query GetOffers {
+  getOffers {
+    offerList {
+      id
+      title
+      description
+      imageUrl
+      fee
+      category
+      place
+    }
+  }
+}
+
+query GetMessageRooms($userId: String!) {
+  getMessageRooms(userId: $userId) {
+    messageRoomList {
+      id
+      category
+      latestMessage
+      latestMessageId
+      latestSentAt
+      isRead
+    }
+    countOfMessageRooms
+  }
+}
+
+query GetMessagesByMessageRoomId($userId: String!, $messageRoomId: String!) {
+  getMessagesByMessageRoomId(userId: $userId, messageRoomId: $messageRoomId) {
+    id
+    to {
+      id
+      name
+      realname
+      imageUrl
+    }
+    messageList {
+      id
+      content
+      sentBy
+      sentAt
+      attachedFile
+      attachedImg
+    }
+  }
+}
+
+query GetNotifications($userId: String!) {
+  getNotifications(userId: $userId) {
+    id
+    title
+    category
+    content
+    isRead
+    createdAt
   }
 }

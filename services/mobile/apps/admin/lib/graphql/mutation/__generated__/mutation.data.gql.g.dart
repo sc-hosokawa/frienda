@@ -6,11 +6,6 @@ part of 'mutation.data.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GAddNewConnectionData> _$gAddNewConnectionDataSerializer =
-    new _$GAddNewConnectionDataSerializer();
-Serializer<GAddNewConnectionData_addNewConnection>
-    _$gAddNewConnectionDataAddNewConnectionSerializer =
-    new _$GAddNewConnectionData_addNewConnectionSerializer();
 Serializer<GCreateNewMessageRoomData> _$gCreateNewMessageRoomDataSerializer =
     new _$GCreateNewMessageRoomDataSerializer();
 Serializer<GCreateNewMessageRoomData_createNewMessageRoom>
@@ -26,125 +21,16 @@ Serializer<GCreateNewOfferData> _$gCreateNewOfferDataSerializer =
 Serializer<GCreateNewOfferData_createNewOffer>
     _$gCreateNewOfferDataCreateNewOfferSerializer =
     new _$GCreateNewOfferData_createNewOfferSerializer();
-Serializer<GUpdateOfferData> _$gUpdateOfferDataSerializer =
-    new _$GUpdateOfferDataSerializer();
-Serializer<GUpdateOfferData_updateOffer>
-    _$gUpdateOfferDataUpdateOfferSerializer =
-    new _$GUpdateOfferData_updateOfferSerializer();
+Serializer<GUpdateOfferInfoData> _$gUpdateOfferInfoDataSerializer =
+    new _$GUpdateOfferInfoDataSerializer();
+Serializer<GUpdateOfferInfoData_updateOfferInfo>
+    _$gUpdateOfferInfoDataUpdateOfferInfoSerializer =
+    new _$GUpdateOfferInfoData_updateOfferInfoSerializer();
 Serializer<GDeleteOfferData> _$gDeleteOfferDataSerializer =
     new _$GDeleteOfferDataSerializer();
 Serializer<GDeleteOfferData_deleteOffer>
     _$gDeleteOfferDataDeleteOfferSerializer =
     new _$GDeleteOfferData_deleteOfferSerializer();
-
-class _$GAddNewConnectionDataSerializer
-    implements StructuredSerializer<GAddNewConnectionData> {
-  @override
-  final Iterable<Type> types = const [
-    GAddNewConnectionData,
-    _$GAddNewConnectionData
-  ];
-  @override
-  final String wireName = 'GAddNewConnectionData';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GAddNewConnectionData object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'addNewConnection',
-      serializers.serialize(object.addNewConnection,
-          specifiedType:
-              const FullType(GAddNewConnectionData_addNewConnection)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GAddNewConnectionData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAddNewConnectionDataBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'addNewConnection':
-          result.addNewConnection.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(GAddNewConnectionData_addNewConnection))!
-              as GAddNewConnectionData_addNewConnection);
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
-
-class _$GAddNewConnectionData_addNewConnectionSerializer
-    implements StructuredSerializer<GAddNewConnectionData_addNewConnection> {
-  @override
-  final Iterable<Type> types = const [
-    GAddNewConnectionData_addNewConnection,
-    _$GAddNewConnectionData_addNewConnection
-  ];
-  @override
-  final String wireName = 'GAddNewConnectionData_addNewConnection';
-
-  @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GAddNewConnectionData_addNewConnection object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      '__typename',
-      serializers.serialize(object.G__typename,
-          specifiedType: const FullType(String)),
-      'mapId',
-      serializers.serialize(object.mapId,
-          specifiedType: const FullType(String)),
-    ];
-
-    return result;
-  }
-
-  @override
-  GAddNewConnectionData_addNewConnection deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = new GAddNewConnectionData_addNewConnectionBuilder();
-
-    final iterator = serialized.iterator;
-    while (iterator.moveNext()) {
-      final key = iterator.current! as String;
-      iterator.moveNext();
-      final Object? value = iterator.current;
-      switch (key) {
-        case '__typename':
-          result.G__typename = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-        case 'mapId':
-          result.mapId = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
-          break;
-      }
-    }
-
-    return result.build();
-  }
-}
 
 class _$GCreateNewMessageRoomDataSerializer
     implements StructuredSerializer<GCreateNewMessageRoomData> {
@@ -325,8 +211,30 @@ class _$GSendMessageData_sendMessageSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'message',
+      serializers.serialize(object.message,
+          specifiedType: const FullType(String)),
+      'sentAt',
+      serializers.serialize(object.sentAt,
+          specifiedType: const FullType(String)),
     ];
-
+    Object? value;
+    value = object.attachedFile;
+    if (value != null) {
+      result
+        ..add('attachedFile')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.attachedImg;
+    if (value != null) {
+      result
+        ..add('attachedImg')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     return result;
   }
 
@@ -349,6 +257,26 @@ class _$GSendMessageData_sendMessageSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'message':
+          result.message = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'sentAt':
+          result.sentAt = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'attachedFile':
+          result.attachedFile.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'attachedImg':
+          result.attachedImg.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -431,7 +359,7 @@ class _$GCreateNewOfferData_createNewOfferSerializer
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
       'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
     ];
 
     return result;
@@ -455,7 +383,7 @@ class _$GCreateNewOfferData_createNewOfferSerializer
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(int))! as int;
           break;
       }
     }
@@ -464,33 +392,37 @@ class _$GCreateNewOfferData_createNewOfferSerializer
   }
 }
 
-class _$GUpdateOfferDataSerializer
-    implements StructuredSerializer<GUpdateOfferData> {
+class _$GUpdateOfferInfoDataSerializer
+    implements StructuredSerializer<GUpdateOfferInfoData> {
   @override
-  final Iterable<Type> types = const [GUpdateOfferData, _$GUpdateOfferData];
+  final Iterable<Type> types = const [
+    GUpdateOfferInfoData,
+    _$GUpdateOfferInfoData
+  ];
   @override
-  final String wireName = 'GUpdateOfferData';
+  final String wireName = 'GUpdateOfferInfoData';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GUpdateOfferData object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GUpdateOfferInfoData object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'updateOffer',
-      serializers.serialize(object.updateOffer,
-          specifiedType: const FullType(GUpdateOfferData_updateOffer)),
+      'updateOfferInfo',
+      serializers.serialize(object.updateOfferInfo,
+          specifiedType: const FullType(GUpdateOfferInfoData_updateOfferInfo)),
     ];
 
     return result;
   }
 
   @override
-  GUpdateOfferData deserialize(
+  GUpdateOfferInfoData deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateOfferDataBuilder();
+    final result = new GUpdateOfferInfoDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -502,10 +434,11 @@ class _$GUpdateOfferDataSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
-        case 'updateOffer':
-          result.updateOffer.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GUpdateOfferData_updateOffer))!
-              as GUpdateOfferData_updateOffer);
+        case 'updateOfferInfo':
+          result.updateOfferInfo.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GUpdateOfferInfoData_updateOfferInfo))!
+              as GUpdateOfferInfoData_updateOfferInfo);
           break;
       }
     }
@@ -514,36 +447,36 @@ class _$GUpdateOfferDataSerializer
   }
 }
 
-class _$GUpdateOfferData_updateOfferSerializer
-    implements StructuredSerializer<GUpdateOfferData_updateOffer> {
+class _$GUpdateOfferInfoData_updateOfferInfoSerializer
+    implements StructuredSerializer<GUpdateOfferInfoData_updateOfferInfo> {
   @override
   final Iterable<Type> types = const [
-    GUpdateOfferData_updateOffer,
-    _$GUpdateOfferData_updateOffer
+    GUpdateOfferInfoData_updateOfferInfo,
+    _$GUpdateOfferInfoData_updateOfferInfo
   ];
   @override
-  final String wireName = 'GUpdateOfferData_updateOffer';
+  final String wireName = 'GUpdateOfferInfoData_updateOfferInfo';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GUpdateOfferData_updateOffer object,
+      Serializers serializers, GUpdateOfferInfoData_updateOfferInfo object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
       'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
     ];
 
     return result;
   }
 
   @override
-  GUpdateOfferData_updateOffer deserialize(
+  GUpdateOfferInfoData_updateOfferInfo deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateOfferData_updateOfferBuilder();
+    final result = new GUpdateOfferInfoData_updateOfferInfoBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -557,7 +490,7 @@ class _$GUpdateOfferData_updateOfferSerializer
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(int))! as int;
           break;
       }
     }
@@ -635,7 +568,7 @@ class _$GDeleteOfferData_deleteOfferSerializer
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
       'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
     ];
 
     return result;
@@ -659,248 +592,12 @@ class _$GDeleteOfferData_deleteOfferSerializer
           break;
         case 'id':
           result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String))! as String;
+              specifiedType: const FullType(int))! as int;
           break;
       }
     }
 
     return result.build();
-  }
-}
-
-class _$GAddNewConnectionData extends GAddNewConnectionData {
-  @override
-  final String G__typename;
-  @override
-  final GAddNewConnectionData_addNewConnection addNewConnection;
-
-  factory _$GAddNewConnectionData(
-          [void Function(GAddNewConnectionDataBuilder)? updates]) =>
-      (new GAddNewConnectionDataBuilder()..update(updates))._build();
-
-  _$GAddNewConnectionData._(
-      {required this.G__typename, required this.addNewConnection})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GAddNewConnectionData', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        addNewConnection, r'GAddNewConnectionData', 'addNewConnection');
-  }
-
-  @override
-  GAddNewConnectionData rebuild(
-          void Function(GAddNewConnectionDataBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GAddNewConnectionDataBuilder toBuilder() =>
-      new GAddNewConnectionDataBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GAddNewConnectionData &&
-        G__typename == other.G__typename &&
-        addNewConnection == other.addNewConnection;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, addNewConnection.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(r'GAddNewConnectionData')
-          ..add('G__typename', G__typename)
-          ..add('addNewConnection', addNewConnection))
-        .toString();
-  }
-}
-
-class GAddNewConnectionDataBuilder
-    implements Builder<GAddNewConnectionData, GAddNewConnectionDataBuilder> {
-  _$GAddNewConnectionData? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  GAddNewConnectionData_addNewConnectionBuilder? _addNewConnection;
-  GAddNewConnectionData_addNewConnectionBuilder get addNewConnection =>
-      _$this._addNewConnection ??=
-          new GAddNewConnectionData_addNewConnectionBuilder();
-  set addNewConnection(
-          GAddNewConnectionData_addNewConnectionBuilder? addNewConnection) =>
-      _$this._addNewConnection = addNewConnection;
-
-  GAddNewConnectionDataBuilder() {
-    GAddNewConnectionData._initializeBuilder(this);
-  }
-
-  GAddNewConnectionDataBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _addNewConnection = $v.addNewConnection.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GAddNewConnectionData other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GAddNewConnectionData;
-  }
-
-  @override
-  void update(void Function(GAddNewConnectionDataBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GAddNewConnectionData build() => _build();
-
-  _$GAddNewConnectionData _build() {
-    _$GAddNewConnectionData _$result;
-    try {
-      _$result = _$v ??
-          new _$GAddNewConnectionData._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GAddNewConnectionData', 'G__typename'),
-              addNewConnection: addNewConnection.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'addNewConnection';
-        addNewConnection.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'GAddNewConnectionData', _$failedField, e.toString());
-      }
-      rethrow;
-    }
-    replace(_$result);
-    return _$result;
-  }
-}
-
-class _$GAddNewConnectionData_addNewConnection
-    extends GAddNewConnectionData_addNewConnection {
-  @override
-  final String G__typename;
-  @override
-  final String mapId;
-
-  factory _$GAddNewConnectionData_addNewConnection(
-          [void Function(GAddNewConnectionData_addNewConnectionBuilder)?
-              updates]) =>
-      (new GAddNewConnectionData_addNewConnectionBuilder()..update(updates))
-          ._build();
-
-  _$GAddNewConnectionData_addNewConnection._(
-      {required this.G__typename, required this.mapId})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GAddNewConnectionData_addNewConnection', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(
-        mapId, r'GAddNewConnectionData_addNewConnection', 'mapId');
-  }
-
-  @override
-  GAddNewConnectionData_addNewConnection rebuild(
-          void Function(GAddNewConnectionData_addNewConnectionBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  GAddNewConnectionData_addNewConnectionBuilder toBuilder() =>
-      new GAddNewConnectionData_addNewConnectionBuilder()..replace(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is GAddNewConnectionData_addNewConnection &&
-        G__typename == other.G__typename &&
-        mapId == other.mapId;
-  }
-
-  @override
-  int get hashCode {
-    var _$hash = 0;
-    _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, mapId.hashCode);
-    _$hash = $jf(_$hash);
-    return _$hash;
-  }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper(
-            r'GAddNewConnectionData_addNewConnection')
-          ..add('G__typename', G__typename)
-          ..add('mapId', mapId))
-        .toString();
-  }
-}
-
-class GAddNewConnectionData_addNewConnectionBuilder
-    implements
-        Builder<GAddNewConnectionData_addNewConnection,
-            GAddNewConnectionData_addNewConnectionBuilder> {
-  _$GAddNewConnectionData_addNewConnection? _$v;
-
-  String? _G__typename;
-  String? get G__typename => _$this._G__typename;
-  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
-
-  String? _mapId;
-  String? get mapId => _$this._mapId;
-  set mapId(String? mapId) => _$this._mapId = mapId;
-
-  GAddNewConnectionData_addNewConnectionBuilder() {
-    GAddNewConnectionData_addNewConnection._initializeBuilder(this);
-  }
-
-  GAddNewConnectionData_addNewConnectionBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _G__typename = $v.G__typename;
-      _mapId = $v.mapId;
-      _$v = null;
-    }
-    return this;
-  }
-
-  @override
-  void replace(GAddNewConnectionData_addNewConnection other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GAddNewConnectionData_addNewConnection;
-  }
-
-  @override
-  void update(
-      void Function(GAddNewConnectionData_addNewConnectionBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
-  @override
-  GAddNewConnectionData_addNewConnection build() => _build();
-
-  _$GAddNewConnectionData_addNewConnection _build() {
-    final _$result = _$v ??
-        new _$GAddNewConnectionData_addNewConnection._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                r'GAddNewConnectionData_addNewConnection', 'G__typename'),
-            mapId: BuiltValueNullFieldError.checkNotNull(
-                mapId, r'GAddNewConnectionData_addNewConnection', 'mapId'));
-    replace(_$result);
-    return _$result;
   }
 }
 
@@ -1270,18 +967,35 @@ class _$GSendMessageData_sendMessage extends GSendMessageData_sendMessage {
   final String G__typename;
   @override
   final String id;
+  @override
+  final String message;
+  @override
+  final String sentAt;
+  @override
+  final BuiltList<String>? attachedFile;
+  @override
+  final BuiltList<String>? attachedImg;
 
   factory _$GSendMessageData_sendMessage(
           [void Function(GSendMessageData_sendMessageBuilder)? updates]) =>
       (new GSendMessageData_sendMessageBuilder()..update(updates))._build();
 
   _$GSendMessageData_sendMessage._(
-      {required this.G__typename, required this.id})
+      {required this.G__typename,
+      required this.id,
+      required this.message,
+      required this.sentAt,
+      this.attachedFile,
+      this.attachedImg})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, r'GSendMessageData_sendMessage', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
         id, r'GSendMessageData_sendMessage', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        message, r'GSendMessageData_sendMessage', 'message');
+    BuiltValueNullFieldError.checkNotNull(
+        sentAt, r'GSendMessageData_sendMessage', 'sentAt');
   }
 
   @override
@@ -1298,7 +1012,11 @@ class _$GSendMessageData_sendMessage extends GSendMessageData_sendMessage {
     if (identical(other, this)) return true;
     return other is GSendMessageData_sendMessage &&
         G__typename == other.G__typename &&
-        id == other.id;
+        id == other.id &&
+        message == other.message &&
+        sentAt == other.sentAt &&
+        attachedFile == other.attachedFile &&
+        attachedImg == other.attachedImg;
   }
 
   @override
@@ -1306,6 +1024,10 @@ class _$GSendMessageData_sendMessage extends GSendMessageData_sendMessage {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, message.hashCode);
+    _$hash = $jc(_$hash, sentAt.hashCode);
+    _$hash = $jc(_$hash, attachedFile.hashCode);
+    _$hash = $jc(_$hash, attachedImg.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -1314,7 +1036,11 @@ class _$GSendMessageData_sendMessage extends GSendMessageData_sendMessage {
   String toString() {
     return (newBuiltValueToStringHelper(r'GSendMessageData_sendMessage')
           ..add('G__typename', G__typename)
-          ..add('id', id))
+          ..add('id', id)
+          ..add('message', message)
+          ..add('sentAt', sentAt)
+          ..add('attachedFile', attachedFile)
+          ..add('attachedImg', attachedImg))
         .toString();
   }
 }
@@ -1333,6 +1059,26 @@ class GSendMessageData_sendMessageBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
+  String? _message;
+  String? get message => _$this._message;
+  set message(String? message) => _$this._message = message;
+
+  String? _sentAt;
+  String? get sentAt => _$this._sentAt;
+  set sentAt(String? sentAt) => _$this._sentAt = sentAt;
+
+  ListBuilder<String>? _attachedFile;
+  ListBuilder<String> get attachedFile =>
+      _$this._attachedFile ??= new ListBuilder<String>();
+  set attachedFile(ListBuilder<String>? attachedFile) =>
+      _$this._attachedFile = attachedFile;
+
+  ListBuilder<String>? _attachedImg;
+  ListBuilder<String> get attachedImg =>
+      _$this._attachedImg ??= new ListBuilder<String>();
+  set attachedImg(ListBuilder<String>? attachedImg) =>
+      _$this._attachedImg = attachedImg;
+
   GSendMessageData_sendMessageBuilder() {
     GSendMessageData_sendMessage._initializeBuilder(this);
   }
@@ -1342,6 +1088,10 @@ class GSendMessageData_sendMessageBuilder
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
+      _message = $v.message;
+      _sentAt = $v.sentAt;
+      _attachedFile = $v.attachedFile?.toBuilder();
+      _attachedImg = $v.attachedImg?.toBuilder();
       _$v = null;
     }
     return this;
@@ -1362,12 +1112,33 @@ class GSendMessageData_sendMessageBuilder
   GSendMessageData_sendMessage build() => _build();
 
   _$GSendMessageData_sendMessage _build() {
-    final _$result = _$v ??
-        new _$GSendMessageData_sendMessage._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GSendMessageData_sendMessage', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GSendMessageData_sendMessage', 'id'));
+    _$GSendMessageData_sendMessage _$result;
+    try {
+      _$result = _$v ??
+          new _$GSendMessageData_sendMessage._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(
+                  G__typename, r'GSendMessageData_sendMessage', 'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, r'GSendMessageData_sendMessage', 'id'),
+              message: BuiltValueNullFieldError.checkNotNull(
+                  message, r'GSendMessageData_sendMessage', 'message'),
+              sentAt: BuiltValueNullFieldError.checkNotNull(
+                  sentAt, r'GSendMessageData_sendMessage', 'sentAt'),
+              attachedFile: _attachedFile?.build(),
+              attachedImg: _attachedImg?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'attachedFile';
+        _attachedFile?.build();
+        _$failedField = 'attachedImg';
+        _attachedImg?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GSendMessageData_sendMessage', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -1500,7 +1271,7 @@ class _$GCreateNewOfferData_createNewOffer
   @override
   final String G__typename;
   @override
-  final String id;
+  final int id;
 
   factory _$GCreateNewOfferData_createNewOffer(
           [void Function(GCreateNewOfferData_createNewOfferBuilder)?
@@ -1562,9 +1333,9 @@ class GCreateNewOfferData_createNewOfferBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
   GCreateNewOfferData_createNewOfferBuilder() {
     GCreateNewOfferData_createNewOffer._initializeBuilder(this);
@@ -1607,116 +1378,120 @@ class GCreateNewOfferData_createNewOfferBuilder
   }
 }
 
-class _$GUpdateOfferData extends GUpdateOfferData {
+class _$GUpdateOfferInfoData extends GUpdateOfferInfoData {
   @override
   final String G__typename;
   @override
-  final GUpdateOfferData_updateOffer updateOffer;
+  final GUpdateOfferInfoData_updateOfferInfo updateOfferInfo;
 
-  factory _$GUpdateOfferData(
-          [void Function(GUpdateOfferDataBuilder)? updates]) =>
-      (new GUpdateOfferDataBuilder()..update(updates))._build();
+  factory _$GUpdateOfferInfoData(
+          [void Function(GUpdateOfferInfoDataBuilder)? updates]) =>
+      (new GUpdateOfferInfoDataBuilder()..update(updates))._build();
 
-  _$GUpdateOfferData._({required this.G__typename, required this.updateOffer})
+  _$GUpdateOfferInfoData._(
+      {required this.G__typename, required this.updateOfferInfo})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GUpdateOfferData', 'G__typename');
+        G__typename, r'GUpdateOfferInfoData', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        updateOffer, r'GUpdateOfferData', 'updateOffer');
+        updateOfferInfo, r'GUpdateOfferInfoData', 'updateOfferInfo');
   }
 
   @override
-  GUpdateOfferData rebuild(void Function(GUpdateOfferDataBuilder) updates) =>
+  GUpdateOfferInfoData rebuild(
+          void Function(GUpdateOfferInfoDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateOfferDataBuilder toBuilder() =>
-      new GUpdateOfferDataBuilder()..replace(this);
+  GUpdateOfferInfoDataBuilder toBuilder() =>
+      new GUpdateOfferInfoDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateOfferData &&
+    return other is GUpdateOfferInfoData &&
         G__typename == other.G__typename &&
-        updateOffer == other.updateOffer;
+        updateOfferInfo == other.updateOfferInfo;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, G__typename.hashCode);
-    _$hash = $jc(_$hash, updateOffer.hashCode);
+    _$hash = $jc(_$hash, updateOfferInfo.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateOfferData')
+    return (newBuiltValueToStringHelper(r'GUpdateOfferInfoData')
           ..add('G__typename', G__typename)
-          ..add('updateOffer', updateOffer))
+          ..add('updateOfferInfo', updateOfferInfo))
         .toString();
   }
 }
 
-class GUpdateOfferDataBuilder
-    implements Builder<GUpdateOfferData, GUpdateOfferDataBuilder> {
-  _$GUpdateOfferData? _$v;
+class GUpdateOfferInfoDataBuilder
+    implements Builder<GUpdateOfferInfoData, GUpdateOfferInfoDataBuilder> {
+  _$GUpdateOfferInfoData? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GUpdateOfferData_updateOfferBuilder? _updateOffer;
-  GUpdateOfferData_updateOfferBuilder get updateOffer =>
-      _$this._updateOffer ??= new GUpdateOfferData_updateOfferBuilder();
-  set updateOffer(GUpdateOfferData_updateOfferBuilder? updateOffer) =>
-      _$this._updateOffer = updateOffer;
+  GUpdateOfferInfoData_updateOfferInfoBuilder? _updateOfferInfo;
+  GUpdateOfferInfoData_updateOfferInfoBuilder get updateOfferInfo =>
+      _$this._updateOfferInfo ??=
+          new GUpdateOfferInfoData_updateOfferInfoBuilder();
+  set updateOfferInfo(
+          GUpdateOfferInfoData_updateOfferInfoBuilder? updateOfferInfo) =>
+      _$this._updateOfferInfo = updateOfferInfo;
 
-  GUpdateOfferDataBuilder() {
-    GUpdateOfferData._initializeBuilder(this);
+  GUpdateOfferInfoDataBuilder() {
+    GUpdateOfferInfoData._initializeBuilder(this);
   }
 
-  GUpdateOfferDataBuilder get _$this {
+  GUpdateOfferInfoDataBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _updateOffer = $v.updateOffer.toBuilder();
+      _updateOfferInfo = $v.updateOfferInfo.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GUpdateOfferData other) {
+  void replace(GUpdateOfferInfoData other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateOfferData;
+    _$v = other as _$GUpdateOfferInfoData;
   }
 
   @override
-  void update(void Function(GUpdateOfferDataBuilder)? updates) {
+  void update(void Function(GUpdateOfferInfoDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateOfferData build() => _build();
+  GUpdateOfferInfoData build() => _build();
 
-  _$GUpdateOfferData _build() {
-    _$GUpdateOfferData _$result;
+  _$GUpdateOfferInfoData _build() {
+    _$GUpdateOfferInfoData _$result;
     try {
       _$result = _$v ??
-          new _$GUpdateOfferData._(
+          new _$GUpdateOfferInfoData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, r'GUpdateOfferData', 'G__typename'),
-              updateOffer: updateOffer.build());
+                  G__typename, r'GUpdateOfferInfoData', 'G__typename'),
+              updateOfferInfo: updateOfferInfo.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'updateOffer';
-        updateOffer.build();
+        _$failedField = 'updateOfferInfo';
+        updateOfferInfo.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'GUpdateOfferData', _$failedField, e.toString());
+            r'GUpdateOfferInfoData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1725,38 +1500,41 @@ class GUpdateOfferDataBuilder
   }
 }
 
-class _$GUpdateOfferData_updateOffer extends GUpdateOfferData_updateOffer {
+class _$GUpdateOfferInfoData_updateOfferInfo
+    extends GUpdateOfferInfoData_updateOfferInfo {
   @override
   final String G__typename;
   @override
-  final String id;
+  final int id;
 
-  factory _$GUpdateOfferData_updateOffer(
-          [void Function(GUpdateOfferData_updateOfferBuilder)? updates]) =>
-      (new GUpdateOfferData_updateOfferBuilder()..update(updates))._build();
+  factory _$GUpdateOfferInfoData_updateOfferInfo(
+          [void Function(GUpdateOfferInfoData_updateOfferInfoBuilder)?
+              updates]) =>
+      (new GUpdateOfferInfoData_updateOfferInfoBuilder()..update(updates))
+          ._build();
 
-  _$GUpdateOfferData_updateOffer._(
+  _$GUpdateOfferInfoData_updateOfferInfo._(
       {required this.G__typename, required this.id})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, r'GUpdateOfferData_updateOffer', 'G__typename');
+        G__typename, r'GUpdateOfferInfoData_updateOfferInfo', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, r'GUpdateOfferData_updateOffer', 'id');
+        id, r'GUpdateOfferInfoData_updateOfferInfo', 'id');
   }
 
   @override
-  GUpdateOfferData_updateOffer rebuild(
-          void Function(GUpdateOfferData_updateOfferBuilder) updates) =>
+  GUpdateOfferInfoData_updateOfferInfo rebuild(
+          void Function(GUpdateOfferInfoData_updateOfferInfoBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateOfferData_updateOfferBuilder toBuilder() =>
-      new GUpdateOfferData_updateOfferBuilder()..replace(this);
+  GUpdateOfferInfoData_updateOfferInfoBuilder toBuilder() =>
+      new GUpdateOfferInfoData_updateOfferInfoBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateOfferData_updateOffer &&
+    return other is GUpdateOfferInfoData_updateOfferInfo &&
         G__typename == other.G__typename &&
         id == other.id;
   }
@@ -1772,32 +1550,32 @@ class _$GUpdateOfferData_updateOffer extends GUpdateOfferData_updateOffer {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'GUpdateOfferData_updateOffer')
+    return (newBuiltValueToStringHelper(r'GUpdateOfferInfoData_updateOfferInfo')
           ..add('G__typename', G__typename)
           ..add('id', id))
         .toString();
   }
 }
 
-class GUpdateOfferData_updateOfferBuilder
+class GUpdateOfferInfoData_updateOfferInfoBuilder
     implements
-        Builder<GUpdateOfferData_updateOffer,
-            GUpdateOfferData_updateOfferBuilder> {
-  _$GUpdateOfferData_updateOffer? _$v;
+        Builder<GUpdateOfferInfoData_updateOfferInfo,
+            GUpdateOfferInfoData_updateOfferInfoBuilder> {
+  _$GUpdateOfferInfoData_updateOfferInfo? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
-  GUpdateOfferData_updateOfferBuilder() {
-    GUpdateOfferData_updateOffer._initializeBuilder(this);
+  GUpdateOfferInfoData_updateOfferInfoBuilder() {
+    GUpdateOfferInfoData_updateOfferInfo._initializeBuilder(this);
   }
 
-  GUpdateOfferData_updateOfferBuilder get _$this {
+  GUpdateOfferInfoData_updateOfferInfoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -1808,26 +1586,27 @@ class GUpdateOfferData_updateOfferBuilder
   }
 
   @override
-  void replace(GUpdateOfferData_updateOffer other) {
+  void replace(GUpdateOfferInfoData_updateOfferInfo other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GUpdateOfferData_updateOffer;
+    _$v = other as _$GUpdateOfferInfoData_updateOfferInfo;
   }
 
   @override
-  void update(void Function(GUpdateOfferData_updateOfferBuilder)? updates) {
+  void update(
+      void Function(GUpdateOfferInfoData_updateOfferInfoBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  GUpdateOfferData_updateOffer build() => _build();
+  GUpdateOfferInfoData_updateOfferInfo build() => _build();
 
-  _$GUpdateOfferData_updateOffer _build() {
+  _$GUpdateOfferInfoData_updateOfferInfo _build() {
     final _$result = _$v ??
-        new _$GUpdateOfferData_updateOffer._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, r'GUpdateOfferData_updateOffer', 'G__typename'),
+        new _$GUpdateOfferInfoData_updateOfferInfo._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                r'GUpdateOfferInfoData_updateOfferInfo', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GUpdateOfferData_updateOffer', 'id'));
+                id, r'GUpdateOfferInfoData_updateOfferInfo', 'id'));
     replace(_$result);
     return _$result;
   }
@@ -1955,7 +1734,7 @@ class _$GDeleteOfferData_deleteOffer extends GDeleteOfferData_deleteOffer {
   @override
   final String G__typename;
   @override
-  final String id;
+  final int id;
 
   factory _$GDeleteOfferData_deleteOffer(
           [void Function(GDeleteOfferData_deleteOfferBuilder)? updates]) =>
@@ -2015,9 +1794,9 @@ class GDeleteOfferData_deleteOfferBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
 
   GDeleteOfferData_deleteOfferBuilder() {
     GDeleteOfferData_deleteOffer._initializeBuilder(this);
