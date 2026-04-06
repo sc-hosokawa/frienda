@@ -8,3 +8,10 @@ target/
 # Google Cloud service account credentials
 *-adminsdk-*.json
 frienda-auth-test1-*.json
+
+# Generated schema copies (source: services/backend/server-core/presentation/src/graphql/schema.graphql)
+services/webui/schema.graphql
+services/mobile/schema.graphql
+
+# Generated GraphQL code outside __generated__ directories
+services/mobile/apps/client/lib/data/graphql/schema.graphql.dart
