@@ -1,93 +1,245 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -ec
 
-.PHONY: help setup check-tools setup-gql gql-webui gql-mobile api-dev api webui-client-dev webui-admin-dev mobile-dev update-entities update-models run-pg down-pg stop-pg
+OPEN_CMD := $(shell command -v xdg-open 2>/dev/null || echo open)
 
-.DEFAULT_GOAL := help
+.PHONY: all
+all: help ;
 
-help: ## Show this help
-	@echo "Usage: make [target]"
-	@echo ""
-	@echo "Targets:"
-	@echo "  setup              Install dependencies, start DB, create .env files"
-	@echo "  check-tools        Verify required tools and versions"
-	@echo ""
-	@echo "  api-dev            Start backend with hot reload (cargo watch)"
-	@echo "  api                Start backend without hot reload"
-	@echo "  webui-client-dev   Start WebUI client dev server"
-	@echo "  webui-admin-dev    Start WebUI admin dev server"
-	@echo "  mobile-dev         Start iOS simulator and run Flutter app"
-	@echo ""
-	@echo "  setup-gql          Copy schema and regenerate GraphQL code for all services"
-	@echo "  gql-webui          Regenerate GraphQL code for WebUI"
-	@echo "  gql-mobile         Regenerate GraphQL code for mobile apps"
-	@echo ""
-	@echo "  run-pg             Start PostgreSQL container"
-	@echo "  stop-pg            Stop PostgreSQL container"
-	@echo "  down-pg            Remove PostgreSQL container"
-	@echo ""
-	@echo "  update-entities    Generate Sea-ORM entities from DB schema"
-	@echo "  update-models      Generate models and format Rust code"
+.PHONY: help
+help:
+	@echo '=== Docker / PostgreSQL ==='
+	@echo
+	@echo 'run-pg'
+	@echo '  - docker compose up -d --build'
+	@echo
+	@echo 'stop-pg'
+	@echo '  - docker compose stop'
+	@echo
+	@echo 'down-pg'
+	@echo '  - docker compose down'
+	@echo
+	@echo 'down-pg-clean'
+	@echo '  - docker compose down --volumes --remove-orphans'
+	@echo
+	@echo 'restart-pg'
+	@echo '  - make down-pg && make run-pg'
+	@echo
+	@echo 'ps'
+	@echo '  - docker compose ps -a'
+	@echo
+	@echo 'logs'
+	@echo '  - docker compose logs'
+	@echo
+	@echo 'logs-watch'
+	@echo '  - docker compose logs --follow'
+	@echo
+	@echo '=== Backend (Rust) ==='
+	@echo
+	@echo 'api-dev'
+	@echo '  - Start backend with hot reload (cargo watch)'
+	@echo
+	@echo 'api'
+	@echo '  - Start backend without hot reload'
+	@echo
+	@echo 'update-entities'
+	@echo '  - Generate Sea-ORM entities from DB schema'
+	@echo
+	@echo 'update-models'
+	@echo '  - Generate models and format Rust code'
+	@echo
+	@echo '=== WebUI (Next.js) ==='
+	@echo
+	@echo 'webui-client-dev'
+	@echo '  - Start WebUI client dev server'
+	@echo
+	@echo 'webui-admin-dev'
+	@echo '  - Start WebUI admin dev server'
+	@echo
+	@echo 'webui-build'
+	@echo '  - pnpm build'
+	@echo
+	@echo 'webui-lint'
+	@echo '  - pnpm lint'
+	@echo
+	@echo 'webui-format'
+	@echo '  - pnpm format'
+	@echo
+	@echo '=== Mobile (Flutter) ==='
+	@echo
+	@echo 'mobile-dev'
+	@echo '  - Start iOS simulator and run Flutter app'
+	@echo
+	@echo 'mobile-test'
+	@echo '  - melos run test'
+	@echo
+	@echo 'mobile-analyze'
+	@echo '  - melos run analyze'
+	@echo
+	@echo '=== Smart Contracts (Solidity) ==='
+	@echo
+	@echo 'contract-build'
+	@echo '  - pnpm build (Foundry)'
+	@echo
+	@echo 'contract-test'
+	@echo '  - pnpm foundrytest'
+	@echo
+	@echo 'contract-lint'
+	@echo '  - pnpm lint:sol'
+	@echo
+	@echo '=== GraphQL ==='
+	@echo
+	@echo 'setup-gql'
+	@echo '  - Copy schema and regenerate GraphQL code for all services'
+	@echo
+	@echo 'gql-webui'
+	@echo '  - Regenerate GraphQL code for WebUI'
+	@echo
+	@echo 'gql-mobile'
+	@echo '  - Regenerate GraphQL code for mobile apps'
+	@echo
+	@echo '=== Setup ==='
+	@echo
+	@echo 'setup'
+	@echo '  - Install dependencies, start DB, create .env files'
+	@echo
+	@echo 'check-tools'
+	@echo '  - Verify required tools and versions'
+	@echo
 
-# GraphQL Schema
-setup-gql: copy-schema
-	$(MAKE) gql-webui gql-mobile
+# --- Docker / PostgreSQL ---
 
-copy-schema:
-	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/webui/
-	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/
-	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/apps/admin/lib/graphql/
-	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/apps/client/lib/data/graphql/
-
-gql-webui:
-	cd services/webui && pnpm --filter=client codegen
-
-gql-mobile:
-	cd services/mobile/apps/client && fvm dart run build_runner build --delete-conflicting-outputs
-	cd services/mobile/apps/admin && fvm dart run build_runner build --delete-conflicting-outputs
-
-# Postgres
+.PHONY: run-pg
 run-pg:
 	docker compose up -d --build
 
-down-pg:
-	docker compose down
-
+.PHONY: stop-pg
 stop-pg:
 	docker compose stop
 
-# Backend
+.PHONY: down-pg
+down-pg:
+	docker compose down
+
+.PHONY: down-pg-clean
+down-pg-clean:
+	docker compose down --volumes --remove-orphans
+
+.PHONY: restart-pg
+restart-pg: down-pg run-pg ;
+
+.PHONY: ps
+ps:
+	docker compose ps -a
+
+.PHONY: logs
+logs:
+	docker compose logs
+
+.PHONY: logs-watch
+logs-watch:
+	docker compose logs --follow
+
+# --- Backend (Rust) ---
+
+.PHONY: api-dev
+api-dev:
+	docker compose up -d --build && \
+	cd services/backend/server-core && cargo watch -x run
+
+.PHONY: api
+api:
+	docker compose up -d --build && \
+	cd services/backend/server-core && cargo run
+
+.PHONY: update-entities
 update-entities:
 	cd services/backend/server-core && \
 	sea-orm-cli generate entity -u postgres://postgres:postgres@localhost:5432/postgres -o domain/src/entities
 
+.PHONY: update-models
 update-models:
 	cd services/backend/server-core && \
 	cargo run --bin generate-models && \
 	cd services/backend && \
 	cargo fmt
 
-api-dev:
-	docker compose up -d --build && \
-	cd services/backend/server-core && cargo watch -x run
+# --- WebUI (Next.js) ---
 
-api:
-	docker compose up -d --build && \
-	cd services/backend/server-core && cargo run
-
-# WebUI
+.PHONY: webui-client-dev
 webui-client-dev:
 	cd services/webui && pnpm --filter=client dev
 
+.PHONY: webui-admin-dev
 webui-admin-dev:
 	cd services/webui && pnpm --filter=admin dev
 
-# Mobile
+.PHONY: webui-build
+webui-build:
+	cd services/webui && pnpm build
+
+.PHONY: webui-lint
+webui-lint:
+	cd services/webui && pnpm lint
+
+.PHONY: webui-format
+webui-format:
+	cd services/webui && pnpm format
+
+# --- Mobile (Flutter) ---
+
+.PHONY: mobile-dev
 mobile-dev:
 	open -a Simulator
 	cd services/mobile && fvm flutter run
 
-# Setup
+.PHONY: mobile-test
+mobile-test:
+	cd services/mobile && melos run test
+
+.PHONY: mobile-analyze
+mobile-analyze:
+	cd services/mobile && melos run analyze
+
+# --- Smart Contracts (Solidity) ---
+
+.PHONY: contract-build
+contract-build:
+	cd services/contract && pnpm build
+
+.PHONY: contract-test
+contract-test:
+	cd services/contract && pnpm foundrytest
+
+.PHONY: contract-lint
+contract-lint:
+	cd services/contract && pnpm lint:sol
+
+# --- GraphQL ---
+
+.PHONY: setup-gql
+setup-gql: copy-schema
+	$(MAKE) gql-webui gql-mobile
+
+.PHONY: copy-schema
+copy-schema:
+	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/webui/
+	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/
+	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/apps/admin/lib/graphql/
+	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/mobile/apps/client/lib/data/graphql/
+
+.PHONY: gql-webui
+gql-webui:
+	cd services/webui && pnpm --filter=client codegen
+
+.PHONY: gql-mobile
+gql-mobile:
+	cd services/mobile/apps/client && fvm dart run build_runner build --delete-conflicting-outputs
+	cd services/mobile/apps/admin && fvm dart run build_runner build --delete-conflicting-outputs
+
+# --- Setup ---
+
+.PHONY: setup
 setup: check-tools run-pg
 	@echo "=== PostgreSQL ==="
 	@echo "  Started (via run-pg)"
@@ -114,6 +266,7 @@ setup: check-tools run-pg
 	@echo "      To reset DB: 'make down-pg && make run-pg'"
 	@echo "      'make setup' is safe to run multiple times."
 
+.PHONY: check-tools
 check-tools:
 	@echo "=== Checking required tools ==="
 	@command -v rustc >/dev/null 2>&1 && echo "  rustc: $$(rustc --version)" || (echo "  rustc: NOT FOUND (install from https://rustup.rs)" && exit 1)
