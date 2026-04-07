@@ -2,6 +2,7 @@ SHELL := /bin/bash
 .SHELLFLAGS := -ec
 
 # Load .env if present (shared with Docker Compose; values can be overridden by environment variables)
+# NOTE: -include imports ALL lines as Make variables. Only add PG_* and COMPOSE_* variables to .env.
 -include .env
 
 # --- PostgreSQL connection defaults (override via .env or environment) ---
@@ -48,10 +49,10 @@ help:
 	@echo '  - Connect to PostgreSQL via psql'
 	@echo
 	@echo 'pgdump-schema'
-	@echo '  - Dump database schema only (DDL)'
+	@echo '  - Dump database schema only (DDL)  (e.g. make pgdump-schema > schema.sql)'
 	@echo
 	@echo 'pgdump-full'
-	@echo '  - Full dump (schema + data)'
+	@echo '  - Full dump (schema + data)  (e.g. make pgdump-full > dump.sql)'
 	@echo
 	@echo '=== Backend (Rust) ==='
 	@echo
