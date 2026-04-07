@@ -5,11 +5,11 @@ SHELL := /bin/bash
 -include .env
 
 # --- PostgreSQL connection defaults (override via .env or environment) ---
-PG_HOST ?= 127.0.0.1
-PG_PORT ?= 5432
-PG_USER ?= postgres
+PG_HOST     ?= 127.0.0.1
+PG_PORT     ?= 5432
+PG_USER     ?= postgres
 PG_PASSWORD ?= postgres
-PG_DB   ?= postgres
+PG_DB       ?= postgres
 
 .PHONY: all
 all: help ;

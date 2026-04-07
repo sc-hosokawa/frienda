@@ -5,7 +5,7 @@ services:
       context: ./services/postgres
       dockerfile: Dockerfile
     ports:
-      - '5432:5432'
+      - '${PG_PORT:-5432}:5432'
     environment:
       POSTGRES_USER: ${PG_USER:-postgres}
       POSTGRES_PASSWORD: ${PG_PASSWORD:-postgres}
