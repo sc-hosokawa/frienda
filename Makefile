@@ -1,6 +1,17 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -ec
 
+# Load .env if present (shared with Docker Compose; values can be overridden by environment variables)
+# NOTE: -include imports ALL lines as Make variables. Only add PG_* and COMPOSE_* variables to .env.
+-include .env
+
+# --- PostgreSQL connection defaults (override via .env or environment) ---
+PG_HOST     ?= 127.0.0.1
+PG_PORT     ?= 5432
+PG_USER     ?= postgres
+PG_PASSWORD ?= postgres
+PG_DB       ?= postgres
+
 .PHONY: all
 all: help ;
 
@@ -31,6 +42,17 @@ help:
 	@echo
 	@echo 'logs-watch'
 	@echo '  - docker compose logs --follow'
+	@echo
+	@echo '=== Database - PostgreSQL ==='
+	@echo
+	@echo 'sql'
+	@echo '  - Connect to PostgreSQL via psql'
+	@echo
+	@echo 'pgdump-schema'
+	@echo '  - Dump database schema only (DDL)  (e.g. make pgdump-schema > schema.sql)'
+	@echo
+	@echo 'pgdump-full'
+	@echo '  - Full dump (schema + data)  (e.g. make pgdump-full > dump.sql)'
 	@echo
 	@echo '=== Backend (Rust) ==='
 	@echo
@@ -144,6 +166,20 @@ logs:
 logs-watch:
 	docker compose logs --follow
 
+# --- Database - PostgreSQL ---
+
+.PHONY: sql
+sql:
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -p $(PG_PORT) -U $(PG_USER) -d $(PG_DB)
+
+.PHONY: pgdump-schema
+pgdump-schema:
+	PGPASSWORD=$(PG_PASSWORD) pg_dump -h $(PG_HOST) -p $(PG_PORT) -U $(PG_USER) -d $(PG_DB) --schema-only --no-owner --no-privileges
+
+.PHONY: pgdump-full
+pgdump-full:
+	PGPASSWORD=$(PG_PASSWORD) pg_dump -h $(PG_HOST) -p $(PG_PORT) -U $(PG_USER) -d $(PG_DB) --no-owner --no-privileges
+
 # --- Backend (Rust) ---
 
 .PHONY: api-dev
@@ -159,7 +195,7 @@ api:
 .PHONY: update-entities
 update-entities:
 	cd services/backend/server-core && \
-	sea-orm-cli generate entity -u postgres://postgres:postgres@localhost:5432/postgres -o domain/src/entities
+	sea-orm-cli generate entity -u postgres://$(PG_USER):$(PG_PASSWORD)@$(PG_HOST):$(PG_PORT)/$(PG_DB) -o domain/src/entities
 
 .PHONY: update-models
 update-models:
@@ -251,8 +287,15 @@ gql-mobile:
 # --- Setup ---
 
 .PHONY: setup
-setup: check-tools run-pg
+setup: check-tools
+	@echo "=== Environment files ==="
+	@test -f .env || (cp .env.example .env && echo "Created .env")
+	@test -f services/backend/.env || (cp services/backend/.env.example services/backend/.env && echo "Created services/backend/.env")
+	@test -f services/webui/apps/client/.env.local || (cp services/webui/apps/client/.env.example services/webui/apps/client/.env.local && echo "Created services/webui/apps/client/.env.local")
+	@test -f services/webui/apps/admin/.env.local || (cp services/webui/apps/admin/.env.example services/webui/apps/admin/.env.local && echo "Created services/webui/apps/admin/.env.local")
+	@test -f services/contract/.env || (test -f services/contract/.env.example && cp services/contract/.env.example services/contract/.env && echo "Created services/contract/.env" || echo "Skipped services/contract/.env (no .env.example found)")
 	@echo "=== PostgreSQL ==="
+	@$(MAKE) run-pg
 	@echo "  Started (via run-pg)"
 	@echo "=== Backend dependencies ==="
 	@cd services/backend && cargo fetch
@@ -262,11 +305,6 @@ setup: check-tools run-pg
 	@cd services/contract && pnpm install
 	@echo "=== Mobile dependencies ==="
 	@command -v melos >/dev/null 2>&1 && (cd services/mobile && melos bootstrap) || echo "Skipped (melos not installed — optional for mobile dev)"
-	@echo "=== Environment files ==="
-	@test -f services/backend/.env || (cp services/backend/.env.example services/backend/.env && echo "Created services/backend/.env")
-	@test -f services/webui/apps/client/.env.local || (cp services/webui/apps/client/.env.example services/webui/apps/client/.env.local && echo "Created services/webui/apps/client/.env.local")
-	@test -f services/webui/apps/admin/.env.local || (cp services/webui/apps/admin/.env.example services/webui/apps/admin/.env.local && echo "Created services/webui/apps/admin/.env.local")
-	@test -f services/contract/.env || (test -f services/contract/.env.example && cp services/contract/.env.example services/contract/.env && echo "Created services/contract/.env" || echo "Skipped services/contract/.env (no .env.example found)")
 	@echo ""
 	@echo "Setup complete! Next steps:"
 	@echo "  1. Edit .env files with your credentials"
