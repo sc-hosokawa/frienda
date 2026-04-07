@@ -1,8 +1,6 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -ec
 
-OPEN_CMD := $(shell command -v xdg-open 2>/dev/null || echo open)
-
 .PHONY: all
 all: help ;
 
@@ -196,7 +194,7 @@ webui-format:
 
 .PHONY: mobile-dev
 mobile-dev:
-	$(OPEN_CMD) -a Simulator
+	open -a Simulator
 	cd services/mobile && fvm flutter run
 
 .PHONY: mobile-test
