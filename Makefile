@@ -287,8 +287,15 @@ gql-mobile:
 # --- Setup ---
 
 .PHONY: setup
-setup: check-tools run-pg
+setup: check-tools
+	@echo "=== Environment files ==="
+	@test -f .env || (cp .env.example .env && echo "Created .env")
+	@test -f services/backend/.env || (cp services/backend/.env.example services/backend/.env && echo "Created services/backend/.env")
+	@test -f services/webui/apps/client/.env.local || (cp services/webui/apps/client/.env.example services/webui/apps/client/.env.local && echo "Created services/webui/apps/client/.env.local")
+	@test -f services/webui/apps/admin/.env.local || (cp services/webui/apps/admin/.env.example services/webui/apps/admin/.env.local && echo "Created services/webui/apps/admin/.env.local")
+	@test -f services/contract/.env || (test -f services/contract/.env.example && cp services/contract/.env.example services/contract/.env && echo "Created services/contract/.env" || echo "Skipped services/contract/.env (no .env.example found)")
 	@echo "=== PostgreSQL ==="
+	@$(MAKE) run-pg
 	@echo "  Started (via run-pg)"
 	@echo "=== Backend dependencies ==="
 	@cd services/backend && cargo fetch
@@ -298,12 +305,6 @@ setup: check-tools run-pg
 	@cd services/contract && pnpm install
 	@echo "=== Mobile dependencies ==="
 	@command -v melos >/dev/null 2>&1 && (cd services/mobile && melos bootstrap) || echo "Skipped (melos not installed — optional for mobile dev)"
-	@echo "=== Environment files ==="
-	@test -f .env || (cp .env.example .env && echo "Created .env")
-	@test -f services/backend/.env || (cp services/backend/.env.example services/backend/.env && echo "Created services/backend/.env")
-	@test -f services/webui/apps/client/.env.local || (cp services/webui/apps/client/.env.example services/webui/apps/client/.env.local && echo "Created services/webui/apps/client/.env.local")
-	@test -f services/webui/apps/admin/.env.local || (cp services/webui/apps/admin/.env.example services/webui/apps/admin/.env.local && echo "Created services/webui/apps/admin/.env.local")
-	@test -f services/contract/.env || (test -f services/contract/.env.example && cp services/contract/.env.example services/contract/.env && echo "Created services/contract/.env" || echo "Skipped services/contract/.env (no .env.example found)")
 	@echo ""
 	@echo "Setup complete! Next steps:"
 	@echo "  1. Edit .env files with your credentials"
