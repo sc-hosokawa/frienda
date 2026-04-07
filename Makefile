@@ -163,10 +163,8 @@ update-entities:
 
 .PHONY: update-models
 update-models:
-	cd services/backend/server-core && \
-	cargo run --bin generate-models
-	cd services/backend && \
-	cargo fmt
+	cd services/backend/server-core && cargo run --bin generate-models
+	cd services/backend && cargo fmt
 
 # --- WebUI (Next.js) ---
 
