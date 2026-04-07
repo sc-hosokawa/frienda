@@ -179,6 +179,23 @@ make logs-watch
 - ユーザー/パスワード/DB名: すべて `postgres`
 - DB スキーマは初回起動時に自動初期化されます
 
+#### データベースへの直接接続・ダンプ
+
+```bash
+# psql でデータベースに接続
+make sql
+
+# スキーマのみダンプ（DDL）
+make pgdump-schema
+
+# データ含むフルダンプ
+make pgdump-data
+
+# ダンプをファイルに保存する場合
+make pgdump-schema > schema.sql
+make pgdump-data > dump.sql
+```
+
 ### 6.2 バックエンド（Rust）
 
 ```bash

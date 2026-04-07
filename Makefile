@@ -102,6 +102,17 @@ help:
 	@echo 'gql-mobile'
 	@echo '  - Regenerate GraphQL code for mobile apps'
 	@echo
+	@echo '=== Database - PostgreSQL ==='
+	@echo
+	@echo 'sql'
+	@echo '  - Connect to PostgreSQL via psql'
+	@echo
+	@echo 'pgdump-schema'
+	@echo '  - Dump database schema only (DDL)'
+	@echo
+	@echo 'pgdump-data'
+	@echo '  - Dump database with data'
+	@echo
 	@echo '=== Setup ==='
 	@echo
 	@echo 'setup'
@@ -143,6 +154,20 @@ logs:
 .PHONY: logs-watch
 logs-watch:
 	docker compose logs --follow
+
+# --- Database - PostgreSQL ---
+
+.PHONY: sql
+sql:
+	PGPASSWORD=postgres psql -h 127.0.0.1 -U postgres -d postgres
+
+.PHONY: pgdump-schema
+pgdump-schema:
+	PGPASSWORD=postgres pg_dump -h 127.0.0.1 -U postgres -d postgres --schema-only --no-owner --no-privileges
+
+.PHONY: pgdump-data
+pgdump-data:
+	PGPASSWORD=postgres pg_dump -h 127.0.0.1 -U postgres -d postgres --no-owner --no-privileges
 
 # --- Backend (Rust) ---
 
