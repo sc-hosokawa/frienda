@@ -132,24 +132,6 @@ class _CommunityState extends ConsumerState<Community> {
 
         return Column(
           children: [
-            /*
-            DropdownButton<String>(
-              value: _selectedView,
-              items: ['List View', '(beta) Map View']
-                  .map((String value) => DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      ))
-                  .toList(),
-              onChanged: (String? newValue) {
-                if (newValue != null) {
-                  setState(() {
-                    _selectedView = newValue;
-                  });
-                }
-              },
-            ),
-            */
             Expanded(
               child: _buildListView(communityMembers, userId, refetch),
             ),

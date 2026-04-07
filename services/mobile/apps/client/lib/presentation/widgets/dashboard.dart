@@ -655,7 +655,7 @@ class _AddNewArtistButton extends StatelessWidget {
             children: [
               Icon(Icons.add),
               SizedBox(width: 4),
-              Text('アーティストデータの閲覧権限を申請する'),
+              Text('データの閲覧権限を申請する'),
             ],
           ),
         ),
