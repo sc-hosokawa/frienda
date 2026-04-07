@@ -1,16 +1,37 @@
 # Style and Conventions
-- **General Architecture**:
-    - Clean Architecture patterns are favored, especially in the Rust backend.
-    - Domain logic should be separated from presentation and infrastructure layers.
-- **Rust (Backend)**:
-    - **Usecases**: Defined as traits (e.g., `GetPlayCountHistoryUsecaseTrait`) with `#[async_trait]` and implemented by structs.
-    - **Error Handling**: Use `anyhow::Error` for general error propagation in application/service layers.
-    - **Data Types**: Extensive use of `chrono`, `serde`, and `uuid`.
-    - **Naming**: Standard Rust snake_case for functions/files, PascalCase for traits/structs.
-- **Next.js (Web)**:
-    - **Routing**: Next.js App Router (files in `app/`).
-    - **Components**: Reusable UI components in `components/` using Shadcn/Tailwind.
-    - **Types**: GraphQL types are auto-generated and should be imported from `generated/`.
-- **State Management**:
-    - Web: Likely using React Context or specialized stores (Zustand/Jotai if found).
-    - Mobile: Flutter patterns (Riverpod/Bloc if found).
+
+## General
+- GraphQL-first API design with centralized schema
+- Use workspace dependencies in Cargo.toml for consistent versioning
+- TypeScript strict mode for all frontend code
+- Flutter material design patterns for mobile UI
+
+## Backend (Rust)
+- Clean architecture layers: domain, application, presentation, infrastructure
+- Error handling with Result types
+- Sea-ORM for database access
+- async-graphql for GraphQL API
+- Format with `cargo fmt`, lint with `cargo clippy`
+
+## Frontend (WebUI)
+- Next.js with TypeScript
+- Tailwind CSS for styling
+- Apollo Client for GraphQL
+- Turborepo monorepo with pnpm workspaces
+- ESLint for linting, Prettier for formatting
+- Node >= 18, pnpm >= 9 (npm/yarn explicitly disallowed)
+
+## Mobile (Flutter)
+- Dart language
+- Melos for monorepo management
+- GraphQL with build_runner code generation
+
+## Smart Contracts (Solidity)
+- Foundry for testing and gas optimization
+- Hardhat as alternative test framework
+- OpenZeppelin base contracts
+- Solhint for linting
+
+## Git
+- `.envrc` for git identity and SSH config per project
+- Always source `.envrc` before git remote operations
