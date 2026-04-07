@@ -155,8 +155,23 @@ make run-pg
 # 停止
 make stop-pg
 
-# コンテナ削除（データもリセット）
+# コンテナ削除
 make down-pg
+
+# コンテナ削除（ボリュームも含めて完全リセット）
+make down-pg-clean
+
+# 再起動（down-pg + run-pg）
+make restart-pg
+
+# コンテナの状態確認
+make ps
+
+# ログの確認
+make logs
+
+# ログのリアルタイム監視
+make logs-watch
 ```
 
 - PostgreSQL 16 が Docker コンテナで起動します
@@ -185,6 +200,15 @@ make webui-client-dev    # http://localhost:3000
 
 # 管理画面アプリ
 make webui-admin-dev
+
+# ビルド
+make webui-build
+
+# Lint
+make webui-lint
+
+# フォーマット
+make webui-format
 ```
 
 ### 6.4 モバイル（Flutter）
@@ -192,6 +216,15 @@ make webui-admin-dev
 ```bash
 # iOS シミュレータを起動してアプリを実行
 make mobile-dev
+
+# テスト
+make mobile-test
+
+# 静的解析
+make mobile-analyze
+
+# フォーマット
+make mobile-format
 ```
 
 > 事前に Xcode と iOS シミュレータが必要です。
@@ -227,20 +260,27 @@ open http://localhost:8080/graphql
 open http://localhost:3000
 ```
 
-### 7.3 テスト実行
+### 7.3 テスト・Lint・フォーマット
 
 ```bash
 # バックエンド
 cd services/backend && cargo test
 
 # WebUI
-cd services/webui && pnpm lint
+make webui-lint
+make webui-format
+make webui-build
 
 # モバイル
-cd services/mobile && melos run test
+make mobile-test
+make mobile-analyze
+make mobile-format
 
 # コントラクト
-cd services/contract && pnpm foundrytest
+make contract-test
+make contract-build
+make contract-lint
+make contract-format
 ```
 
 ## 8. トラブルシューティング
@@ -294,7 +334,11 @@ cd services/webui && pnpm install
 ### DB スキーマをリセットしたい
 
 ```bash
-make down-pg && make run-pg
+# ボリュームごと完全リセット
+make down-pg-clean && make run-pg
+
+# または再起動のみ（データは保持）
+make restart-pg
 ```
 
 ---
