@@ -1,7 +1,10 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -ec
 
-# --- PostgreSQL connection defaults (override via environment) ---
+# Load .env if present (values can be overridden by environment variables)
+-include .env
+
+# --- PostgreSQL connection defaults (override via .env or environment) ---
 PG_HOST ?= 127.0.0.1
 PG_PORT ?= 5432
 PG_USER ?= postgres
@@ -295,6 +298,7 @@ setup: check-tools run-pg
 	@echo "=== Mobile dependencies ==="
 	@command -v melos >/dev/null 2>&1 && (cd services/mobile && melos bootstrap) || echo "Skipped (melos not installed — optional for mobile dev)"
 	@echo "=== Environment files ==="
+	@test -f .env || (cp .env.example .env && echo "Created .env")
 	@test -f services/backend/.env || (cp services/backend/.env.example services/backend/.env && echo "Created services/backend/.env")
 	@test -f services/webui/apps/client/.env.local || (cp services/webui/apps/client/.env.example services/webui/apps/client/.env.local && echo "Created services/webui/apps/client/.env.local")
 	@test -f services/webui/apps/admin/.env.local || (cp services/webui/apps/admin/.env.example services/webui/apps/admin/.env.local && echo "Created services/webui/apps/admin/.env.local")
