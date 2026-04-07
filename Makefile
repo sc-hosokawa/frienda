@@ -76,6 +76,9 @@ help:
 	@echo 'mobile-analyze'
 	@echo '  - melos run analyze'
 	@echo
+	@echo 'mobile-format'
+	@echo '  - melos run format'
+	@echo
 	@echo '=== Smart Contracts (Solidity) ==='
 	@echo
 	@echo 'contract-build'
@@ -86,6 +89,9 @@ help:
 	@echo
 	@echo 'contract-lint'
 	@echo '  - pnpm lint:sol'
+	@echo
+	@echo 'contract-format'
+	@echo '  - pnpm format'
 	@echo
 	@echo '=== GraphQL ==='
 	@echo
@@ -160,7 +166,7 @@ update-entities:
 .PHONY: update-models
 update-models:
 	cd services/backend/server-core && \
-	cargo run --bin generate-models && \
+	cargo run --bin generate-models
 	cd services/backend && \
 	cargo fmt
 
@@ -190,7 +196,7 @@ webui-format:
 
 .PHONY: mobile-dev
 mobile-dev:
-	open -a Simulator
+	$(OPEN_CMD) -a Simulator
 	cd services/mobile && fvm flutter run
 
 .PHONY: mobile-test
@@ -200,6 +206,10 @@ mobile-test:
 .PHONY: mobile-analyze
 mobile-analyze:
 	cd services/mobile && melos run analyze
+
+.PHONY: mobile-format
+mobile-format:
+	cd services/mobile && melos run format
 
 # --- Smart Contracts (Solidity) ---
 
@@ -215,12 +225,17 @@ contract-test:
 contract-lint:
 	cd services/contract && pnpm lint:sol
 
+.PHONY: contract-format
+contract-format:
+	cd services/contract && pnpm format
+
 # --- GraphQL ---
 
 .PHONY: setup-gql
 setup-gql: copy-schema
 	$(MAKE) gql-webui gql-mobile
 
+# Internal target used by setup-gql
 .PHONY: copy-schema
 copy-schema:
 	cp services/backend/server-core/presentation/src/graphql/schema.graphql services/webui/
