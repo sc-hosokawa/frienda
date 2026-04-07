@@ -10,8 +10,8 @@ scripts:
   test:
     run: melos run test
   analyze:
-    run: melos exec -- flutter analyze .
+    run: melos exec -- fvm flutter analyze .
     description: analyze flutter codes.
   format: 
-    run: melos exec -- dart format .
+    run: melos exec -- fvm dart format .
     description: format dart codes on all packages.
