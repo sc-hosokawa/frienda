@@ -32,17 +32,16 @@ cd frienda
 
 ## 3. 必須ツールのインストール
 
-### 3.1 バージョン管理ツール（asdf）
+### 3.1 バージョン管理ツール（mise）
 
-プロジェクトでは `.tool-versions` でツールバージョンを管理しています。[asdf](https://asdf-vm.com/) の利用を推奨します。
+プロジェクトでは `.tool-versions` でツールバージョンを管理しています。[mise](https://mise.jdx.dev/) の利用を推奨します。
 
 ```bash
-# asdf のインストール（Homebrew）
-brew install asdf
+# mise のインストール（Homebrew）
+brew install mise
 
-# Node.js プラグインの追加とインストール
-asdf plugin add nodejs
-asdf install
+# ツールのインストール
+mise install
 ```
 
 これにより `.tool-versions` に定義された Node.js 20.18.1 がインストールされます。
@@ -52,7 +51,7 @@ asdf install
 | ツール | バージョン | 用途 | インストール方法 |
 |--------|-----------|------|-----------------|
 | **Rust (stable)** | latest stable | バックエンド開発 | https://rustup.rs |
-| **Node.js** | 20.18.1 | WebUI・コントラクト開発 | asdf または https://nodejs.org |
+| **Node.js** | 20.18.1 | WebUI・コントラクト開発 | mise または https://nodejs.org |
 | **pnpm** | 9+ | Node.js パッケージ管理 | `npm install -g pnpm` |
 | **Docker** | latest | PostgreSQL コンテナ | https://www.docker.com |
 
@@ -320,5 +319,5 @@ frienda/
 │   └── postgres/       # DB 初期化スクリプト
 ├── docker-compose.yaml # PostgreSQL コンテナ定義
 ├── Makefile            # 開発コマンド集
-└── .tool-versions      # asdf ツールバージョン定義
+└── .tool-versions      # mise ツールバージョン定義
 ```
