@@ -439,7 +439,6 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         )),
         get_play_count_history: Arc::new(GetPlayCountHistoryUsecase::new(
             repos.plays_daily.clone(),
-            repos.gender_gen_playback.clone(),
             repos.products.clone(),
             repos.product_track.clone(),
             repos.tracks.clone(),

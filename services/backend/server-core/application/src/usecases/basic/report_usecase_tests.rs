@@ -4,11 +4,9 @@ use crate::test_support::mocks::user_report_mock::MockMockUserReportRepo;
 use crate::usecases::basic::report_usecase::{
     OfferReportInput, ReleaseReportInput, ReportUsecase, ReportUsecaseTrait, UserReportInput,
 };
-use domain::entities::offer_report::{ActiveModel as OfferReportActiveModel, Model as OfferReport};
-use domain::entities::release_report::{
-    ActiveModel as ReleaseReportActiveModel, Model as ReleaseReport,
-};
-use domain::entities::user_report::{ActiveModel as UserReportActiveModel, Model as UserReport};
+use domain::entities::offer_report::Model as OfferReport;
+use domain::entities::release_report::Model as ReleaseReport;
+use domain::entities::user_report::Model as UserReport;
 use mockall::predicate::*;
 use shared::error::domain_err::DomainError;
 use std::sync::Arc;

@@ -1,6 +1,5 @@
 use async_trait::async_trait;
 use derive_new::new;
-use sea_orm::prelude::Expr;
 use sea_orm::*;
 
 use domain::entities::offer_user::{

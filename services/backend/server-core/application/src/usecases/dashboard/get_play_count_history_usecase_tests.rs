@@ -1,5 +1,4 @@
 use crate::test_support::mocks::{
-    gender_gen_playback_mock::MockMockGenderGenPlaybackRepo,
     plays_daily_mock::MockMockPlaysDailyRepo, product_track_mock::MockMockProductTrackRepo,
     products_mock::MockMockProductsRepo, tracks_mock::MockMockTracksRepo,
 };
@@ -18,7 +17,6 @@ use std::sync::Arc;
 #[tokio::test]
 async fn test_get_play_count_by_artist_aggregates_monthly_history() {
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
-    let gender_gen_playback_repo = MockMockGenderGenPlaybackRepo::new();
     let mut products_repo = MockMockProductsRepo::new();
     let mut product_track_repo = MockMockProductTrackRepo::new();
     let tracks_repo = MockMockTracksRepo::new();
@@ -92,7 +90,6 @@ async fn test_get_play_count_by_artist_aggregates_monthly_history() {
 
     let usecase = GetPlayCountHistoryUsecase::new(
         Arc::new(plays_daily_repo),
-        Arc::new(gender_gen_playback_repo),
         Arc::new(products_repo),
         Arc::new(product_track_repo),
         Arc::new(tracks_repo),
@@ -117,7 +114,6 @@ async fn test_get_play_count_by_artist_aggregates_monthly_history() {
 #[tokio::test]
 async fn test_get_play_count_by_upc_merges_rows_by_date() {
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
-    let gender_gen_playback_repo = MockMockGenderGenPlaybackRepo::new();
     let products_repo = MockMockProductsRepo::new();
     let mut product_track_repo = MockMockProductTrackRepo::new();
     let mut tracks_repo = MockMockTracksRepo::new();
@@ -195,7 +191,6 @@ async fn test_get_play_count_by_upc_merges_rows_by_date() {
 
     let usecase = GetPlayCountHistoryUsecase::new(
         Arc::new(plays_daily_repo),
-        Arc::new(gender_gen_playback_repo),
         Arc::new(products_repo),
         Arc::new(product_track_repo),
         Arc::new(tracks_repo),

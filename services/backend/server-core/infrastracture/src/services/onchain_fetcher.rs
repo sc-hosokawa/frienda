@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 
 use alloy::{
-    primitives::{address, Address, U256},
+    primitives::{Address, U256},
     providers::{Provider, ProviderBuilder},
     rpc::types::{Filter, Log},
 };
