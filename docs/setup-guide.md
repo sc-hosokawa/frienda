@@ -188,7 +188,7 @@ make sql
 # スキーマのみダンプ（DDL）
 make pgdump-schema
 
-# データ含むフルダンプ
+# フルダンプ（スキーマ + データ）
 make pgdump-data
 
 # ダンプをファイルに保存する場合

@@ -1,6 +1,13 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -ec
 
+# --- PostgreSQL connection defaults (override via environment) ---
+PG_HOST ?= 127.0.0.1
+PG_PORT ?= 5432
+PG_USER ?= postgres
+PG_PASSWORD ?= postgres
+PG_DB   ?= postgres
+
 .PHONY: all
 all: help ;
 
@@ -31,6 +38,17 @@ help:
 	@echo
 	@echo 'logs-watch'
 	@echo '  - docker compose logs --follow'
+	@echo
+	@echo '=== Database - PostgreSQL ==='
+	@echo
+	@echo 'sql'
+	@echo '  - Connect to PostgreSQL via psql'
+	@echo
+	@echo 'pgdump-schema'
+	@echo '  - Dump database schema only (DDL)'
+	@echo
+	@echo 'pgdump-data'
+	@echo '  - Full dump (schema + data)'
 	@echo
 	@echo '=== Backend (Rust) ==='
 	@echo
@@ -102,17 +120,6 @@ help:
 	@echo 'gql-mobile'
 	@echo '  - Regenerate GraphQL code for mobile apps'
 	@echo
-	@echo '=== Database - PostgreSQL ==='
-	@echo
-	@echo 'sql'
-	@echo '  - Connect to PostgreSQL via psql'
-	@echo
-	@echo 'pgdump-schema'
-	@echo '  - Dump database schema only (DDL)'
-	@echo
-	@echo 'pgdump-data'
-	@echo '  - Dump database with data'
-	@echo
 	@echo '=== Setup ==='
 	@echo
 	@echo 'setup'
@@ -159,15 +166,15 @@ logs-watch:
 
 .PHONY: sql
 sql:
-	PGPASSWORD=postgres psql -h 127.0.0.1 -U postgres -d postgres
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -p $(PG_PORT) -U $(PG_USER) -d $(PG_DB)
 
 .PHONY: pgdump-schema
 pgdump-schema:
-	PGPASSWORD=postgres pg_dump -h 127.0.0.1 -U postgres -d postgres --schema-only --no-owner --no-privileges
+	PGPASSWORD=$(PG_PASSWORD) pg_dump -h $(PG_HOST) -p $(PG_PORT) -U $(PG_USER) -d $(PG_DB) --schema-only --no-owner --no-privileges
 
 .PHONY: pgdump-data
 pgdump-data:
-	PGPASSWORD=postgres pg_dump -h 127.0.0.1 -U postgres -d postgres --no-owner --no-privileges
+	PGPASSWORD=$(PG_PASSWORD) pg_dump -h $(PG_HOST) -p $(PG_PORT) -U $(PG_USER) -d $(PG_DB) --no-owner --no-privileges
 
 # --- Backend (Rust) ---
 
@@ -184,7 +191,7 @@ api:
 .PHONY: update-entities
 update-entities:
 	cd services/backend/server-core && \
-	sea-orm-cli generate entity -u postgres://postgres:postgres@localhost:5432/postgres -o domain/src/entities
+	sea-orm-cli generate entity -u postgres://$(PG_USER):$(PG_PASSWORD)@$(PG_HOST):$(PG_PORT)/$(PG_DB) -o domain/src/entities
 
 .PHONY: update-models
 update-models:
