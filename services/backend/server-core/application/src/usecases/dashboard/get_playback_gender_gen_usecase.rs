@@ -271,3 +271,7 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "get_playback_gender_gen_usecase_tests.rs"]
+mod tests;

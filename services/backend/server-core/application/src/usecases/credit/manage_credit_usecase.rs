@@ -73,3 +73,7 @@ impl ManageCreditUsecaseTrait for ManageCreditUsecase {
         Ok(())
     }
 }
+
+#[cfg(test)]
+#[path = "manage_credit_usecase_tests.rs"]
+mod tests;

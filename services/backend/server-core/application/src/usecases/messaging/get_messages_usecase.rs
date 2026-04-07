@@ -137,3 +137,7 @@ impl GetMessagesUsecaseTrait for GetMessagesUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "get_messages_usecase_tests.rs"]
+mod tests;

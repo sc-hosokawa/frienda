@@ -153,3 +153,7 @@ impl GetMembersUsecaseTrait for GetMembersUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "get_members_usecase_tests.rs"]
+mod tests;

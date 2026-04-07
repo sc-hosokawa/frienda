@@ -71,7 +71,9 @@ impl GetNotificationsUsecaseTrait for GetNotificationsUsecase {
                 content: n.content.clone(),
                 is_read: notification_users
                     .iter()
-                    .any(|nu| nu.notification_id == n.id),
+                    .find(|nu| nu.notification_id == n.id)
+                    .map(|nu| nu.is_read)
+                    .unwrap_or(false),
                 created_at: n.created_at.to_string(),
             })
             .collect();
@@ -81,3 +83,7 @@ impl GetNotificationsUsecaseTrait for GetNotificationsUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "get_notifications_usecase_tests.rs"]
+mod tests;

@@ -109,3 +109,7 @@ impl RequestToAccessUsecaseTrait for RequestToAccessUsecase {
         Ok(RequestToAccessUsecaseOutput { created_mappings })
     }
 }
+
+#[cfg(test)]
+#[path = "request_to_access_usecase_tests.rs"]
+mod tests;

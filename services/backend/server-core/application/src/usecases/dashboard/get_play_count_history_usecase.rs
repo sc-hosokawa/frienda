@@ -422,3 +422,7 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
         Ok(GetISRCHistoryUsecaseOutput { chart_data })
     }
 }
+
+#[cfg(test)]
+#[path = "get_play_count_history_usecase_tests.rs"]
+mod tests;

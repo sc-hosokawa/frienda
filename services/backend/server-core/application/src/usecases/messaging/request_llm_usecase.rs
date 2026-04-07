@@ -324,3 +324,7 @@ impl RequestLlmUsecaseTrait for RequestLlmUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "request_llm_usecase_tests.rs"]
+mod tests;

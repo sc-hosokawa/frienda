@@ -1,0 +1,36 @@
+#![allow(dead_code)]
+
+pub mod artist_mock;
+pub mod email_mock;
+pub mod exchange_prize_history_mock;
+pub mod favorites_mock;
+pub mod gender_gen_playback_mock;
+pub mod invitations_mock;
+pub mod llm_service_mock;
+pub mod message_attach_mock;
+pub mod message_room_mock;
+pub mod messages_mock;
+pub mod notification_mock;
+pub mod notification_user_mock;
+pub mod offer_attach_mock;
+pub mod offer_mock;
+pub mod offer_report_mock;
+pub mod offer_user_mock;
+pub mod plays_daily_mock;
+pub mod plays_monthly_mock;
+pub mod plays_yearly_mock;
+pub mod prize_mock;
+pub mod product_track_mock;
+pub mod products_mock;
+pub mod push_notification_mock;
+pub mod quest_mock;
+pub mod quest_user_mock;
+pub mod release_report_mock;
+pub mod shortnote_mock;
+pub mod track_credits_mock;
+pub mod tracks_mock;
+pub mod txs_fsp_mock;
+pub mod user_artist_mock;
+pub mod user_mock;
+pub mod user_report_mock;
+pub mod user_room_mock;

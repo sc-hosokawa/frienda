@@ -40,7 +40,7 @@ impl MarkNotificationAsReadUsecaseTrait for MarkNotificationAsReadUsecase {
             .notification_user_repo
             .get_by_user_id_and_notification_id(user_id, notification_id)
             .await?
-            .unwrap();
+            .ok_or(DomainError::NotFound)?;
 
         let marked_notification_user = NotificationUserActiveModel {
             id: ActiveValue::Set(read_notification_user.id),
@@ -56,3 +56,7 @@ impl MarkNotificationAsReadUsecaseTrait for MarkNotificationAsReadUsecase {
         Ok(updated_notification_user.id)
     }
 }
+
+#[cfg(test)]
+#[path = "mark_notification_as_read_usecase_tests.rs"]
+mod tests;

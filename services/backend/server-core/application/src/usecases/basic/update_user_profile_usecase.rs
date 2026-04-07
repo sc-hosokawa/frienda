@@ -227,3 +227,7 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "update_user_profile_usecase_tests.rs"]
+mod tests;

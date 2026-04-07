@@ -196,3 +196,7 @@ impl UpdateTaskUsecaseTrait for UpdateTaskUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "update_task_usecase_tests.rs"]
+mod tests;

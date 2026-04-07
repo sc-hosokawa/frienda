@@ -68,3 +68,7 @@ impl GetAllUsersUsecaseTrait for GetAllUsersUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "get_all_users_usecase_tests.rs"]
+mod tests;

@@ -57,3 +57,7 @@ impl MarkAsReadUsecaseTrait for MarkAsReadUsecase {
         Ok(())
     }
 }
+
+#[cfg(test)]
+#[path = "mark_as_read_usecase_tests.rs"]
+mod tests;

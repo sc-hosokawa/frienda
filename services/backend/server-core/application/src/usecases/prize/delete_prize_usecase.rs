@@ -41,3 +41,7 @@ impl DeletePrizeUsecaseTrait for DeletePrizeUsecase {
         Ok(())
     }
 }
+
+#[cfg(test)]
+#[path = "delete_prize_usecase_tests.rs"]
+mod tests;

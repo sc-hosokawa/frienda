@@ -176,3 +176,7 @@ impl GetUserProfileUsecaseTrait for GetUserProfileUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "user_profile_usecase_tests.rs"]
+mod tests;

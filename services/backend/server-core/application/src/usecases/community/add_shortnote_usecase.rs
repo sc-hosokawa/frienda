@@ -64,3 +64,7 @@ impl AddShortnoteUsecaseTrait for AddShortnoteUsecase {
         Ok(shortnote_id)
     }
 }
+
+#[cfg(test)]
+#[path = "add_shortnote_usecase_tests.rs"]
+mod tests;

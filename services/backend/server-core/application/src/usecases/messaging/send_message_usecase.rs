@@ -257,3 +257,7 @@ impl SendMessageUsecaseTrait for SendMessageUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "send_message_usecase_tests.rs"]
+mod tests;

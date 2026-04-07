@@ -339,3 +339,7 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "get_trending_usecase_tests.rs"]
+mod tests;

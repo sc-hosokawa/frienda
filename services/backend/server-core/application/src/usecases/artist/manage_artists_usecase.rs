@@ -174,3 +174,7 @@ impl ManageArtistsUsecaseTrait for ManageArtistsUsecase {
         Ok(input.artist_id)
     }
 }
+
+#[cfg(test)]
+#[path = "manage_artists_usecase_tests.rs"]
+mod tests;

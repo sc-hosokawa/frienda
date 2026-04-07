@@ -165,3 +165,7 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
         Ok(artist_info)
     }
 }
+
+#[cfg(test)]
+#[path = "get_user_basic_info_usecase_tests.rs"]
+mod tests;

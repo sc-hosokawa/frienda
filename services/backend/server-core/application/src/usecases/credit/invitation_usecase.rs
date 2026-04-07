@@ -8,7 +8,7 @@ use uuid::Uuid;
 use crate::services::send_email::EmailServiceTrait;
 use domain::entities::invitations::{ActiveModel as InvitationActiveModel, Model as Invitation};
 use domain::entities::track_credits::Model as TrackCredits;
-use domain::entities::users::{ActiveModel as UserActiveModel, Model as User};
+use domain::entities::users::ActiveModel as UserActiveModel;
 use domain::repositories::invitations_repo::InvitationsRepository;
 use domain::repositories::track_credits_repo::TrackCreditsRepository;
 use domain::repositories::users_repo::UsersRepository;
@@ -168,3 +168,7 @@ impl InvitationUsecaseTrait for InvitationUsecase {
         Ok(())
     }
 }
+
+#[cfg(test)]
+#[path = "invitation_usecase_tests.rs"]
+mod tests;

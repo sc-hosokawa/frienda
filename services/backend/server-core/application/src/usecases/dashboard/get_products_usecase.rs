@@ -143,3 +143,7 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "get_products_usecase_tests.rs"]
+mod tests;

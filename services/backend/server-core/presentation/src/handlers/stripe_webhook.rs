@@ -19,6 +19,18 @@ struct StripeEventData {
     object: serde_json::Value,
 }
 
+fn parse_event(body: &str) -> Result<StripeEvent, serde_json::Error> {
+    serde_json::from_str(body)
+}
+
+fn extract_checkout_metadata(session: &serde_json::Value) -> Option<(String, i32)> {
+    let metadata = session.get("metadata")?;
+    let user_id = metadata.get("user_id")?.as_str()?.to_string();
+    let points = metadata.get("points")?.as_str()?.parse::<i32>().ok()?;
+
+    Some((user_id, points))
+}
+
 pub async fn webhook_handler(
     mut payload: web::Payload,
     usecases: web::Data<Arc<Usecases>>,
@@ -41,7 +53,7 @@ pub async fn webhook_handler(
         }
     };
 
-    let event: StripeEvent = match serde_json::from_str(&body) {
+    let event: StripeEvent = match parse_event(&body) {
         Ok(event) => event,
         Err(e) => {
             error!("Failed to parse webhook body json: {}", e);
@@ -94,32 +106,24 @@ pub async fn webhook_handler(
                 }
             };
 
-            if let Some(metadata) = session.get("metadata") {
-                info!("Session metadata: {:?}", metadata);
-
-                if let (Some(user_id), Some(points)) = (
-                    metadata.get("user_id").and_then(|v| v.as_str()),
-                    metadata
-                        .get("points")
-                        .and_then(|v| v.as_str().and_then(|s| s.parse::<i32>().ok())),
-                ) {
-                    info!("user_id: {:?}, points: {:?}", user_id, points);
-                    let result = usecases.transfer_point_between_accounts.transfer(
-                        application::usecases::point::transfer_point_between_accounts_usecase::TransferPointBetweenAccountsInput {
-                            from: None,
-                            to: user_id.to_string(),
-                            amount: points,
-                            notes: Some("Stripeにより購入".to_string()),
-                        }
-                    ).await.unwrap();
-
-                    info!("RESULT: transfer_point_between_accounts: {:?}", result);
-                } else {
-                    error!("Required metadata fields are missing or invalid");
-                    return HttpResponse::BadRequest().finish();
+            if let Some((user_id, points)) = extract_checkout_metadata(&session) {
+                if let Some(metadata) = session.get("metadata") {
+                    info!("Session metadata: {:?}", metadata);
                 }
+
+                info!("user_id: {:?}, points: {:?}", user_id, points);
+                let result = usecases.transfer_point_between_accounts.transfer(
+                    application::usecases::point::transfer_point_between_accounts_usecase::TransferPointBetweenAccountsInput {
+                        from: None,
+                        to: user_id,
+                        amount: points,
+                        notes: Some("Stripeにより購入".to_string()),
+                    }
+                ).await.unwrap();
+
+                info!("RESULT: transfer_point_between_accounts: {:?}", result);
             } else {
-                error!("No metadata found in session");
+                error!("Required metadata fields are missing or invalid");
                 return HttpResponse::BadRequest().finish();
             }
         }
@@ -129,4 +133,44 @@ pub async fn webhook_handler(
     }
 
     HttpResponse::Ok().json(json!({"status": "success"}))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{extract_checkout_metadata, parse_event};
+    use serde_json::json;
+
+    #[test]
+    fn parse_event_reads_event_type() {
+        let event = parse_event(r#"{"type":"charge.succeeded","data":{"object":{"id":"ch_123"}}}"#)
+            .expect("valid stripe event");
+
+        assert_eq!(event.type_, "charge.succeeded");
+    }
+
+    #[test]
+    fn extract_checkout_metadata_returns_user_id_and_points() {
+        let session = json!({
+            "metadata": {
+                "user_id": "user-123",
+                "points": "42"
+            }
+        });
+
+        let metadata = extract_checkout_metadata(&session);
+
+        assert_eq!(metadata, Some(("user-123".to_string(), 42)));
+    }
+
+    #[test]
+    fn extract_checkout_metadata_rejects_invalid_points() {
+        let session = json!({
+            "metadata": {
+                "user_id": "user-123",
+                "points": "forty-two"
+            }
+        });
+
+        assert_eq!(extract_checkout_metadata(&session), None);
+    }
 }

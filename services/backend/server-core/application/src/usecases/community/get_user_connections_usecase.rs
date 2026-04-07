@@ -7,7 +7,6 @@ use domain::entities::offer_user::Model as OfferUser;
 use domain::entities::offers::Model as Offer;
 use domain::entities::sea_orm_active_enums::{OfferStatus, UserCategory};
 use domain::entities::short_notes::Model as ShortNote;
-use domain::entities::track_credits::Model as TrackCredits;
 use domain::entities::txs_fsp::Model as TxsFsp;
 use domain::entities::user_artist::Model as UserArtist;
 use domain::entities::users::Model as User;
@@ -407,3 +406,7 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
         Ok(UserConnectionsOutput { community })
     }
 }
+
+#[cfg(test)]
+#[path = "get_user_connections_usecase_tests.rs"]
+mod tests;
