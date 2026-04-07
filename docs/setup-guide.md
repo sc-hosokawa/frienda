@@ -189,11 +189,11 @@ make sql
 make pgdump-schema
 
 # フルダンプ（スキーマ + データ）
-make pgdump-data
+make pgdump-full
 
 # ダンプをファイルに保存する場合
 make pgdump-schema > schema.sql
-make pgdump-data > dump.sql
+make pgdump-full > dump.sql
 ```
 
 ### 6.2 バックエンド（Rust）

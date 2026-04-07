@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 .SHELLFLAGS := -ec
 
-# Load .env if present (values can be overridden by environment variables)
+# Load .env if present (shared with Docker Compose; values can be overridden by environment variables)
 -include .env
 
 # --- PostgreSQL connection defaults (override via .env or environment) ---
@@ -50,7 +50,7 @@ help:
 	@echo 'pgdump-schema'
 	@echo '  - Dump database schema only (DDL)'
 	@echo
-	@echo 'pgdump-data'
+	@echo 'pgdump-full'
 	@echo '  - Full dump (schema + data)'
 	@echo
 	@echo '=== Backend (Rust) ==='
@@ -175,8 +175,8 @@ sql:
 pgdump-schema:
 	PGPASSWORD=$(PG_PASSWORD) pg_dump -h $(PG_HOST) -p $(PG_PORT) -U $(PG_USER) -d $(PG_DB) --schema-only --no-owner --no-privileges
 
-.PHONY: pgdump-data
-pgdump-data:
+.PHONY: pgdump-full
+pgdump-full:
 	PGPASSWORD=$(PG_PASSWORD) pg_dump -h $(PG_HOST) -p $(PG_PORT) -U $(PG_USER) -d $(PG_DB) --no-owner --no-privileges
 
 # --- Backend (Rust) ---
