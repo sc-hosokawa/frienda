@@ -43,6 +43,10 @@ if [[ ! "$GCLOUD_TIMEOUT" =~ ^[1-9][0-9]*$ ]]; then
   echo "Error: GCLOUD_TIMEOUT must be a positive integer > 0 (got: $GCLOUD_TIMEOUT)" >&2
   exit 1
 fi
+if [[ ! "$PG_CONNECT_TIMEOUT" =~ ^[1-9][0-9]*$ ]]; then
+  echo "Error: PG_CONNECT_TIMEOUT must be a positive integer > 0 (got: $PG_CONNECT_TIMEOUT)" >&2
+  exit 1
+fi
 MAX_BACKOFF_INTERVAL=60
 
 # ---- Logging helper ----
@@ -197,7 +201,8 @@ get_primary_ip() {
     log "WARNING: Failed to describe instance $1"
     return 0
   }
-  # grep returns non-zero when no PRIMARY match; || echo "" ensures empty string in that case
+  # With pipefail enabled, grep returning non-zero (no match) makes the whole pipeline fail.
+  # || echo "" catches this and ensures the function outputs an empty string instead of failing.
   echo "$csv_output" | grep ',PRIMARY$' | cut -d',' -f1 | head -1 || echo ""
 }
 
