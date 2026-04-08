@@ -188,7 +188,7 @@ get_primary_ip() {
   csv_output=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
     --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>/dev/null) || {
     log "Warning: Failed to describe instance $1"
-    return
+    return 0
   }
   echo "$csv_output" | grep ',PRIMARY$' | cut -d',' -f1 | head -1 || echo ""
 }
@@ -196,6 +196,7 @@ get_primary_ip() {
 # ---- State tracking for cleanup ----
 ORIGINAL_NETWORKS=""
 HAD_PUBLIC_IP=false
+ASSIGNED_PUBLIC_IP=false  # Tracks whether THIS script assigned the public IP
 
 # ---- Save existing state (single gcloud call to reduce API requests) ----
 log "=== Saving existing Cloud SQL state ==="
@@ -231,14 +232,20 @@ cleanup() {
 
   # Restore authorized networks and public IP.
   # Combine into a single gcloud patch when possible to avoid Cloud SQL operation-in-progress conflicts.
-  if [[ -n "$ORIGINAL_NETWORKS" && "$HAD_PUBLIC_IP" = false ]]; then
+  # Only disable public IP if this script actually assigned it (ASSIGNED_PUBLIC_IP=true).
+  local should_disable_ip=false
+  if [[ "$HAD_PUBLIC_IP" = false && "$ASSIGNED_PUBLIC_IP" = true ]]; then
+    should_disable_ip=true
+  fi
+
+  if [[ -n "$ORIGINAL_NETWORKS" && "$should_disable_ip" = true ]]; then
     log "Restoring authorized networks and disabling public IP (single operation)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --authorized-networks="$ORIGINAL_NETWORKS" --no-assign-ip --quiet 2>/dev/null || {
       log "Warning: Failed to restore settings. Manual cleanup may be required."
       log "Instance: $INSTANCE, Expected networks: $ORIGINAL_NETWORKS, Public IP: disable"
     }
-  elif [[ -z "$ORIGINAL_NETWORKS" && "$HAD_PUBLIC_IP" = false ]]; then
+  elif [[ -z "$ORIGINAL_NETWORKS" && "$should_disable_ip" = true ]]; then
     log "Clearing authorized networks and disabling public IP (single operation)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --clear-authorized-networks --no-assign-ip --quiet 2>/dev/null || {
@@ -273,6 +280,7 @@ trap cleanup EXIT
 # ---- Step 1: Assign public IP ----
 log "=== Step 1: Assigning public IP to ${INSTANCE} ==="
 timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" --assign-ip --quiet
+ASSIGNED_PUBLIC_IP=true
 
 # ---- Step 2: Get instance public IP (with retry + exponential backoff) ----
 log "=== Step 2: Getting instance public IP ==="
@@ -304,14 +312,17 @@ if [[ -z "$MY_IP" ]]; then
   log "api4.ipify.org unavailable, trying ifconfig.me..."
   MY_IP=$(curl -4 -s --max-time 5 https://ifconfig.me 2>/dev/null || echo "")
 fi
-# Validate IPv4 format (each octet 0-255)
+# Validate IPv4 format (each octet 0-255, no leading zeros)
 validate_ipv4() {
   local ip="$1"
   local IFS='.'
+  # shellcheck disable=SC2206
   read -ra octets <<< "$ip"
   [[ ${#octets[@]} -eq 4 ]] || return 1
   for octet in "${octets[@]}"; do
     [[ "$octet" =~ ^[0-9]+$ ]] || return 1
+    # Reject leading zeros (e.g. "010") except "0" itself
+    [[ "$octet" =~ ^0[0-9] ]] && return 1
     (( octet >= 0 && octet <= 255 )) || return 1
   done
   return 0
@@ -355,7 +366,7 @@ PGPASSWORD="$PGPASSWORD" pg_dump \
   --connect-timeout=30 \
   --file="$TMPFILE"
 
-# Verify dump completeness
+# Verify dump completeness (assumes --format=plain; other formats have different markers)
 if [[ ! -s "$TMPFILE" ]]; then
   echo "Error: pg_dump produced an empty file." >&2
   exit 1
