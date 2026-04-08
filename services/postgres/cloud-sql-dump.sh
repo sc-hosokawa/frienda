@@ -1,0 +1,423 @@
+#!/usr/bin/env bash
+#
+# Cloud SQL pg_dump スクリプト
+#
+# Cloud SQL インスタンスからデータベースをエクスポートする。
+# 一時的にパブリックIPを割り当て、現在のIPを許可リストに追加し、
+# pg_dump 実行後にセキュリティ設定を元に戻す。
+#
+# 注意: このスクリプトはリポジトリルートから実行してください。
+# 注意: Cloud SQL authorized networks は IPv4 のみ対応のため、
+#       このスクリプトも IPv4 アドレスのみをサポートします。
+# 注意: 排他制御により同時実行は自動的にブロックされます。
+#       (Linux: flock, macOS: mkdir-based lock)
+#
+# Prerequisites:
+#   gcloud auth login 済みであること
+#   gcloud config set project <PROJECT_ID> でプロジェクト設定済みであること
+#   jq, pg_dump, curl がインストール済みであること
+#   macOS の場合: brew install coreutils で timeout コマンド推奨
+#
+# Alternative: Cloud SQL Auth Proxy を使用すればパブリックIPの一時割り当てが不要です。
+#   https://cloud.google.com/sql/docs/postgres/sql-proxy
+#
+# Usage:
+#   ./services/postgres/cloud-sql-dump.sh [options]
+#   ./services/postgres/cloud-sql-dump.sh -h  (for full options and environment variables)
+#
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# ---- Defaults ----
+INSTANCE="frienda-dev-pg"
+DATABASE="frienda-pg"
+DB_USER="frienda-pg"
+OUTPUT="${SCRIPT_DIR}/frienda-pg-dump.sql"
+FORCE=false
+RETRY_COUNT=5
+RETRY_INTERVAL=5
+GCLOUD_TIMEOUT="${GCLOUD_TIMEOUT:-300}"
+PG_CONNECT_TIMEOUT="${PG_CONNECT_TIMEOUT:-30}"
+if [[ ! "$GCLOUD_TIMEOUT" =~ ^[1-9][0-9]*$ ]]; then
+  echo "Error: GCLOUD_TIMEOUT must be a positive integer > 0 (got: $GCLOUD_TIMEOUT)" >&2
+  exit 1
+fi
+if [[ ! "$PG_CONNECT_TIMEOUT" =~ ^[1-9][0-9]*$ ]]; then
+  echo "Error: PG_CONNECT_TIMEOUT must be a positive integer > 0 (got: $PG_CONNECT_TIMEOUT)" >&2
+  exit 1
+fi
+MAX_BACKOFF_INTERVAL=60
+
+# ---- Logging helper ----
+# WARNING/ERROR messages are sent to stderr for pipeline compatibility.
+# Messages must start with "WARNING:" or "ERROR:" to be routed to stderr.
+log() {
+  local msg="[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+  if [[ "$*" == WARNING:* || "$*" == ERROR:* ]]; then
+    echo "$msg" >&2
+  else
+    echo "$msg"
+  fi
+}
+
+# ---- Help function ----
+show_help() {
+  cat <<'HELP'
+Cloud SQL pg_dump スクリプト
+
+Usage:
+  ./services/postgres/cloud-sql-dump.sh [options]
+
+Options:
+  -i, --instance   Cloud SQL instance name (default: frienda-dev-pg)
+  -d, --database   Database name (default: frienda-pg)
+  -u, --user       Database user (default: frienda-pg)
+  -o, --output     Output file path (default: services/postgres/frienda-pg-dump.sql)
+  -f, --force      Overwrite existing output file without confirmation
+  -h, --help       Show this help message
+
+Environment variables:
+  PGPASSWORD       Database password (required, or will be prompted)
+  GCLOUD_TIMEOUT      Timeout in seconds for gcloud commands (default: 300)
+  PG_CONNECT_TIMEOUT  pg_dump connection timeout in seconds (default: 30)
+
+Note:
+  Cloud SQL authorized networks は IPv4 のみ対応のため、
+  このスクリプトも IPv4 アドレスのみをサポートします。
+  排他制御により同時実行は自動的にブロックされます。
+
+Alternative:
+  Cloud SQL Auth Proxy を使用すればパブリックIPの一時割り当てが不要です。
+  https://cloud.google.com/sql/docs/postgres/sql-proxy
+HELP
+}
+
+# ---- Parse arguments ----
+require_arg() { [[ $# -ge 2 ]] || { echo "Error: $1 requires an argument" >&2; exit 1; }; }
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -i|--instance) require_arg "$@"; INSTANCE="$2"; shift 2 ;;
+    -d|--database) require_arg "$@"; DATABASE="$2"; shift 2 ;;
+    -u|--user)     require_arg "$@"; DB_USER="$2"; shift 2 ;;
+    -o|--output)   require_arg "$@"; OUTPUT="$2"; shift 2 ;;
+    -f|--force)    FORCE=true; shift ;;
+    -h|--help)     show_help; exit 0 ;;
+    *) echo "Unknown option: $1" >&2; exit 1 ;;
+  esac
+done
+
+# ---- Validate prerequisites ----
+for cmd in gcloud pg_dump curl jq; do
+  if ! command -v "$cmd" &>/dev/null; then
+    echo "Error: $cmd is not installed." >&2
+    exit 1
+  fi
+done
+
+# timeout command fallback for macOS (not installed by default; requires coreutils).
+# WARNING: Without timeout, gcloud commands that hang will block the script indefinitely.
+# Strongly recommended: brew install coreutils
+if ! command -v timeout &>/dev/null; then
+  log "WARNING: 'timeout' command not found. gcloud commands may hang indefinitely!"
+  log "Strongly recommended: brew install coreutils"
+  # Fallback: skip the timeout duration argument and execute the command directly.
+  # This means NO timeout protection — if gcloud hangs, the script will also hang.
+  # Note: This only handles `timeout DURATION COMMAND...` form. Additional timeout
+  # options (e.g. --signal) are not supported by this fallback.
+  timeout() { shift; "$@"; }
+fi
+
+# ---- Exclusive lock (prevent concurrent execution) ----
+# Uses flock on Linux, falls back to mkdir-based lock on macOS (where flock is unavailable)
+LOCKFILE="/tmp/cloud-sql-dump-${INSTANCE}.lock"
+if command -v flock &>/dev/null; then
+  exec 200>"$LOCKFILE"
+  if ! flock -n 200; then
+    echo "Error: Another instance of this script is already running for ${INSTANCE}." >&2
+    exit 1
+  fi
+else
+  # mkdir is atomic — use it as a portable lock mechanism with PID-based stale detection
+  LOCKDIR="/tmp/cloud-sql-dump-${INSTANCE}.lockdir"
+  if ! mkdir "$LOCKDIR" 2>/dev/null; then
+    # Check if the lock is stale (owning process no longer exists)
+    if [[ -f "$LOCKDIR/pid" ]]; then
+      LOCK_PID=$(cat "$LOCKDIR/pid" 2>/dev/null || echo "")
+      if [[ -n "$LOCK_PID" ]] && ! kill -0 "$LOCK_PID" 2>/dev/null; then
+        log "Removing stale lock (PID $LOCK_PID no longer exists)..."
+        rm -rf "$LOCKDIR"
+        mkdir "$LOCKDIR" || { echo "Error: Failed to acquire lock." >&2; exit 1; }
+      else
+        echo "Error: Another instance of this script is already running for ${INSTANCE} (PID: ${LOCK_PID:-unknown})." >&2
+        exit 1
+      fi
+    else
+      echo "Error: Another instance of this script is already running for ${INSTANCE}." >&2
+      echo "If this is stale, remove: $LOCKDIR" >&2
+      exit 1
+    fi
+  fi
+  echo "$$" > "$LOCKDIR/pid"
+fi
+
+# ---- pg_dump version check ----
+LOCAL_PG_VERSION=$(pg_dump --version | grep -oE '[0-9]+' | head -1)
+log "Local pg_dump major version: ${LOCAL_PG_VERSION}"
+CLOUD_PG_VERSION=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$INSTANCE" \
+  --format="value(databaseVersion)" 2>/dev/null | grep -oE '[0-9]+' || echo "")
+if [[ -n "$CLOUD_PG_VERSION" ]]; then
+  log "Cloud SQL PostgreSQL major version: ${CLOUD_PG_VERSION}"
+  if [[ "$LOCAL_PG_VERSION" -lt "$CLOUD_PG_VERSION" ]]; then
+    echo "Warning: Local pg_dump (v${LOCAL_PG_VERSION}) is older than Cloud SQL (v${CLOUD_PG_VERSION})." >&2
+    echo "This may cause compatibility issues. Consider upgrading pg_dump." >&2
+  fi
+fi
+
+# ---- Check existing output file ----
+if [[ -f "$OUTPUT" && "$FORCE" = false ]]; then
+  FILE_SIZE=$(ls -lh "$OUTPUT" | awk '{print $5}')
+  echo "Warning: Output file already exists: ${OUTPUT} (${FILE_SIZE})"
+  echo -n "Overwrite? [y/N]: "
+  read -r CONFIRM
+  if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
+    echo "Aborted."
+    exit 0
+  fi
+fi
+
+# ---- Password handling ----
+# PGPASSWORD is kept as a shell variable (not exported) and passed inline to pg_dump.
+# It is cleared via unset in the cleanup trap on exit.
+if [[ -z "${PGPASSWORD:-}" ]]; then
+  echo -n "Enter password for ${DB_USER}@${DATABASE}: "
+  read -rs PGPASSWORD
+  echo
+fi
+
+# ---- Helper: validate IPv4 format (each octet 0-255, no leading zeros) ----
+validate_ipv4() {
+  local ip="$1"
+  local IFS='.'
+  # shellcheck disable=SC2206
+  read -ra octets <<< "$ip"
+  [[ ${#octets[@]} -eq 4 ]] || return 1
+  for octet in "${octets[@]}"; do
+    [[ "$octet" =~ ^[0-9]+$ ]] || return 1
+    [[ "$octet" =~ ^0[0-9] ]] && return 1
+    (( octet >= 0 && octet <= 255 )) || return 1
+  done
+  return 0
+}
+
+# ---- Helper: extract PRIMARY IP from gcloud ----
+# Returns the PRIMARY IP address, or empty string if not found.
+# gcloud errors are logged separately from "no PRIMARY IP" cases.
+get_primary_ip() {
+  local csv_output=""
+  csv_output=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
+    --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>/dev/null) || {
+    log "WARNING: Failed to describe instance $1"
+    return 0
+  }
+  # With pipefail enabled, grep returning non-zero (no match) makes the whole pipeline fail.
+  # || echo "" catches this and ensures the function outputs an empty string instead of failing.
+  echo "$csv_output" | grep ',PRIMARY$' | cut -d',' -f1 | head -1 || echo ""
+}
+
+# ---- State tracking for cleanup ----
+ORIGINAL_NETWORKS=""
+HAD_PUBLIC_IP=false
+ASSIGNED_PUBLIC_IP=false  # Tracks whether THIS script assigned the public IP
+
+# ---- Save existing state (single gcloud call to reduce API requests) ----
+log "=== Saving existing Cloud SQL state ==="
+INSTANCE_JSON=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$INSTANCE" --format=json 2>/dev/null || echo "{}")
+if [[ "$INSTANCE_JSON" = "{}" ]]; then
+  log "ERROR: Failed to describe Cloud SQL instance '${INSTANCE}'. Check that the instance exists and gcloud is authenticated."
+  exit 1
+fi
+
+# Check if public IP (PRIMARY) is already assigned
+EXISTING_IP=$(echo "$INSTANCE_JSON" | jq -r '[.ipAddresses[]? | select(.type == "PRIMARY") | .ipAddress][0] // ""' 2>/dev/null || echo "")
+if [[ -n "$EXISTING_IP" ]]; then
+  HAD_PUBLIC_IP=true
+  log "Public IP already assigned: ${EXISTING_IP}"
+fi
+
+# Extract authorized networks from JSON
+ORIGINAL_NETWORKS=$(echo "$INSTANCE_JSON" | jq -r '[.settings.ipConfiguration.authorizedNetworks[]?.value] | join(",")' 2>/dev/null || echo "")
+if [[ -n "$ORIGINAL_NETWORKS" ]]; then
+  log "Existing authorized networks: ${ORIGINAL_NETWORKS}"
+else
+  log "No existing authorized networks."
+fi
+
+# ---- Cleanup function (restore security settings) ----
+cleanup() {
+  set +e  # Prevent cleanup from being interrupted by errors (bash version-dependent behavior)
+  echo ""
+  log "=== Cleaning up ==="
+
+  # Clear password from shell variable
+  unset PGPASSWORD 2>/dev/null || true
+
+  # Remove temp file if it exists
+  if [[ -n "${TMPFILE:-}" && -f "$TMPFILE" ]]; then
+    rm -f "$TMPFILE"
+  fi
+
+  # Restore authorized networks and public IP.
+  # Cleanup logic matrix (4 cases):
+  #   ORIGINAL_NETWORKS non-empty + should_disable_ip → restore networks + disable IP (single patch)
+  #   ORIGINAL_NETWORKS empty     + should_disable_ip → clear networks + disable IP (single patch)
+  #   ORIGINAL_NETWORKS non-empty + keep IP           → restore networks only
+  #   ORIGINAL_NETWORKS empty     + keep IP           → clear networks only (removes script-added IP)
+  # We combine operations into a single gcloud patch to avoid Cloud SQL operation-in-progress conflicts.
+  local should_disable_ip=false
+  if [[ "$HAD_PUBLIC_IP" = false && "$ASSIGNED_PUBLIC_IP" = true ]]; then
+    should_disable_ip=true
+  fi
+
+  if [[ -n "$ORIGINAL_NETWORKS" && "$should_disable_ip" = true ]]; then
+    log "Restoring authorized networks and disabling public IP (single operation)..."
+    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
+      --authorized-networks="$ORIGINAL_NETWORKS" --no-assign-ip --quiet 2>/dev/null || {
+      log "WARNING: Failed to restore settings. Manual cleanup required:"
+      log "WARNING:   gcloud sql instances patch $INSTANCE --authorized-networks='$ORIGINAL_NETWORKS' --no-assign-ip --quiet"
+    }
+  elif [[ -z "$ORIGINAL_NETWORKS" && "$should_disable_ip" = true ]]; then
+    log "Clearing authorized networks and disabling public IP (single operation)..."
+    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
+      --clear-authorized-networks --no-assign-ip --quiet 2>/dev/null || {
+      log "WARNING: Failed to clear settings. Manual cleanup required:"
+      log "WARNING:   gcloud sql instances patch $INSTANCE --clear-authorized-networks --no-assign-ip --quiet"
+    }
+  elif [[ -n "$ORIGINAL_NETWORKS" ]]; then
+    log "Restoring original authorized networks..."
+    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
+      --authorized-networks="$ORIGINAL_NETWORKS" --quiet 2>/dev/null || {
+      log "WARNING: Failed to restore authorized networks. Manual cleanup required:"
+      log "WARNING:   gcloud sql instances patch $INSTANCE --authorized-networks='$ORIGINAL_NETWORKS' --quiet"
+    }
+  else
+    log "Clearing authorized networks (none existed before)..."
+    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
+      --clear-authorized-networks --quiet 2>/dev/null || {
+      log "WARNING: Failed to clear authorized networks. Manual cleanup required:"
+      log "WARNING:   gcloud sql instances patch $INSTANCE --clear-authorized-networks --quiet"
+    }
+  fi
+
+  # Remove lock resources (only mkdir-based lock; flock releases automatically via FD close)
+  if [[ -n "${LOCKDIR:-}" && -d "$LOCKDIR" ]]; then
+    rm -rf "$LOCKDIR"
+  fi
+
+  log "Cleanup complete."
+}
+trap cleanup EXIT INT TERM HUP
+
+# ---- Step 1: Assign public IP ----
+log "=== Step 1: Assigning public IP to ${INSTANCE} ==="
+if [[ "$HAD_PUBLIC_IP" = true ]]; then
+  log "Public IP already assigned, skipping --assign-ip"
+else
+  timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" --assign-ip --quiet
+  ASSIGNED_PUBLIC_IP=true
+fi
+
+# ---- Step 2: Get instance public IP (with retry + exponential backoff) ----
+log "=== Step 2: Getting instance public IP ==="
+INSTANCE_IP=""
+BACKOFF_INTERVAL="$RETRY_INTERVAL"
+for attempt in $(seq 1 "$RETRY_COUNT"); do
+  INSTANCE_IP=$(get_primary_ip "$INSTANCE")
+  if [[ -n "$INSTANCE_IP" ]]; then
+    break
+  fi
+  log "Waiting for public IP assignment... (attempt ${attempt}/${RETRY_COUNT}, next retry in ${BACKOFF_INTERVAL}s)"
+  sleep "$BACKOFF_INTERVAL"
+  BACKOFF_INTERVAL=$(( BACKOFF_INTERVAL * 2 > MAX_BACKOFF_INTERVAL ? MAX_BACKOFF_INTERVAL : BACKOFF_INTERVAL * 2 ))
+done
+
+if [[ -z "$INSTANCE_IP" ]]; then
+  log "ERROR: Could not retrieve instance public IP after ${RETRY_COUNT} attempts."
+  exit 1
+fi
+log "Instance IP: ${INSTANCE_IP}"
+
+# ---- Step 3: Get current public IP and authorize ----
+log "=== Step 3: Authorizing current IP ==="
+# Note: Cloud SQL authorized networks only supports IPv4.
+# api4.ipify.org guarantees IPv4 response (unlike api.ipify.org which may return IPv6 on dual-stack).
+MY_IP=""
+MY_IP=$(curl -4 -s --max-time 5 https://api4.ipify.org 2>/dev/null || echo "")
+if [[ -z "$MY_IP" ]]; then
+  log "api4.ipify.org unavailable, trying ifconfig.me..."
+  MY_IP=$(curl -4 -s --max-time 5 https://ifconfig.me 2>/dev/null || echo "")
+fi
+if [[ -z "$MY_IP" ]] || ! validate_ipv4 "$MY_IP"; then
+  log "ERROR: Could not determine public IPv4 address."
+  log "ERROR: This script only supports IPv4 (Cloud SQL authorized networks requirement)."
+  exit 1
+fi
+log "My IP: ${MY_IP}"
+
+# Append current IP to existing authorized networks (preserve existing, skip if already present)
+if [[ -n "$ORIGINAL_NETWORKS" ]]; then
+  if echo ",$ORIGINAL_NETWORKS," | grep -q ",${MY_IP}/32,"; then
+    log "IP ${MY_IP}/32 already in authorized networks, skipping duplicate"
+    NETWORKS="$ORIGINAL_NETWORKS"
+  else
+    NETWORKS="${ORIGINAL_NETWORKS},${MY_IP}/32"
+  fi
+else
+  NETWORKS="${MY_IP}/32"
+fi
+timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
+  --authorized-networks="$NETWORKS" --quiet
+
+# ---- Step 4: Run pg_dump (via temp file for atomicity) ----
+log "=== Step 4: Running pg_dump ==="
+OUTPUT_DIR="$(dirname "$OUTPUT")"
+if [[ ! -d "$OUTPUT_DIR" ]]; then
+  mkdir -p "$OUTPUT_DIR"
+  chmod 700 "$OUTPUT_DIR"
+fi
+
+TMPFILE=$(mktemp "${OUTPUT}.XXXXXX")
+chmod 600 "$TMPFILE"
+
+PGPASSWORD="$PGPASSWORD" pg_dump \
+  --host="$INSTANCE_IP" \
+  --port=5432 \
+  --username="$DB_USER" \
+  --dbname="$DATABASE" \
+  --no-owner \
+  --no-acl \
+  --format=plain \
+  --connect-timeout="$PG_CONNECT_TIMEOUT" \
+  --file="$TMPFILE"
+
+log "pg_dump completed successfully."
+
+# Verify dump completeness (assumes --format=plain; other formats have different markers)
+if [[ ! -s "$TMPFILE" ]]; then
+  log "ERROR: pg_dump produced an empty file."
+  exit 1
+fi
+if ! tail -5 "$TMPFILE" | grep -q "PostgreSQL database dump complete"; then
+  log "WARNING: Dump file may be incomplete (missing completion marker)."
+fi
+
+mv "$TMPFILE" "$OUTPUT"
+TMPFILE=""  # Clear so cleanup doesn't try to remove the already-moved file
+chmod 600 "$OUTPUT"
+
+FILE_SIZE=$(ls -lh "$OUTPUT" | awk '{print $5}')
+log "Export complete: ${OUTPUT} (${FILE_SIZE})"
+
+# ---- Step 5: Cleanup is handled by trap ----
+echo ""
+log "=== Done ==="

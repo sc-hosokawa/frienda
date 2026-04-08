@@ -1,2 +1,4 @@
 20250603_export_sql_schemas.sql
+# cloud-sql-dump.sh default output (add manually if using a custom --output path)
+frienda-pg-dump.sql
 .DS_Store
