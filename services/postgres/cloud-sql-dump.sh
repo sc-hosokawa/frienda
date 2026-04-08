@@ -75,12 +75,13 @@ HELP
 }
 
 # ---- Parse arguments ----
+require_arg() { [[ $# -ge 2 ]] || { echo "Error: $1 requires an argument" >&2; exit 1; }; }
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -i|--instance) INSTANCE="$2"; shift 2 ;;
-    -d|--database) DATABASE="$2"; shift 2 ;;
-    -u|--user)     DB_USER="$2"; shift 2 ;;
-    -o|--output)   OUTPUT="$2"; shift 2 ;;
+    -i|--instance) require_arg "$@"; INSTANCE="$2"; shift 2 ;;
+    -d|--database) require_arg "$@"; DATABASE="$2"; shift 2 ;;
+    -u|--user)     require_arg "$@"; DB_USER="$2"; shift 2 ;;
+    -o|--output)   require_arg "$@"; OUTPUT="$2"; shift 2 ;;
     -f|--force)    FORCE=true; shift ;;
     -h|--help)     show_help; exit 0 ;;
     *) echo "Unknown option: $1" >&2; exit 1 ;;
@@ -94,6 +95,13 @@ for cmd in gcloud pg_dump curl; do
     exit 1
   fi
 done
+
+# timeout command fallback for macOS (not installed by default; requires coreutils)
+if ! command -v timeout &>/dev/null; then
+  log "Warning: 'timeout' command not found. Running gcloud commands without timeout."
+  log "Install coreutils for timeout support: brew install coreutils"
+  timeout() { shift; "$@"; }
+fi
 
 # ---- pg_dump version check ----
 LOCAL_PG_VERSION=$(pg_dump --version | grep -oE '[0-9]+' | head -1)
@@ -121,7 +129,8 @@ if [[ -f "$OUTPUT" && "$FORCE" = false ]]; then
 fi
 
 # ---- Password handling ----
-# PGPASSWORD is passed inline to pg_dump to limit its scope
+# PGPASSWORD is kept as a shell variable (not exported) and passed inline to pg_dump.
+# It is cleared via unset in the cleanup trap on exit.
 if [[ -z "${PGPASSWORD:-}" ]]; then
   echo -n "Enter password for ${DB_USER}@${DATABASE}: "
   read -rs PGPASSWORD
@@ -144,6 +153,10 @@ get_authorized_networks() {
   local raw=""
   raw=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
     --format="value(settings.ipConfiguration.authorizedNetworks.map().extract(value).flatten())" 2>/dev/null) || raw=""
+  if [[ -z "$raw" ]]; then
+    echo ""
+    return
+  fi
   # gcloud value format uses semicolons as separators; normalize to commas
   echo "$raw" | tr ';' ','
 }
@@ -259,9 +272,14 @@ if [[ -z "$MY_IP" ]] || ! validate_ipv4 "$MY_IP"; then
 fi
 log "My IP: ${MY_IP}"
 
-# Append current IP to existing authorized networks (preserve existing)
+# Append current IP to existing authorized networks (preserve existing, skip if already present)
 if [[ -n "$ORIGINAL_NETWORKS" ]]; then
-  NETWORKS="${ORIGINAL_NETWORKS},${MY_IP}/32"
+  if echo ",$ORIGINAL_NETWORKS," | grep -q ",${MY_IP}/32,"; then
+    log "IP ${MY_IP}/32 already in authorized networks, skipping duplicate"
+    NETWORKS="$ORIGINAL_NETWORKS"
+  else
+    NETWORKS="${ORIGINAL_NETWORKS},${MY_IP}/32"
+  fi
 else
   NETWORKS="${MY_IP}/32"
 fi
