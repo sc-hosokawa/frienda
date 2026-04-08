@@ -42,8 +42,13 @@ fi
 MAX_BACKOFF_INTERVAL=60
 
 # ---- Logging helper ----
+# WARNING/Error messages are sent to stderr for pipeline compatibility
 log() {
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+  if [[ "$1" == WARNING:* || "$1" == Warning:* ]]; then
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >&2
+  else
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+  fi
 }
 
 # ---- Help function ----
@@ -195,6 +200,10 @@ ASSIGNED_PUBLIC_IP=false  # Tracks whether THIS script assigned the public IP
 # ---- Save existing state (single gcloud call to reduce API requests) ----
 log "=== Saving existing Cloud SQL state ==="
 INSTANCE_JSON=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$INSTANCE" --format=json 2>/dev/null || echo "{}")
+if [[ "$INSTANCE_JSON" = "{}" ]]; then
+  echo "Error: Failed to describe Cloud SQL instance '${INSTANCE}'. Check that the instance exists and gcloud is authenticated." >&2
+  exit 1
+fi
 
 # Check if public IP (PRIMARY) is already assigned
 EXISTING_IP=$(echo "$INSTANCE_JSON" | jq -r '[.ipAddresses[]? | select(.type == "PRIMARY") | .ipAddress][0] // ""' 2>/dev/null || echo "")
