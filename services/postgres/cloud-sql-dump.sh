@@ -42,12 +42,13 @@ fi
 MAX_BACKOFF_INTERVAL=60
 
 # ---- Logging helper ----
-# WARNING/Error messages are sent to stderr for pipeline compatibility
+# WARNING/ERROR messages are sent to stderr for pipeline compatibility
 log() {
-  if [[ "$1" == WARNING:* ]]; then
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >&2
+  local msg="[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+  if [[ "$1" == WARNING:* || "$1" == ERROR:* ]]; then
+    echo "$msg" >&2
   else
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+    echo "$msg"
   fi
 }
 
@@ -201,7 +202,7 @@ ASSIGNED_PUBLIC_IP=false  # Tracks whether THIS script assigned the public IP
 log "=== Saving existing Cloud SQL state ==="
 INSTANCE_JSON=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$INSTANCE" --format=json 2>/dev/null || echo "{}")
 if [[ "$INSTANCE_JSON" = "{}" ]]; then
-  echo "Error: Failed to describe Cloud SQL instance '${INSTANCE}'. Check that the instance exists and gcloud is authenticated." >&2
+  log "ERROR: Failed to describe Cloud SQL instance '${INSTANCE}'. Check that the instance exists and gcloud is authenticated."
   exit 1
 fi
 
@@ -249,29 +250,29 @@ cleanup() {
     log "Restoring authorized networks and disabling public IP (single operation)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --authorized-networks="$ORIGINAL_NETWORKS" --no-assign-ip --quiet 2>/dev/null || {
-      log "WARNING: Failed to restore settings. Manual cleanup may be required."
-      log "Instance: $INSTANCE, Expected networks: $ORIGINAL_NETWORKS, Public IP: disable"
+      log "WARNING: Failed to restore settings. Manual cleanup required:"
+      log "WARNING:   gcloud sql instances patch $INSTANCE --authorized-networks='$ORIGINAL_NETWORKS' --no-assign-ip --quiet"
     }
   elif [[ -z "$ORIGINAL_NETWORKS" && "$should_disable_ip" = true ]]; then
     log "Clearing authorized networks and disabling public IP (single operation)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --clear-authorized-networks --no-assign-ip --quiet 2>/dev/null || {
-      log "WARNING: Failed to clear settings. Manual cleanup may be required."
-      log "Instance: $INSTANCE, Action: clear networks + disable public IP"
+      log "WARNING: Failed to clear settings. Manual cleanup required:"
+      log "WARNING:   gcloud sql instances patch $INSTANCE --clear-authorized-networks --no-assign-ip --quiet"
     }
   elif [[ -n "$ORIGINAL_NETWORKS" ]]; then
     log "Restoring original authorized networks..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --authorized-networks="$ORIGINAL_NETWORKS" --quiet 2>/dev/null || {
-      log "WARNING: Failed to restore authorized networks. Manual cleanup may be required."
-      log "Instance: $INSTANCE, Expected networks: $ORIGINAL_NETWORKS"
+      log "WARNING: Failed to restore authorized networks. Manual cleanup required:"
+      log "WARNING:   gcloud sql instances patch $INSTANCE --authorized-networks='$ORIGINAL_NETWORKS' --quiet"
     }
   else
     log "Clearing authorized networks (none existed before)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --clear-authorized-networks --quiet 2>/dev/null || {
-      log "WARNING: Failed to clear authorized networks. Manual cleanup may be required."
-      log "Instance: $INSTANCE"
+      log "WARNING: Failed to clear authorized networks. Manual cleanup required:"
+      log "WARNING:   gcloud sql instances patch $INSTANCE --clear-authorized-networks --quiet"
     }
   fi
 
@@ -308,7 +309,7 @@ for attempt in $(seq 1 "$RETRY_COUNT"); do
 done
 
 if [[ -z "$INSTANCE_IP" ]]; then
-  echo "Error: Could not retrieve instance public IP after ${RETRY_COUNT} attempts." >&2
+  log "ERROR: Could not retrieve instance public IP after ${RETRY_COUNT} attempts."
   exit 1
 fi
 log "Instance IP: ${INSTANCE_IP}"
@@ -339,8 +340,8 @@ validate_ipv4() {
   return 0
 }
 if [[ -z "$MY_IP" ]] || ! validate_ipv4 "$MY_IP"; then
-  echo "Error: Could not determine public IPv4 address." >&2
-  echo "Note: This script only supports IPv4 (Cloud SQL authorized networks requirement)." >&2
+  log "ERROR: Could not determine public IPv4 address."
+  log "ERROR: This script only supports IPv4 (Cloud SQL authorized networks requirement)."
   exit 1
 fi
 log "My IP: ${MY_IP}"
@@ -381,11 +382,11 @@ log "pg_dump completed successfully."
 
 # Verify dump completeness (assumes --format=plain; other formats have different markers)
 if [[ ! -s "$TMPFILE" ]]; then
-  echo "Error: pg_dump produced an empty file." >&2
+  log "ERROR: pg_dump produced an empty file."
   exit 1
 fi
 if ! tail -5 "$TMPFILE" | grep -q "PostgreSQL database dump complete"; then
-  echo "Warning: Dump file may be incomplete (missing completion marker)." >&2
+  log "WARNING: Dump file may be incomplete (missing completion marker)."
 fi
 
 mv "$TMPFILE" "$OUTPUT"
