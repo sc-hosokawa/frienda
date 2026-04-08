@@ -122,13 +122,27 @@ if command -v flock &>/dev/null; then
     exit 1
   fi
 else
-  # mkdir is atomic — use it as a portable lock mechanism
+  # mkdir is atomic — use it as a portable lock mechanism with PID-based stale detection
   LOCKDIR="/tmp/cloud-sql-dump-${INSTANCE}.lockdir"
   if ! mkdir "$LOCKDIR" 2>/dev/null; then
-    echo "Error: Another instance of this script is already running for ${INSTANCE}." >&2
-    echo "If this is stale, remove: $LOCKDIR" >&2
-    exit 1
+    # Check if the lock is stale (owning process no longer exists)
+    if [[ -f "$LOCKDIR/pid" ]]; then
+      LOCK_PID=$(cat "$LOCKDIR/pid" 2>/dev/null || echo "")
+      if [[ -n "$LOCK_PID" ]] && ! kill -0 "$LOCK_PID" 2>/dev/null; then
+        log "Removing stale lock (PID $LOCK_PID no longer exists)..."
+        rm -rf "$LOCKDIR"
+        mkdir "$LOCKDIR" || { echo "Error: Failed to acquire lock." >&2; exit 1; }
+      else
+        echo "Error: Another instance of this script is already running for ${INSTANCE} (PID: ${LOCK_PID:-unknown})." >&2
+        exit 1
+      fi
+    else
+      echo "Error: Another instance of this script is already running for ${INSTANCE}." >&2
+      echo "If this is stale, remove: $LOCKDIR" >&2
+      exit 1
+    fi
   fi
+  echo $$ > "$LOCKDIR/pid"
 fi
 
 # ---- pg_dump version check ----
@@ -166,12 +180,17 @@ if [[ -z "${PGPASSWORD:-}" ]]; then
 fi
 
 # ---- Helper: extract PRIMARY IP from gcloud ----
+# Returns the PRIMARY IP address, or empty string if not found.
+# gcloud errors are logged separately from "no PRIMARY IP" cases.
 get_primary_ip() {
-  timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
-    --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>/dev/null \
-    | grep ',PRIMARY$' \
-    | cut -d',' -f1 \
-    | head -1 || echo ""
+  local csv_output=""
+  csv_output=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
+    --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>/dev/null) || {
+    log "Warning: Failed to describe instance $1"
+    echo ""
+    return
+  }
+  echo "$csv_output" | grep ',PRIMARY$' | cut -d',' -f1 | head -1 || echo ""
 }
 
 # ---- State tracking for cleanup ----
@@ -210,23 +229,24 @@ cleanup() {
     rm -f "$TMPFILE"
   fi
 
-  # Restore authorized networks to original state
-  if [[ -n "$ORIGINAL_NETWORKS" ]]; then
-    log "Restoring original authorized networks: ${ORIGINAL_NETWORKS}"
+  # Restore authorized networks and public IP.
+  # Combine into a single gcloud patch when possible to avoid Cloud SQL operation-in-progress conflicts.
+  if [[ -n "$ORIGINAL_NETWORKS" && "$HAD_PUBLIC_IP" = false ]]; then
+    log "Restoring authorized networks and disabling public IP (single operation)..."
+    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
+      --authorized-networks="$ORIGINAL_NETWORKS" --no-assign-ip --quiet 2>/dev/null || true
+  elif [[ -z "$ORIGINAL_NETWORKS" && "$HAD_PUBLIC_IP" = false ]]; then
+    log "Clearing authorized networks and disabling public IP (single operation)..."
+    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
+      --clear-authorized-networks --no-assign-ip --quiet 2>/dev/null || true
+  elif [[ -n "$ORIGINAL_NETWORKS" ]]; then
+    log "Restoring original authorized networks..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --authorized-networks="$ORIGINAL_NETWORKS" --quiet 2>/dev/null || true
   else
     log "Clearing authorized networks (none existed before)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --clear-authorized-networks --quiet 2>/dev/null || true
-  fi
-
-  # Only disable public IP if it wasn't assigned before
-  if [[ "$HAD_PUBLIC_IP" = false ]]; then
-    log "Disabling public IP (was not assigned before)..."
-    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" --no-assign-ip --quiet 2>/dev/null || true
-  else
-    log "Keeping public IP (was already assigned before script execution)."
   fi
 
   # Remove lock resources
