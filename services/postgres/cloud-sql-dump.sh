@@ -234,27 +234,36 @@ cleanup() {
   if [[ -n "$ORIGINAL_NETWORKS" && "$HAD_PUBLIC_IP" = false ]]; then
     log "Restoring authorized networks and disabling public IP (single operation)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
-      --authorized-networks="$ORIGINAL_NETWORKS" --no-assign-ip --quiet 2>/dev/null || true
+      --authorized-networks="$ORIGINAL_NETWORKS" --no-assign-ip --quiet 2>/dev/null || {
+      log "Warning: Failed to restore settings. Manual cleanup may be required."
+      log "Instance: $INSTANCE, Expected networks: $ORIGINAL_NETWORKS, Public IP: disable"
+    }
   elif [[ -z "$ORIGINAL_NETWORKS" && "$HAD_PUBLIC_IP" = false ]]; then
     log "Clearing authorized networks and disabling public IP (single operation)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
-      --clear-authorized-networks --no-assign-ip --quiet 2>/dev/null || true
+      --clear-authorized-networks --no-assign-ip --quiet 2>/dev/null || {
+      log "Warning: Failed to clear settings. Manual cleanup may be required."
+      log "Instance: $INSTANCE, Action: clear networks + disable public IP"
+    }
   elif [[ -n "$ORIGINAL_NETWORKS" ]]; then
     log "Restoring original authorized networks..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
-      --authorized-networks="$ORIGINAL_NETWORKS" --quiet 2>/dev/null || true
+      --authorized-networks="$ORIGINAL_NETWORKS" --quiet 2>/dev/null || {
+      log "Warning: Failed to restore authorized networks. Manual cleanup may be required."
+      log "Instance: $INSTANCE, Expected networks: $ORIGINAL_NETWORKS"
+    }
   else
     log "Clearing authorized networks (none existed before)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
-      --clear-authorized-networks --quiet 2>/dev/null || true
+      --clear-authorized-networks --quiet 2>/dev/null || {
+      log "Warning: Failed to clear authorized networks. Manual cleanup may be required."
+      log "Instance: $INSTANCE"
+    }
   fi
 
-  # Remove lock resources
+  # Remove lock resources (only mkdir-based lock; flock releases automatically via FD close)
   if [[ -n "${LOCKDIR:-}" && -d "$LOCKDIR" ]]; then
     rm -rf "$LOCKDIR"
-  fi
-  if [[ -n "${LOCKFILE:-}" && -f "$LOCKFILE" ]]; then
-    rm -f "$LOCKFILE"
   fi
 
   log "Cleanup complete."
@@ -263,7 +272,7 @@ trap cleanup EXIT
 
 # ---- Step 1: Assign public IP ----
 log "=== Step 1: Assigning public IP to ${INSTANCE} ==="
-timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" --assign-ip
+timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" --assign-ip --quiet
 
 # ---- Step 2: Get instance public IP (with retry + exponential backoff) ----
 log "=== Step 2: Getting instance public IP ==="
