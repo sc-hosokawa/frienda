@@ -35,8 +35,8 @@ FORCE=false
 RETRY_COUNT=5
 RETRY_INTERVAL=5
 GCLOUD_TIMEOUT="${GCLOUD_TIMEOUT:-300}"
-if [[ ! "$GCLOUD_TIMEOUT" =~ ^[0-9]+$ ]]; then
-  echo "Error: GCLOUD_TIMEOUT must be a positive integer (got: $GCLOUD_TIMEOUT)" >&2
+if [[ ! "$GCLOUD_TIMEOUT" =~ ^[1-9][0-9]*$ ]]; then
+  echo "Error: GCLOUD_TIMEOUT must be a positive integer > 0 (got: $GCLOUD_TIMEOUT)" >&2
   exit 1
 fi
 MAX_BACKOFF_INTERVAL=60
@@ -136,7 +136,7 @@ else
       exit 1
     fi
   fi
-  echo $$ > "$LOCKDIR/pid"
+  echo "$$" > "$LOCKDIR/pid"
 fi
 
 # ---- pg_dump version check ----
@@ -225,8 +225,12 @@ cleanup() {
   fi
 
   # Restore authorized networks and public IP.
-  # Combine into a single gcloud patch when possible to avoid Cloud SQL operation-in-progress conflicts.
-  # Only disable public IP if this script actually assigned it (ASSIGNED_PUBLIC_IP=true).
+  # Cleanup logic matrix (4 cases):
+  #   ORIGINAL_NETWORKS non-empty + should_disable_ip → restore networks + disable IP (single patch)
+  #   ORIGINAL_NETWORKS empty     + should_disable_ip → clear networks + disable IP (single patch)
+  #   ORIGINAL_NETWORKS non-empty + keep IP           → restore networks only
+  #   ORIGINAL_NETWORKS empty     + keep IP           → clear networks only (removes script-added IP)
+  # We combine operations into a single gcloud patch to avoid Cloud SQL operation-in-progress conflicts.
   local should_disable_ip=false
   if [[ "$HAD_PUBLIC_IP" = false && "$ASSIGNED_PUBLIC_IP" = true ]]; then
     should_disable_ip=true
