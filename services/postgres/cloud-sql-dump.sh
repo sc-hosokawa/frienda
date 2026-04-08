@@ -64,7 +64,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # ---- Validate prerequisites ----
-for cmd in gcloud pg_dump curl; do
+for cmd in gcloud pg_dump curl python3; do
   if ! command -v "$cmd" &>/dev/null; then
     echo "Error: $cmd is not installed." >&2
     exit 1
@@ -85,9 +85,17 @@ HAD_PUBLIC_IP=false
 # ---- Save existing state ----
 echo "=== Saving existing Cloud SQL state ==="
 
-# Check if public IP is already assigned
+# Check if public IP (PRIMARY) is already assigned
 EXISTING_IPS=$(gcloud sql instances describe "$INSTANCE" \
-  --format="value(ipAddresses[0].ipAddress)" 2>/dev/null || echo "")
+  --format=json 2>/dev/null \
+  | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+for addr in data.get('ipAddresses', []):
+    if addr.get('type') == 'PRIMARY':
+        print(addr['ipAddress'])
+        break
+" 2>/dev/null || echo "")
 if [[ -n "$EXISTING_IPS" ]]; then
   HAD_PUBLIC_IP=true
   echo "Public IP already assigned: ${EXISTING_IPS}"
@@ -146,7 +154,15 @@ echo "=== Step 2: Getting instance public IP ==="
 INSTANCE_IP=""
 for attempt in 1 2 3 4 5; do
   INSTANCE_IP=$(gcloud sql instances describe "$INSTANCE" \
-    --format="value(ipAddresses[0].ipAddress)" 2>/dev/null || echo "")
+    --format=json 2>/dev/null \
+    | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+for addr in data.get('ipAddresses', []):
+    if addr.get('type') == 'PRIMARY':
+        print(addr['ipAddress'])
+        break
+" 2>/dev/null || echo "")
   if [[ -n "$INSTANCE_IP" ]]; then
     break
   fi
