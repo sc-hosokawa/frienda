@@ -18,6 +18,9 @@
 #   jq, pg_dump, curl がインストール済みであること
 #   macOS の場合: brew install coreutils で timeout コマンド推奨
 #
+# Alternative: Cloud SQL Auth Proxy を使用すればパブリックIPの一時割り当てが不要です。
+#   https://cloud.google.com/sql/docs/postgres/sql-proxy
+#
 # Usage:
 #   ./services/postgres/cloud-sql-dump.sh [options]
 #   ./services/postgres/cloud-sql-dump.sh -h  (for full options and environment variables)
@@ -42,7 +45,8 @@ fi
 MAX_BACKOFF_INTERVAL=60
 
 # ---- Logging helper ----
-# WARNING/ERROR messages are sent to stderr for pipeline compatibility
+# WARNING/ERROR messages are sent to stderr for pipeline compatibility.
+# Messages must start with "WARNING:" or "ERROR:" to be routed to stderr.
 log() {
   local msg="[$(date '+%Y-%m-%d %H:%M:%S')] $*"
   if [[ "$1" == WARNING:* || "$1" == ERROR:* ]]; then
@@ -109,6 +113,8 @@ if ! command -v timeout &>/dev/null; then
   log "Strongly recommended: brew install coreutils"
   # Fallback: skip the timeout duration argument and execute the command directly.
   # This means NO timeout protection — if gcloud hangs, the script will also hang.
+  # Note: This only handles `timeout DURATION COMMAND...` form. Additional timeout
+  # options (e.g. --signal) are not supported by this fallback.
   timeout() { shift; "$@"; }
 fi
 
@@ -223,6 +229,7 @@ fi
 
 # ---- Cleanup function (restore security settings) ----
 cleanup() {
+  set +e  # Prevent cleanup from being interrupted by errors (bash version-dependent behavior)
   echo ""
   log "=== Cleaning up ==="
 
@@ -362,7 +369,9 @@ timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
 
 # ---- Step 4: Run pg_dump (via temp file for atomicity) ----
 log "=== Step 4: Running pg_dump ==="
-mkdir -p "$(dirname "$OUTPUT")"
+OUTPUT_DIR="$(dirname "$OUTPUT")"
+mkdir -p "$OUTPUT_DIR"
+chmod 700 "$OUTPUT_DIR"
 
 TMPFILE=$(mktemp "${OUTPUT}.XXXXXX")
 chmod 600 "$TMPFILE"
