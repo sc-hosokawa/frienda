@@ -44,7 +44,7 @@ MAX_BACKOFF_INTERVAL=60
 # ---- Logging helper ----
 # WARNING/Error messages are sent to stderr for pipeline compatibility
 log() {
-  if [[ "$1" == WARNING:* || "$1" == Warning:* ]]; then
+  if [[ "$1" == WARNING:* ]]; then
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >&2
   else
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
@@ -185,7 +185,7 @@ get_primary_ip() {
   local csv_output=""
   csv_output=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
     --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>/dev/null) || {
-    log "Warning: Failed to describe instance $1"
+    log "WARNING: Failed to describe instance $1"
     return 0
   }
   # grep returns non-zero when no PRIMARY match; || echo "" ensures empty string in that case
@@ -249,28 +249,28 @@ cleanup() {
     log "Restoring authorized networks and disabling public IP (single operation)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --authorized-networks="$ORIGINAL_NETWORKS" --no-assign-ip --quiet 2>/dev/null || {
-      log "Warning: Failed to restore settings. Manual cleanup may be required."
+      log "WARNING: Failed to restore settings. Manual cleanup may be required."
       log "Instance: $INSTANCE, Expected networks: $ORIGINAL_NETWORKS, Public IP: disable"
     }
   elif [[ -z "$ORIGINAL_NETWORKS" && "$should_disable_ip" = true ]]; then
     log "Clearing authorized networks and disabling public IP (single operation)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --clear-authorized-networks --no-assign-ip --quiet 2>/dev/null || {
-      log "Warning: Failed to clear settings. Manual cleanup may be required."
+      log "WARNING: Failed to clear settings. Manual cleanup may be required."
       log "Instance: $INSTANCE, Action: clear networks + disable public IP"
     }
   elif [[ -n "$ORIGINAL_NETWORKS" ]]; then
     log "Restoring original authorized networks..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --authorized-networks="$ORIGINAL_NETWORKS" --quiet 2>/dev/null || {
-      log "Warning: Failed to restore authorized networks. Manual cleanup may be required."
+      log "WARNING: Failed to restore authorized networks. Manual cleanup may be required."
       log "Instance: $INSTANCE, Expected networks: $ORIGINAL_NETWORKS"
     }
   else
     log "Clearing authorized networks (none existed before)..."
     timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --clear-authorized-networks --quiet 2>/dev/null || {
-      log "Warning: Failed to clear authorized networks. Manual cleanup may be required."
+      log "WARNING: Failed to clear authorized networks. Manual cleanup may be required."
       log "Instance: $INSTANCE"
     }
   fi
@@ -282,7 +282,7 @@ cleanup() {
 
   log "Cleanup complete."
 }
-trap cleanup EXIT
+trap cleanup EXIT INT TERM HUP
 
 # ---- Step 1: Assign public IP ----
 log "=== Step 1: Assigning public IP to ${INSTANCE} ==="
