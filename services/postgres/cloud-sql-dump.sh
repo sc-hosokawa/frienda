@@ -11,6 +11,12 @@
 #       このスクリプトも IPv4 アドレスのみをサポートします。
 # 注意: 排他制御（flock）により同時実行は自動的にブロックされます。
 #
+# Prerequisites:
+#   gcloud auth login 済みであること
+#   gcloud config set project <PROJECT_ID> でプロジェクト設定済みであること
+#   jq, pg_dump, curl がインストール済みであること
+#   macOS の場合: brew install coreutils で timeout コマンド推奨
+#
 # Usage:
 #   ./services/postgres/cloud-sql-dump.sh [options]
 #
@@ -88,7 +94,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # ---- Validate prerequisites ----
-for cmd in gcloud pg_dump curl; do
+for cmd in gcloud pg_dump curl jq; do
   if ! command -v "$cmd" &>/dev/null; then
     echo "Error: $cmd is not installed." >&2
     exit 1
@@ -153,21 +159,6 @@ get_primary_ip() {
     | head -1 || echo ""
 }
 
-# ---- Helper: get authorized networks as comma-separated list ----
-# Uses gcloud --format with semicolon separator, then converts to comma-separated.
-# Verified to work with gcloud CLI 400+. Falls back to empty string on parse failure.
-get_authorized_networks() {
-  local raw=""
-  raw=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
-    --format="value(settings.ipConfiguration.authorizedNetworks.map().extract(value).flatten())" 2>/dev/null) || raw=""
-  if [[ -z "$raw" ]]; then
-    echo ""
-    return
-  fi
-  # gcloud value format uses semicolons as separators; normalize to commas
-  echo "$raw" | tr ';' ','
-}
-
 # ---- State tracking for cleanup ----
 ORIGINAL_NETWORKS=""
 HAD_PUBLIC_IP=false
@@ -177,14 +168,14 @@ log "=== Saving existing Cloud SQL state ==="
 INSTANCE_JSON=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$INSTANCE" --format=json 2>/dev/null || echo "{}")
 
 # Check if public IP (PRIMARY) is already assigned
-EXISTING_IP=$(echo "$INSTANCE_JSON" | grep -A1 '"type": "PRIMARY"' | grep '"ipAddress"' | head -1 | sed 's/.*"ipAddress": "//;s/".*//' || echo "")
+EXISTING_IP=$(echo "$INSTANCE_JSON" | jq -r '[.ipAddresses[]? | select(.type == "PRIMARY") | .ipAddress][0] // ""' 2>/dev/null || echo "")
 if [[ -n "$EXISTING_IP" ]]; then
   HAD_PUBLIC_IP=true
   log "Public IP already assigned: ${EXISTING_IP}"
 fi
 
 # Extract authorized networks from JSON
-ORIGINAL_NETWORKS=$(echo "$INSTANCE_JSON" | sed -n 's/.*"value": "\([^"]*\)".*/\1/p' | paste -sd',' - || echo "")
+ORIGINAL_NETWORKS=$(echo "$INSTANCE_JSON" | jq -r '[.settings.ipConfiguration.authorizedNetworks[]?.value] | join(",")' 2>/dev/null || echo "")
 if [[ -n "$ORIGINAL_NETWORKS" ]]; then
   log "Existing authorized networks: ${ORIGINAL_NETWORKS}"
 else
@@ -322,6 +313,7 @@ if ! tail -1 "$TMPFILE" | grep -q "PostgreSQL database dump complete"; then
 fi
 
 mv "$TMPFILE" "$OUTPUT"
+chmod 644 "$OUTPUT"
 
 FILE_SIZE=$(ls -lh "$OUTPUT" | awk '{print $5}')
 log "Export complete: ${OUTPUT} (${FILE_SIZE})"
