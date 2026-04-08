@@ -9,8 +9,7 @@
 # 注意: このスクリプトはリポジトリルートから実行してください。
 # 注意: Cloud SQL authorized networks は IPv4 のみ対応のため、
 #       このスクリプトも IPv4 アドレスのみをサポートします。
-# 注意: 同時実行は避けてください。複数の開発者が同時に実行すると、
-#       authorized networks の設定が競合する可能性があります。
+# 注意: 排他制御（flock）により同時実行は自動的にブロックされます。
 #
 # Usage:
 #   ./services/postgres/cloud-sql-dump.sh [options]
@@ -70,7 +69,7 @@ Environment variables:
 Note:
   Cloud SQL authorized networks は IPv4 のみ対応のため、
   このスクリプトも IPv4 アドレスのみをサポートします。
-  同時実行は避けてください（authorized networks の競合防止）。
+  排他制御（flock）により同時実行は自動的にブロックされます。
 HELP
 }
 
@@ -101,6 +100,14 @@ if ! command -v timeout &>/dev/null; then
   log "Warning: 'timeout' command not found. Running gcloud commands without timeout."
   log "Install coreutils for timeout support: brew install coreutils"
   timeout() { shift; "$@"; }
+fi
+
+# ---- Exclusive lock (prevent concurrent execution) ----
+LOCKFILE="/tmp/cloud-sql-dump-${INSTANCE}.lock"
+exec 200>"$LOCKFILE"
+if ! flock -n 200; then
+  echo "Error: Another instance of this script is already running for ${INSTANCE}." >&2
+  exit 1
 fi
 
 # ---- pg_dump version check ----
@@ -165,18 +172,19 @@ get_authorized_networks() {
 ORIGINAL_NETWORKS=""
 HAD_PUBLIC_IP=false
 
-# ---- Save existing state ----
+# ---- Save existing state (single gcloud call to reduce API requests) ----
 log "=== Saving existing Cloud SQL state ==="
+INSTANCE_JSON=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$INSTANCE" --format=json 2>/dev/null || echo "{}")
 
 # Check if public IP (PRIMARY) is already assigned
-EXISTING_IP=$(get_primary_ip "$INSTANCE")
+EXISTING_IP=$(echo "$INSTANCE_JSON" | grep -A1 '"type": "PRIMARY"' | grep '"ipAddress"' | head -1 | sed 's/.*"ipAddress": "//;s/".*//' || echo "")
 if [[ -n "$EXISTING_IP" ]]; then
   HAD_PUBLIC_IP=true
   log "Public IP already assigned: ${EXISTING_IP}"
 fi
 
-# Save existing authorized networks
-ORIGINAL_NETWORKS=$(get_authorized_networks "$INSTANCE")
+# Extract authorized networks from JSON
+ORIGINAL_NETWORKS=$(echo "$INSTANCE_JSON" | sed -n 's/.*"value": "\([^"]*\)".*/\1/p' | paste -sd',' - || echo "")
 if [[ -n "$ORIGINAL_NETWORKS" ]]; then
   log "Existing authorized networks: ${ORIGINAL_NETWORKS}"
 else
@@ -248,7 +256,7 @@ log "=== Step 3: Authorizing current IP ==="
 # Note: Cloud SQL authorized networks only supports IPv4.
 # api4.ipify.org guarantees IPv4 response (unlike api.ipify.org which may return IPv6 on dual-stack).
 MY_IP=""
-MY_IP=$(curl -s --max-time 5 https://api4.ipify.org 2>/dev/null || echo "")
+MY_IP=$(curl -4 -s --max-time 5 https://api4.ipify.org 2>/dev/null || echo "")
 if [[ -z "$MY_IP" ]]; then
   log "api4.ipify.org unavailable, trying ifconfig.me..."
   MY_IP=$(curl -4 -s --max-time 5 https://ifconfig.me 2>/dev/null || echo "")
@@ -303,6 +311,15 @@ PGPASSWORD="$PGPASSWORD" pg_dump \
   --format=plain \
   --connect-timeout=30 \
   --file="$TMPFILE"
+
+# Verify dump completeness
+if [[ ! -s "$TMPFILE" ]]; then
+  echo "Error: pg_dump produced an empty file." >&2
+  exit 1
+fi
+if ! tail -1 "$TMPFILE" | grep -q "PostgreSQL database dump complete"; then
+  echo "Warning: Dump file may be incomplete (missing completion marker)." >&2
+fi
 
 mv "$TMPFILE" "$OUTPUT"
 
