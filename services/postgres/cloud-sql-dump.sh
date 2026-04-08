@@ -103,12 +103,13 @@ for cmd in gcloud pg_dump curl jq; do
 done
 
 # timeout command fallback for macOS (not installed by default; requires coreutils).
-# When unavailable, gcloud commands run without timeout protection.
-# Install via: brew install coreutils
+# WARNING: Without timeout, gcloud commands that hang will block the script indefinitely.
+# Strongly recommended: brew install coreutils
 if ! command -v timeout &>/dev/null; then
-  log "Warning: 'timeout' command not found. Running gcloud commands without timeout."
-  log "Install coreutils for timeout support: brew install coreutils"
-  # Fallback: skip the timeout duration argument and execute the command directly
+  log "WARNING: 'timeout' command not found. gcloud commands may hang indefinitely!"
+  log "Strongly recommended: brew install coreutils"
+  # Fallback: skip the timeout duration argument and execute the command directly.
+  # This means NO timeout protection — if gcloud hangs, the script will also hang.
   timeout() { shift; "$@"; }
 fi
 
@@ -187,7 +188,6 @@ get_primary_ip() {
   csv_output=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
     --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>/dev/null) || {
     log "Warning: Failed to describe instance $1"
-    echo ""
     return
   }
   echo "$csv_output" | grep ',PRIMARY$' | cut -d',' -f1 | head -1 || echo ""
@@ -360,7 +360,7 @@ if [[ ! -s "$TMPFILE" ]]; then
   echo "Error: pg_dump produced an empty file." >&2
   exit 1
 fi
-if ! tail -1 "$TMPFILE" | grep -q "PostgreSQL database dump complete"; then
+if ! tail -5 "$TMPFILE" | grep -q "PostgreSQL database dump complete"; then
   echo "Warning: Dump file may be incomplete (missing completion marker)." >&2
 fi
 
