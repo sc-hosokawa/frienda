@@ -9,7 +9,8 @@
 # 注意: このスクリプトはリポジトリルートから実行してください。
 # 注意: Cloud SQL authorized networks は IPv4 のみ対応のため、
 #       このスクリプトも IPv4 アドレスのみをサポートします。
-# 注意: 排他制御（flock）により同時実行は自動的にブロックされます。
+# 注意: 排他制御により同時実行は自動的にブロックされます。
+#       (Linux: flock, macOS: mkdir-based lock)
 #
 # Prerequisites:
 #   gcloud auth login 済みであること
@@ -75,7 +76,7 @@ Environment variables:
 Note:
   Cloud SQL authorized networks は IPv4 のみ対応のため、
   このスクリプトも IPv4 アドレスのみをサポートします。
-  排他制御（flock）により同時実行は自動的にブロックされます。
+  排他制御により同時実行は自動的にブロックされます。
 HELP
 }
 
@@ -101,19 +102,33 @@ for cmd in gcloud pg_dump curl jq; do
   fi
 done
 
-# timeout command fallback for macOS (not installed by default; requires coreutils)
+# timeout command fallback for macOS (not installed by default; requires coreutils).
+# When unavailable, gcloud commands run without timeout protection.
+# Install via: brew install coreutils
 if ! command -v timeout &>/dev/null; then
   log "Warning: 'timeout' command not found. Running gcloud commands without timeout."
   log "Install coreutils for timeout support: brew install coreutils"
+  # Fallback: skip the timeout duration argument and execute the command directly
   timeout() { shift; "$@"; }
 fi
 
 # ---- Exclusive lock (prevent concurrent execution) ----
+# Uses flock on Linux, falls back to mkdir-based lock on macOS (where flock is unavailable)
 LOCKFILE="/tmp/cloud-sql-dump-${INSTANCE}.lock"
-exec 200>"$LOCKFILE"
-if ! flock -n 200; then
-  echo "Error: Another instance of this script is already running for ${INSTANCE}." >&2
-  exit 1
+if command -v flock &>/dev/null; then
+  exec 200>"$LOCKFILE"
+  if ! flock -n 200; then
+    echo "Error: Another instance of this script is already running for ${INSTANCE}." >&2
+    exit 1
+  fi
+else
+  # mkdir is atomic — use it as a portable lock mechanism
+  LOCKDIR="/tmp/cloud-sql-dump-${INSTANCE}.lockdir"
+  if ! mkdir "$LOCKDIR" 2>/dev/null; then
+    echo "Error: Another instance of this script is already running for ${INSTANCE}." >&2
+    echo "If this is stale, remove: $LOCKDIR" >&2
+    exit 1
+  fi
 fi
 
 # ---- pg_dump version check ----
@@ -212,6 +227,11 @@ cleanup() {
     gcloud sql instances patch "$INSTANCE" --no-assign-ip --quiet 2>/dev/null || true
   else
     log "Keeping public IP (was already assigned before script execution)."
+  fi
+
+  # Remove mkdir-based lockdir if used (macOS fallback)
+  if [[ -n "${LOCKDIR:-}" && -d "$LOCKDIR" ]]; then
+    rm -rf "$LOCKDIR"
   fi
 
   log "Cleanup complete."
@@ -313,7 +333,8 @@ if ! tail -1 "$TMPFILE" | grep -q "PostgreSQL database dump complete"; then
 fi
 
 mv "$TMPFILE" "$OUTPUT"
-chmod 644 "$OUTPUT"
+TMPFILE=""  # Clear so cleanup doesn't try to remove the already-moved file
+chmod 600 "$OUTPUT"
 
 FILE_SIZE=$(ls -lh "$OUTPUT" | awk '{print $5}')
 log "Export complete: ${OUTPUT} (${FILE_SIZE})"
