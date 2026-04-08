@@ -23,6 +23,7 @@
 #
 # Environment variables:
 #   PGPASSWORD       Database password (required, or will be prompted)
+#   GCLOUD_TIMEOUT   Timeout in seconds for gcloud commands (default: 300)
 #
 set -euo pipefail
 
@@ -36,7 +37,8 @@ OUTPUT="${SCRIPT_DIR}/frienda-pg-dump.sql"
 FORCE=false
 RETRY_COUNT=5
 RETRY_INTERVAL=5
-GCLOUD_TIMEOUT=300
+GCLOUD_TIMEOUT="${GCLOUD_TIMEOUT:-300}"
+MAX_BACKOFF_INTERVAL=60
 
 # ---- Logging helper ----
 log() {
@@ -61,6 +63,7 @@ Options:
 
 Environment variables:
   PGPASSWORD       Database password (required, or will be prompted)
+  GCLOUD_TIMEOUT   Timeout in seconds for gcloud commands (default: 300)
 
 Note:
   Cloud SQL authorized networks は IPv4 のみ対応のため、
@@ -135,9 +138,9 @@ get_primary_ip() {
 # Uses gcloud --format with semicolon separator, then converts to comma-separated.
 # Verified to work with gcloud CLI 400+. Falls back to empty string on parse failure.
 get_authorized_networks() {
-  local raw
+  local raw=""
   raw=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
-    --format="value(settings.ipConfiguration.authorizedNetworks.map().extract(value).flatten())" 2>/dev/null) || echo ""
+    --format="value(settings.ipConfiguration.authorizedNetworks.map().extract(value).flatten())" 2>/dev/null) || raw=""
   # gcloud value format uses semicolons as separators; normalize to commas
   echo "$raw" | tr ';' ','
 }
@@ -168,6 +171,9 @@ fi
 cleanup() {
   echo ""
   log "=== Cleaning up ==="
+
+  # Clear password from shell variable
+  unset PGPASSWORD 2>/dev/null || true
 
   # Remove temp file if it exists
   if [[ -n "${TMPFILE:-}" && -f "$TMPFILE" ]]; then
@@ -212,7 +218,7 @@ for attempt in $(seq 1 "$RETRY_COUNT"); do
   fi
   log "Waiting for public IP assignment... (attempt ${attempt}/${RETRY_COUNT}, next retry in ${BACKOFF_INTERVAL}s)"
   sleep "$BACKOFF_INTERVAL"
-  BACKOFF_INTERVAL=$((BACKOFF_INTERVAL * 2))
+  BACKOFF_INTERVAL=$(( BACKOFF_INTERVAL * 2 > MAX_BACKOFF_INTERVAL ? MAX_BACKOFF_INTERVAL : BACKOFF_INTERVAL * 2 ))
 done
 
 if [[ -z "$INSTANCE_IP" ]]; then
@@ -252,6 +258,7 @@ log "=== Step 4: Running pg_dump ==="
 mkdir -p "$(dirname "$OUTPUT")"
 
 TMPFILE=$(mktemp "${OUTPUT}.XXXXXX")
+chmod 600 "$TMPFILE"
 
 PGPASSWORD="$PGPASSWORD" pg_dump \
   --host="$INSTANCE_IP" \
