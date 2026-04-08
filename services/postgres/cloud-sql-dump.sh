@@ -213,25 +213,28 @@ cleanup() {
   # Restore authorized networks to original state
   if [[ -n "$ORIGINAL_NETWORKS" ]]; then
     log "Restoring original authorized networks: ${ORIGINAL_NETWORKS}"
-    gcloud sql instances patch "$INSTANCE" \
+    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --authorized-networks="$ORIGINAL_NETWORKS" --quiet 2>/dev/null || true
   else
     log "Clearing authorized networks (none existed before)..."
-    gcloud sql instances patch "$INSTANCE" \
+    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
       --clear-authorized-networks --quiet 2>/dev/null || true
   fi
 
   # Only disable public IP if it wasn't assigned before
   if [[ "$HAD_PUBLIC_IP" = false ]]; then
     log "Disabling public IP (was not assigned before)..."
-    gcloud sql instances patch "$INSTANCE" --no-assign-ip --quiet 2>/dev/null || true
+    timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" --no-assign-ip --quiet 2>/dev/null || true
   else
     log "Keeping public IP (was already assigned before script execution)."
   fi
 
-  # Remove mkdir-based lockdir if used (macOS fallback)
+  # Remove lock resources
   if [[ -n "${LOCKDIR:-}" && -d "$LOCKDIR" ]]; then
     rm -rf "$LOCKDIR"
+  fi
+  if [[ -n "${LOCKFILE:-}" && -f "$LOCKFILE" ]]; then
+    rm -f "$LOCKFILE"
   fi
 
   log "Cleanup complete."
