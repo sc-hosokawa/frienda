@@ -20,18 +20,7 @@
 #
 # Usage:
 #   ./services/postgres/cloud-sql-dump.sh [options]
-#
-# Options:
-#   -i, --instance   Cloud SQL instance name (default: frienda-dev-pg)
-#   -d, --database   Database name (default: frienda-pg)
-#   -u, --user       Database user (default: frienda-pg)
-#   -o, --output     Output file path (default: services/postgres/frienda-pg-dump.sql)
-#   -f, --force      Overwrite existing output file without confirmation
-#   -h, --help       Show this help message
-#
-# Environment variables:
-#   PGPASSWORD       Database password (required, or will be prompted)
-#   GCLOUD_TIMEOUT   Timeout in seconds for gcloud commands (default: 300)
+#   ./services/postgres/cloud-sql-dump.sh -h  (for full options and environment variables)
 #
 set -euo pipefail
 
@@ -46,6 +35,10 @@ FORCE=false
 RETRY_COUNT=5
 RETRY_INTERVAL=5
 GCLOUD_TIMEOUT="${GCLOUD_TIMEOUT:-300}"
+if [[ ! "$GCLOUD_TIMEOUT" =~ ^[0-9]+$ ]]; then
+  echo "Error: GCLOUD_TIMEOUT must be a positive integer (got: $GCLOUD_TIMEOUT)" >&2
+  exit 1
+fi
 MAX_BACKOFF_INTERVAL=60
 
 # ---- Logging helper ----
@@ -190,6 +183,7 @@ get_primary_ip() {
     log "Warning: Failed to describe instance $1"
     return 0
   }
+  # grep returns non-zero when no PRIMARY match; || echo "" ensures empty string in that case
   echo "$csv_output" | grep ',PRIMARY$' | cut -d',' -f1 | head -1 || echo ""
 }
 
@@ -279,8 +273,12 @@ trap cleanup EXIT
 
 # ---- Step 1: Assign public IP ----
 log "=== Step 1: Assigning public IP to ${INSTANCE} ==="
-timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" --assign-ip --quiet
-ASSIGNED_PUBLIC_IP=true
+if [[ "$HAD_PUBLIC_IP" = true ]]; then
+  log "Public IP already assigned, skipping --assign-ip"
+else
+  timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" --assign-ip --quiet
+  ASSIGNED_PUBLIC_IP=true
+fi
 
 # ---- Step 2: Get instance public IP (with retry + exponential backoff) ----
 log "=== Step 2: Getting instance public IP ==="
@@ -365,6 +363,8 @@ PGPASSWORD="$PGPASSWORD" pg_dump \
   --format=plain \
   --connect-timeout=30 \
   --file="$TMPFILE"
+
+log "pg_dump completed successfully."
 
 # Verify dump completeness (assumes --format=plain; other formats have different markers)
 if [[ ! -s "$TMPFILE" ]]; then
