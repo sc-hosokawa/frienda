@@ -38,6 +38,11 @@ RETRY_COUNT=5
 RETRY_INTERVAL=5
 GCLOUD_TIMEOUT=300
 
+# ---- Logging helper ----
+log() {
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+}
+
 # ---- Help function ----
 show_help() {
   cat <<'HELP'
@@ -84,6 +89,19 @@ for cmd in gcloud pg_dump curl; do
   fi
 done
 
+# ---- pg_dump version check ----
+LOCAL_PG_VERSION=$(pg_dump --version | grep -oE '[0-9]+' | head -1)
+log "Local pg_dump major version: ${LOCAL_PG_VERSION}"
+CLOUD_PG_VERSION=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$INSTANCE" \
+  --format="value(databaseVersion)" 2>/dev/null | grep -oE '[0-9]+' || echo "")
+if [[ -n "$CLOUD_PG_VERSION" ]]; then
+  log "Cloud SQL PostgreSQL major version: ${CLOUD_PG_VERSION}"
+  if [[ "$LOCAL_PG_VERSION" -lt "$CLOUD_PG_VERSION" ]]; then
+    echo "Warning: Local pg_dump (v${LOCAL_PG_VERSION}) is older than Cloud SQL (v${CLOUD_PG_VERSION})." >&2
+    echo "This may cause compatibility issues. Consider upgrading pg_dump." >&2
+  fi
+fi
+
 # ---- Check existing output file ----
 if [[ -f "$OUTPUT" && "$FORCE" = false ]]; then
   FILE_SIZE=$(ls -lh "$OUTPUT" | awk '{print $5}')
@@ -104,10 +122,9 @@ if [[ -z "${PGPASSWORD:-}" ]]; then
   echo
 fi
 
-# ---- Helper: extract PRIMARY IP from gcloud JSON ----
-# Uses gcloud --format to filter PRIMARY type IP addresses
+# ---- Helper: extract PRIMARY IP from gcloud ----
 get_primary_ip() {
-  gcloud sql instances describe "$1" \
+  timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
     --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>/dev/null \
     | grep ',PRIMARY$' \
     | cut -d',' -f1 \
@@ -115,9 +132,14 @@ get_primary_ip() {
 }
 
 # ---- Helper: get authorized networks as comma-separated list ----
+# Uses gcloud --format with semicolon separator, then converts to comma-separated.
+# Verified to work with gcloud CLI 400+. Falls back to empty string on parse failure.
 get_authorized_networks() {
-  gcloud sql instances describe "$1" \
-    --format="value(settings.ipConfiguration.authorizedNetworks.map().extract(value).flatten())" 2>/dev/null || echo ""
+  local raw
+  raw=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
+    --format="value(settings.ipConfiguration.authorizedNetworks.map().extract(value).flatten())" 2>/dev/null) || echo ""
+  # gcloud value format uses semicolons as separators; normalize to commas
+  echo "$raw" | tr ';' ','
 }
 
 # ---- State tracking for cleanup ----
@@ -125,88 +147,96 @@ ORIGINAL_NETWORKS=""
 HAD_PUBLIC_IP=false
 
 # ---- Save existing state ----
-echo "=== Saving existing Cloud SQL state ==="
+log "=== Saving existing Cloud SQL state ==="
 
 # Check if public IP (PRIMARY) is already assigned
 EXISTING_IP=$(get_primary_ip "$INSTANCE")
 if [[ -n "$EXISTING_IP" ]]; then
   HAD_PUBLIC_IP=true
-  echo "Public IP already assigned: ${EXISTING_IP}"
+  log "Public IP already assigned: ${EXISTING_IP}"
 fi
 
 # Save existing authorized networks
 ORIGINAL_NETWORKS=$(get_authorized_networks "$INSTANCE")
 if [[ -n "$ORIGINAL_NETWORKS" ]]; then
-  echo "Existing authorized networks: ${ORIGINAL_NETWORKS}"
+  log "Existing authorized networks: ${ORIGINAL_NETWORKS}"
 else
-  echo "No existing authorized networks."
+  log "No existing authorized networks."
 fi
 
 # ---- Cleanup function (restore security settings) ----
 cleanup() {
   echo ""
-  echo "=== Cleaning up ==="
+  log "=== Cleaning up ==="
+
+  # Remove temp file if it exists
+  if [[ -n "${TMPFILE:-}" && -f "$TMPFILE" ]]; then
+    rm -f "$TMPFILE"
+  fi
 
   # Restore authorized networks to original state
   if [[ -n "$ORIGINAL_NETWORKS" ]]; then
-    echo "Restoring original authorized networks: ${ORIGINAL_NETWORKS}"
+    log "Restoring original authorized networks: ${ORIGINAL_NETWORKS}"
     gcloud sql instances patch "$INSTANCE" \
       --authorized-networks="$ORIGINAL_NETWORKS" --quiet 2>/dev/null || true
   else
-    echo "Clearing authorized networks (none existed before)..."
+    log "Clearing authorized networks (none existed before)..."
     gcloud sql instances patch "$INSTANCE" \
       --clear-authorized-networks --quiet 2>/dev/null || true
   fi
 
   # Only disable public IP if it wasn't assigned before
   if [[ "$HAD_PUBLIC_IP" = false ]]; then
-    echo "Disabling public IP (was not assigned before)..."
+    log "Disabling public IP (was not assigned before)..."
     gcloud sql instances patch "$INSTANCE" --no-assign-ip --quiet 2>/dev/null || true
   else
-    echo "Keeping public IP (was already assigned before script execution)."
+    log "Keeping public IP (was already assigned before script execution)."
   fi
 
-  echo "Cleanup complete."
+  log "Cleanup complete."
 }
 trap cleanup EXIT
 
 # ---- Step 1: Assign public IP ----
-echo "=== Step 1: Assigning public IP to ${INSTANCE} ==="
+log "=== Step 1: Assigning public IP to ${INSTANCE} ==="
 timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" --assign-ip
 
-# ---- Step 2: Get instance public IP (with retry) ----
-echo "=== Step 2: Getting instance public IP ==="
+# ---- Step 2: Get instance public IP (with retry + exponential backoff) ----
+log "=== Step 2: Getting instance public IP ==="
 INSTANCE_IP=""
+BACKOFF_INTERVAL="$RETRY_INTERVAL"
 for attempt in $(seq 1 "$RETRY_COUNT"); do
   INSTANCE_IP=$(get_primary_ip "$INSTANCE")
   if [[ -n "$INSTANCE_IP" ]]; then
     break
   fi
-  echo "Waiting for public IP assignment... (attempt ${attempt}/${RETRY_COUNT})"
-  sleep "$RETRY_INTERVAL"
+  log "Waiting for public IP assignment... (attempt ${attempt}/${RETRY_COUNT}, next retry in ${BACKOFF_INTERVAL}s)"
+  sleep "$BACKOFF_INTERVAL"
+  BACKOFF_INTERVAL=$((BACKOFF_INTERVAL * 2))
 done
 
 if [[ -z "$INSTANCE_IP" ]]; then
   echo "Error: Could not retrieve instance public IP after ${RETRY_COUNT} attempts." >&2
   exit 1
 fi
-echo "Instance IP: ${INSTANCE_IP}"
+log "Instance IP: ${INSTANCE_IP}"
 
 # ---- Step 3: Get current public IP and authorize ----
-echo "=== Step 3: Authorizing current IP ==="
-# Note: Cloud SQL authorized networks only supports IPv4
+log "=== Step 3: Authorizing current IP ==="
+# Note: Cloud SQL authorized networks only supports IPv4.
+# api4.ipify.org guarantees IPv4 response (unlike api.ipify.org which may return IPv6 on dual-stack).
 MY_IP=""
-MY_IP=$(curl -s --max-time 5 https://api.ipify.org 2>/dev/null || echo "")
+MY_IP=$(curl -s --max-time 5 https://api4.ipify.org 2>/dev/null || echo "")
 if [[ -z "$MY_IP" ]]; then
-  echo "api.ipify.org unavailable, trying ifconfig.me..."
-  MY_IP=$(curl -s --max-time 5 https://ifconfig.me 2>/dev/null || echo "")
+  log "api4.ipify.org unavailable, trying ifconfig.me..."
+  MY_IP=$(curl -4 -s --max-time 5 https://ifconfig.me 2>/dev/null || echo "")
 fi
 if [[ -z "$MY_IP" || ! "$MY_IP" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   echo "Error: Could not determine public IPv4 address." >&2
   echo "Note: This script only supports IPv4 (Cloud SQL authorized networks requirement)." >&2
   exit 1
 fi
-echo "My IP: ${MY_IP}"
+log "My IP: ${MY_IP}"
 
 # Append current IP to existing authorized networks (preserve existing)
 if [[ -n "$ORIGINAL_NETWORKS" ]]; then
@@ -217,9 +247,11 @@ fi
 timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
   --authorized-networks="$NETWORKS" --quiet
 
-# ---- Step 4: Run pg_dump ----
-echo "=== Step 4: Running pg_dump ==="
+# ---- Step 4: Run pg_dump (via temp file for atomicity) ----
+log "=== Step 4: Running pg_dump ==="
 mkdir -p "$(dirname "$OUTPUT")"
+
+TMPFILE=$(mktemp "${OUTPUT}.XXXXXX")
 
 PGPASSWORD="$PGPASSWORD" pg_dump \
   --host="$INSTANCE_IP" \
@@ -230,11 +262,13 @@ PGPASSWORD="$PGPASSWORD" pg_dump \
   --no-acl \
   --format=plain \
   --connect-timeout=30 \
-  --file="$OUTPUT"
+  --file="$TMPFILE"
+
+mv "$TMPFILE" "$OUTPUT"
 
 FILE_SIZE=$(ls -lh "$OUTPUT" | awk '{print $5}')
-echo "Export complete: ${OUTPUT} (${FILE_SIZE})"
+log "Export complete: ${OUTPUT} (${FILE_SIZE})"
 
 # ---- Step 5: Cleanup is handled by trap ----
 echo ""
-echo "=== Done ==="
+log "=== Done ==="
