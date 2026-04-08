@@ -214,15 +214,12 @@ validate_ipv4() {
 # Returns the PRIMARY IP address, or empty string if not found.
 # gcloud errors are logged separately from "no PRIMARY IP" cases.
 get_primary_ip() {
-  local csv_output="" gcloud_err=""
-  gcloud_err=$(mktemp)
+  local csv_output=""
   csv_output=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
-    --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>"$gcloud_err") || {
-    log "WARNING: Failed to describe instance $1: $(cat "$gcloud_err")"
-    rm -f "$gcloud_err"
+    --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>/dev/null) || {
+    log "WARNING: Failed to describe instance $1"
     return 0
   }
-  rm -f "$gcloud_err"
   # With pipefail enabled, grep returning non-zero (no match) makes the whole pipeline fail.
   # || echo "" catches this and ensures the function outputs an empty string instead of failing.
   echo "$csv_output" | grep ',PRIMARY$' | cut -d',' -f1 | head -1 || echo ""
