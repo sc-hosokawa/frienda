@@ -86,6 +86,10 @@ Note:
   Cloud SQL authorized networks は IPv4 のみ対応のため、
   このスクリプトも IPv4 アドレスのみをサポートします。
   排他制御により同時実行は自動的にブロックされます。
+
+Alternative:
+  Cloud SQL Auth Proxy を使用すればパブリックIPの一時割り当てが不要です。
+  https://cloud.google.com/sql/docs/postgres/sql-proxy
 HELP
 }
 
@@ -191,16 +195,34 @@ if [[ -z "${PGPASSWORD:-}" ]]; then
   echo
 fi
 
+# ---- Helper: validate IPv4 format (each octet 0-255, no leading zeros) ----
+validate_ipv4() {
+  local ip="$1"
+  local IFS='.'
+  # shellcheck disable=SC2206
+  read -ra octets <<< "$ip"
+  [[ ${#octets[@]} -eq 4 ]] || return 1
+  for octet in "${octets[@]}"; do
+    [[ "$octet" =~ ^[0-9]+$ ]] || return 1
+    [[ "$octet" =~ ^0[0-9] ]] && return 1
+    (( octet >= 0 && octet <= 255 )) || return 1
+  done
+  return 0
+}
+
 # ---- Helper: extract PRIMARY IP from gcloud ----
 # Returns the PRIMARY IP address, or empty string if not found.
 # gcloud errors are logged separately from "no PRIMARY IP" cases.
 get_primary_ip() {
-  local csv_output=""
+  local csv_output="" gcloud_err=""
+  gcloud_err=$(mktemp)
   csv_output=$(timeout "$GCLOUD_TIMEOUT" gcloud sql instances describe "$1" \
-    --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>/dev/null) || {
-    log "WARNING: Failed to describe instance $1"
+    --format="csv[no-heading](ipAddresses.ipAddress,ipAddresses.type)" 2>"$gcloud_err") || {
+    log "WARNING: Failed to describe instance $1: $(cat "$gcloud_err")"
+    rm -f "$gcloud_err"
     return 0
   }
+  rm -f "$gcloud_err"
   # With pipefail enabled, grep returning non-zero (no match) makes the whole pipeline fail.
   # || echo "" catches this and ensures the function outputs an empty string instead of failing.
   echo "$csv_output" | grep ',PRIMARY$' | cut -d',' -f1 | head -1 || echo ""
@@ -338,21 +360,6 @@ if [[ -z "$MY_IP" ]]; then
   log "api4.ipify.org unavailable, trying ifconfig.me..."
   MY_IP=$(curl -4 -s --max-time 5 https://ifconfig.me 2>/dev/null || echo "")
 fi
-# Validate IPv4 format (each octet 0-255, no leading zeros)
-validate_ipv4() {
-  local ip="$1"
-  local IFS='.'
-  # shellcheck disable=SC2206
-  read -ra octets <<< "$ip"
-  [[ ${#octets[@]} -eq 4 ]] || return 1
-  for octet in "${octets[@]}"; do
-    [[ "$octet" =~ ^[0-9]+$ ]] || return 1
-    # Reject leading zeros (e.g. "010") except "0" itself
-    [[ "$octet" =~ ^0[0-9] ]] && return 1
-    (( octet >= 0 && octet <= 255 )) || return 1
-  done
-  return 0
-}
 if [[ -z "$MY_IP" ]] || ! validate_ipv4 "$MY_IP"; then
   log "ERROR: Could not determine public IPv4 address."
   log "ERROR: This script only supports IPv4 (Cloud SQL authorized networks requirement)."
