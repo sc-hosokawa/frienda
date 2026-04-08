@@ -9,6 +9,8 @@
 # 注意: このスクリプトはリポジトリルートから実行してください。
 # 注意: Cloud SQL authorized networks は IPv4 のみ対応のため、
 #       このスクリプトも IPv4 アドレスのみをサポートします。
+# 注意: 同時実行は避けてください。複数の開発者が同時に実行すると、
+#       authorized networks の設定が競合する可能性があります。
 #
 # Usage:
 #   ./services/postgres/cloud-sql-dump.sh [options]
@@ -68,6 +70,7 @@ Environment variables:
 Note:
   Cloud SQL authorized networks は IPv4 のみ対応のため、
   このスクリプトも IPv4 アドレスのみをサポートします。
+  同時実行は避けてください（authorized networks の競合防止）。
 HELP
 }
 
@@ -237,7 +240,19 @@ if [[ -z "$MY_IP" ]]; then
   log "api4.ipify.org unavailable, trying ifconfig.me..."
   MY_IP=$(curl -4 -s --max-time 5 https://ifconfig.me 2>/dev/null || echo "")
 fi
-if [[ -z "$MY_IP" || ! "$MY_IP" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+# Validate IPv4 format (each octet 0-255)
+validate_ipv4() {
+  local ip="$1"
+  local IFS='.'
+  read -ra octets <<< "$ip"
+  [[ ${#octets[@]} -eq 4 ]] || return 1
+  for octet in "${octets[@]}"; do
+    [[ "$octet" =~ ^[0-9]+$ ]] || return 1
+    (( octet >= 0 && octet <= 255 )) || return 1
+  done
+  return 0
+}
+if [[ -z "$MY_IP" ]] || ! validate_ipv4 "$MY_IP"; then
   echo "Error: Could not determine public IPv4 address." >&2
   echo "Note: This script only supports IPv4 (Cloud SQL authorized networks requirement)." >&2
   exit 1
