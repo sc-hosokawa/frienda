@@ -38,6 +38,7 @@ FORCE=false
 RETRY_COUNT=5
 RETRY_INTERVAL=5
 GCLOUD_TIMEOUT="${GCLOUD_TIMEOUT:-300}"
+PG_CONNECT_TIMEOUT="${PG_CONNECT_TIMEOUT:-30}"
 if [[ ! "$GCLOUD_TIMEOUT" =~ ^[1-9][0-9]*$ ]]; then
   echo "Error: GCLOUD_TIMEOUT must be a positive integer > 0 (got: $GCLOUD_TIMEOUT)" >&2
   exit 1
@@ -49,7 +50,7 @@ MAX_BACKOFF_INTERVAL=60
 # Messages must start with "WARNING:" or "ERROR:" to be routed to stderr.
 log() {
   local msg="[$(date '+%Y-%m-%d %H:%M:%S')] $*"
-  if [[ "$1" == WARNING:* || "$1" == ERROR:* ]]; then
+  if [[ "$*" == WARNING:* || "$*" == ERROR:* ]]; then
     echo "$msg" >&2
   else
     echo "$msg"
@@ -74,7 +75,8 @@ Options:
 
 Environment variables:
   PGPASSWORD       Database password (required, or will be prompted)
-  GCLOUD_TIMEOUT   Timeout in seconds for gcloud commands (default: 300)
+  GCLOUD_TIMEOUT      Timeout in seconds for gcloud commands (default: 300)
+  PG_CONNECT_TIMEOUT  pg_dump connection timeout in seconds (default: 30)
 
 Note:
   Cloud SQL authorized networks は IPv4 のみ対応のため、
@@ -370,8 +372,10 @@ timeout "$GCLOUD_TIMEOUT" gcloud sql instances patch "$INSTANCE" \
 # ---- Step 4: Run pg_dump (via temp file for atomicity) ----
 log "=== Step 4: Running pg_dump ==="
 OUTPUT_DIR="$(dirname "$OUTPUT")"
-mkdir -p "$OUTPUT_DIR"
-chmod 700 "$OUTPUT_DIR"
+if [[ ! -d "$OUTPUT_DIR" ]]; then
+  mkdir -p "$OUTPUT_DIR"
+  chmod 700 "$OUTPUT_DIR"
+fi
 
 TMPFILE=$(mktemp "${OUTPUT}.XXXXXX")
 chmod 600 "$TMPFILE"
@@ -384,7 +388,7 @@ PGPASSWORD="$PGPASSWORD" pg_dump \
   --no-owner \
   --no-acl \
   --format=plain \
-  --connect-timeout=30 \
+  --connect-timeout="$PG_CONNECT_TIMEOUT" \
   --file="$TMPFILE"
 
 log "pg_dump completed successfully."
