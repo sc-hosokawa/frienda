@@ -5,6 +5,8 @@ SHELL := /bin/bash
 # NOTE: -include imports ALL lines as Make variables. Only add PG_* and COMPOSE_* variables to .env.
 -include .env
 
+OPEN_CMD := $(shell command -v open 2>/dev/null || command -v xdg-open 2>/dev/null || echo echo)
+
 # --- PostgreSQL connection defaults (override via .env or environment) ---
 PG_HOST     ?= 127.0.0.1
 PG_PORT     ?= 5432
@@ -123,6 +125,17 @@ help:
 	@echo
 	@echo 'gql-mobile'
 	@echo '  - Regenerate GraphQL code for mobile apps'
+	@echo
+	@echo '=== Browser ==='
+	@echo
+	@echo 'open-client'
+	@echo '  - http://localhost:3000 (WebUI Client)'
+	@echo
+	@echo 'open-admin'
+	@echo '  - http://localhost:3001 (WebUI Admin)'
+	@echo
+	@echo 'open-api'
+	@echo '  - http://localhost:8080/graphql (GraphQL API)'
 	@echo
 	@echo '=== Setup ==='
 	@echo
@@ -289,6 +302,20 @@ gql-webui:
 gql-mobile:
 	cd services/mobile/apps/client && fvm dart run build_runner build --delete-conflicting-outputs
 	cd services/mobile/apps/admin && fvm dart run build_runner build --delete-conflicting-outputs
+
+# --- Browser ---
+
+.PHONY: open-client
+open-client:
+	$(OPEN_CMD) http://localhost:3000
+
+.PHONY: open-admin
+open-admin:
+	$(OPEN_CMD) http://localhost:3001
+
+.PHONY: open-api
+open-api:
+	$(OPEN_CMD) http://localhost:8080/graphql
 
 # --- Setup ---
 
