@@ -83,11 +83,11 @@ cd services/webui && pnpm format
 # Start iOS simulator and run app
 make mobile-dev
 
-# Flutter commands via melos
-cd services/mobile && melos bootstrap
-cd services/mobile && melos run test
-cd services/mobile && melos run analyze
-cd services/mobile && melos run format
+# Flutter commands via melos (fvm経由で実行)
+cd services/mobile && fvm dart run melos bootstrap
+cd services/mobile && fvm dart run melos run test
+cd services/mobile && fvm dart run melos run analyze
+cd services/mobile && fvm dart run melos run format
 ```
 
 ### Smart Contracts (Solidity)

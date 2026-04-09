@@ -91,7 +91,7 @@ make setup
 3. バックエンドの依存関係取得 (`cargo fetch`)
 4. WebUI の依存関係インストール (`pnpm install`)
 5. コントラクトの依存関係インストール (`pnpm install`)
-6. モバイルの依存関係インストール (`melos bootstrap`、melos がある場合のみ)
+6. モバイルの依存関係インストール (`fvm dart run melos bootstrap`、fvm がある場合のみ)
 7. `.env.example` から `.env` ファイルを作成（既存の場合はスキップ）
 
 > `make setup` は何度実行しても安全です。
