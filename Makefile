@@ -139,6 +139,9 @@ help:
 run-pg:
 	docker compose up -d --build
 
+.PHONY: up
+up: run-pg ;
+
 .PHONY: stop-pg
 stop-pg:
 	docker compose stop
@@ -146,6 +149,9 @@ stop-pg:
 .PHONY: down-pg
 down-pg:
 	docker compose down
+
+.PHONY: down
+down: down-pg ;
 
 .PHONY: down-pg-clean
 down-pg-clean:
