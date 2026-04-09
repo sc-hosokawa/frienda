@@ -304,7 +304,7 @@ setup: check-tools
 	@echo "=== Contract dependencies ==="
 	@cd services/contract && pnpm install
 	@echo "=== Mobile dependencies ==="
-	@command -v fvm >/dev/null 2>&1 && (cd services/mobile && fvm dart run melos bootstrap) || echo "Skipped (fvm not installed — optional for mobile dev)"
+	@command -v fvm >/dev/null 2>&1 && (cd services/mobile && echo "n" | fvm use && fvm dart run melos bootstrap) || echo "Skipped (fvm not installed — optional for mobile dev)"
 	@echo ""
 	@echo "Setup complete! Next steps:"
 	@echo "  1. Edit .env files with your credentials"

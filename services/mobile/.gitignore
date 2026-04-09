@@ -45,3 +45,6 @@ obfuscate/
 
 .DS_Store
 *.hprof
+
+# FVM Version Cache
+.fvm/
