@@ -216,7 +216,7 @@ make api
 make webui-client-dev    # http://localhost:3000
 
 # 管理画面アプリ
-make webui-admin-dev
+make webui-admin-dev     # http://localhost:3001
 
 # ビルド
 make webui-build
@@ -275,6 +275,9 @@ open http://localhost:8080/graphql
 ```bash
 # クライアントアプリにアクセス
 open http://localhost:3000
+
+# 管理画面にアクセス
+open http://localhost:3001
 ```
 
 ### 7.3 テスト・Lint・フォーマット
