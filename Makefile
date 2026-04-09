@@ -91,13 +91,13 @@ help:
 	@echo '  - Start iOS simulator and run Flutter app'
 	@echo
 	@echo 'mobile-test'
-	@echo '  - melos run test'
+	@echo '  - fvm dart run melos run test'
 	@echo
 	@echo 'mobile-analyze'
-	@echo '  - melos run analyze'
+	@echo '  - fvm dart run melos run analyze'
 	@echo
 	@echo 'mobile-format'
-	@echo '  - melos run format'
+	@echo '  - fvm dart run melos run format'
 	@echo
 	@echo '=== Smart Contracts (Solidity) ==='
 	@echo
@@ -233,15 +233,15 @@ mobile-dev:
 
 .PHONY: mobile-test
 mobile-test:
-	cd services/mobile && melos run test
+	cd services/mobile && fvm dart run melos run test
 
 .PHONY: mobile-analyze
 mobile-analyze:
-	cd services/mobile && melos run analyze
+	cd services/mobile && fvm dart run melos run analyze
 
 .PHONY: mobile-format
 mobile-format:
-	cd services/mobile && melos run format
+	cd services/mobile && fvm dart run melos run format
 
 # --- Smart Contracts (Solidity) ---
 
@@ -304,7 +304,7 @@ setup: check-tools
 	@echo "=== Contract dependencies ==="
 	@cd services/contract && pnpm install
 	@echo "=== Mobile dependencies ==="
-	@command -v melos >/dev/null 2>&1 && (cd services/mobile && melos bootstrap) || echo "Skipped (melos not installed — optional for mobile dev)"
+	@command -v fvm >/dev/null 2>&1 && (cd services/mobile && fvm dart run melos bootstrap) || echo "Skipped (fvm not installed — optional for mobile dev)"
 	@echo ""
 	@echo "Setup complete! Next steps:"
 	@echo "  1. Edit .env files with your credentials"
@@ -330,7 +330,7 @@ check-tools:
 	@# flutter --version is slow (SDK integrity check), so only show path
 	@command -v fvm >/dev/null 2>&1 && echo "  fvm: installed ($$(fvm --version))" || echo "  fvm: NOT FOUND (optional for mobile dev: dart pub global activate fvm)"
 	@command -v fvm >/dev/null 2>&1 && echo "  flutter (via fvm): $$(fvm flutter --version 2>/dev/null | head -1)" || echo "  flutter: NOT FOUND (install fvm first)"
-	@command -v melos >/dev/null 2>&1 && echo "  melos: installed" || echo "  melos: NOT FOUND (optional: fvm dart pub global activate melos)"
+	@command -v fvm >/dev/null 2>&1 && (cd services/mobile && fvm dart run melos --version >/dev/null 2>&1 && echo "  melos: installed (via fvm)" || echo "  melos: NOT FOUND (run 'fvm dart pub get' in services/mobile)") || echo "  melos: skipped (fvm not installed)"
 	@command -v docker >/dev/null 2>&1 && echo "  docker: $$(docker --version)" || (echo "  docker: NOT FOUND (install Docker Desktop)" && exit 1)
 	@command -v forge >/dev/null 2>&1 && echo "  forge: $$(forge --version 2>/dev/null | head -1)" || echo "  forge: NOT FOUND (optional for contract dev: https://getfoundry.sh)"
 	@echo ""
