@@ -15,3 +15,4 @@ scripts:
   format: 
     run: melos exec -- fvm dart format .
     description: format dart codes on all packages.
+sdkPath: .fvm/flutter_sdk
