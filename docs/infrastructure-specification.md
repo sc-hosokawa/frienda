@@ -212,7 +212,7 @@ graph TB
 
     %% Mobile → 外部SaaS (直接通信)
     MC -->|認証 / Storage / FCMトークン| FB
-    MC -->|ニュース取得 (直接CDN API)| CTF
+    MC -->|ニュース取得 直接CDN API| CTF
 
     %% Backend → 外部SaaS
     CR -->|プッシュ通知| FCM
