@@ -10,3 +10,97 @@ services:
       POSTGRES_USER: ${PG_USER:-postgres}
       POSTGRES_PASSWORD: ${PG_PASSWORD:-postgres}
       POSTGRES_DB: ${PG_DB:-postgres}
+
+  # --- Firebase Emulator Suite (認証・Storage・FCM) ---
+  firebase-emulator:
+    container_name: firebase-emulator
+    build:
+      context: ./docker/firebase-emulator
+      dockerfile: Dockerfile
+    profiles:
+      - services
+      - firebase
+    ports:
+      - '${FIREBASE_AUTH_PORT:-9099}:9099'         # Authentication
+      - '${FIREBASE_STORAGE_PORT:-9199}:9199'      # Storage
+      - '${FIREBASE_EMULATOR_UI_PORT:-4000}:4000'  # Emulator UI
+    environment:
+      GCLOUD_PROJECT: ${FIREBASE_PROJECT_ID:-frienda-local}
+
+  # --- Anvil (Foundryローカルブロックチェーンノード) ---
+  anvil:
+    container_name: anvil
+    image: ghcr.io/foundry-rs/foundry:stable
+    profiles:
+      - services
+      - blockchain
+    entrypoint: ["anvil", "--host", "0.0.0.0"]
+    ports:
+      - '${ANVIL_PORT:-8545}:8545'
+
+  # --- Mailpit (SMTPキャッチャー + Web UI) ---
+  mailpit:
+    container_name: mailpit
+    image: axllent/mailpit:latest
+    profiles:
+      - services
+      - mail
+    ports:
+      - '${MAILPIT_SMTP_PORT:-1025}:1025'   # SMTP
+      - '${MAILPIT_UI_PORT:-8025}:8025'     # Web UI
+
+  # --- stripe-mock (Stripe API モック) ---
+  stripe-mock:
+    container_name: stripe-mock
+    image: stripe/stripe-mock:latest
+    profiles:
+      - services
+      - stripe
+    ports:
+      - '${STRIPE_MOCK_PORT:-12111}:12111'  # HTTP
+      - '${STRIPE_MOCK_TLS_PORT:-12112}:12112'  # HTTPS
+
+  # --- BigQuery Emulator ---
+  bigquery-emulator:
+    container_name: bigquery-emulator
+    image: ghcr.io/goccy/bigquery-emulator:latest
+    profiles:
+      - services
+      - bigquery
+    command: ["--project", "${BIGQUERY_PROJECT_ID:-frienda-local}", "--port", "9050"]
+    ports:
+      - '${BIGQUERY_PORT:-9050}:9050'
+
+  # --- Contentful モックサーバー ---
+  contentful-mock:
+    container_name: contentful-mock
+    build:
+      context: ./docker/contentful-mock
+      dockerfile: Dockerfile
+    profiles:
+      - services
+      - contentful
+    ports:
+      - '${CONTENTFUL_MOCK_PORT:-3100}:3100'
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3100/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # --- Gemini モックサーバー ---
+  gemini-mock:
+    container_name: gemini-mock
+    build:
+      context: ./docker/gemini-mock
+      dockerfile: Dockerfile
+    profiles:
+      - services
+      - gemini
+    ports:
+      - '${GEMINI_MOCK_PORT:-3101}:3101'
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3101/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
