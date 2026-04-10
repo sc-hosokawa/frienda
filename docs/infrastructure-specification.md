@@ -86,13 +86,15 @@
 
 | 項目 | 設定値 |
 |------|--------|
-| PostgreSQL バージョン | 16 |
+| PostgreSQL バージョン | 16 (**注意**: Cloud SQL は 15) |
 | ホスト | 127.0.0.1 |
 | ポート | 5432（カスタマイズ可） |
 | ユーザー | postgres |
 | パスワード | postgres |
 | データベース名 | postgres |
 | 初期化 | seeds/ 配下のSQLスクリプトを自動実行 |
+
+> **注意**: ローカル開発環境は PostgreSQL 16、ステージング・本番の Cloud SQL は PostgreSQL 15 を使用している。メジャーバージョンの差異により、ローカルでは動作するがクラウド環境で失敗するケースが発生しうる。バージョンの統一を検討すべき。
 
 #### シードデータ実行順序
 
@@ -120,7 +122,9 @@
 
 ---
 
-## 4. ステージング環境 (Staging)
+## 4. クラウド環境構成図（ステージング・本番共通）
+
+> ステージング環境と本番環境はサービス構成・通信経路が同一のため、構成図は共通とする。環境固有のリソース名・設定値はセクション5（ステージング）・セクション6（本番）を参照。
 
 ### 4.1 Web構成図
 
@@ -140,15 +144,13 @@
      │  │   │ GraphQL             │  │ GraphQL
      │  │   │                     │  │
 ┌────┼──┼───┼─────────────────────┼──┼───────────────────────────┐
-│  GCP│Project (Staging)          │  │                            │
+│  GCP Project                    │  │                            │
 │    │  │   │    ┌────────────────▼──▼──┐  ┌──────────────┐      │
 │    │  │   │    │ Cloud Run           │  │ Cloud SQL    │      │
-│    │  │   │    │ frienda-server      │──│ frienda-dev- │      │
-│    │  │   │    │ (VPC: dev-network)  │  │ pg           │      │
+│    │  │   │    │ (Backend API)       │──│ (PostgreSQL) │      │
 │    │  │   │    └──┬──┬──┬──┬──┬──┬──┘  └──────────────┘      │
 │    │  │   │       │  │  │  │  │  │   ┌─────────────────┐      │
 │    │  │   │       │  │  │  │  │  │   │ Cloud Storage   │      │
-│    │  │   │       │  │  │  │  │  │   │ photo / general │      │
 │    │  │   │       │  │  │  │  │  │   └─────────────────┘      │
 └────┼──┼───┼───────┼──┼──┼──┼──┼──┼────────────────────────────┘
      │  │   │       │  │  │  │  │  │
@@ -219,15 +221,13 @@
      │  │  │ GraphQL              │ GraphQL
      │  │  │                      │
 ┌────┼──┼──┼──────────────────────┼──────────────────────────────┐
-│  GCP│Project (Staging)          │                               │
+│  GCP│Project                    │                               │
 │    │  │  │     ┌────────────────▼──┐  ┌──────────────┐         │
 │    │  │  │     │ Cloud Run        │  │ Cloud SQL    │         │
-│    │  │  │     │ frienda-server   │──│ frienda-dev- │         │
-│    │  │  │     │ (VPC:dev-network)│  │ pg           │         │
+│    │  │  │     │ (Backend API)    │──│ (PostgreSQL) │         │
 │    │  │  │     └──┬──┬──┬──┬──┬──┘  └──────────────┘         │
 │    │  │  │        │  │  │  │  │   ┌─────────────────┐         │
 │    │  │  │        │  │  │  │  │   │ Cloud Storage   │         │
-│    │  │  │        │  │  │  │  │   │ photo / general │         │
 │    │  │  │        │  │  │  │  │   └─────────────────┘         │
 └────┼──┼──┼────────┼──┼──┼──┼──┼───────────────────────────────┘
      │  │  │        │  │  │  │  │
@@ -277,7 +277,11 @@
   Backend ← Contentful     : Webhook (ニュース更新受信)
 ```
 
-### 4.3 Cloud Run 設定
+---
+
+## 5. ステージング環境 (Staging)
+
+### 5.1 Cloud Run 設定
 
 | 項目 | 設定値 |
 |------|--------|
@@ -288,7 +292,7 @@
 | VPC接続 | VPC Access Connector 経由 |
 | スケーリング | デフォルト（未設定） |
 
-### 4.4 Cloud SQL 設定
+### 5.2 Cloud SQL 設定
 
 | 項目 | 設定値 |
 |------|--------|
@@ -300,14 +304,62 @@
 | バックアップ | 未設定 |
 | パスワード管理 | Terraform変数から指定 |
 
-### 4.5 Cloud Storage 設定
+### 5.3 Cloud Storage 設定
 
 | バケット名 | 用途 | ストレージクラス | ライフサイクル |
 |-----------|------|----------------|--------------|
 | `frienda-photo-storage` | 写真保存 | STANDARD | 365日後にNEARLINEへ遷移 |
 | `frienda-general-files` | 汎用ファイル | STANDARD | 30日後にCOLDLINEへ遷移、バージョニング有効 |
 
-### 4.6 本番環境との差異
+---
+
+## 6. 本番環境 (Production)
+
+### 6.1 Cloud Run 設定
+
+| 項目 | 設定値 |
+|------|--------|
+| サービス名 | `frienda-server-core` |
+| リージョン | `asia-northeast1` |
+| イングレス | `INGRESS_TRAFFIC_ALL`（公開） |
+| IAM | `allUsers` に `run.invoker` 付与（未認証アクセス許可） |
+| VPC接続 | VPC Access Connector (`prod-connector`) 経由 |
+| 最小インスタンス数 | 1（コールドスタート回避） |
+| 最大インスタンス数 | 10 |
+
+### 6.2 Cloud SQL 設定
+
+| 項目 | 設定値 |
+|------|--------|
+| インスタンス名 | `frienda-pg` |
+| バージョン | PostgreSQL 15 |
+| マシンタイプ | `db-custom-1-3840` |
+| IP | プライベートIPのみ（`10.10.0.0/16`） |
+| 削除保護 | **有効** |
+| バックアップ | **有効**（毎日 02:00 UTC） |
+| ポイントインタイムリカバリ | **有効** |
+| パスワード管理 | `random_password` リソースで自動生成（16文字、特殊文字なし） |
+
+### 6.3 Cloud Storage 設定
+
+| バケット名 | 用途 | ストレージクラス | ライフサイクル |
+|-----------|------|----------------|--------------|
+| `prd-frienda-general-files` | 汎用ファイル | STANDARD | 30日後にCOLDLINEへ遷移 |
+
+### 6.4 Terraform State 管理
+
+| 項目 | 設定値 |
+|------|--------|
+| バケット名 | `prd-frienda-terraform-state` |
+| リージョン | `us-west1` |
+| バージョニング | 有効（5世代保持） |
+| 公開アクセス | 禁止（GCSデフォルト動作に依存） |
+
+> **要対応**: Terraform定義に `public_access_prevention = "enforced"` が明示されていない。現在はGCSのデフォルト動作により公開アクセスが防止されているが、明示的に設定を追加してポリシーを確実にすべき。
+
+> **要対応**: GCSバケット `prd-frienda-terraform-state` は存在するが、`terraform/environments/prod/main.tf` に `terraform { backend "gcs" { ... } }` の設定がなく、Terraform State は実際にはローカル管理のままである。リモートバックエンドの設定を追加し、チームでの状態共有・ロック機能を有効化すべき。
+
+### 6.5 環境間差異
 
 | 項目 | ステージング | 本番 |
 |------|-------------|------|
@@ -325,224 +377,9 @@
 
 ---
 
-## 5. 本番環境 (Production)
+## 7. CI/CD パイプライン
 
-### 5.1 Web構成図
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│  Vercel                                                        │
-│  ┌────────────────────┐      ┌────────────────────┐            │
-│  │ WebUI Client       │      │ WebUI Admin        │            │
-│  └─┬──┬───┬───┬───────┘      └─┬──┬───────────────┘            │
-│    │  │   │   │                 │  │                            │
-│    │  │   │   │ API Route       │  │ API Route                  │
-│    │  │   │   ├──→ Stripe       │  ├──→ Stripe                  │
-│    │  │   │   │ Server Component│  │                            │
-│    │  │   │   └──→ Contentful   │  │                            │
-│    │  │   │                     │  │                            │
-└────┼──┼───┼─────────────────────┼──┼───────────────────────────┘
-     │  │   │ GraphQL             │  │ GraphQL
-     │  │   │                     │  │
-┌────┼──┼───┼─────────────────────┼──┼───────────────────────────┐
-│  GCP│Project (Prod)             │  │                            │
-│    │  │   │    ┌────────────────▼──▼──┐  ┌──────────────┐      │
-│    │  │   │    │ Cloud Run           │  │ Cloud SQL    │      │
-│    │  │   │    │ frienda-server-core │──│ frienda-pg   │      │
-│    │  │   │    │ (VPC:frienda-network)│  │ Backup ON    │      │
-│    │  │   │    │ min:1 max:10        │  │              │      │
-│    │  │   │    └──┬──┬──┬──┬──┬──┬──┘  └──────────────┘      │
-│    │  │   │       │  │  │  │  │  │   ┌─────────────────┐      │
-│    │  │   │       │  │  │  │  │  │   │ Cloud Storage   │      │
-│    │  │   │       │  │  │  │  │  │   │ prd-general     │      │
-│    │  │   │       │  │  │  │  │  │   └─────────────────┘      │
-│    │  │   │       │  │  │  │  │  │   ┌─────────────────┐      │
-│    │  │   │       │  │  │  │  │  │   │ Terraform State │      │
-│    │  │   │       │  │  │  │  │  │   │ prd-terraform   │      │
-│    │  │   │       │  │  │  │  │  │   └─────────────────┘      │
-└────┼──┼───┼───────┼──┼──┼──┼──┼──┼────────────────────────────┘
-     │  │   │       │  │  │  │  │  │
-┌────┼──┼───┼───────┼──┼──┼──┼──┼──┼────────────────────────────┐
-│  外部SaaS │       │  │  │  │  │  │                             │
-│    │  │   │       │  │  │  │  │  │                             │
-│  ┌─▼──▼───┼───┐   │  │  │  │  │  │                             │
-│  │ Firebase   │   │  │  │  │  │  │                             │
-│  │ Auth /     │   │  │  │  │  │  │                             │
-│  │ Storage    │   │  │  │  │  │  │                             │
-│  └────────────┘   │  │  │  │  │  │                             │
-│                    │  │  │  │  │  │                             │
-│  ┌────────────┐   │  │  │  │  │  │                             │
-│  │ Stripe     │←Webhook ←┘  │  │  │                             │
-│  │ 決済       │   │  │     │  │  │                             │
-│  └────────────┘   │  │     │  │  │                             │
-│                    │  │     │  │  │                             │
-│  ┌────────────┐   │  │     │  │  │                             │
-│  │ Contentful │←Webhook ←──┘  │  │                             │
-│  │ ニュースCMS│   │  │        │  │                             │
-│  └────────────┘   │  │        │  │                             │
-│                    │  │        │  │                             │
-│  ┌─────────────────▼──▼────────▼──▼───────────────────────┐    │
-│  │ Backend (Cloud Run) 専用                                │    │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐   │    │
-│  │  │ Firebase │ │ Google   │ │ SendGrid │ │ Google   │   │    │
-│  │  │ FCM      │ │ Gemini   │ │ メール    │ │ BigQuery │   │    │
-│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘   │    │
-│  │  ┌──────────┐                                           │    │
-│  │  │ Polygon  │                                           │    │
-│  │  │ RPC      │                                           │    │
-│  │  └──────────┘                                           │    │
-│  └─────────────────────────────────────────────────────────┘    │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-
-  通信方向:
-  [Vercel サーバーサイド経由]
-  WebUI Client → Backend (GraphQL)            : API通信
-  WebUI Client → Firebase                     : 認証 / Storage (クライアントサイド)
-  WebUI Client → Stripe (Vercel API Route)    : 決済セッション作成 (サーバーサイド)
-  WebUI Client → Contentful (Server Component): ニュース取得 (サーバーサイド)
-  WebUI Admin  → Backend (GraphQL)            : API通信
-  WebUI Admin  → Firebase                     : 認証 (クライアントサイド)
-  WebUI Admin  → Stripe (Vercel API Route)    : 売上照会 (サーバーサイド)
-
-  [Backend (Cloud Run) 経由]
-  Backend → Firebase FCM   : プッシュ通知送信
-  Backend → Google Gemini  : AI応答生成
-  Backend → Google BigQuery: DSPストリーミングデータ取得
-  Backend → SendGrid       : メール送信
-  Backend → Polygon RPC    : オンチェーンデータ取得
-  Backend ← Stripe         : Webhook (決済イベント受信)
-  Backend ← Contentful     : Webhook (ニュース更新受信)
-```
-
-### 5.2 Mobile構成図
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│  Mobile Apps                                                   │
-│  ┌────────────────────┐      ┌────────────────────┐            │
-│  │ Mobile Client      │      │ Mobile Admin       │            │
-│  │ (Flutter)          │      │ (Flutter)          │            │
-│  └─┬──┬──┬────────────┘      └─┬──────────────────┘            │
-│    │  │  │                      │                              │
-└────┼──┼──┼──────────────────────┼──────────────────────────────┘
-     │  │  │ GraphQL              │ GraphQL
-     │  │  │                      │
-┌────┼──┼──┼──────────────────────┼──────────────────────────────┐
-│  GCP│Project (Prod)             │                               │
-│    │  │  │     ┌────────────────▼──┐  ┌──────────────┐         │
-│    │  │  │     │ Cloud Run        │  │ Cloud SQL    │         │
-│    │  │  │     │ frienda-server-  │──│ frienda-pg   │         │
-│    │  │  │     │ core             │  │ Backup ON    │         │
-│    │  │  │     │ (VPC:frienda-    │  │              │         │
-│    │  │  │     │  network)        │  │              │         │
-│    │  │  │     │ min:1 max:10     │  │              │         │
-│    │  │  │     └──┬──┬──┬──┬──┬──┘  └──────────────┘         │
-│    │  │  │        │  │  │  │  │   ┌─────────────────┐         │
-│    │  │  │        │  │  │  │  │   │ Cloud Storage   │         │
-│    │  │  │        │  │  │  │  │   │ prd-general     │         │
-│    │  │  │        │  │  │  │  │   └─────────────────┘         │
-│    │  │  │        │  │  │  │  │   ┌─────────────────┐         │
-│    │  │  │        │  │  │  │  │   │ Terraform State │         │
-│    │  │  │        │  │  │  │  │   │ prd-terraform   │         │
-│    │  │  │        │  │  │  │  │   └─────────────────┘         │
-└────┼──┼──┼────────┼──┼──┼──┼──┼───────────────────────────────┘
-     │  │  │        │  │  │  │  │
-┌────┼──┼──┼────────┼──┼──┼──┼──┼───────────────────────────────┐
-│  外部SaaS         │  │  │  │  │                                │
-│    │  │  │        │  │  │  │  │                                │
-│  ┌─▼──▼──┼────┐   │  │  │  │  │                                │
-│  │ Firebase   │   │  │  │  │  │                                │
-│  │ Auth /     │   │  │  │  │  │                                │
-│  │ Storage /  │   │  │  │  │  │                                │
-│  │ FCM        │   │  │  │  │  │                                │
-│  └────────────┘   │  │  │  │  │                                │
-│                    │  │  │  │  │                                │
-│  ┌────────────┐   │  │  │  │  │                                │
-│  │ Contentful │←──┘  │  │  │  │  ← Mobile Client から直接      │
-│  │ ニュースCMS│      │  │  │  │                                │
-│  └────────────┘      │  │  │  │                                │
-│                       │  │  │  │                                │
-│  ┌────────────────────▼──▼──▼──▼──────────────────────────┐    │
-│  │ Backend (Cloud Run) 専用                                │    │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐   │    │
-│  │  │ Firebase │ │ Google   │ │ SendGrid │ │ Google   │   │    │
-│  │  │ FCM      │ │ Gemini   │ │ メール    │ │ BigQuery │   │    │
-│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘   │    │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐                │    │
-│  │  │ Polygon  │ │ Stripe   │ │Contentful│                │    │
-│  │  │ RPC      │ │ Webhook  │ │ Webhook  │                │    │
-│  │  └──────────┘ └──────────┘ └──────────┘                │    │
-│  └─────────────────────────────────────────────────────────┘    │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-
-  通信方向:
-  [Mobile アプリから直接]
-  Mobile Client → Backend (GraphQL)   : API通信
-  Mobile Client → Firebase            : 認証 / Storage / FCMトークン登録
-  Mobile Client → Contentful          : ニュース取得 (アプリから直接CDN API)
-  Mobile Admin  → Backend (GraphQL)   : API通信
-
-  [Backend (Cloud Run) 経由]
-  Backend → Firebase FCM   : プッシュ通知送信
-  Backend → Google Gemini  : AI応答生成
-  Backend → Google BigQuery: DSPストリーミングデータ取得
-  Backend → SendGrid       : メール送信
-  Backend → Polygon RPC    : オンチェーンデータ取得
-  Backend ← Stripe         : Webhook (決済イベント受信)
-  Backend ← Contentful     : Webhook (ニュース更新受信)
-```
-
-### 5.3 Cloud Run 設定
-
-| 項目 | 設定値 |
-|------|--------|
-| サービス名 | `frienda-server-core` |
-| リージョン | `asia-northeast1` |
-| イングレス | `INGRESS_TRAFFIC_ALL`（公開） |
-| IAM | `allUsers` に `run.invoker` 付与（未認証アクセス許可） |
-| VPC接続 | VPC Access Connector (`prod-connector`) 経由 |
-| 最小インスタンス数 | 1（コールドスタート回避） |
-| 最大インスタンス数 | 10 |
-
-### 5.4 Cloud SQL 設定
-
-| 項目 | 設定値 |
-|------|--------|
-| インスタンス名 | `frienda-pg` |
-| バージョン | PostgreSQL 15 |
-| マシンタイプ | `db-custom-1-3840` |
-| IP | プライベートIPのみ（`10.10.0.0/16`） |
-| 削除保護 | **有効** |
-| バックアップ | **有効**（毎日 02:00 UTC） |
-| ポイントインタイムリカバリ | **有効** |
-| パスワード管理 | `random_password` リソースで自動生成（16文字、特殊文字なし） |
-
-### 5.5 Cloud Storage 設定
-
-| バケット名 | 用途 | ストレージクラス | ライフサイクル |
-|-----------|------|----------------|--------------|
-| `prd-frienda-general-files` | 汎用ファイル | STANDARD | 30日後にCOLDLINEへ遷移 |
-
-### 5.6 Terraform State 管理
-
-| 項目 | 設定値 |
-|------|--------|
-| バケット名 | `prd-frienda-terraform-state` |
-| リージョン | `us-west1` |
-| バージョニング | 有効（5世代保持） |
-| 公開アクセス | 禁止（GCSデフォルト動作に依存） |
-
-> **要対応**: Terraform定義に `public_access_prevention = "enforced"` が明示されていない。現在はGCSのデフォルト動作により公開アクセスが防止されているが、明示的に設定を追加してポリシーを確実にすべき。
-
-> **要対応**: GCSバケット `prd-frienda-terraform-state` は存在するが、`terraform/environments/prod/main.tf` に `terraform { backend "gcs" { ... } }` の設定がなく、Terraform State は実際にはローカル管理のままである。リモートバックエンドの設定を追加し、チームでの状態共有・ロック機能を有効化すべき。
-
----
-
-## 6. CI/CD パイプライン
-
-### 6.1 全体フロー
+### 7.1 全体フロー
 
 ```
 ┌────────┐    push     ┌──────────┐    ┌──────────────┐
@@ -561,7 +398,7 @@
                └─────────────┘  └────────────────┘  └────────────────┘
 ```
 
-### 6.2 Claude Code ワークフロー (`claude.yml`)
+### 7.2 Claude Code ワークフロー (`claude.yml`)
 
 | 項目 | 設定 |
 |------|------|
@@ -571,7 +408,7 @@
 
 > **注意**: ビルド・デプロイには関与しない開発支援用ワークフロー。
 
-### 6.3 CI ワークフロー (`ci.yaml`)
+### 7.3 CI ワークフロー (`ci.yaml`)
 
 | トリガー | 条件 |
 |---------|------|
@@ -584,7 +421,7 @@
 | Client | コミットメッセージに "client" | `pnpm install`, `pnpm lint` |
 | Contract | コミットメッセージに "contract" | `forge install`, `forge test` |
 
-### 6.4 デプロイワークフロー
+### 7.4 デプロイワークフロー
 
 #### ステージング環境デプロイ (`deploy_dev_server.yaml`)
 
@@ -616,7 +453,7 @@
 | 処理内容 | DSP認証情報の更新 |
 | 対象 | ステージング → 本番（順次実行） |
 
-### 6.5 デプロイブランチ戦略
+### 7.5 デプロイブランチ戦略
 
 ```
 feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
@@ -624,9 +461,9 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 
 ---
 
-## 7. Docker イメージ構成
+## 8. Docker イメージ構成
 
-### 7.1 Backend サーバー (`Dockerfile.server`)
+### 8.1 Backend サーバー (`Dockerfile.server`)
 
 | 項目 | 設定値 |
 |------|--------|
@@ -647,7 +484,7 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 
 > **セキュリティ上の懸念**: 現在、ステージング用・本番用の両方のFirebase認証JSONが単一のDockerイメージに含まれている。環境ごとにイメージを分離するか、Secret Managerからの動的取得への移行を検討すべき。
 
-### 7.2 Backend エクステンション (`Dockerfile.extension`)
+### 8.2 Backend エクステンション (`Dockerfile.extension`)
 
 | 項目 | 設定値 |
 |------|--------|
@@ -661,7 +498,7 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 
 > **注意**: Rustバージョンが server-core (`1.94.1`) と server-extension (`1.83.0`) で大きく異なる。ビルド再現性やセキュリティパッチの観点から、バージョンの統一を検討すべき。
 
-### 7.3 PostgreSQL (`services/postgres/Dockerfile`)
+### 8.3 PostgreSQL (`services/postgres/Dockerfile`)
 
 | 項目 | 設定値 |
 |------|--------|
@@ -670,9 +507,9 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 
 ---
 
-## 8. 環境変数一覧
+## 9. 環境変数一覧
 
-### 8.1 Backend API
+### 9.1 Backend API
 
 | カテゴリ | 変数名 | 用途 |
 |---------|--------|------|
@@ -696,7 +533,7 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 | DSP | `GENDER_GEN_AUTH_URL` | Gender Generation 認証URL |
 | セキュリティ | `HASH_SALT` | ハッシュソルト |
 
-### 8.2 WebUI Client
+### 9.2 WebUI Client
 
 | カテゴリ | 変数名 | 用途 |
 |---------|--------|------|
@@ -706,7 +543,7 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 | 認証 | Firebase設定（PROJECT_ID等） | Firebase認証 |
 | 決済 | `STRIPE_SECRET_KEY` | Stripe連携 |
 
-### 8.3 WebUI Admin
+### 9.3 WebUI Admin
 
 | カテゴリ | 変数名 | 用途 |
 |---------|--------|------|
@@ -714,7 +551,7 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 | API | `NEXT_PUBLIC_GRAPHQL_ENDPOINT` | GraphQLエンドポイント |
 | 決済 | `STRIPE_SECRET_KEY` | Stripe連携 |
 
-### 8.4 Smart Contracts
+### 9.4 Smart Contracts
 
 | カテゴリ | 変数名 | 用途 |
 |---------|--------|------|
@@ -725,9 +562,9 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 
 ---
 
-## 9. 認証・セキュリティ
+## 10. 認証・セキュリティ
 
-### 9.1 認証方式
+### 10.1 認証方式
 
 | レイヤー | 方式 | 詳細 |
 |---------|------|------|
@@ -736,7 +573,7 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 | API間通信 | サービスアカウント | GCPサービスアカウント |
 | 決済 | Stripe Webhook | Webhook署名検証 |
 
-### 9.2 ネットワークセキュリティ
+### 10.2 ネットワークセキュリティ
 
 | 項目 | 設定 |
 |------|------|
@@ -751,7 +588,7 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 
 ---
 
-## 10. 環境間差異サマリー
+## 11. 環境間差異サマリー
 
 | 項目 | 開発 (Local) | ステージング (Staging) | 本番 (Prod) |
 |------|-------------|----------------------|-------------|
@@ -772,30 +609,30 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 
 ---
 
-## 11. 今後の改善事項
+## 12. 今後の改善事項
 
-### 11.1 ステージング環境の強化
+### 12.1 ステージング環境の強化
 
 - [ ] ステージング環境のリソース名を `dev-` プレフィクスから `stg-` プレフィクスへリネーム検討
 - [ ] Cloud SQL バックアップの有効化
 - [ ] Cloud SQL 削除保護の有効化
 - [ ] Terraform State のリモート管理化（GCS）
 
-### 11.2 セキュリティ強化
+### 12.2 セキュリティ強化
 
 - [ ] Cloud Runへのロードバランサー + Cloud Armor導入
 - [ ] Identity-Aware Proxy (IAP) による管理画面アクセス制限
 - [ ] Cloud SQL への接続をCloud SQL Auth Proxyに統一
 - [ ] シークレット管理をGitHub SecretsからGoogle Secret Managerへ移行検討
 
-### 11.3 可用性・監視
+### 12.3 可用性・監視
 
 - [ ] Cloud Monitoring アラートポリシーの設定
 - [ ] Cloud Logging のログベースメトリクス設定
 - [ ] アップタイムチェックの導入
 - [ ] エラーレポート（Error Reporting）の有効化
 
-### 11.4 コスト最適化
+### 12.4 コスト最適化
 
 - [ ] ステージング環境のTerraform State をリモート管理化
 - [ ] 不要リソースの定期棚卸しフロー整備
