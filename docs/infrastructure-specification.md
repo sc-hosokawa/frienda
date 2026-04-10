@@ -515,11 +515,11 @@ graph LR
 
 | レイヤー | 方式 | 詳細 |
 |---------|------|------|
-| ユーザー認証 | Firebase Authentication | JWT トークンによる認証 |
+| ユーザー認証 | Firebase Authentication | フロントエンド（Next.js API Route）でのJWTトークン検証。**バックエンドのJWT検証ミドルウェアは無効化中（#25 参照）** |
 | 管理画面（ゲート） | Basic Authentication | Next.js middleware によるページアクセス制御 |
 | 管理画面（アプリ内） | Firebase Authentication | 管理者ユーザーの認証・状態管理 |
 | API間通信 | サービスアカウント | GCPサービスアカウント |
-| 決済 | Stripe Webhook | Webhook署名検証 |
+| 決済 | Stripe Webhook | Webhook署名検証 **（未実装 — #23 参照）** |
 
 ### 10.2 ネットワークセキュリティ
 
@@ -576,6 +576,10 @@ graph LR
 - [ ] **GCS public_access_prevention の明示的設定**: Terraform Stateバケットの公開アクセス防止がGCSデフォルトに依存 → `public_access_prevention = "enforced"` の明示的設定（[セクション6.4](#64-terraform-state-管理)参照）
 - [ ] **deploy_prd_server.yaml の認証情報不整合**: `GCLOUD_AUTH_PRD` と `GCLOUD_AUTH` が混在 → 認証情報の統一（[セクション7.4](#74-デプロイワークフロー)参照）
 - [ ] **ci.yaml のパス指定不整合**: `services/frontend/` が `services/webui/` と不一致のため、CIトリガー・Clientジョブが正しく動作していない → パス修正（[セクション7.3](#73-ci-ワークフロー-ciyaml)参照）
+- [ ] **Stripe Webhook署名検証の実装**（#23）
+- [ ] **バックエンドGraphQLエンドポイントのトークン検証有効化**（#25）
+- [ ] **招待メール配信のハードコードパスワードの環境変数化**（#26）
+- [ ] **ポイント送付時のトランザクション整合性修正**（#22）
 
 **優先度: 中**
 
