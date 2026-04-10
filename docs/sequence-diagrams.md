@@ -310,7 +310,7 @@ sequenceDiagram
 
 ## ポイントシステム（FSP配分）
 
-管理者はバックエンドのGraphQL mutation（createBulkFspTx）を通じて、一括でユーザーにFSPを配分できます。データベースは単一のPostgreSQLで、組織とユーザーのデータは同一DB内に存在します。
+管理者はバックエンドのGraphQL mutation（createBulkFspTx）を通じて、一括でユーザーにFSPを配分できます。データベースは単一のPostgreSQLで、組織とユーザーのデータは同一DB内に存在します。送付元にはアーティストアカウント（artist_*）も指定可能で、その場合はアーティストのFSPから減算されます。なお、bulk_transferでは通知（DB通知・FCM・SendGrid）は送信されません。
 
 ```mermaid
 sequenceDiagram
@@ -320,9 +320,6 @@ sequenceDiagram
     participant 管理画面 as 管理画面（Admin）
     participant バックエンド as バックエンド（GraphQL）
     participant データベース
-    participant FCM
-    participant SendGrid
-    actor 対象ユーザー
 
     管理者->>管理画面: FSP配分画面を開く
     管理画面->>バックエンド: システム概要を取得（総配布ポイント数等）
@@ -334,21 +331,31 @@ sequenceDiagram
     管理画面->>バックエンド: createBulkFspTx mutation（配分リスト）
 
     loop 各対象ユーザーについて
-        バックエンド->>データベース: 送付元のFSP残高チェック
-        alt 残高不足
-            バックエンド-->>管理画面: エラー（Insufficient balance）
-        else 残高充足
-            バックエンド->>データベース: 送付元FSP減算
-            バックエンド->>データベース: 対象ユーザーFSP加算
-            バックエンド->>データベース: トランザクション履歴作成
-
-            バックエンド->>データベース: 通知レコード作成（非同期）
-            バックエンド-)FCM: プッシュ通知送信（非同期）
-            FCM-)対象ユーザー: 「ポイントを受け取りました」
-            バックエンド-)SendGrid: メール通知送信（非同期）
-            SendGrid-)対象ユーザー: ポイント受取通知メール
+        alt 送付元がアーティストアカウント（artist_*）
+            バックエンド->>データベース: アーティストのFSP残高チェック
+            alt 残高不足
+                バックエンド-->>管理画面: エラー（Insufficient artist balance）
+            else 残高充足
+                バックエンド->>データベース: アーティストFSP減算
+            end
+        else 送付元が通常ユーザー
+            バックエンド->>データベース: ユーザーのFSP残高チェック
+            alt 残高不足
+                バックエンド-->>管理画面: エラー（Insufficient balance）
+            else 残高充足
+                バックエンド->>データベース: 送付元ユーザーFSP減算
+            end
+        else 送付元が管理者アカウント
+            Note over バックエンド: 残高チェック・減算をスキップ
+        end
+        バックエンド->>データベース: 対象ユーザーFSP加算
         end
     end
+
+    バックエンド->>データベース: FSPトランザクション履歴を一括作成（create_many）
+    データベース-->>バックエンド: 作成完了
+
+    Note over バックエンド: bulk_transferでは通知（DB通知・FCM・SendGrid）は送信されない
 
     バックエンド-->>管理画面: 配分完了レスポンス
     管理画面->>管理者: 配分結果を表示
