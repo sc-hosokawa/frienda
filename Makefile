@@ -172,6 +172,15 @@ help:
 	@echo 'open-api'
 	@echo '  - http://localhost:8080/graphql (GraphQL API)'
 	@echo
+	@echo 'open-mail'
+	@echo '  - http://127.0.0.1:8025 (Mailpit UI)'
+	@echo
+	@echo 'open-stripe'
+	@echo '  - http://127.0.0.1:12111 (stripe-mock)'
+	@echo
+	@echo 'open-firebase'
+	@echo '  - http://127.0.0.1:4000 (Firebase Emulator UI)'
+	@echo
 	@echo '=== Setup ==='
 	@echo
 	@echo 'setup'
@@ -395,6 +404,18 @@ open-admin:
 .PHONY: open-api
 open-api:
 	$(OPEN_CMD) http://localhost:8080/graphql
+
+.PHONY: open-mail
+open-mail:
+	$(OPEN_CMD) http://127.0.0.1:8025
+
+.PHONY: open-stripe
+open-stripe:
+	$(OPEN_CMD) http://127.0.0.1:12111
+
+.PHONY: open-firebase
+open-firebase:
+	$(OPEN_CMD) http://127.0.0.1:4000
 
 # --- Setup ---
 
