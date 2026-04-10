@@ -4,8 +4,8 @@ RUN npm install -g firebase-tools
 
 WORKDIR /app
 
-COPY firebase.json .
+COPY firebase.json storage.rules ./
 
 EXPOSE 4000 9099 9199
 
-CMD ["firebase", "emulators:start", "--project", "frienda-local", "--only", "auth,storage"]
+CMD ["firebase", "emulators:start", "--only", "auth,storage"]

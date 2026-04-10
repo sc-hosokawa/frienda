@@ -2,9 +2,9 @@ FROM node:20-slim
 
 WORKDIR /app
 
-COPY package.json server.js ./
+COPY package.json package-lock.json server.js ./
 
-RUN npm install
+RUN npm ci
 
 EXPOSE 3100
 

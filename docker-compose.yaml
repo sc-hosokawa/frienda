@@ -25,7 +25,7 @@ services:
       - '${FIREBASE_STORAGE_PORT:-9199}:9199'      # Storage
       - '${FIREBASE_EMULATOR_UI_PORT:-4000}:4000'  # Emulator UI
     environment:
-      FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID:-frienda-local}
+      GCLOUD_PROJECT: ${FIREBASE_PROJECT_ID:-frienda-local}
 
   # --- Anvil (Foundryローカルブロックチェーンノード) ---
   anvil:
@@ -67,7 +67,7 @@ services:
     profiles:
       - services
       - bigquery
-    command: ["--project", "${BIGQUERY_PROJECT_ID:-frienda-local}"]
+    command: ["--project", "${BIGQUERY_PROJECT_ID:-frienda-local}", "--port", "9050"]
     ports:
       - '${BIGQUERY_PORT:-9050}:9050'
 
@@ -82,6 +82,11 @@ services:
       - contentful
     ports:
       - '${CONTENTFUL_MOCK_PORT:-3100}:3100'
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3100/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   # --- Gemini モックサーバー ---
   gemini-mock:
@@ -94,3 +99,8 @@ services:
       - gemini
     ports:
       - '${GEMINI_MOCK_PORT:-3101}:3101'
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3101/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3

@@ -227,8 +227,7 @@ dev-services:
 	docker compose --profile services up -d --build
 
 .PHONY: dev-all
-dev-all:
-	docker compose --profile services up -d --build
+dev-all: run-pg dev-services
 
 .PHONY: dev-firebase
 dev-firebase:
