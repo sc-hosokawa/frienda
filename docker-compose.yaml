@@ -66,7 +66,9 @@ services:
   bigquery-emulator:
     container_name: bigquery-emulator
     image: ghcr.io/goccy/bigquery-emulator:latest
+    platform: linux/amd64
     profiles:
+      - services
       - bigquery
     command: ["--project", "${BIGQUERY_PROJECT_ID:-frienda-local}", "--port", "9050"]
     ports:
