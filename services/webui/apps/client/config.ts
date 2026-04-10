@@ -49,8 +49,10 @@ export const auth = getAuth(app);
 if (emulatorHost) {
   try {
     connectAuthEmulator(auth, `http://${emulatorHost}`);
-  } catch {
-    // Already connected (e.g. HMR re-evaluation)
+  } catch (e) {
+    if (!(e instanceof Error) || !e.message.includes("already")) {
+      console.error("Failed to connect to Auth Emulator:", e);
+    }
   }
 }
 export const storage = getStorage(app);
