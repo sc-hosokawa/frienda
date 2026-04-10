@@ -53,6 +53,7 @@
 
 > ※1: Vercel API Route / Server Component 経由（サーバーサイド処理）。ブラウザから外部SaaSへの直接通信ではない
 > ※2: モバイルアプリから直接 Contentful CDN API に通信
+> ※ Mobile Admin は外部SaaSとの直接通信なし。Backend API（GraphQL）経由でのみデータにアクセスする
 
 ---
 
@@ -311,21 +312,7 @@ graph TB
 
 > **要対応**: GCSバケット `prd-frienda-terraform-state` は存在するが、`terraform/environments/prod/main.tf` に `terraform { backend "gcs" { ... } }` の設定がなく、Terraform State は実際にはローカル管理のままである。リモートバックエンドの設定を追加し、チームでの状態共有・ロック機能を有効化すべき。
 
-### 6.5 環境間差異
-
-| 項目 | ステージング | 本番 |
-|------|-------------|------|
-| Cloud Run サービス名 | `frienda-server` | `frienda-server-core` |
-| Cloud Run 最小インスタンス | 0（デフォルト） | 1 |
-| Cloud Run 最大インスタンス | デフォルト | 10 |
-| Cloud SQL インスタンス名 | `frienda-dev-pg` | `frienda-pg` |
-| Cloud SQL バックアップ | なし | あり (PITR, 02:00 UTC) |
-| Cloud SQL 削除保護 | あり（デフォルト、明示記述なし） | あり（明示的に設定） |
-| Cloud SQL パスワード | 変数指定 | 自動生成 |
-| VPC ネットワーク | `dev-network` | `frienda-network` |
-| ストレージバケット | 2個（photo, general） | 1個（general） |
-| Terraform State | ローカル | ローカル（GCSバケットは存在するがbackend未設定） |
-| デプロイブランチ | `main` | `release` |
+> ステージング・本番の環境間差異は[セクション11「環境間差異サマリー」](#11-環境間差異サマリー)を参照。
 
 ---
 
@@ -452,6 +439,8 @@ graph LR
 
 > **注意**: Rustバージョンが server-core (`1.94.1`) と server-extension (`1.83.0`) で大きく異なる。ビルド再現性やセキュリティパッチの観点から、バージョンの統一を検討すべき。また、Dockerfileでのバージョン指定に加えて `rust-toolchain.toml` での一元管理を導入し、ローカル開発とCI/CDビルドでのバージョン整合性を確保することを推奨。
 
+> **注意**: `server-extension` に対応するデプロイワークフロー（GitHub Actions）は存在しない。現在は手動デプロイまたは未使用の状態。CI/CDパイプラインへの組み込みが必要な場合は、`deploy_dev_server.yaml` を参考にワークフローを作成すべき。
+
 ### 8.3 PostgreSQL (`services/postgres/Dockerfile`)
 
 | 項目 | 設定値 |
@@ -527,7 +516,8 @@ graph LR
 | レイヤー | 方式 | 詳細 |
 |---------|------|------|
 | ユーザー認証 | Firebase Authentication | JWT トークンによる認証 |
-| 管理画面 | Basic Authentication | ユーザー名/パスワード |
+| 管理画面（ゲート） | Basic Authentication | Next.js middleware によるページアクセス制御 |
+| 管理画面（アプリ内） | Firebase Authentication | 管理者ユーザーの認証・状態管理 |
 | API間通信 | サービスアカウント | GCPサービスアカウント |
 | 決済 | Stripe Webhook | Webhook署名検証 |
 
@@ -574,7 +564,7 @@ graph LR
 - [ ] ステージング環境のリソース名を `dev-` プレフィクスから `stg-` プレフィクスへリネーム検討
 - [ ] Cloud SQL バックアップの有効化
 - [ ] Cloud SQL 削除保護の明示的設定（現在はTerraformデフォルト `true` に依存）
-- [ ] Terraform State のリモート管理化（GCS）
+- [ ] Terraform State のリモート管理化 → [12.2 セキュリティ強化（優先度: 高）](#122-セキュリティ強化)参照
 
 ### 12.2 セキュリティ強化
 
@@ -602,7 +592,6 @@ graph LR
 
 ### 12.4 コスト最適化
 
-- [ ] ステージング環境のTerraform State をリモート管理化
 - [ ] 不要リソースの定期棚卸しフロー整備
 - [ ] Cloud RunのCPU割り当て最適化（request-based vs always-on）
 
