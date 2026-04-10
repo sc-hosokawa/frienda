@@ -47,9 +47,12 @@
 | **Google Gemini** | AI応答生成 | — | — | — | — |
 | **Google BigQuery** | DSPデータ取得 | — | — | — | — |
 | **SendGrid** | メール送信 | — | — | — | — |
-| **Stripe** | Webhook受信 | 決済セッション作成 | 売上照会 | — | — |
-| **Contentful** | Webhook受信 | ニュース取得 | — | ニュース取得 | — |
+| **Stripe** | Webhook受信 | 決済セッション作成 (※1) | 売上照会 (※1) | — | — |
+| **Contentful** | Webhook受信 | ニュース取得 (※1) | — | ニュース取得 (※2) | — |
 | **Polygon (RPC)** | オンチェーンデータ取得 | EVMアドレス検証 | — | — | — |
+
+> ※1: Vercel API Route / Server Component 経由（サーバーサイド処理）。ブラウザから外部SaaSへの直接通信ではない
+> ※2: モバイルアプリから直接 Contentful CDN API に通信
 
 ---
 
@@ -151,7 +154,7 @@
 │  外部SaaS   │     │   │  │  │  │  │                        │
 │    │  │  │  │     │   │  │  │  │  │                        │
 │  ┌─▼──┼──┼──▼─┐ ┌─▼───▼──▼──▼──▼──▼───────────────────┐   │
-│  │ Firebase   │ │ Backend専用                           │   │
+│  │ Firebase   │ │ Backend (Cloud Run) 専用             │   │
 │  │ Auth /     │ │ ┌──────────┐ ┌──────────┐            │   │
 │  │ Storage    │ │ │ Firebase │ │ Google   │            │   │
 │  └────────────┘ │ │ FCM      │ │ Gemini   │            │   │
@@ -169,13 +172,16 @@
 └─────┼──┼────────────────────────────────────────────────────┘
       │  │
   通信方向:
-  WebUI Client → Backend (GraphQL)    : API通信
-  WebUI Client → Firebase             : 認証 / Storage
-  WebUI Client → Stripe               : 決済セッション作成
-  WebUI Client → Contentful           : ニュース取得
-  WebUI Admin  → Backend (GraphQL)    : API通信
-  WebUI Admin  → Firebase             : 認証
-  WebUI Admin  → Stripe               : 売上照会
+  [Vercel サーバーサイド経由]
+  WebUI Client → Backend (GraphQL)           : API通信
+  WebUI Client → Firebase                    : 認証 / Storage (クライアントサイド)
+  WebUI Client → Stripe (Vercel API Route)   : 決済セッション作成 (サーバーサイド)
+  WebUI Client → Contentful (Server Component): ニュース取得 (サーバーサイド)
+  WebUI Admin  → Backend (GraphQL)           : API通信
+  WebUI Admin  → Firebase                    : 認証 (クライアントサイド)
+  WebUI Admin  → Stripe (Vercel API Route)   : 売上照会 (サーバーサイド)
+
+  [Backend (Cloud Run) 経由]
   Backend      → Firebase FCM         : プッシュ通知送信
   Backend      → Google Gemini        : AI応答生成
   Backend      → Google BigQuery      : DSPストリーミングデータ取得
@@ -218,7 +224,7 @@
 │  外部SaaS         │   │  │  │  │  │                        │
 │    │  │  │        │   │  │  │  │  │                        │
 │  ┌─▼──▼──▼────┐ ┌─▼───▼──▼──▼──▼──▼───────────────────┐   │
-│  │ Firebase   │ │ Backend専用                           │   │
+│  │ Firebase   │ │ Backend (Cloud Run) 専用             │   │
 │  │ Auth /     │ │ ┌──────────┐ ┌──────────┐            │   │
 │  │ Storage /  │ │ │ Firebase │ │ Google   │            │   │
 │  │ FCM        │ │ │ FCM      │ │ Gemini   │            │   │
@@ -236,10 +242,13 @@
 └─────┼──────────────────────────────────────────────────────┘
       │
   通信方向:
+  [Mobile アプリから直接]
   Mobile Client → Backend (GraphQL)   : API通信
   Mobile Client → Firebase            : 認証 / Storage / FCMトークン登録
-  Mobile Client → Contentful          : ニュース取得
+  Mobile Client → Contentful          : ニュース取得 (アプリから直接CDN API)
   Mobile Admin  → Backend (GraphQL)   : API通信
+
+  [Backend (Cloud Run) 経由]
   Backend       → Firebase FCM        : プッシュ通知送信
   Backend       → Google Gemini       : AI応答生成
   Backend       → Google BigQuery     : DSPストリーミングデータ取得
@@ -337,7 +346,7 @@
 │  外部SaaS   │     │   │  │  │  │  │                        │
 │    │  │  │  │     │   │  │  │  │  │                        │
 │  ┌─▼──┼──┼──▼─┐ ┌─▼───▼──▼──▼──▼──▼───────────────────┐   │
-│  │ Firebase   │ │ Backend専用                           │   │
+│  │ Firebase   │ │ Backend (Cloud Run) 専用             │   │
 │  │ Auth /     │ │ ┌──────────┐ ┌──────────┐            │   │
 │  │ Storage    │ │ │ Firebase │ │ Google   │            │   │
 │  └────────────┘ │ │ FCM      │ │ Gemini   │            │   │
@@ -355,13 +364,16 @@
 └─────┼──┼────────────────────────────────────────────────────┘
       │  │
   通信方向:
-  WebUI Client → Backend (GraphQL)    : API通信
-  WebUI Client → Firebase             : 認証 / Storage
-  WebUI Client → Stripe               : 決済セッション作成
-  WebUI Client → Contentful           : ニュース取得
-  WebUI Admin  → Backend (GraphQL)    : API通信
-  WebUI Admin  → Firebase             : 認証
-  WebUI Admin  → Stripe               : 売上照会
+  [Vercel サーバーサイド経由]
+  WebUI Client → Backend (GraphQL)           : API通信
+  WebUI Client → Firebase                    : 認証 / Storage (クライアントサイド)
+  WebUI Client → Stripe (Vercel API Route)   : 決済セッション作成 (サーバーサイド)
+  WebUI Client → Contentful (Server Component): ニュース取得 (サーバーサイド)
+  WebUI Admin  → Backend (GraphQL)           : API通信
+  WebUI Admin  → Firebase                    : 認証 (クライアントサイド)
+  WebUI Admin  → Stripe (Vercel API Route)   : 売上照会 (サーバーサイド)
+
+  [Backend (Cloud Run) 経由]
   Backend      → Firebase FCM         : プッシュ通知送信
   Backend      → Google Gemini        : AI応答生成
   Backend      → Google BigQuery      : DSPストリーミングデータ取得
@@ -411,7 +423,7 @@
 │  外部SaaS         │   │  │  │  │  │                        │
 │    │  │  │        │   │  │  │  │  │                        │
 │  ┌─▼──▼──▼────┐ ┌─▼───▼──▼──▼──▼──▼───────────────────┐   │
-│  │ Firebase   │ │ Backend専用                           │   │
+│  │ Firebase   │ │ Backend (Cloud Run) 専用             │   │
 │  │ Auth /     │ │ ┌──────────┐ ┌──────────┐            │   │
 │  │ Storage /  │ │ │ Firebase │ │ Google   │            │   │
 │  │ FCM        │ │ │ FCM      │ │ Gemini   │            │   │
@@ -429,10 +441,13 @@
 └─────┼──────────────────────────────────────────────────────┘
       │
   通信方向:
+  [Mobile アプリから直接]
   Mobile Client → Backend (GraphQL)   : API通信
   Mobile Client → Firebase            : 認証 / Storage / FCMトークン登録
-  Mobile Client → Contentful          : ニュース取得
+  Mobile Client → Contentful          : ニュース取得 (アプリから直接CDN API)
   Mobile Admin  → Backend (GraphQL)   : API通信
+
+  [Backend (Cloud Run) 経由]
   Backend       → Firebase FCM        : プッシュ通知送信
   Backend       → Google Gemini       : AI応答生成
   Backend       → Google BigQuery     : DSPストリーミングデータ取得
