@@ -619,7 +619,16 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 | ビルド対象 | `server-core` |
 | ビルドモード | release |
 | ポート | 8080 |
-| 含まれるファイル | Firebase認証JSONファイル |
+| 含まれるファイル | Firebase認証JSONファイル（下記2ファイル） |
+
+**Firebase認証JSONファイル:**
+
+| ファイル名 | 用途 |
+|-----------|------|
+| `frienda-auth-test1-a490c287d01b.json` | ステージング環境用 |
+| `friendship-dao-firebase-adminsdk-a2w15-e1854b252a.json` | 本番環境用 |
+
+> **セキュリティ上の懸念**: 現在、ステージング用・本番用の両方のFirebase認証JSONが単一のDockerイメージに含まれている。環境ごとにイメージを分離するか、Secret Managerからの動的取得への移行を検討すべき。
 
 ### 7.2 Backend エクステンション (`Dockerfile.extension`)
 
