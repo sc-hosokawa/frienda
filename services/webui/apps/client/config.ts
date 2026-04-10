@@ -48,7 +48,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 if (emulatorHost) {
   try {
-    connectAuthEmulator(auth, `http://${emulatorHost}`);
+    connectAuthEmulator(auth, `http://${emulatorHost}`, { disableWarnings: true });
   } catch (e) {
     if (!(e instanceof Error) || !e.message.includes("already")) {
       console.error("Failed to connect to Auth Emulator:", e);
