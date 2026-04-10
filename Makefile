@@ -45,6 +45,41 @@ help:
 	@echo 'logs-watch'
 	@echo '  - docker compose logs --follow'
 	@echo
+	@echo '=== Local Development Services ==='
+	@echo
+	@echo 'dev-services'
+	@echo '  - Start all local dev service emulators/mocks (profile: services)'
+	@echo
+	@echo 'dev-all'
+	@echo '  - Start PostgreSQL + all local dev services'
+	@echo
+	@echo 'dev-firebase'
+	@echo '  - Start Firebase Emulator only'
+	@echo
+	@echo 'dev-blockchain'
+	@echo '  - Start Anvil (local blockchain) only'
+	@echo
+	@echo 'dev-mail'
+	@echo '  - Start Mailpit (SMTP catcher) only'
+	@echo
+	@echo 'dev-stripe'
+	@echo '  - Start stripe-mock only'
+	@echo
+	@echo 'dev-bigquery'
+	@echo '  - Start BigQuery Emulator only'
+	@echo
+	@echo 'dev-contentful'
+	@echo '  - Start Contentful mock server only'
+	@echo
+	@echo 'dev-gemini'
+	@echo '  - Start Gemini mock server only'
+	@echo
+	@echo 'stop-services'
+	@echo '  - Stop all local dev services'
+	@echo
+	@echo 'down-services'
+	@echo '  - Remove all local dev service containers'
+	@echo
 	@echo '=== Database - PostgreSQL ==='
 	@echo
 	@echo 'sql'
@@ -184,6 +219,52 @@ logs:
 .PHONY: logs-watch
 logs-watch:
 	docker compose logs --follow
+
+# --- Local Development Services ---
+
+.PHONY: dev-services
+dev-services:
+	docker compose --profile services up -d --build
+
+.PHONY: dev-all
+dev-all:
+	docker compose --profile services up -d --build
+
+.PHONY: dev-firebase
+dev-firebase:
+	docker compose --profile firebase up -d --build
+
+.PHONY: dev-blockchain
+dev-blockchain:
+	docker compose --profile blockchain up -d
+
+.PHONY: dev-mail
+dev-mail:
+	docker compose --profile mail up -d
+
+.PHONY: dev-stripe
+dev-stripe:
+	docker compose --profile stripe up -d
+
+.PHONY: dev-bigquery
+dev-bigquery:
+	docker compose --profile bigquery up -d
+
+.PHONY: dev-contentful
+dev-contentful:
+	docker compose --profile contentful up -d --build
+
+.PHONY: dev-gemini
+dev-gemini:
+	docker compose --profile gemini up -d --build
+
+.PHONY: stop-services
+stop-services:
+	docker compose --profile services stop
+
+.PHONY: down-services
+down-services:
+	docker compose --profile services down
 
 # --- Database - PostgreSQL ---
 

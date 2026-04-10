@@ -78,6 +78,15 @@ graph LR
     subgraph docker-compose
         PG["postgres<br/>PostgreSQL 16<br/>Port: 5432<br/>User: postgres<br/>DB: postgres"]
     end
+    subgraph "docker-compose (profile: services)"
+        FB["firebase-emulator<br/>Auth: 9099 / Storage: 9199<br/>UI: 4000"]
+        AN["anvil<br/>Blockchain RPC<br/>Port: 8545"]
+        MP["mailpit<br/>SMTP: 1025 / UI: 8025"]
+        SM["stripe-mock<br/>HTTP: 12111 / HTTPS: 12112"]
+        BQ["bigquery-emulator<br/>Port: 9050"]
+        CM["contentful-mock<br/>Port: 3100"]
+        GM["gemini-mock<br/>Port: 3101"]
+    end
 ```
 
 | 項目 | 設定値 |
@@ -115,6 +124,22 @@ graph LR
 | WebUI Client | `make webui-client-dev` | 3000 |
 | WebUI Admin | `make webui-admin-dev` | 3001 |
 | PostgreSQL | `make run-pg` | 5432 |
+
+#### 外部サービス代替コンテナ（プロファイル機能）
+
+本番環境の外部SaaSの代替として、Docker Composeプロファイル機能で必要なサービスのみ起動可能。
+
+| 本番サービス | 代替コンテナ | コマンド | ポート |
+|---|---|---|---|
+| Firebase Auth / Storage | Firebase Emulator Suite | `make dev-firebase` | Auth: 9099, Storage: 9199, UI: 4000 |
+| Polygon RPC | Anvil (Foundry) | `make dev-blockchain` | 8545 |
+| SendGrid | Mailpit | `make dev-mail` | SMTP: 1025, UI: 8025 |
+| Stripe | stripe-mock | `make dev-stripe` | HTTP: 12111, HTTPS: 12112 |
+| Google BigQuery | bigquery-emulator | `make dev-bigquery` | 9050 |
+| Contentful | カスタムモックサーバー | `make dev-contentful` | 3100 |
+| Google Gemini | カスタムモックサーバー | `make dev-gemini` | 3101 |
+
+全サービスを一括起動する場合: `make dev-all`
 
 ---
 

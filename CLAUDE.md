@@ -124,6 +124,25 @@ make stop-pg
 make down-pg
 ```
 
+### Local Development Services (External Service Emulators/Mocks)
+```bash
+# Start all emulators/mocks (Firebase, Anvil, Mailpit, stripe-mock, etc.)
+make dev-all
+
+# Start individual services
+make dev-firebase      # Firebase Auth/Storage Emulator (ports 9099, 9199, UI: 4000)
+make dev-blockchain    # Anvil local blockchain (port 8545)
+make dev-mail          # Mailpit SMTP catcher (SMTP: 1025, UI: 8025)
+make dev-stripe        # stripe-mock (HTTP: 12111, HTTPS: 12112)
+make dev-bigquery      # BigQuery Emulator (port 9050)
+make dev-contentful    # Contentful mock (port 3100)
+make dev-gemini        # Gemini mock (port 3101)
+
+# Stop/remove all dev services
+make stop-services
+make down-services
+```
+
 ### GraphQL Code Generation
 ```bash
 # Generate GraphQL types for all services
