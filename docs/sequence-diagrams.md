@@ -642,10 +642,18 @@ sequenceDiagram
 
     Note over ユーザー, データベース: 景品利用申請
     ユーザー->>モバイルアプリ: 景品利用画面を表示
-    モバイルアプリ->>バックエンド: requestPrize mutation（景品ID）
-    バックエンド->>データベース: exchange_prize_historyのis_requestedをtrueに更新
-    データベース-->>バックエンド: 更新完了
-    バックエンド-->>モバイルアプリ: 利用申請完了
+    モバイルアプリ->>バックエンド: requestPrize mutation（景品ID、ユーザーID）
+    バックエンド->>データベース: ユーザーの該当景品のexchange_prize_historyを取得
+    データベース-->>バックエンド: 交換履歴一覧
+    バックエンド->>バックエンド: リクエスト可能な商品を抽出（is_requested=false かつ is_used=false）
+    alt リクエスト可能な商品なし
+        バックエンド-->>モバイルアプリ: エラー（No requestable prize）
+        モバイルアプリ->>ユーザー: エラーメッセージを表示
+    else リクエスト可能な商品あり
+        バックエンド->>データベース: 最初の該当レコードのis_requestedをtrue、requested_atを現在時刻に更新
+        データベース-->>バックエンド: 更新完了
+        バックエンド-->>モバイルアプリ: 利用申請完了
+    end
 
     Note over ユーザー, データベース: 景品利用確定（QRコード方式）
     モバイルアプリ->>モバイルアプリ: QRコード生成（userId|prizeId）
