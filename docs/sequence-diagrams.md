@@ -661,7 +661,7 @@ sequenceDiagram
 
     景品提供者->>モバイルアプリ: QRコードスキャン
     モバイルアプリ->>モバイルアプリ: QRデータ解析（userId, prizeId）
-    モバイルアプリ->>バックエンド: usePrize mutation（景品ID、ユーザーID）
+    モバイルアプリ->>バックエンド: usePrize mutation（景品ID、ユーザーID、representation_user_id、code※任意）
 
     バックエンド->>データベース: 景品情報を取得
     バックエンド->>バックエンド: representation_user_id（景品提供者）を検証
