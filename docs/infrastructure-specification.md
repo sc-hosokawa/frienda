@@ -253,7 +253,7 @@ graph TB
 | バージョン | PostgreSQL 15 |
 | マシンタイプ | `db-custom-1-3840` |
 | IP | プライベートIPのみ（`10.10.0.0/16`） |
-| 削除保護 | 無効（Terraformデフォルト。明示的な `deletion_protection = false` の記述なし） |
+| 削除保護 | 有効（`google_sql_database_instance` のデフォルトは `true`。明示的な記述なし） |
 | バックアップ | 未設定 |
 | パスワード管理 | Terraform変数から指定 |
 
@@ -321,7 +321,7 @@ graph TB
 | Cloud Run 最大インスタンス | デフォルト | 10 |
 | Cloud SQL インスタンス名 | `frienda-dev-pg` | `frienda-pg` |
 | Cloud SQL バックアップ | なし | あり (PITR, 02:00 UTC) |
-| Cloud SQL 削除保護 | なし | あり |
+| Cloud SQL 削除保護 | あり（デフォルト、明示記述なし） | あり（明示的に設定） |
 | Cloud SQL パスワード | 変数指定 | 自動生成 |
 | VPC ネットワーク | `dev-network` | `frienda-network` |
 | ストレージバケット | 2個（photo, general） | 1個（general） |
@@ -365,7 +365,7 @@ graph LR
 | ジョブ | 実行条件 | 内容 |
 |--------|---------|------|
 | Backend | コミットメッセージに "backend" | `cargo test`, `cargo clippy`, `cargo fmt --check` |
-| Client | コミットメッセージに "client" | `pnpm install`, `pnpm lint` |
+| Client | コミットメッセージに "client" | `pnpm install`, `pnpm lint`（Node.js 18/20 マトリクスビルド） |
 | Contract | コミットメッセージに "contract" | `forge install`, `forge test` |
 
 ### 7.4 デプロイワークフロー
@@ -390,7 +390,8 @@ graph LR
 | デプロイ先 | Cloud Run `frienda-server-core` |
 | 環境変数 | 本番用シークレットを使用 |
 
-> **要確認**: `auth`ステップ(L53)では`GCLOUD_AUTH_PRD`（本番用）を使用しているが、`Setup Google Cloud`ステップ(L58)では`GCLOUD_AUTH`（PRD接尾辞なし）を使用している。さらに、同ステップの`project_id`も`secrets.PROJECT_ID`（PRD接尾辞なし）を参照しており、env定義の`secrets.GCP_PROJECT_ID_PRD`と不整合がある。意図的な使い分けかバグかを確認し、`GCLOUD_AUTH_PRD` / `GCP_PROJECT_ID_PRD` への統一を検討すべき。
+> **要確認**: `auth`ステップ(L53)では`GCLOUD_AUTH_PRD`（本番用）を使用しているが、`Setup Google Cloud`ステップ(L58)では`GCLOUD_AUTH`（PRD接尾辞なし）を使用している。さらに、同ステップの`project_id`も`secrets.PROJECT_ID`（PRD接尾辞なし）を参照しており、env定義の`secrets.GCP_PROJECT_ID_PRD`と不整合がある。
+> ステージング側（`deploy_dev_server.yaml`）では`auth`・`Setup Google Cloud`の両ステップで一貫して`GCLOUD_AUTH` / `PROJECT_ID` を使用しており整合している。本番ワークフローは`auth`ステップのみ`_PRD`付きに変更されたが、`Setup Google Cloud`ステップが未更新のまま残っている可能性が高い。`GCLOUD_AUTH_PRD` / `GCP_PROJECT_ID_PRD` への統一を検討すべき。
 
 #### 定期ジョブ (`credential_update.yaml`)
 
@@ -442,6 +443,7 @@ graph LR
 | ビルドステージ | `rust:1.83.0` |
 | ランタイム | `gcr.io/distroless/cc-debian12` |
 | ビルド対象 | `server-extension` |
+| ビルドモード | release |
 | ポート | 8080 |
 | 起動方式 | `CMD ["./server-extension"]` |
 
@@ -552,7 +554,7 @@ graph LR
 | **Cloud SQL インスタンス名** | — (Docker PostgreSQL 16) | `frienda-dev-pg` | `frienda-pg` |
 | **Cloud SQL マシンタイプ** | — | `db-custom-1-3840` | `db-custom-1-3840` |
 | **Cloud SQL バックアップ** | — | なし | あり (PITR, 02:00 UTC) |
-| **Cloud SQL 削除保護** | — | なし | あり |
+| **Cloud SQL 削除保護** | — | あり（デフォルト） | あり（明示設定） |
 | **Cloud SQL パスワード** | `postgres` | 変数指定 | 自動生成 |
 | **VPC ネットワーク** | — | `dev-network` | `frienda-network` |
 | **ストレージバケット** | — | 2個（photo, general） | 1個（general） |
@@ -568,7 +570,7 @@ graph LR
 
 - [ ] ステージング環境のリソース名を `dev-` プレフィクスから `stg-` プレフィクスへリネーム検討
 - [ ] Cloud SQL バックアップの有効化
-- [ ] Cloud SQL 削除保護の有効化
+- [ ] Cloud SQL 削除保護の明示的設定（現在はTerraformデフォルト `true` に依存）
 - [ ] Terraform State のリモート管理化（GCS）
 
 ### 12.2 セキュリティ強化
