@@ -50,7 +50,7 @@ help:
 	@echo 'dev-services'
 	@echo '  - Start all local dev service emulators/mocks (profile: services)'
 	@echo
-	@echo 'dev-all'
+	@echo 'dev-up-all'
 	@echo '  - Start PostgreSQL + all local dev services'
 	@echo
 	@echo 'dev-firebase'
@@ -79,6 +79,9 @@ help:
 	@echo
 	@echo 'down-services'
 	@echo '  - Remove all local dev service containers'
+	@echo
+	@echo 'dev-down-all'
+	@echo '  - Stop and remove PostgreSQL + all local dev service containers'
 	@echo
 	@echo '=== Database - PostgreSQL ==='
 	@echo
@@ -226,8 +229,8 @@ logs-watch:
 dev-services:
 	docker compose --profile services up -d --build
 
-.PHONY: dev-all
-dev-all: run-pg dev-services
+.PHONY: dev-up-all
+dev-up-all: run-pg dev-services
 
 .PHONY: dev-firebase
 dev-firebase:
@@ -264,6 +267,9 @@ stop-services:
 .PHONY: down-services
 down-services:
 	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile bigquery --profile contentful --profile gemini down
+
+.PHONY: dev-down-all
+dev-down-all: down-services down-pg
 
 # --- Database - PostgreSQL ---
 
