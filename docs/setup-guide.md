@@ -10,6 +10,7 @@ FRIENDA プロジェクトの開発環境をローカルにセットアップす
 4. [セットアップの実行](#4-セットアップの実行)
 5. [環境変数の設定](#5-環境変数の設定)
 6. [各サービスの起動](#6-各サービスの起動)
+   - [6.5 外部サービス代替コンテナ（エミュレーター/モック）](#65-外部サービス代替コンテナエミュレーターモック)
 7. [動作確認](#7-動作確認)
 8. [トラブルシューティング](#8-トラブルシューティング)
 
@@ -246,7 +247,46 @@ make mobile-format
 
 > 事前に Xcode と iOS シミュレータが必要です。
 
-### 6.5 GraphQL コード生成
+### 6.5 外部サービス代替コンテナ（エミュレーター/モック）
+
+本番環境の外部SaaSの代替として、Docker Composeプロファイル機能で必要なサービスのみ起動できます。SaaSのアカウントやAPIキーがなくても、関連機能の開発・テストが可能です。
+
+```bash
+# 全サービスを一括起動（PostgreSQL + 全エミュレーター/モック）
+make dev-all
+
+# エミュレーター/モックのみ一括起動（PostgreSQL除く）
+make dev-services
+
+# 個別起動
+make dev-firebase      # Firebase Auth/Storage Emulator (Auth: 9099, Storage: 9199, UI: 4000)
+make dev-blockchain    # Anvil ローカルブロックチェーン (8545)
+make dev-mail          # Mailpit SMTP キャッチャー (SMTP: 1025, UI: 8025)
+make dev-stripe        # stripe-mock (HTTP: 12111, HTTPS: 12112)
+make dev-bigquery      # BigQuery Emulator (9050)
+make dev-contentful    # Contentful モックサーバー (3100)
+make dev-gemini        # Gemini モックサーバー (3101)
+
+# 停止
+make stop-services
+
+# コンテナ削除
+make down-services
+```
+
+| 本番サービス | 代替コンテナ | ポート | 備考 |
+|---|---|---|---|
+| Firebase Auth / Storage | Firebase Emulator Suite | Auth: 9099, Storage: 9199, UI: 4000 | `GCLOUD_PROJECT` 環境変数でプロジェクトID指定 |
+| Polygon RPC | Anvil (Foundry) | 8545 | ローカルEVMノード |
+| SendGrid | Mailpit | SMTP: 1025, UI: 8025 | Web UIでメール内容確認可能 |
+| Stripe | stripe-mock | HTTP: 12111, HTTPS: 12112 | Stripe公式モック |
+| Google BigQuery | bigquery-emulator | 9050 | |
+| Contentful | カスタムモックサーバー | 3100 | Bearer トークン存在チェックあり |
+| Google Gemini | カスタムモックサーバー | 3101 | generateContent (v1/v1beta) 対応 |
+
+> ポート番号は `.env` ファイルでカスタマイズ可能です。詳細は `.env.example` を参照してください。
+
+### 6.6 GraphQL コード生成
 
 GraphQL スキーマを変更した場合は、クライアント側のコードを再生成します。
 
@@ -381,7 +421,11 @@ frienda/
 │   │   └── packages/   # 共有パッケージ
 │   ├── contract/       # Solidity (Foundry, Hardhat)
 │   └── postgres/       # DB 初期化スクリプト
-├── docker-compose.yaml # PostgreSQL コンテナ定義
+├── docker-compose.yaml # PostgreSQL + 外部サービス代替コンテナ定義
+├── docker/             # カスタムDockerイメージ
+│   ├── firebase-emulator/ # Firebase Emulator Suite
+│   ├── contentful-mock/   # Contentful モックサーバー
+│   └── gemini-mock/       # Gemini モックサーバー
 ├── Makefile            # 開発コマンド集
 └── .tool-versions      # mise ツールバージョン定義
 ```

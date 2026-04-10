@@ -129,17 +129,21 @@ graph LR
 
 本番環境の外部SaaSの代替として、Docker Composeプロファイル機能で必要なサービスのみ起動可能。
 
-| 本番サービス | 代替コンテナ | コマンド | ポート |
-|---|---|---|---|
-| Firebase Auth / Storage | Firebase Emulator Suite | `make dev-firebase` | Auth: 9099, Storage: 9199, UI: 4000 |
-| Polygon RPC | Anvil (Foundry) | `make dev-blockchain` | 8545 |
-| SendGrid | Mailpit | `make dev-mail` | SMTP: 1025, UI: 8025 |
-| Stripe | stripe-mock | `make dev-stripe` | HTTP: 12111, HTTPS: 12112 |
-| Google BigQuery | bigquery-emulator | `make dev-bigquery` | 9050 |
-| Contentful | カスタムモックサーバー | `make dev-contentful` | 3100 |
-| Google Gemini | カスタムモックサーバー | `make dev-gemini` | 3101 |
+| 本番サービス | 代替コンテナ | コマンド | ポート | 備考 |
+|---|---|---|---|---|
+| Firebase Auth / Storage | Firebase Emulator Suite | `make dev-firebase` | Auth: 9099, Storage: 9199, UI: 4000 | `GCLOUD_PROJECT` 環境変数でプロジェクトID指定 |
+| Polygon RPC | Anvil (Foundry) | `make dev-blockchain` | 8545 | ローカルEVMノード |
+| SendGrid | Mailpit | `make dev-mail` | SMTP: 1025, UI: 8025 | Web UIでメール内容確認可能 |
+| Stripe | stripe-mock | `make dev-stripe` | HTTP: 12111, HTTPS: 12112 | Stripe公式モック |
+| Google BigQuery | bigquery-emulator | `make dev-bigquery` | 9050 | `--port 9050` 明示指定 |
+| Contentful | カスタムモックサーバー | `make dev-contentful` | 3100 | Bearer トークン存在チェック、ヘルスチェック対応 |
+| Google Gemini | カスタムモックサーバー | `make dev-gemini` | 3101 | generateContent (v1/v1beta) 対応、ヘルスチェック対応 |
 
-全サービスを一括起動する場合: `make dev-all`
+- 全サービスを一括起動（PostgreSQL含む）: `make dev-all`
+- エミュレーター/モックのみ一括起動: `make dev-services`
+- 停止: `make stop-services` / 削除: `make down-services`
+
+> **カスタムモックサーバーの構成**: Contentful・Gemini モックは `docker/` 配下にカスタム Express.js サーバーとして実装。`npm ci` による再現可能なビルド、`.dockerignore` によるコンテキスト軽量化、`healthcheck` ディレクティブによるコンテナ状態監視に対応。
 
 ---
 
@@ -631,3 +635,4 @@ graph LR
 | 日付 | バージョン | 内容 |
 |------|-----------|------|
 | 2026-04-10 | 1.0 | 初版作成 |
+| 2026-04-10 | 1.1 | 外部サービス代替コンテナの詳細情報を追記（ヘルスチェック、認証チェック、カスタムモック構成） |
