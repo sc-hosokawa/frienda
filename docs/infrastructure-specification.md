@@ -119,7 +119,7 @@ graph LR
 
 ## 4. クラウド環境構成図（ステージング・本番共通）
 
-> ステージング環境と本番環境はサービス構成・通信経路が同一のため、構成図は共通とする。環境固有のリソース名・設定値はセクション5（ステージング）・セクション6（本番）を参照。
+> ステージング環境と本番環境はサービス構成・通信経路が同一のため、構成図は共通とする。環境固有のリソース名・設定値は[セクション5（ステージング）](#5-ステージング環境-staging)・[セクション6（本番）](#6-本番環境-production)を参照。
 
 ### 4.1 Web構成図
 
@@ -296,7 +296,7 @@ graph TB
 
 | バケット名 | 用途 | ストレージクラス | ライフサイクル |
 |-----------|------|----------------|--------------|
-| `prd-frienda-general-files` | 汎用ファイル | STANDARD | 30日後にCOLDLINEへ遷移 |
+| `prd-frienda-general-files` | 汎用ファイル | STANDARD | 30日後にCOLDLINEへ遷移、バージョニング有効 |
 
 ### 6.4 Terraform State 管理
 
@@ -392,6 +392,7 @@ graph LR
 
 > **要確認**: `auth`ステップ(L53)では`GCLOUD_AUTH_PRD`（本番用）を使用しているが、`Setup Google Cloud`ステップ(L58)では`GCLOUD_AUTH`（PRD接尾辞なし）を使用している。さらに、同ステップの`project_id`も`secrets.PROJECT_ID`（PRD接尾辞なし）を参照しており、env定義の`secrets.GCP_PROJECT_ID_PRD`と不整合がある。
 > ステージング側（`deploy_dev_server.yaml`）では`auth`・`Setup Google Cloud`の両ステップで一貫して`GCLOUD_AUTH` / `PROJECT_ID` を使用しており整合している。本番ワークフローは`auth`ステップのみ`_PRD`付きに変更されたが、`Setup Google Cloud`ステップが未更新のまま残っている可能性が高い。`GCLOUD_AUTH_PRD` / `GCP_PROJECT_ID_PRD` への統一を検討すべき。
+> また、`setup-gcloud@v2` の `service_account_key` パラメータは非推奨（deprecated）である。`google-github-actions/auth@v2` による認証に統一し、`Setup Google Cloud` ステップからの `service_account_key` / `project_id` 指定を削除すべき。
 
 #### 定期ジョブ (`credential_update.yaml`)
 
@@ -579,12 +580,12 @@ graph LR
 
 **優先度: 高**（本文中のセキュリティ指摘事項）
 
-- [ ] **Firebase認証JSONのイメージ分離**: ステージング用・本番用の認証JSONが単一Dockerイメージに同梱されている → 環境ごとのイメージ分離またはSecret Managerからの動的取得（セクション8.1参照）
-- [ ] **Cloud Run未認証アクセスの制限**: `--allow-unauthenticated` による全インターネット公開状態 → ロードバランサー + Cloud Armor導入、イングレスを `INTERNAL_LOAD_BALANCER` に変更（セクション10.2参照）
-- [ ] **Terraform Stateのリモートバックエンド設定**: GCSバケットは存在するが `backend "gcs"` 未設定でローカル管理のまま → backendブロック追加による状態共有・ロック有効化（セクション6.4参照）
-- [ ] **GCS public_access_prevention の明示的設定**: Terraform Stateバケットの公開アクセス防止がGCSデフォルトに依存 → `public_access_prevention = "enforced"` の明示的設定（セクション6.4参照）
-- [ ] **deploy_prd_server.yaml の認証情報不整合**: `GCLOUD_AUTH_PRD` と `GCLOUD_AUTH` が混在 → 認証情報の統一（セクション7.4参照）
-- [ ] **ci.yaml のパス指定不整合**: `services/frontend/` が `services/webui/` と不一致のため、CIトリガー・Clientジョブが正しく動作していない → パス修正（セクション7.3参照）
+- [ ] **Firebase認証JSONのイメージ分離**: ステージング用・本番用の認証JSONが単一Dockerイメージに同梱されている → 環境ごとのイメージ分離またはSecret Managerからの動的取得（[セクション8.1](#81-backend-サーバー-dockerfileserver)参照）
+- [ ] **Cloud Run未認証アクセスの制限**: `--allow-unauthenticated` による全インターネット公開状態 → ロードバランサー + Cloud Armor導入、イングレスを `INTERNAL_LOAD_BALANCER` に変更（[セクション10.2](#102-ネットワークセキュリティ)参照）
+- [ ] **Terraform Stateのリモートバックエンド設定**: GCSバケットは存在するが `backend "gcs"` 未設定でローカル管理のまま → backendブロック追加による状態共有・ロック有効化（[セクション6.4](#64-terraform-state-管理)参照）
+- [ ] **GCS public_access_prevention の明示的設定**: Terraform Stateバケットの公開アクセス防止がGCSデフォルトに依存 → `public_access_prevention = "enforced"` の明示的設定（[セクション6.4](#64-terraform-state-管理)参照）
+- [ ] **deploy_prd_server.yaml の認証情報不整合**: `GCLOUD_AUTH_PRD` と `GCLOUD_AUTH` が混在 → 認証情報の統一（[セクション7.4](#74-デプロイワークフロー)参照）
+- [ ] **ci.yaml のパス指定不整合**: `services/frontend/` が `services/webui/` と不一致のため、CIトリガー・Clientジョブが正しく動作していない → パス修正（[セクション7.3](#73-ci-ワークフロー-ciyaml)参照）
 
 **優先度: 中**
 
