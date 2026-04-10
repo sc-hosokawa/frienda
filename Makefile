@@ -71,6 +71,9 @@ help:
 	@echo 'dev-gemini'
 	@echo '  - Start Gemini mock server only'
 	@echo
+	@echo 'dev-adminer'
+	@echo '  - Start Adminer (DB管理GUI) only'
+	@echo
 	@echo 'stop-services'
 	@echo '  - Stop all local dev services'
 	@echo
@@ -181,6 +184,9 @@ help:
 	@echo 'open-firebase'
 	@echo '  - http://127.0.0.1:4000 (Firebase Emulator UI)'
 	@echo
+	@echo 'open-adminer'
+	@echo '  - http://127.0.0.1:8081 (Adminer - DB管理GUI)'
+	@echo
 	@echo '=== Setup ==='
 	@echo
 	@echo 'setup'
@@ -262,13 +268,17 @@ dev-contentful:
 dev-gemini:
 	docker compose --profile gemini up -d --build
 
+.PHONY: dev-adminer
+dev-adminer:
+	docker compose --profile adminer up -d
+
 .PHONY: stop-services
 stop-services:
-	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile contentful --profile gemini stop
+	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile contentful --profile gemini --profile adminer stop
 
 .PHONY: down-services
 down-services:
-	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile contentful --profile gemini down
+	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile contentful --profile gemini --profile adminer down
 
 .PHONY: dev-down-all
 dev-down-all: down-services down-pg
@@ -416,6 +426,10 @@ open-stripe:
 .PHONY: open-firebase
 open-firebase:
 	$(OPEN_CMD) http://127.0.0.1:4000
+
+.PHONY: open-adminer
+open-adminer:
+	$(OPEN_CMD) "http://127.0.0.1:8081/?pgsql=postgres&username=$(PG_USER)&db=$(PG_DB)"
 
 # --- Setup ---
 
