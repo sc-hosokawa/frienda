@@ -561,8 +561,8 @@
 
 | トリガー | 条件 |
 |---------|------|
-| push | `main`, `develop` ブランチ |
-| pull_request | `main`, `develop` ブランチ |
+| push | ブランチ指定なし（パス指定: `services/backend/**`, `services/frontend/**`, `services/contract/**`） |
+| pull_request | `main`, `develop` ブランチ（パス指定: 同上） |
 
 | ジョブ | 実行条件 | 内容 |
 |--------|---------|------|
