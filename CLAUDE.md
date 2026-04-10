@@ -20,8 +20,8 @@ services/
 ├── webui/            # Next.js web applications (client, admin)
 ├── mobile/           # Flutter mobile applications (client, admin)
 ├── contract/         # Solidity smart contracts
-├── postgres/         # Database setup and migrations
-└── terraform/        # Infrastructure as code
+└── postgres/         # Database setup and migrations
+terraform/             # Infrastructure as code (ルート直下)
 ```
 
 ## Initial Setup

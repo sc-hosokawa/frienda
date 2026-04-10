@@ -64,7 +64,7 @@
 | Cloud Run サービス名 | — | `frienda-server` | `frienda-server-core` |
 | Cloud SQL インスタンス名 | — (Docker PostgreSQL) | `frienda-dev-pg` | `frienda-pg` |
 | VPC ネットワーク | — | `dev-network` | `frienda-network` |
-| Terraform State | — | ローカル | `prd-frienda-terraform-state` (GCS) |
+| Terraform State | — | ローカル | ローカル（GCSバケットは存在するがbackend未設定） |
 
 ---
 
@@ -320,7 +320,7 @@
 | Cloud SQL パスワード | 変数指定 | 自動生成 |
 | VPC ネットワーク | `dev-network` | `frienda-network` |
 | ストレージバケット | 2個（photo, general） | 1個（general） |
-| Terraform State | ローカル | GCS（リモート） |
+| Terraform State | ローカル | ローカル（GCSバケットは存在するがbackend未設定） |
 | デプロイブランチ | `main` | `release` |
 
 ---
@@ -532,7 +532,11 @@
 | バケット名 | `prd-frienda-terraform-state` |
 | リージョン | `us-west1` |
 | バージョニング | 有効（5世代保持） |
-| 公開アクセス | 禁止 |
+| 公開アクセス | 禁止（GCSデフォルト動作に依存） |
+
+> **要対応**: Terraform定義に `public_access_prevention = "enforced"` が明示されていない。現在はGCSのデフォルト動作により公開アクセスが防止されているが、明示的に設定を追加してポリシーを確実にすべき。
+
+> **要対応**: GCSバケット `prd-frienda-terraform-state` は存在するが、`terraform/environments/prod/main.tf` に `terraform { backend "gcs" { ... } }` の設定がなく、Terraform State は実際にはローカル管理のままである。リモートバックエンドの設定を追加し、チームでの状態共有・ロック機能を有効化すべき。
 
 ---
 
@@ -557,7 +561,17 @@
                └─────────────┘  └────────────────┘  └────────────────┘
 ```
 
-### 6.2 CI ワークフロー (`ci.yaml`)
+### 6.2 Claude Code ワークフロー (`claude.yml`)
+
+| 項目 | 設定 |
+|------|------|
+| トリガー | Issue/PRコメントで `@claude` メンション時 |
+| 用途 | AI によるコードレビュー・Issue対応の自動化（開発支援ツール） |
+| 実行環境 | `anthropics/claude-code-action@beta` |
+
+> **注意**: ビルド・デプロイには関与しない開発支援用ワークフロー。
+
+### 6.3 CI ワークフロー (`ci.yaml`)
 
 | トリガー | 条件 |
 |---------|------|
@@ -570,7 +584,7 @@
 | Client | コミットメッセージに "client" | `pnpm install`, `pnpm lint` |
 | Contract | コミットメッセージに "contract" | `forge install`, `forge test` |
 
-### 6.3 デプロイワークフロー
+### 6.4 デプロイワークフロー
 
 #### ステージング環境デプロイ (`deploy_dev_server.yaml`)
 
@@ -592,6 +606,8 @@
 | デプロイ先 | Cloud Run `frienda-server-core` |
 | 環境変数 | 本番用シークレットを使用 |
 
+> **要確認**: `auth`ステップでは`GCLOUD_AUTH_PRD`（本番用）を使用しているが、`Setup Google Cloud`ステップでは`GCLOUD_AUTH`（PRD接尾辞なし）を使用している。意図的な使い分けかバグかを確認し、不要であれば認証情報を`GCLOUD_AUTH_PRD`に統一すべき。
+
 #### 定期ジョブ (`credential_update.yaml`)
 
 | 項目 | 設定 |
@@ -600,7 +616,7 @@
 | 処理内容 | DSP認証情報の更新 |
 | 対象 | ステージング → 本番（順次実行） |
 
-### 6.4 デプロイブランチ戦略
+### 6.5 デプロイブランチ戦略
 
 ```
 feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
@@ -643,6 +659,8 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 
 > **注意**: server-core は `ENTRYPOINT`、server-extension は `CMD` を使用している。`ENTRYPOINT` はコンテナ実行時に引数で上書きできないが、`CMD` は上書き可能。現状では動作上の差異はないが、起動方式の統一を検討すべき。
 
+> **注意**: Rustバージョンが server-core (`1.94.1`) と server-extension (`1.83.0`) で大きく異なる。ビルド再現性やセキュリティパッチの観点から、バージョンの統一を検討すべき。
+
 ### 7.3 PostgreSQL (`services/postgres/Dockerfile`)
 
 | 項目 | 設定値 |
@@ -665,8 +683,17 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 | AI | `GEMINI_API_KEY` | Gemini API |
 | メール | `SENDGRID_API_KEY` | SendGrid |
 | ブロックチェーン | `ETH_RPC_URL`, `CREDENTIAL_CONTRACT_ADDRESS` | Ethereum連携 |
-| DSP | `SERVICE_ACCOUNT_DSP`, `CLIENT_ID`, `CLIENT_SECRET` | DSPサービス認証 |
-| DSP | `GENDER_GEN_*` | Gender Generation API関連 |
+| DSP | `SERVICE_ACCOUNT_DSP` | DSPサービスアカウント |
+| DSP | `SCR_SERVICE_ACCOUNT_DSP` | SCR DSPサービスアカウント |
+| DSP | `CLIENT_ID`, `CLIENT_SECRET` | DSPクライアント認証 |
+| DSP | `DSP_QUERY_DAILY_TEMPLATE` | DSP日次クエリテンプレート |
+| DSP | `DSP_QUERY_MONTHLY_TEMPLATE` | DSP月次クエリテンプレート |
+| DSP | `SCR_DSP_QUERY_DAILY_TEMPLATE` | SCR DSP日次クエリテンプレート |
+| DSP | `LOCATION`, `SCR_LOCATION` | BigQueryロケーション |
+| DSP | `DSP_PJ_ID`, `SCR_DSP_PJ_ID` | BigQueryプロジェクトID |
+| DSP | `GENDER_GEN_PLAYBACK_URL` | Gender Generation 再生URL |
+| DSP | `GENDER_GEN_PLAYBACK_PREFIX` | Gender Generation 再生プレフィクス |
+| DSP | `GENDER_GEN_AUTH_URL` | Gender Generation 認証URL |
 | セキュリティ | `HASH_SALT` | ハッシュソルト |
 
 ### 8.2 WebUI Client
@@ -715,7 +742,12 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 |------|------|
 | Cloud SQL | プライベートIPのみ（VPC経由でアクセス） |
 | Cloud Run → Cloud SQL | VPC Access Connector 経由 |
-| Cloud Run イングレス | 全トラフィック許可（将来的にロードバランサー + IAP 導入推奨） |
+| Cloud Run イングレス | 全トラフィック許可（`--allow-unauthenticated`） |
+
+> **セキュリティリスク**: 現在、Cloud Run はデプロイ時に `--allow-unauthenticated` フラグを使用しており、IAM による認証なしで全インターネットからアクセス可能な状態である。APIレイヤーでの認証（Firebase JWT検証）は実装済みだが、インフラレイヤーでの防御がない。以下の対策を優先的に検討すべき:
+> - Cloud Load Balancing + Cloud Armor によるDDoS防御・WAF導入
+> - Identity-Aware Proxy (IAP) による管理画面のアクセス制限
+> - Cloud Run イングレスを `INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER` に変更し、ロードバランサー経由のみに制限
 
 ---
 
@@ -734,7 +766,7 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 | **Cloud SQL パスワード** | `postgres` | 変数指定 | 自動生成 |
 | **VPC ネットワーク** | — | `dev-network` | `frienda-network` |
 | **ストレージバケット** | — | 2個（photo, general） | 1個（general） |
-| **Terraform State** | — | ローカル | GCS（リモート） |
+| **Terraform State** | — | ローカル | ローカル（GCSバケットは存在するがbackend未設定） |
 | **デプロイ方法** | ローカル実行 | `main` ブランチへのpush | `release` ブランチへのpush |
 | **IAM** | — | allUsers許可 | allUsers許可 |
 
