@@ -198,7 +198,6 @@ graph TB
     subgraph SaaS["外部SaaS"]
         FB["Firebase<br/>Auth / Storage / FCM"]
         CTF["Contentful<br/>ニュースCMS"]
-        FCM["Firebase FCM"]
         GEMINI["Google Gemini"]
         SG["SendGrid"]
         BQ["Google BigQuery"]
@@ -215,7 +214,7 @@ graph TB
     MC -->|ニュース取得 直接CDN API| CTF
 
     %% Backend → 外部SaaS
-    CR -->|プッシュ通知| FCM
+    CR -->|プッシュ通知 FCM| FB
     CR -->|AI応答生成| GEMINI
     CR -->|メール送信| SG
     CR -->|DSPデータ取得| BQ
@@ -365,6 +364,7 @@ graph LR
 | ジョブ | 実行条件 | 内容 |
 |--------|---------|------|
 | Backend | コミットメッセージに "backend" | `cargo test`, `cargo clippy`, `cargo fmt --check` |
+| ~~Admin~~ | ~~コミットメッセージに "admin"~~ | ~~`pnpm install`, `pnpm lint`（Node.js 18/20 マトリクスビルド）~~ **※コメントアウト中** |
 | Client | コミットメッセージに "client" | `pnpm install`, `pnpm lint`（Node.js 18/20 マトリクスビルド） |
 | Contract | コミットメッセージに "contract" | `forge install`, `forge test` |
 
@@ -462,31 +462,33 @@ graph LR
 
 ## 9. 環境変数一覧
 
-> **出典について**: デプロイワークフロー（`deploy_dev_server.yaml` / `deploy_prd_server.yaml`）の `env` 定義と、各サービスの `.env.example` を元に記載。ワークフローに含まれない変数（`HOST`, `PORT`, `ENV`, `JWK_URL`, `JWK_ISSUER` 等）はアプリケーションコードまたは `.env.example` で定義されるローカル/ランタイム設定。
+> **出典について**: デプロイワークフロー（`deploy_dev_server.yaml` / `deploy_prd_server.yaml`）と各サービスの `.env.example` を元に記載。ワークフロー内の出典は以下の2種類に区別する:
+> - **env**: ワークフローファイル冒頭の `env:` ブロックで定義
+> - **deploy**: `gcloud run deploy` の `--set-env-vars` でインライン参照（`env:` ブロックに含まれない）
 
 ### 9.1 Backend API
 
 | カテゴリ | 変数名 | 用途 | 出典 |
 |---------|--------|------|------|
-| データベース | `DATABASE_URL` | PostgreSQL接続文字列 | ワークフロー |
+| データベース | `DATABASE_URL` | PostgreSQL接続文字列 | env |
 | サーバー | `HOST`, `PORT` | リッスンアドレス（0.0.0.0:8080） | .env.example |
-| 環境 | `ENV`, `ENVIRONMENT` | 環境識別（dev/prod） | ワークフロー (`ENVIRONMENT`) / .env.example (`ENV`) |
+| 環境 | `ENV`, `ENVIRONMENT` | 環境識別（dev/prod） | deploy (`ENVIRONMENT`) / .env.example (`ENV`) |
 | 認証 | `JWK_URL`, `JWK_ISSUER` | Firebase JWT検証 | .env.example |
-| AI | `GEMINI_API_KEY` | Gemini API | ワークフロー |
-| メール | `SENDGRID_API_KEY` | SendGrid | ワークフロー |
-| ブロックチェーン | `ETH_RPC_URL`, `CREDENTIAL_CONTRACT_ADDRESS` | Ethereum連携 | ワークフロー |
-| DSP | `SERVICE_ACCOUNT_DSP` | DSPサービスアカウント | ワークフロー |
-| DSP | `SCR_SERVICE_ACCOUNT_DSP` | SCR DSPサービスアカウント | ワークフロー |
-| DSP | `CLIENT_ID`, `CLIENT_SECRET` | DSPクライアント認証 | ワークフロー |
-| DSP | `DSP_QUERY_DAILY_TEMPLATE` | DSP日次クエリテンプレート | ワークフロー |
-| DSP | `DSP_QUERY_MONTHLY_TEMPLATE` | DSP月次クエリテンプレート | ワークフロー |
-| DSP | `SCR_DSP_QUERY_DAILY_TEMPLATE` | SCR DSP日次クエリテンプレート | ワークフロー |
-| DSP | `LOCATION`, `SCR_LOCATION` | BigQueryロケーション | ワークフロー |
-| DSP | `DSP_PJ_ID`, `SCR_DSP_PJ_ID` | BigQueryプロジェクトID | ワークフロー |
-| DSP | `GENDER_GEN_PLAYBACK_URL` | Gender Generation 再生URL | ワークフロー |
-| DSP | `GENDER_GEN_PLAYBACK_PREFIX` | Gender Generation 再生プレフィクス | ワークフロー |
-| DSP | `GENDER_GEN_AUTH_URL` | Gender Generation 認証URL | ワークフロー |
-| セキュリティ | `HASH_SALT` | ハッシュソルト | ワークフロー |
+| AI | `GEMINI_API_KEY` | Gemini API | deploy |
+| メール | `SENDGRID_API_KEY` | SendGrid | deploy |
+| ブロックチェーン | `ETH_RPC_URL`, `CREDENTIAL_CONTRACT_ADDRESS` | Ethereum連携 | env |
+| DSP | `SERVICE_ACCOUNT_DSP` | DSPサービスアカウント | env |
+| DSP | `SCR_SERVICE_ACCOUNT_DSP` | SCR DSPサービスアカウント | env |
+| DSP | `CLIENT_ID`, `CLIENT_SECRET` | DSPクライアント認証 | env |
+| DSP | `DSP_QUERY_DAILY_TEMPLATE` | DSP日次クエリテンプレート | env |
+| DSP | `DSP_QUERY_MONTHLY_TEMPLATE` | DSP月次クエリテンプレート | env |
+| DSP | `SCR_DSP_QUERY_DAILY_TEMPLATE` | SCR DSP日次クエリテンプレート | env |
+| DSP | `LOCATION`, `SCR_LOCATION` | BigQueryロケーション | env |
+| DSP | `DSP_PJ_ID`, `SCR_DSP_PJ_ID` | BigQueryプロジェクトID | env |
+| DSP | `GENDER_GEN_PLAYBACK_URL` | Gender Generation 再生URL | env |
+| DSP | `GENDER_GEN_PLAYBACK_PREFIX` | Gender Generation 再生プレフィクス | env |
+| DSP | `GENDER_GEN_AUTH_URL` | Gender Generation 認証URL | env |
+| セキュリティ | `HASH_SALT` | ハッシュソルト | env |
 
 ### 9.2 WebUI Client
 
