@@ -18,89 +18,99 @@
 10. [タスクマッチング（完了時）](#タスクマッチング完了時)
 11. [AIチャットボット](#aiチャットボット)
 12. [クレジット入力時の招待メール配信](#クレジット入力時の招待メール配信)
+13. [景品交換](#景品交換)
 
 ---
 
 ## サインイン
 
-ユーザーはクライアントアプリケーションを通じて、メールアドレスとパスワードを用いてFirebase Authで認証を行います。認証に成功すると、クライアントはFirebaseから取得したユーザー情報をバックエンドサーバーに送信します。バックエンドサーバーはデータベースにアクセスし、ユーザー情報を確認・登録後、クライアントにユーザートークンを発行します。最後に、クライアントはユーザーをダッシュボードまたはホーム画面に遷移させます。
+ユーザーはクライアントアプリケーションを通じて、メールアドレスとパスワードまたはGoogle認証を用いてFirebase Authで認証を行います。認証に成功すると、クライアントはFirebaseから取得したFirebase UIDと追加ユーザー情報をバックエンドサーバーに送信します。バックエンドサーバーはデータベースにアクセスし、ユーザー情報を確認・登録後、クライアントにユーザートークンを発行します。最後に、クライアントはユーザーをダッシュボードまたはホーム画面に遷移させます。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor User as ユーザー
-    participant Client as クライアント
-    participant Firebase as Firebase Auth
-    participant Server as バックエンドサーバー
-    participant DB as データベース
+    participant ユーザー
+    participant クライアント
+    participant Firebase認証
+    participant バックエンドサーバー
+    participant データベース
 
-    User->>Client: メールアドレス・パスワードを入力
-    Client->>Firebase: サインインリクエスト
-    activate Firebase
-    Firebase-->>Client: 認証成功（ユーザー情報）
-    deactivate Firebase
+    ユーザー->>クライアント: サインイン/サインアップ画面表示
+    alt メールパスワード認証
+        ユーザー->>クライアント: メールアドレスとパスワード入力
+        クライアント->>Firebase認証: メール/パスワード認証リクエスト
+    else Google認証
+        ユーザー->>クライアント: Googleでサインインをクリック
+        クライアント->>Firebase認証: Google認証リクエスト
+    end
 
-    Client->>Server: ユーザー情報を送信
-    activate Server
-    Server->>DB: ユーザー情報を確認・登録
-    activate DB
-    DB-->>Server: 登録結果
-    deactivate DB
-    Server-->>Client: ユーザートークンを発行
-    deactivate Server
+    Firebase認証-->>クライアント: 認証結果
+    alt 認証成功
+        クライアント->>バックエンドサーバー: Firebase UIDと追加ユーザー情報
+        バックエンドサーバー->>データベース: ユーザー情報確認
+        alt 新規ユーザー
+            バックエンドサーバー->>データベース: 新規ユーザーレコード作成
+            データベース-->>バックエンドサーバー: ユーザー登録完了
+        end
+        バックエンドサーバー-->>クライアント: ユーザートークンと追加情報
+        クライアント->>ユーザー: ダッシュボード/ホーム画面表示
+    else 認証失敗
+        クライアント->>ユーザー: エラーメッセージ表示
+        note over クライアント: 認証エラー（パスワード不一致、アカウント存在しないなど）
+    end
 
-    Client-->>User: ダッシュボード/ホーム画面に遷移
+    alt セッション維持
+        バックエンドサーバー->>データベース: セッション情報保存
+        データベース-->>バックエンドサーバー: セッション管理
+        バックエンドサーバー->>クライアント: セッショントークン
+    end
 ```
 
 ---
 
 ## 認証
 
-ユーザーはクライアントアプリケーションを通じて、メールアドレスとパスワードを用いてFirebase認証を行います。認証に成功すると、クライアントはFirebaseから発行されたIDトークンをバックエンドサーバーに送信します。バックエンドサーバーはFirebase認証にトークン検証を依頼し、その結果に応じて処理を分岐します。
+ユーザーはクライアントアプリケーションを通じて、メールアドレスとパスワードまたはGoogle認証を用いてFirebase認証を行います。認証に成功すると、クライアントはFirebaseから発行されたIDトークンをバックエンドサーバーに送信します。バックエンドサーバーはFirebase認証にトークン検証を依頼し、その結果に応じて処理を分岐します。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor User as ユーザー
-    participant Client as クライアント
-    participant Firebase as Firebase Auth
-    participant Server as バックエンドサーバー
-    participant DB as データベース
+    participant ユーザー
+    participant クライアント
+    participant Firebase認証
+    participant バックエンドサーバー
+    participant データベース
 
-    User->>Client: メールアドレス・パスワードを入力
-    Client->>Firebase: 認証リクエスト
-    activate Firebase
-    Firebase-->>Client: IDトークン発行
-    deactivate Firebase
+    ユーザー->>クライアント: ログイン画面
+    alt メールパスワードログイン
+        ユーザー->>クライアント: メールアドレスとパスワード入力
+        クライアント->>Firebase認証: ログイン認証リクエスト
+    else Google認証
+        ユーザー->>クライアント: Googleでログインをクリック
+        クライアント->>Firebase認証: Google認証リクエスト
+    end
 
-    Client->>Server: IDトークンを送信
-    activate Server
-    Server->>Firebase: トークン検証を依頼
-    activate Firebase
+    Firebase認証-->>クライアント: 認証成功とFirebase ID Token
+    クライアント->>バックエンドサーバー: Firebase ID Token
+    バックエンドサーバー->>Firebase認証: トークン検証
+    Firebase認証-->>バックエンドサーバー: トークン検証結果
 
-    alt トークンが有効
-        Firebase-->>Server: 検証成功
-        deactivate Firebase
-        Server->>DB: ユーザー情報を検索
-        activate DB
-
-        alt ユーザーが存在する
-            DB-->>Server: ユーザー情報
-            deactivate DB
-            Server-->>Client: アクセストークン + ユーザー情報
-            Client-->>User: ダッシュボード/ホーム画面に遷移
-        else ユーザーが存在しない
-            DB-->>Server: ユーザー未登録
-            Server-->>Client: エラーメッセージ
-            Client-->>User: エラーを表示
+    alt トークン有効
+        バックエンドサーバー->>データベース: Firebase UIDでユーザー情報検索
+        alt ユーザー存在
+            データベース-->>バックエンドサーバー: ユーザー情報
+            バックエンドサーバー->>バックエンドサーバー: アクセストークン生成
+            バックエンドサーバー-->>クライアント: アクセストークンとユーザー情報
+            クライアント->>ユーザー: ダッシュボード/ホーム画面表示
+        else ユーザー不存在
+            バックエンドサーバー-->>クライアント: ユーザーが見つかりません
+            クライアント->>ユーザー: エラーメッセージ表示
         end
-    else トークンが無効
-        Firebase-->>Server: 検証失敗
-        Server-->>Client: エラーメッセージ
-        deactivate Server
-        Client-->>User: エラーを表示
+    else トークン無効
+        バックエンドサーバー-->>クライアント: 認証エラー
+        クライアント->>ユーザー: エラーメッセージ表示
     end
 ```
 
@@ -108,75 +118,88 @@ sequenceDiagram
 
 ## クエスト
 
-クエストオーナーはフロントエンドからクエストを投稿します。ユーザーはクエスト一覧を閲覧し、参加やタスク完了報告を行います。バックエンドはデータベースを更新してポイントの付与や減算などを行い、トランザクションでデータの整合性を保ちます。
+クエストオーナーはフロントエンドからクエストを投稿します。フロントエンドはバックエンドを通じてクエストオーナーのポイント残高やカテゴリー一覧などの情報を取得し、投稿ページを表示します。クエストオーナーが入力した情報はバックエンドで検証され、問題なければデータベースに保存されます。ユーザーはフロントエンドからクエスト一覧を閲覧し、参加したいクエストの詳細を確認できます。クエストへの参加やタスク完了報告もフロントエンドから行い、バックエンドはデータベースを更新してポイントの付与や減算などを行います。これらの処理はトランザクションで管理され、データの整合性が保たれます。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor Owner as クエストオーナー
-    actor User as ユーザー
-    participant Frontend as フロントエンド
-    participant Backend as バックエンド
-    participant DB as データベース
+    participant クエストオーナー
+    participant ユーザー
+    participant フロントエンド
+    participant バックエンド
+    participant データベース
 
-    %% クエスト投稿
-    rect rgb(230, 240, 255)
-    Note over Owner, DB: クエスト投稿フロー
-    Owner->>Frontend: クエスト投稿ページを開く
-    Frontend->>Backend: ポイント残高・カテゴリ一覧を取得
-    activate Backend
-    Backend->>DB: データ取得
-    DB-->>Backend: ポイント残高・カテゴリ一覧
-    Backend-->>Frontend: 投稿ページ情報
-    deactivate Backend
-    Frontend-->>Owner: 投稿ページを表示
+    クエストオーナー->>フロントエンド: クエスト投稿ページを開く
+    フロントエンド->>バックエンド: クエスト投稿ページの情報をリクエスト (例: ポイント残高、カテゴリー一覧など)
+    バックエンド->>データベース: クエストオーナーのポイント残高、カテゴリー一覧を取得
+    データベース->>バックエンド: 情報を返す
+    バックエンド->>フロントエンド: クエスト投稿ページの情報を返す
+    フロントエンド->>クエストオーナー: クエスト投稿ページを表示 (ポイント残高、カテゴリー選択UIなど)
 
-    Owner->>Frontend: クエスト情報を入力・投稿
-    Frontend->>Backend: クエスト情報を送信
-    activate Backend
-    Backend->>Backend: 入力情報を検証
-    Backend->>DB: クエストを保存
-    DB-->>Backend: 保存完了
-    Backend-->>Frontend: 投稿成功
-    deactivate Backend
+    クエストオーナー->>フロントエンド: クエスト内容、報酬ポイント、カテゴリーなどを入力
+    フロントエンド->>バックエンド: 入力情報を検証 (例: 報酬ポイントがクエストオーナーの残高を超えていないかなど)
+    alt 入力値エラー
+        バックエンド->>フロントエンド: エラーメッセージを返す
+        フロントエンド->>クエストオーナー: エラーメッセージを表示
+    else 入力値OK
+        フロントエンド->>バックエンド: クエスト情報、報酬ポイント、カテゴリー、クエストオーナーIDを送信
+        バックエンド->>データベース: クエスト情報をデータベースに保存、クエストオーナーのポイントを一時的に減算 (トランザクション開始)
+        alt データベースエラー
+            バックエンド->>データベース: トランザクションをロールバック
+            バックエンド->>フロントエンド: エラーメッセージを返す
+            フロントエンド->>クエストオーナー: エラーメッセージを表示
+        else 保存成功
+            データベース->>バックエンド: 保存成功レスポンス
+            バックエンド->>データベース: トランザクションをコミット
+            バックエンド->>フロントエンド: クエスト投稿成功レスポンス
+            フロントエンド->>クエストオーナー: クエスト投稿完了メッセージを表示、クエスト一覧を更新
+        end
     end
 
-    %% クエスト参加
-    rect rgb(230, 255, 230)
-    Note over User, DB: クエスト参加フロー
-    User->>Frontend: クエスト一覧を閲覧
-    Frontend->>Backend: クエスト一覧を取得
-    Backend->>DB: クエスト一覧を取得
-    DB-->>Backend: クエスト一覧
-    Backend-->>Frontend: クエスト一覧
-    Frontend-->>User: クエスト一覧を表示
+    ユーザー->>フロントエンド: クエスト一覧ページを開く
+    フロントエンド->>バックエンド: クエスト一覧情報をリクエスト (例: フィルタリング条件、ページネーション情報など)
+    バックエンド->>データベース: 条件に合致するクエスト一覧を取得
+    データベース->>バックエンド: クエスト一覧を返す
+    バックエンド->>フロントエンド: クエスト一覧情報を返す
+    フロントエンド->>ユーザー: クエスト一覧を表示
 
-    User->>Frontend: クエスト詳細を確認
-    User->>Frontend: クエストに参加
-    Frontend->>Backend: 参加リクエスト
-    activate Backend
-    Backend->>DB: 参加情報を保存
-    DB-->>Backend: 保存完了
-    Backend-->>Frontend: 参加成功
-    deactivate Backend
-    end
+    ユーザー->>フロントエンド: 参加したいクエストの詳細ページを開く
+    フロントエンド->>バックエンド: クエストIDを送信
+    バックエンド->>データベース: クエストの詳細情報を取得
+    データベース->>バックエンド: クエストの詳細情報を返す
+    バックエンド->>フロントエンド: クエストの詳細情報を返す
+    フロントエンド->>ユーザー: クエストの詳細ページを表示
 
-    %% タスク完了
-    rect rgb(255, 245, 230)
-    Note over User, DB: タスク完了・ポイント処理
-    User->>Frontend: タスク完了報告
-    Frontend->>Backend: 完了報告を送信
-    activate Backend
-    Backend->>DB: トランザクション開始
-    activate DB
-    Backend->>DB: タスクステータス更新
-    Backend->>DB: ポイント付与・減算
-    DB-->>Backend: トランザクション完了
-    deactivate DB
-    Backend-->>Frontend: 処理成功
-    deactivate Backend
-    Frontend-->>User: 完了通知を表示
+    ユーザー->>フロントエンド: クエストへの参加ボタンをクリック
+    フロントエンド->>バックエンド: クエストID、ユーザーIDを送信
+    バックエンド->>データベース: クエストとユーザー情報を取得
+    データベース->>バックエンド: クエストとユーザー情報を返す
+    バックエンド->>データベース: クエスト参加情報を記録
+    データベース->>バックエンド: 保存成功レスポンス
+    バックエンド->>フロントエンド: クエスト参加成功レスポンス
+    フロントエンド->>ユーザー: クエスト参加完了メッセージを表示、クエスト詳細ページを更新 (例: 参加者一覧に追加)
+
+    ユーザー->>フロントエンド: タスク完了を報告
+    フロントエンド->>バックエンド: クエストID、ユーザーID、完了報告内容を送信
+    バックエンド->>データベース: クエスト、クエストオーナー、ユーザー情報を取得
+    データベース->>バックエンド: 情報を返す
+    バックエンド->>バックエンド: 完了報告内容を検証 (例: 添付ファイルのチェック、不正行為の検知など)
+    alt 完了報告内容エラー
+        バックエンド->>フロントエンド: エラーメッセージを返す
+        フロントエンド->>ユーザー: エラーメッセージを表示
+    else 完了報告内容OK
+        バックエンド->>データベース: クエスト完了状態を更新、ユーザーにポイント付与、クエストオーナーのポイントを減算、完了報告内容を保存 (トランザクション開始)
+        alt データベースエラー
+            バックエンド->>データベース: トランザクションをロールバック
+            バックエンド->>フロントエンド: エラーメッセージを返す
+            フロントエンド->>ユーザー: エラーメッセージを表示
+        else 更新成功
+            データベース->>バックエンド: 更新成功レスポンス
+            バックエンド->>データベース: トランザクションをコミット
+            バックエンド->>フロントエンド: クエスト完了報告成功レスポンス
+            フロントエンド->>ユーザー: クエスト完了報告完了メッセージを表示、クエスト詳細ページを更新 (例: 完了済みに変更)
+        end
     end
 ```
 
@@ -184,44 +207,48 @@ sequenceDiagram
 
 ## ポイントシステム（購入時）
 
-ユーザーはフロントエンドからポイント購入ページを開き、購入するポイント数を選択します。バックエンドはStripeを用いて決済処理を行い、決済が成功するとデータベースに購入履歴を記録し、ユーザーのポイント残高を加算します。
+ユーザーはフロントエンドからポイント購入ページを開き、購入するポイント数を選択します。バックエンドはStripeを用いて決済処理を行い、決済が成功するとデータベースに購入履歴を記録し、ユーザーのポイント残高を加算します。同時に、購入完了メールをユーザーに送信します。決済が失敗した場合は、エラーメッセージをフロントエンドに返却します。これらの処理はトランザクションで管理され、データの整合性が保たれます。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor User as ユーザー
+    participant User as ユーザー
     participant Frontend as フロントエンド
     participant Backend as バックエンド
+    participant Database as データベース
     participant Stripe as Stripe
-    participant DB as データベース
+    participant EmailService as メールサービス
 
     User->>Frontend: ポイント購入ページを開く
-    User->>Frontend: 購入ポイント数を選択
-    Frontend->>Backend: ポイント数 + ユーザーIDを送信
-    activate Backend
+    Frontend->>Backend: ポイント購入ページの情報をリクエスト
+    Backend->>Database: ポイントレート、購入可能なポイント数などを取得
+    Database->>Backend: ポイントレート、購入可能なポイント数などを返す
+    Backend->>Frontend: ポイント購入ページの情報を返す
+    Frontend->>User: ポイント購入ページを表示
 
-    Backend->>Stripe: 決済処理リクエスト
-    activate Stripe
-
+    User->>Frontend: 購入ポイント数を選択/入力
+    Frontend->>Backend: 購入ポイント数とユーザーIDを送信
+    Backend->>Database: ユーザー情報を取得 (ロック取得)
+    Database->>Backend: ユーザー情報を返す
+    Backend->>Backend: 購入金額を計算 (ポイントレート、消費税適用)
+    Backend->>Stripe: 決済処理リクエスト (金額、通貨、ユーザーID、購入ポイント数)
+    Stripe->>User: 決済フォームを表示
+    User->>Stripe: 決済情報入力
+    Stripe->>Backend: 決済Webhook (payment_intent.succeeded)
+    Backend->>Backend: Webhook署名検証
+    Backend->>Database: トランザクション開始
+    Backend->>Database: 購入履歴記録 (ユーザーID、購入日時、ポイント数、決済IDなど)
+    Backend->>Database: ユーザーのポイント加算 (ロック解放)
+    Database->>Backend: 成功/失敗レスポンス
+    Backend->>Backend: トランザクション終了 (成功時はコミット、失敗時はロールバック)
     alt 決済成功
-        Stripe-->>Backend: 決済成功
-        deactivate Stripe
-        Backend->>DB: トランザクション開始
-        activate DB
-        Backend->>DB: 購入履歴を記録
-        Backend->>DB: ポイント残高を加算
-        DB-->>Backend: トランザクション完了
-        deactivate DB
-        Backend-->>Frontend: 購入成功
-        deactivate Backend
-        Frontend-->>User: 購入完了を表示
-
-        Backend-)User: 購入完了メールを送信
+        Backend->>EmailService: 購入完了メール送信タスクをキューに追加 (ユーザー情報、購入ポイント数など)
+        Backend->>Frontend: ポイント購入成功レスポンス (更新されたポイント残高)
+        Frontend->>User: 購入完了メッセージと更新されたポイント残高を表示
     else 決済失敗
-        Stripe-->>Backend: 決済失敗
-        Backend-->>Frontend: エラーメッセージ
-        Frontend-->>User: エラーを表示
+        Backend->>Frontend: ポイント購入失敗レスポンス (エラーメッセージ)
+        Frontend->>User: エラーメッセージを表示
     end
 ```
 
@@ -229,47 +256,43 @@ sequenceDiagram
 
 ## ポイントシステム（送付時）
 
-ユーザーはフロントエンドからポイント送付ページを開き、送付先ユーザーとポイント数、メモを入力します。バックエンドは送付元ユーザーのポイント残高を確認し、十分な残高がある場合にトランザクションでポイントの移動を行います。
+ユーザーはフロントエンドからポイント送付ページを開き、送付先ユーザーとポイント数、メモを入力します。フロントエンドは入力された情報と送付元ユーザーIDをバックエンドに送信します。バックエンドは送付元ユーザーのポイント残高を確認し、残高が不足している場合はエラーメッセージを返却します。残高が十分な場合は、データベースでトランザクションを開始し、送付元ユーザーのポイントを減算、送付先ユーザーのポイントを加算します。処理が成功すると、送付完了メッセージをフロントエンドに返却し、送付元・送付先ユーザーへの通知処理を非同期で実行します。処理が失敗した場合は、エラーメッセージをフロントエンドに返却します。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor Sender as 送付元ユーザー
-    actor Receiver as 送付先ユーザー
+    participant User as ユーザー
     participant Frontend as フロントエンド
     participant Backend as バックエンド
-    participant DB as データベース
+    participant Database as データベース
 
-    Sender->>Frontend: ポイント送付ページを開く
-    Sender->>Frontend: 送付先・ポイント数・メモを入力
-    Frontend->>Backend: 送付情報 + 送付元ユーザーIDを送信
-    activate Backend
+    User->>Frontend: ポイント送付ページを開く
+    Frontend->>Backend: ポイント送付ページの情報をリクエスト
+    Backend->>Frontend: ポイント送付ページの情報を返す
+    Frontend->>User: ポイント送付ページを表示
 
-    Backend->>DB: 送付元ユーザーのポイント残高を確認
-    activate DB
-    DB-->>Backend: ポイント残高
-    deactivate DB
-
-    alt 残高が十分
-        Backend->>DB: トランザクション開始
-        activate DB
-        Backend->>DB: 送付元ポイントを減算
-        Backend->>DB: 送付先ポイントを加算
-        DB-->>Backend: トランザクション完了
-        deactivate DB
-        Backend-->>Frontend: 送付完了
-        deactivate Backend
-        Frontend-->>Sender: 送付完了を表示
-
-        par 通知処理（非同期）
-            Backend-)Sender: 送付完了通知
-        and
-            Backend-)Receiver: ポイント受取通知
+    User->>Frontend: 送付先ユーザーID、ポイント数を入力
+    Frontend->>Backend: 送付先ユーザーID、ポイント数、送付元ユーザーIDを送信
+    Backend->>Database: 送付元ユーザーと送付先ユーザーの情報を取得 (ロック取得)
+    Database->>Backend: ユーザー情報を返す
+    Backend->>Backend: 送付元ユーザーのポイント残高チェック
+    alt ポイント残高不足
+        Backend->>Frontend: ポイント送付失敗レスポンス (エラーメッセージ)
+        Frontend->>User: エラーメッセージを表示 (ポイント不足)
+    else ポイント残高充足
+        Backend->>Database: トランザクション開始
+        Backend->>Database: 送付元ユーザーのポイント減算、送付先ユーザーのポイント加算 (ロック解放)
+        Database->>Backend: 成功/失敗レスポンス
+        Backend->>Backend: トランザクション終了 (成功時はコミット、失敗時はロールバック)
+        alt 送付成功
+            Backend->>Frontend: ポイント送付成功レスポンス
+            Frontend->>User: 送付完了メッセージを表示
+            Backend->>Backend: 送付元・送付先ユーザーへの通知処理 (非同期)
+        else 送付失敗
+            Backend->>Frontend: ポイント送付失敗レスポンス (エラーメッセージ)
+            Frontend->>User: エラーメッセージを表示
         end
-    else 残高不足
-        Backend-->>Frontend: 残高不足エラー
-        Frontend-->>Sender: エラーを表示
     end
 ```
 
@@ -277,35 +300,32 @@ sequenceDiagram
 
 ## ポイントシステム（特典ポイント）
 
-ユーザーがログインや特定の操作を実行すると、バックエンドはログインボーナスや操作内容に応じたポイント付与条件を判定し、トランザクションでポイントを加算します。
+ユーザーがログインや特定の操作を実行すると、フロントエンドは操作情報とユーザーIDをバックエンドに送信します。バックエンドは、ログインボーナスや操作内容に応じたポイント付与条件を判定し、データベースでトランザクションを開始します。ユーザーのポイントを加算し、処理が成功するとポイント付与成功レスポンスをフロントエンドに返却します。フロントエンドは、ポイント獲得メッセージと更新されたポイント残高をユーザーに表示します。処理が失敗した場合は、エラーメッセージをフロントエンドに返却します。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor User as ユーザー
+    participant User as ユーザー
     participant Frontend as フロントエンド
     participant Backend as バックエンド
-    participant DB as データベース
+    participant Database as データベース
 
-    User->>Frontend: ログイン/特定操作を実行
-    Frontend->>Backend: 操作情報 + ユーザーIDを送信
-    activate Backend
-
-    Backend->>Backend: ポイント付与条件を判定
-
-    alt 付与条件を満たす
-        Backend->>DB: トランザクション開始
-        activate DB
-        Backend->>DB: ユーザーポイントを加算
-        DB-->>Backend: トランザクション完了
-        deactivate DB
-        Backend-->>Frontend: ポイント付与成功
-        deactivate Backend
-        Frontend-->>User: ポイント獲得メッセージ + 更新残高を表示
-    else 付与条件を満たさない
-        Backend-->>Frontend: ポイント付与なし
-        Frontend-->>User: 通常画面を表示
+    User->>Frontend: ログイン/特定操作実行
+    Frontend->>Backend: ログイン/操作情報とユーザーIDを送信
+    Backend->>Database: ユーザー情報を取得 (ロック取得)
+    Database->>Backend: ユーザー情報を返す
+    Backend->>Backend: ポイント付与条件判定 (ログインボーナス、操作内容に応じたポイントなど)
+    Backend->>Database: トランザクション開始
+    Backend->>Database: ユーザーのポイント加算 (ロック解放)
+    Database->>Backend: 成功/失敗レスポンス
+    Backend->>Backend: トランザクション終了 (成功時はコミット、失敗時はロールバック)
+    alt ポイント付与成功
+        Backend->>Frontend: ポイント付与成功レスポンス (更新されたポイント残高)
+        Frontend->>User: ポイント獲得メッセージと更新されたポイント残高を表示
+    else ポイント付与失敗
+        Backend->>Frontend: ポイント付与失敗レスポンス (エラーメッセージ)
+        Frontend->>User: エラーメッセージを表示
     end
 ```
 
@@ -313,46 +333,28 @@ sequenceDiagram
 
 ## ポイントシステム（FSP配分）
 
-アーティストグループが持つFSPをユーザーに配分するフローです。管理者画面で、アドミンユーザーがポイント配分のリクエストを入力し、組織アカウントのポイントを所属ユーザーに配分します。
+管理者画面で、アドミンユーザーがポイント配分のリクエストを入力します。フロントエンドは、その配分情報をサーバーに送信します。サーバーは、組織データベースにアクセスし、組織アカウントのポイント残高を確認します。もし組織アカウントに十分なポイントがある場合、サーバーは組織データベースのポイントを減らし、ユーザーデータベースの所属ユーザーにポイントを追加します。そして、ポイントを受け取った所属ユーザーに通知が送られます。もし組織アカウントのポイントが不足している場合、サーバーはアドミンユーザーにポイント不足の旨を通知します。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor Admin as アドミンユーザー
-    actor Member as 所属ユーザー
-    participant Frontend as 管理者画面
+    participant Admin as アドミンユーザー
+    participant Frontend as フロントエンド（管理者画面）
     participant Server as サーバー
     participant OrgDB as 組織データベース
     participant UserDB as ユーザーデータベース
+    participant User as 所属ユーザー
 
-    Admin->>Frontend: ポイント配分リクエストを入力
-    Frontend->>Server: 配分情報を送信
-    activate Server
-
-    Server->>OrgDB: 組織アカウントのポイント残高を確認
-    activate OrgDB
-    OrgDB-->>Server: ポイント残高
-    deactivate OrgDB
-
-    alt ポイントが十分
-        Server->>OrgDB: 組織ポイントを減算
-        activate OrgDB
-        OrgDB-->>Server: 更新完了
-        deactivate OrgDB
-
-        Server->>UserDB: 所属ユーザーにポイントを加算
-        activate UserDB
-        UserDB-->>Server: 更新完了
-        deactivate UserDB
-
-        Server-->>Frontend: 配分成功
-        deactivate Server
-        Frontend-->>Admin: 配分完了を表示
-        Server-)Member: ポイント受取通知を送信
-    else ポイント不足
-        Server-->>Frontend: ポイント不足エラー
-        Frontend-->>Admin: ポイント不足を表示
+    Admin ->> Frontend: ポイント配分のリクエストを入力
+    Frontend ->> Server: 配分情報をサーバーに送信
+    Server ->> OrgDB: 組織アカウントのポイント残高を確認
+    alt 十分なポイントがある場合
+        Server ->> OrgDB: ポイントを減少させる
+        Server ->> UserDB: 所属ユーザーにポイントを追加
+        UserDB ->> User: ポイント受け取り通知
+    else ポイントが不足している場合
+        Server ->> Admin: ポイントが不足している旨を通知
     end
 ```
 
@@ -360,222 +362,197 @@ sequenceDiagram
 
 ## ポイントシステム（FSPからクレデンシャルに変換）
 
-フロントエンドからウォレットアドレスをバックエンドに通知し、ポイントのトランザクション履歴に基づいてクレデンシャルを計算し、スマートコントラクト経由で各ウォレットアドレスに送付します。
+フロントエンドは、ユーザーのウォレットアドレスをバックエンドに通知します。バックエンドは、受け取ったウォレットアドレスをデータベースに格納し、そのアドレスに紐づくポイントのトランザクション履歴を取得します。取得した履歴に基づいて、バックエンドはクレデンシャル計算処理を実行し、計算結果であるクレデンシャル量をスマートコントラクトに送付します。スマートコントラクトは、受け取ったクレデンシャル量を各ウォレットアドレスに送付し、その情報をデータベースにインデックスします。データベースは、インデックスされたデータを取得し、バックエンドに返します。最終的に、バックエンドは処理結果をフロントエンドに返し、フロントエンドはユーザーに最新の残高を表示します。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor User as ユーザー
-    participant Frontend as フロントエンド
-    participant Backend as バックエンド
-    participant DB as データベース
-    participant SC as スマートコントラクト
+    participant フロントエンド
+    participant バックエンド
+    participant データベース
+    participant スマートコントラクト
 
-    Frontend->>Backend: ウォレットアドレスを通知
-    activate Backend
-
-    Backend->>DB: ウォレットアドレスを格納
-    activate DB
-    DB-->>Backend: 格納完了
-    deactivate DB
-
-    Backend->>DB: ポイントトランザクション履歴を取得
-    activate DB
-    DB-->>Backend: トランザクション履歴
-    deactivate DB
-
-    Backend->>Backend: クレデンシャル計算処理を実行
-
-    Backend->>SC: クレデンシャル量を送付
-    activate SC
-    SC->>SC: 各ウォレットアドレスにクレデンシャルを送付
-
-    SC->>DB: クレデンシャル情報をインデックス
-    activate DB
-    DB-->>SC: インデックス完了
-    deactivate DB
-
-    SC-->>Backend: 処理完了
-    deactivate SC
-
-    Backend->>DB: インデックスされたデータを取得
-    activate DB
-    DB-->>Backend: クレデンシャルデータ
-    deactivate DB
-
-    Backend-->>Frontend: 処理結果を返却
-    deactivate Backend
-    Frontend-->>User: 最新の残高を表示
+    フロントエンド->>バックエンド: ウォレットアドレスの通知
+    バックエンド->>データベース: ウォレットアドレスの格納
+    データベース->>バックエンド: ポイントのトランザクション履歴を取得
+    バックエンド->>バックエンド: クレデンシャル計算処理
+    バックエンド->>スマートコントラクト: 計算したクレデンシャル量を各アドレスに送付
+    スマートコントラクト->>データベース: インデックス
+    データベース->>バックエンド: データを取得
+    バックエンド->>フロントエンド: 残高の表示
 ```
 
 ---
 
 ## タスクマッチング（作成時）
 
-タスクオーナーがシステムにタスクを公開し、ユーザーがアプライします。募集期間中はメッセージ交換が可能で、遂行条件がクリアされるとタスクのステータスが「Ongoing（進行中）」に変更されます。
+タスクオーナーは、システムにタスクを公開します。システムは、公開されたタスクの内容をユーザーに表示します。ユーザーは、関心のあるタスクにアプライします。システムは、タスクオーナーにユーザーからのアプライ通知を送信します。募集期間中は、ユーザーとタスクオーナーはシステムを介してメッセージを交換することができます。タスクの遂行条件がクリアされると、タスクオーナーとユーザーはそれぞれシステムに条件クリア確認を通知します。システムは、タスクオーナーとユーザーの双方から条件クリア確認を受け取ると、タスクのステータスを「Ongoing（進行中）」に変更します。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor Owner as タスクオーナー
-    actor User as ユーザー
+    participant TaskOwner as タスクオーナー
+    participant User as ユーザー
     participant System as システム
 
-    Owner->>System: タスクを公開
-    System-->>User: タスク内容を表示
+    TaskOwner ->> System: タスクを公開する
+    System -->> User: タスクの内容を表示
 
-    User->>System: タスクにアプライ
-    System-)Owner: アプライ通知を送信
+    User ->> System: タスクにアプライする
+    System ->> TaskOwner: アプライ通知
 
-    rect rgb(230, 240, 255)
-    Note over Owner, User: 募集期間中のメッセージ交換
-    loop メッセージ交換
-        User->>System: メッセージを送信
-        System-->>Owner: メッセージを転送
-        Owner->>System: メッセージを送信
-        System-->>User: メッセージを転送
-    end
+    alt 募集期間中
+        User ->> TaskOwner: メッセージを送信
+        TaskOwner ->> User: メッセージを返信
     end
 
-    Owner->>System: 遂行条件クリアを確認
-    User->>System: 遂行条件クリアを確認
-
-    Note over System: 双方から条件クリア確認を受領
-    System->>System: ステータスを「Ongoing」に変更
-    System-->>Owner: ステータス変更通知
-    System-->>User: ステータス変更通知
+    alt 条件クリア
+        TaskOwner ->> System: 条件クリア確認
+        User ->> System: 条件クリア確認
+        System ->> TaskOwner: ステータスを「Ongoing」に変更
+        System ->> User: ステータスを「Ongoing」に変更
+    end
 ```
 
 ---
 
 ## タスクマッチング（完了時）
 
-タスクオーナーがタスクのステータスを「finish（完了）」に変更すると、ポイントの送信処理が行われます。
+タスクオーナーがシステム上でタスクのステータスを「finish（完了）」に変更します。システムはタスクオーナーに完了確認メッセージを送信します。タスクが正常に完了した場合、システムはユーザーにタスク完了通知を送信し、ポイントの送信処理を開始します。そして、タスクオーナーにポイントの減少を確認し、ユーザーにポイントの受け取りを確認します。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor Owner as タスクオーナー
-    actor User as ユーザー
+    participant TaskOwner as タスクオーナー
+    participant User as ユーザー
     participant System as システム
 
-    Owner->>System: ステータスを「finish」に変更
-    activate System
-    System-->>Owner: 完了確認メッセージ
+    TaskOwner ->> System: タスクのステータスを「finish」に変更
+    System ->> TaskOwner: 完了確認メッセージ
 
-    alt 正常完了
-        System-)User: タスク完了通知を送信
-        System->>System: ポイント送信処理を開始
-        System-->>Owner: ポイント減少を確認
-        System-->>User: ポイント受取を確認
-    else 異常終了
-        System-->>Owner: エラーメッセージ
+    alt タスク完了
+        System ->> User: タスク完了通知
+        System ->> System: ポイントの送信処理
+        System ->> TaskOwner: ポイント減少確認
+        System ->> User: ポイント受け取り確認
     end
-    deactivate System
 ```
 
 ---
 
 ## AIチャットボット
 
-ユーザーがチャットボットUIに質問を送信すると、サーバーはユーザー情報と質問内容をGoogle Gemini APIに送信し、生成された回答をユーザーに表示します。
+ユーザーがフロントエンドのチャットボットUIに質問を送信します。フロントエンドは、受け取った質問をサーバーにリクエストとして送信します。サーバーはユーザー情報を確認し、質問内容とユーザー情報を合わせてGoogle Gemini APIにリクエストします。Gemini APIは、受信した情報に基づいて回答を生成し、サーバーに返します。サーバーは、Gemini APIから受け取った回答をフロントエンドに送信し、フロントエンドはユーザーに回答を表示します。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor User as ユーザー
-    participant Frontend as フロントエンド
+    participant User as ユーザー
+    participant Frontend as フロントエンド（チャットボットUI）
     participant Server as サーバー
-    participant Gemini as Google Gemini API
+    participant LLM as Google Gemini API
 
-    User->>Frontend: チャットボットUIに質問を送信
-    Frontend->>Server: 質問内容をリクエスト
-    activate Server
-
-    Server->>Server: ユーザー情報を確認
-
-    Server->>Gemini: 質問内容 + ユーザー情報を送信
-    activate Gemini
-    Gemini->>Gemini: 回答を生成
-    Gemini-->>Server: 生成された回答
-    deactivate Gemini
-
-    Server-->>Frontend: 回答を送信
-    deactivate Server
-    Frontend-->>User: 回答を表示
+    User ->> Frontend: 質問を送信
+    Frontend ->> Server: ユーザーの質問をリクエスト
+    Server ->> Server: ユーザー情報を確認
+    Server ->> LLM: 質問 + ユーザー情報をリクエスト
+    LLM -->> Server: 回答生成
+    Server ->> Frontend: 回答を送信
+    Frontend ->> User: 回答を表示
 ```
 
 ---
 
 ## クレジット入力時の招待メール配信
 
-入力ユーザーがクレジット情報を入力すると、サーバーはハッシュを生成してデータベースに保存します。定期的に楽曲情報を集約し、SendGridを用いてメールを送信します。メール受信者はハッシュコードを用いてアカウントを作成できます。
+入力ユーザーはフロントエンドの入力フォームでロール、名前、メールアドレスを入力します。フロントエンドは入力された情報をサーバーに送信します。サーバーはクレジット識別のためのハッシュを生成し、ハッシュと共にデータベースに入力情報を保存します。サーバーは定期的にデータベースにアクセスし、楽曲情報を集約します。集約された情報はSendGridを用いてメールで入力されたユーザーに送信されます。入力されたユーザーはメールを受信後、サーバーにアカウント作成リクエストを送信します。サーバーはハッシュコードを要求し、ユーザーが入力したハッシュコードがデータベースの情報と一致すればアカウントを作成します。
 
 ```mermaid
 sequenceDiagram
     autonumber
 
-    actor InputUser as 入力ユーザー
-    actor InvitedUser as 招待ユーザー
-    participant Frontend as フロントエンド
+    participant InputUser as 入力ユーザー
+    participant Frontend as フロントエンド（入力フォーム）
     participant Server as サーバー
     participant DB as データベース
-    participant SendGrid as SendGrid
+    participant Email as SendGrid
+    participant TargetUser as 入力されたユーザー
 
-    %% クレジット情報の入力
-    rect rgb(230, 240, 255)
-    Note over InputUser, DB: クレジット情報入力フロー
-    InputUser->>Frontend: ロール・名前・メールアドレスを入力
-    Frontend->>Server: 入力情報を送信
-    activate Server
-    Server->>Server: クレジット識別用ハッシュを生成
-    Server->>DB: ハッシュと入力情報を保存
-    activate DB
-    DB-->>Server: 保存完了
-    deactivate DB
-    Server-->>Frontend: 入力完了
-    deactivate Server
+    InputUser ->> Frontend: ロール、名前、メールアドレスを入力
+    Frontend ->> Server: 入力情報を送信
+    Server ->> Server: クレジット識別のためのハッシュを生成
+    Server ->> DB: ハッシュとともにデータベースに情報を保存
+
+    loop 定期的な処理
+        Server ->> DB: 楽曲情報を集約
+        DB -->> Server: 集約された情報を取得
+        Server ->> Email: メールを作成し送信リクエスト
+        Email ->> TargetUser: 集約情報のメールを送信
     end
 
-    %% 定期的なメール配信
-    rect rgb(255, 245, 230)
-    Note over Server, SendGrid: 定期メール配信フロー
-    loop 定期実行
-        Server->>DB: 楽曲情報を集約
-        activate DB
-        DB-->>Server: 集約データ
-        deactivate DB
-        Server->>SendGrid: メール送信リクエスト
-        activate SendGrid
-        SendGrid-)InvitedUser: 招待メールを送信
-        deactivate SendGrid
-    end
+    TargetUser ->> Server: メール受領後、アカウント作成リクエスト
+    Server ->> TargetUser: ハッシュコードを要求
+    TargetUser ->> Server: ハッシュコードを入力
+    Server ->> DB: ハッシュコードを確認し、アカウントを作成
+```
+
+---
+
+## 景品交換
+
+景品の交換と利用のフローです。アプリユーザーと非アプリユーザーで交換・利用方法が異なります。アプリユーザーはモバイルアプリ経由でQRコードを使い、非アプリユーザーは管理画面経由で交換コードを使います。景品提供者は管理画面からコードを検証し、利用を確定します。
+
+```mermaid
+sequenceDiagram
+    autonumber
+
+    actor AppUser as アプリユーザー
+    actor NonAppUser as 非アプリユーザー
+    actor Provider as 景品提供者
+    participant App as モバイルアプリ
+    participant System as 管理画面
+    participant API as バックエンド
+    participant Email as メールシステム
+
+    Note over AppUser,Email: 交換時
+    alt アプリユーザーの場合
+        AppUser->>App: 景品と交換
+        App->>API: 交換リクエスト
+        API->>App: 交換完了＆QRコード生成
+        API->>Email: 交換完了メール（コード含む）
+        Email-->>AppUser: メール受信
+    else 非アプリユーザーの場合
+        NonAppUser->>System: 景品と交換
+        System->>API: 交換リクエスト
+        API->>Email: 交換完了メール（コード含む）
+        Email-->>NonAppUser: メール受信
     end
 
-    %% アカウント作成
-    rect rgb(230, 255, 230)
-    Note over InvitedUser, DB: アカウント作成フロー
-    InvitedUser->>Server: アカウント作成リクエスト
-    activate Server
-    Server-->>InvitedUser: ハッシュコードを要求
-    InvitedUser->>Server: ハッシュコードを入力
-
-    Server->>DB: ハッシュコードを照合
-    activate DB
-
-    alt ハッシュコードが一致
-        DB-->>Server: 照合成功
-        deactivate DB
-        Server->>Server: アカウントを作成
-        Server-->>InvitedUser: アカウント作成完了
-    else ハッシュコードが不一致
-        DB-->>Server: 照合失敗
-        Server-->>InvitedUser: エラーメッセージ
+    Note over AppUser,Email: 利用時
+    alt アプリユーザーの場合
+        AppUser->>App: 景品利用画面表示
+        App->>API: 未使用景品情報取得
+        API-->>App: QRコード表示
+        AppUser->>Provider: QRコード提示
+        Provider->>System: QRコードスキャン
+    else 非アプリユーザーの場合
+        NonAppUser->>Provider: 交換コード提示
+        Provider->>System: コード手動入力
     end
-    deactivate Server
+
+    System->>API: コード検証リクエスト
+    API-->>System: 検証結果＆景品情報
+    System-->>Provider: 確認画面表示
+    Provider->>System: 利用確定
+    System->>API: 利用状態更新
+
+    par 完了通知
+        API->>Email: 利用完了メール送信
+        Email-->>AppUser: メール受信
+        Email-->>NonAppUser: メール受信
     end
 ```
