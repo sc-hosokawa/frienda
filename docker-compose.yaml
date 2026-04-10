@@ -62,18 +62,6 @@ services:
       - '${STRIPE_MOCK_PORT:-12111}:12111'  # HTTP
       - '${STRIPE_MOCK_TLS_PORT:-12112}:12112'  # HTTPS
 
-  # --- BigQuery Emulator ---
-  bigquery-emulator:
-    container_name: bigquery-emulator
-    image: ghcr.io/goccy/bigquery-emulator:latest
-    platform: linux/amd64
-    profiles:
-      - services
-      - bigquery
-    command: ["--project", "${BIGQUERY_PROJECT_ID:-frienda-local}", "--port", "9050"]
-    ports:
-      - '${BIGQUERY_PORT:-9050}:9050'
-
   # --- Contentful モックサーバー ---
   contentful-mock:
     container_name: contentful-mock

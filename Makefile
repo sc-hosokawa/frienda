@@ -65,9 +65,6 @@ help:
 	@echo 'dev-stripe'
 	@echo '  - Start stripe-mock only'
 	@echo
-	@echo 'dev-bigquery'
-	@echo '  - Start BigQuery Emulator only'
-	@echo
 	@echo 'dev-contentful'
 	@echo '  - Start Contentful mock server only'
 	@echo
@@ -248,10 +245,6 @@ dev-mail:
 dev-stripe:
 	docker compose --profile stripe up -d
 
-.PHONY: dev-bigquery
-dev-bigquery:
-	docker compose --profile bigquery up -d
-
 .PHONY: dev-contentful
 dev-contentful:
 	docker compose --profile contentful up -d --build
@@ -262,11 +255,11 @@ dev-gemini:
 
 .PHONY: stop-services
 stop-services:
-	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile bigquery --profile contentful --profile gemini stop
+	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile contentful --profile gemini stop
 
 .PHONY: down-services
 down-services:
-	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile bigquery --profile contentful --profile gemini down
+	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile contentful --profile gemini down
 
 .PHONY: dev-down-all
 dev-down-all: down-services down-pg
