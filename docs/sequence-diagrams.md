@@ -393,7 +393,7 @@ sequenceDiagram
     %% タスク（オファー）公開
     オーナー->>フロントエンド: オファー作成ページを開く
     オーナー->>フロントエンド: タイトル、説明、場所、報酬、締切、画像、カテゴリー等を入力
-    フロントエンド->>バックエンド: registerTask mutation
+    フロントエンド->>バックエンド: createNewOffer mutation
     バックエンド->>データベース: オファー情報を保存（publicity: true）
     データベース-->>バックエンド: 保存完了
     バックエンド-->>フロントエンド: オファー作成成功
@@ -402,7 +402,7 @@ sequenceDiagram
     %% ユーザーがアプライ
     ユーザー->>フロントエンド: オファー一覧から詳細を確認
     ユーザー->>フロントエンド: オファーにアプライ
-    フロントエンド->>バックエンド: changeStatus mutation（Applied）
+    フロントエンド->>バックエンド: updateOfferStatus mutation（Applied）
     バックエンド->>データベース: offer_userレコード作成（status: Applied）
     データベース-->>バックエンド: 作成完了
     バックエンド-->>フロントエンド: アプライ成功
@@ -422,7 +422,7 @@ sequenceDiagram
 
     %% オーナーが承認 → Ongoing
     オーナー->>フロントエンド: アプライを承認
-    フロントエンド->>バックエンド: changeStatus mutation（Ongoing）
+    フロントエンド->>バックエンド: updateOfferStatus mutation（Ongoing）
     バックエンド->>データベース: ステータスを「Ongoing」に変更
     バックエンド->>データベース: 他のアプライをキャンセル
     バックエンド->>データベース: publicity を false に変更
@@ -450,7 +450,7 @@ sequenceDiagram
     participant SendGrid
 
     オーナー->>フロントエンド: オファーのステータスを「完了」に変更
-    フロントエンド->>バックエンド: changeStatus mutation（Finished）
+    フロントエンド->>バックエンド: updateOfferStatus mutation（Finished）
 
     バックエンド->>データベース: オファー情報を取得（報酬額、オーナーID）
     バックエンド->>データベース: 担当ユーザー情報を取得
