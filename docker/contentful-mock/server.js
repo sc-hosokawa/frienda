@@ -42,6 +42,18 @@ const sampleEntries = {
   ],
 };
 
+// Bearer token existence check (mirrors Contentful CDA auth requirement)
+app.use("/spaces", (req, res, next) => {
+  const auth = req.headers.authorization;
+  if (!auth || !auth.startsWith("Bearer ")) {
+    return res.status(401).json({
+      sys: { type: "Error", id: "AccessTokenInvalid" },
+      message: "Authorization header with Bearer token is required",
+    });
+  }
+  next();
+});
+
 // GET /spaces/:spaceId/environments/:envId/entries
 app.get("/spaces/:spaceId/environments/:envId/entries", (_req, res) => {
   res.json(sampleEntries);

@@ -8,4 +8,4 @@ COPY firebase.json storage.rules ./
 
 EXPOSE 4000 9099 9199
 
-CMD ["firebase", "emulators:start", "--only", "auth,storage"]
+CMD firebase emulators:start --only auth,storage --project "${GCLOUD_PROJECT:-frienda-local}"
