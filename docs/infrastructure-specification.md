@@ -2,7 +2,7 @@
 
 ## 1. 概要
 
-本ドキュメントは、FRIENDAプロジェクトの開発環境（Development）、ステージング環境（Staging）、本番環境（Production）のインフラ構成を定義する。
+本ドキュメントは、FRIENDAプロジェクトの開発環境（Local Development）、ステージング環境（Staging）、本番環境（Production）のインフラ構成を定義する。
 
 ### 1.1 クラウドプロバイダー
 
@@ -25,19 +25,17 @@
 
 ## 2. 環境一覧
 
-| 項目 | 開発環境 (Dev) | ステージング環境 (Staging) | 本番環境 (Prod) |
-|------|---------------|--------------------------|----------------|
-| デプロイトリガー | `main` ブランチへのpush | 手動 / スケジュール | `release` ブランチへのpush |
-| Cloud Run サービス名 | `frienda-server` | （未構築・要設計） | `frienda-server-core` |
-| Cloud SQL インスタンス名 | `frienda-dev-pg` | （未構築・要設計） | `frienda-pg` |
-| VPC ネットワーク | `dev-network` | （未構築・要設計） | `frienda-network` |
-| Terraform State | ローカル | （未構築・要設計） | `prd-frienda-terraform-state` (GCS) |
+| 項目 | 開発環境 (Local) | ステージング環境 (Staging) | 本番環境 (Prod) |
+|------|-----------------|--------------------------|----------------|
+| デプロイトリガー | ローカル実行 | `main` ブランチへのpush | `release` ブランチへのpush |
+| Cloud Run サービス名 | — | `frienda-server` | `frienda-server-core` |
+| Cloud SQL インスタンス名 | — (Docker PostgreSQL) | `frienda-dev-pg` | `frienda-pg` |
+| VPC ネットワーク | — | `dev-network` | `frienda-network` |
+| Terraform State | — | ローカル | `prd-frienda-terraform-state` (GCS) |
 
 ---
 
-## 3. 開発環境 (Development)
-
-### 3.1 ローカル開発環境
+## 3. 開発環境 (Local Development)
 
 #### コンテナ構成（docker-compose）
 
@@ -87,16 +85,18 @@
 | WebUI Admin | `make webui-admin-dev` | 3001 |
 | PostgreSQL | `make run-pg` | 5432 |
 
-### 3.2 クラウド開発環境
+---
 
-#### ネットワーク構成
+## 4. ステージング環境 (Staging)
+
+### 4.1 ネットワーク構成
 
 ```
 ┌──────────────────────────────────────────┐
-│  GCP Project (Dev)                        │
+│  GCP Project (Staging)                    │
 │                                           │
 │  ┌─────────────────────────────────────┐  │
-│  │ VPC: dev-network                     │  │
+│  │ VPC: dev-network                      │  │
 │  │                                      │  │
 │  │  ┌──────────────┐  ┌──────────────┐  │  │
 │  │  │ Cloud Run    │  │ Cloud SQL    │  │  │
@@ -123,7 +123,7 @@
 └──────────────────────────────────────────┘
 ```
 
-#### Cloud Run 設定
+### 4.2 Cloud Run 設定
 
 | 項目 | 設定値 |
 |------|--------|
@@ -134,7 +134,7 @@
 | VPC接続 | VPC Access Connector 経由 |
 | スケーリング | デフォルト（未設定） |
 
-#### Cloud SQL 設定
+### 4.3 Cloud SQL 設定
 
 | 項目 | 設定値 |
 |------|--------|
@@ -146,84 +146,28 @@
 | バックアップ | 未設定 |
 | パスワード管理 | Terraform変数から指定 |
 
-#### Cloud Storage 設定
+### 4.4 Cloud Storage 設定
 
 | バケット名 | 用途 | ストレージクラス | ライフサイクル |
 |-----------|------|----------------|--------------|
 | `frienda-photo-storage` | 写真保存 | STANDARD | 365日後にNEARLINEへ遷移 |
 | `frienda-general-files` | 汎用ファイル | STANDARD | 30日後にCOLDLINEへ遷移、バージョニング有効 |
 
----
-
-## 4. ステージング環境 (Staging)
-
-> **注意**: ステージング環境は現在未構築。以下は設計方針を定義する。
-
-### 4.1 設計方針
-
-- 本番環境と同等の構成を持ち、リリース前の検証環境として機能する
-- ステージング環境は本番環境のTerraform構成をベースに構築する
-- 本番環境との主な差異はスケーリング設定とコスト最適化のみ
-
-### 4.2 ネットワーク構成（設計案）
-
-```
-┌──────────────────────────────────────────┐
-│  GCP Project (Staging)                    │
-│                                           │
-│  ┌─────────────────────────────────────┐  │
-│  │ VPC: stg-network                     │  │
-│  │                                      │  │
-│  │  ┌──────────────┐  ┌──────────────┐  │  │
-│  │  │ Cloud Run    │  │ Cloud SQL    │  │  │
-│  │  │ frienda-     │──│ frienda-stg- │  │  │
-│  │  │ server-core  │  │ pg           │  │  │
-│  │  │ (Public)     │  │ (Private IP) │  │  │
-│  │  └──────────────┘  └──────────────┘  │  │
-│  │        │                              │  │
-│  │  ┌──────────────┐                     │  │
-│  │  │ VPC Access   │                     │  │
-│  │  │ Connector    │                     │  │
-│  │  │ stg-connector│                     │  │
-│  │  └──────────────┘                     │  │
-│  └─────────────────────────────────────┘  │
-│                                           │
-│  ┌─────────────────────────────────────┐  │
-│  │ Cloud Storage                        │  │
-│  │  └ stg-frienda-general-files         │  │
-│  │     (STANDARD → COLDLINE 30日)       │  │
-│  └─────────────────────────────────────┘  │
-│                                           │
-│  ┌─────────────────────────────────────┐  │
-│  │ Terraform State                      │  │
-│  │  stg-frienda-terraform-state (GCS)   │  │
-│  └─────────────────────────────────────┘  │
-└──────────────────────────────────────────┘
-```
-
-### 4.3 推奨構成
-
-| 項目 | 設定値 |
-|------|--------|
-| Cloud Run サービス名 | `frienda-server-core` |
-| Cloud SQL インスタンス名 | `frienda-stg-pg` |
-| Cloud SQL マシンタイプ | `db-custom-1-3840` |
-| Cloud SQL バックアップ | 有効（PITR付き） |
-| Cloud SQL 削除保護 | 有効 |
-| Cloud Run スケーリング | min: 0, max: 3 |
-| VPC ネットワーク名 | `stg-network` |
-| Terraform State | `stg-frienda-terraform-state` (GCS) |
-| デプロイトリガー | `staging` ブランチへのpush または手動 |
-
-### 4.4 本番環境との差異
+### 4.5 本番環境との差異
 
 | 項目 | ステージング | 本番 |
 |------|-------------|------|
-| Cloud Run 最小インスタンス | 0 | 1 |
-| Cloud Run 最大インスタンス | 3 | 10 |
-| Cloud SQL マシンタイプ | `db-custom-1-3840` | `db-custom-1-3840`（将来的にスケールアップ） |
-| 写真ストレージバケット | なし | なし（現状） |
-| コスト目標 | 最小限 | パフォーマンス優先 |
+| Cloud Run サービス名 | `frienda-server` | `frienda-server-core` |
+| Cloud Run 最小インスタンス | 0（デフォルト） | 1 |
+| Cloud Run 最大インスタンス | デフォルト | 10 |
+| Cloud SQL インスタンス名 | `frienda-dev-pg` | `frienda-pg` |
+| Cloud SQL バックアップ | なし | あり (PITR, 02:00 UTC) |
+| Cloud SQL 削除保護 | なし | あり |
+| Cloud SQL パスワード | 変数指定 | 自動生成 |
+| VPC ネットワーク | `dev-network` | `frienda-network` |
+| ストレージバケット | 2個（photo, general） | 1個（general） |
+| Terraform State | ローカル | GCS（リモート） |
+| デプロイブランチ | `main` | `release` |
 
 ---
 
@@ -317,7 +261,7 @@
 ```
 ┌────────┐    push     ┌──────────┐    ┌──────────────┐
 │ 開発者  │ ─────────→ │ GitHub   │ ──→│ GitHub       │
-│        │            │ (main)   │    │ Actions (CI) │
+│        │            │          │    │ Actions (CI) │
 └────────┘            └──────────┘    └──────┬───────┘
                                               │
                       ┌───────────────────────┼───────────────────┐
@@ -346,7 +290,7 @@
 
 ### 6.3 デプロイワークフロー
 
-#### 開発環境デプロイ (`deploy_dev_server.yaml`)
+#### ステージング環境デプロイ (`deploy_dev_server.yaml`)
 
 | 項目 | 設定 |
 |------|------|
@@ -361,7 +305,7 @@
 | 項目 | 設定 |
 |------|------|
 | トリガー | `release` ブランチへのpush（`services/backend/**` 変更時） |
-| ビルド | 開発環境と同一プロセス |
+| ビルド | ステージング環境と同一プロセス |
 | レジストリ | 本番用Artifact Registry |
 | デプロイ先 | Cloud Run `frienda-server-core` |
 | 環境変数 | 本番用シークレットを使用 |
@@ -377,9 +321,7 @@
 ### 6.4 デプロイブランチ戦略
 
 ```
-feature/* ──→ main (Dev Deploy) ──→ release (Prod Deploy)
-                │
-                └──→ staging (Staging Deploy) [将来構築]
+feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 ```
 
 ---
@@ -484,32 +426,33 @@ feature/* ──→ main (Dev Deploy) ──→ release (Prod Deploy)
 
 ## 10. 環境間差異サマリー
 
-| 項目 | 開発 (Dev) | ステージング (Staging) | 本番 (Prod) |
-|------|-----------|----------------------|-------------|
-| **GCPプロジェクト** | Dev用 | Staging用（要作成） | Prod用 |
-| **Cloud Run サービス名** | `frienda-server` | `frienda-server-core` | `frienda-server-core` |
-| **Cloud Run 最小インスタンス** | 0（デフォルト） | 0 | 1 |
-| **Cloud Run 最大インスタンス** | デフォルト | 3 | 10 |
-| **Cloud SQL インスタンス名** | `frienda-dev-pg` | `frienda-stg-pg` | `frienda-pg` |
-| **Cloud SQL マシンタイプ** | `db-custom-1-3840` | `db-custom-1-3840` | `db-custom-1-3840` |
-| **Cloud SQL バックアップ** | なし | あり (PITR) | あり (PITR, 02:00 UTC) |
-| **Cloud SQL 削除保護** | なし | あり | あり |
-| **Cloud SQL パスワード** | 変数指定 | 自動生成 | 自動生成 |
-| **VPC ネットワーク** | `dev-network` | `stg-network` | `frienda-network` |
-| **ストレージバケット** | 2個（photo, general） | 1個（general） | 1個（general） |
-| **Terraform State** | ローカル | GCS（リモート） | GCS（リモート） |
-| **デプロイブランチ** | `main` | `staging`（予定） | `release` |
-| **IAM** | allUsers許可 | allUsers許可 | allUsers許可 |
+| 項目 | 開発 (Local) | ステージング (Staging) | 本番 (Prod) |
+|------|-------------|----------------------|-------------|
+| **環境** | ローカル (Docker) | GCP | GCP |
+| **Cloud Run サービス名** | — | `frienda-server` | `frienda-server-core` |
+| **Cloud Run 最小インスタンス** | — | 0（デフォルト） | 1 |
+| **Cloud Run 最大インスタンス** | — | デフォルト | 10 |
+| **Cloud SQL インスタンス名** | — (Docker PostgreSQL 16) | `frienda-dev-pg` | `frienda-pg` |
+| **Cloud SQL マシンタイプ** | — | `db-custom-1-3840` | `db-custom-1-3840` |
+| **Cloud SQL バックアップ** | — | なし | あり (PITR, 02:00 UTC) |
+| **Cloud SQL 削除保護** | — | なし | あり |
+| **Cloud SQL パスワード** | `postgres` | 変数指定 | 自動生成 |
+| **VPC ネットワーク** | — | `dev-network` | `frienda-network` |
+| **ストレージバケット** | — | 2個（photo, general） | 1個（general） |
+| **Terraform State** | — | ローカル | GCS（リモート） |
+| **デプロイ方法** | ローカル実行 | `main` ブランチへのpush | `release` ブランチへのpush |
+| **IAM** | — | allUsers許可 | allUsers許可 |
 
 ---
 
 ## 11. 今後の改善事項
 
-### 11.1 ステージング環境の構築
+### 11.1 ステージング環境の強化
 
-- [ ] Terraform構成ファイルの作成（`terraform/environments/stg/`）
-- [ ] GitHub Actionsデプロイワークフローの追加
-- [ ] `staging` ブランチの運用ルール策定
+- [ ] ステージング環境のリソース名を `dev-` プレフィクスから `stg-` プレフィクスへリネーム検討
+- [ ] Cloud SQL バックアップの有効化
+- [ ] Cloud SQL 削除保護の有効化
+- [ ] Terraform State のリモート管理化（GCS）
 
 ### 11.2 セキュリティ強化
 
@@ -527,7 +470,7 @@ feature/* ──→ main (Dev Deploy) ──→ release (Prod Deploy)
 
 ### 11.4 コスト最適化
 
-- [ ] 開発環境のTerraform State をリモート管理化
+- [ ] ステージング環境のTerraform State をリモート管理化
 - [ ] 不要リソースの定期棚卸しフロー整備
 - [ ] Cloud RunのCPU割り当て最適化（request-based vs always-on）
 
