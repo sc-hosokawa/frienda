@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 CREATE TYPE "user_artist_status" AS ENUM (
   'accept',
   'reject',
