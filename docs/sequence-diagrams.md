@@ -349,7 +349,6 @@ sequenceDiagram
             Note over バックエンド: 残高チェック・減算をスキップ
         end
         バックエンド->>データベース: 対象ユーザーFSP加算
-        end
     end
 
     バックエンド->>データベース: FSPトランザクション履歴を一括作成（create_many）
