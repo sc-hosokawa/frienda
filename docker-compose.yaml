@@ -10,6 +10,8 @@ services:
       POSTGRES_USER: ${PG_USER:-postgres}
       POSTGRES_PASSWORD: ${PG_PASSWORD:-postgres}
       POSTGRES_DB: ${PG_DB:-postgres}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
 
   # --- Firebase Emulator Suite (認証・Storage・FCM) ---
   firebase-emulator:
@@ -104,3 +106,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+
+volumes:
+  postgres-data:
