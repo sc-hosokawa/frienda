@@ -1,6 +1,11 @@
 import { initializeApp } from "@firebase/app";
-import { getAuth } from "@firebase/auth";
+import { connectAuthEmulator, getAuth } from "@firebase/auth";
 import { getStorage } from "firebase/storage";
+
+const firebaseConfigEmulator = {
+  apiKey: "fake-api-key",
+  projectId: "frienda-local",
+};
 
 const firebaseConfigDev = {
   apiKey: "AIzaSyAkYBfsIsL-PALnx6-20rJB1eEGAXMUYF8",
@@ -22,7 +27,12 @@ const firebaseConfigPrd = {
   measurementId: "G-BSD0532YHD",
 };
 
+const emulatorHost = process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST;
+
 const getFirebaseConfig = () => {
+  if (emulatorHost) {
+    return firebaseConfigEmulator;
+  }
   switch (process.env.NEXT_PUBLIC_ENV) {
     case "production":
       return firebaseConfigPrd;
@@ -36,4 +46,7 @@ const getFirebaseConfig = () => {
 const firebaseConfig = getFirebaseConfig();
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+if (emulatorHost) {
+  connectAuthEmulator(auth, `http://${emulatorHost}`);
+}
 export const storage = getStorage(app);
