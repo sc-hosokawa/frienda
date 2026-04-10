@@ -601,8 +601,10 @@ sequenceDiagram
     alt 残高不足
         バックエンド-->>ユーザー: エラー（残高不足）
     else 残高充足
-        バックエンド->>データベース: ユーザーのFSPを減算
+        バックエンド->>データベース: ユーザーのFSPを減算（-total_points）
+        バックエンド->>データベース: 景品提供者（representation_user）のFSPを加算（+total_points）
         バックエンド->>データベース: exchange_prize_historyレコード作成
+        バックエンド->>データベース: fsp_txトランザクション履歴作成（notes: "Exchange prize: {景品名}"）
         データベース-->>バックエンド: 交換完了
         バックエンド-->>ユーザー: 交換成功レスポンス
     end
