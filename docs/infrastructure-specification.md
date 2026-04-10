@@ -72,16 +72,11 @@
 
 #### コンテナ構成（docker-compose）
 
-```
-┌─────────────────────────────┐
-│  docker-compose              │
-│  ┌────────────────────────┐  │
-│  │ postgres (PostgreSQL 16)│  │
-│  │ Port: 5432              │  │
-│  │ User: postgres           │  │
-│  │ DB: postgres             │  │
-│  └────────────────────────┘  │
-└─────────────────────────────┘
+```mermaid
+graph LR
+    subgraph docker-compose
+        PG["postgres<br/>PostgreSQL 16<br/>Port: 5432<br/>User: postgres<br/>DB: postgres"]
+    end
 ```
 
 | 項目 | 設定値 |
@@ -128,153 +123,111 @@
 
 ### 4.1 Web構成図
 
-```
-┌───────────────────────────────────────────────────────────────┐
-│  Vercel                                                        │
-│  ┌────────────────────┐      ┌────────────────────┐            │
-│  │ WebUI Client       │      │ WebUI Admin        │            │
-│  └─┬──┬───┬───┬───────┘      └─┬──┬───────────────┘            │
-│    │  │   │   │                 │  │                            │
-│    │  │   │   │ API Route       │  │ API Route                  │
-│    │  │   │   ├──→ Stripe       │  ├──→ Stripe                  │
-│    │  │   │   │ Server Component│  │                            │
-│    │  │   │   └──→ Contentful   │  │                            │
-│    │  │   │                     │  │                            │
-└────┼──┼───┼─────────────────────┼──┼───────────────────────────┘
-     │  │   │ GraphQL             │  │ GraphQL
-     │  │   │                     │  │
-┌────┼──┼───┼─────────────────────┼──┼───────────────────────────┐
-│  GCP Project                    │  │                            │
-│    │  │   │    ┌────────────────▼──▼──┐  ┌──────────────┐      │
-│    │  │   │    │ Cloud Run           │  │ Cloud SQL    │      │
-│    │  │   │    │ (Backend API)       │──│ (PostgreSQL) │      │
-│    │  │   │    └──┬──┬──┬──┬──┬──┬──┘  └──────────────┘      │
-│    │  │   │       │  │  │  │  │  │   ┌─────────────────┐      │
-│    │  │   │       │  │  │  │  │  │   │ Cloud Storage   │      │
-│    │  │   │       │  │  │  │  │  │   └─────────────────┘      │
-└────┼──┼───┼───────┼──┼──┼──┼──┼──┼────────────────────────────┘
-     │  │   │       │  │  │  │  │  │
-┌────┼──┼───┼───────┼──┼──┼──┼──┼──┼────────────────────────────┐
-│  外部SaaS │       │  │  │  │  │  │                             │
-│    │  │   │       │  │  │  │  │  │                             │
-│  ┌─▼──▼───┼───┐   │  │  │  │  │  │                             │
-│  │ Firebase   │   │  │  │  │  │  │                             │
-│  │ Auth /     │   │  │  │  │  │  │                             │
-│  │ Storage    │   │  │  │  │  │  │                             │
-│  └────────────┘   │  │  │  │  │  │                             │
-│                    │  │  │  │  │  │                             │
-│  ┌────────────┐   │  │  │  │  │  │                             │
-│  │ Stripe     │←Webhook ←┘  │  │  │                             │
-│  │ 決済       │   │  │     │  │  │                             │
-│  └────────────┘   │  │     │  │  │                             │
-│                    │  │     │  │  │                             │
-│  ┌────────────┐   │  │     │  │  │                             │
-│  │ Contentful │←Webhook ←──┘  │  │                             │
-│  │ ニュースCMS│   │  │        │  │                             │
-│  └────────────┘   │  │        │  │                             │
-│                    │  │        │  │                             │
-│  ┌─────────────────▼──▼────────▼──▼───────────────────────┐    │
-│  │ Backend (Cloud Run) 専用                                │    │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐   │    │
-│  │  │ Firebase │ │ Google   │ │ SendGrid │ │ Google   │   │    │
-│  │  │ FCM      │ │ Gemini   │ │ メール    │ │ BigQuery │   │    │
-│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘   │    │
-│  │  ┌──────────┐                                           │    │
-│  │  │ Polygon  │                                           │    │
-│  │  │ RPC      │                                           │    │
-│  │  └──────────┘                                           │    │
-│  └─────────────────────────────────────────────────────────┘    │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph Vercel
+        WC["WebUI Client"]
+        WA["WebUI Admin"]
+    end
 
-  通信方向:
-  [Vercel サーバーサイド経由]
-  WebUI Client → Backend (GraphQL)            : API通信
-  WebUI Client → Firebase                     : 認証 / Storage (クライアントサイド)
-  WebUI Client → Stripe (Vercel API Route)    : 決済セッション作成 (サーバーサイド)
-  WebUI Client → Contentful (Server Component): ニュース取得 (サーバーサイド)
-  WebUI Admin  → Backend (GraphQL)            : API通信
-  WebUI Admin  → Firebase                     : 認証 (クライアントサイド)
-  WebUI Admin  → Stripe (Vercel API Route)    : 売上照会 (サーバーサイド)
+    subgraph GCP["GCP Project"]
+        CR["Cloud Run<br/>(Backend API)"]
+        CS["Cloud SQL<br/>(PostgreSQL)"]
+        ST["Cloud Storage"]
+        CR --- CS
+    end
 
-  [Backend (Cloud Run) 経由]
-  Backend → Firebase FCM   : プッシュ通知送信
-  Backend → Google Gemini  : AI応答生成
-  Backend → Google BigQuery: DSPストリーミングデータ取得
-  Backend → SendGrid       : メール送信
-  Backend → Polygon RPC    : オンチェーンデータ取得
-  Backend ← Stripe         : Webhook (決済イベント受信)
-  Backend ← Contentful     : Webhook (ニュース更新受信)
+    subgraph SaaS["外部SaaS"]
+        FB["Firebase<br/>Auth / Storage"]
+        STRIPE["Stripe<br/>決済"]
+        CTF["Contentful<br/>ニュースCMS"]
+        FCM["Firebase FCM"]
+        GEMINI["Google Gemini"]
+        SG["SendGrid"]
+        BQ["Google BigQuery"]
+        POLY["Polygon RPC"]
+    end
+
+    %% Vercel → GCP
+    WC -->|GraphQL| CR
+    WA -->|GraphQL| CR
+
+    %% Vercel → 外部SaaS (クライアントサイド)
+    WC -->|認証 / Storage| FB
+    WA -->|認証| FB
+
+    %% Vercel → 外部SaaS (サーバーサイド: API Route / Server Component)
+    WC -.->|API Route: 決済セッション| STRIPE
+    WC -.->|Server Component: ニュース取得| CTF
+    WA -.->|API Route: 売上照会| STRIPE
+
+    %% Backend → 外部SaaS
+    CR -->|プッシュ通知| FCM
+    CR -->|AI応答生成| GEMINI
+    CR -->|メール送信| SG
+    CR -->|DSPデータ取得| BQ
+    CR -->|オンチェーンデータ| POLY
+
+    %% 外部SaaS → Backend (Webhook)
+    STRIPE -->|Webhook: 決済イベント| CR
+    CTF -->|Webhook: ニュース更新| CR
+
+    style Vercel fill:#f0f0f0,stroke:#333
+    style GCP fill:#e8f0fe,stroke:#4285f4
+    style SaaS fill:#fef7e0,stroke:#f9ab00
 ```
+
+> **凡例**: 実線 = 直接通信、破線 = Vercelサーバーサイド経由（API Route / Server Component）
 
 ### 4.2 Mobile構成図
 
-```
-┌───────────────────────────────────────────────────────────────┐
-│  Mobile Apps                                                   │
-│  ┌────────────────────┐      ┌────────────────────┐            │
-│  │ Mobile Client      │      │ Mobile Admin       │            │
-│  │ (Flutter)          │      │ (Flutter)          │            │
-│  └─┬──┬──┬────────────┘      └─┬──────────────────┘            │
-│    │  │  │                      │                              │
-└────┼──┼──┼──────────────────────┼──────────────────────────────┘
-     │  │  │ GraphQL              │ GraphQL
-     │  │  │                      │
-┌────┼──┼──┼──────────────────────┼──────────────────────────────┐
-│  GCP│Project                    │                               │
-│    │  │  │     ┌────────────────▼──┐  ┌──────────────┐         │
-│    │  │  │     │ Cloud Run        │  │ Cloud SQL    │         │
-│    │  │  │     │ (Backend API)    │──│ (PostgreSQL) │         │
-│    │  │  │     └──┬──┬──┬──┬──┬──┘  └──────────────┘         │
-│    │  │  │        │  │  │  │  │   ┌─────────────────┐         │
-│    │  │  │        │  │  │  │  │   │ Cloud Storage   │         │
-│    │  │  │        │  │  │  │  │   └─────────────────┘         │
-└────┼──┼──┼────────┼──┼──┼──┼──┼───────────────────────────────┘
-     │  │  │        │  │  │  │  │
-┌────┼──┼──┼────────┼──┼──┼──┼──┼───────────────────────────────┐
-│  外部SaaS         │  │  │  │  │                                │
-│    │  │  │        │  │  │  │  │                                │
-│  ┌─▼──▼──┼────┐   │  │  │  │  │                                │
-│  │ Firebase   │   │  │  │  │  │                                │
-│  │ Auth /     │   │  │  │  │  │                                │
-│  │ Storage /  │   │  │  │  │  │                                │
-│  │ FCM        │   │  │  │  │  │                                │
-│  └────────────┘   │  │  │  │  │                                │
-│                    │  │  │  │  │                                │
-│  ┌────────────┐   │  │  │  │  │                                │
-│  │ Contentful │←──┘  │  │  │  │  ← Mobile Client から直接      │
-│  │ ニュースCMS│      │  │  │  │                                │
-│  └────────────┘      │  │  │  │                                │
-│                       │  │  │  │                                │
-│  ┌────────────────────▼──▼──▼──▼──────────────────────────┐    │
-│  │ Backend (Cloud Run) 専用                                │    │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐   │    │
-│  │  │ Firebase │ │ Google   │ │ SendGrid │ │ Google   │   │    │
-│  │  │ FCM      │ │ Gemini   │ │ メール    │ │ BigQuery │   │    │
-│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘   │    │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐                │    │
-│  │  │ Polygon  │ │ Stripe   │ │Contentful│                │    │
-│  │  │ RPC      │ │ Webhook  │ │ Webhook  │                │    │
-│  │  └──────────┘ └──────────┘ └──────────┘                │    │
-│  └─────────────────────────────────────────────────────────┘    │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph Mobile["Mobile Apps"]
+        MC["Mobile Client<br/>(Flutter)"]
+        MA["Mobile Admin<br/>(Flutter)"]
+    end
 
-  通信方向:
-  [Mobile アプリから直接]
-  Mobile Client → Backend (GraphQL)   : API通信
-  Mobile Client → Firebase            : 認証 / Storage / FCMトークン登録
-  Mobile Client → Contentful          : ニュース取得 (アプリから直接CDN API)
-  Mobile Admin  → Backend (GraphQL)   : API通信
+    subgraph GCP["GCP Project"]
+        CR["Cloud Run<br/>(Backend API)"]
+        CS["Cloud SQL<br/>(PostgreSQL)"]
+        ST["Cloud Storage"]
+        CR --- CS
+    end
 
-  [Backend (Cloud Run) 経由]
-  Backend → Firebase FCM   : プッシュ通知送信
-  Backend → Google Gemini  : AI応答生成
-  Backend → Google BigQuery: DSPストリーミングデータ取得
-  Backend → SendGrid       : メール送信
-  Backend → Polygon RPC    : オンチェーンデータ取得
-  Backend ← Stripe         : Webhook (決済イベント受信)
-  Backend ← Contentful     : Webhook (ニュース更新受信)
+    subgraph SaaS["外部SaaS"]
+        FB["Firebase<br/>Auth / Storage / FCM"]
+        CTF["Contentful<br/>ニュースCMS"]
+        FCM["Firebase FCM"]
+        GEMINI["Google Gemini"]
+        SG["SendGrid"]
+        BQ["Google BigQuery"]
+        POLY["Polygon RPC"]
+        STRIPE["Stripe"]
+    end
+
+    %% Mobile → GCP
+    MC -->|GraphQL| CR
+    MA -->|GraphQL| CR
+
+    %% Mobile → 外部SaaS (直接通信)
+    MC -->|認証 / Storage / FCMトークン| FB
+    MC -->|ニュース取得 (直接CDN API)| CTF
+
+    %% Backend → 外部SaaS
+    CR -->|プッシュ通知| FCM
+    CR -->|AI応答生成| GEMINI
+    CR -->|メール送信| SG
+    CR -->|DSPデータ取得| BQ
+    CR -->|オンチェーンデータ| POLY
+
+    %% 外部SaaS → Backend (Webhook)
+    STRIPE -->|Webhook: 決済イベント| CR
+    CTF -->|Webhook: ニュース更新| CR
+
+    style Mobile fill:#f0f0f0,stroke:#333
+    style GCP fill:#e8f0fe,stroke:#4285f4
+    style SaaS fill:#fef7e0,stroke:#f9ab00
 ```
 
 ---
@@ -381,21 +334,13 @@
 
 ### 7.1 全体フロー
 
-```
-┌────────┐    push     ┌──────────┐    ┌──────────────┐
-│ 開発者  │ ─────────→ │ GitHub   │ ──→│ GitHub       │
-│        │            │          │    │ Actions (CI) │
-└────────┘            └──────────┘    └──────┬───────┘
-                                              │
-                      ┌───────────────────────┼───────────────────┐
-                      │                       │                   │
-               ┌──────▼──────┐  ┌─────────────▼──┐  ┌──────────▼──────┐
-               │ Backend     │  │ Client         │  │ Contract       │
-               │ Test        │  │ Lint           │  │ Test           │
-               │ cargo test  │  │ pnpm lint      │  │ forge test     │
-               │ clippy      │  │                │  │                │
-               │ fmt check   │  │                │  │                │
-               └─────────────┘  └────────────────┘  └────────────────┘
+```mermaid
+graph LR
+    DEV["開発者"] -->|push| GH["GitHub"]
+    GH --> CI["GitHub Actions<br/>(CI)"]
+    CI --> BE["Backend Test<br/>cargo test<br/>clippy<br/>fmt check"]
+    CI --> CL["Client Lint<br/>pnpm lint"]
+    CI --> CT["Contract Test<br/>forge test"]
 ```
 
 ### 7.2 Claude Code ワークフロー (`claude.yml`)
@@ -457,8 +402,10 @@
 
 ### 7.5 デプロイブランチ戦略
 
-```
-feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
+```mermaid
+graph LR
+    F["feature/*"] -->|merge| M["main<br/>(Staging Deploy)"]
+    M -->|merge| R["release<br/>(Prod Deploy)"]
 ```
 
 ---
