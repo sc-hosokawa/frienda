@@ -412,8 +412,10 @@
 
 | トリガー | 条件 |
 |---------|------|
-| push | ブランチ指定なし（パス指定: `services/backend/**`, `services/frontend/**`, `services/contract/**`） |
+| push | ブランチ指定なし（パス指定: `services/backend/**`, `services/frontend/apps/{admin,client,mobile}/**`, `services/contract/**`） |
 | pull_request | `main`, `develop` ブランチ（パス指定: 同上） |
+
+> **要確認**: ci.yaml のパス指定は `services/frontend/` を参照しているが、現在のディレクトリ構造では `services/webui/` に変更されている可能性がある。パス不一致によりCIが発火しないケースがありうるため、実態に合わせてci.yamlの修正を検討すべき。
 
 | ジョブ | 実行条件 | 内容 |
 |--------|---------|------|
@@ -620,7 +622,16 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 
 ### 12.2 セキュリティ強化
 
-- [ ] Cloud Runへのロードバランサー + Cloud Armor導入
+**優先度: 高**（本文中のセキュリティ指摘事項）
+
+- [ ] **Firebase認証JSONのイメージ分離**: ステージング用・本番用の認証JSONが単一Dockerイメージに同梱されている → 環境ごとのイメージ分離またはSecret Managerからの動的取得（セクション8.1参照）
+- [ ] **Cloud Run未認証アクセスの制限**: `--allow-unauthenticated` による全インターネット公開状態 → ロードバランサー + Cloud Armor導入、イングレスを `INTERNAL_LOAD_BALANCER` に変更（セクション10.2参照）
+- [ ] **Terraform Stateのリモートバックエンド設定**: GCSバケットは存在するが `backend "gcs"` 未設定でローカル管理のまま → backendブロック追加による状態共有・ロック有効化（セクション6.4参照）
+- [ ] **GCS public_access_prevention の明示的設定**: Terraform Stateバケットの公開アクセス防止がGCSデフォルトに依存 → `public_access_prevention = "enforced"` の明示的設定（セクション6.4参照）
+- [ ] **deploy_prd_server.yaml の認証情報不整合**: `GCLOUD_AUTH_PRD` と `GCLOUD_AUTH` が混在 → 認証情報の統一（セクション7.4参照）
+
+**優先度: 中**
+
 - [ ] Identity-Aware Proxy (IAP) による管理画面アクセス制限
 - [ ] Cloud SQL への接続をCloud SQL Auth Proxyに統一
 - [ ] シークレット管理をGitHub SecretsからGoogle Secret Managerへ移行検討
