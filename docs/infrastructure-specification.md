@@ -7,15 +7,16 @@
 ### 1.1 クラウドプロバイダー
 
 - **Google Cloud Platform (GCP)**
-- リージョン: `asia-northeast1`（東京）
+  - リージョン: `asia-northeast1`（東京）
+- **Vercel**（WebUI デプロイ）
 
 ### 1.2 主要サービス構成
 
 | サービス | 技術スタック | デプロイ先 |
 |----------|-------------|-----------|
 | Backend API | Rust (Actix-web, Sea-ORM, async-graphql) | Google Cloud Run |
-| WebUI Client | Next.js (React, TypeScript) | - |
-| WebUI Admin | Next.js (React, TypeScript) | - |
+| WebUI Client | Next.js (React, TypeScript) | Vercel |
+| WebUI Admin | Next.js (React, TypeScript) | Vercel |
 | Mobile Client | Flutter (Dart) | App Store / Google Play |
 | Mobile Admin | Flutter (Dart) | App Store / Google Play |
 | Database | PostgreSQL 15 | Cloud SQL |
