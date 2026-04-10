@@ -86,7 +86,7 @@ services:
     ports:
       - '${CONTENTFUL_MOCK_PORT:-3100}:3100'
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3100/health"]
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3100/health').then(r=>{process.exit(r.ok?0:1)}).catch(()=>process.exit(1))"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -103,7 +103,7 @@ services:
     ports:
       - '${GEMINI_MOCK_PORT:-3101}:3101'
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3101/health"]
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3101/health').then(r=>{process.exit(r.ok?0:1)}).catch(()=>process.exit(1))"]
       interval: 10s
       timeout: 5s
       retries: 3
