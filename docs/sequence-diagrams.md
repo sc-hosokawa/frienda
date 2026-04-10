@@ -164,7 +164,7 @@ sequenceDiagram
 
 ## ポイントシステム（購入時）
 
-ユーザーはフロントエンドからポイント購入ページを開き、固定の購入オプション（100/300/500/1000/5000 FSP）から選択します。Next.js API RouteでStripe Checkout Sessionを作成し、ユーザーをStripeの決済ページにリダイレクトします。決済完了後、Stripeからbackendにwebhook（checkout.session.completed）が送信され、ユーザーのポイントが加算されます。ポイント受取時にSendGridでメール通知が送信されます。
+ユーザーはフロントエンドからポイント購入ページを開き、固定の購入オプション（100/300/500/1000/5000 FSP）から選択します。Next.js API RouteでStripe Checkout Sessionを作成し、ユーザーをStripeの決済ページにリダイレクトします。決済完了後、Stripeからバックエンドにwebhook（checkout.session.completed）が送信され、内部的にtransfer(from: None)を経由してユーザーのポイントが加算されます。ポイント受取時にDB通知・FCMプッシュ通知・SendGridメール通知が非同期で送信されます。なお、Webhook署名検証は現在未実装です。
 
 ```mermaid
 sequenceDiagram
@@ -176,6 +176,7 @@ sequenceDiagram
     participant Stripe
     participant バックエンド as バックエンド（Webhook）
     participant データベース
+    participant FCM
     participant SendGrid
 
     ユーザー->>フロントエンド: ポイント購入ページを開く
@@ -192,12 +193,16 @@ sequenceDiagram
 
     alt 決済成功
         Stripe->>バックエンド: Webhook（checkout.session.completed）
-        バックエンド->>バックエンド: Webhook署名検証
-        バックエンド->>バックエンド: metadataからuser_id, pointsを抽出
-        バックエンド->>データベース: ユーザーのFSPを加算
+        Note over バックエンド: Webhook署名検証は未実装（JSONボディを直接パース）
+        バックエンド->>バックエンド: イベントJSONをパース、metadataからuser_id, pointsを抽出
+        バックエンド->>バックエンド: transfer(from: None, to: user_id, amount: points)を実行
+        バックエンド->>データベース: 送付先ユーザーのFSPを加算
         バックエンド->>データベース: FSPトランザクション履歴を作成（notes: "Stripeにより購入"）
         データベース-->>バックエンド: 更新完了
 
+        バックエンド->>データベース: 通知レコード作成（非同期）
+        バックエンド-)FCM: プッシュ通知送信（非同期）
+        FCM-)ユーザー: 「ポイントを受け取りました」
         バックエンド-)SendGrid: ポイント受取通知メール送信（非同期）
         SendGrid-)ユーザー: メール配信
 
