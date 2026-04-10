@@ -259,11 +259,11 @@ dev-gemini:
 
 .PHONY: stop-services
 stop-services:
-	docker compose --profile services stop
+	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile bigquery --profile contentful --profile gemini stop
 
 .PHONY: down-services
 down-services:
-	docker compose --profile services down
+	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile bigquery --profile contentful --profile gemini down
 
 # --- Database - PostgreSQL ---
 
