@@ -19,19 +19,25 @@ all: help ;
 
 .PHONY: help
 help:
-	@echo '=== Docker / PostgreSQL ==='
+	@echo '=== Docker Operations ==='
+	@echo
+	@echo 'up'
+	@echo '  - Start PostgreSQL + all local dev services'
+	@echo
+	@echo 'down'
+	@echo '  - Stop and remove all containers (services + PostgreSQL)'
 	@echo
 	@echo 'run-pg'
-	@echo '  - docker compose up -d --build'
+	@echo '  - Start PostgreSQL only'
 	@echo
 	@echo 'stop-pg'
-	@echo '  - docker compose stop'
+	@echo '  - Stop PostgreSQL'
 	@echo
 	@echo 'down-pg'
-	@echo '  - docker compose down'
+	@echo '  - Remove PostgreSQL containers'
 	@echo
 	@echo 'down-pg-clean'
-	@echo '  - docker compose down --volumes --remove-orphans'
+	@echo '  - Remove PostgreSQL containers + volumes'
 	@echo
 	@echo 'restart-pg'
 	@echo '  - make down-pg && make run-pg'
@@ -49,9 +55,6 @@ help:
 	@echo
 	@echo 'dev-services'
 	@echo '  - Start all local dev service emulators/mocks (profile: services)'
-	@echo
-	@echo 'dev-up-all'
-	@echo '  - Start PostgreSQL + all local dev services'
 	@echo
 	@echo 'dev-firebase'
 	@echo '  - Start Firebase Emulator only'
@@ -79,9 +82,6 @@ help:
 	@echo
 	@echo 'down-services'
 	@echo '  - Remove all local dev service containers'
-	@echo
-	@echo 'dev-down-all'
-	@echo '  - Stop and remove PostgreSQL + all local dev service containers'
 	@echo
 	@echo '=== Database - PostgreSQL ==='
 	@echo
@@ -203,7 +203,7 @@ run-pg:
 	docker compose up -d --build
 
 .PHONY: up
-up: run-pg ;
+up: run-pg dev-services ;
 
 .PHONY: stop-pg
 stop-pg:
@@ -214,7 +214,7 @@ down-pg:
 	docker compose down
 
 .PHONY: down
-down: down-pg ;
+down: down-services down-pg ;
 
 .PHONY: down-pg-clean
 down-pg-clean:
@@ -240,9 +240,6 @@ logs-watch:
 .PHONY: dev-services
 dev-services:
 	docker compose --profile services up -d --build
-
-.PHONY: dev-up-all
-dev-up-all: run-pg dev-services
 
 .PHONY: dev-firebase
 dev-firebase:
@@ -280,8 +277,6 @@ stop-services:
 down-services:
 	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile contentful --profile gemini --profile adminer down
 
-.PHONY: dev-down-all
-dev-down-all: down-services down-pg
 
 # --- Database - PostgreSQL ---
 
