@@ -46,7 +46,7 @@ const getFirebaseConfig = () => {
 const firebaseConfig = getFirebaseConfig();
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-if (emulatorHost) {
+if (emulatorHost && !(auth as any).emulatorConfig) {
   connectAuthEmulator(auth, `http://${emulatorHost}`);
 }
 export const storage = getStorage(app);

@@ -4,7 +4,7 @@ export function initAdmin() {
   if (getApps().length === 0) {
     if (process.env.FIREBASE_AUTH_EMULATOR_HOST) {
       // Firebase Emulator使用時はプロジェクトIDのみで初期化
-      initializeApp({ projectId: process.env.FIREBASE_PROJECT_ID });
+      initializeApp({ projectId: process.env.FIREBASE_PROJECT_ID || "frienda-local" });
     } else {
       initializeApp({
         credential: cert({
