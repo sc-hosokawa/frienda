@@ -619,6 +619,7 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 | ビルド対象 | `server-core` |
 | ビルドモード | release |
 | ポート | 8080 |
+| 起動方式 | `ENTRYPOINT ["/server-core"]` |
 | 含まれるファイル | Firebase認証JSONファイル（下記2ファイル） |
 
 **Firebase認証JSONファイル:**
@@ -638,6 +639,9 @@ feature/* ──→ main (Staging Deploy) ──→ release (Prod Deploy)
 | ランタイム | `gcr.io/distroless/cc-debian12` |
 | ビルド対象 | `server-extension` |
 | ポート | 8080 |
+| 起動方式 | `CMD ["./server-extension"]` |
+
+> **注意**: server-core は `ENTRYPOINT`、server-extension は `CMD` を使用している。`ENTRYPOINT` はコンテナ実行時に引数で上書きできないが、`CMD` は上書き可能。現状では動作上の差異はないが、起動方式の統一を検討すべき。
 
 ### 7.3 PostgreSQL (`services/postgres/Dockerfile`)
 
