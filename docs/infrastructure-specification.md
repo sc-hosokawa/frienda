@@ -253,7 +253,7 @@ graph TB
 | バージョン | PostgreSQL 15 |
 | マシンタイプ | `db-custom-1-3840` |
 | IP | プライベートIPのみ（`10.10.0.0/16`） |
-| 削除保護 | 無効 |
+| 削除保護 | 無効（Terraformデフォルト。明示的な `deletion_protection = false` の記述なし） |
 | バックアップ | 未設定 |
 | パスワード管理 | Terraform変数から指定 |
 
@@ -360,7 +360,7 @@ graph LR
 | push | ブランチ指定なし（パス指定: `services/backend/**`, `services/frontend/apps/{admin,client,mobile}/**`, `services/contract/**`） |
 | pull_request | `main`, `develop` ブランチ（パス指定: 同上） |
 
-> **要確認**: ci.yaml のパス指定は `services/frontend/` を参照しているが、現在のディレクトリ構造では `services/webui/` に変更されている可能性がある。パス不一致によりCIが発火しないケースがありうるため、実態に合わせてci.yamlの修正を検討すべき。
+> **要修正（優先度: 高）**: ci.yaml のパス指定は `services/frontend/` を参照しているが、現在のディレクトリ構造では `services/webui/` に変更されている。このパス不一致により、CIのpushトリガーが発火せず、Clientジョブの `pnpm lint`（作業ディレクトリも `path: 'services/frontend'` を指定）も正しく実行されていない可能性が高い。ci.yaml のパス指定と各ジョブの `path` パラメータを `services/webui/` に修正すべき。
 
 | ジョブ | 実行条件 | 内容 |
 |--------|---------|------|
@@ -390,15 +390,17 @@ graph LR
 | デプロイ先 | Cloud Run `frienda-server-core` |
 | 環境変数 | 本番用シークレットを使用 |
 
-> **要確認**: `auth`ステップでは`GCLOUD_AUTH_PRD`（本番用）を使用しているが、`Setup Google Cloud`ステップでは`GCLOUD_AUTH`（PRD接尾辞なし）を使用している。意図的な使い分けかバグかを確認し、不要であれば認証情報を`GCLOUD_AUTH_PRD`に統一すべき。
+> **要確認**: `auth`ステップ(L53)では`GCLOUD_AUTH_PRD`（本番用）を使用しているが、`Setup Google Cloud`ステップ(L58)では`GCLOUD_AUTH`（PRD接尾辞なし）を使用している。さらに、同ステップの`project_id`も`secrets.PROJECT_ID`（PRD接尾辞なし）を参照しており、env定義の`secrets.GCP_PROJECT_ID_PRD`と不整合がある。意図的な使い分けかバグかを確認し、`GCLOUD_AUTH_PRD` / `GCP_PROJECT_ID_PRD` への統一を検討すべき。
 
 #### 定期ジョブ (`credential_update.yaml`)
 
 | 項目 | 設定 |
 |------|------|
-| スケジュール | 毎月15日 12:00 UTC |
+| スケジュール | 毎月15日 12:00 UTC（cron: `0 12 15 * *`） |
 | 処理内容 | DSP認証情報の更新 |
 | 対象 | ステージング → 本番（順次実行） |
+
+> **注意**: yaml内のコメントには「毎月28日」と記載されているが、実際のcron式は15日実行である。yaml内コメントの修正を別途検討すべき。
 
 ### 7.5 デプロイブランチ戦略
 
@@ -445,7 +447,7 @@ graph LR
 
 > **注意**: server-core は `ENTRYPOINT`、server-extension は `CMD` を使用している。`ENTRYPOINT` はコンテナ実行時に引数で上書きできないが、`CMD` は上書き可能。現状では動作上の差異はないが、起動方式の統一を検討すべき。
 
-> **注意**: Rustバージョンが server-core (`1.94.1`) と server-extension (`1.83.0`) で大きく異なる。ビルド再現性やセキュリティパッチの観点から、バージョンの統一を検討すべき。
+> **注意**: Rustバージョンが server-core (`1.94.1`) と server-extension (`1.83.0`) で大きく異なる。ビルド再現性やセキュリティパッチの観点から、バージョンの統一を検討すべき。また、Dockerfileでのバージョン指定に加えて `rust-toolchain.toml` での一元管理を導入し、ローカル開発とCI/CDビルドでのバージョン整合性を確保することを推奨。
 
 ### 8.3 PostgreSQL (`services/postgres/Dockerfile`)
 
@@ -458,29 +460,31 @@ graph LR
 
 ## 9. 環境変数一覧
 
+> **出典について**: デプロイワークフロー（`deploy_dev_server.yaml` / `deploy_prd_server.yaml`）の `env` 定義と、各サービスの `.env.example` を元に記載。ワークフローに含まれない変数（`HOST`, `PORT`, `ENV`, `JWK_URL`, `JWK_ISSUER` 等）はアプリケーションコードまたは `.env.example` で定義されるローカル/ランタイム設定。
+
 ### 9.1 Backend API
 
-| カテゴリ | 変数名 | 用途 |
-|---------|--------|------|
-| データベース | `DATABASE_URL` | PostgreSQL接続文字列 |
-| サーバー | `HOST`, `PORT` | リッスンアドレス（0.0.0.0:8080） |
-| 環境 | `ENV`, `ENVIRONMENT` | 環境識別（dev/prod） |
-| 認証 | `JWK_URL`, `JWK_ISSUER` | Firebase JWT検証 |
-| AI | `GEMINI_API_KEY` | Gemini API |
-| メール | `SENDGRID_API_KEY` | SendGrid |
-| ブロックチェーン | `ETH_RPC_URL`, `CREDENTIAL_CONTRACT_ADDRESS` | Ethereum連携 |
-| DSP | `SERVICE_ACCOUNT_DSP` | DSPサービスアカウント |
-| DSP | `SCR_SERVICE_ACCOUNT_DSP` | SCR DSPサービスアカウント |
-| DSP | `CLIENT_ID`, `CLIENT_SECRET` | DSPクライアント認証 |
-| DSP | `DSP_QUERY_DAILY_TEMPLATE` | DSP日次クエリテンプレート |
-| DSP | `DSP_QUERY_MONTHLY_TEMPLATE` | DSP月次クエリテンプレート |
-| DSP | `SCR_DSP_QUERY_DAILY_TEMPLATE` | SCR DSP日次クエリテンプレート |
-| DSP | `LOCATION`, `SCR_LOCATION` | BigQueryロケーション |
-| DSP | `DSP_PJ_ID`, `SCR_DSP_PJ_ID` | BigQueryプロジェクトID |
-| DSP | `GENDER_GEN_PLAYBACK_URL` | Gender Generation 再生URL |
-| DSP | `GENDER_GEN_PLAYBACK_PREFIX` | Gender Generation 再生プレフィクス |
-| DSP | `GENDER_GEN_AUTH_URL` | Gender Generation 認証URL |
-| セキュリティ | `HASH_SALT` | ハッシュソルト |
+| カテゴリ | 変数名 | 用途 | 出典 |
+|---------|--------|------|------|
+| データベース | `DATABASE_URL` | PostgreSQL接続文字列 | ワークフロー |
+| サーバー | `HOST`, `PORT` | リッスンアドレス（0.0.0.0:8080） | .env.example |
+| 環境 | `ENV`, `ENVIRONMENT` | 環境識別（dev/prod） | ワークフロー (`ENVIRONMENT`) / .env.example (`ENV`) |
+| 認証 | `JWK_URL`, `JWK_ISSUER` | Firebase JWT検証 | .env.example |
+| AI | `GEMINI_API_KEY` | Gemini API | ワークフロー |
+| メール | `SENDGRID_API_KEY` | SendGrid | ワークフロー |
+| ブロックチェーン | `ETH_RPC_URL`, `CREDENTIAL_CONTRACT_ADDRESS` | Ethereum連携 | ワークフロー |
+| DSP | `SERVICE_ACCOUNT_DSP` | DSPサービスアカウント | ワークフロー |
+| DSP | `SCR_SERVICE_ACCOUNT_DSP` | SCR DSPサービスアカウント | ワークフロー |
+| DSP | `CLIENT_ID`, `CLIENT_SECRET` | DSPクライアント認証 | ワークフロー |
+| DSP | `DSP_QUERY_DAILY_TEMPLATE` | DSP日次クエリテンプレート | ワークフロー |
+| DSP | `DSP_QUERY_MONTHLY_TEMPLATE` | DSP月次クエリテンプレート | ワークフロー |
+| DSP | `SCR_DSP_QUERY_DAILY_TEMPLATE` | SCR DSP日次クエリテンプレート | ワークフロー |
+| DSP | `LOCATION`, `SCR_LOCATION` | BigQueryロケーション | ワークフロー |
+| DSP | `DSP_PJ_ID`, `SCR_DSP_PJ_ID` | BigQueryプロジェクトID | ワークフロー |
+| DSP | `GENDER_GEN_PLAYBACK_URL` | Gender Generation 再生URL | ワークフロー |
+| DSP | `GENDER_GEN_PLAYBACK_PREFIX` | Gender Generation 再生プレフィクス | ワークフロー |
+| DSP | `GENDER_GEN_AUTH_URL` | Gender Generation 認証URL | ワークフロー |
+| セキュリティ | `HASH_SALT` | ハッシュソルト | ワークフロー |
 
 ### 9.2 WebUI Client
 
@@ -576,6 +580,7 @@ graph LR
 - [ ] **Terraform Stateのリモートバックエンド設定**: GCSバケットは存在するが `backend "gcs"` 未設定でローカル管理のまま → backendブロック追加による状態共有・ロック有効化（セクション6.4参照）
 - [ ] **GCS public_access_prevention の明示的設定**: Terraform Stateバケットの公開アクセス防止がGCSデフォルトに依存 → `public_access_prevention = "enforced"` の明示的設定（セクション6.4参照）
 - [ ] **deploy_prd_server.yaml の認証情報不整合**: `GCLOUD_AUTH_PRD` と `GCLOUD_AUTH` が混在 → 認証情報の統一（セクション7.4参照）
+- [ ] **ci.yaml のパス指定不整合**: `services/frontend/` が `services/webui/` と不一致のため、CIトリガー・Clientジョブが正しく動作していない → パス修正（セクション7.3参照）
 
 **優先度: 中**
 
