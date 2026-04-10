@@ -603,15 +603,16 @@ sequenceDiagram
     Note over ユーザー, データベース: 景品交換
     alt モバイルアプリから交換
         ユーザー->>モバイルアプリ: 景品と交換
-        モバイルアプリ->>バックエンド: exchangePrize mutation（景品ID、ユーザーID）
+        モバイルアプリ->>バックエンド: exchangePrize mutation（景品ID、ユーザーID、数量※デフォルト1）
     else Webから交換
         ユーザー->>Web: 景品と交換
-        Web->>バックエンド: exchangePrize mutation（景品ID、ユーザーID）
+        Web->>バックエンド: exchangePrize mutation（景品ID、ユーザーID、数量※デフォルト1）
     end
 
+    バックエンド->>バックエンド: total_points = prize.point × amount を計算
     バックエンド->>データベース: ユーザーのFSP残高確認
-    alt 残高不足
-        バックエンド-->>ユーザー: エラー（残高不足）
+    alt 残高不足（fsp < total_points）
+        バックエンド-->>ユーザー: エラー（Insufficient balance）
     else 残高充足
         バックエンド->>データベース: ユーザーのFSPを減算（-total_points）
         バックエンド->>データベース: 景品提供者（representation_user）のFSPを加算（+total_points）
