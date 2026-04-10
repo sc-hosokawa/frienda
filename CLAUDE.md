@@ -15,13 +15,14 @@ FRIENDA is a multi-service application built with a microservices architecture:
 
 ### Directory Structure
 ```
-services/
-├── backend/           # Rust microservices (server-core, server-extension, shared)
-├── webui/            # Next.js web applications (client, admin)
-├── mobile/           # Flutter mobile applications (client, admin)
-├── contract/         # Solidity smart contracts
-├── postgres/         # Database setup and migrations
-└── terraform/        # Infrastructure as code
+├── services/
+│   ├── backend/       # Rust microservices (server-core, server-extension, shared)
+│   ├── webui/         # Next.js web applications (client, admin)
+│   ├── mobile/        # Flutter mobile applications (client, admin)
+│   ├── contract/      # Solidity smart contracts
+│   └── postgres/      # Database setup and migrations
+├── terraform/         # Infrastructure as code
+└── docs/              # Project documentation
 ```
 
 ## Initial Setup
