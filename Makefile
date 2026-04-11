@@ -364,10 +364,11 @@ webui-format:
 
 .PHONY: dev-bg
 dev-bg:
-	@# Guard: stop existing servers if already running
+	@# Guard: stop existing servers if PID files exist
 	@has_running=false; \
-	for port in $(CLIENT_PORT) $(ADMIN_PORT) $(API_PORT); do \
-		if lsof -ti :$$port -sTCP:LISTEN >/dev/null 2>&1; then \
+	for name in webui-client webui-admin api; do \
+		pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
+		if [ -f "$$pidfile" ] && kill -0 $$(cat "$$pidfile") 2>/dev/null; then \
 			has_running=true; break; \
 		fi; \
 	done; \
@@ -379,8 +380,11 @@ dev-bg:
 	@mkdir -p $(DEV_LOG_DIR)
 	@if [ -n "$(APPEND)" ]; then redir=">>"; else redir=">"; fi; \
 	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' $$redir $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null" & \
+	echo $$! > $(DEV_LOG_DIR)/webui-client.pid; \
 	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=admin dev' $$redir $(DEV_LOG_DIR)/webui-admin.log 2>&1 < /dev/null" & \
-	eval "nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' $$redir $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null" &
+	echo $$! > $(DEV_LOG_DIR)/webui-admin.pid; \
+	eval "nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' $$redir $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null" & \
+	echo $$! > $(DEV_LOG_DIR)/api.pid
 	@echo ""
 	@echo "All servers started in background."
 	@echo "  Client: http://localhost:$(CLIENT_PORT)"
@@ -407,28 +411,33 @@ dev-stop:
 	}; \
 	echo "Stopping dev server processes..."; \
 	found=false; \
-	for entry in "$(CLIENT_PORT):WebUI Client" "$(ADMIN_PORT):WebUI Admin" "$(API_PORT):API Server"; do \
-		port=$${entry%%:*}; name=$${entry#*:}; \
-		pids=$$(lsof -ti :$$port -sTCP:LISTEN 2>/dev/null); \
-		if [ -n "$$pids" ]; then \
-			found=true; \
-			printf "  Stopping %s (%s) PID: %s\n" "$$name" "$$port" "$$(echo $$pids | tr '\n' ' ')"; \
-			for p in $$pids; do \
-				kill_tree $$p; \
-			done; \
+	for entry in "webui-client:WebUI Client" "webui-admin:WebUI Admin" "api:API Server"; do \
+		name=$${entry%%:*}; label=$${entry#*:}; \
+		pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
+		if [ -f "$$pidfile" ]; then \
+			pid=$$(cat "$$pidfile"); \
+			if kill -0 $$pid 2>/dev/null; then \
+				found=true; \
+				printf "  Stopping %s (PID: %s)\n" "$$label" "$$pid"; \
+				kill_tree $$pid; \
+			else \
+				printf "  %s (PID: %s) already stopped\n" "$$label" "$$pid"; \
+			fi; \
+			rm -f "$$pidfile"; \
 		fi; \
 	done; \
-	if [ "$$found" = "false" ]; then \
-		echo "  No dev servers running."; \
-	else \
+	if [ "$$found" = "true" ]; then \
 		sleep 1; \
-		for entry in "$(CLIENT_PORT):WebUI Client" "$(ADMIN_PORT):WebUI Admin" "$(API_PORT):API Server"; do \
-			port=$${entry%%:*}; \
-			pids=$$(lsof -ti :$$port -sTCP:LISTEN 2>/dev/null); \
-			for p in $$pids; do \
-				kill -9 $$p 2>/dev/null || true; \
-			done; \
+		for entry in "webui-client" "webui-admin" "api"; do \
+			pidfile="$(DEV_LOG_DIR)/$$entry.pid"; \
+			if [ -f "$$pidfile" ]; then \
+				pid=$$(cat "$$pidfile"); \
+				kill -9 $$pid 2>/dev/null || true; \
+				rm -f "$$pidfile"; \
+			fi; \
 		done; \
+	else \
+		echo "  No dev servers running."; \
 	fi; \
 	echo "Done."
 
@@ -436,14 +445,15 @@ dev-stop:
 dev-status:
 	@echo "=== Dev Server Status ==="
 	@running=0; \
-	for entry in "$(CLIENT_PORT):WebUI Client " "$(ADMIN_PORT):WebUI Admin  " "$(API_PORT):API Server    "; do \
-		port=$${entry%%:*}; name=$${entry#*:}; \
-		pid=$$(lsof -ti :$$port -sTCP:LISTEN 2>/dev/null | head -1); \
-		if [ -n "$$pid" ]; then \
-			printf "  %s (%s): \033[32m✓ Running\033[0m (PID: %s)\n" "$$name" "$$port" "$$pid"; \
+	for entry in "webui-client:WebUI Client :$(CLIENT_PORT)" "webui-admin:WebUI Admin  :$(ADMIN_PORT)" "api:API Server    :$(API_PORT)"; do \
+		name=$${entry%%:*}; rest=$${entry#*:}; label=$${rest%%:*}; port=$${rest##*:}; \
+		pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
+		if [ -f "$$pidfile" ] && kill -0 $$(cat "$$pidfile") 2>/dev/null; then \
+			pid=$$(cat "$$pidfile"); \
+			printf "  %s (%s): \033[32m✓ Running\033[0m (PID: %s)\n" "$$label" "$$port" "$$pid"; \
 			running=$$((running + 1)); \
 		else \
-			printf "  %s (%s): \033[31m✗ Not running\033[0m\n" "$$name" "$$port"; \
+			printf "  %s (%s): \033[31m✗ Not running\033[0m\n" "$$label" "$$port"; \
 		fi; \
 	done; \
 	echo "========================="; \
