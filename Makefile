@@ -6,6 +6,7 @@ SHELL := /bin/bash
 -include .env
 
 OPEN_CMD := $(shell command -v open 2>/dev/null || command -v xdg-open 2>/dev/null || echo echo)
+DEV_LOG_DIR := .dev-logs
 
 # --- PostgreSQL connection defaults (override via .env or environment) ---
 PG_HOST     ?= 127.0.0.1
@@ -127,6 +128,20 @@ help:
 	@echo
 	@echo 'webui-format'
 	@echo '  - pnpm format'
+	@echo
+	@echo '=== Background Dev Servers ==='
+	@echo
+	@echo 'dev-bg'
+	@echo '  - Start webui-client, webui-admin, api in background (logs in .dev-logs/)'
+	@echo
+	@echo 'dev-stop'
+	@echo '  - Stop all background dev servers'
+	@echo
+	@echo 'dev-status'
+	@echo '  - Show running status of dev servers'
+	@echo
+	@echo 'dev-logs'
+	@echo '  - Show recent logs from background dev servers (LINES=N to customize)'
 	@echo
 	@echo '=== Mobile (Flutter) ==='
 	@echo
@@ -339,6 +354,115 @@ webui-lint:
 .PHONY: webui-format
 webui-format:
 	cd services/webui && pnpm format
+
+# --- Background Dev Servers ---
+
+.PHONY: dev-bg
+dev-bg:
+	@# Guard: stop existing servers if already running
+	@has_running=false; \
+	for port in 3000 3001 8080; do \
+		if lsof -ti :$$port -sTCP:LISTEN >/dev/null 2>&1; then \
+			has_running=true; break; \
+		fi; \
+	done; \
+	if [ "$$has_running" = "true" ]; then \
+		echo "Dev servers already running. Stopping first..."; \
+		$(MAKE) --no-print-directory dev-stop; \
+	fi
+	@echo "Starting all development servers in background..."
+	@mkdir -p $(DEV_LOG_DIR)
+	@if [ -n "$(APPEND)" ]; then redir=">>"; else redir=">"; fi; \
+	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' $$redir $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null" & \
+	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=admin dev' $$redir $(DEV_LOG_DIR)/webui-admin.log 2>&1 < /dev/null" & \
+	eval "nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' $$redir $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null" &
+	@echo ""
+	@echo "All servers started in background."
+	@echo "  Client: http://localhost:3000"
+	@echo "  Admin:  http://localhost:3001"
+	@echo "  API:    http://localhost:8080/graphql"
+	@echo ""
+	@echo "  Logs:   $(DEV_LOG_DIR)/*.log (overwritten on each start, use APPEND=1 to append)"
+	@echo "  Status: make dev-status"
+	@echo "  Logs:   make dev-logs [LINES=N]"
+	@echo "  Stop:   make dev-stop"
+	@echo ""
+	@sleep 3
+	@echo "(Servers may still be starting up)"
+	@$(MAKE) --no-print-directory dev-status
+
+.PHONY: dev-stop
+dev-stop:
+	@echo "Stopping dev server processes..."
+	@all_pids=""; all_pgids=""; \
+	for entry in "3000:WebUI Client" "3001:WebUI Admin" "8080:API Server"; do \
+		port=$${entry%%:*}; name=$${entry#*:}; \
+		pids=$$(lsof -ti :$$port -sTCP:LISTEN 2>/dev/null); \
+		if [ -n "$$pids" ]; then \
+			printf "  Stopping %s (%s) PID: %s\n" "$$name" "$$port" "$$(echo $$pids | tr '\n' ' ')"; \
+			for p in $$pids; do \
+				all_pids="$$all_pids $$p"; \
+				pgid=$$(ps -o pgid= -p $$p 2>/dev/null | tr -d ' '); \
+				if [ -n "$$pgid" ] && [ "$$pgid" != "0" ]; then \
+					all_pgids="$$all_pgids $$pgid"; \
+				fi; \
+			done; \
+		fi; \
+	done; \
+	if [ -n "$$all_pids" ]; then \
+		killed_pgids=""; \
+		for pgid in $$all_pgids; do \
+			case " $$killed_pgids " in \
+				*" $$pgid "*) ;; \
+				*) kill -- -$$pgid 2>/dev/null || true; killed_pgids="$$killed_pgids $$pgid" ;; \
+			esac; \
+		done; \
+		sleep 1; \
+		for p in $$all_pids; do \
+			kill -9 $$p 2>/dev/null || true; \
+		done; \
+	else \
+		echo "  No dev servers running."; \
+	fi
+	@echo "Done."
+
+.PHONY: dev-status
+dev-status:
+	@echo "=== Dev Server Status ==="
+	@running=0; \
+	for entry in "3000:WebUI Client " "3001:WebUI Admin  " "8080:API Server    "; do \
+		port=$${entry%%:*}; name=$${entry#*:}; \
+		pid=$$(lsof -ti :$$port -sTCP:LISTEN 2>/dev/null | head -1); \
+		if [ -n "$$pid" ]; then \
+			printf "  %s (%s): \033[32m✓ Running\033[0m (PID: %s)\n" "$$name" "$$port" "$$pid"; \
+			running=$$((running + 1)); \
+		else \
+			printf "  %s (%s): \033[31m✗ Not running\033[0m\n" "$$name" "$$port"; \
+		fi; \
+	done; \
+	echo "========================="; \
+	if [ $$running -eq 0 ]; then \
+		echo "No dev servers running."; \
+	else \
+		echo "$$running server(s) running."; \
+	fi
+
+.PHONY: dev-logs
+dev-logs:
+	@if [ ! -d "$(DEV_LOG_DIR)" ]; then \
+		echo "No log directory found. Run 'make dev-bg' first."; \
+		exit 0; \
+	fi
+	@for entry in "webui-client:WebUI Client" "webui-admin:WebUI Admin" "api:API Server"; do \
+		name=$${entry%%:*}; label=$${entry#*:}; \
+		logfile="$(DEV_LOG_DIR)/$$name.log"; \
+		if [ -f "$$logfile" ] && [ -s "$$logfile" ]; then \
+			printf "\n\033[1;36m=== %s (%s) ===\033[0m\n" "$$label" "$$logfile"; \
+			tail -$(or $(LINES),20) "$$logfile"; \
+		elif [ -f "$$logfile" ]; then \
+			printf "\n\033[1;33m=== %s (empty log) ===\033[0m\n" "$$label"; \
+		fi; \
+	done
 
 # --- Mobile (Flutter) ---
 
