@@ -6,5 +6,8 @@ edition = "2021"
 [dependencies]
 application = { path = "../application" }
 infrastracture = { path = "../infrastracture" }
+domain = { path = "../domain" }
 tracing = { workspace = true }
 sea-orm = { workspace = true }
+async-trait = { workspace = true }
+anyhow = { workspace = true }

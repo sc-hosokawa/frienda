@@ -1,3 +1,4 @@
+use async_trait::async_trait;
 use sea_orm::DatabaseConnection;
 use std::sync::Arc;
 use tracing;
@@ -293,28 +294,119 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
     }
 }
 
+// --- NoOp implementations for local development ---
+
+struct NoOpLlmService;
+#[async_trait]
+impl LlmServiceTrait for NoOpLlmService {
+    async fn ask_question(
+        &self,
+        _question: domain::services::llm::Question,
+    ) -> Result<domain::services::llm::Answer, anyhow::Error> {
+        Err(anyhow::anyhow!("LlmService is not configured"))
+    }
+}
+
+struct NoOpDspFetcherService;
+#[async_trait]
+impl DspFetcherServiceTrait for NoOpDspFetcherService {
+    async fn fetch_dsps_data(
+        &self,
+        _start_date: Option<String>,
+        _end_date: String,
+    ) -> Result<Vec<application::services::dsp_fetcher::DspsData>, anyhow::Error> {
+        Err(anyhow::anyhow!("DspFetcherService is not configured"))
+    }
+    async fn fetch_gender_gen_data(
+        &self,
+        _date: String,
+    ) -> Result<Vec<application::services::dsp_fetcher::GenderGenData>, anyhow::Error> {
+        Err(anyhow::anyhow!("DspFetcherService is not configured"))
+    }
+    async fn fetch_sparse_data(
+        &self,
+        _date: String,
+    ) -> Result<Vec<application::services::dsp_fetcher::SparseData>, anyhow::Error> {
+        Err(anyhow::anyhow!("DspFetcherService is not configured"))
+    }
+}
+
+struct NoOpPushNotificationService;
+#[async_trait]
+impl PushNotificationServiceTrait for NoOpPushNotificationService {
+    async fn send_push_notification(
+        &self,
+        _notification: domain::services::notification::PushNotification,
+    ) -> Result<String, anyhow::Error> {
+        tracing::warn!("PushNotificationService is not configured, skipping notification");
+        Ok("noop".to_string())
+    }
+}
+
+struct NoOpOnchainFetcherService;
+#[async_trait]
+impl OnchainFetcherServiceTrait for NoOpOnchainFetcherService {
+    async fn fetch_credential_balances(
+        &self,
+        _evm_addrs: Vec<String>,
+    ) -> Result<Vec<application::services::onchain_fetcher::CredentialBalance>, anyhow::Error> {
+        Err(anyhow::anyhow!("OnchainFetcherService is not configured"))
+    }
+}
+
 pub async fn create_services() -> ServicesImpl {
     tracing::info!("Setup Services...");
-    let gemini_service = GeminiService::new().expect("Failed to create GeminiService");
-    let llm_service = LlmService::new(Arc::new(gemini_service));
-    let dsp_fetcher_service = DspFetcherService::new()
-        .await
-        .expect("Failed to create DspFetcherService");
-    let push_notification_service = FcmNotificationService::new()
-        .await
-        .expect("Failed to create FcmNotificationService");
-    let sendgrid_service = SendGridService::new()
-        .await
-        .expect("Failed to create SendGridService");
-    let onchain_fetcher_service = OnchainFetcherService::new()
-        .await
-        .expect("Failed to create OnchainFetcherService");
+
+    let llm_service: Arc<dyn LlmServiceTrait> = match GeminiService::new() {
+        Ok(gemini) => Arc::new(LlmService::new(Arc::new(gemini))),
+        Err(e) => {
+            tracing::warn!("GeminiService unavailable ({}), using NoOp", e);
+            Arc::new(NoOpLlmService)
+        }
+    };
+
+    let dsp_fetcher_service: Arc<dyn DspFetcherServiceTrait> = match DspFetcherService::new().await
+    {
+        Ok(svc) => Arc::new(svc),
+        Err(e) => {
+            tracing::warn!("DspFetcherService unavailable ({}), using NoOp", e);
+            Arc::new(NoOpDspFetcherService)
+        }
+    };
+
+    let push_notification_service: Arc<dyn PushNotificationServiceTrait> =
+        match FcmNotificationService::new().await {
+            Ok(svc) => Arc::new(svc),
+            Err(e) => {
+                tracing::warn!("FcmNotificationService unavailable ({}), using NoOp", e);
+                Arc::new(NoOpPushNotificationService)
+            }
+        };
+
+    let email_service: Arc<dyn EmailServiceTrait> = match SendGridService::new().await {
+        Ok(svc) => Arc::new(svc),
+        Err(e) => {
+            tracing::warn!("SendGridService unavailable ({}), using NoOp — email sending will fail at runtime", e);
+            // SendGrid is critical for basic flows, so we still panic here
+            panic!("Failed to create SendGridService: {}", e);
+        }
+    };
+
+    let onchain_fetcher_service: Arc<dyn OnchainFetcherServiceTrait> =
+        match OnchainFetcherService::new().await {
+            Ok(svc) => Arc::new(svc),
+            Err(e) => {
+                tracing::warn!("OnchainFetcherService unavailable ({}), using NoOp", e);
+                Arc::new(NoOpOnchainFetcherService)
+            }
+        };
+
     ServicesImpl {
-        llm_service: Arc::new(llm_service),
-        push_notification_service: Arc::new(push_notification_service),
-        email_service: Arc::new(sendgrid_service),
-        dsp_fetcher_service: Arc::new(dsp_fetcher_service),
-        onchain_fetcher_service: Arc::new(onchain_fetcher_service),
+        llm_service,
+        push_notification_service,
+        email_service,
+        dsp_fetcher_service,
+        onchain_fetcher_service,
     }
 }
 
