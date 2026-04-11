@@ -427,7 +427,6 @@ dev-stop:
 			else \
 				printf "  %s (PID: %s) already stopped\n" "$$label" "$$pid"; \
 			fi; \
-			rm -f "$$pidfile"; \
 		fi; \
 	done; \
 	if [ "$$found" = "true" ]; then \
@@ -438,12 +437,15 @@ dev-stop:
 			if [ -f "$$pidfile" ]; then \
 				pid=$$(cat "$$pidfile"); \
 				kill -9 $$pid 2>/dev/null || true; \
-				rm -f "$$pidfile"; \
 			fi; \
 		done; \
 	else \
 		echo "  No dev servers running."; \
 	fi; \
+	for srv in $(DEV_SERVERS); do \
+		name=$${srv##*:}; \
+		rm -f "$(DEV_LOG_DIR)/$$name.pid"; \
+	done; \
 	echo "Done."
 
 .PHONY: dev-status
