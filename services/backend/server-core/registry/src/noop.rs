@@ -1,5 +1,9 @@
 //! NoOp implementations for local development.
 //! Used as fallbacks when external service credentials are not configured.
+//!
+//! EmailServiceTrait (SendGrid) のNoOpは意図的に用意していない。
+//! メール送信はサインアップ等の基本フローで必須のため、起動時にpanicで検知する方針。
+//! ローカル開発では `make dev-sendgrid` でmockサーバーを使用する。
 
 use async_trait::async_trait;
 

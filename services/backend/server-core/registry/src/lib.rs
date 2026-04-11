@@ -335,6 +335,10 @@ pub async fn create_services() -> ServicesImpl {
             }
         };
 
+    // SendGridは意図的にNoOpフォールバックを用意していない。
+    // サインアップ・招待などの基本フローでメール送信が必須のため、未設定なら起動時に検知すべき。
+    // ローカル開発では `make dev-sendgrid` でSendGrid mockを起動し、
+    // SENDGRID_API_URL=http://127.0.0.1:3102/v3/mail/send を設定すればダミーキーで動作する。
     let email_service: Arc<dyn EmailServiceTrait> = match SendGridService::new().await {
         Ok(svc) => {
             tracing::info!("SendGridService initialized");
