@@ -6,6 +6,14 @@ SHELL := /bin/bash
 -include .env
 
 OPEN_CMD := $(shell command -v open 2>/dev/null || command -v xdg-open 2>/dev/null || echo echo)
+DEV_LOG_DIR := .dev-logs
+
+# --- Dev server definitions (port:label:name — label must not contain spaces) ---
+DEV_SERVERS := 3000:WebUI-Client:webui-client 3001:WebUI-Admin:webui-admin 8080:API-Server:api
+# Extract individual ports from DEV_SERVERS for open-* targets
+CLIENT_PORT := $(firstword $(subst :, ,$(word 1,$(DEV_SERVERS))))
+ADMIN_PORT  := $(firstword $(subst :, ,$(word 2,$(DEV_SERVERS))))
+API_PORT    := $(firstword $(subst :, ,$(word 3,$(DEV_SERVERS))))
 
 # --- PostgreSQL connection defaults (override via .env or environment) ---
 PG_HOST     ?= 127.0.0.1
@@ -127,6 +135,20 @@ help:
 	@echo
 	@echo 'webui-format'
 	@echo '  - pnpm format'
+	@echo
+	@echo '=== Background Dev Servers ==='
+	@echo
+	@echo 'dev-bg'
+	@echo '  - Start webui-client, webui-admin, api in background (logs in .dev-logs/)'
+	@echo
+	@echo 'dev-stop'
+	@echo '  - Stop all background dev servers'
+	@echo
+	@echo 'dev-status'
+	@echo '  - Show running status of dev servers'
+	@echo
+	@echo 'dev-logs'
+	@echo '  - Show recent logs from background dev servers (TAIL_LINES=N to customize)'
 	@echo
 	@echo '=== Mobile (Flutter) ==='
 	@echo
@@ -300,12 +322,10 @@ pgdump-full:
 
 .PHONY: api-dev
 api-dev:
-	docker compose up -d --build && \
 	cd services/backend/server-core && cargo watch -x run
 
 .PHONY: api
 api:
-	docker compose up -d --build && \
 	cd services/backend/server-core && cargo run
 
 .PHONY: update-entities
@@ -339,6 +359,142 @@ webui-lint:
 .PHONY: webui-format
 webui-format:
 	cd services/webui && pnpm format
+
+# --- Background Dev Servers ---
+
+.PHONY: dev-bg
+dev-bg:
+	@# Guard: stop existing servers if PID files exist
+	@has_running=false; \
+	for srv in $(DEV_SERVERS); do \
+		name=$${srv##*:}; \
+		pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
+		if [ -f "$$pidfile" ] && kill -0 $$(cat "$$pidfile") 2>/dev/null; then \
+			has_running=true; break; \
+		fi; \
+	done; \
+	if [ "$$has_running" = "true" ]; then \
+		echo "Dev servers already running. Stopping first..."; \
+		$(MAKE) --no-print-directory dev-stop; \
+	fi
+	@echo "Starting all development servers in background..."
+	@mkdir -p $(DEV_LOG_DIR)
+	@# NOTE: Startup commands are intentionally hardcoded per service because each
+	@# requires a different working directory and toolchain (pnpm, cargo watch, etc.).
+	@# When adding a new entry to DEV_SERVERS, add a corresponding nohup block here.
+	@if [ -n "$(APPEND)" ]; then \
+		nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' >> $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/webui-client.pid; \
+		nohup sh -c 'cd services/webui && exec pnpm --filter=admin dev' >> $(DEV_LOG_DIR)/webui-admin.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/webui-admin.pid; \
+		nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' >> $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/api.pid; \
+	else \
+		nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' > $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/webui-client.pid; \
+		nohup sh -c 'cd services/webui && exec pnpm --filter=admin dev' > $(DEV_LOG_DIR)/webui-admin.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/webui-admin.pid; \
+		nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' > $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/api.pid; \
+	fi
+	@echo ""
+	@echo "All servers started in background."
+	@for srv in $(DEV_SERVERS); do \
+		port=$${srv%%:*}; rest=$${srv#*:}; label=$${rest%%:*}; label=$${label//-/ }; \
+		printf "  %s: http://localhost:%s\n" "$$label" "$$port"; \
+	done
+	@echo ""
+	@echo "  Logs:   $(DEV_LOG_DIR)/*.log (overwritten on each start, use APPEND=1 to append)"
+	@echo "  Status: make dev-status"
+	@echo "  Tail:   make dev-logs [TAIL_LINES=N]"
+	@echo "  Stop:   make dev-stop"
+	@echo "Note: Servers take time to start (especially API/Rust)."
+	@echo "      Run 'make dev-status' to check readiness."
+
+.PHONY: dev-stop
+dev-stop:
+	@# kill_tree: recursively kill a process and all its descendants
+	@kill_tree() { \
+		local pid=$$1; \
+		local children=$$(pgrep -P $$pid 2>/dev/null); \
+		for child in $$children; do \
+			kill_tree $$child; \
+		done; \
+		kill $$pid 2>/dev/null || true; \
+	}; \
+	echo "Stopping dev server processes..."; \
+	found=false; \
+	for srv in $(DEV_SERVERS); do \
+		port=$${srv%%:*}; rest=$${srv#*:}; label=$${rest%%:*}; label=$${label//-/ }; name=$${rest##*:}; \
+		pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
+		if [ -f "$$pidfile" ]; then \
+			pid=$$(cat "$$pidfile"); \
+			if kill -0 $$pid 2>/dev/null; then \
+				found=true; \
+				printf "  Stopping %s (PID: %s)\n" "$$label" "$$pid"; \
+				kill_tree $$pid; \
+			else \
+				printf "  %s (PID: %s) already stopped\n" "$$label" "$$pid"; \
+			fi; \
+		fi; \
+	done; \
+	if [ "$$found" = "true" ]; then \
+		sleep 1; \
+		for srv in $(DEV_SERVERS); do \
+			name=$${srv##*:}; \
+			pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
+			if [ -f "$$pidfile" ]; then \
+				pid=$$(cat "$$pidfile"); \
+				kill -9 $$pid 2>/dev/null || true; \
+			fi; \
+		done; \
+	else \
+		echo "  No dev servers running."; \
+	fi; \
+	for srv in $(DEV_SERVERS); do \
+		name=$${srv##*:}; \
+		rm -f "$(DEV_LOG_DIR)/$$name.pid"; \
+	done; \
+	echo "Done."
+
+.PHONY: dev-status
+dev-status:
+	@echo "=== Dev Server Status ==="
+	@running=0; \
+	for srv in $(DEV_SERVERS); do \
+		port=$${srv%%:*}; rest=$${srv#*:}; label=$${rest%%:*}; label=$${label//-/ }; name=$${rest##*:}; \
+		pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
+		if [ -f "$$pidfile" ] && kill -0 $$(cat "$$pidfile") 2>/dev/null; then \
+			pid=$$(cat "$$pidfile"); \
+			printf "  %-14s (%s): \033[32m✓ Running\033[0m (PID: %s)\n" "$$label" "$$port" "$$pid"; \
+			running=$$((running + 1)); \
+		else \
+			printf "  %-14s (%s): \033[31m✗ Not running\033[0m\n" "$$label" "$$port"; \
+		fi; \
+	done; \
+	echo "========================="; \
+	if [ $$running -eq 0 ]; then \
+		echo "No dev servers running."; \
+	else \
+		echo "$$running server(s) running."; \
+	fi
+
+.PHONY: dev-logs
+dev-logs:
+	@if [ ! -d "$(DEV_LOG_DIR)" ]; then \
+		echo "No log directory found. Run 'make dev-bg' first."; \
+		exit 0; \
+	fi
+	@for srv in $(DEV_SERVERS); do \
+		rest=$${srv#*:}; label=$${rest%%:*}; label=$${label//-/ }; name=$${rest##*:}; \
+		logfile="$(DEV_LOG_DIR)/$$name.log"; \
+		if [ -f "$$logfile" ] && [ -s "$$logfile" ]; then \
+			printf "\n\033[1;36m=== %s (%s) ===\033[0m\n" "$$label" "$$logfile"; \
+			tail -$(or $(TAIL_LINES),20) "$$logfile"; \
+		elif [ -f "$$logfile" ]; then \
+			printf "\n\033[1;33m=== %s (empty log) ===\033[0m\n" "$$label"; \
+		fi; \
+	done
 
 # --- Mobile (Flutter) ---
 
@@ -404,15 +560,15 @@ gql-mobile:
 
 .PHONY: open-client
 open-client:
-	$(OPEN_CMD) http://localhost:3000
+	$(OPEN_CMD) http://localhost:$(CLIENT_PORT)
 
 .PHONY: open-admin
 open-admin:
-	$(OPEN_CMD) http://localhost:3001
+	$(OPEN_CMD) http://localhost:$(ADMIN_PORT)
 
 .PHONY: open-api
 open-api:
-	$(OPEN_CMD) http://localhost:8080/graphql
+	$(OPEN_CMD) http://localhost:$(API_PORT)/graphql
 
 .PHONY: open-mail
 open-mail:
