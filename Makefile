@@ -380,7 +380,7 @@ dev-bg:
 	@if [ -n "$(APPEND)" ]; then redir=">>"; else redir=">"; fi; \
 	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' $$redir $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null" & \
 	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=admin dev' $$redir $(DEV_LOG_DIR)/webui-admin.log 2>&1 < /dev/null" & \
-	eval "nohup sh -c 'docker compose up -d --build && cd services/backend/server-core && exec cargo watch -x run' $$redir $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null" &
+	eval "nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' $$redir $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null" &
 	@echo ""
 	@echo "All servers started in background."
 	@echo "  Client: http://localhost:$(CLIENT_PORT)"
