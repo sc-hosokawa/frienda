@@ -178,9 +178,6 @@ help:
 	@echo 'open-mail'
 	@echo '  - http://127.0.0.1:8025 (Mailpit UI)'
 	@echo
-	@echo 'open-stripe'
-	@echo '  - http://127.0.0.1:12111 (stripe-mock)'
-	@echo
 	@echo 'open-firebase'
 	@echo '  - http://127.0.0.1:4000 (Firebase Emulator UI)'
 	@echo
@@ -413,10 +410,6 @@ open-api:
 .PHONY: open-mail
 open-mail:
 	$(OPEN_CMD) http://127.0.0.1:8025
-
-.PHONY: open-stripe
-open-stripe:
-	$(OPEN_CMD) http://127.0.0.1:12111
 
 .PHONY: open-firebase
 open-firebase:
