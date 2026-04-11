@@ -396,38 +396,41 @@ dev-bg:
 
 .PHONY: dev-stop
 dev-stop:
-	@echo "Stopping dev server processes..."
-	@all_pids=""; all_pgids=""; \
+	@# kill_tree: recursively kill a process and all its descendants
+	@kill_tree() { \
+		local pid=$$1; \
+		local children=$$(pgrep -P $$pid 2>/dev/null); \
+		for child in $$children; do \
+			kill_tree $$child; \
+		done; \
+		kill $$pid 2>/dev/null || true; \
+	}; \
+	echo "Stopping dev server processes..."; \
+	found=false; \
 	for entry in "$(CLIENT_PORT):WebUI Client" "$(ADMIN_PORT):WebUI Admin" "$(API_PORT):API Server"; do \
 		port=$${entry%%:*}; name=$${entry#*:}; \
 		pids=$$(lsof -ti :$$port -sTCP:LISTEN 2>/dev/null); \
 		if [ -n "$$pids" ]; then \
+			found=true; \
 			printf "  Stopping %s (%s) PID: %s\n" "$$name" "$$port" "$$(echo $$pids | tr '\n' ' ')"; \
 			for p in $$pids; do \
-				all_pids="$$all_pids $$p"; \
-				pgid=$$(ps -o pgid= -p $$p 2>/dev/null | tr -d ' '); \
-				if [ -n "$$pgid" ] && [ "$$pgid" != "0" ]; then \
-					all_pgids="$$all_pgids $$pgid"; \
-				fi; \
+				kill_tree $$p; \
 			done; \
 		fi; \
 	done; \
-	if [ -n "$$all_pids" ]; then \
-		killed_pgids=""; \
-		for pgid in $$all_pgids; do \
-			case " $$killed_pgids " in \
-				*" $$pgid "*) ;; \
-				*) kill -- -$$pgid 2>/dev/null || true; killed_pgids="$$killed_pgids $$pgid" ;; \
-			esac; \
-		done; \
-		sleep 1; \
-		for p in $$all_pids; do \
-			kill -9 $$p 2>/dev/null || true; \
-		done; \
-	else \
+	if [ "$$found" = "false" ]; then \
 		echo "  No dev servers running."; \
-	fi
-	@echo "Done."
+	else \
+		sleep 1; \
+		for entry in "$(CLIENT_PORT):WebUI Client" "$(ADMIN_PORT):WebUI Admin" "$(API_PORT):API Server"; do \
+			port=$${entry%%:*}; \
+			pids=$$(lsof -ti :$$port -sTCP:LISTEN 2>/dev/null); \
+			for p in $$pids; do \
+				kill -9 $$p 2>/dev/null || true; \
+			done; \
+		done; \
+	fi; \
+	echo "Done."
 
 .PHONY: dev-status
 dev-status:
