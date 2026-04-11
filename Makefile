@@ -382,13 +382,21 @@ dev-bg:
 	@# NOTE: Startup commands are intentionally hardcoded per service because each
 	@# requires a different working directory and toolchain (pnpm, cargo watch, etc.).
 	@# When adding a new entry to DEV_SERVERS, add a corresponding nohup block here.
-	@if [ -n "$(APPEND)" ]; then redir=">>"; else redir=">"; fi; \
-	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' $$redir $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null" & \
-	echo $$! > $(DEV_LOG_DIR)/webui-client.pid; \
-	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=admin dev' $$redir $(DEV_LOG_DIR)/webui-admin.log 2>&1 < /dev/null" & \
-	echo $$! > $(DEV_LOG_DIR)/webui-admin.pid; \
-	eval "nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' $$redir $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null" & \
-	echo $$! > $(DEV_LOG_DIR)/api.pid
+	@if [ -n "$(APPEND)" ]; then \
+		nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' >> $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/webui-client.pid; \
+		nohup sh -c 'cd services/webui && exec pnpm --filter=admin dev' >> $(DEV_LOG_DIR)/webui-admin.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/webui-admin.pid; \
+		nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' >> $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/api.pid; \
+	else \
+		nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' > $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/webui-client.pid; \
+		nohup sh -c 'cd services/webui && exec pnpm --filter=admin dev' > $(DEV_LOG_DIR)/webui-admin.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/webui-admin.pid; \
+		nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' > $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null & \
+		echo $$! > $(DEV_LOG_DIR)/api.pid; \
+	fi
 	@echo ""
 	@echo "All servers started in background."
 	@for srv in $(DEV_SERVERS); do \
