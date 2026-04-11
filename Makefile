@@ -391,10 +391,8 @@ dev-bg:
 	@echo "  Status: make dev-status"
 	@echo "  Logs:   make dev-logs [TAIL_LINES=N]"
 	@echo "  Stop:   make dev-stop"
-	@echo ""
-	@sleep 3
-	@echo "(Servers may still be starting up)"
-	@$(MAKE) --no-print-directory dev-status
+	@echo "Note: Servers take time to start (especially API/Rust)."
+	@echo "      Run 'make dev-status' to check readiness."
 
 .PHONY: dev-stop
 dev-stop:
