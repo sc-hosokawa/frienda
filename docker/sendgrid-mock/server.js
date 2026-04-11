@@ -20,6 +20,13 @@ const transporter = nodemailer.createTransport({
 // SendGrid v3 Mail Send API mock
 // https://docs.sendgrid.com/api-reference/mail-send/mail-send
 app.post("/v3/mail/send", async (req, res) => {
+  const authHeader = req.headers["authorization"];
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    console.warn("[SendGrid Mock] WARNING: Missing or invalid Authorization header");
+  } else {
+    console.log("[SendGrid Mock] Authorization: Bearer <redacted>");
+  }
+
   const body = req.body;
 
   if (!body || !body.personalizations || !body.from) {
