@@ -8,10 +8,12 @@ SHELL := /bin/bash
 OPEN_CMD := $(shell command -v open 2>/dev/null || command -v xdg-open 2>/dev/null || echo echo)
 DEV_LOG_DIR := .dev-logs
 
-# --- Dev server port defaults ---
-CLIENT_PORT := 3000
-ADMIN_PORT  := 3001
-API_PORT    := 8080
+# --- Dev server definitions (port:label:name — label must not contain spaces) ---
+DEV_SERVERS := 3000:WebUI-Client:webui-client 3001:WebUI-Admin:webui-admin 8080:API-Server:api
+# Extract individual ports from DEV_SERVERS for open-* targets
+CLIENT_PORT := $(firstword $(subst :, ,$(word 1,$(DEV_SERVERS))))
+ADMIN_PORT  := $(firstword $(subst :, ,$(word 2,$(DEV_SERVERS))))
+API_PORT    := $(firstword $(subst :, ,$(word 3,$(DEV_SERVERS))))
 
 # --- PostgreSQL connection defaults (override via .env or environment) ---
 PG_HOST     ?= 127.0.0.1
@@ -366,7 +368,8 @@ webui-format:
 dev-bg:
 	@# Guard: stop existing servers if PID files exist
 	@has_running=false; \
-	for name in webui-client webui-admin api; do \
+	for srv in $(DEV_SERVERS); do \
+		name=$${srv##*:}; \
 		pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
 		if [ -f "$$pidfile" ] && kill -0 $$(cat "$$pidfile") 2>/dev/null; then \
 			has_running=true; break; \
@@ -387,9 +390,10 @@ dev-bg:
 	echo $$! > $(DEV_LOG_DIR)/api.pid
 	@echo ""
 	@echo "All servers started in background."
-	@echo "  Client: http://localhost:$(CLIENT_PORT)"
-	@echo "  Admin:  http://localhost:$(ADMIN_PORT)"
-	@echo "  API:    http://localhost:$(API_PORT)/graphql"
+	@for srv in $(DEV_SERVERS); do \
+		port=$${srv%%:*}; rest=$${srv#*:}; label=$${rest%%:*}; label=$${label//-/ }; \
+		printf "  %s: http://localhost:%s\n" "$$label" "$$port"; \
+	done
 	@echo ""
 	@echo "  Logs:   $(DEV_LOG_DIR)/*.log (overwritten on each start, use APPEND=1 to append)"
 	@echo "  Status: make dev-status"
@@ -411,8 +415,8 @@ dev-stop:
 	}; \
 	echo "Stopping dev server processes..."; \
 	found=false; \
-	for entry in "webui-client:WebUI Client" "webui-admin:WebUI Admin" "api:API Server"; do \
-		name=$${entry%%:*}; label=$${entry#*:}; \
+	for srv in $(DEV_SERVERS); do \
+		port=$${srv%%:*}; rest=$${srv#*:}; label=$${rest%%:*}; label=$${label//-/ }; name=$${rest##*:}; \
 		pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
 		if [ -f "$$pidfile" ]; then \
 			pid=$$(cat "$$pidfile"); \
@@ -428,8 +432,9 @@ dev-stop:
 	done; \
 	if [ "$$found" = "true" ]; then \
 		sleep 1; \
-		for entry in "webui-client" "webui-admin" "api"; do \
-			pidfile="$(DEV_LOG_DIR)/$$entry.pid"; \
+		for srv in $(DEV_SERVERS); do \
+			name=$${srv##*:}; \
+			pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
 			if [ -f "$$pidfile" ]; then \
 				pid=$$(cat "$$pidfile"); \
 				kill -9 $$pid 2>/dev/null || true; \
@@ -445,15 +450,15 @@ dev-stop:
 dev-status:
 	@echo "=== Dev Server Status ==="
 	@running=0; \
-	for entry in "webui-client:WebUI Client :$(CLIENT_PORT)" "webui-admin:WebUI Admin  :$(ADMIN_PORT)" "api:API Server    :$(API_PORT)"; do \
-		name=$${entry%%:*}; rest=$${entry#*:}; label=$${rest%%:*}; port=$${rest##*:}; \
+	for srv in $(DEV_SERVERS); do \
+		port=$${srv%%:*}; rest=$${srv#*:}; label=$${rest%%:*}; label=$${label//-/ }; name=$${rest##*:}; \
 		pidfile="$(DEV_LOG_DIR)/$$name.pid"; \
 		if [ -f "$$pidfile" ] && kill -0 $$(cat "$$pidfile") 2>/dev/null; then \
 			pid=$$(cat "$$pidfile"); \
-			printf "  %s (%s): \033[32m✓ Running\033[0m (PID: %s)\n" "$$label" "$$port" "$$pid"; \
+			printf "  %-14s (%s): \033[32m✓ Running\033[0m (PID: %s)\n" "$$label" "$$port" "$$pid"; \
 			running=$$((running + 1)); \
 		else \
-			printf "  %s (%s): \033[31m✗ Not running\033[0m\n" "$$label" "$$port"; \
+			printf "  %-14s (%s): \033[31m✗ Not running\033[0m\n" "$$label" "$$port"; \
 		fi; \
 	done; \
 	echo "========================="; \
@@ -469,8 +474,8 @@ dev-logs:
 		echo "No log directory found. Run 'make dev-bg' first."; \
 		exit 0; \
 	fi
-	@for entry in "webui-client:WebUI Client" "webui-admin:WebUI Admin" "api:API Server"; do \
-		name=$${entry%%:*}; label=$${entry#*:}; \
+	@for srv in $(DEV_SERVERS); do \
+		rest=$${srv#*:}; label=$${rest%%:*}; label=$${label//-/ }; name=$${rest##*:}; \
 		logfile="$(DEV_LOG_DIR)/$$name.log"; \
 		if [ -f "$$logfile" ] && [ -s "$$logfile" ]; then \
 			printf "\n\033[1;36m=== %s (%s) ===\033[0m\n" "$$label" "$$logfile"; \
