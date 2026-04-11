@@ -8,6 +8,11 @@ SHELL := /bin/bash
 OPEN_CMD := $(shell command -v open 2>/dev/null || command -v xdg-open 2>/dev/null || echo echo)
 DEV_LOG_DIR := .dev-logs
 
+# --- Dev server port defaults ---
+CLIENT_PORT := 3000
+ADMIN_PORT  := 3001
+API_PORT    := 8080
+
 # --- PostgreSQL connection defaults (override via .env or environment) ---
 PG_HOST     ?= 127.0.0.1
 PG_PORT     ?= 5432
@@ -361,7 +366,7 @@ webui-format:
 dev-bg:
 	@# Guard: stop existing servers if already running
 	@has_running=false; \
-	for port in 3000 3001 8080; do \
+	for port in $(CLIENT_PORT) $(ADMIN_PORT) $(API_PORT); do \
 		if lsof -ti :$$port -sTCP:LISTEN >/dev/null 2>&1; then \
 			has_running=true; break; \
 		fi; \
@@ -378,9 +383,9 @@ dev-bg:
 	eval "nohup sh -c 'docker compose up -d --build && cd services/backend/server-core && exec cargo watch -x run' $$redir $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null" &
 	@echo ""
 	@echo "All servers started in background."
-	@echo "  Client: http://localhost:3000"
-	@echo "  Admin:  http://localhost:3001"
-	@echo "  API:    http://localhost:8080/graphql"
+	@echo "  Client: http://localhost:$(CLIENT_PORT)"
+	@echo "  Admin:  http://localhost:$(ADMIN_PORT)"
+	@echo "  API:    http://localhost:$(API_PORT)/graphql"
 	@echo ""
 	@echo "  Logs:   $(DEV_LOG_DIR)/*.log (overwritten on each start, use APPEND=1 to append)"
 	@echo "  Status: make dev-status"
@@ -395,7 +400,7 @@ dev-bg:
 dev-stop:
 	@echo "Stopping dev server processes..."
 	@all_pids=""; all_pgids=""; \
-	for entry in "3000:WebUI Client" "3001:WebUI Admin" "8080:API Server"; do \
+	for entry in "$(CLIENT_PORT):WebUI Client" "$(ADMIN_PORT):WebUI Admin" "$(API_PORT):API Server"; do \
 		port=$${entry%%:*}; name=$${entry#*:}; \
 		pids=$$(lsof -ti :$$port -sTCP:LISTEN 2>/dev/null); \
 		if [ -n "$$pids" ]; then \
@@ -430,7 +435,7 @@ dev-stop:
 dev-status:
 	@echo "=== Dev Server Status ==="
 	@running=0; \
-	for entry in "3000:WebUI Client " "3001:WebUI Admin  " "8080:API Server    "; do \
+	for entry in "$(CLIENT_PORT):WebUI Client " "$(ADMIN_PORT):WebUI Admin  " "$(API_PORT):API Server    "; do \
 		port=$${entry%%:*}; name=$${entry#*:}; \
 		pid=$$(lsof -ti :$$port -sTCP:LISTEN 2>/dev/null | head -1); \
 		if [ -n "$$pid" ]; then \
@@ -528,15 +533,15 @@ gql-mobile:
 
 .PHONY: open-client
 open-client:
-	$(OPEN_CMD) http://localhost:3000
+	$(OPEN_CMD) http://localhost:$(CLIENT_PORT)
 
 .PHONY: open-admin
 open-admin:
-	$(OPEN_CMD) http://localhost:3001
+	$(OPEN_CMD) http://localhost:$(ADMIN_PORT)
 
 .PHONY: open-api
 open-api:
-	$(OPEN_CMD) http://localhost:8080/graphql
+	$(OPEN_CMD) http://localhost:$(API_PORT)/graphql
 
 .PHONY: open-mail
 open-mail:
