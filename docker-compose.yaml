@@ -72,6 +72,8 @@ services:
     profiles:
       - services
       - sendgrid
+    depends_on:
+      - mailpit
     ports:
       - '${SENDGRID_MOCK_PORT:-3102}:3102'
     healthcheck:

@@ -11,12 +11,18 @@ pub struct SendGridService {
 impl SendGridService {
     pub async fn new() -> Result<Self, anyhow::Error> {
         tracing::info!("Setting up SendGridService...");
-        let api_key: String =
-            env::var("SENDGRID_API_KEY").unwrap_or_else(|_| "dummy-api-key".to_string());
+        let mock_url = env::var("SENDGRID_API_BASE_URL").ok();
+
+        // モック使用時のみAPIキー未設定を許容
+        let api_key: String = if mock_url.is_some() {
+            env::var("SENDGRID_API_KEY").unwrap_or_else(|_| "dummy-api-key".to_string())
+        } else {
+            env::var("SENDGRID_API_KEY")?
+        };
         let mut sender: Sender = Sender::new(api_key.clone(), None);
 
         // ローカル開発: SENDGRID_API_BASE_URL が設定されている場合はモックサーバーを使用
-        if let Ok(base_url) = env::var("SENDGRID_API_BASE_URL") {
+        if let Some(base_url) = mock_url {
             tracing::info!("Using SendGrid mock at: {}", base_url);
             sender.set_host(base_url);
         } else {
