@@ -379,6 +379,9 @@ dev-bg:
 	fi
 	@echo "Starting all development servers in background..."
 	@mkdir -p $(DEV_LOG_DIR)
+	@# NOTE: Startup commands are intentionally hardcoded per service because each
+	@# requires a different working directory and toolchain (pnpm, cargo watch, etc.).
+	@# When adding a new entry to DEV_SERVERS, add a corresponding nohup block here.
 	@if [ -n "$(APPEND)" ]; then redir=">>"; else redir=">"; fi; \
 	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' $$redir $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null" & \
 	echo $$! > $(DEV_LOG_DIR)/webui-client.pid; \
