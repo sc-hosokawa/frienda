@@ -74,6 +74,9 @@ help:
 	@echo 'dev-gemini'
 	@echo '  - Start Gemini mock server only'
 	@echo
+	@echo 'dev-sendgrid'
+	@echo '  - Start SendGrid mock server only'
+	@echo
 	@echo 'dev-adminer'
 	@echo '  - Start Adminer (DB管理GUI) only'
 	@echo
@@ -262,17 +265,21 @@ dev-contentful:
 dev-gemini:
 	docker compose --profile gemini up -d --build
 
+.PHONY: dev-sendgrid
+dev-sendgrid:
+	docker compose --profile sendgrid up -d --build
+
 .PHONY: dev-adminer
 dev-adminer:
 	docker compose --profile adminer up -d
 
 .PHONY: stop-services
 stop-services:
-	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile contentful --profile gemini --profile adminer stop
+	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile sendgrid --profile contentful --profile gemini --profile adminer stop
 
 .PHONY: down-services
 down-services:
-	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile contentful --profile gemini --profile adminer down
+	docker compose --profile services --profile firebase --profile blockchain --profile mail --profile stripe --profile sendgrid --profile contentful --profile gemini --profile adminer down
 
 
 # --- Database - PostgreSQL ---
