@@ -358,7 +358,10 @@ pub async fn create_services() -> ServicesImpl {
     tracing::info!("Setup Services...");
 
     let llm_service: Arc<dyn LlmServiceTrait> = match GeminiService::new() {
-        Ok(gemini) => Arc::new(LlmService::new(Arc::new(gemini))),
+        Ok(gemini) => {
+            tracing::info!("GeminiService initialized");
+            Arc::new(LlmService::new(Arc::new(gemini)))
+        }
         Err(e) => {
             tracing::warn!("GeminiService unavailable ({}), using NoOp", e);
             Arc::new(NoOpLlmService)
@@ -367,7 +370,10 @@ pub async fn create_services() -> ServicesImpl {
 
     let dsp_fetcher_service: Arc<dyn DspFetcherServiceTrait> = match DspFetcherService::new().await
     {
-        Ok(svc) => Arc::new(svc),
+        Ok(svc) => {
+            tracing::info!("DspFetcherService initialized");
+            Arc::new(svc)
+        }
         Err(e) => {
             tracing::warn!("DspFetcherService unavailable ({}), using NoOp", e);
             Arc::new(NoOpDspFetcherService)
@@ -376,7 +382,10 @@ pub async fn create_services() -> ServicesImpl {
 
     let push_notification_service: Arc<dyn PushNotificationServiceTrait> =
         match FcmNotificationService::new().await {
-            Ok(svc) => Arc::new(svc),
+            Ok(svc) => {
+                tracing::info!("FcmNotificationService initialized");
+                Arc::new(svc)
+            }
             Err(e) => {
                 tracing::warn!("FcmNotificationService unavailable ({}), using NoOp", e);
                 Arc::new(NoOpPushNotificationService)
@@ -384,17 +393,21 @@ pub async fn create_services() -> ServicesImpl {
         };
 
     let email_service: Arc<dyn EmailServiceTrait> = match SendGridService::new().await {
-        Ok(svc) => Arc::new(svc),
+        Ok(svc) => {
+            tracing::info!("SendGridService initialized");
+            Arc::new(svc)
+        }
         Err(e) => {
-            tracing::warn!("SendGridService unavailable ({}), using NoOp — email sending will fail at runtime", e);
-            // SendGrid is critical for basic flows, so we still panic here
             panic!("Failed to create SendGridService: {}", e);
         }
     };
 
     let onchain_fetcher_service: Arc<dyn OnchainFetcherServiceTrait> =
         match OnchainFetcherService::new().await {
-            Ok(svc) => Arc::new(svc),
+            Ok(svc) => {
+                tracing::info!("OnchainFetcherService initialized");
+                Arc::new(svc)
+            }
             Err(e) => {
                 tracing::warn!("OnchainFetcherService unavailable ({}), using NoOp", e);
                 Arc::new(NoOpOnchainFetcherService)
