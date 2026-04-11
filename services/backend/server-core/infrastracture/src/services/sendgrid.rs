@@ -19,7 +19,7 @@ impl SendGridService {
         } else {
             env::var("SENDGRID_API_KEY")?
         };
-        let mut sender: Sender = Sender::new(api_key.clone(), None);
+        let mut sender: Sender = Sender::new(api_key, None);
 
         // ローカル開発: SENDGRID_API_URL が設定されている場合はモックサーバーを使用
         if let Some(base_url) = mock_url {
