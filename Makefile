@@ -322,12 +322,10 @@ pgdump-full:
 
 .PHONY: api-dev
 api-dev:
-	docker compose up -d --build && \
 	cd services/backend/server-core && cargo watch -x run
 
 .PHONY: api
 api:
-	docker compose up -d --build && \
 	cd services/backend/server-core && cargo run
 
 .PHONY: update-entities
