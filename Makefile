@@ -138,16 +138,16 @@ help:
 	@echo
 	@echo '=== Background Dev Servers ==='
 	@echo
-	@echo 'dev-bg'
+	@echo 'start-dev'
 	@echo '  - Start webui-client, webui-admin, api in background (logs in .dev-logs/)'
 	@echo
-	@echo 'dev-stop'
+	@echo 'stop-dev'
 	@echo '  - Stop all background dev servers'
 	@echo
-	@echo 'dev-status'
+	@echo 'status-dev'
 	@echo '  - Show running status of dev servers'
 	@echo
-	@echo 'dev-logs'
+	@echo 'logs-dev'
 	@echo '  - Show recent logs from background dev servers (TAIL_LINES=N to customize)'
 	@echo
 	@echo '=== Mobile (Flutter) ==='
@@ -362,8 +362,8 @@ webui-format:
 
 # --- Background Dev Servers ---
 
-.PHONY: dev-bg
-dev-bg:
+.PHONY: start-dev
+start-dev:
 	@# Guard: stop existing servers if PID files exist
 	@has_running=false; \
 	for srv in $(DEV_SERVERS); do \
@@ -375,7 +375,7 @@ dev-bg:
 	done; \
 	if [ "$$has_running" = "true" ]; then \
 		echo "Dev servers already running. Stopping first..."; \
-		$(MAKE) --no-print-directory dev-stop; \
+		$(MAKE) --no-print-directory stop-dev; \
 	fi
 	@echo "Starting all development servers in background..."
 	@mkdir -p $(DEV_LOG_DIR)
@@ -405,14 +405,14 @@ dev-bg:
 	done
 	@echo ""
 	@echo "  Logs:   $(DEV_LOG_DIR)/*.log (overwritten on each start, use APPEND=1 to append)"
-	@echo "  Status: make dev-status"
-	@echo "  Tail:   make dev-logs [TAIL_LINES=N]"
-	@echo "  Stop:   make dev-stop"
+	@echo "  Status: make status-dev"
+	@echo "  Tail:   make logs-dev [TAIL_LINES=N]"
+	@echo "  Stop:   make stop-dev"
 	@echo "Note: Servers take time to start (especially API/Rust)."
-	@echo "      Run 'make dev-status' to check readiness."
+	@echo "      Run 'make status-dev' to check readiness."
 
-.PHONY: dev-stop
-dev-stop:
+.PHONY: stop-dev
+stop-dev:
 	@# kill_tree: recursively kill a process and all its descendants
 	@kill_tree() { \
 		local pid=$$1; \
@@ -457,8 +457,8 @@ dev-stop:
 	done; \
 	echo "Done."
 
-.PHONY: dev-status
-dev-status:
+.PHONY: status-dev
+status-dev:
 	@echo "=== Dev Server Status ==="
 	@running=0; \
 	for srv in $(DEV_SERVERS); do \
@@ -479,10 +479,10 @@ dev-status:
 		echo "$$running server(s) running."; \
 	fi
 
-.PHONY: dev-logs
-dev-logs:
+.PHONY: logs-dev
+logs-dev:
 	@if [ ! -d "$(DEV_LOG_DIR)" ]; then \
-		echo "No log directory found. Run 'make dev-bg' first."; \
+		echo "No log directory found. Run 'make start-dev' first."; \
 		exit 0; \
 	fi
 	@for srv in $(DEV_SERVERS); do \
