@@ -61,7 +61,7 @@ pub struct DspFetcherService {
 impl DspFetcherService {
     pub async fn new() -> Result<Self, anyhow::Error> {
         let service_account_json: String = env::var("SCR_SERVICE_ACCOUNT_DSP")
-            .expect("SCR_SERVICE_ACCOUNT_DSP environment variable not set");
+            .map_err(|_| anyhow::anyhow!("SCR_SERVICE_ACCOUNT_DSP environment variable not set"))?;
 
         let decoded: Vec<u8> = base64::decode(service_account_json)?;
         let secret: oauth2::ServiceAccountKey = serde_json::from_slice(&decoded)?;

@@ -103,8 +103,6 @@ export default function SignIn({
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [realname, setRealname] = useState("");
-  const [verificationTimer, setVerificationTimer] =
-    useState<NodeJS.Timeout | null>(null);
   const [getUserData, { data: userData }] = useLazyQuery(GET_USER_DATA);
   const searchParams = useSearchParams();
   const inviteCode = searchParams.get("code");
@@ -194,12 +192,6 @@ export default function SignIn({
 
       await sendEmailVerification(user);
       setStep("verify");
-
-      const checkVerification = setInterval(async () => {
-        await checkAuthStatus(user);
-      }, 3000);
-
-      setVerificationTimer(checkVerification);
     } catch (error: any) {
       console.error("Error signing up:", error);
       alert(`${t("signin.failed-to-signin")}${t("signin.ask-for-office")}`);

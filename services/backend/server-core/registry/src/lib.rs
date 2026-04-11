@@ -1,3 +1,5 @@
+mod noop;
+
 use sea_orm::DatabaseConnection;
 use std::sync::Arc;
 use tracing;
@@ -293,28 +295,78 @@ pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
     }
 }
 
+use noop::{NoOpDspFetcherService, NoOpLlmService, NoOpOnchainFetcherService, NoOpPushNotificationService};
+
 pub async fn create_services() -> ServicesImpl {
     tracing::info!("Setup Services...");
-    let gemini_service = GeminiService::new().expect("Failed to create GeminiService");
-    let llm_service = LlmService::new(Arc::new(gemini_service));
-    let dsp_fetcher_service = DspFetcherService::new()
-        .await
-        .expect("Failed to create DspFetcherService");
-    let push_notification_service = FcmNotificationService::new()
-        .await
-        .expect("Failed to create FcmNotificationService");
-    let sendgrid_service = SendGridService::new()
-        .await
-        .expect("Failed to create SendGridService");
-    let onchain_fetcher_service = OnchainFetcherService::new()
-        .await
-        .expect("Failed to create OnchainFetcherService");
+
+    let llm_service: Arc<dyn LlmServiceTrait> = match GeminiService::new() {
+        Ok(gemini) => {
+            tracing::info!("GeminiService initialized");
+            Arc::new(LlmService::new(Arc::new(gemini)))
+        }
+        Err(e) => {
+            tracing::warn!("GeminiService unavailable ({}), using NoOp", e);
+            Arc::new(NoOpLlmService)
+        }
+    };
+
+    let dsp_fetcher_service: Arc<dyn DspFetcherServiceTrait> = match DspFetcherService::new().await
+    {
+        Ok(svc) => {
+            tracing::info!("DspFetcherService initialized");
+            Arc::new(svc)
+        }
+        Err(e) => {
+            tracing::warn!("DspFetcherService unavailable ({}), using NoOp", e);
+            Arc::new(NoOpDspFetcherService)
+        }
+    };
+
+    let push_notification_service: Arc<dyn PushNotificationServiceTrait> =
+        match FcmNotificationService::new().await {
+            Ok(svc) => {
+                tracing::info!("FcmNotificationService initialized");
+                Arc::new(svc)
+            }
+            Err(e) => {
+                tracing::warn!("FcmNotificationService unavailable ({}), using NoOp", e);
+                Arc::new(NoOpPushNotificationService)
+            }
+        };
+
+    // SendGridは意図的にNoOpフォールバックを用意していない。
+    // サインアップ・招待などの基本フローでメール送信が必須のため、未設定なら起動時に検知すべき。
+    // ローカル開発では `make dev-sendgrid` でSendGrid mockを起動し、
+    // SENDGRID_API_URL=http://127.0.0.1:3102/v3/mail/send を設定すればダミーキーで動作する。
+    let email_service: Arc<dyn EmailServiceTrait> = match SendGridService::new().await {
+        Ok(svc) => {
+            tracing::info!("SendGridService initialized");
+            Arc::new(svc)
+        }
+        Err(e) => {
+            panic!("Failed to create SendGridService: {}", e);
+        }
+    };
+
+    let onchain_fetcher_service: Arc<dyn OnchainFetcherServiceTrait> =
+        match OnchainFetcherService::new().await {
+            Ok(svc) => {
+                tracing::info!("OnchainFetcherService initialized");
+                Arc::new(svc)
+            }
+            Err(e) => {
+                tracing::warn!("OnchainFetcherService unavailable ({}), using NoOp", e);
+                Arc::new(NoOpOnchainFetcherService)
+            }
+        };
+
     ServicesImpl {
-        llm_service: Arc::new(llm_service),
-        push_notification_service: Arc::new(push_notification_service),
-        email_service: Arc::new(sendgrid_service),
-        dsp_fetcher_service: Arc::new(dsp_fetcher_service),
-        onchain_fetcher_service: Arc::new(onchain_fetcher_service),
+        llm_service,
+        push_notification_service,
+        email_service,
+        dsp_fetcher_service,
+        onchain_fetcher_service,
     }
 }
 
