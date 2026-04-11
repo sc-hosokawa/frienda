@@ -398,7 +398,7 @@ dev-bg:
 	@echo ""
 	@echo "  Logs:   $(DEV_LOG_DIR)/*.log (overwritten on each start, use APPEND=1 to append)"
 	@echo "  Status: make dev-status"
-	@echo "  Logs:   make dev-logs [TAIL_LINES=N]"
+	@echo "  Tail:   make dev-logs [TAIL_LINES=N]"
 	@echo "  Stop:   make dev-stop"
 	@echo "Note: Servers take time to start (especially API/Rust)."
 	@echo "      Run 'make dev-status' to check readiness."
