@@ -141,7 +141,7 @@ help:
 	@echo '  - Show running status of dev servers'
 	@echo
 	@echo 'dev-logs'
-	@echo '  - Show recent logs from background dev servers (LINES=N to customize)'
+	@echo '  - Show recent logs from background dev servers (TAIL_LINES=N to customize)'
 	@echo
 	@echo '=== Mobile (Flutter) ==='
 	@echo
@@ -375,7 +375,7 @@ dev-bg:
 	@if [ -n "$(APPEND)" ]; then redir=">>"; else redir=">"; fi; \
 	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=client dev' $$redir $(DEV_LOG_DIR)/webui-client.log 2>&1 < /dev/null" & \
 	eval "nohup sh -c 'cd services/webui && exec pnpm --filter=admin dev' $$redir $(DEV_LOG_DIR)/webui-admin.log 2>&1 < /dev/null" & \
-	eval "nohup sh -c 'cd services/backend/server-core && exec cargo watch -x run' $$redir $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null" &
+	eval "nohup sh -c 'docker compose up -d --build && cd services/backend/server-core && exec cargo watch -x run' $$redir $(DEV_LOG_DIR)/api.log 2>&1 < /dev/null" &
 	@echo ""
 	@echo "All servers started in background."
 	@echo "  Client: http://localhost:3000"
@@ -384,7 +384,7 @@ dev-bg:
 	@echo ""
 	@echo "  Logs:   $(DEV_LOG_DIR)/*.log (overwritten on each start, use APPEND=1 to append)"
 	@echo "  Status: make dev-status"
-	@echo "  Logs:   make dev-logs [LINES=N]"
+	@echo "  Logs:   make dev-logs [TAIL_LINES=N]"
 	@echo "  Stop:   make dev-stop"
 	@echo ""
 	@sleep 3
@@ -458,7 +458,7 @@ dev-logs:
 		logfile="$(DEV_LOG_DIR)/$$name.log"; \
 		if [ -f "$$logfile" ] && [ -s "$$logfile" ]; then \
 			printf "\n\033[1;36m=== %s (%s) ===\033[0m\n" "$$label" "$$logfile"; \
-			tail -$(or $(LINES),20) "$$logfile"; \
+			tail -$(or $(TAIL_LINES),20) "$$logfile"; \
 		elif [ -f "$$logfile" ]; then \
 			printf "\n\033[1;33m=== %s (empty log) ===\033[0m\n" "$$label"; \
 		fi; \
