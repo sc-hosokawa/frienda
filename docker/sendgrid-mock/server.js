@@ -87,14 +87,12 @@ app.post("/v3/mail/send", async (req, res) => {
 
     await transporter.sendMail(mailOptions);
     console.log("[SendGrid Mock] Email forwarded to Mailpit successfully");
+    res.status(202).end();
   } catch (err) {
-    console.error("[SendGrid Mock] Failed to forward email to Mailpit:", err.message);
-    // Still return 202 to the client (SendGrid-compatible behavior)
-    // The mock should not fail even if Mailpit is temporarily unavailable
+    console.error("[SendGrid Mock] ERROR: Failed to forward email to Mailpit:", err.message);
+    // SendGrid互換の202を返すが、ヘッダーでエラーを通知しデバッグを容易にする
+    res.set("X-SendGrid-Mock-Error", err.message).status(202).end();
   }
-
-  // SendGrid returns 202 Accepted on success with empty body
-  res.status(202).end();
 });
 
 // Health check
