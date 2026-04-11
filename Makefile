@@ -150,6 +150,9 @@ help:
 	@echo 'logs-dev'
 	@echo '  - Show recent logs from background dev servers (TAIL_LINES=N to customize)'
 	@echo
+	@echo 'logs-watch-dev'
+	@echo '  - Follow dev server logs in real-time (tail -f)'
+	@echo
 	@echo '=== Mobile (Flutter) ==='
 	@echo
 	@echo 'mobile-dev'
@@ -495,6 +498,26 @@ logs-dev:
 			printf "\n\033[1;33m=== %s (empty log) ===\033[0m\n" "$$label"; \
 		fi; \
 	done
+
+.PHONY: logs-watch-dev
+logs-watch-dev:
+	@if [ ! -d "$(DEV_LOG_DIR)" ]; then \
+		echo "No log directory found. Run 'make start-dev' first."; \
+		exit 0; \
+	fi
+	@log_files=""; \
+	for srv in $(DEV_SERVERS); do \
+		name=$${srv##*:}; \
+		logfile="$(DEV_LOG_DIR)/$$name.log"; \
+		if [ -f "$$logfile" ]; then \
+			log_files="$$log_files $$logfile"; \
+		fi; \
+	done; \
+	if [ -z "$$log_files" ]; then \
+		echo "No log files found."; \
+		exit 0; \
+	fi; \
+	tail -f $$log_files
 
 # --- Mobile (Flutter) ---
 
