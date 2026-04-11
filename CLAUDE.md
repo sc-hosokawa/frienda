@@ -137,6 +137,7 @@ make dev-stripe        # stripe-mock (HTTP: 12111, HTTPS: 12112)
 make dev-bigquery      # BigQuery Emulator (port 9050)
 make dev-contentful    # Contentful mock (port 3100)
 make dev-gemini        # Gemini mock (port 3101)
+make dev-sendgrid      # SendGrid mock + Mailpit (port 3102, Mailpit UI: 8025)
 
 # Stop/remove all dev services
 make stop-services
