@@ -53,6 +53,10 @@ impl MarkAsMemberUsecase {
     }
 }
 
+#[cfg(test)]
+#[path = "mark_as_member_usecase_tests.rs"]
+mod tests;
+
 #[async_trait]
 impl MarkAsMemberUsecaseTrait for MarkAsMemberUsecase {
     async fn mark_as_member(

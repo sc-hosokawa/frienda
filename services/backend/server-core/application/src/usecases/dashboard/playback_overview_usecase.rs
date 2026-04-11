@@ -146,3 +146,7 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         }
     }
 }
+
+#[cfg(test)]
+#[path = "playback_overview_usecase_tests.rs"]
+mod tests;

@@ -6,7 +6,6 @@ use std::sync::Arc;
 
 use domain::entities::plays_daily::Model as PlaysDaily;
 use domain::entities::product_track::Model as ProductTrack;
-use domain::repositories::gender_gen_playback_repo::GenderGenPlaybackRepository;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
 use domain::repositories::product_track_repo::ProductTrackRepository;
 use domain::repositories::products_repo::ProductsRepository;
@@ -70,7 +69,6 @@ pub trait GetPlayCountHistoryUsecaseTrait: Send + Sync {
 
 pub struct GetPlayCountHistoryUsecase {
     plays_daily_repo: Arc<dyn PlaysDailyRepository>,
-    gender_gen_playback_repo: Arc<dyn GenderGenPlaybackRepository>,
     products_repo: Arc<dyn ProductsRepository>,
     product_track_repo: Arc<dyn ProductTrackRepository>,
     tracks_repo: Arc<dyn TracksRepository>,
@@ -79,14 +77,12 @@ pub struct GetPlayCountHistoryUsecase {
 impl GetPlayCountHistoryUsecase {
     pub fn new(
         plays_daily_repo: Arc<dyn PlaysDailyRepository>,
-        gender_gen_playback_repo: Arc<dyn GenderGenPlaybackRepository>,
         products_repo: Arc<dyn ProductsRepository>,
         product_track_repo: Arc<dyn ProductTrackRepository>,
         tracks_repo: Arc<dyn TracksRepository>,
     ) -> Self {
         Self {
             plays_daily_repo,
-            gender_gen_playback_repo,
             products_repo,
             product_track_repo,
             tracks_repo,
@@ -422,3 +418,7 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
         Ok(GetISRCHistoryUsecaseOutput { chart_data })
     }
 }
+
+#[cfg(test)]
+#[path = "get_play_count_history_usecase_tests.rs"]
+mod tests;

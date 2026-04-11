@@ -152,3 +152,7 @@ impl OverviewUsecaseTrait for OverviewUsecase {
         Ok(users)
     }
 }
+
+#[cfg(test)]
+#[path = "overview_usecase_tests.rs"]
+mod tests;

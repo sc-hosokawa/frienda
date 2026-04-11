@@ -12,22 +12,22 @@ use domain::repositories::notification_user_repo::NotificationUserRepository;
 use domain::repositories::notifications_repo::NotificationsRepository;
 
 pub struct StoreNotificationInput {
-    title: String,
-    content: String,
-    user_id: String,
+    pub title: String,
+    pub content: String,
+    pub user_id: String,
 }
 
 #[async_trait]
-pub trait SendNotificationUsecaseTrait: Send + Sync {
+pub trait StoreNotificationUsecaseTrait: Send + Sync {
     async fn store_notification(&self, input: StoreNotificationInput) -> Result<(), anyhow::Error>;
 }
 
-pub struct SendNotificationUsecase {
+pub struct StoreNotificationUsecase {
     notifications_repo: Arc<dyn NotificationsRepository>,
     notification_user_repo: Arc<dyn NotificationUserRepository>,
 }
 
-impl SendNotificationUsecase {
+impl StoreNotificationUsecase {
     pub fn new(
         notifications_repo: Arc<dyn NotificationsRepository>,
         notification_user_repo: Arc<dyn NotificationUserRepository>,
@@ -72,10 +72,14 @@ impl SendNotificationUsecase {
 }
 
 #[async_trait]
-impl SendNotificationUsecaseTrait for SendNotificationUsecase {
+impl StoreNotificationUsecaseTrait for StoreNotificationUsecase {
     async fn store_notification(&self, input: StoreNotificationInput) -> Result<(), anyhow::Error> {
         self.store_notification_internal(input.title, input.content, input.user_id)
             .await?;
         Ok(())
     }
 }
+
+#[cfg(test)]
+#[path = "store_notification_usecase_tests.rs"]
+mod tests;

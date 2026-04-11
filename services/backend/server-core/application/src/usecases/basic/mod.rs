@@ -6,3 +6,6 @@ pub mod manage_portfolios_usecase;
 pub mod report_usecase;
 pub mod search_users_usecase;
 pub mod update_user_profile_usecase;
+
+#[cfg(test)]
+mod create_user_usecase_category_tests;

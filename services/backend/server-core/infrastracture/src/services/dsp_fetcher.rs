@@ -3,7 +3,7 @@ use application::services::dsp_fetcher::{
 };
 use async_trait::async_trait;
 
-use base64;
+use base64::{engine::general_purpose::STANDARD, Engine as _};
 use google_bigquery2::{hyper, hyper_rustls, oauth2, Bigquery};
 use hyper::client::HttpConnector;
 use hyper_rustls::HttpsConnector;
@@ -63,7 +63,7 @@ impl DspFetcherService {
         let service_account_json: String = env::var("SCR_SERVICE_ACCOUNT_DSP")
             .map_err(|_| anyhow::anyhow!("SCR_SERVICE_ACCOUNT_DSP environment variable not set"))?;
 
-        let decoded: Vec<u8> = base64::decode(service_account_json)?;
+        let decoded: Vec<u8> = STANDARD.decode(service_account_json)?;
         let secret: oauth2::ServiceAccountKey = serde_json::from_slice(&decoded)?;
         let auth = oauth2::ServiceAccountAuthenticator::builder(secret)
             .build()
@@ -204,7 +204,7 @@ impl DspFetcherServiceTrait for DspFetcherService {
             6 => {
                 let encoded_template = std::env::var("DSP_QUERY_MONTHLY_TEMPLATE")
                     .map_err(|_| anyhow::anyhow!("DSP_QUERY_MONTHLY_TEMPLATE environment variable is not set"))?;
-                let query_template = base64::decode(&encoded_template)
+                let query_template = STANDARD.decode(&encoded_template)
                     .map_err(|_| anyhow::anyhow!("Failed to decode DSP_QUERY_MONTHLY_TEMPLATE from base64"))?;
                 let query_template = String::from_utf8(query_template)
                     .map_err(|_| anyhow::anyhow!("Failed to convert decoded template to UTF-8"))?;
@@ -216,7 +216,7 @@ impl DspFetcherServiceTrait for DspFetcherService {
                     .ok_or_else(|| anyhow::anyhow!("start_date is required for daily query"))?;
                 let encoded_template = std::env::var("SCR_DSP_QUERY_DAILY_TEMPLATE")
                     .map_err(|_| anyhow::anyhow!("DSP_QUERY_DAILY_TEMPLATE environment variable is not set"))?;
-                let query_template = base64::decode(&encoded_template)
+                let query_template = STANDARD.decode(&encoded_template)
                     .map_err(|_| anyhow::anyhow!("Failed to decode SCR_DSP_QUERY_DAILY_TEMPLATE from base64"))?;
                 let query_template = String::from_utf8(query_template)
                     .map_err(|_| anyhow::anyhow!("Failed to convert decoded template to UTF-8"))?;

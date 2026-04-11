@@ -136,3 +136,7 @@ impl ReportUsecaseTrait for ReportUsecase {
         Ok(())
     }
 }
+
+#[cfg(test)]
+#[path = "report_usecase_tests.rs"]
+mod tests;

@@ -1,13 +1,10 @@
 use actix_cors::Cors;
-use actix_web::{dev::ServiceRequest, guard, web, App, Error, HttpResponse, HttpServer, Result};
+use actix_web::{dev::ServiceRequest, web, App, Error, HttpServer, Result};
 use actix_web_httpauth::extractors::bearer::{BearerAuth, Config};
 use actix_web_httpauth::extractors::AuthenticationError;
 use actix_web_httpauth::middleware::HttpAuthentication;
-use async_graphql::{http::GraphiQLSource, EmptySubscription, Schema};
-use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
 use dotenvy::dotenv;
-use presentation::graphql::{mutations::MutationRoot, queries::QueryRoot, AppSchema};
-use presentation::{handlers, pipeline};
+use server_core::{auth, configure_app, schema_builder};
 use shared::db::connect::establish_db_connection;
 use shared::logger::init_logger;
 use std::env;
@@ -15,8 +12,6 @@ use std::time::Duration;
 use tracing_actix_web::TracingLogger;
 
 use registry::*;
-
-mod auth;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -42,14 +37,10 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     let services = create_services().await;
     let usecases = std::sync::Arc::new(create_usecases(repos, services));
 
-    let schema = Schema::build(
-        QueryRoot::default(),
-        MutationRoot::default(),
-        EmptySubscription,
-    )
-    .data(usecases.clone())
-    .data(db.clone())
-    .finish();
+    let schema = schema_builder()
+        .data(usecases.clone())
+        .data(db.clone())
+        .finish();
 
     tracing::info!("Starting server...");
 
@@ -65,44 +56,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
             .wrap(TracingLogger::default())
             .app_data(web::Data::new(schema.clone()))
             .app_data(web::Data::new(usecases.clone()))
-            .service(web::resource("/graphql").guard(guard::Post()).to(index))
-            .service(
-                web::resource("/graphql")
-                    .guard(guard::Get())
-                    .to(index_graphiql),
-            )
-            .route(
-                "/health_check",
-                web::post().to(handlers::health_check::health_check),
-            )
-            .route(
-                "/stripe",
-                web::post().to(handlers::stripe_webhook::webhook_handler),
-            )
-            .route(
-                "/contentful",
-                web::post().to(handlers::contentful_webhook::contentful_webhook_handler),
-            )
-            .route(
-                "/pipeline/dsps/daily",
-                web::post().to(pipeline::dsp::dsp_daily_handler),
-            )
-            .route(
-                "/pipeline/dsps/monthly",
-                web::post().to(pipeline::dsp::dsp_monthly_handler),
-            )
-            .route(
-                "/pipeline/credentials",
-                web::post().to(pipeline::credential::credential_handler),
-            )
-            .route(
-                "/pipeline/dsps/gendergen",
-                web::post().to(pipeline::dsp::gender_gen_playback_handler),
-            )
-            .route(
-                "/pipeline/dsps/sparse",
-                web::post().to(pipeline::dsp::sparse_data_handler),
-            )
+            .configure(configure_app)
     })
     .client_request_timeout(Duration::from_secs(300))
     .bind((host, port))?
@@ -111,22 +65,6 @@ async fn bootstrap() -> Result<(), std::io::Error> {
 
     Ok(())
 }
-
-async fn index(schema: web::Data<AppSchema>, req: GraphQLRequest) -> GraphQLResponse {
-    schema.execute(req.into_inner()).await.into()
-}
-
-async fn index_graphiql() -> Result<HttpResponse> {
-    Ok(HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body(
-            GraphiQLSource::build()
-                .endpoint("/graphql")
-                .title("GraphiQL IDE")
-                .finish(),
-        ))
-}
-
 async fn validator(
     req: ServiceRequest,
     credentials: BearerAuth,

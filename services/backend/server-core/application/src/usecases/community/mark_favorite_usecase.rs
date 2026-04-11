@@ -47,3 +47,7 @@ impl MarkFavoriteUsecaseTrait for MarkFavoriteUsecase {
         Ok(favorite_id)
     }
 }
+
+#[cfg(test)]
+#[path = "mark_favorite_usecase_tests.rs"]
+mod tests;

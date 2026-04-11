@@ -612,3 +612,7 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
         Ok(true)
     }
 }
+
+#[cfg(test)]
+#[path = "manage_tracks_usecase_tests.rs"]
+mod tests;

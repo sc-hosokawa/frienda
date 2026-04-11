@@ -43,3 +43,7 @@ impl SearchUsersUsecaseTrait for SearchUsersUsecase {
         Ok(SearchUsersOutput { users })
     }
 }
+
+#[cfg(test)]
+#[path = "search_users_usecase_tests.rs"]
+mod tests;

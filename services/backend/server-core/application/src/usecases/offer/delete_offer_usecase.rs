@@ -56,3 +56,7 @@ impl DeleteOfferUsecaseTrait for DeleteOfferUsecase {
         Ok(input.id)
     }
 }
+
+#[cfg(test)]
+#[path = "delete_offer_usecase_tests.rs"]
+mod tests;

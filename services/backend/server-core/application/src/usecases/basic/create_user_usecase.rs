@@ -66,3 +66,7 @@ impl CreateUserUsecaseTrait for CreateUserUsecase {
         Ok(res)
     }
 }
+
+#[cfg(test)]
+#[path = "create_user_usecase_tests.rs"]
+mod tests;

@@ -238,3 +238,7 @@ impl GetRoomListUsecaseTrait for GetRoomListUsecase {
         })
     }
 }
+
+#[cfg(test)]
+#[path = "get_room_list_usecase_tests.rs"]
+mod tests;

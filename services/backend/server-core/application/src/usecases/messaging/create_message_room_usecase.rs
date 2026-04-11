@@ -120,3 +120,7 @@ impl CreateMessageRoomUsecaseTrait for CreateMessageRoomUsecase {
         Ok(created_room.id)
     }
 }
+
+#[cfg(test)]
+#[path = "create_message_room_usecase_tests.rs"]
+mod tests;

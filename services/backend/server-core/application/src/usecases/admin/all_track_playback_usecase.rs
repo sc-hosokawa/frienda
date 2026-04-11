@@ -149,3 +149,7 @@ impl AllTrackPlaybackHistoryUsecaseTrait for AllTrackPlaybackHistoryUsecase {
         Ok(AllTrackPlaybackHistoryUsecaseOutput { chart_data })
     }
 }
+
+#[cfg(test)]
+#[path = "all_track_playback_usecase_tests.rs"]
+mod tests;

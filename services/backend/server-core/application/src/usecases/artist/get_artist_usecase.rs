@@ -84,3 +84,7 @@ impl GetArtistUsecaseTrait for GetArtistUsecase {
         Ok(GetArtistUsecaseOutput { artists })
     }
 }
+
+#[cfg(test)]
+#[path = "get_artist_usecase_tests.rs"]
+mod tests;
