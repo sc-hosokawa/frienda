@@ -85,9 +85,9 @@ type MutationRoot {
 - 申請時にユーザーが入力したメッセージを受け取れるようにします。
 - メッセージは任意入力です。ただし、指定する場合は1文字以上200文字以内とし、空文字は許可しません。
 - 200文字は日本語の入力を前提にした文字数上限です。実装では Rust の `chars().count()` 等で Unicode scalar value 数として扱う方針を推奨します。
-- 現行の複数件一括申請 schema との互換性は維持します。
-- モバイル画面上では1件ずつ申請するため、モバイルからは `artistIds` に1件だけ入れて送信します。
-- 申請メッセージは、同一リクエスト内の `artistIds` すべてに適用されます。モバイル利用では常に1件なので、結果として1申請ごとに1つのメッセージを持ちます。
+- 現行の複数件一括申請 schema との互換性は維持しつつ、申請ごとにメッセージを適用できる `requests` を追加します。
+- モバイル画面上では1件ずつ申請するため、モバイルからは `requests` に1件だけ入れて送信します。
+- バルク申請でも `requests` の各要素ごとに個別メッセージを持てるようにします。
 - 申請メッセージを永続化するため、`user_artist` に `request_message` を追加します。
 - `request_message` の DB column 長は、日本語200文字を保存できる型にします。
 - 既存 mapping がある場合の扱いは、項目 3 の再送 Mutation と整合させます。`requestToAccessArtist` は新規申請専用にし、既存申請は再送 Mutation へ誘導する方針を推奨します。
@@ -95,10 +95,15 @@ type MutationRoot {
 ### 利用可能にする schema
 
 ```graphql
+input RequestToAccessArtistItemInput {
+  artistId: String!
+  message: String
+}
+
 input RequestToAccessArtistInput {
   userId: String!
-  artistIds: [String!]!
-  message: String
+  requests: [RequestToAccessArtistItemInput!]
+  artistIds: [String!]
 }
 
 type ArtistByUserDataWithMappingId {
@@ -120,7 +125,7 @@ type RequestToAccessArtistResponse {
 
 ### 不明点・確認事項
 
-- 既存のバルク申請で複数 `artistIds` と `message` が指定された場合、同じメッセージを全申請に適用します。個別メッセージ付きバルク申請は今回の対象外です。
+- 既存互換の `artistIds` で申請された場合は、申請メッセージなしとして扱います。個別メッセージが必要なクライアントは `requests` を利用します。
 
 ## 2. API-44: `getBelongedArtists`
 
@@ -962,8 +967,12 @@ mutation RequestToAccessArtist($input: RequestToAccessArtistInput!) {
 {
   "input": {
     "userId": "user_001",
-    "artistIds": ["artist_001"],
-    "message": "所属申請をお願いします。"
+    "requests": [
+      {
+        "artistId": "artist_001",
+        "message": "所属申請をお願いします。"
+      }
+    ]
   }
 }
 ```
