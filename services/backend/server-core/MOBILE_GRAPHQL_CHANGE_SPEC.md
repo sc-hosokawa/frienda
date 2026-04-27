@@ -83,12 +83,13 @@ type MutationRoot {
 ### 改修内容
 
 - 申請時にユーザーが入力したメッセージを受け取れるようにします。
-- メッセージは任意入力です。ただし、指定する場合は1字以上200字以内とし、空文字は許可しません。
-- 200字は日本語の入力を前提にした文字数上限です。実装では Rust の `chars().count()` 等で Unicode scalar value 数として扱う方針を推奨します。
+- メッセージは任意入力です。ただし、指定する場合は1文字以上200文字以内とし、空文字は許可しません。
+- 200文字は日本語の入力を前提にした文字数上限です。実装では Rust の `chars().count()` 等で Unicode scalar value 数として扱う方針を推奨します。
 - 現行の複数件一括申請 schema との互換性は維持します。
 - モバイル画面上では1件ずつ申請するため、モバイルからは `artistIds` に1件だけ入れて送信します。
 - 申請メッセージは、同一リクエスト内の `artistIds` すべてに適用されます。モバイル利用では常に1件なので、結果として1申請ごとに1つのメッセージを持ちます。
 - 申請メッセージを永続化するため、`user_artist` に `request_message` を追加します。
+- `request_message` の DB column 長は、日本語200文字を保存できる型にします。
 - 既存 mapping がある場合の扱いは、項目 3 の再送 Mutation と整合させます。`requestToAccessArtist` は新規申請専用にし、既存申請は再送 Mutation へ誘導する方針を推奨します。
 
 ### 利用可能にする schema
@@ -119,7 +120,6 @@ type RequestToAccessArtistResponse {
 
 ### 不明点・確認事項
 
-- `request_message` の DB column 長は、日本語200字を保存できる型にします。
 - 既存のバルク申請で複数 `artistIds` と `message` が指定された場合、同じメッセージを全申請に適用します。個別メッセージ付きバルク申請は今回の対象外です。
 
 ## 2. API-44: `getBelongedArtists`
@@ -205,7 +205,8 @@ enum UserArtistStatus {
 ### 実装内容
 
 - `userId` と `artistId` で既存 `user_artist` を取得します。
-- 再送可能な status の場合、status を申請中に戻します。
+- 再送可能な status は `Reject`, `Canceled`, `Check` です。
+- 再送時は status を申請中の `Check` に戻します。
 - 申請メッセージを更新します。
 - 既存 mapping がない場合は、通常の申請 Mutation を使うか、この Mutation で新規作成も許可するかを決めます。
 
@@ -231,7 +232,6 @@ type MutationRoot {
 
 ### 不明点・確認事項
 
-- 再送可能な status が未確定です。候補は `Reject`, `Canceled`, `Check` です。
 - 申請中 `Check` の再送を許可する場合、申請日時や通知を更新するか未確定です。
 - 再送時にアーティスト管理者へ通知を送るか未確定です。
 
@@ -498,6 +498,7 @@ type QueryRoot {
 ### 改修内容
 
 - all / monthly / weekly / daily の4区分で合計再生数を返します。
+- `monthlyPlaybacks` は直近30日間の再生数とします。
 - `dailyPlaybacks` は直近確定日の再生数とします。現行実装と同様、直近未確定日は集計対象に含めません。
 - `totalPlaybacks` は直近確定日までの全期間合計とします。現行実装と同様、直近未確定日は集計対象に含めません。
 - `getOverviewByUpc` も同じ output を返すように揃えます。
@@ -515,7 +516,7 @@ type TotalOverviewData {
 
 ### 不明点・確認事項
 
-- monthly を直近30日とするか、確定済み暦月とするか未確定です。
+- なし。
 
 ## 9. Most Recent Release 用 Query
 
@@ -660,12 +661,22 @@ type QueryRoot {
 ### 改修内容
 
 - track ごとに all / monthly / weekly / daily の合計再生数を返します。
+- `monthlyPlayCount` は直近30日間の再生数とします。
+- `weeklyPlayCount` は直近7日間の再生数とします。
+- `dailyPlayCount` は直近確定日の再生数とします。
+- `getTrending` の順位付けは指定された時間軸に応じて切り替えます。`ALL` は `totalPlayCount`、`WEEK` は `weeklyPlayCount`、`MONTH` は `monthlyPlayCount` を基準にします。
 - DSP 別内訳も同じ期間軸で返せるようにします。
 - `getTrendingByUpc` も同じ `TrendTrack` を利用するため、同様に field が増えます。
 
 ### 利用可能にする schema
 
 ```graphql
+enum TrendingTimeAxis {
+  ALL
+  WEEK
+  MONTH
+}
+
 type TrendTrack {
   isrc: String!
   trackTitle: String
@@ -680,12 +691,19 @@ type TrendTrack {
   weeklyPlayCountDetails: PlayCountByDSPDetails!
   dailyPlayCountDetails: PlayCountByDSPDetails!
 }
+
+type QueryRoot {
+  getTrending(
+    artistId: String!
+    userId: String!
+    timeAxis: TrendingTimeAxis = ALL
+  ): TrendingData!
+}
 ```
 
 ### 不明点・確認事項
 
-- monthly / daily の期間定義が未確定です。
-- `getTrending` の順位付けを total のままにするか、weekly / monthly を基準にするか未確定です。
+- なし。
 
 ## 12. d-5 Query `getPlayCountHistory`
 
@@ -917,3 +935,628 @@ type GenPlaybackRate {
 ### 不明点・確認事項
 
 - 新しい世代区分の正式定義が未確定です。
+
+## フロントエンド / Sandbox 用 GraphQL 操作例
+
+ここでは、モバイルアプリや GraphQL Sandbox から実行する操作例を示します。ID や日付はサンプル値なので、実環境の値に置き換えてください。
+
+### 1. API-39: `requestToAccessArtist`
+
+```graphql
+mutation RequestToAccessArtist($input: RequestToAccessArtistInput!) {
+  requestToAccessArtist(input: $input) {
+    createdMappings {
+      mappingId
+      artistId
+      name
+      imageUrl
+      status
+      isAdmin
+      requestMessage
+    }
+  }
+}
+```
+
+```json
+{
+  "input": {
+    "userId": "user_001",
+    "artistIds": ["artist_001"],
+    "message": "所属申請をお願いします。"
+  }
+}
+```
+
+### 2. API-44: `getBelongedArtists`
+
+```graphql
+query GetBelongedArtists($userId: String!) {
+  getBelongedArtists(userId: $userId) {
+    artistList {
+      artistId
+      name
+      imageUrl
+      status
+      isAdmin
+      requestMessage
+      isDefault
+    }
+  }
+}
+```
+
+```json
+{
+  "userId": "user_001"
+}
+```
+
+### 3. アーティスト申請の再送用 Mutation
+
+```graphql
+mutation ResendRequestToAccessArtist($input: ResendRequestToAccessArtistInput!) {
+  resendRequestToAccessArtist(input: $input) {
+    updatedMapping {
+      mappingId
+      artistId
+      name
+      status
+      requestMessage
+    }
+  }
+}
+```
+
+```json
+{
+  "input": {
+    "userId": "user_001",
+    "artistId": "artist_001",
+    "message": "内容を更新して再申請します。"
+  }
+}
+```
+
+### 4. アーティスト申請のキャンセル用 Mutation
+
+```graphql
+mutation CancelRequestToAccessArtist($input: CancelRequestToAccessArtistInput!) {
+  cancelRequestToAccessArtist(input: $input) {
+    canceledMapping {
+      mappingId
+      artistId
+      name
+      status
+      requestMessage
+    }
+  }
+}
+```
+
+```json
+{
+  "input": {
+    "userId": "user_001",
+    "artistId": "artist_001"
+  }
+}
+```
+
+承認済み所属解除は別 Mutation を利用します。
+
+```graphql
+mutation LeaveBelongedArtist($input: LeaveBelongedArtistInput!) {
+  leaveBelongedArtist(input: $input) {
+    leftArtist {
+      artistId
+      name
+      status
+      isAdmin
+      isDefault
+    }
+  }
+}
+```
+
+```json
+{
+  "input": {
+    "userId": "user_001",
+    "artistId": "artist_001"
+  }
+}
+```
+
+### 5. 所属先アーティストのデフォルト設定 Mutation
+
+```graphql
+mutation SetDefaultBelongedArtist($input: SetDefaultBelongedArtistInput!) {
+  setDefaultBelongedArtist(input: $input) {
+    defaultArtist {
+      artistId
+      name
+      status
+      isDefault
+    }
+  }
+}
+```
+
+```json
+{
+  "input": {
+    "userId": "user_001",
+    "artistId": "artist_001"
+  }
+}
+```
+
+### 6. notifications のリスト取得 schema
+
+モバイルの通知一覧取得:
+
+```graphql
+query GetNotificationList($userId: String!, $limit: Int, $offset: Int) {
+  getNotificationList(userId: $userId, limit: $limit, offset: $offset) {
+    unreadCount
+    hasNextPage
+    notifications {
+      id
+      title
+      category
+      isRead
+      createdAt
+    }
+  }
+}
+```
+
+```json
+{
+  "userId": "user_001",
+  "limit": 20,
+  "offset": 0
+}
+```
+
+管理者画面からの通知作成・送付:
+
+```graphql
+mutation CreateAdminNotification($input: CreateAdminNotificationInput!) {
+  createAdminNotification(input: $input) {
+    notificationId
+    deliveredUserCount
+  }
+}
+```
+
+```json
+{
+  "input": {
+    "title": "新機能のお知らせ",
+    "content": "新しい分析機能が利用できるようになりました。",
+    "category": "ANNOUNCEMENT",
+    "audienceType": "ARTIST_REPRESENTATIVES",
+    "artistIds": ["artist_001", "artist_002"]
+  }
+}
+```
+
+### 7. notifications の個別コンテンツ取得 schema
+
+```graphql
+query GetNotificationDetail($userId: String!, $notificationId: Int!) {
+  getNotificationDetail(userId: $userId, notificationId: $notificationId) {
+    id
+    title
+    category
+    content
+    isRead
+    createdAt
+  }
+}
+```
+
+```json
+{
+  "userId": "user_001",
+  "notificationId": 123
+}
+```
+
+既読化を明示的に行う場合:
+
+```graphql
+mutation MarkNotificationAsRead($notificationId: Int!, $userId: String!) {
+  markNotificationAsRead(notificationId: $notificationId, userId: $userId)
+}
+```
+
+```json
+{
+  "userId": "user_001",
+  "notificationId": 123
+}
+```
+
+### 8. d-2 Query `getOverview`
+
+アーティスト全体の overview:
+
+```graphql
+query GetOverview($artistId: String!, $userId: String!) {
+  getOverview(artistId: $artistId, userId: $userId) {
+    totalPlaybacks
+    monthlyPlaybacks
+    weeklyPlaybacks
+    dailyPlaybacks
+  }
+}
+```
+
+```json
+{
+  "artistId": "artist_001",
+  "userId": "user_001"
+}
+```
+
+UPC 指定の overview:
+
+```graphql
+query GetOverviewByUpc($artistId: String!, $userId: String!, $upc: String!) {
+  getOverviewByUpc(artistId: $artistId, userId: $userId, upc: $upc) {
+    totalPlaybacks
+    monthlyPlaybacks
+    weeklyPlaybacks
+    dailyPlaybacks
+  }
+}
+```
+
+```json
+{
+  "artistId": "artist_001",
+  "userId": "user_001",
+  "upc": "4988000000000"
+}
+```
+
+### 9. Most Recent Release 用 Query
+
+```graphql
+query GetMostRecentRelease($artistId: String!, $userId: String!, $limit: Int) {
+  getMostRecentRelease(artistId: $artistId, userId: $userId, limit: $limit) {
+    products {
+      upc
+      productTitle
+      imageUrl
+      releaseDate
+      productType
+      trackCount
+      totalPlayCount
+      monthlyPlayCount
+      weeklyPlayCount
+      dailyPlayCount
+    }
+  }
+}
+```
+
+```json
+{
+  "artistId": "artist_001",
+  "userId": "user_001",
+  "limit": 10
+}
+```
+
+### 10. Trending 用 Query
+
+```graphql
+query GetTrendingChanges($artistId: String!, $userId: String!, $periodDays: Int, $limit: Int) {
+  getTrendingChanges(
+    artistId: $artistId
+    userId: $userId
+    periodDays: $periodDays
+    limit: $limit
+  ) {
+    thresholdRate
+    tracks {
+      isrc
+      trackTitle
+      upc
+      productTitle
+      imageUrl
+      currentPlayCount
+      previousPlayCount
+      diffPlayCount
+      changeRate
+    }
+    unavailableTracks {
+      isrc
+      trackTitle
+      currentPlayCount
+      previousPlayCount
+      reason
+    }
+  }
+}
+```
+
+```json
+{
+  "artistId": "artist_001",
+  "userId": "user_001",
+  "periodDays": 7,
+  "limit": 10
+}
+```
+
+### 11. d-4 Query `getTrending`
+
+```graphql
+query GetTrending($artistId: String!, $userId: String!, $timeAxis: TrendingTimeAxis) {
+  getTrending(artistId: $artistId, userId: $userId, timeAxis: $timeAxis) {
+    trendingTracks {
+      isrc
+      trackTitle
+      upcTitle
+      imageUrl
+      totalPlayCount
+      monthlyPlayCount
+      weeklyPlayCount
+      dailyPlayCount
+      totalPlayCountDetails {
+        spotify
+        apple
+        line
+        amazon
+        youtube
+      }
+      monthlyPlayCountDetails {
+        spotify
+        apple
+        line
+        amazon
+        youtube
+      }
+      weeklyPlayCountDetails {
+        spotify
+        apple
+        line
+        amazon
+        youtube
+      }
+      dailyPlayCountDetails {
+        spotify
+        apple
+        line
+        amazon
+        youtube
+      }
+    }
+  }
+}
+```
+
+```json
+{
+  "artistId": "artist_001",
+  "userId": "user_001",
+  "timeAxis": "MONTH"
+}
+```
+
+### 12. d-5 Query `getPlayCountHistory`
+
+アーティスト単位:
+
+```graphql
+query GetPlayCountHistory(
+  $artistId: String!
+  $userId: String!
+  $startDate: String
+  $endDate: String
+  $granularity: PlaybackHistoryGranularity
+) {
+  getPlayCountHistory(
+    artistId: $artistId
+    userId: $userId
+    startDate: $startDate
+    endDate: $endDate
+    granularity: $granularity
+  ) {
+    lineChartData {
+      date
+      spotify
+      apple
+      line
+      amazon
+      youtube
+    }
+  }
+}
+```
+
+```json
+{
+  "artistId": "artist_001",
+  "userId": "user_001",
+  "startDate": "2026-03-01",
+  "endDate": "2026-03-31",
+  "granularity": "DAILY"
+}
+```
+
+UPC 単位:
+
+```graphql
+query GetPlaycountHistoryByUpc(
+  $upc: String!
+  $startDate: String
+  $endDate: String
+  $granularity: PlaybackHistoryGranularity
+) {
+  getPlaycountHistoryByUpc(
+    upc: $upc
+    startDate: $startDate
+    endDate: $endDate
+    granularity: $granularity
+  ) {
+    lineChartData {
+      date
+      trackCount
+    }
+  }
+}
+```
+
+```json
+{
+  "upc": "4988000000000",
+  "startDate": "2026-03-01",
+  "endDate": "2026-03-31",
+  "granularity": "DAILY"
+}
+```
+
+ISRC 単位:
+
+```graphql
+query GetPlaycountHistoryByIsrc(
+  $isrc: String!
+  $startDate: String
+  $endDate: String
+  $granularity: PlaybackHistoryGranularity
+) {
+  getPlaycountHistoryByIsrc(
+    isrc: $isrc
+    startDate: $startDate
+    endDate: $endDate
+    granularity: $granularity
+  ) {
+    lineChartData {
+      date
+      spotify
+      apple
+      line
+      amazon
+      youtube
+    }
+  }
+}
+```
+
+```json
+{
+  "isrc": "JPG000000001",
+  "startDate": "2026-03-01",
+  "endDate": "2026-03-31",
+  "granularity": "DAILY"
+}
+```
+
+### 13. 国別再生数取得用 Query
+
+```graphql
+query GetCountryPlaybacks($input: CountryPlaybackInput!) {
+  getCountryPlaybacks(input: $input) {
+    totalPlayCount
+    previousTotalPlayCount
+    countries {
+      countryCode
+      countryName
+      rank
+      rankDirection
+      playCount
+      rate
+      previousPlayCount
+      playCountDiff
+      previousRate
+      rateDiff
+      rateChange
+    }
+  }
+}
+```
+
+```json
+{
+  "input": {
+    "artistId": "artist_001",
+    "userId": "user_001",
+    "startDate": "2026-03-01",
+    "endDate": "2026-03-31",
+    "limit": 10
+  }
+}
+```
+
+### 14. d-8 Query `getGenderGenRateByArtist`
+
+アーティスト単位:
+
+```graphql
+query GetGenderGenRateByArtist($artistId: String!, $userId: String!) {
+  getGenderGenRateByArtist(artistId: $artistId, userId: $userId) {
+    generationRate {
+      key
+      label
+      rate
+    }
+  }
+}
+```
+
+```json
+{
+  "artistId": "artist_001",
+  "userId": "user_001"
+}
+```
+
+UPC 単位:
+
+```graphql
+query GetGenderGenRateByUpc($artistId: String!, $userId: String!, $upc: String!) {
+  getGenderGenRateByUpc(artistId: $artistId, userId: $userId, upc: $upc) {
+    generationRate {
+      key
+      label
+      rate
+    }
+  }
+}
+```
+
+```json
+{
+  "artistId": "artist_001",
+  "userId": "user_001",
+  "upc": "4988000000000"
+}
+```
+
+ISRC 単位:
+
+```graphql
+query GetGenderGenRateByIsrc($artistId: String!, $userId: String!, $isrc: String!) {
+  getGenderGenRateByIsrc(artistId: $artistId, userId: $userId, isrc: $isrc) {
+    generationRate {
+      key
+      label
+      rate
+    }
+  }
+}
+```
+
+```json
+{
+  "artistId": "artist_001",
+  "userId": "user_001",
+  "isrc": "JPG000000001"
+}
+```
