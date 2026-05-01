@@ -8,6 +8,7 @@
 
 - **Google Cloud Platform (GCP)**
   - リージョン: `asia-northeast1`（東京）
+  - **[Google Cloud プロジェクト一覧](google-cloud-projects.md)**
 - **Vercel**（WebUI デプロイ）
 - **Firebase**（認証・Storage・FCM）
 - **SendGrid**（メール送信）
