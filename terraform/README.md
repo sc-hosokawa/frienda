@@ -1,5 +1,13 @@
 # FRIENDA Terraform
 
+## Test (Scratch)
+
+- Manual（ローカルから実行）
+    - 実験や一時的なリソース作成に使用
+    - `force_destroy` や `deletion_protection = false` を設定し、容易にクリーンアップ可能
+- Unsafe
+    - コスト最小化のため最小スペックを選択
+
 ## Dev
 
 - Manual（ローカルから実行）
