@@ -14,18 +14,11 @@ pub struct FcmNotificationService {
 }
 
 impl FcmNotificationService {
-    pub async fn new() -> Result<Self, anyhow::Error> {
-        tracing::info!("Setting up FcmNotificationService...");
-        let environment: String =
-            std::env::var("ENVIRONMENT").unwrap_or_else(|_| "dev".to_string());
-
-        let service_account_path = if environment == "prod" {
-            "friendship-dao-firebase-adminsdk-a2w15-e1854b252a.json"
-        } else {
-            "frienda-auth-test1-a490c287d01b.json"
-        };
-
-        tracing::info!("Using FCM service account: {}", service_account_path);
+    pub async fn new(service_account_path: &str) -> Result<Self, anyhow::Error> {
+        tracing::info!(
+            "Setting up FcmNotificationService with path: {}...",
+            service_account_path
+        );
         let client = FcmClient::new(service_account_path).await?;
         Ok(Self { client })
     }

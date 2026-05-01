@@ -54,15 +54,12 @@ jobs:
 
       - name: Setup Google Cloud
         uses: google-github-actions/setup-gcloud@v2
-        with:
-          service_account_key: ${{ secrets.GCLOUD_AUTH }}
-          project_id: ${{ secrets.PROJECT_ID }}
 
       - name: Configure Docker
         run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 
       - name: Build
-        run: cd services/backend && docker build --platform linux/amd64 -f Dockerfile.server -t asia-northeast1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME/$IMAGE:$TAG .
+        run: cd services/backend && docker build --platform linux/amd64 -f Dockerfile.server --build-arg FIREBASE_KEY_FILE=frienda-auth-test1-a490c287d01b.json -t asia-northeast1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME/$IMAGE:$TAG .
 
       - name: Push
         run: docker push asia-northeast1-docker.pkg.dev/$PROJECT_ID/$SERVICE_NAME/$IMAGE:$TAG

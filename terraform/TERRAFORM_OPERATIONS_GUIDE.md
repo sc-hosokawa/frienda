@@ -38,35 +38,51 @@
 ```
 terraform/
 ├── environments/
-│   ├── dev/
-│   ├── test/
-│   └── prod/
+│   ├── dev/            # 開発環境 (GCS backend: env/dev)
+│   ├── test/           # テスト環境 (GCS backend: env/test) - 未構築
+│   └── prod/           # 本番環境 (GCS backend: env/prod)
 └── modules/
-    ├── compute/
-    ├── network/
-    └── storage/
+    ├── compute/        # Cloud SQL, Cloud Run, IAM
+    ├── network/        # VPC, VPC Access Connector, Private Service Connect
+    └── storage/        # Cloud Storage, Artifact Registry
 ```
 
 ## 4. 環境情報
 
 詳細な情報は [Google Cloud プロジェクト一覧](../docs/google-cloud-projects.md) を参照。
 
-### 4.1 GCP プロジェクト & HCP Terraform Workspace 一覧 (Org: `scratch-jp`)
+### 4.1 GCP プロジェクト & Backend 一覧
 
-| 環境 | GCPプロジェクトID | HCP Terraform Workspace名 |
+| 環境 | GCPプロジェクトID | Terraform Backend (GCS) |
 |---|---|---|
-| test | `strategic-atom-315309` | `frienda-test` |
-| dev | `frienda-test` | `frienda-dev` |
-| prod | `frienda-prd` | `frienda-prod` |
+| dev | `frienda-test` | `gs://frienda-terraform-state/env/dev` |
+| prod | `frienda-prd` | `gs://frienda-terraform-state/env/prod` |
 
-## 5. 日常運用（インフラ更新）
+## 5. 移行・運用手順
 
-### 5.1 作業の流れ
+### 5.1 モジュール化・Backend移行後の初回操作
+既存のStateを新しい構成に移行するため、各環境ディレクトリで以下の操作を行ってください。
+
+1. **初期化とState移行**:
+   ```bash
+   terraform init -migrate-state
+   ```
+   ※ HCP Terraform (Cloud) から GCS への移行が確認されます。
+
+2. **実行計画の確認**:
+   ```bash
+   terraform plan
+   ```
+   ※ `moved` ブロックにより、リソースの再作成（Destroy/Create）ではなく「移動」として認識されることを確認してください。
+   ※ Artifact Registry 等の既存リソースが `import` ブロックにより取り込まれることを確認してください。
+
+### 5.2 日常の作業フロー
 1. **ブランチ作成**: `feature/<機能名>`
-2. **コード修正**: `terraform/environments/<環境名>/` 配下を編集
+2. **コード修正**: `terraform/modules/` または `terraform/environments/` を編集
 3. **バリデーション**: `terraform fmt`, `terraform validate`
 4. **差分確認**: `terraform plan`
 5. **適用**: `terraform apply`
+
 
 ### 5.2 適用順序
 1. **test環境**: 実験・動作確認用

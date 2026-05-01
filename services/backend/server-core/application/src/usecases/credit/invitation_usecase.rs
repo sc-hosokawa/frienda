@@ -55,7 +55,9 @@ impl InvitationUsecase {
 #[async_trait]
 impl InvitationUsecaseTrait for InvitationUsecase {
     async fn invite(&self, pass: String) -> Result<InvitationUsecaseOutput, anyhow::Error> {
-        if pass != "friendshipdao" {
+        let invitation_pass =
+            std::env::var("INVITATION_PASSWORD").unwrap_or_else(|_| "friendshipdao".to_string());
+        if pass != invitation_pass {
             return Err(anyhow::anyhow!("Invalid password"));
         }
 
