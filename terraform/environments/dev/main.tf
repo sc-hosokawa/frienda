@@ -1,9 +1,7 @@
 terraform {
-  cloud {
-    organization = "scratch-jp"
-    workspaces {
-      name = "frienda-dev"
-    }
+  backend "gcs" {
+    bucket  = "frienda-terraform-state"
+    prefix  = "env/dev"
   }
   required_providers {
     google = {
@@ -18,147 +16,95 @@ provider "google" {
   region  = var.region
 }
 
-// ======= Network =======
-resource "google_compute_network" "vpc_network" {
-  name = "dev-network"
+module "network" {
+  source = "../../modules/network"
+
+  project_id      = var.project_id
+  region          = var.region
+  network_name    = "dev-network"
+  connector_name  = "dev-connector"
+  ip_cidr_range   = "10.20.0.0/28"
+  private_ip_name = "dev-private-ip-alloc"
 }
 
-resource "google_vpc_access_connector" "connector" {
-  name          = "dev-connector"
-  network       = google_compute_network.vpc_network.name
-  ip_cidr_range = "10.20.0.0/28"
-  region        = var.region
+module "storage" {
+  source = "../../modules/storage"
+
+  project_id                = var.project_id
+  region                    = var.region
+  general_bucket_name       = "frienda-general-files"
+  photo_bucket_name         = "frienda-photo-storage"
+  state_bucket_name         = "frienda-terraform-state"
+  sql_service_account_email = module.compute.sql_service_account_email_address
+  enable_sql_iam_access     = true
 }
 
-resource "google_compute_global_address" "private_ip_address" {
-  name          = "dev-private-ip-alloc"
-  purpose       = "VPC_PEERING"
-  address_type  = "INTERNAL"
-  address       = "10.10.0.0"
-  prefix_length = 16
-  network       = google_compute_network.vpc_network.name
+module "compute" {
+  source = "../../modules/compute"
+
+  project_id               = var.project_id
+  region                   = var.region
+  environment              = "dev"
+  network_id               = module.network.network_id
+  connector_id             = module.network.connector_id
+  security_policy_id       = module.network.security_policy_id
+  lb_name                  = "frienda-dev-lb"
+  db_instance_name         = "frienda-dev-pg"
+  db_password              = var.db_password
+  run_service_name         = "frienda-server"
+  frienda_server_image     = var.frienda_server_image
+  frienda_server_image_tag = var.frienda_server_image_tag
+  deletion_protection      = false
 }
 
-resource "google_service_networking_connection" "default" {
-  network                 = google_compute_network.vpc_network.name
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
+// ======= Import Blocks (既存リソースの取り込み) =======
+
+import {
+  to = module.network.google_compute_network.vpc_network
+  id = "projects/${var.project_id}/global/networks/dev-network"
 }
 
-// ======= Cloud SQL =======
-resource "google_sql_database_instance" "main" {
-  project          = var.project_id
-  name             = "frienda-dev-pg"
-  region           = var.region
-  database_version = "POSTGRES_15"
-
-  settings {
-    tier = "db-custom-1-3840"
-
-    ip_configuration {
-      private_network = google_compute_network.vpc_network.id
-      ipv4_enabled    = false
-    }
-  }
+import {
+  to = module.network.google_vpc_access_connector.connector
+  id = "projects/${var.project_id}/locations/${var.region}/connectors/dev-connector"
 }
 
-resource "google_sql_database" "frienda_db" {
-  project  = var.project_id
-  name     = "frienda-pg"
-  instance = google_sql_database_instance.main.name
+import {
+  to = module.network.google_compute_global_address.private_ip_address
+  id = "projects/${var.project_id}/global/addresses/dev-private-ip-alloc"
 }
 
-resource "google_sql_user" "users" {
-  project  = var.project_id
-  name     = "frienda-pg"
-  instance = google_sql_database_instance.main.name
-  password = var.db_password
+import {
+  to = module.compute.google_sql_database_instance.main
+  id = "${var.project_id}/frienda-dev-pg"
 }
 
-resource "google_storage_bucket_iam_member" "sql_storage_object_admin" {
-  bucket = google_storage_bucket.general_file_storage.name
-  role   = "roles/storage.objectAdmin"
-  member = "serviceAccount:${google_sql_database_instance.main.service_account_email_address}"
+import {
+  to = module.compute.google_sql_database.frienda_db
+  id = "${var.project_id}/frienda-dev-pg/frienda-pg"
 }
 
-// ======= Cloud Run =======
-resource "google_cloud_run_v2_service" "frienda_server" {
-  name     = "frienda-server"
-  location = var.region
-  ingress  = "INGRESS_TRAFFIC_ALL"
-
-  template {
-    containers {
-      image = "${var.frienda_server_image}:${var.frienda_server_image_tag}"
-      env {
-        name  = "DATABASE_URL"
-        value = "postgres://${google_sql_user.users.name}:${google_sql_user.users.password}@${google_sql_database_instance.main.private_ip_address}/${google_sql_database.frienda_db.name}"
-      }
-    }
-    vpc_access {
-      connector = google_vpc_access_connector.connector.id
-      egress    = "PRIVATE_RANGES_ONLY"
-    }
-  }
-  lifecycle {
-    ignore_changes        = [template[0].containers[0]]
-    create_before_destroy = true
-  }
+import {
+  to = module.compute.google_sql_user.users
+  id = "${var.project_id}/frienda-dev-pg/frienda-pg"
 }
 
-data "google_iam_policy" "no_auth" {
-  binding {
-    role = "roles/run.invoker"
-    members = [
-      "allUsers",
-    ]
-  }
+import {
+  to = module.compute.google_cloud_run_v2_service.frienda_server
+  id = "projects/${var.project_id}/locations/${var.region}/services/frienda-server"
 }
 
-resource "google_cloud_run_v2_service_iam_policy" "policy" {
-  location    = var.region
-  name        = google_cloud_run_v2_service.frienda_server.name
-  policy_data = data.google_iam_policy.no_auth.policy_data
+import {
+  to = module.storage.google_storage_bucket.general_file_storage
+  id = "frienda-general-files"
 }
 
-// ======= Object Storage =======
-
-resource "google_storage_bucket" "photo_storage" {
-  name          = "frienda-photo-storage"
-  location      = var.region
-  storage_class = "STANDARD"
-
-  uniform_bucket_level_access = true
-
-  lifecycle_rule {
-    condition {
-      age = 365
-    }
-    action {
-      type          = "SetStorageClass"
-      storage_class = "NEARLINE"
-    }
-  }
+import {
+  to = module.storage.google_storage_bucket.photo_storage[0]
+  id = "frienda-photo-storage"
 }
 
-resource "google_storage_bucket" "general_file_storage" {
-  name          = "frienda-general-files"
-  location      = var.region
-  storage_class = "STANDARD"
-
-  uniform_bucket_level_access = true
-
-  versioning {
-    enabled = true
-  }
-
-  lifecycle_rule {
-    condition {
-      age = 30
-    }
-    action {
-      type          = "SetStorageClass"
-      storage_class = "COLDLINE"
-    }
-  }
+import {
+  to = module.storage.google_storage_bucket.state_storage[0]
+  id = "frienda-terraform-state"
 }

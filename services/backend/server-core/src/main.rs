@@ -45,7 +45,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     tracing::info!("Starting server...");
 
     HttpServer::new(move || {
-        // let auth = HttpAuthentication::bearer(validator);
+        let auth = HttpAuthentication::bearer(validator);
         let cors = Cors::default()
             .allow_any_origin()
             .allow_any_method()
@@ -54,6 +54,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
         App::new()
             .wrap(cors)
             .wrap(TracingLogger::default())
+            .wrap(auth)
             .app_data(web::Data::new(schema.clone()))
             .app_data(web::Data::new(usecases.clone()))
             .configure(configure_app)
@@ -69,10 +70,12 @@ async fn validator(
     req: ServiceRequest,
     credentials: BearerAuth,
 ) -> Result<ServiceRequest, (Error, ServiceRequest)> {
-    let config = req.app_data::<Config>().cloned().unwrap_or_default();
+    // Pipeline endpoint used by CI/CD should bypass authentication
+    if req.path().starts_with("/pipeline") {
+        return Ok(req);
+    }
 
-    println!("req.app_data::<Config>():{:?}", req.app_data::<Config>());
-    println!("credentials.token():{}", credentials.token());
+    let config = req.app_data::<Config>().cloned().unwrap_or_default();
 
     match auth::validate_token(credentials.token()).await {
         Ok(res) => {

@@ -1,11 +1,11 @@
 output "frienda_server_url" {
-  value = google_cloud_run_v2_service.frienda_server.uri
+  value = module.compute.cloud_run_uri
 }
 
-output "frienda_server_revision_uid" {
-  value = google_cloud_run_v2_service.frienda_server.uid
+output "load_balancer_ip" {
+  value = module.compute.load_balancer_ip
 }
 
 output "general_file_storage_bucket_url" {
-  value = google_storage_bucket.general_file_storage.url
+  value = module.storage.general_bucket_name
 }

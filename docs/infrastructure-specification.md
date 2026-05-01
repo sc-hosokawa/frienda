@@ -333,7 +333,7 @@ graph TB
 
 | 項目 | 設定値 |
 |------|--------|
-| バケット名 | `prd-frienda-terraform-state` |
+| バケット名 | `frienda-terraform-state` |
 | リージョン | `us-west1` |
 | バージョニング | 有効（5世代保持） |
 | 公開アクセス | 禁止（GCSデフォルト動作に依存） |
@@ -600,16 +600,19 @@ graph LR
 
 **優先度: 高**（本文中のセキュリティ指摘事項）
 
-- [ ] **Firebase認証JSONのイメージ分離**: ステージング用・本番用の認証JSONが単一Dockerイメージに同梱されている → 環境ごとのイメージ分離またはSecret Managerからの動的取得（[セクション8.1](#81-backend-サーバー-dockerfileserver)参照）
-- [ ] **Cloud Run未認証アクセスの制限**: `--allow-unauthenticated` による全インターネット公開状態 → ロードバランサー + Cloud Armor導入、イングレスを `INTERNAL_LOAD_BALANCER` に変更（[セクション10.2](#102-ネットワークセキュリティ)参照）
-- [ ] **Terraform Stateのリモートバックエンド設定**: GCSバケットは存在するが `backend "gcs"` 未設定でローカル管理のまま → backendブロック追加による状態共有・ロック有効化（[セクション6.4](#64-terraform-state-管理)参照）
-- [ ] **GCS public_access_prevention の明示的設定**: Terraform Stateバケットの公開アクセス防止がGCSデフォルトに依存 → `public_access_prevention = "enforced"` の明示的設定（[セクション6.4](#64-terraform-state-管理)参照）
-- [ ] **deploy_prd_server.yaml の認証情報不整合**: `GCLOUD_AUTH_PRD` と `GCLOUD_AUTH` が混在 → 認証情報の統一（[セクション7.4](#74-デプロイワークフロー)参照）
-- [ ] **ci.yaml のパス指定不整合**: `services/frontend/` が `services/webui/` と不一致のため、CIトリガー・Clientジョブが正しく動作していない → パス修正（[セクション7.3](#73-ci-ワークフロー-ciyaml)参照）
+- [x] **Firebase認証JSONのイメージ分離**: 環境ごとの `FIREBASE_KEY_FILE` build-arg により分離済み（[セクション8.1](#81-backend-サーバー-dockerfileserver)参照）
+- [x] **Cloud Run未認証アクセスの制限**: GCLB + Cloud Armorを導入し、イングレスを `INTERNAL_LOAD_BALANCER` に変更済み（[セクション10.2](#102-ネットワークセキュリティ)参照）
+- [x] **Terraform State のリモート管理化**: GCSバックエンドを設定済み（[セクション6.4](#64-terraform-state-管理)参照）
+- [x] **GCS public_access_prevention の明示的設定**: 全バケットに `enforced` を設定済み（[セクション6.4](#64-terraform-state-管理)参照）
+- [x] **deploy_prd_server.yaml の認証情報不整合**: `GCLOUD_AUTH_PRD` への統一と現代的な認証パターンへの移行済み（[セクション7.4](#74-デプロイワークフロー)参照）
+- [x] **ci.yaml のパス指定不整合**: `services/webui/` への修正済み（[セクション7.3](#73-ci-ワークフロー-ciyaml)参照）
+- [x] **credential_update.yaml の実行スケジュール不整合**: 毎月28日実行に修正済み（[セクション7.4](#74-デプロイワークフロー)参照）
 - [ ] **Stripe Webhook署名検証の実装**（[セクション10.1](#101-認証方式)参照、#23 参照）
-- [ ] **バックエンドGraphQLエンドポイントのトークン検証有効化**（[セクション10.1](#101-認証方式)参照、#25 参照）
-- [ ] **招待メール配信のハードコードパスワードの環境変数化**（#26 参照）
+- [x] **バックエンドGraphQLエンドポイントのトークン検証有効化**: JWT検証ミドルウェアを有効化済み（[セクション10.1](#101-認証方式)参照、#25 参照）
+- [x] **招待メール配信のハードコードパスワードの環境変数化**: `INVITATION_PASSWORD` 環境変数を導入済み（#26 参照）
 - [ ] **ポイント送付時のトランザクション整合性修正**（#22 参照）
+  - **現状の課題**: `transfer` 処理において、送信元・送信先・履歴作成のDB操作が単一のトランザクションで囲まれておらず、途中でエラーが発生した場合にデータの不整合（二重引き落としや履歴欠落など）が発生するリスクがある。
+  - **今後の対応**: Sea-ORM の `TransactionTrait` を使用し、Usecase 層でリポジトリ層の操作をトランザクション管理するようにリファクタリングが必要。
 
 **優先度: 中**
 

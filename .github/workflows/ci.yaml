@@ -4,9 +4,9 @@ on:
   push:
     paths:
       - 'services/backend/**'
-      - 'services/frontend/apps/admin/**'
-      - 'services/frontend/apps/client/**'
-      - 'services/frontend/apps/mobile/**'
+      - 'services/webui/apps/admin/**'
+      - 'services/webui/apps/client/**'
+      - 'services/mobile/**'
       - 'services/contract/**'
   pull_request:
     branches:
@@ -14,9 +14,9 @@ on:
       - develop
     paths:
       - 'services/backend/**'
-      - 'services/frontend/apps/client/**'
-      - 'services/frontend/apps/admin/**'
-      - 'services/frontend/apps/mobile/**'
+      - 'services/webui/apps/client/**'
+      - 'services/webui/apps/admin/**'
+      - 'services/mobile/**'
       - 'services/contract/**'
 
 jobs:
@@ -64,7 +64,7 @@ jobs:
       - name: Client CI
         uses: ./.github/actions/nextjs-test
         with:
-          path: 'services/frontend'
+          path: 'services/webui'
           app: 'client'
           node: ${{ matrix.node-version }}
 

@@ -5,7 +5,9 @@ RUN cargo build --release --package server-core
 
 FROM gcr.io/distroless/cc-debian12
 COPY --from=builder /app/target/release/server-core /
-COPY --from=builder /app/server-core/frienda-auth-test1-a490c287d01b.json /
-COPY --from=builder /app/server-core/friendship-dao-firebase-adminsdk-a2w15-e1854b252a.json /
+# Build argument to specify the service account file to include
+ARG FIREBASE_KEY_FILE=firebase-service-account.json
+COPY --from=builder /app/server-core/${FIREBASE_KEY_FILE} /firebase-service-account.json
+ENV FIREBASE_SERVICE_ACCOUNT_PATH=/firebase-service-account.json
 EXPOSE 8080
 ENTRYPOINT ["/server-core"]

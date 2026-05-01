@@ -323,8 +323,11 @@ pub async fn create_services() -> ServicesImpl {
         }
     };
 
-    let push_notification_service: Arc<dyn PushNotificationServiceTrait> =
-        match FcmNotificationService::new().await {
+    let push_notification_service: Arc<dyn PushNotificationServiceTrait> = {
+        let path = std::env::var("FIREBASE_SERVICE_ACCOUNT_PATH")
+            .unwrap_or_else(|_| "firebase-service-account.json".to_string());
+
+        match FcmNotificationService::new(&path).await {
             Ok(svc) => {
                 tracing::info!("FcmNotificationService initialized");
                 Arc::new(svc)
@@ -333,7 +336,8 @@ pub async fn create_services() -> ServicesImpl {
                 tracing::warn!("FcmNotificationService unavailable ({}), using NoOp", e);
                 Arc::new(NoOpPushNotificationService)
             }
-        };
+        }
+    };
 
     // SendGridは意図的にNoOpフォールバックを用意していない。
     // サインアップ・招待などの基本フローでメール送信が必須のため、未設定なら起動時に検知すべき。

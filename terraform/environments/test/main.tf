@@ -1,9 +1,7 @@
 terraform {
-  cloud {
-    organization = "scratch-jp"
-    workspaces {
-      name = "frienda-test"
-    }
+  backend "gcs" {
+    bucket = "prd-frienda-terraform-state"
+    prefix = "env/test"
   }
   required_providers {
     google = {
@@ -18,133 +16,105 @@ provider "google" {
   region  = var.region
 }
 
-// ======= Network =======
-resource "google_compute_network" "vpc_network" {
-  name = "test-network"
+module "network" {
+  source = "../../modules/network"
+
+  project_id      = var.project_id
+  region          = var.region
+  network_name    = "test-network"
+  connector_name  = "test-connector"
+  ip_cidr_range   = "10.20.0.0/28"
+  private_ip_name = "test-private-ip-alloc"
 }
 
-resource "google_vpc_access_connector" "connector" {
-  name          = "test-connector"
-  network       = google_compute_network.vpc_network.name
-  ip_cidr_range = "10.20.0.0/28"
-  region        = var.region
+module "storage" {
+  source = "../../modules/storage"
+
+  project_id                = var.project_id
+  region                    = var.region
+  general_bucket_name       = "test-frienda-general-files"
+  delete_after_days         = 30
+  force_destroy             = true
+  sql_service_account_email = module.compute.sql_service_account_email_address
+  enable_sql_iam_access     = true
 }
 
-resource "google_compute_global_address" "private_ip_address" {
-  name          = "test-private-ip-alloc"
-  purpose       = "VPC_PEERING"
-  address_type  = "INTERNAL"
-  address       = "10.10.0.0"
-  prefix_length = 16
-  network       = google_compute_network.vpc_network.name
+module "compute" {
+  source = "../../modules/compute"
+
+  project_id               = var.project_id
+  region                   = var.region
+  environment              = "test"
+  network_id               = module.network.network_id
+  connector_id             = module.network.connector_id
+  db_instance_name         = "frienda-test-pg"
+  db_tier                  = "db-f1-micro"
+  db_password              = var.db_password
+  run_service_name         = "frienda-test-server"
+  frienda_server_image     = var.frienda_server_image
+  frienda_server_image_tag = var.frienda_server_image_tag
+  max_instance_count       = 2
+  deletion_protection      = false
 }
 
-resource "google_service_networking_connection" "default" {
-  network                 = google_compute_network.vpc_network.name
-  service                 = "servicenetworking.googleapis.com"
-  reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
+// ======= State Migration (moved blocks) =======
+moved {
+  from = google_compute_network.vpc_network
+  to   = module.network.google_compute_network.vpc_network
 }
 
-// ======= Cloud SQL =======
-resource "google_sql_database_instance" "main" {
-  project          = var.project_id
-  name             = "frienda-test-pg"
-  region           = var.region
-  database_version = "POSTGRES_15"
-
-  settings {
-    tier = "db-f1-micro" // Reduced tier for test environment
-
-    ip_configuration {
-      private_network = google_compute_network.vpc_network.id
-      ipv4_enabled    = false
-    }
-  }
-  deletion_protection = false // Disabled for test environment
+moved {
+  from = google_vpc_access_connector.connector
+  to   = module.network.google_vpc_access_connector.connector
 }
 
-resource "google_sql_database" "frienda_db" {
-  project  = var.project_id
-  name     = "frienda-pg"
-  instance = google_sql_database_instance.main.name
+moved {
+  from = google_compute_global_address.private_ip_address
+  to   = module.network.google_compute_global_address.private_ip_address
 }
 
-resource "google_sql_user" "users" {
-  project  = var.project_id
-  name     = "frienda-pg"
-  instance = google_sql_database_instance.main.name
-  password = var.db_password
+moved {
+  from = google_service_networking_connection.default
+  to   = module.network.google_service_networking_connection.default
 }
 
-resource "google_storage_bucket_iam_member" "sql_storage_object_admin" {
-  bucket = google_storage_bucket.general_file_storage.name
-  role   = "roles/storage.objectAdmin"
-  member = "serviceAccount:${google_sql_database_instance.main.service_account_email_address}"
+moved {
+  from = google_sql_database_instance.main
+  to   = module.compute.google_sql_database_instance.main
 }
 
-// ======= Cloud Run =======
-resource "google_cloud_run_v2_service" "frienda_server" {
-  name     = "frienda-test-server"
-  location = var.region
-  ingress  = "INGRESS_TRAFFIC_ALL"
-
-  template {
-    containers {
-      image = "${var.frienda_server_image}:${var.frienda_server_image_tag}"
-      env {
-        name  = "DATABASE_URL"
-        value = "postgres://${google_sql_user.users.name}:${google_sql_user.users.password}@${google_sql_database_instance.main.private_ip_address}/${google_sql_database.frienda_db.name}"
-      }
-    }
-    vpc_access {
-      connector = google_vpc_access_connector.connector.id
-      egress    = "PRIVATE_RANGES_ONLY"
-    }
-    scaling {
-      max_instance_count = 2
-    }
-  }
-  lifecycle {
-    ignore_changes        = [template[0].containers[0]]
-    create_before_destroy = true
-  }
+moved {
+  from = google_sql_database.frienda_db
+  to   = module.compute.google_sql_database.frienda_db
 }
 
-data "google_iam_policy" "no_auth" {
-  binding {
-    role = "roles/run.invoker"
-    members = [
-      "allUsers",
-    ]
-  }
+moved {
+  from = google_sql_user.users
+  to   = module.compute.google_sql_user.users
 }
 
-resource "google_cloud_run_v2_service_iam_policy" "policy" {
-  location    = var.region
-  name        = google_cloud_run_v2_service.frienda_server.name
-  policy_data = data.google_iam_policy.no_auth.policy_data
+moved {
+  from = google_cloud_run_v2_service.frienda_server
+  to   = module.compute.google_cloud_run_v2_service.frienda_server
 }
 
-// ======= Object Storage =======
+moved {
+  from = google_cloud_run_v2_service_iam_policy.policy
+  to   = module.compute.google_cloud_run_v2_service_iam_policy.policy
+}
 
-resource "google_storage_bucket" "general_file_storage" {
-  name          = "test-frienda-general-files"
-  location      = var.region
-  storage_class = "STANDARD"
+moved {
+  from = google_storage_bucket.general_file_storage
+  to   = module.storage.google_storage_bucket.general_file_storage
+}
 
-  uniform_bucket_level_access = true
-  force_destroy               = true // Allowed for test environment
+moved {
+  from = google_storage_bucket_iam_member.sql_storage_object_admin
+  to   = module.storage.google_storage_bucket_iam_member.sql_storage_object_admin[0]
+}
 
-  versioning {
-    enabled = true
-  }
-
-  lifecycle_rule {
-    condition {
-      age = 30
-    }
-    action {
-      type = "Delete"
-    }
-  }
+// ======= Import existing resources =======
+import {
+  to = module.storage.google_artifact_registry_repository.registry
+  id = "projects/${var.project_id}/locations/${var.region}/repositories/frienda"
 }
