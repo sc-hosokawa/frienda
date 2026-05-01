@@ -127,24 +127,6 @@ resource "google_cloud_run_v2_service_iam_policy" "policy" {
 
 // ======= Object Storage =======
 
-resource "google_storage_bucket" "photo_storage" {
-  name          = "test-frienda-photo-storage"
-  location      = var.region
-  storage_class = "STANDARD"
-
-  uniform_bucket_level_access = true
-  force_destroy               = true // Allowed for test environment
-
-  lifecycle_rule {
-    condition {
-      age = 7
-    }
-    action {
-      type = "Delete"
-    }
-  }
-}
-
 resource "google_storage_bucket" "general_file_storage" {
   name          = "test-frienda-general-files"
   location      = var.region

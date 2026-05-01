@@ -1,7 +1,7 @@
 variable "project_id" {
   type        = string
   description = "The project ID"
-  default     = "strategic-atom-315309"
+  sensitive   = true
 }
 
 variable "region" {
