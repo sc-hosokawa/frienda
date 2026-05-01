@@ -1,4 +1,10 @@
 terraform {
+  cloud {
+    organization = "scratch-jp"
+    workspaces {
+      name = "frienda-dev"
+    }
+  }
   required_providers {
     google = {
       source  = "hashicorp/google"

@@ -28,7 +28,9 @@
 - Google Cloud SDK (gcloud)
 
 ### 2.2 アカウント・権限
+- HCP Terraform (旧 Terraform Cloud) のアカウントおよび対象Workspaceへのアクセス権限
 - 対象GCPプロジェクトに対する編集権限
+- `terraform login` による認証済み環境
 - `gcloud auth application-default login` による認証済み環境
 
 ## 3. プロジェクト構成
@@ -49,11 +51,13 @@ terraform/
 
 詳細な情報は [Google Cloud プロジェクト一覧](../docs/google-cloud-projects.md) を参照。
 
-| 環境 | GCPプロジェクトID |
-|---|---|
-| dev | `frienda-test` |
-| test | `strategic-atom-315309` |
-| prod | `frienda-prd` |
+### 4.1 GCP プロジェクト & HCP Terraform Workspace 一覧 (Org: `scratch-jp`)
+
+| 環境 | GCPプロジェクトID | HCP Terraform Workspace名 |
+|---|---|---|
+| test | `strategic-atom-315309` | `frienda-test` |
+| dev | `frienda-test` | `frienda-dev` |
+| prod | `frienda-prd` | `frienda-prod` |
 
 ## 5. 日常運用（インフラ更新）
 
