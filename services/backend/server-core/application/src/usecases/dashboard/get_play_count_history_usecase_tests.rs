@@ -7,10 +7,11 @@ use crate::usecases::dashboard::get_play_count_history_usecase::{
     GetPlayCountHistoryUsecaseTrait, GetUPCHistoryUsecaseInput,
 };
 use chrono::{Datelike, Months, NaiveDate, Utc};
-use domain::entities::plays_daily::Model as PlaysDaily;
 use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Product;
-use domain::entities::tracks::Model as Track;
+use domain::repositories::plays_daily_repo::{
+    PlayCountDspHistoryAggregate, PlayCountTrackHistoryAggregate,
+};
 use std::collections::HashMap;
 use std::sync::Arc;
 
@@ -34,34 +35,22 @@ fn product_track(id: i32, upc: &str, isrc: &str, track_no: i32) -> ProductTrack 
     }
 }
 
-fn track(isrc: &str, title: &str) -> Track {
-    Track {
-        isrc: isrc.to_string(),
-        img_url: None,
-        title: title.to_string(),
-        artist_id: Some("artist-1".to_string()),
-    }
-}
-
-fn play(
-    id: i32,
-    isrc: Option<&str>,
-    date: Option<NaiveDate>,
-    spotify: i32,
-    apple: i32,
-    line: i32,
-    sum: Option<i32>,
-) -> PlaysDaily {
-    PlaysDaily {
-        id,
-        isrc: isrc.map(str::to_string),
-        date,
+fn dsp_history(date: &str, spotify: i64, apple: i64, line: i64) -> PlayCountDspHistoryAggregate {
+    PlayCountDspHistoryAggregate {
+        date: date.to_string(),
         spotify,
         apple,
         line,
-        amazon: Some(0),
-        youtube: Some(0),
-        sum,
+        amazon: 0,
+        youtube: 0,
+    }
+}
+
+fn track_history(date: &str, track_title: &str, total: i64) -> PlayCountTrackHistoryAggregate {
+    PlayCountTrackHistoryAggregate {
+        date: date.to_string(),
+        track_title: track_title.to_string(),
+        total,
     }
 }
 
@@ -113,43 +102,15 @@ async fn test_get_play_count_by_artist_aggregates_monthly_history() {
         });
 
     plays_daily_repo
-        .expect_mock_find_by_isrcs()
+        .expect_mock_aggregate_monthly_dsp_history_by_isrcs()
         .times(1)
-        .returning(|_| {
+        .returning(|isrcs, start, end| {
+            assert_eq!(isrcs, vec!["ISRC1".to_string()]);
+            assert!(start.is_none());
+            assert!(end.is_none());
             Ok(vec![
-                PlaysDaily {
-                    id: 1,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(NaiveDate::from_ymd_opt(2025, 3, 10).unwrap()),
-                    spotify: 10,
-                    apple: 5,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(15),
-                },
-                PlaysDaily {
-                    id: 2,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(NaiveDate::from_ymd_opt(2025, 3, 20).unwrap()),
-                    spotify: 2,
-                    apple: 3,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(5),
-                },
-                PlaysDaily {
-                    id: 3,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(NaiveDate::from_ymd_opt(2025, 4, 1).unwrap()),
-                    spotify: 1,
-                    apple: 1,
-                    line: 1,
-                    amazon: Some(1),
-                    youtube: Some(1),
-                    sum: Some(5),
-                },
+                dsp_history("2025-03", 12, 8, 0),
+                dsp_history("2025-04", 1, 1, 1),
             ])
         });
 
@@ -182,7 +143,7 @@ async fn test_get_play_count_by_upc_merges_rows_by_date() {
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
     let products_repo = MockMockProductsRepo::new();
     let mut product_track_repo = MockMockProductTrackRepo::new();
-    let mut tracks_repo = MockMockTracksRepo::new();
+    let tracks_repo = MockMockTracksRepo::new();
 
     product_track_repo
         .expect_mock_get_by_upc()
@@ -204,54 +165,15 @@ async fn test_get_play_count_by_upc_merges_rows_by_date() {
             ])
         });
 
-    tracks_repo
-        .expect_mock_get_by_isrcs()
-        .times(1)
-        .returning(|_| {
-            Ok(vec![
-                Track {
-                    isrc: "ISRC1".to_string(),
-                    img_url: None,
-                    title: "First".to_string(),
-                    artist_id: Some("artist-1".to_string()),
-                },
-                Track {
-                    isrc: "ISRC2".to_string(),
-                    img_url: None,
-                    title: "Second".to_string(),
-                    artist_id: Some("artist-1".to_string()),
-                },
-            ])
-        });
-
     plays_daily_repo
-        .expect_mock_find_by_isrcs_and_period()
+        .expect_mock_aggregate_daily_track_history_by_isrcs()
         .times(1)
-        .returning(|_, period| {
-            assert_eq!(period, 7);
+        .returning(|isrcs, start, end| {
+            assert_eq!(isrcs, vec!["ISRC1".to_string(), "ISRC2".to_string()]);
+            assert!(start <= end);
             Ok(vec![
-                PlaysDaily {
-                    id: 1,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(NaiveDate::from_ymd_opt(2025, 4, 1).unwrap()),
-                    spotify: 1,
-                    apple: 0,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(1),
-                },
-                PlaysDaily {
-                    id: 2,
-                    isrc: Some("ISRC2".to_string()),
-                    date: Some(NaiveDate::from_ymd_opt(2025, 4, 1).unwrap()),
-                    spotify: 2,
-                    apple: 0,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(2),
-                },
+                track_history("2025-04-01", "First", 1),
+                track_history("2025-04-01", "Second", 2),
             ])
         });
 
@@ -301,48 +223,14 @@ async fn test_get_play_count_by_artist_daily_sums_same_date_and_skips_null_dates
             ])
         });
     plays_daily_repo
-        .expect_mock_find_by_isrcs_and_period()
+        .expect_mock_aggregate_daily_dsp_history_by_isrcs()
         .times(1)
-        .returning(|_, period| {
-            assert_eq!(period, 7);
+        .returning(|isrcs, start, end| {
+            assert_eq!(isrcs, vec!["ISRC1".to_string(), "ISRC2".to_string()]);
+            assert!(start <= end);
             Ok(vec![
-                play(
-                    1,
-                    Some("ISRC1"),
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 2).unwrap()),
-                    4,
-                    1,
-                    0,
-                    Some(5),
-                ),
-                play(
-                    2,
-                    Some("ISRC2"),
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 2).unwrap()),
-                    6,
-                    2,
-                    3,
-                    Some(11),
-                ),
-                play(3, Some("ISRC1"), None, 99, 99, 99, Some(297)),
-                play(
-                    5,
-                    None,
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 2).unwrap()),
-                    99,
-                    99,
-                    99,
-                    Some(297),
-                ),
-                play(
-                    4,
-                    Some("ISRC1"),
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 1).unwrap()),
-                    1,
-                    1,
-                    1,
-                    Some(3),
-                ),
+                dsp_history("2025-04-01", 1, 1, 1),
+                dsp_history("2025-04-02", 10, 3, 3),
             ])
         });
 
@@ -372,63 +260,26 @@ async fn test_get_play_count_by_artist_daily_sums_same_date_and_skips_null_dates
 }
 
 #[tokio::test]
-async fn test_get_play_count_by_upc_daily_adds_duplicate_track_rows_and_skips_unmapped_data() {
-    // 同日同一 track の複数行は別ソース由来で発生し得るため、上書きではなく合算することを固定する。
+async fn test_get_play_count_by_upc_daily_adds_duplicate_track_aggregate_rows() {
+    // repository 集計後に同日同一 track が重複しても、上書きではなく合算する防御を固定する。
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
     let products_repo = MockMockProductsRepo::new();
     let mut product_track_repo = MockMockProductTrackRepo::new();
-    let mut tracks_repo = MockMockTracksRepo::new();
+    let tracks_repo = MockMockTracksRepo::new();
 
     product_track_repo
         .expect_mock_get_by_upc()
         .times(1)
         .returning(|_| Ok(vec![product_track(1, "UPC1", "ISRC1", 1)]));
-    tracks_repo
-        .expect_mock_get_by_isrcs()
-        .times(1)
-        .returning(|_| Ok(vec![track("ISRC1", "First")]));
     plays_daily_repo
-        .expect_mock_find_by_isrcs_and_period()
+        .expect_mock_aggregate_daily_track_history_by_isrcs()
         .times(1)
-        .returning(|_, _| {
+        .returning(|isrcs, start, end| {
+            assert_eq!(isrcs, vec!["ISRC1".to_string()]);
+            assert!(start <= end);
             Ok(vec![
-                play(
-                    1,
-                    Some("ISRC1"),
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 1).unwrap()),
-                    0,
-                    0,
-                    0,
-                    Some(4),
-                ),
-                play(
-                    2,
-                    Some("ISRC1"),
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 1).unwrap()),
-                    0,
-                    0,
-                    0,
-                    Some(6),
-                ),
-                play(
-                    3,
-                    Some("UNKNOWN"),
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 1).unwrap()),
-                    0,
-                    0,
-                    0,
-                    Some(100),
-                ),
-                play(4, Some("ISRC1"), None, 0, 0, 0, Some(100)),
-                play(
-                    5,
-                    None,
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 1).unwrap()),
-                    0,
-                    0,
-                    0,
-                    Some(100),
-                ),
+                track_history("2025-04-01", "First", 4),
+                track_history("2025-04-01", "First", 6),
             ])
         });
 
@@ -455,45 +306,77 @@ async fn test_get_play_count_by_upc_daily_adds_duplicate_track_rows_and_skips_un
 }
 
 #[tokio::test]
+async fn test_get_play_count_by_upc_monthly_uses_track_history_aggregate() {
+    // UPC の月次 history も全日次行を取得せず、DB 側で月/track title 単位に集計した結果をそのまま返す。
+    let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
+    let products_repo = MockMockProductsRepo::new();
+    let mut product_track_repo = MockMockProductTrackRepo::new();
+    let tracks_repo = MockMockTracksRepo::new();
+    let (start, end) = monthly_window(12);
+
+    product_track_repo
+        .expect_mock_get_by_upc()
+        .times(1)
+        .returning(|_| {
+            Ok(vec![
+                product_track(1, "UPC1", "ISRC1", 1),
+                product_track(2, "UPC1", "ISRC2", 2),
+            ])
+        });
+    plays_daily_repo
+        .expect_mock_aggregate_monthly_track_history_by_isrcs()
+        .times(1)
+        .returning(move |isrcs, actual_start, actual_end| {
+            assert_eq!(isrcs, vec!["ISRC1".to_string(), "ISRC2".to_string()]);
+            assert_eq!(actual_start, Some(start));
+            assert_eq!(actual_end, Some(end));
+            Ok(vec![
+                track_history("2026-01", "First", 10),
+                track_history("2026-01", "Second", 20),
+            ])
+        });
+
+    let usecase = GetPlayCountHistoryUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(products_repo),
+        Arc::new(product_track_repo),
+        Arc::new(tracks_repo),
+    );
+
+    let result = usecase
+        .get_play_count_by_upc(GetUPCHistoryUsecaseInput {
+            upc: "UPC1".to_string(),
+            period: 12,
+        })
+        .await
+        .expect("upc monthly history succeeds");
+
+    assert_eq!(result.chart_data.len(), 1);
+    assert_eq!(result.chart_data[0].date, "2026-01");
+    assert_eq!(
+        result.chart_data[0].track_count.get("First").copied(),
+        Some(10)
+    );
+    assert_eq!(
+        result.chart_data[0].track_count.get("Second").copied(),
+        Some(20)
+    );
+}
+
+#[tokio::test]
 async fn test_get_play_count_by_isrc_daily_skips_null_dates_and_sorts_ascending() {
     // ISRC 単体表示でも DB の返却順や NULL date に依存せず、安定した日付昇順を守る。
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
 
     plays_daily_repo
-        .expect_mock_find_by_isrc_and_period()
+        .expect_mock_aggregate_daily_dsp_history_by_isrcs()
         .times(1)
-        .returning(|isrc, period| {
-            assert_eq!(isrc, "ISRC1");
-            assert_eq!(period, 30);
+        .returning(|isrcs, start, end| {
+            assert_eq!(isrcs, vec!["ISRC1".to_string()]);
+            assert!(start <= end);
             Ok(vec![
-                play(
-                    1,
-                    Some("ISRC1"),
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 3).unwrap()),
-                    3,
-                    0,
-                    0,
-                    Some(3),
-                ),
-                play(2, Some("ISRC1"), None, 99, 99, 99, Some(297)),
-                play(
-                    4,
-                    None,
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 2).unwrap()),
-                    99,
-                    99,
-                    99,
-                    Some(297),
-                ),
-                play(
-                    3,
-                    Some("ISRC1"),
-                    Some(NaiveDate::from_ymd_opt(2025, 4, 1).unwrap()),
-                    1,
-                    0,
-                    0,
-                    Some(1),
-                ),
+                dsp_history("2025-04-01", 1, 0, 0),
+                dsp_history("2025-04-03", 3, 0, 0),
             ])
         });
 
@@ -525,8 +408,6 @@ async fn test_get_play_count_by_artist_monthly_includes_boundaries_and_excludes_
     let mut product_track_repo = MockMockProductTrackRepo::new();
     let tracks_repo = MockMockTracksRepo::new();
     let (start, end) = monthly_window(12);
-    let before_start = start.pred_opt().unwrap();
-    let after_end = end.succ_opt().unwrap();
 
     products_repo
         .expect_mock_find_by_artist_id()
@@ -537,15 +418,15 @@ async fn test_get_play_count_by_artist_monthly_includes_boundaries_and_excludes_
         .times(1)
         .returning(|_| Ok(vec![product_track(1, "UPC1", "ISRC1", 1)]));
     plays_daily_repo
-        .expect_mock_find_by_isrcs()
+        .expect_mock_aggregate_monthly_dsp_history_by_isrcs()
         .times(1)
-        .returning(move |_| {
+        .returning(move |isrcs, actual_start, actual_end| {
+            assert_eq!(isrcs, vec!["ISRC1".to_string()]);
+            assert_eq!(actual_start, Some(start));
+            assert_eq!(actual_end, Some(end));
             Ok(vec![
-                play(1, Some("ISRC1"), Some(before_start), 100, 0, 0, Some(100)),
-                play(2, Some("ISRC1"), Some(start), 1, 0, 0, Some(1)),
-                play(3, Some("ISRC1"), Some(end), 2, 0, 0, Some(2)),
-                play(5, None, Some(end), 100, 0, 0, Some(100)),
-                play(4, Some("ISRC1"), Some(after_end), 100, 0, 0, Some(100)),
+                dsp_history(&start.format("%Y-%m").to_string(), 1, 0, 0),
+                dsp_history(&end.format("%Y-%m").to_string(), 2, 0, 0),
             ])
         });
 

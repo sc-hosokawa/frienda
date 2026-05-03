@@ -40,6 +40,23 @@ pub struct TrendingTrackAggregate {
     pub weekly_youtube: i64,
 }
 
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct PlayCountDspHistoryAggregate {
+    pub date: String,
+    pub spotify: i64,
+    pub apple: i64,
+    pub line: i64,
+    pub amazon: i64,
+    pub youtube: i64,
+}
+
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct PlayCountTrackHistoryAggregate {
+    pub date: String,
+    pub track_title: String,
+    pub total: i64,
+}
+
 #[async_trait]
 pub trait PlaysDailyRepository: Send + Sync {
     async fn create(&self, plays_daily: PlaysDailyActiveModel) -> Result<PlaysDaily, DomainError>;
@@ -114,4 +131,28 @@ pub trait PlaysDailyRepository: Send + Sync {
         weekly_start_date: Date,
         end_date: Date,
     ) -> Result<Vec<TrendingTrackAggregate>, DomainError>;
+    async fn aggregate_daily_dsp_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Date,
+        end_date: Date,
+    ) -> Result<Vec<PlayCountDspHistoryAggregate>, DomainError>;
+    async fn aggregate_monthly_dsp_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<Date>,
+        end_date: Option<Date>,
+    ) -> Result<Vec<PlayCountDspHistoryAggregate>, DomainError>;
+    async fn aggregate_daily_track_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Date,
+        end_date: Date,
+    ) -> Result<Vec<PlayCountTrackHistoryAggregate>, DomainError>;
+    async fn aggregate_monthly_track_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<Date>,
+        end_date: Option<Date>,
+    ) -> Result<Vec<PlayCountTrackHistoryAggregate>, DomainError>;
 }

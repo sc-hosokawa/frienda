@@ -6,8 +6,10 @@ use sea_orm::*;
 use domain::entities::plays_daily::{
     ActiveModel as PlaysDailyActiveModel, Column, Entity as PlaysDailyEntity, Model as PlaysDaily,
 };
+use domain::entities::tracks::{Column as TracksColumn, Entity as TracksEntity};
 use domain::repositories::plays_daily_repo::{
-    OverviewPlayCountAggregate, PlayCountAggregate, PlaysDailyRepository, TrendingTrackAggregate,
+    OverviewPlayCountAggregate, PlayCountAggregate, PlayCountDspHistoryAggregate,
+    PlayCountTrackHistoryAggregate, PlaysDailyRepository, TrendingTrackAggregate,
 };
 use shared::error::domain_err::DomainError;
 
@@ -51,6 +53,40 @@ struct TrendingTrackAggregateRow {
     weekly_line: Option<i64>,
     weekly_amazon: Option<i64>,
     weekly_youtube: Option<i64>,
+}
+
+#[derive(Debug, FromQueryResult)]
+struct DspHistoryAggregateRow {
+    date: Option<NaiveDate>,
+    spotify: Option<i64>,
+    apple: Option<i64>,
+    line: Option<i64>,
+    amazon: Option<i64>,
+    youtube: Option<i64>,
+}
+
+#[derive(Debug, FromQueryResult)]
+struct DspMonthlyHistoryAggregateRow {
+    date: Option<String>,
+    spotify: Option<i64>,
+    apple: Option<i64>,
+    line: Option<i64>,
+    amazon: Option<i64>,
+    youtube: Option<i64>,
+}
+
+#[derive(Debug, FromQueryResult)]
+struct TrackHistoryAggregateRow {
+    date: Option<NaiveDate>,
+    track_title: Option<String>,
+    total: Option<i64>,
+}
+
+#[derive(Debug, FromQueryResult)]
+struct TrackMonthlyHistoryAggregateRow {
+    date: Option<String>,
+    track_title: Option<String>,
+    total: Option<i64>,
 }
 
 impl OverviewPlayCountAggregateRow {
@@ -97,6 +133,63 @@ impl PlayCountAggregateRow {
             youtube: self.youtube.unwrap_or(0),
         })
     }
+}
+
+impl DspHistoryAggregateRow {
+    fn into_aggregate(self) -> Option<PlayCountDspHistoryAggregate> {
+        self.date.map(|date| PlayCountDspHistoryAggregate {
+            date: date.format("%Y-%m-%d").to_string(),
+            spotify: self.spotify.unwrap_or(0),
+            apple: self.apple.unwrap_or(0),
+            line: self.line.unwrap_or(0),
+            amazon: self.amazon.unwrap_or(0),
+            youtube: self.youtube.unwrap_or(0),
+        })
+    }
+}
+
+impl DspMonthlyHistoryAggregateRow {
+    fn into_aggregate(self) -> Option<PlayCountDspHistoryAggregate> {
+        self.date.map(|date| PlayCountDspHistoryAggregate {
+            date,
+            spotify: self.spotify.unwrap_or(0),
+            apple: self.apple.unwrap_or(0),
+            line: self.line.unwrap_or(0),
+            amazon: self.amazon.unwrap_or(0),
+            youtube: self.youtube.unwrap_or(0),
+        })
+    }
+}
+
+impl TrackHistoryAggregateRow {
+    fn into_aggregate(self) -> Option<PlayCountTrackHistoryAggregate> {
+        Some(PlayCountTrackHistoryAggregate {
+            date: self.date?.format("%Y-%m-%d").to_string(),
+            track_title: self.track_title?,
+            total: self.total.unwrap_or(0),
+        })
+    }
+}
+
+impl TrackMonthlyHistoryAggregateRow {
+    fn into_aggregate(self) -> Option<PlayCountTrackHistoryAggregate> {
+        Some(PlayCountTrackHistoryAggregate {
+            date: self.date?,
+            track_title: self.track_title?,
+            total: self.total.unwrap_or(0),
+        })
+    }
+}
+
+fn coalesced_sum(column: &str) -> sea_orm::sea_query::SimpleExpr {
+    sea_orm::sea_query::Expr::cust(format!(
+        "COALESCE(SUM(COALESCE(\"plays_daily\".\"{}\", 0)), 0)",
+        column
+    ))
+}
+
+fn month_key_expr() -> sea_orm::sea_query::SimpleExpr {
+    sea_orm::sea_query::Expr::cust("TO_CHAR(\"plays_daily\".\"date\", 'YYYY-MM')")
 }
 
 #[async_trait]
@@ -599,6 +692,184 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
             .filter_map(TrendingTrackAggregateRow::into_aggregate)
             .collect())
     }
+
+    async fn aggregate_daily_dsp_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: sea_orm::prelude::Date,
+        end_date: sea_orm::prelude::Date,
+    ) -> Result<Vec<PlayCountDspHistoryAggregate>, DomainError> {
+        if isrcs.is_empty() {
+            return Ok(vec![]);
+        }
+
+        let rows: Vec<DspHistoryAggregateRow> = PlaysDailyEntity::find()
+            .select_only()
+            .column(Column::Date)
+            .column_as(coalesced_sum("spotify"), "spotify")
+            .column_as(coalesced_sum("apple"), "apple")
+            .column_as(coalesced_sum("line"), "line")
+            .column_as(coalesced_sum("amazon"), "amazon")
+            .column_as(coalesced_sum("youtube"), "youtube")
+            .filter(Column::Isrc.is_in(isrcs))
+            .filter(Column::Isrc.is_not_null())
+            .filter(Column::Date.is_not_null())
+            .filter(Column::Date.gte(start_date))
+            .filter(Column::Date.lte(end_date))
+            .group_by(Column::Date)
+            .order_by_asc(Column::Date)
+            .into_model::<DspHistoryAggregateRow>()
+            .all(&self.db)
+            .await?;
+
+        Ok(rows
+            .into_iter()
+            .filter_map(DspHistoryAggregateRow::into_aggregate)
+            .collect())
+    }
+
+    async fn aggregate_monthly_dsp_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<sea_orm::prelude::Date>,
+        end_date: Option<sea_orm::prelude::Date>,
+    ) -> Result<Vec<PlayCountDspHistoryAggregate>, DomainError> {
+        if isrcs.is_empty() {
+            return Ok(vec![]);
+        }
+
+        let mut query = PlaysDailyEntity::find()
+            .select_only()
+            .column_as(month_key_expr(), "date")
+            .column_as(coalesced_sum("spotify"), "spotify")
+            .column_as(coalesced_sum("apple"), "apple")
+            .column_as(coalesced_sum("line"), "line")
+            .column_as(coalesced_sum("amazon"), "amazon")
+            .column_as(coalesced_sum("youtube"), "youtube")
+            .filter(Column::Isrc.is_in(isrcs))
+            .filter(Column::Isrc.is_not_null())
+            .filter(Column::Date.is_not_null())
+            .group_by(month_key_expr())
+            .order_by_asc(month_key_expr());
+
+        if let Some(start_date) = start_date {
+            query = query.filter(Column::Date.gte(start_date));
+        }
+        if let Some(end_date) = end_date {
+            query = query.filter(Column::Date.lte(end_date));
+        }
+
+        let rows: Vec<DspMonthlyHistoryAggregateRow> = query
+            .into_model::<DspMonthlyHistoryAggregateRow>()
+            .all(&self.db)
+            .await?;
+
+        Ok(rows
+            .into_iter()
+            .filter_map(DspMonthlyHistoryAggregateRow::into_aggregate)
+            .collect())
+    }
+
+    async fn aggregate_daily_track_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: sea_orm::prelude::Date,
+        end_date: sea_orm::prelude::Date,
+    ) -> Result<Vec<PlayCountTrackHistoryAggregate>, DomainError> {
+        if isrcs.is_empty() {
+            return Ok(vec![]);
+        }
+
+        let rows: Vec<TrackHistoryAggregateRow> = PlaysDailyEntity::find()
+            .select_only()
+            .column(Column::Date)
+            .column_as(
+                sea_orm::sea_query::Expr::col((TracksEntity, TracksColumn::Title)),
+                "track_title",
+            )
+            .column_as(coalesced_sum("sum"), "total")
+            .join(
+                JoinType::InnerJoin,
+                domain::entities::plays_daily::Relation::Tracks.def(),
+            )
+            .filter(Column::Isrc.is_in(isrcs))
+            .filter(Column::Isrc.is_not_null())
+            .filter(Column::Date.is_not_null())
+            .filter(Column::Date.gte(start_date))
+            .filter(Column::Date.lte(end_date))
+            .group_by(Column::Date)
+            .group_by(sea_orm::sea_query::Expr::col((
+                TracksEntity,
+                TracksColumn::Title,
+            )))
+            .order_by_asc(Column::Date)
+            .order_by_asc(sea_orm::sea_query::Expr::col((
+                TracksEntity,
+                TracksColumn::Title,
+            )))
+            .into_model::<TrackHistoryAggregateRow>()
+            .all(&self.db)
+            .await?;
+
+        Ok(rows
+            .into_iter()
+            .filter_map(TrackHistoryAggregateRow::into_aggregate)
+            .collect())
+    }
+
+    async fn aggregate_monthly_track_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<sea_orm::prelude::Date>,
+        end_date: Option<sea_orm::prelude::Date>,
+    ) -> Result<Vec<PlayCountTrackHistoryAggregate>, DomainError> {
+        if isrcs.is_empty() {
+            return Ok(vec![]);
+        }
+
+        let mut query = PlaysDailyEntity::find()
+            .select_only()
+            .column_as(month_key_expr(), "date")
+            .column_as(
+                sea_orm::sea_query::Expr::col((TracksEntity, TracksColumn::Title)),
+                "track_title",
+            )
+            .column_as(coalesced_sum("sum"), "total")
+            .join(
+                JoinType::InnerJoin,
+                domain::entities::plays_daily::Relation::Tracks.def(),
+            )
+            .filter(Column::Isrc.is_in(isrcs))
+            .filter(Column::Isrc.is_not_null())
+            .filter(Column::Date.is_not_null())
+            .group_by(month_key_expr())
+            .group_by(sea_orm::sea_query::Expr::col((
+                TracksEntity,
+                TracksColumn::Title,
+            )))
+            .order_by_asc(month_key_expr())
+            .order_by_asc(sea_orm::sea_query::Expr::col((
+                TracksEntity,
+                TracksColumn::Title,
+            )));
+
+        if let Some(start_date) = start_date {
+            query = query.filter(Column::Date.gte(start_date));
+        }
+        if let Some(end_date) = end_date {
+            query = query.filter(Column::Date.lte(end_date));
+        }
+
+        let rows: Vec<TrackMonthlyHistoryAggregateRow> = query
+            .into_model::<TrackMonthlyHistoryAggregateRow>()
+            .all(&self.db)
+            .await?;
+
+        Ok(rows
+            .into_iter()
+            .filter_map(TrackMonthlyHistoryAggregateRow::into_aggregate)
+            .collect())
+    }
 }
 
 fn parse_flexible_date_from_str(date: &str) -> Result<NaiveDate, DomainError> {
@@ -962,5 +1233,172 @@ mod tests {
         assert!(log.contains("LEFT JOIN plays_daily pd"), "{log}");
         assert!(log.contains("ORDER BY pt.track_no ASC NULLS LAST"), "{log}");
         assert_eq!(log.matches("SELECT").count(), 1);
+    }
+
+    #[tokio::test]
+    async fn aggregate_daily_dsp_history_by_isrcs_groups_by_date_and_maps_null_dsp_to_zero() {
+        // dashboard history は日次行を API へ全転送せず、DB 側の日付集計で nullable DSP 値を 0 に寄せる。
+        let date = NaiveDate::from_ymd_opt(2026, 1, 10).unwrap();
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([[row(vec![
+                ("date", Into::<Value>::into(Some(date))),
+                ("spotify", Into::<Value>::into(10_i64)),
+                ("apple", Into::<Value>::into(20_i64)),
+                ("line", Into::<Value>::into(30_i64)),
+                ("amazon", Into::<Value>::into(Option::<i64>::None)),
+                ("youtube", Into::<Value>::into(Option::<i64>::None)),
+            ])]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+        let start = NaiveDate::from_ymd_opt(2026, 1, 1).unwrap();
+        let end = NaiveDate::from_ymd_opt(2026, 1, 31).unwrap();
+
+        let result = repo
+            .aggregate_daily_dsp_history_by_isrcs(vec!["ISRC1".to_string()], start, end)
+            .await
+            .unwrap();
+
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[0].date, "2026-01-10");
+        assert_eq!(result[0].spotify, 10);
+        assert_eq!(result[0].amazon, 0);
+        assert_eq!(result[0].youtube, 0);
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("GROUP BY"), "{log}");
+        assert!(log.contains("plays_daily"), "{log}");
+        assert!(log.contains("date"), "{log}");
+        assert!(log.contains("isrc"), "{log}");
+        assert!(log.contains("IS NOT NULL"), "{log}");
+        assert!(log.contains(">="), "{log}");
+        assert!(log.contains("<="), "{log}");
+        assert_eq!(log.matches("SELECT").count(), 1);
+    }
+
+    #[tokio::test]
+    async fn aggregate_monthly_dsp_history_by_isrcs_groups_by_month_with_optional_bounds() {
+        // 月次 history は全日次行を Rust で畳み込まず、DB の YYYY-MM 集計と inclusive 境界を使う。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([[row(vec![
+                ("date", Into::<Value>::into("2026-01")),
+                ("spotify", Into::<Value>::into(10_i64)),
+                ("apple", Into::<Value>::into(20_i64)),
+                ("line", Into::<Value>::into(30_i64)),
+                ("amazon", Into::<Value>::into(40_i64)),
+                ("youtube", Into::<Value>::into(50_i64)),
+            ])]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+        let start = NaiveDate::from_ymd_opt(2026, 1, 1).unwrap();
+        let end = NaiveDate::from_ymd_opt(2026, 1, 31).unwrap();
+
+        let result = repo
+            .aggregate_monthly_dsp_history_by_isrcs(
+                vec!["ISRC1".to_string(), "ISRC2".to_string()],
+                Some(start),
+                Some(end),
+            )
+            .await
+            .unwrap();
+
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[0].date, "2026-01");
+        assert_eq!(result[0].youtube, 50);
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("TO_CHAR"), "{log}");
+        assert!(log.contains("YYYY-MM"), "{log}");
+        assert!(log.contains("GROUP BY TO_CHAR"), "{log}");
+        assert!(log.contains(">="), "{log}");
+        assert!(log.contains("<="), "{log}");
+        assert_eq!(log.matches("SELECT").count(), 1);
+    }
+
+    #[tokio::test]
+    async fn aggregate_daily_track_history_by_isrcs_joins_tracks_and_groups_by_title() {
+        // UPC history は title 解決不能な行を落とす必要があるため、tracks INNER JOIN で date/title 単位に集計する。
+        let date = NaiveDate::from_ymd_opt(2026, 1, 10).unwrap();
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([[row(vec![
+                ("date", Into::<Value>::into(Some(date))),
+                ("track_title", Into::<Value>::into("Track One")),
+                ("total", Into::<Value>::into(99_i64)),
+            ])]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+        let start = NaiveDate::from_ymd_opt(2026, 1, 1).unwrap();
+        let end = NaiveDate::from_ymd_opt(2026, 1, 31).unwrap();
+
+        let result = repo
+            .aggregate_daily_track_history_by_isrcs(vec!["ISRC1".to_string()], start, end)
+            .await
+            .unwrap();
+
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[0].date, "2026-01-10");
+        assert_eq!(result[0].track_title, "Track One");
+        assert_eq!(result[0].total, 99);
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("INNER JOIN"), "{log}");
+        assert!(log.contains("tracks"), "{log}");
+        assert!(log.contains("GROUP BY"), "{log}");
+        assert!(log.contains("title"), "{log}");
+        assert!(log.contains("SUM(COALESCE"), "{log}");
+        assert_eq!(log.matches("SELECT").count(), 1);
+    }
+
+    #[tokio::test]
+    async fn aggregate_monthly_track_history_by_isrcs_joins_tracks_and_groups_by_month_title() {
+        // UPC 月次 history は track title を維持したまま、月/track 単位の集計を DB 側で完結させる。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([[row(vec![
+                ("date", Into::<Value>::into("2026-01")),
+                ("track_title", Into::<Value>::into("Track One")),
+                ("total", Into::<Value>::into(120_i64)),
+            ])]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+        let start = NaiveDate::from_ymd_opt(2026, 1, 1).unwrap();
+        let end = NaiveDate::from_ymd_opt(2026, 1, 31).unwrap();
+
+        let result = repo
+            .aggregate_monthly_track_history_by_isrcs(
+                vec!["ISRC1".to_string()],
+                Some(start),
+                Some(end),
+            )
+            .await
+            .unwrap();
+
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[0].date, "2026-01");
+        assert_eq!(result[0].track_title, "Track One");
+        assert_eq!(result[0].total, 120);
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("TO_CHAR"), "{log}");
+        assert!(log.contains("YYYY-MM"), "{log}");
+        assert!(log.contains("INNER JOIN"), "{log}");
+        assert!(log.contains("tracks"), "{log}");
+        assert!(log.contains("GROUP BY TO_CHAR"), "{log}");
+        assert_eq!(log.matches("SELECT").count(), 1);
+    }
+
+    #[tokio::test]
+    async fn aggregate_history_methods_skip_database_when_isrc_list_is_empty() {
+        // 対象 track が 0 件の dashboard では、空の IN query を発行せず即空配列を返す。
+        let db = MockDatabase::new(DbBackend::Postgres).into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+        let start = NaiveDate::from_ymd_opt(2026, 1, 1).unwrap();
+        let end = NaiveDate::from_ymd_opt(2026, 1, 31).unwrap();
+
+        let result = repo
+            .aggregate_daily_dsp_history_by_isrcs(vec![], start, end)
+            .await
+            .unwrap();
+
+        assert!(result.is_empty());
+        assert!(repo.db.into_transaction_log().is_empty());
     }
 }

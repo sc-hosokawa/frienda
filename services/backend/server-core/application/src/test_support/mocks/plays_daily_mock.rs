@@ -1,7 +1,8 @@
 use async_trait::async_trait;
 use domain::entities::plays_daily::{ActiveModel as PlaysDailyActiveModel, Model as PlaysDaily};
 use domain::repositories::plays_daily_repo::{
-    OverviewPlayCountAggregate, PlayCountAggregate, PlaysDailyRepository, TrendingTrackAggregate,
+    OverviewPlayCountAggregate, PlayCountAggregate, PlayCountDspHistoryAggregate,
+    PlayCountTrackHistoryAggregate, PlaysDailyRepository, TrendingTrackAggregate,
 };
 use mockall::automock;
 use sea_orm::prelude::Date;
@@ -91,6 +92,30 @@ pub trait MockPlaysDailyRepo {
         weekly_start_date: Date,
         end_date: Date,
     ) -> Result<Vec<TrendingTrackAggregate>, DomainError>;
+    async fn mock_aggregate_daily_dsp_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Date,
+        end_date: Date,
+    ) -> Result<Vec<PlayCountDspHistoryAggregate>, DomainError>;
+    async fn mock_aggregate_monthly_dsp_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<Date>,
+        end_date: Option<Date>,
+    ) -> Result<Vec<PlayCountDspHistoryAggregate>, DomainError>;
+    async fn mock_aggregate_daily_track_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Date,
+        end_date: Date,
+    ) -> Result<Vec<PlayCountTrackHistoryAggregate>, DomainError>;
+    async fn mock_aggregate_monthly_track_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<Date>,
+        end_date: Option<Date>,
+    ) -> Result<Vec<PlayCountTrackHistoryAggregate>, DomainError>;
 }
 
 #[async_trait]
@@ -247,6 +272,46 @@ impl PlaysDailyRepository for MockMockPlaysDailyRepo {
         end_date: Date,
     ) -> Result<Vec<TrendingTrackAggregate>, DomainError> {
         self.mock_aggregate_trending_by_upc(upc.to_string(), weekly_start_date, end_date)
+            .await
+    }
+
+    async fn aggregate_daily_dsp_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Date,
+        end_date: Date,
+    ) -> Result<Vec<PlayCountDspHistoryAggregate>, DomainError> {
+        self.mock_aggregate_daily_dsp_history_by_isrcs(isrcs, start_date, end_date)
+            .await
+    }
+
+    async fn aggregate_monthly_dsp_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<Date>,
+        end_date: Option<Date>,
+    ) -> Result<Vec<PlayCountDspHistoryAggregate>, DomainError> {
+        self.mock_aggregate_monthly_dsp_history_by_isrcs(isrcs, start_date, end_date)
+            .await
+    }
+
+    async fn aggregate_daily_track_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Date,
+        end_date: Date,
+    ) -> Result<Vec<PlayCountTrackHistoryAggregate>, DomainError> {
+        self.mock_aggregate_daily_track_history_by_isrcs(isrcs, start_date, end_date)
+            .await
+    }
+
+    async fn aggregate_monthly_track_history_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<Date>,
+        end_date: Option<Date>,
+    ) -> Result<Vec<PlayCountTrackHistoryAggregate>, DomainError> {
+        self.mock_aggregate_monthly_track_history_by_isrcs(isrcs, start_date, end_date)
             .await
     }
 }
