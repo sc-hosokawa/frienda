@@ -13,6 +13,7 @@ pub trait MockRoomsRepo {
     async fn mock_delete(&self, id: Uuid) -> Result<(), DomainError>;
     async fn mock_update(&self, room: RoomActiveModel) -> Result<Room, DomainError>;
     async fn mock_get_by_id(&self, id: Uuid) -> Result<Option<Room>, DomainError>;
+    async fn mock_get_by_ids(&self, ids: Vec<Uuid>) -> Result<Vec<Room>, DomainError>;
 }
 
 #[async_trait]
@@ -31,5 +32,9 @@ impl RoomsRepository for MockMockRoomsRepo {
 
     async fn get_by_id(&self, id: Uuid) -> Result<Option<Room>, DomainError> {
         self.mock_get_by_id(id).await
+    }
+
+    async fn get_by_ids(&self, ids: Vec<Uuid>) -> Result<Vec<Room>, DomainError> {
+        self.mock_get_by_ids(ids).await
     }
 }

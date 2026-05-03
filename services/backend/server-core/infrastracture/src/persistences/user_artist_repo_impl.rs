@@ -5,6 +5,7 @@ use sea_orm::*;
 use domain::entities::user_artist::{
     ActiveModel as UserArtistActiveModel, Column, Entity as UserArtistEntity, Model as UserArtist,
 };
+use domain::entities::sea_orm_active_enums::UserArtistStatus;
 use domain::repositories::user_artist_repo::UserArtistRepository;
 use shared::error::domain_err::DomainError;
 
@@ -63,6 +64,46 @@ impl UserArtistRepository for UserArtistRepoImpl {
     ) -> Result<Vec<UserArtist>, DomainError> {
         let user_artists = UserArtistEntity::find()
             .filter(Column::ArtistId.is_in(artist_ids))
+            .order_by_desc(Column::Id)
+            .all(&self.db)
+            .await?;
+        Ok(user_artists)
+    }
+
+    async fn find_by_user_id_and_artist_ids(
+        &self,
+        user_id: &str,
+        artist_ids: Vec<&str>,
+    ) -> Result<Vec<UserArtist>, DomainError> {
+        let user_artists = UserArtistEntity::find()
+            .filter(Column::UserId.eq(user_id))
+            .filter(Column::ArtistId.is_in(artist_ids))
+            .order_by_desc(Column::Id)
+            .all(&self.db)
+            .await?;
+        Ok(user_artists)
+    }
+
+    async fn find_by_artist_id_and_user_ids(
+        &self,
+        artist_id: &str,
+        user_ids: Vec<&str>,
+    ) -> Result<Vec<UserArtist>, DomainError> {
+        let user_artists = UserArtistEntity::find()
+            .filter(Column::ArtistId.eq(artist_id))
+            .filter(Column::UserId.is_in(user_ids))
+            .order_by_desc(Column::Id)
+            .all(&self.db)
+            .await?;
+        Ok(user_artists)
+    }
+
+    async fn find_by_status(
+        &self,
+        status: UserArtistStatus,
+    ) -> Result<Vec<UserArtist>, DomainError> {
+        let user_artists = UserArtistEntity::find()
+            .filter(Column::Status.eq(status))
             .order_by_desc(Column::Id)
             .all(&self.db)
             .await?;

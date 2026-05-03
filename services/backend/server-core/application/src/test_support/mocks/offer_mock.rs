@@ -10,6 +10,7 @@ pub trait MockOffersRepo {
     async fn mock_create(&self, offer: OfferActiveModel) -> Result<Offer, DomainError>;
     async fn mock_update(&self, offer: OfferActiveModel) -> Result<Offer, DomainError>;
     async fn mock_get_by_id(&self, id: i32) -> Result<Option<Offer>, DomainError>;
+    async fn mock_get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Offer>, DomainError>;
     async fn mock_delete(&self, id: i32) -> Result<(), DomainError>;
     async fn mock_list(&self, limit: u32, offset: u32) -> Result<Vec<Offer>, DomainError>;
     async fn mock_get_active_offers(&self) -> Result<Vec<Offer>, DomainError>;
@@ -37,6 +38,10 @@ impl OffersRepository for MockMockOffersRepo {
 
     async fn get_by_id(&self, id: i32) -> Result<Option<Offer>, DomainError> {
         self.mock_get_by_id(id).await
+    }
+
+    async fn get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Offer>, DomainError> {
+        self.mock_get_by_ids(ids).await
     }
 
     async fn delete(&self, id: i32) -> Result<(), DomainError> {

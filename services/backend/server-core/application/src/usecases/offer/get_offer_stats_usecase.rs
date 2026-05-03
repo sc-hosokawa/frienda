@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 
 use domain::entities::sea_orm_active_enums::OfferStatus;
 use domain::repositories::offer_user_repo::OfferUserRepository;
@@ -66,24 +66,36 @@ impl GetOfferStatsUsecaseTrait for GetOfferStatsUsecase {
         let mut ongoing_offers = 0;
         let mut applied_offers = 0;
         let mut completed_offers = 0;
-        let mut total_earnings = 0;
+        let mut completed_offer_ids = Vec::new();
 
-        for offer in offers {
-            match offer.status {
+        for offer_user in &offers {
+            match offer_user.status {
                 OfferStatus::Ongoing => ongoing_offers += 1,
                 OfferStatus::Applied => applied_offers += 1,
                 OfferStatus::Finished => {
                     completed_offers += 1;
-                    let completed_offer_fee = self
-                        .offers_repo
-                        .get_by_id(offer.offer_id)
-                        .await?
-                        .ok_or_else(|| anyhow::anyhow!("Offer not found"))?
-                        .fee;
-                    total_earnings += completed_offer_fee;
+                    completed_offer_ids.push(offer_user.offer_id);
                 }
                 _ => {}
             }
+        }
+        let offers_by_id: HashMap<i32, domain::entities::offers::Model> =
+            if completed_offer_ids.is_empty() {
+                HashMap::new()
+            } else {
+                self.offers_repo
+                    .get_by_ids(completed_offer_ids.clone())
+                    .await?
+                    .into_iter()
+                    .map(|offer| (offer.id, offer))
+                    .collect()
+            };
+        let mut total_earnings = 0;
+        for offer_id in completed_offer_ids {
+            total_earnings += offers_by_id
+                .get(&offer_id)
+                .ok_or_else(|| anyhow::anyhow!("Offer not found"))?
+                .fee;
         }
 
         Ok(GetOfferStatsOutput {

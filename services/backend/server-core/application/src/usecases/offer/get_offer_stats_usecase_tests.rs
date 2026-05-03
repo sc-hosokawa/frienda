@@ -58,9 +58,10 @@ async fn test_get_offer_stats_success() {
         .returning(move |_| Ok(offer_users.clone()));
 
     mock_offers_repo
-        .expect_mock_get_by_id()
-        .with(eq(3))
-        .returning(|_| Ok(Some(create_test_offer(3, 1000))));
+        .expect_mock_get_by_ids()
+        .times(1)
+        .with(eq(vec![3]))
+        .returning(|_| Ok(vec![create_test_offer(3, 1000)]));
 
     let usecase =
         GetOfferStatsUsecase::new(Arc::new(mock_offers_repo), Arc::new(mock_offer_user_repo));

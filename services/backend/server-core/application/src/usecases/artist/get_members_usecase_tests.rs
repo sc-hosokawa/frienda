@@ -139,3 +139,54 @@ async fn test_get_members_belonged_to_artist_success() {
     assert_eq!(output.members.len(), 1);
     assert_eq!(output.members[0].id, member_user_id);
 }
+
+#[tokio::test]
+async fn test_get_all_pending_members_batches_users_and_artists() {
+    let mut mock_user_artist_repo = MockMockUserArtistRepo::new();
+    let mut mock_users_repo = MockMockUsersRepo::new();
+    let mut mock_artists_repo = MockMockArtistsRepo::new();
+
+    let admin_id = "admin1";
+    let member_id = "member1";
+    let artist_id = "artist1";
+
+    mock_users_repo.expect_mock_find_by_id().returning(move |_| {
+        let mut user = create_test_user(admin_id);
+        user.is_superadmin = Some(true);
+        Ok(Some(user))
+    });
+
+    mock_user_artist_repo
+        .expect_mock_find_by_status()
+        .times(1)
+        .with(mockall::predicate::eq(UserArtistStatus::Check))
+        .returning(move |_| Ok(vec![create_test_user_artist(member_id, artist_id, false)]));
+
+    mock_users_repo
+        .expect_mock_find_by_ids()
+        .times(1)
+        .with(mockall::predicate::eq(vec![member_id.to_string()]))
+        .returning(move |_| Ok(vec![create_test_user(member_id)]));
+
+    mock_artists_repo
+        .expect_mock_find_by_ids()
+        .times(1)
+        .with(mockall::predicate::eq(vec![artist_id.to_string()]))
+        .returning(move |_| Ok(vec![_create_test_artist(artist_id)]));
+
+    let usecase = GetMembersUsecase::new(
+        Arc::new(mock_user_artist_repo),
+        Arc::new(mock_users_repo),
+        Arc::new(mock_artists_repo),
+    );
+
+    let output = usecase
+        .get_all_pending_members(admin_id.to_string())
+        .await
+        .expect("pending members should be returned");
+
+    assert_eq!(output.members.len(), 1);
+    assert_eq!(output.members[0].member.id, member_id);
+    assert_eq!(output.members[0].artist_id, artist_id);
+    assert_eq!(output.members[0].artist_name, format!("Artist {}", artist_id));
+}

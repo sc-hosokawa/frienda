@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 
 use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Product;
@@ -79,33 +79,54 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
             ep: vec![],
         };
 
+        let upcs: Vec<String> = products.iter().map(|product| product.upc.clone()).collect();
+        if upcs.is_empty() {
+            return Ok(output);
+        }
+        let product_tracks = self.product_track_repo.get_by_upcs(upcs).await?;
+        let isrcs: Vec<String> = product_tracks
+            .iter()
+            .map(|product_track| product_track.isrc.clone())
+            .collect();
+        let mut product_tracks_by_upc: HashMap<String, Vec<ProductTrack>> = HashMap::new();
+        for product_track in product_tracks {
+            product_tracks_by_upc
+                .entry(product_track.upc.clone())
+                .or_default()
+                .push(product_track);
+        }
+
+        let tracks_by_isrc: HashMap<String, Track> = if isrcs.is_empty() {
+            HashMap::new()
+        } else {
+            self.tracks_repo
+                .get_by_isrcs(isrcs)
+                .await?
+                .into_iter()
+                .map(|track| (track.isrc.clone(), track))
+                .collect()
+        };
+
         for product in products {
             let category: String = product.r#type.clone().unwrap_or("".to_string());
-            let mut product_track_map: Vec<ProductTrack> =
-                self.product_track_repo.get_by_upc(&product.upc).await?;
+            let mut product_track_map = product_tracks_by_upc
+                .remove(&product.upc)
+                .unwrap_or_default();
 
             // Sort product_track_map by track_no
             product_track_map.sort_by_key(|pt| pt.track_no.unwrap_or(i32::MAX));
 
             tracing::debug!("======== after::product_track_map: {:?}", product_track_map);
 
-            let mut tracks: Vec<Track> = self
-                .tracks_repo
-                .get_by_isrcs(
-                    product_track_map
-                        .iter()
-                        .map(|pt| pt.isrc.clone())
-                        .collect::<Vec<String>>(),
-                )
-                .await?;
-
-            // product_track_mapの順序に合わせてtracksをソート
-            let isrc_order: std::collections::HashMap<String, usize> = product_track_map
+            let isrc_order: HashMap<String, usize> = product_track_map
                 .iter()
                 .enumerate()
                 .map(|(index, pt)| (pt.isrc.clone(), index))
                 .collect();
-
+            let mut tracks: Vec<Track> = product_track_map
+                .iter()
+                .filter_map(|pt| tracks_by_isrc.get(&pt.isrc).cloned())
+                .collect();
             tracks.sort_by_key(|track| isrc_order.get(&track.isrc).copied().unwrap_or(usize::MAX));
 
             tracing::debug!("======== tracks: {:?}", tracks);

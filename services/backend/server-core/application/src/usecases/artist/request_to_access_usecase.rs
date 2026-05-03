@@ -1,6 +1,9 @@
 use async_trait::async_trait;
 use sea_orm::ActiveValue;
-use std::sync::Arc;
+use std::{
+    collections::{HashMap, HashSet},
+    sync::Arc,
+};
 use uuid::Uuid;
 
 use domain::entities::artists::Model as Artist;
@@ -63,25 +66,47 @@ impl RequestToAccessUsecaseTrait for RequestToAccessUsecase {
     ) -> Result<RequestToAccessUsecaseOutput, anyhow::Error> {
         let mut created_mappings: Vec<ArtistSimpleInfoWithMappingId> = Vec::new();
 
-        // 重複を排除した artist_ids を生成
+        let mut seen_artist_ids = HashSet::new();
         let unique_artist_ids: Vec<String> = input
             .artist_ids
             .into_iter()
-            .collect::<std::collections::HashSet<_>>()
+            .filter(|artist_id| seen_artist_ids.insert(artist_id.clone()))
+            .collect();
+        if unique_artist_ids.is_empty() {
+            return Ok(RequestToAccessUsecaseOutput { created_mappings });
+        }
+
+        let existing_artist_ids: HashSet<String> = self
+            .user_artist_repo
+            .find_by_user_id_and_artist_ids(
+                &input.user_id,
+                unique_artist_ids.iter().map(String::as_str).collect(),
+            )
+            .await?
             .into_iter()
+            .map(|mapping| mapping.artist_id)
             .collect();
 
-        // 各artist_idに対してUserArtistActiveModelを作成
-        for artist_id in unique_artist_ids.iter() {
-            // 既存のマッピングをチェック
-            if self
-                .user_artist_repo
-                .exists(&input.user_id, artist_id)
+        let new_artist_ids: Vec<String> = unique_artist_ids
+            .into_iter()
+            .filter(|artist_id| !existing_artist_ids.contains(artist_id))
+            .collect();
+
+        let artists_by_id: HashMap<String, Artist> = if new_artist_ids.is_empty() {
+            HashMap::new()
+        } else {
+            self.artists_repo
+                .find_by_ids(new_artist_ids.iter().map(String::as_str).collect())
                 .await?
-            {
-                // 既存のマッピングがある場合はスキップして次の処理へ
-                continue;
-            }
+                .into_iter()
+                .map(|artist| (artist.artist_id.clone(), artist))
+                .collect()
+        };
+
+        for artist_id in new_artist_ids.iter() {
+            let artist = artists_by_id
+                .get(artist_id)
+                .ok_or_else(|| anyhow::anyhow!("Artist not found"))?;
 
             let user_artist = UserArtistActiveModel {
                 user_id: ActiveValue::Set(input.user_id.clone()),
@@ -89,17 +114,12 @@ impl RequestToAccessUsecaseTrait for RequestToAccessUsecase {
                 ..Default::default()
             };
             let created_mapping: UserArtist = self.user_artist_repo.create(user_artist).await?;
-            let artist: Artist = self
-                .artists_repo
-                .find_by_id(&created_mapping.artist_id)
-                .await?
-                .ok_or_else(|| anyhow::anyhow!("Artist not found"))?;
             created_mappings.push(ArtistSimpleInfoWithMappingId {
                 mapping_id: created_mapping.id,
                 id: artist.id,
                 artist_id: created_mapping.artist_id,
-                name: artist.display_name_jp,
-                img_url: artist.img_url,
+                name: artist.display_name_jp.clone(),
+                img_url: artist.img_url.clone(),
                 fsp: artist.fsp,
                 status: created_mapping.status,
                 is_admin: created_mapping.is_admin,

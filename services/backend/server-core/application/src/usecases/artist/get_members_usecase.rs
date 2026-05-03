@@ -1,6 +1,10 @@
 use async_trait::async_trait;
-use std::sync::Arc;
+use std::{
+    collections::{HashMap, HashSet},
+    sync::Arc,
+};
 
+use domain::entities::artists::Model as Artist;
 use domain::entities::sea_orm_active_enums::UserArtistStatus;
 use domain::entities::user_artist::Model as UserArtist;
 use domain::entities::users::Model as User;
@@ -126,24 +130,55 @@ impl GetMembersUsecaseTrait for GetMembersUsecase {
 
         let mappings: Vec<UserArtist> = self
             .user_artist_repo
-            .find_all()
-            .await?
-            .into_iter()
-            .filter(|member| member.status == UserArtistStatus::Check)
-            .collect();
+            .find_by_status(UserArtistStatus::Check)
+            .await?;
 
         let mut all_pending_members: Vec<AllPendingMember> = vec![];
 
-        for mapping in mappings {
-            let user = self.users_repo.find_by_id(&mapping.user_id).await?.unwrap();
-            let artist = self
-                .artists_repo
-                .find_by_id(&mapping.artist_id)
+        let mut seen_user_ids = HashSet::new();
+        let user_ids: Vec<String> = mappings
+            .iter()
+            .map(|mapping| mapping.user_id.clone())
+            .filter(|user_id| seen_user_ids.insert(user_id.clone()))
+            .collect();
+        let users_by_id: HashMap<String, User> = if user_ids.is_empty() {
+            HashMap::new()
+        } else {
+            self.users_repo
+                .find_by_ids(user_ids.iter().map(String::as_str).collect())
                 .await?
-                .unwrap();
+                .into_iter()
+                .map(|user| (user.id.clone(), user))
+                .collect()
+        };
+
+        let mut seen_artist_ids = HashSet::new();
+        let artist_ids: Vec<String> = mappings
+            .iter()
+            .map(|mapping| mapping.artist_id.clone())
+            .filter(|artist_id| seen_artist_ids.insert(artist_id.clone()))
+            .collect();
+        let artists_by_id: HashMap<String, Artist> = if artist_ids.is_empty() {
+            HashMap::new()
+        } else {
+            self.artists_repo
+                .find_by_ids(artist_ids.iter().map(String::as_str).collect())
+                .await?
+                .into_iter()
+                .map(|artist| (artist.artist_id.clone(), artist))
+                .collect()
+        };
+
+        for mapping in mappings {
+            let user = users_by_id
+                .get(&mapping.user_id)
+                .ok_or_else(|| anyhow::anyhow!("user not found"))?;
+            let artist = artists_by_id
+                .get(&mapping.artist_id)
+                .ok_or_else(|| anyhow::anyhow!("artist not found"))?;
             all_pending_members.push(AllPendingMember {
-                member: user,
-                artist_name: artist.display_name_jp,
+                member: user.clone(),
+                artist_name: artist.display_name_jp.clone(),
                 artist_id: mapping.artist_id,
             });
         }

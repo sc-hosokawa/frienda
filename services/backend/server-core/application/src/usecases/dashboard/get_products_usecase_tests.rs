@@ -42,16 +42,20 @@ async fn test_get_products_groups_products_and_sorts_tracks() {
         });
 
     product_track_repo
-        .expect_mock_get_by_upc()
-        .times(2)
-        .returning(|upc| match upc.as_str() {
-            "SINGLE1" => Ok(vec![ProductTrack {
+        .expect_mock_get_by_upcs()
+        .times(1)
+        .with(mockall::predicate::eq(vec![
+            "SINGLE1".to_string(),
+            "ALBUM1".to_string(),
+        ]))
+        .returning(|_| {
+            Ok(vec![
+                ProductTrack {
                 id: 1,
-                upc,
+                upc: "SINGLE1".to_string(),
                 isrc: "S-1".to_string(),
                 track_no: Some(1),
-            }]),
-            "ALBUM1" => Ok(vec![
+            },
                 ProductTrack {
                     id: 3,
                     upc: "ALBUM1".to_string(),
@@ -64,37 +68,38 @@ async fn test_get_products_groups_products_and_sorts_tracks() {
                     isrc: "A-1".to_string(),
                     track_no: Some(1),
                 },
-            ]),
-            _ => Ok(vec![]),
+            ])
         });
 
     tracks_repo
         .expect_mock_get_by_isrcs()
-        .times(2)
-        .returning(|isrcs| {
-            if isrcs == vec!["S-1".to_string()] {
-                Ok(vec![Track {
+        .times(1)
+        .with(mockall::predicate::eq(vec![
+            "S-1".to_string(),
+            "A-2".to_string(),
+            "A-1".to_string(),
+        ]))
+        .returning(|_| {
+            Ok(vec![
+                Track {
                     isrc: "S-1".to_string(),
                     img_url: None,
                     title: "Single Track".to_string(),
                     artist_id: Some("artist-1".to_string()),
-                }])
-            } else {
-                Ok(vec![
-                    Track {
-                        isrc: "A-2".to_string(),
-                        img_url: None,
-                        title: "Album Track 2".to_string(),
-                        artist_id: Some("artist-1".to_string()),
-                    },
-                    Track {
-                        isrc: "A-1".to_string(),
-                        img_url: None,
-                        title: "Album Track 1".to_string(),
-                        artist_id: Some("artist-1".to_string()),
-                    },
-                ])
-            }
+                },
+                Track {
+                    isrc: "A-2".to_string(),
+                    img_url: None,
+                    title: "Album Track 2".to_string(),
+                    artist_id: Some("artist-1".to_string()),
+                },
+                Track {
+                    isrc: "A-1".to_string(),
+                    img_url: None,
+                    title: "Album Track 1".to_string(),
+                    artist_id: Some("artist-1".to_string()),
+                },
+            ])
         });
 
     let usecase = GetProductsUsecase::new(

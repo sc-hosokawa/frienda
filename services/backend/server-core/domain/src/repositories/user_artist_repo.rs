@@ -1,4 +1,7 @@
-use crate::entities::user_artist::{ActiveModel as UserArtistActiveModel, Model as UserArtist};
+use crate::entities::{
+    sea_orm_active_enums::UserArtistStatus,
+    user_artist::{ActiveModel as UserArtistActiveModel, Model as UserArtist},
+};
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
@@ -19,6 +22,20 @@ pub trait UserArtistRepository: Send + Sync {
     async fn find_by_artist_ids(
         &self,
         artist_ids: Vec<&str>,
+    ) -> Result<Vec<UserArtist>, DomainError>;
+    async fn find_by_user_id_and_artist_ids(
+        &self,
+        user_id: &str,
+        artist_ids: Vec<&str>,
+    ) -> Result<Vec<UserArtist>, DomainError>;
+    async fn find_by_artist_id_and_user_ids(
+        &self,
+        artist_id: &str,
+        user_ids: Vec<&str>,
+    ) -> Result<Vec<UserArtist>, DomainError>;
+    async fn find_by_status(
+        &self,
+        status: UserArtistStatus,
     ) -> Result<Vec<UserArtist>, DomainError>;
     async fn find_by_artist_id_and_user_id(
         &self,
