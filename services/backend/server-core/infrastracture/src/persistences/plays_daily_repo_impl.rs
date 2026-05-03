@@ -516,6 +516,12 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
         let row = OverviewPlayCountAggregateRow::find_by_statement(Statement::from_sql_and_values(
             DbBackend::Postgres,
             r#"
+            WITH upc_isrcs AS (
+                SELECT DISTINCT pt.isrc
+                FROM product_track pt
+                WHERE pt.upc = $1
+                    AND pt.isrc IS NOT NULL
+            )
             SELECT
                 COALESCE(SUM(COALESCE(pd."sum", 0)), 0)::BIGINT AS total,
                 COALESCE(SUM(
@@ -524,10 +530,9 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
                         ELSE 0
                     END
                 ), 0)::BIGINT AS weekly
-            FROM product_track pt
-            INNER JOIN plays_daily pd ON pd.isrc = pt.isrc
-            WHERE pt.upc = $1
-                AND pd.isrc IS NOT NULL
+            FROM upc_isrcs ui
+            INNER JOIN plays_daily pd ON pd.isrc = ui.isrc
+            WHERE pd.isrc IS NOT NULL
                 AND pd."date" IS NOT NULL
                 AND pd."date" <= $3
             "#,
@@ -645,9 +650,21 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
         let rows = TrendingTrackAggregateRow::find_by_statement(Statement::from_sql_and_values(
             DbBackend::Postgres,
             r#"
+            WITH upc_tracks AS (
+                SELECT DISTINCT ON (pt.isrc)
+                    pt.id AS product_track_id,
+                    pt.isrc,
+                    pt.track_no,
+                    t.title AS track_title
+                FROM product_track pt
+                INNER JOIN tracks t ON t.isrc = pt.isrc
+                WHERE pt.upc = $1
+                    AND pt.isrc IS NOT NULL
+                ORDER BY pt.isrc, pt.track_no ASC NULLS LAST, pt.id ASC
+            )
             SELECT
-                pt.isrc,
-                t.title AS track_title,
+                ut.isrc,
+                ut.track_title,
                 NULL::VARCHAR AS upc_title,
                 NULL::VARCHAR AS image_url,
                 COALESCE(SUM(COALESCE(pd."sum", 0)), 0)::BIGINT AS total,
@@ -674,16 +691,14 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
                 COALESCE(SUM(
                     CASE WHEN pd."date" >= $2 THEN COALESCE(pd.youtube, 0) ELSE 0 END
                 ), 0)::BIGINT AS weekly_youtube
-            FROM product_track pt
-            INNER JOIN tracks t ON t.isrc = pt.isrc
+            FROM upc_tracks ut
             LEFT JOIN plays_daily pd
-                ON pd.isrc = pt.isrc
+                ON pd.isrc = ut.isrc
                 AND pd.isrc IS NOT NULL
                 AND pd."date" IS NOT NULL
                 AND pd."date" <= $3
-            WHERE pt.upc = $1
-            GROUP BY pt.id, pt.isrc, t.title, pt.track_no
-            ORDER BY pt.track_no ASC NULLS LAST, pt.id ASC
+            GROUP BY ut.product_track_id, ut.isrc, ut.track_title, ut.track_no
+            ORDER BY ut.track_no ASC NULLS LAST, ut.product_track_id ASC
             "#,
             vec![upc.into(), weekly_start_date.into(), end_date.into()],
         ))
@@ -1114,7 +1129,7 @@ mod tests {
 
     #[tokio::test]
     async fn aggregate_overview_by_upc_returns_total_and_weekly_from_one_query() {
-        // UPC overview は total/weekly を 1 query で取得し、期間違いの二重 scan を避ける。
+        // UPC overview は同じ UPC 内の重複 ISRC を先に dedupe し、再生数を二重計上しないことを固定する。
         let db = MockDatabase::new(DbBackend::Postgres)
             .append_query_results([[row(vec![
                 ("total", Into::<Value>::into(250_i64)),
@@ -1134,10 +1149,12 @@ mod tests {
         assert_eq!(result.weekly, 90);
 
         let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("WITH upc_isrcs AS"), "{log}");
+        assert!(log.contains("SELECT DISTINCT pt.isrc"), "{log}");
         assert!(log.contains("FROM product_track pt"), "{log}");
+        assert!(log.contains("FROM upc_isrcs ui"), "{log}");
         assert!(log.contains("INNER JOIN plays_daily pd"), "{log}");
         assert!(log.contains("pt.upc = $1"), "{log}");
-        assert_eq!(log.matches("SELECT").count(), 1);
     }
 
     #[tokio::test]
@@ -1193,7 +1210,7 @@ mod tests {
 
     #[tokio::test]
     async fn aggregate_trending_by_upc_left_joins_play_counts_and_maps_nulls_to_zero() {
-        // UPC trending は再生行がない track も表示対象なので、LEFT JOIN と NULL->0 mapping を守る。
+        // UPC trending は重複 ISRC を代表 track row にまとめつつ、再生行がない track も落とさない。
         let db = MockDatabase::new(DbBackend::Postgres)
             .append_query_results([[row(vec![
                 ("isrc", Into::<Value>::into("ISRC1")),
@@ -1232,10 +1249,19 @@ mod tests {
         assert_eq!(result[0].weekly_youtube, 0);
 
         let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("WITH upc_tracks AS"), "{log}");
+        assert!(log.contains("SELECT DISTINCT ON (pt.isrc)"), "{log}");
         assert!(log.contains("FROM product_track pt"), "{log}");
+        assert!(log.contains("FROM upc_tracks ut"), "{log}");
         assert!(log.contains("LEFT JOIN plays_daily pd"), "{log}");
-        assert!(log.contains("ORDER BY pt.track_no ASC NULLS LAST"), "{log}");
-        assert_eq!(log.matches("SELECT").count(), 1);
+        assert!(
+            log.contains("ORDER BY pt.isrc, pt.track_no ASC NULLS LAST, pt.id ASC"),
+            "{log}"
+        );
+        assert!(
+            log.contains("ORDER BY ut.track_no ASC NULLS LAST, ut.product_track_id ASC"),
+            "{log}"
+        );
     }
 
     #[tokio::test]
