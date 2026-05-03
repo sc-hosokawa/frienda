@@ -2,8 +2,6 @@ use async_trait::async_trait;
 use chrono::{Duration, FixedOffset, Utc};
 use std::sync::Arc;
 
-use domain::entities::product_track::Model as ProductTrack;
-use domain::entities::products::Model as Product;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
 use domain::repositories::product_track_repo::ProductTrackRepository;
 use domain::repositories::products_repo::ProductsRepository;
@@ -33,21 +31,15 @@ pub trait PlaybackOverviewUsecaseTrait: Send + Sync {
 
 pub struct PlaybackOverviewUsecase {
     plays_daily_repo: Arc<dyn PlaysDailyRepository>,
-    products_repo: Arc<dyn ProductsRepository>,
-    product_track_repo: Arc<dyn ProductTrackRepository>,
 }
 
 impl PlaybackOverviewUsecase {
     pub fn new(
         plays_daily_repo: Arc<dyn PlaysDailyRepository>,
-        products_repo: Arc<dyn ProductsRepository>,
-        product_track_repo: Arc<dyn ProductTrackRepository>,
+        _products_repo: Arc<dyn ProductsRepository>,
+        _product_track_repo: Arc<dyn ProductTrackRepository>,
     ) -> Self {
-        Self {
-            plays_daily_repo,
-            products_repo,
-            product_track_repo,
-        }
+        Self { plays_daily_repo }
     }
 
     fn today_jst() -> chrono::NaiveDate {
@@ -62,32 +54,17 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         &self,
         input: PlaybackOverviewUsecaseInput,
     ) -> Result<PlaybackOverviewUsecaseOutput, anyhow::Error> {
-        let products: Vec<Product> = self
-            .products_repo
-            .find_by_artist_id(&input.artist_id)
-            .await?;
-        let upcs: Vec<String> = products.iter().map(|p| p.upc.clone()).collect();
-        let product_tracks: Vec<ProductTrack> = self.product_track_repo.get_by_upcs(upcs).await?;
-        let isrcs: Vec<String> = product_tracks.iter().map(|p| p.isrc.clone()).collect();
-
-        // 直近3日を除いた全期間の合計（従来の月次 + 当月日次相当）
         let today_jst = Self::today_jst();
-        let end_date_for_total = today_jst - Duration::days(3);
-        let total_play_count = self
+        let weekly_start_date = today_jst - Duration::days(9);
+        let end_date = today_jst - Duration::days(3);
+        let aggregate = self
             .plays_daily_repo
-            .sum_by_isrcs_until(isrcs.clone(), end_date_for_total)
-            .await? as i32;
-
-        let start_date_weekly = today_jst - Duration::days(9);
-        let end_date_weekly = today_jst - Duration::days(3);
-        let weekly_play_count = self
-            .plays_daily_repo
-            .sum_by_isrcs_between(isrcs, start_date_weekly, end_date_weekly)
-            .await? as i32;
+            .aggregate_overview_by_artist_id(&input.artist_id, weekly_start_date, end_date)
+            .await?;
 
         Ok(PlaybackOverviewUsecaseOutput {
-            total_play_count,
-            weekly_play_count,
+            total_play_count: aggregate.total as i32,
+            weekly_play_count: aggregate.weekly as i32,
         })
     }
 
@@ -96,27 +73,17 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         input: PlaybackOverviewUsecaseInput,
     ) -> Result<PlaybackOverviewUsecaseOutput, anyhow::Error> {
         if let Some(upc) = input.upc {
-            let product_track: Vec<ProductTrack> = self.product_track_repo.get_by_upc(&upc).await?;
-            let isrcs: Vec<String> = product_track.iter().map(|p| p.isrc.clone()).collect();
-
-            // 直近3日を除いた全期間の合計
             let today_jst = Self::today_jst();
-            let end_date_for_total = today_jst - Duration::days(3);
-            let total_play_count = self
+            let weekly_start_date = today_jst - Duration::days(9);
+            let end_date = today_jst - Duration::days(3);
+            let aggregate = self
                 .plays_daily_repo
-                .sum_by_isrcs_until(isrcs.clone(), end_date_for_total)
-                .await? as i32;
-
-            let start_date_weekly = today_jst - Duration::days(9);
-            let end_date_weekly = today_jst - Duration::days(3);
-            let weekly_play_count = self
-                .plays_daily_repo
-                .sum_by_isrcs_between(isrcs, start_date_weekly, end_date_weekly)
-                .await? as i32;
+                .aggregate_overview_by_upc(&upc, weekly_start_date, end_date)
+                .await?;
 
             Ok(PlaybackOverviewUsecaseOutput {
-                total_play_count,
-                weekly_play_count,
+                total_play_count: aggregate.total as i32,
+                weekly_play_count: aggregate.weekly as i32,
             })
         } else {
             Err(anyhow::anyhow!("UPC is required"))

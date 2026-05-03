@@ -1,6 +1,8 @@
 use async_trait::async_trait;
 use domain::entities::plays_daily::{ActiveModel as PlaysDailyActiveModel, Model as PlaysDaily};
-use domain::repositories::plays_daily_repo::{PlayCountAggregate, PlaysDailyRepository};
+use domain::repositories::plays_daily_repo::{
+    OverviewPlayCountAggregate, PlayCountAggregate, PlaysDailyRepository,
+};
 use mockall::automock;
 use sea_orm::prelude::Date;
 use shared::error::domain_err::DomainError;
@@ -64,6 +66,18 @@ pub trait MockPlaysDailyRepo {
         end_date: Option<Date>,
         limit: Option<u64>,
     ) -> Result<Vec<PlayCountAggregate>, DomainError>;
+    async fn mock_aggregate_overview_by_artist_id(
+        &self,
+        artist_id: String,
+        weekly_start_date: Date,
+        end_date: Date,
+    ) -> Result<OverviewPlayCountAggregate, DomainError>;
+    async fn mock_aggregate_overview_by_upc(
+        &self,
+        upc: String,
+        weekly_start_date: Date,
+        end_date: Date,
+    ) -> Result<OverviewPlayCountAggregate, DomainError>;
 }
 
 #[async_trait]
@@ -170,6 +184,30 @@ impl PlaysDailyRepository for MockMockPlaysDailyRepo {
         limit: Option<u64>,
     ) -> Result<Vec<PlayCountAggregate>, DomainError> {
         self.mock_aggregate_by_isrcs(isrcs, start_date, end_date, limit)
+            .await
+    }
+
+    async fn aggregate_overview_by_artist_id(
+        &self,
+        artist_id: &str,
+        weekly_start_date: Date,
+        end_date: Date,
+    ) -> Result<OverviewPlayCountAggregate, DomainError> {
+        self.mock_aggregate_overview_by_artist_id(
+            artist_id.to_string(),
+            weekly_start_date,
+            end_date,
+        )
+        .await
+    }
+
+    async fn aggregate_overview_by_upc(
+        &self,
+        upc: &str,
+        weekly_start_date: Date,
+        end_date: Date,
+    ) -> Result<OverviewPlayCountAggregate, DomainError> {
+        self.mock_aggregate_overview_by_upc(upc.to_string(), weekly_start_date, end_date)
             .await
     }
 }

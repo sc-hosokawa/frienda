@@ -14,6 +14,12 @@ pub struct PlayCountAggregate {
     pub youtube: i64,
 }
 
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct OverviewPlayCountAggregate {
+    pub total: i64,
+    pub weekly: i64,
+}
+
 #[async_trait]
 pub trait PlaysDailyRepository: Send + Sync {
     async fn create(&self, plays_daily: PlaysDailyActiveModel) -> Result<PlaysDaily, DomainError>;
@@ -63,4 +69,16 @@ pub trait PlaysDailyRepository: Send + Sync {
         end_date: Option<Date>,
         limit: Option<u64>,
     ) -> Result<Vec<PlayCountAggregate>, DomainError>;
+    async fn aggregate_overview_by_artist_id(
+        &self,
+        artist_id: &str,
+        weekly_start_date: Date,
+        end_date: Date,
+    ) -> Result<OverviewPlayCountAggregate, DomainError>;
+    async fn aggregate_overview_by_upc(
+        &self,
+        upc: &str,
+        weekly_start_date: Date,
+        end_date: Date,
+    ) -> Result<OverviewPlayCountAggregate, DomainError>;
 }

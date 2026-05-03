@@ -497,13 +497,15 @@ CREATE INDEX ON "user_artist" ("id");
 
 CREATE INDEX ON "user_artist" ("user_id", "artist_id");
 
+CREATE INDEX ON "products" ("artist_id");
+
 CREATE INDEX ON "product_track" ("id");
 
 CREATE INDEX ON "product_track" ("upc", "isrc");
 
 CREATE INDEX ON "track_credits" ("isrc");
 
-CREATE INDEX ON "plays_daily" ("isrc", "date");
+CREATE INDEX ON "plays_daily" ("isrc", "date") INCLUDE ("sum");
 
 CREATE INDEX ON "plays_monthly" ("isrc", "month");
 

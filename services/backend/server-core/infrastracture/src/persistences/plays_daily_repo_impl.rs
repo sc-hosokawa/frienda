@@ -6,7 +6,9 @@ use sea_orm::*;
 use domain::entities::plays_daily::{
     ActiveModel as PlaysDailyActiveModel, Column, Entity as PlaysDailyEntity, Model as PlaysDaily,
 };
-use domain::repositories::plays_daily_repo::{PlayCountAggregate, PlaysDailyRepository};
+use domain::repositories::plays_daily_repo::{
+    OverviewPlayCountAggregate, PlayCountAggregate, PlaysDailyRepository,
+};
 use shared::error::domain_err::DomainError;
 
 #[derive(new)]
@@ -23,6 +25,21 @@ struct PlayCountAggregateRow {
     line: Option<i64>,
     amazon: Option<i64>,
     youtube: Option<i64>,
+}
+
+#[derive(Debug, Default, FromQueryResult)]
+struct OverviewPlayCountAggregateRow {
+    total: Option<i64>,
+    weekly: Option<i64>,
+}
+
+impl OverviewPlayCountAggregateRow {
+    fn into_aggregate(self) -> OverviewPlayCountAggregate {
+        OverviewPlayCountAggregate {
+            total: self.total.unwrap_or(0),
+            weekly: self.weekly.unwrap_or(0),
+        }
+    }
 }
 
 impl PlayCountAggregateRow {
@@ -314,6 +331,71 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
             .filter_map(PlayCountAggregateRow::into_aggregate)
             .collect())
     }
+
+    async fn aggregate_overview_by_artist_id(
+        &self,
+        artist_id: &str,
+        weekly_start_date: sea_orm::prelude::Date,
+        end_date: sea_orm::prelude::Date,
+    ) -> Result<OverviewPlayCountAggregate, DomainError> {
+        let row = OverviewPlayCountAggregateRow::find_by_statement(Statement::from_sql_and_values(
+            DbBackend::Postgres,
+            r#"
+            SELECT
+                COALESCE(SUM(COALESCE(pd."sum", 0)), 0)::BIGINT AS total,
+                COALESCE(SUM(
+                    CASE
+                        WHEN pd."date" >= $2 THEN COALESCE(pd."sum", 0)
+                        ELSE 0
+                    END
+                ), 0)::BIGINT AS weekly
+            FROM products p
+            INNER JOIN product_track pt ON pt.upc = p.upc
+            INNER JOIN plays_daily pd ON pd.isrc = pt.isrc
+            WHERE p.artist_id = $1
+                AND pd.isrc IS NOT NULL
+                AND pd."date" IS NOT NULL
+                AND pd."date" <= $3
+            "#,
+            vec![artist_id.into(), weekly_start_date.into(), end_date.into()],
+        ))
+        .one(&self.db)
+        .await?;
+
+        Ok(row.unwrap_or_default().into_aggregate())
+    }
+
+    async fn aggregate_overview_by_upc(
+        &self,
+        upc: &str,
+        weekly_start_date: sea_orm::prelude::Date,
+        end_date: sea_orm::prelude::Date,
+    ) -> Result<OverviewPlayCountAggregate, DomainError> {
+        let row = OverviewPlayCountAggregateRow::find_by_statement(Statement::from_sql_and_values(
+            DbBackend::Postgres,
+            r#"
+            SELECT
+                COALESCE(SUM(COALESCE(pd."sum", 0)), 0)::BIGINT AS total,
+                COALESCE(SUM(
+                    CASE
+                        WHEN pd."date" >= $2 THEN COALESCE(pd."sum", 0)
+                        ELSE 0
+                    END
+                ), 0)::BIGINT AS weekly
+            FROM product_track pt
+            INNER JOIN plays_daily pd ON pd.isrc = pt.isrc
+            WHERE pt.upc = $1
+                AND pd.isrc IS NOT NULL
+                AND pd."date" IS NOT NULL
+                AND pd."date" <= $3
+            "#,
+            vec![upc.into(), weekly_start_date.into(), end_date.into()],
+        ))
+        .one(&self.db)
+        .await?;
+
+        Ok(row.unwrap_or_default().into_aggregate())
+    }
 }
 
 fn parse_flexible_date_from_str(date: &str) -> Result<NaiveDate, DomainError> {
@@ -519,5 +601,59 @@ mod tests {
             .unwrap();
 
         assert_eq!(result, 0);
+    }
+
+    #[tokio::test]
+    async fn aggregate_overview_by_artist_id_maps_null_sums_to_zero_and_joins_release_tables() {
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([[row(vec![
+                ("total", Into::<Value>::into(Option::<i64>::None)),
+                ("weekly", Into::<Value>::into(Option::<i64>::None)),
+            ])]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+        let start = NaiveDate::from_ymd_opt(2026, 1, 22).unwrap();
+        let end = NaiveDate::from_ymd_opt(2026, 1, 28).unwrap();
+
+        let result = repo
+            .aggregate_overview_by_artist_id("artist-1", start, end)
+            .await
+            .unwrap();
+
+        assert_eq!(result.total, 0);
+        assert_eq!(result.weekly, 0);
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("FROM products p"), "{log}");
+        assert!(log.contains("INNER JOIN product_track pt"), "{log}");
+        assert!(log.contains("INNER JOIN plays_daily pd"), "{log}");
+        assert!(log.contains("p.artist_id = $1"), "{log}");
+    }
+
+    #[tokio::test]
+    async fn aggregate_overview_by_upc_returns_total_and_weekly_from_one_query() {
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([[row(vec![
+                ("total", Into::<Value>::into(250_i64)),
+                ("weekly", Into::<Value>::into(90_i64)),
+            ])]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+        let start = NaiveDate::from_ymd_opt(2026, 1, 22).unwrap();
+        let end = NaiveDate::from_ymd_opt(2026, 1, 28).unwrap();
+
+        let result = repo
+            .aggregate_overview_by_upc("UPC1", start, end)
+            .await
+            .unwrap();
+
+        assert_eq!(result.total, 250);
+        assert_eq!(result.weekly, 90);
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("FROM product_track pt"), "{log}");
+        assert!(log.contains("INNER JOIN plays_daily pd"), "{log}");
+        assert!(log.contains("pt.upc = $1"), "{log}");
+        assert_eq!(log.matches("SELECT").count(), 1);
     }
 }
