@@ -3,6 +3,7 @@ use std::sync::Arc;
 
 use domain::repositories::offer_user_repo::OfferUserRepository;
 use domain::repositories::offers_repo::OffersRepository;
+use shared::numeric::checked_i64_to_i32;
 
 //
 // Define the input for the usecase
@@ -48,6 +49,10 @@ impl GetOfferStatsUsecase {
             offer_user_repo,
         }
     }
+
+    fn stat_to_i32(value: i64, field: &str) -> Result<i32, anyhow::Error> {
+        checked_i64_to_i32(value, field).map_err(anyhow::Error::msg)
+    }
 }
 
 //
@@ -65,11 +70,11 @@ impl GetOfferStatsUsecaseTrait for GetOfferStatsUsecase {
             .await?;
 
         Ok(GetOfferStatsOutput {
-            total_offers: aggregate.total_offers as i32,
-            ongoing_offers: aggregate.ongoing_offers as i32,
-            applied_offers: aggregate.applied_offers as i32,
-            completed_offers: aggregate.completed_offers as i32,
-            total_earnings: aggregate.total_earnings as i32,
+            total_offers: Self::stat_to_i32(aggregate.total_offers, "total_offers")?,
+            ongoing_offers: Self::stat_to_i32(aggregate.ongoing_offers, "ongoing_offers")?,
+            applied_offers: Self::stat_to_i32(aggregate.applied_offers, "applied_offers")?,
+            completed_offers: Self::stat_to_i32(aggregate.completed_offers, "completed_offers")?,
+            total_earnings: Self::stat_to_i32(aggregate.total_earnings, "total_earnings")?,
         })
     }
 }

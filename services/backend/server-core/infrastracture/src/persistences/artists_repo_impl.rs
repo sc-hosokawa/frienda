@@ -8,6 +8,7 @@ use domain::entities::artists::{
 };
 use domain::repositories::artists_repo::ArtistsRepository;
 use shared::error::domain_err::DomainError;
+use shared::numeric::checked_u64_to_i64;
 
 #[derive(new)]
 pub struct ArtistsRepoImpl {
@@ -106,6 +107,6 @@ impl ArtistsRepository for ArtistsRepoImpl {
 
     async fn count(&self) -> Result<i64, DomainError> {
         let count: u64 = ArtistEntity::find().count(&self.db).await?;
-        Ok(count as i64)
+        checked_u64_to_i64(count, "artists_count").map_err(DomainError::UnexpectedError)
     }
 }

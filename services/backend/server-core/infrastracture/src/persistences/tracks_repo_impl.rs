@@ -7,6 +7,7 @@ use domain::entities::tracks::{
 };
 use domain::repositories::tracks_repo::{SearchTracksOptions, TracksRepository};
 use shared::error::domain_err::DomainError;
+use shared::numeric::checked_u64_to_i64;
 use tracing::info;
 
 #[derive(new)]
@@ -79,7 +80,7 @@ impl TracksRepository for TracksRepoImpl {
 
     async fn count(&self) -> Result<i64, DomainError> {
         let res: u64 = TracksEntity::find().count(&self.db).await?;
-        Ok(res as i64)
+        checked_u64_to_i64(res, "tracks_count").map_err(DomainError::UnexpectedError)
     }
 
     async fn find_all(&self) -> Result<Vec<Tracks>, DomainError> {

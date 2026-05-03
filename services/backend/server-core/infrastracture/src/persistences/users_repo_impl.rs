@@ -8,6 +8,7 @@ use domain::entities::users::{
 };
 use domain::repositories::users_repo::UsersRepository;
 use shared::error::domain_err::DomainError;
+use shared::numeric::checked_u64_to_i64;
 
 #[derive(new)]
 pub struct UsersRepoImpl {
@@ -161,7 +162,7 @@ impl UsersRepository for UsersRepoImpl {
 
     async fn count(&self) -> Result<i64, DomainError> {
         let count = UserEntity::find().count(&self.db).await?;
-        Ok(count as i64)
+        checked_u64_to_i64(count, "users_count").map_err(DomainError::UnexpectedError)
     }
 
     async fn sum_fsp(&self) -> Result<i64, DomainError> {
@@ -180,7 +181,7 @@ impl UsersRepository for UsersRepoImpl {
             .filter(Column::FcmToken.is_not_null())
             .count(&self.db)
             .await?;
-        Ok(count as i64)
+        checked_u64_to_i64(count, "mobile_app_users_count").map_err(DomainError::UnexpectedError)
     }
 
     async fn find_by_username_or_email(

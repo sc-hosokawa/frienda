@@ -268,12 +268,16 @@ impl RequestLlmUsecaseTrait for RequestLlmUsecase {
                     .plays_daily_repo
                     .find_by_isrc_and_period(&track.isrc, 7)
                     .await?;
-                println!("plays_daily: {:?}", plays_daily);
                 let plays_monthly: Vec<PlaysMonthly> = self
                     .plays_monthly_repo
                     .find_by_isrc_and_period(&track.isrc, 6)
                     .await?;
-                println!("plays_monthly: {:?}", plays_monthly);
+                tracing::debug!(
+                    "request_llm playback context loaded: isrc={}, daily_rows={}, monthly_rows={}",
+                    track.isrc,
+                    plays_daily.len(),
+                    plays_monthly.len()
+                );
 
                 let monthly_history: Vec<MonthlyPlayCountHistory> = plays_monthly
                     .iter()

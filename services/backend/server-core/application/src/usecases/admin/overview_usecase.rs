@@ -11,6 +11,7 @@ use domain::repositories::track_credits_repo::TrackCreditsRepository;
 use domain::repositories::tracks_repo::TracksRepository;
 use domain::repositories::txs_fsp_repo::TxsFspRepository;
 use domain::repositories::users_repo::UsersRepository;
+use shared::numeric::checked_i64_to_i32;
 
 pub struct OverviewOutput {
     pub total_users: i64,
@@ -75,6 +76,10 @@ impl OverviewUsecase {
             plays_monthly_repo,
         }
     }
+
+    fn count_to_i32(value: i64, field: &str) -> Result<i32, anyhow::Error> {
+        checked_i64_to_i32(value, field).map_err(anyhow::Error::msg)
+    }
 }
 
 #[async_trait]
@@ -92,7 +97,10 @@ impl OverviewUsecaseTrait for OverviewUsecase {
             total_fsp,
             total_revenue: 0,
             total_play_count,
-            mobile_app_users_count: mobile_app_users_count as i32,
+            mobile_app_users_count: Self::count_to_i32(
+                mobile_app_users_count,
+                "mobile_app_users_count",
+            )?,
         })
     }
 
@@ -143,7 +151,7 @@ impl OverviewUsecaseTrait for OverviewUsecase {
 
     async fn get_balance_mobile_app_users(&self) -> Result<i32, anyhow::Error> {
         let mobile_app_users_count = self.users_repo.count_mobile_app_users().await?;
-        Ok(mobile_app_users_count as i32)
+        Self::count_to_i32(mobile_app_users_count, "mobile_app_users_count")
     }
 
     async fn get_all_users(&self) -> Result<Vec<User>, anyhow::Error> {

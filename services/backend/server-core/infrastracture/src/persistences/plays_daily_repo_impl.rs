@@ -12,6 +12,7 @@ use domain::repositories::plays_daily_repo::{
     PlayCountTrackHistoryAggregate, PlaysDailyRepository, TrendingTrackAggregate,
 };
 use shared::error::domain_err::DomainError;
+use shared::numeric::checked_u64_to_i64;
 
 #[derive(new)]
 pub struct PlaysDailyRepoImpl {
@@ -621,7 +622,9 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
                 artist_id.into(),
                 weekly_start_date.into(),
                 end_date.into(),
-                (limit as i64).into(),
+                checked_u64_to_i64(limit, "trending_limit")
+                    .map_err(DomainError::InvalidParameter)?
+                    .into(),
             ],
         ))
         .all(&self.db)

@@ -47,7 +47,7 @@ impl PushNotificationServiceTrait for FcmNotificationService {
         };
 
         let response = self.client.send(message).await?;
-        println!("FCM response: {:?}", response);
+        tracing::debug!("FCM message sent: name={}", response.name);
 
         Ok(response.name)
     }

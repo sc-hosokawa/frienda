@@ -119,6 +119,42 @@ async fn test_get_playback_overview_by_upc_requires_upc() {
 }
 
 #[tokio::test]
+async fn test_get_playback_overview_returns_error_when_play_count_exceeds_i32() {
+    // Overview の GraphQL 向け値は i32 なので、巨大な DB aggregate を切り捨てず error にする。
+    let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
+
+    plays_daily_repo
+        .expect_mock_aggregate_overview_by_artist_id()
+        .times(1)
+        .returning(|_, _, _| {
+            Ok(OverviewPlayCountAggregate {
+                total: i64::from(i32::MAX) + 1,
+                weekly: 0,
+            })
+        });
+
+    let usecase = PlaybackOverviewUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(MockMockProductsRepo::new()),
+        Arc::new(MockMockProductTrackRepo::new()),
+    );
+
+    let error = match usecase
+        .get_playback_overview(PlaybackOverviewUsecaseInput {
+            artist_id: "artist-1".to_string(),
+            user_id: "user-1".to_string(),
+            upc: None,
+        })
+        .await
+    {
+        Ok(_) => panic!("overflow aggregate should fail"),
+        Err(error) => error,
+    };
+
+    assert!(error.to_string().contains("total_play_count"));
+}
+
+#[tokio::test]
 async fn test_get_playback_overview_returns_zero_when_aggregate_is_empty() {
     // 再生実績がない artist でも dashboard が欠落せず、0 件として表示できることを固定する。
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();

@@ -154,7 +154,11 @@ impl GetPrizeListUsecaseTrait for GetPrizeListUsecase {
             .get_by_prize_id(prize_id)
             .await?;
 
-        println!("exchange_prize_history: {:?}", exchange_prize_history);
+        tracing::debug!(
+            "prize history loaded: prize_id={}, history_count={}",
+            prize_id,
+            exchange_prize_history.len()
+        );
 
         let users_by_id: HashMap<String, User> = if exchange_prize_history.is_empty() {
             HashMap::new()
@@ -182,8 +186,6 @@ impl GetPrizeListUsecaseTrait for GetPrizeListUsecase {
                 Some(user) => user.clone(),
                 None => continue,
             };
-
-            println!("user: {:?}", user);
 
             let exchange_history = ExchangeHistory {
                 history: history.clone(),

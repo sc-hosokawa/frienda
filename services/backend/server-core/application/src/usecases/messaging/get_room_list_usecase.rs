@@ -12,6 +12,7 @@ use domain::entities::users::Model as User;
 use domain::repositories::room_user_repo::RoomUserRepository;
 use domain::repositories::rooms_repo::RoomsRepository;
 use domain::repositories::users_repo::UsersRepository;
+use shared::numeric::checked_usize_to_i32;
 
 //
 // Define the input for the usecase
@@ -75,6 +76,10 @@ impl GetRoomListUsecase {
             rooms_repo,
             users_repo,
         }
+    }
+
+    fn room_count_to_i32(value: usize) -> Result<i32, anyhow::Error> {
+        checked_usize_to_i32(value, "count_of_messages_rooms").map_err(anyhow::Error::msg)
     }
 
     async fn build_room_data(
@@ -181,7 +186,7 @@ impl GetRoomListUsecaseTrait for GetRoomListUsecase {
         let rooms: Vec<RoomUser> = self.room_user_repo.get_by_user_id(&input.user_id).await?;
         let room_data = self.build_room_data(rooms, &input.user_id).await?;
 
-        let count_of_messages_rooms: i32 = room_data.len() as i32;
+        let count_of_messages_rooms: i32 = Self::room_count_to_i32(room_data.len())?;
 
         Ok(GetRoomListOutput {
             rooms: room_data,
@@ -202,7 +207,7 @@ impl GetRoomListUsecaseTrait for GetRoomListUsecase {
         // 最大5件に制限
         room_data.truncate(5);
 
-        let count_of_messages_rooms = room_data.len() as i32;
+        let count_of_messages_rooms = Self::room_count_to_i32(room_data.len())?;
 
         Ok(GetRoomListOutput {
             rooms: room_data,

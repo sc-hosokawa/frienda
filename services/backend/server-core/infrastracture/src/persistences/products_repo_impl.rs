@@ -241,8 +241,14 @@ mod tests {
             .append_query_results([[row(vec![
                 ("product_upc", Into::<Value>::into("UPC1")),
                 ("product_title", Into::<Value>::into("Release")),
-                ("product_img_url", Into::<Value>::into(Option::<String>::None)),
-                ("product_type", Into::<Value>::into(Some("album".to_string()))),
+                (
+                    "product_img_url",
+                    Into::<Value>::into(Option::<String>::None),
+                ),
+                (
+                    "product_type",
+                    Into::<Value>::into(Some("album".to_string())),
+                ),
                 ("product_distributed_at", Into::<Value>::into(Some(date))),
                 (
                     "product_artist_id",
@@ -251,7 +257,10 @@ mod tests {
                 ("track_isrc", Into::<Value>::into(Option::<String>::None)),
                 ("track_img_url", Into::<Value>::into(Option::<String>::None)),
                 ("track_title", Into::<Value>::into(Option::<String>::None)),
-                ("track_artist_id", Into::<Value>::into(Option::<String>::None)),
+                (
+                    "track_artist_id",
+                    Into::<Value>::into(Option::<String>::None),
+                ),
             ])]])
             .into_connection();
         let repo = ProductsRepoImpl::new(db);
@@ -268,11 +277,20 @@ mod tests {
 
         let log = format!("{:?}", repo.db.into_transaction_log());
         assert!(log.contains("FROM products p"), "{log}");
-        assert!(log.contains("LEFT JOIN product_track pt ON pt.upc = p.upc"), "{log}");
-        assert!(log.contains("LEFT JOIN tracks t ON t.isrc = pt.isrc"), "{log}");
+        assert!(
+            log.contains("LEFT JOIN product_track pt ON pt.upc = p.upc"),
+            "{log}"
+        );
+        assert!(
+            log.contains("LEFT JOIN tracks t ON t.isrc = pt.isrc"),
+            "{log}"
+        );
         assert!(log.contains("WHERE p.artist_id = $1"), "{log}");
         assert!(log.contains("artist-1"), "{log}");
-        assert!(log.contains("ORDER BY p.distributed_at DESC NULLS LAST"), "{log}");
+        assert!(
+            log.contains("ORDER BY p.distributed_at DESC NULLS LAST"),
+            "{log}"
+        );
         assert!(log.contains("pt.track_no ASC NULLS LAST"), "{log}");
         assert!(log.contains("pt.id ASC"), "{log}");
         assert_eq!(log.matches("SELECT").count(), 1);

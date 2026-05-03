@@ -208,6 +208,129 @@ async fn test_get_trending_by_upc_preserves_track_number_order() {
 }
 
 #[tokio::test]
+async fn test_get_trending_by_upc_returns_error_when_product_is_missing() {
+    // UPC が存在しない場合は unwrap panic ではなく、呼び出し元へ明示的な error を返すことを固定する。
+    let plays_daily_repo = MockMockPlaysDailyRepo::new();
+    let mut products_repo = MockMockProductsRepo::new();
+    let tracks_repo = MockMockTracksRepo::new();
+    let product_track_repo = MockMockProductTrackRepo::new();
+    let artists_repo = MockMockArtistsRepo::new();
+
+    products_repo
+        .expect_mock_get_by_upc()
+        .times(1)
+        .returning(|_| Ok(None));
+
+    let usecase = GetTrendingUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(products_repo),
+        Arc::new(tracks_repo),
+        Arc::new(product_track_repo),
+        Arc::new(artists_repo),
+    );
+
+    let error = match usecase
+        .get_trending_by_upc(GetTrendingByUpcUsecaseInput {
+            user_id: "user-1".to_string(),
+            upc: "MISSING".to_string(),
+        })
+        .await
+    {
+        Ok(_) => panic!("missing product should fail"),
+        Err(error) => error,
+    };
+
+    assert!(error.to_string().contains("Product not found"));
+}
+
+#[tokio::test]
+async fn test_get_trending_by_upc_returns_error_when_artist_is_missing() {
+    // product は存在しても artist metadata が欠ける場合は panic せず、明示的な error にする。
+    let plays_daily_repo = MockMockPlaysDailyRepo::new();
+    let mut products_repo = MockMockProductsRepo::new();
+    let tracks_repo = MockMockTracksRepo::new();
+    let product_track_repo = MockMockProductTrackRepo::new();
+    let mut artists_repo = MockMockArtistsRepo::new();
+
+    products_repo
+        .expect_mock_get_by_upc()
+        .times(1)
+        .returning(|_| {
+            Ok(Some(Product {
+                upc: "UPC1".to_string(),
+                title: "Release".to_string(),
+                img_url: None,
+                r#type: Some("single".to_string()),
+                distributed_at: None,
+                artist_id: Some("missing-artist".to_string()),
+            }))
+        });
+    artists_repo
+        .expect_mock_find_by_id()
+        .times(1)
+        .returning(|_| Ok(None));
+
+    let usecase = GetTrendingUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(products_repo),
+        Arc::new(tracks_repo),
+        Arc::new(product_track_repo),
+        Arc::new(artists_repo),
+    );
+
+    let error = match usecase
+        .get_trending_by_upc(GetTrendingByUpcUsecaseInput {
+            user_id: "user-1".to_string(),
+            upc: "UPC1".to_string(),
+        })
+        .await
+    {
+        Ok(_) => panic!("missing artist should fail"),
+        Err(error) => error,
+    };
+
+    assert!(error.to_string().contains("Artist not found"));
+}
+
+#[tokio::test]
+async fn test_get_trending_returns_error_when_play_count_exceeds_i32() {
+    // UI DTO は i32 のため、DB aggregate が i32 を超える場合に truncate しないことを固定する。
+    let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
+
+    plays_daily_repo
+        .expect_mock_aggregate_trending_by_artist_id()
+        .times(1)
+        .returning(|_, _, _, _| {
+            Ok(vec![TrendingTrackAggregate {
+                isrc: "ISRC1".to_string(),
+                total: i64::from(i32::MAX) + 1,
+                ..Default::default()
+            }])
+        });
+
+    let usecase = GetTrendingUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(MockMockProductsRepo::new()),
+        Arc::new(MockMockTracksRepo::new()),
+        Arc::new(MockMockProductTrackRepo::new()),
+        Arc::new(MockMockArtistsRepo::new()),
+    );
+
+    let error = match usecase
+        .get_trending(GetTrendingUsecaseInput {
+            artist_id: "artist-1".to_string(),
+            user_id: "user-1".to_string(),
+        })
+        .await
+    {
+        Ok(_) => panic!("overflow aggregate should fail"),
+        Err(error) => error,
+    };
+
+    assert!(error.to_string().contains("total_play_count"));
+}
+
+#[tokio::test]
 async fn test_get_trending_returns_empty_when_aggregate_has_no_tracks() {
     // 再生実績がない artist は空 trending として返し、古い複数 repo read へ戻らないことを固定する。
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();

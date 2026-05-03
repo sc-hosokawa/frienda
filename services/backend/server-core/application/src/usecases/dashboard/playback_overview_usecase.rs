@@ -1,10 +1,11 @@
 use async_trait::async_trait;
-use chrono::{Duration, FixedOffset, Utc};
 use std::sync::Arc;
 
+use crate::usecases::dashboard::date_window::recent_data_excluded_window;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
 use domain::repositories::product_track_repo::ProductTrackRepository;
 use domain::repositories::products_repo::ProductsRepository;
+use shared::numeric::checked_i64_to_i32;
 
 pub struct PlaybackOverviewUsecaseInput {
     pub artist_id: String,
@@ -42,9 +43,8 @@ impl PlaybackOverviewUsecase {
         Self { plays_daily_repo }
     }
 
-    fn today_jst() -> chrono::NaiveDate {
-        let jst = FixedOffset::east_opt(9 * 3600).unwrap();
-        Utc::now().with_timezone(&jst).date_naive()
+    fn count_to_i32(value: i64, field: &str) -> Result<i32, anyhow::Error> {
+        checked_i64_to_i32(value, field).map_err(anyhow::Error::msg)
     }
 }
 
@@ -54,17 +54,15 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         &self,
         input: PlaybackOverviewUsecaseInput,
     ) -> Result<PlaybackOverviewUsecaseOutput, anyhow::Error> {
-        let today_jst = Self::today_jst();
-        let weekly_start_date = today_jst - Duration::days(9);
-        let end_date = today_jst - Duration::days(3);
+        let (weekly_start_date, end_date) = recent_data_excluded_window();
         let aggregate = self
             .plays_daily_repo
             .aggregate_overview_by_artist_id(&input.artist_id, weekly_start_date, end_date)
             .await?;
 
         Ok(PlaybackOverviewUsecaseOutput {
-            total_play_count: aggregate.total as i32,
-            weekly_play_count: aggregate.weekly as i32,
+            total_play_count: Self::count_to_i32(aggregate.total, "total_play_count")?,
+            weekly_play_count: Self::count_to_i32(aggregate.weekly, "weekly_play_count")?,
         })
     }
 
@@ -73,17 +71,15 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         input: PlaybackOverviewUsecaseInput,
     ) -> Result<PlaybackOverviewUsecaseOutput, anyhow::Error> {
         if let Some(upc) = input.upc {
-            let today_jst = Self::today_jst();
-            let weekly_start_date = today_jst - Duration::days(9);
-            let end_date = today_jst - Duration::days(3);
+            let (weekly_start_date, end_date) = recent_data_excluded_window();
             let aggregate = self
                 .plays_daily_repo
                 .aggregate_overview_by_upc(&upc, weekly_start_date, end_date)
                 .await?;
 
             Ok(PlaybackOverviewUsecaseOutput {
-                total_play_count: aggregate.total as i32,
-                weekly_play_count: aggregate.weekly as i32,
+                total_play_count: Self::count_to_i32(aggregate.total, "total_play_count")?,
+                weekly_play_count: Self::count_to_i32(aggregate.weekly, "weekly_play_count")?,
             })
         } else {
             Err(anyhow::anyhow!("UPC is required"))

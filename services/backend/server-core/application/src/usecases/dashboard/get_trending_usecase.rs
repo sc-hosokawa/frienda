@@ -1,7 +1,7 @@
 use async_trait::async_trait;
-use chrono::Duration;
 use std::sync::Arc;
 
+use crate::usecases::dashboard::date_window::recent_data_excluded_window;
 use domain::entities::products::Model as Products;
 
 use domain::repositories::artists_repo::ArtistsRepository;
@@ -9,6 +9,7 @@ use domain::repositories::plays_daily_repo::{PlaysDailyRepository, TrendingTrack
 use domain::repositories::product_track_repo::ProductTrackRepository;
 use domain::repositories::products_repo::ProductsRepository;
 use domain::repositories::tracks_repo::TracksRepository;
+use shared::numeric::checked_i64_to_i32;
 
 pub struct GetTrendingUsecaseInput {
     pub artist_id: String,
@@ -82,34 +83,65 @@ impl GetTrendingUsecase {
         }
     }
 
-    fn today_jst() -> chrono::NaiveDate {
-        let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
-        chrono::Utc::now().with_timezone(&jst).date_naive()
+    fn aggregate_count_to_i32(value: i64, field: &str) -> Result<i32, anyhow::Error> {
+        checked_i64_to_i32(value, field).map_err(anyhow::Error::msg)
     }
 
-    fn trend_track_from_aggregate(aggregate: TrendingTrackAggregate) -> TrendTrack {
-        TrendTrack {
+    fn trend_track_from_aggregate(
+        aggregate: TrendingTrackAggregate,
+    ) -> Result<TrendTrack, anyhow::Error> {
+        Ok(TrendTrack {
             isrc: aggregate.isrc,
             track_title: aggregate.track_title,
             upc_title: aggregate.upc_title,
             image_url: aggregate.image_url,
-            total_play_count: aggregate.total as i32,
-            weekly_play_count: aggregate.weekly as i32,
+            total_play_count: Self::aggregate_count_to_i32(aggregate.total, "total_play_count")?,
+            weekly_play_count: Self::aggregate_count_to_i32(aggregate.weekly, "weekly_play_count")?,
             total_play_count_details: PlayCountDetails {
-                spotify: aggregate.total_spotify as i32,
-                apple: aggregate.total_apple as i32,
-                line: aggregate.total_line as i32,
-                amazon: aggregate.total_amazon as i32,
-                youtube: aggregate.total_youtube as i32,
+                spotify: Self::aggregate_count_to_i32(
+                    aggregate.total_spotify,
+                    "total_play_count_details.spotify",
+                )?,
+                apple: Self::aggregate_count_to_i32(
+                    aggregate.total_apple,
+                    "total_play_count_details.apple",
+                )?,
+                line: Self::aggregate_count_to_i32(
+                    aggregate.total_line,
+                    "total_play_count_details.line",
+                )?,
+                amazon: Self::aggregate_count_to_i32(
+                    aggregate.total_amazon,
+                    "total_play_count_details.amazon",
+                )?,
+                youtube: Self::aggregate_count_to_i32(
+                    aggregate.total_youtube,
+                    "total_play_count_details.youtube",
+                )?,
             },
             weekly_play_count_details: PlayCountDetails {
-                spotify: aggregate.weekly_spotify as i32,
-                apple: aggregate.weekly_apple as i32,
-                line: aggregate.weekly_line as i32,
-                amazon: aggregate.weekly_amazon as i32,
-                youtube: aggregate.weekly_youtube as i32,
+                spotify: Self::aggregate_count_to_i32(
+                    aggregate.weekly_spotify,
+                    "weekly_play_count_details.spotify",
+                )?,
+                apple: Self::aggregate_count_to_i32(
+                    aggregate.weekly_apple,
+                    "weekly_play_count_details.apple",
+                )?,
+                line: Self::aggregate_count_to_i32(
+                    aggregate.weekly_line,
+                    "weekly_play_count_details.line",
+                )?,
+                amazon: Self::aggregate_count_to_i32(
+                    aggregate.weekly_amazon,
+                    "weekly_play_count_details.amazon",
+                )?,
+                youtube: Self::aggregate_count_to_i32(
+                    aggregate.weekly_youtube,
+                    "weekly_play_count_details.youtube",
+                )?,
             },
-        }
+        })
     }
 }
 
@@ -119,16 +151,14 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         &self,
         input: GetTrendingUsecaseInput,
     ) -> Result<GetTrendingUsecaseOutput, anyhow::Error> {
-        let today_jst = Self::today_jst();
-        let start_date = today_jst - Duration::days(9);
-        let end_date = today_jst - Duration::days(3);
+        let (start_date, end_date) = recent_data_excluded_window();
         let trending = self
             .plays_daily_repo
             .aggregate_trending_by_artist_id(&input.artist_id, start_date, end_date, 5)
             .await?
             .into_iter()
             .map(Self::trend_track_from_aggregate)
-            .collect();
+            .collect::<Result<Vec<_>, _>>()?;
 
         Ok(GetTrendingUsecaseOutput { trending })
     }
@@ -137,23 +167,30 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         &self,
         input: GetTrendingByUpcUsecaseInput,
     ) -> Result<GetTrendingByUpcUsecaseOutput, anyhow::Error> {
-        let product: Option<Products> = self.products_repo.get_by_upc(&input.upc).await?;
-        let artist_id: String = product.clone().unwrap().artist_id.unwrap();
+        let product: Products = self
+            .products_repo
+            .get_by_upc(&input.upc)
+            .await?
+            .ok_or_else(|| anyhow::anyhow!("Product not found"))?;
+        let artist_id: String = product
+            .artist_id
+            .clone()
+            .ok_or_else(|| anyhow::anyhow!("Product artist_id not found"))?;
         let artist = self.artists_repo.find_by_id(&artist_id).await?;
-        let artist_name: String = artist.unwrap().display_name_jp;
-        let product_img_url: Option<String> = product.clone().unwrap().img_url;
-        let product_title: String = product.clone().unwrap().title;
+        let artist_name: String = artist
+            .ok_or_else(|| anyhow::anyhow!("Artist not found"))?
+            .display_name_jp;
+        let product_img_url: Option<String> = product.img_url;
+        let product_title: String = product.title;
 
-        let today_jst = Self::today_jst();
-        let start_date = today_jst - Duration::days(9);
-        let end_date = today_jst - Duration::days(3);
+        let (start_date, end_date) = recent_data_excluded_window();
         let trending = self
             .plays_daily_repo
             .aggregate_trending_by_upc(&input.upc, start_date, end_date)
             .await?
             .into_iter()
             .map(Self::trend_track_from_aggregate)
-            .collect();
+            .collect::<Result<Vec<_>, _>>()?;
 
         Ok(GetTrendingByUpcUsecaseOutput {
             artist_name,

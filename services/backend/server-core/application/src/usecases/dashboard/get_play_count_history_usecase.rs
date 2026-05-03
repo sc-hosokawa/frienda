@@ -11,6 +11,7 @@ use domain::repositories::plays_daily_repo::{
 use domain::repositories::product_track_repo::ProductTrackRepository;
 use domain::repositories::products_repo::ProductsRepository;
 use domain::repositories::tracks_repo::TracksRepository;
+use shared::numeric::checked_i64_to_i32;
 
 pub struct GetAllHistroyUsecaseInput {
     pub artist_id: String,
@@ -128,36 +129,48 @@ impl GetPlayCountHistoryUsecase {
         }
     }
 
-    fn chart_data_by_dsp(aggregates: Vec<PlayCountDspHistoryAggregate>) -> Vec<ChartDataByDSP> {
+    fn aggregate_count_to_i32(value: i64, field: &str) -> Result<i32, anyhow::Error> {
+        checked_i64_to_i32(value, field).map_err(anyhow::Error::msg)
+    }
+
+    fn chart_data_by_dsp(
+        aggregates: Vec<PlayCountDspHistoryAggregate>,
+    ) -> Result<Vec<ChartDataByDSP>, anyhow::Error> {
         aggregates
             .into_iter()
-            .map(|aggregate| ChartDataByDSP {
-                date: aggregate.date,
-                spotify: aggregate.spotify as i32,
-                apple: aggregate.apple as i32,
-                line: aggregate.line as i32,
-                amazon: aggregate.amazon as i32,
-                youtube: aggregate.youtube as i32,
+            .map(|aggregate| {
+                Ok(ChartDataByDSP {
+                    date: aggregate.date,
+                    spotify: Self::aggregate_count_to_i32(aggregate.spotify, "spotify")?,
+                    apple: Self::aggregate_count_to_i32(aggregate.apple, "apple")?,
+                    line: Self::aggregate_count_to_i32(aggregate.line, "line")?,
+                    amazon: Self::aggregate_count_to_i32(aggregate.amazon, "amazon")?,
+                    youtube: Self::aggregate_count_to_i32(aggregate.youtube, "youtube")?,
+                })
             })
             .collect()
     }
 
     fn chart_data_by_track(
         aggregates: Vec<PlayCountTrackHistoryAggregate>,
-    ) -> Vec<ChartDataByISRC> {
+    ) -> Result<Vec<ChartDataByISRC>, anyhow::Error> {
         let mut merged: BTreeMap<String, HashMap<String, i32>> = BTreeMap::new();
         for aggregate in aggregates {
-            *merged
+            let total = Self::aggregate_count_to_i32(aggregate.total, "track_count")?;
+            let current = merged
                 .entry(aggregate.date)
                 .or_default()
                 .entry(aggregate.track_title)
-                .or_insert(0) += aggregate.total as i32;
+                .or_insert(0);
+            *current = current
+                .checked_add(total)
+                .ok_or_else(|| anyhow::anyhow!("track_count is outside i32 range"))?;
         }
 
-        merged
+        Ok(merged
             .into_iter()
             .map(|(date, track_count)| ChartDataByISRC { date, track_count })
-            .collect()
+            .collect())
     }
 }
 
@@ -190,20 +203,20 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 .plays_daily_repo
                 .aggregate_daily_dsp_history_by_isrcs(isrcs, start, end)
                 .await?;
-            Self::chart_data_by_dsp(aggregates)
+            Self::chart_data_by_dsp(aggregates)?
         } else if input.period == 12 || input.period == 36 {
             let (start, end) = Self::monthly_range(input.period)?;
             let aggregates = self
                 .plays_daily_repo
                 .aggregate_monthly_dsp_history_by_isrcs(isrcs, Some(start), Some(end))
                 .await?;
-            Self::chart_data_by_dsp(aggregates)
+            Self::chart_data_by_dsp(aggregates)?
         } else {
             let aggregates = self
                 .plays_daily_repo
                 .aggregate_monthly_dsp_history_by_isrcs(isrcs, None, None)
                 .await?;
-            Self::chart_data_by_dsp(aggregates)
+            Self::chart_data_by_dsp(aggregates)?
         };
 
         Ok(GetAllHistoryUsecaseOutput { chart_data })
@@ -227,20 +240,20 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 .plays_daily_repo
                 .aggregate_daily_track_history_by_isrcs(isrcs, start, end)
                 .await?;
-            Self::chart_data_by_track(aggregates)
+            Self::chart_data_by_track(aggregates)?
         } else if input.period == 12 || input.period == 36 {
             let (start, end) = Self::monthly_range(input.period)?;
             let aggregates = self
                 .plays_daily_repo
                 .aggregate_monthly_track_history_by_isrcs(isrcs, Some(start), Some(end))
                 .await?;
-            Self::chart_data_by_track(aggregates)
+            Self::chart_data_by_track(aggregates)?
         } else {
             let aggregates = self
                 .plays_daily_repo
                 .aggregate_monthly_track_history_by_isrcs(isrcs, None, None)
                 .await?;
-            Self::chart_data_by_track(aggregates)
+            Self::chart_data_by_track(aggregates)?
         };
 
         Ok(GetUPCHistoryUsecaseOutput { chart_data })
@@ -259,20 +272,20 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 .plays_daily_repo
                 .aggregate_daily_dsp_history_by_isrcs(isrcs, start, end)
                 .await?;
-            Self::chart_data_by_dsp(aggregates)
+            Self::chart_data_by_dsp(aggregates)?
         } else if input.period == 12 || input.period == 36 {
             let (start, end) = Self::monthly_range(input.period)?;
             let aggregates = self
                 .plays_daily_repo
                 .aggregate_monthly_dsp_history_by_isrcs(isrcs, Some(start), Some(end))
                 .await?;
-            Self::chart_data_by_dsp(aggregates)
+            Self::chart_data_by_dsp(aggregates)?
         } else {
             let aggregates = self
                 .plays_daily_repo
                 .aggregate_monthly_dsp_history_by_isrcs(isrcs, None, None)
                 .await?;
-            Self::chart_data_by_dsp(aggregates)
+            Self::chart_data_by_dsp(aggregates)?
         };
 
         Ok(GetISRCHistoryUsecaseOutput { chart_data })

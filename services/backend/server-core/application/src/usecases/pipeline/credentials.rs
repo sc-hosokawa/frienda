@@ -6,6 +6,7 @@ use std::sync::Arc;
 use crate::services::onchain_fetcher::{CredentialBalance, OnchainFetcherServiceTrait};
 use domain::entities::users::{ActiveModel as UsersActiveModel, Model as Users};
 use domain::repositories::users_repo::UsersRepository;
+use shared::numeric::checked_i64_to_i32;
 
 #[async_trait]
 pub trait CredentialsUsecaseTrait: Send + Sync {
@@ -54,7 +55,10 @@ impl CredentialsUsecaseTrait for CredentialsUsecase {
             let balance: &i64 = user_balances.get(&user.evm_addr.unwrap()).unwrap_or(&0);
             let user: UsersActiveModel = UsersActiveModel {
                 id: ActiveValue::Set(user.id),
-                credential: ActiveValue::Set(*balance as i32),
+                credential: ActiveValue::Set(
+                    checked_i64_to_i32(*balance, "credential_balance")
+                        .map_err(anyhow::Error::msg)?,
+                ),
                 ..Default::default()
             };
             users_active_models.push(user);
