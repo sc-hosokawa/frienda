@@ -1,4 +1,4 @@
-.PHONY: setup-gql gql-webui gql-mobile api-dev api webui-client-dev webui-admin-dev mobile-dev update-entities update-models run-pg down-pg stop-pg
+.PHONY: setup-gql gql-webui gql-mobile api-dev api webui-client-dev webui-admin-dev mobile-dev update-entities update-models run-pg down-pg stop-pg graphql-response-diff graphql-response-capture
 
 # GraphQL Schema
 setup-gql: copy-schema .WAIT gql-webui gql-mobile
@@ -12,6 +12,12 @@ gql-webui:
 
 gql-mobile:
 	cd services/mobile && flutter pub run build_runner build --delete-conflicting-outputs 
+
+graphql-response-diff:
+	./scripts/graphql-response-diff.sh
+
+graphql-response-capture:
+	GRAPHQL_DIFF_MODE=capture ./scripts/graphql-response-diff.sh
 
 # Postgres
 run-pg:

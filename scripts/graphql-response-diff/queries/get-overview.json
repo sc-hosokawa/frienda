@@ -1,0 +1,10 @@
+{
+  "description": "Dashboard artist overview.",
+  "requiredVariables": [
+    { "field": "artistId", "type": "String!", "sourceEnv": "ARTIST_ID" },
+    { "field": "userId", "type": "String!", "sourceEnv": "USER_ID" }
+  ],
+  "operationName": "GetOverview",
+  "query": "query GetOverview($artistId: String!, $userId: String!) { getOverview(artistId: $artistId, userId: $userId) { totalPlaybacks weeklyPlaybacks } }",
+  "variables": {}
+}
