@@ -61,6 +61,8 @@ resource "google_sql_database_instance" "main" {
     }
   }
   deletion_protection = false // Disabled for test environment
+
+  depends_on = [google_service_networking_connection.default]
 }
 
 resource "google_sql_database" "frienda_db" {
@@ -146,5 +148,63 @@ resource "google_storage_bucket" "general_file_storage" {
     action {
       type = "Delete"
     }
+  }
+}
+
+// ======= DB Jump Host (Compute Engine) =======
+
+resource "google_service_account" "db_jump_host_sa" {
+  account_id   = "db-jump-host-sa"
+  display_name = "Service Account for DB Jump Host"
+}
+
+resource "google_project_iam_member" "db_jump_host_sql_client" {
+  project = var.project_id
+  role    = "roles/cloudsql.client"
+  member  = "serviceAccount:${google_service_account.db_jump_host_sa.email}"
+}
+
+resource "google_compute_firewall" "allow_ssh_iap" {
+  name    = "allow-ssh-iap"
+  network = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["35.235.240.0/20"]
+  target_service_accounts = [google_service_account.db_jump_host_sa.email]
+}
+
+resource "google_compute_instance" "db_jump_host" {
+  name         = "db-jump-host"
+  machine_type = "e2-micro"
+  zone         = "${var.region}-a"
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-12"
+    }
+  }
+
+  network_interface {
+    network = google_compute_network.vpc_network.name
+    // No access_config block means no public IP
+  }
+
+  service_account {
+    email  = google_service_account.db_jump_host_sa.email
+    scopes = ["cloud-platform"]
+  }
+
+  metadata_startup_script = <<-EOT
+    #!/bin/bash
+    apt-get update
+    apt-get install -y postgresql-client
+  EOT
+
+  lifecycle {
+    ignore_changes = [metadata_startup_script]
   }
 }
