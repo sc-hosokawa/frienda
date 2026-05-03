@@ -20,6 +20,26 @@ pub struct OverviewPlayCountAggregate {
     pub weekly: i64,
 }
 
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct TrendingTrackAggregate {
+    pub isrc: String,
+    pub track_title: Option<String>,
+    pub upc_title: Option<String>,
+    pub image_url: Option<String>,
+    pub total: i64,
+    pub weekly: i64,
+    pub total_spotify: i64,
+    pub total_apple: i64,
+    pub total_line: i64,
+    pub total_amazon: i64,
+    pub total_youtube: i64,
+    pub weekly_spotify: i64,
+    pub weekly_apple: i64,
+    pub weekly_line: i64,
+    pub weekly_amazon: i64,
+    pub weekly_youtube: i64,
+}
+
 #[async_trait]
 pub trait PlaysDailyRepository: Send + Sync {
     async fn create(&self, plays_daily: PlaysDailyActiveModel) -> Result<PlaysDaily, DomainError>;
@@ -81,4 +101,17 @@ pub trait PlaysDailyRepository: Send + Sync {
         weekly_start_date: Date,
         end_date: Date,
     ) -> Result<OverviewPlayCountAggregate, DomainError>;
+    async fn aggregate_trending_by_artist_id(
+        &self,
+        artist_id: &str,
+        weekly_start_date: Date,
+        end_date: Date,
+        limit: u64,
+    ) -> Result<Vec<TrendingTrackAggregate>, DomainError>;
+    async fn aggregate_trending_by_upc(
+        &self,
+        upc: &str,
+        weekly_start_date: Date,
+        end_date: Date,
+    ) -> Result<Vec<TrendingTrackAggregate>, DomainError>;
 }

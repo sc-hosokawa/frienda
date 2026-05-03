@@ -7,7 +7,7 @@ use domain::entities::plays_daily::{
     ActiveModel as PlaysDailyActiveModel, Column, Entity as PlaysDailyEntity, Model as PlaysDaily,
 };
 use domain::repositories::plays_daily_repo::{
-    OverviewPlayCountAggregate, PlayCountAggregate, PlaysDailyRepository,
+    OverviewPlayCountAggregate, PlayCountAggregate, PlaysDailyRepository, TrendingTrackAggregate,
 };
 use shared::error::domain_err::DomainError;
 
@@ -33,12 +33,55 @@ struct OverviewPlayCountAggregateRow {
     weekly: Option<i64>,
 }
 
+#[derive(Debug, Default, FromQueryResult)]
+struct TrendingTrackAggregateRow {
+    isrc: Option<String>,
+    track_title: Option<String>,
+    upc_title: Option<String>,
+    image_url: Option<String>,
+    total: Option<i64>,
+    weekly: Option<i64>,
+    total_spotify: Option<i64>,
+    total_apple: Option<i64>,
+    total_line: Option<i64>,
+    total_amazon: Option<i64>,
+    total_youtube: Option<i64>,
+    weekly_spotify: Option<i64>,
+    weekly_apple: Option<i64>,
+    weekly_line: Option<i64>,
+    weekly_amazon: Option<i64>,
+    weekly_youtube: Option<i64>,
+}
+
 impl OverviewPlayCountAggregateRow {
     fn into_aggregate(self) -> OverviewPlayCountAggregate {
         OverviewPlayCountAggregate {
             total: self.total.unwrap_or(0),
             weekly: self.weekly.unwrap_or(0),
         }
+    }
+}
+
+impl TrendingTrackAggregateRow {
+    fn into_aggregate(self) -> Option<TrendingTrackAggregate> {
+        self.isrc.map(|isrc| TrendingTrackAggregate {
+            isrc,
+            track_title: self.track_title,
+            upc_title: self.upc_title,
+            image_url: self.image_url,
+            total: self.total.unwrap_or(0),
+            weekly: self.weekly.unwrap_or(0),
+            total_spotify: self.total_spotify.unwrap_or(0),
+            total_apple: self.total_apple.unwrap_or(0),
+            total_line: self.total_line.unwrap_or(0),
+            total_amazon: self.total_amazon.unwrap_or(0),
+            total_youtube: self.total_youtube.unwrap_or(0),
+            weekly_spotify: self.weekly_spotify.unwrap_or(0),
+            weekly_apple: self.weekly_apple.unwrap_or(0),
+            weekly_line: self.weekly_line.unwrap_or(0),
+            weekly_amazon: self.weekly_amazon.unwrap_or(0),
+            weekly_youtube: self.weekly_youtube.unwrap_or(0),
+        })
     }
 }
 
@@ -396,6 +439,161 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
 
         Ok(row.unwrap_or_default().into_aggregate())
     }
+
+    async fn aggregate_trending_by_artist_id(
+        &self,
+        artist_id: &str,
+        weekly_start_date: sea_orm::prelude::Date,
+        end_date: sea_orm::prelude::Date,
+        limit: u64,
+    ) -> Result<Vec<TrendingTrackAggregate>, DomainError> {
+        let rows = TrendingTrackAggregateRow::find_by_statement(Statement::from_sql_and_values(
+            DbBackend::Postgres,
+            r#"
+            WITH artist_tracks AS (
+                SELECT DISTINCT ON (pt.isrc)
+                    pt.isrc,
+                    t.title AS track_title,
+                    p.title AS upc_title,
+                    p.img_url AS image_url,
+                    pt.id AS product_track_id
+                FROM products p
+                INNER JOIN product_track pt ON pt.upc = p.upc
+                INNER JOIN tracks t ON t.isrc = pt.isrc
+                WHERE p.artist_id = $1
+                ORDER BY pt.isrc, pt.id ASC
+            ),
+            play_counts AS (
+                SELECT
+                    pd.isrc,
+                    COALESCE(SUM(COALESCE(pd."sum", 0)), 0)::BIGINT AS total,
+                    COALESCE(SUM(
+                        CASE WHEN pd."date" >= $2 THEN COALESCE(pd."sum", 0) ELSE 0 END
+                    ), 0)::BIGINT AS weekly,
+                    COALESCE(SUM(COALESCE(pd.spotify, 0)), 0)::BIGINT AS total_spotify,
+                    COALESCE(SUM(COALESCE(pd.apple, 0)), 0)::BIGINT AS total_apple,
+                    COALESCE(SUM(COALESCE(pd.line, 0)), 0)::BIGINT AS total_line,
+                    COALESCE(SUM(COALESCE(pd.amazon, 0)), 0)::BIGINT AS total_amazon,
+                    COALESCE(SUM(COALESCE(pd.youtube, 0)), 0)::BIGINT AS total_youtube,
+                    COALESCE(SUM(
+                        CASE WHEN pd."date" >= $2 THEN COALESCE(pd.spotify, 0) ELSE 0 END
+                    ), 0)::BIGINT AS weekly_spotify,
+                    COALESCE(SUM(
+                        CASE WHEN pd."date" >= $2 THEN COALESCE(pd.apple, 0) ELSE 0 END
+                    ), 0)::BIGINT AS weekly_apple,
+                    COALESCE(SUM(
+                        CASE WHEN pd."date" >= $2 THEN COALESCE(pd.line, 0) ELSE 0 END
+                    ), 0)::BIGINT AS weekly_line,
+                    COALESCE(SUM(
+                        CASE WHEN pd."date" >= $2 THEN COALESCE(pd.amazon, 0) ELSE 0 END
+                    ), 0)::BIGINT AS weekly_amazon,
+                    COALESCE(SUM(
+                        CASE WHEN pd."date" >= $2 THEN COALESCE(pd.youtube, 0) ELSE 0 END
+                    ), 0)::BIGINT AS weekly_youtube
+                FROM plays_daily pd
+                INNER JOIN artist_tracks atr ON atr.isrc = pd.isrc
+                WHERE pd.isrc IS NOT NULL
+                    AND pd."date" IS NOT NULL
+                    AND pd."date" <= $3
+                GROUP BY pd.isrc
+            )
+            SELECT
+                atr.isrc,
+                atr.track_title,
+                atr.upc_title,
+                atr.image_url,
+                pc.total,
+                pc.weekly,
+                pc.total_spotify,
+                pc.total_apple,
+                pc.total_line,
+                pc.total_amazon,
+                pc.total_youtube,
+                pc.weekly_spotify,
+                pc.weekly_apple,
+                pc.weekly_line,
+                pc.weekly_amazon,
+                pc.weekly_youtube
+            FROM artist_tracks atr
+            INNER JOIN play_counts pc ON pc.isrc = atr.isrc
+            ORDER BY pc.total DESC, atr.isrc ASC
+            LIMIT $4
+            "#,
+            vec![
+                artist_id.into(),
+                weekly_start_date.into(),
+                end_date.into(),
+                (limit as i64).into(),
+            ],
+        ))
+        .all(&self.db)
+        .await?;
+
+        Ok(rows
+            .into_iter()
+            .filter_map(TrendingTrackAggregateRow::into_aggregate)
+            .collect())
+    }
+
+    async fn aggregate_trending_by_upc(
+        &self,
+        upc: &str,
+        weekly_start_date: sea_orm::prelude::Date,
+        end_date: sea_orm::prelude::Date,
+    ) -> Result<Vec<TrendingTrackAggregate>, DomainError> {
+        let rows = TrendingTrackAggregateRow::find_by_statement(Statement::from_sql_and_values(
+            DbBackend::Postgres,
+            r#"
+            SELECT
+                pt.isrc,
+                t.title AS track_title,
+                NULL::VARCHAR AS upc_title,
+                NULL::VARCHAR AS image_url,
+                COALESCE(SUM(COALESCE(pd."sum", 0)), 0)::BIGINT AS total,
+                COALESCE(SUM(
+                    CASE WHEN pd."date" >= $2 THEN COALESCE(pd."sum", 0) ELSE 0 END
+                ), 0)::BIGINT AS weekly,
+                COALESCE(SUM(COALESCE(pd.spotify, 0)), 0)::BIGINT AS total_spotify,
+                COALESCE(SUM(COALESCE(pd.apple, 0)), 0)::BIGINT AS total_apple,
+                COALESCE(SUM(COALESCE(pd.line, 0)), 0)::BIGINT AS total_line,
+                COALESCE(SUM(COALESCE(pd.amazon, 0)), 0)::BIGINT AS total_amazon,
+                COALESCE(SUM(COALESCE(pd.youtube, 0)), 0)::BIGINT AS total_youtube,
+                COALESCE(SUM(
+                    CASE WHEN pd."date" >= $2 THEN COALESCE(pd.spotify, 0) ELSE 0 END
+                ), 0)::BIGINT AS weekly_spotify,
+                COALESCE(SUM(
+                    CASE WHEN pd."date" >= $2 THEN COALESCE(pd.apple, 0) ELSE 0 END
+                ), 0)::BIGINT AS weekly_apple,
+                COALESCE(SUM(
+                    CASE WHEN pd."date" >= $2 THEN COALESCE(pd.line, 0) ELSE 0 END
+                ), 0)::BIGINT AS weekly_line,
+                COALESCE(SUM(
+                    CASE WHEN pd."date" >= $2 THEN COALESCE(pd.amazon, 0) ELSE 0 END
+                ), 0)::BIGINT AS weekly_amazon,
+                COALESCE(SUM(
+                    CASE WHEN pd."date" >= $2 THEN COALESCE(pd.youtube, 0) ELSE 0 END
+                ), 0)::BIGINT AS weekly_youtube
+            FROM product_track pt
+            INNER JOIN tracks t ON t.isrc = pt.isrc
+            LEFT JOIN plays_daily pd
+                ON pd.isrc = pt.isrc
+                AND pd.isrc IS NOT NULL
+                AND pd."date" IS NOT NULL
+                AND pd."date" <= $3
+            WHERE pt.upc = $1
+            GROUP BY pt.id, pt.isrc, t.title, pt.track_no
+            ORDER BY pt.track_no ASC NULLS LAST, pt.id ASC
+            "#,
+            vec![upc.into(), weekly_start_date.into(), end_date.into()],
+        ))
+        .all(&self.db)
+        .await?;
+
+        Ok(rows
+            .into_iter()
+            .filter_map(TrendingTrackAggregateRow::into_aggregate)
+            .collect())
+    }
 }
 
 fn parse_flexible_date_from_str(date: &str) -> Result<NaiveDate, DomainError> {
@@ -654,6 +852,102 @@ mod tests {
         assert!(log.contains("FROM product_track pt"), "{log}");
         assert!(log.contains("INNER JOIN plays_daily pd"), "{log}");
         assert!(log.contains("pt.upc = $1"), "{log}");
+        assert_eq!(log.matches("SELECT").count(), 1);
+    }
+
+    #[tokio::test]
+    async fn aggregate_trending_by_artist_id_joins_and_limits_in_one_query() {
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([[row(vec![
+                ("isrc", Into::<Value>::into("ISRC1")),
+                ("track_title", Into::<Value>::into("Track One")),
+                ("upc_title", Into::<Value>::into("Release")),
+                ("image_url", Into::<Value>::into("cover.png")),
+                ("total", Into::<Value>::into(100_i64)),
+                ("weekly", Into::<Value>::into(30_i64)),
+                ("total_spotify", Into::<Value>::into(40_i64)),
+                ("total_apple", Into::<Value>::into(30_i64)),
+                ("total_line", Into::<Value>::into(20_i64)),
+                ("total_amazon", Into::<Value>::into(5_i64)),
+                ("total_youtube", Into::<Value>::into(5_i64)),
+                ("weekly_spotify", Into::<Value>::into(12_i64)),
+                ("weekly_apple", Into::<Value>::into(9_i64)),
+                ("weekly_line", Into::<Value>::into(6_i64)),
+                ("weekly_amazon", Into::<Value>::into(2_i64)),
+                ("weekly_youtube", Into::<Value>::into(1_i64)),
+            ])]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+        let start = NaiveDate::from_ymd_opt(2026, 1, 22).unwrap();
+        let end = NaiveDate::from_ymd_opt(2026, 1, 28).unwrap();
+
+        let result = repo
+            .aggregate_trending_by_artist_id("artist-1", start, end, 5)
+            .await
+            .unwrap();
+
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[0].isrc, "ISRC1");
+        assert_eq!(result[0].track_title.as_deref(), Some("Track One"));
+        assert_eq!(result[0].upc_title.as_deref(), Some("Release"));
+        assert_eq!(result[0].total, 100);
+        assert_eq!(result[0].weekly, 30);
+        assert_eq!(result[0].weekly_youtube, 1);
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("WITH artist_tracks AS"), "{log}");
+        assert!(log.contains("SELECT DISTINCT ON (pt.isrc)"), "{log}");
+        assert!(log.contains("INNER JOIN product_track pt"), "{log}");
+        assert!(log.contains("INNER JOIN tracks t"), "{log}");
+        assert!(log.contains("FROM plays_daily pd"), "{log}");
+        assert!(log.contains("ORDER BY pc.total DESC"), "{log}");
+        assert!(log.contains("LIMIT $4"), "{log}");
+        assert_eq!(log.matches("SELECT").count(), 3);
+    }
+
+    #[tokio::test]
+    async fn aggregate_trending_by_upc_left_joins_play_counts_and_maps_nulls_to_zero() {
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([[row(vec![
+                ("isrc", Into::<Value>::into("ISRC1")),
+                ("track_title", Into::<Value>::into("Track One")),
+                ("upc_title", Into::<Value>::into(Option::<String>::None)),
+                ("image_url", Into::<Value>::into(Option::<String>::None)),
+                ("total", Into::<Value>::into(Option::<i64>::None)),
+                ("weekly", Into::<Value>::into(Option::<i64>::None)),
+                ("total_spotify", Into::<Value>::into(Option::<i64>::None)),
+                ("total_apple", Into::<Value>::into(Option::<i64>::None)),
+                ("total_line", Into::<Value>::into(Option::<i64>::None)),
+                ("total_amazon", Into::<Value>::into(Option::<i64>::None)),
+                ("total_youtube", Into::<Value>::into(Option::<i64>::None)),
+                ("weekly_spotify", Into::<Value>::into(Option::<i64>::None)),
+                ("weekly_apple", Into::<Value>::into(Option::<i64>::None)),
+                ("weekly_line", Into::<Value>::into(Option::<i64>::None)),
+                ("weekly_amazon", Into::<Value>::into(Option::<i64>::None)),
+                ("weekly_youtube", Into::<Value>::into(Option::<i64>::None)),
+            ])]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+        let start = NaiveDate::from_ymd_opt(2026, 1, 22).unwrap();
+        let end = NaiveDate::from_ymd_opt(2026, 1, 28).unwrap();
+
+        let result = repo
+            .aggregate_trending_by_upc("UPC1", start, end)
+            .await
+            .unwrap();
+
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[0].isrc, "ISRC1");
+        assert_eq!(result[0].track_title.as_deref(), Some("Track One"));
+        assert_eq!(result[0].total, 0);
+        assert_eq!(result[0].weekly, 0);
+        assert_eq!(result[0].total_amazon, 0);
+        assert_eq!(result[0].weekly_youtube, 0);
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("FROM product_track pt"), "{log}");
+        assert!(log.contains("LEFT JOIN plays_daily pd"), "{log}");
+        assert!(log.contains("ORDER BY pt.track_no ASC NULLS LAST"), "{log}");
         assert_eq!(log.matches("SELECT").count(), 1);
     }
 }

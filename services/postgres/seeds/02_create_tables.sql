@@ -505,7 +505,7 @@ CREATE INDEX ON "product_track" ("upc", "isrc");
 
 CREATE INDEX ON "track_credits" ("isrc");
 
-CREATE INDEX ON "plays_daily" ("isrc", "date") INCLUDE ("sum");
+CREATE INDEX ON "plays_daily" ("isrc", "date") INCLUDE ("sum", "spotify", "apple", "line", "amazon", "youtube");
 
 CREATE INDEX ON "plays_monthly" ("isrc", "month");
 

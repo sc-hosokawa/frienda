@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 use domain::entities::plays_daily::{ActiveModel as PlaysDailyActiveModel, Model as PlaysDaily};
 use domain::repositories::plays_daily_repo::{
-    OverviewPlayCountAggregate, PlayCountAggregate, PlaysDailyRepository,
+    OverviewPlayCountAggregate, PlayCountAggregate, PlaysDailyRepository, TrendingTrackAggregate,
 };
 use mockall::automock;
 use sea_orm::prelude::Date;
@@ -78,6 +78,19 @@ pub trait MockPlaysDailyRepo {
         weekly_start_date: Date,
         end_date: Date,
     ) -> Result<OverviewPlayCountAggregate, DomainError>;
+    async fn mock_aggregate_trending_by_artist_id(
+        &self,
+        artist_id: String,
+        weekly_start_date: Date,
+        end_date: Date,
+        limit: u64,
+    ) -> Result<Vec<TrendingTrackAggregate>, DomainError>;
+    async fn mock_aggregate_trending_by_upc(
+        &self,
+        upc: String,
+        weekly_start_date: Date,
+        end_date: Date,
+    ) -> Result<Vec<TrendingTrackAggregate>, DomainError>;
 }
 
 #[async_trait]
@@ -208,6 +221,32 @@ impl PlaysDailyRepository for MockMockPlaysDailyRepo {
         end_date: Date,
     ) -> Result<OverviewPlayCountAggregate, DomainError> {
         self.mock_aggregate_overview_by_upc(upc.to_string(), weekly_start_date, end_date)
+            .await
+    }
+
+    async fn aggregate_trending_by_artist_id(
+        &self,
+        artist_id: &str,
+        weekly_start_date: Date,
+        end_date: Date,
+        limit: u64,
+    ) -> Result<Vec<TrendingTrackAggregate>, DomainError> {
+        self.mock_aggregate_trending_by_artist_id(
+            artist_id.to_string(),
+            weekly_start_date,
+            end_date,
+            limit,
+        )
+        .await
+    }
+
+    async fn aggregate_trending_by_upc(
+        &self,
+        upc: &str,
+        weekly_start_date: Date,
+        end_date: Date,
+    ) -> Result<Vec<TrendingTrackAggregate>, DomainError> {
+        self.mock_aggregate_trending_by_upc(upc.to_string(), weekly_start_date, end_date)
             .await
     }
 }
