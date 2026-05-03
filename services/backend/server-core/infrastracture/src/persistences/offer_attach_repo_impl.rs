@@ -43,13 +43,15 @@ impl OfferAttachRepository for OfferAttachRepoImpl {
         &self,
         offer_attaches: Vec<OfferAttachActiveModel>,
     ) -> Result<(), DomainError> {
+        let txn = self.db.begin().await?;
         let res = OfferAttachEntity::insert_many(offer_attaches)
-            .exec(&self.db)
+            .exec(&txn)
             .await?;
 
         let _inserted_offers_attaches = OfferAttachEntity::find_by_id(res.last_insert_id)
-            .all(&self.db)
+            .all(&txn)
             .await?;
+        txn.commit().await?;
 
         Ok(())
     }
@@ -101,5 +103,53 @@ impl OfferAttachRepository for OfferAttachRepoImpl {
             .all(&self.db)
             .await?;
         Ok(res)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use domain::repositories::offer_attach_repo::OfferAttachRepository;
+    use sea_orm::{ActiveValue::Set, DbBackend, MockDatabase, MockExecResult};
+
+    fn model(id: i32) -> OfferAttach {
+        OfferAttach {
+            id,
+            offer_id: 10,
+            file_uri: Some(format!("file-{id}")),
+            image_uri: None,
+        }
+    }
+
+    fn active_model(id: i32) -> OfferAttachActiveModel {
+        OfferAttachActiveModel {
+            id: Set(id),
+            offer_id: Set(10),
+            file_uri: Set(Some(format!("file-{id}"))),
+            image_uri: Set(None),
+        }
+    }
+
+    #[tokio::test]
+    async fn create_many_wraps_insert_and_select_in_one_transaction() {
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_exec_results([MockExecResult {
+                last_insert_id: 1,
+                rows_affected: 2,
+            }])
+            .append_query_results([[model(1)], [model(1)]])
+            .into_connection();
+        let repo = OfferAttachRepoImpl::new(db);
+
+        repo.create_many(vec![active_model(1), active_model(2)])
+            .await
+            .unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("BEGIN"), "{log}");
+        assert!(log.contains("INSERT"), "{log}");
+        assert!(log.contains("SELECT"), "{log}");
+        assert!(log.contains("COMMIT"), "{log}");
+        assert!(!log.contains("ROLLBACK"), "{log}");
     }
 }

@@ -57,9 +57,16 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
     }
 
     async fn update_many(&self, models: Vec<PlaysDailyActiveModel>) -> Result<(), DomainError> {
-        for model in models {
-            let _res: PlaysDaily = model.update(&self.db).await?;
+        if models.is_empty() {
+            return Ok(());
         }
+
+        let txn = self.db.begin().await?;
+        for model in models {
+            let _res: PlaysDaily = model.update(&txn).await?;
+        }
+        txn.commit().await?;
+
         Ok(())
     }
 
@@ -342,7 +349,7 @@ fn parse_date_flexible(date: &str) -> Result<NaiveDate, DomainError> {
 mod tests {
     use super::*;
     use domain::repositories::plays_daily_repo::PlaysDailyRepository;
-    use sea_orm::{DbBackend, MockDatabase, Value};
+    use sea_orm::{ActiveValue::Set, DbBackend, DbErr, MockDatabase, MockExecResult, Value};
     use std::collections::BTreeMap;
 
     fn row(values: Vec<(&str, Value)>) -> BTreeMap<String, Value> {
@@ -350,6 +357,103 @@ mod tests {
             .into_iter()
             .map(|(key, value)| (key.to_string(), value))
             .collect()
+    }
+
+    fn model(id: i32) -> PlaysDaily {
+        PlaysDaily {
+            id,
+            isrc: Some(format!("ISRC{id}")),
+            date: Some(NaiveDate::from_ymd_opt(2026, 1, id as u32).unwrap()),
+            spotify: 10,
+            apple: 20,
+            line: 30,
+            amazon: Some(40),
+            youtube: Some(50),
+            sum: Some(150),
+        }
+    }
+
+    fn active_model(id: i32) -> PlaysDailyActiveModel {
+        PlaysDailyActiveModel {
+            id: Set(id),
+            isrc: Set(Some(format!("ISRC{id}"))),
+            date: Set(Some(NaiveDate::from_ymd_opt(2026, 1, id as u32).unwrap())),
+            spotify: Set(10),
+            apple: Set(20),
+            line: Set(30),
+            amazon: Set(Some(40)),
+            youtube: Set(Some(50)),
+            sum: Set(Some(150)),
+        }
+    }
+
+    fn assert_transaction_contains(log: String, expected: &[&str]) {
+        for expected_statement in expected {
+            assert!(
+                log.contains(expected_statement),
+                "transaction log did not contain {expected_statement}: {log}"
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn update_many_wraps_all_updates_in_one_transaction() {
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_exec_results([
+                MockExecResult {
+                    last_insert_id: 0,
+                    rows_affected: 1,
+                },
+                MockExecResult {
+                    last_insert_id: 0,
+                    rows_affected: 1,
+                },
+            ])
+            .append_query_results([[model(1)], [model(2)]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+
+        repo.update_many(vec![active_model(1), active_model(2)])
+            .await
+            .unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert_transaction_contains(log.clone(), &["BEGIN", "UPDATE", "COMMIT"]);
+        assert_eq!(log.matches("UPDATE").count(), 2);
+        assert!(!log.contains("ROLLBACK"));
+    }
+
+    #[tokio::test]
+    async fn update_many_rolls_back_when_an_update_fails() {
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_exec_results([MockExecResult {
+                last_insert_id: 0,
+                rows_affected: 1,
+            }])
+            .append_exec_errors([DbErr::Custom("second update failed".to_string())])
+            .append_query_results([[model(1)]])
+            .into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+
+        let result = repo
+            .update_many(vec![active_model(1), active_model(2)])
+            .await;
+
+        assert!(result.is_err());
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert_transaction_contains(log.clone(), &["BEGIN", "UPDATE", "ROLLBACK"]);
+        assert_eq!(log.matches("UPDATE").count(), 2);
+        assert!(!log.contains("COMMIT"));
+    }
+
+    #[tokio::test]
+    async fn update_many_empty_input_does_not_start_transaction() {
+        let db = MockDatabase::new(DbBackend::Postgres).into_connection();
+        let repo = PlaysDailyRepoImpl::new(db);
+
+        repo.update_many(vec![]).await.unwrap();
+
+        assert!(repo.db.into_transaction_log().is_empty());
     }
 
     #[tokio::test]
