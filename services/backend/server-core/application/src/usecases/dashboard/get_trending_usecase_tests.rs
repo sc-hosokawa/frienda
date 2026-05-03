@@ -9,11 +9,11 @@ use crate::usecases::dashboard::get_trending_usecase::{
 };
 use chrono::{Duration, FixedOffset, NaiveDate, Utc};
 use domain::entities::artists::Model as Artist;
-use domain::entities::plays_daily::Model as PlaysDaily;
 use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Product;
 use domain::entities::sea_orm_active_enums::ArtistStatus;
 use domain::entities::tracks::Model as Track;
+use domain::repositories::plays_daily_repo::PlayCountAggregate;
 use std::sync::Arc;
 use uuid::Uuid;
 
@@ -66,53 +66,37 @@ async fn test_get_trending_aggregates_top_tracks() {
         });
 
     plays_daily_repo
-        .expect_mock_find_by_isrcs()
+        .expect_mock_aggregate_by_isrcs()
         .times(2)
-        .returning(move |_| {
+        .returning(move |isrcs, start_date, end_date, limit| {
+            if limit == Some(5) {
+                assert_eq!(start_date, None);
+                assert_eq!(end_date, Some(today - Duration::days(3)));
+                assert_eq!(isrcs.len(), 2);
+            } else {
+                assert_eq!(start_date, Some(today - Duration::days(9)));
+                assert_eq!(end_date, Some(today - Duration::days(3)));
+                assert_eq!(isrcs, vec!["ISRC1".to_string(), "ISRC2".to_string()]);
+            }
+
             Ok(vec![
-                PlaysDaily {
-                    id: 1,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(today - Duration::days(4)),
-                    spotify: 10,
-                    apple: 5,
-                    line: 5,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(20),
+                PlayCountAggregate {
+                    isrc: "ISRC1".to_string(),
+                    total: 60,
+                    spotify: 30,
+                    apple: 15,
+                    line: 15,
+                    amazon: 0,
+                    youtube: 0,
                 },
-                PlaysDaily {
-                    id: 2,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(today - Duration::days(8)),
-                    spotify: 20,
-                    apple: 10,
-                    line: 10,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(40),
-                },
-                PlaysDaily {
-                    id: 3,
-                    isrc: Some("ISRC2".to_string()),
-                    date: Some(today - Duration::days(4)),
+                PlayCountAggregate {
+                    isrc: "ISRC2".to_string(),
+                    total: 20,
                     spotify: 10,
                     apple: 0,
                     line: 0,
-                    amazon: Some(5),
-                    youtube: Some(5),
-                    sum: Some(20),
-                },
-                PlaysDaily {
-                    id: 4,
-                    isrc: Some("ISRC2".to_string()),
-                    date: Some(today - Duration::days(2)),
-                    spotify: 99,
-                    apple: 0,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(99),
+                    amazon: 5,
+                    youtube: 5,
                 },
             ])
         });
@@ -137,19 +121,6 @@ async fn test_get_trending_aggregates_top_tracks() {
             ])
         });
 
-    product_track_repo
-        .expect_mock_get_by_isrc()
-        .times(2)
-        .returning(|isrc| {
-            let id = if isrc == "ISRC1" { 1 } else { 2 };
-            Ok(vec![ProductTrack {
-                id,
-                upc: "UPC1".to_string(),
-                isrc,
-                track_no: Some(id),
-            }])
-        });
-
     let usecase = GetTrendingUsecase::new(
         Arc::new(plays_daily_repo),
         Arc::new(products_repo),
@@ -170,8 +141,12 @@ async fn test_get_trending_aggregates_top_tracks() {
     assert_eq!(result.trending[0].isrc, "ISRC1");
     assert_eq!(result.trending[0].total_play_count, 60);
     assert_eq!(result.trending[0].weekly_play_count, 60);
+    assert_eq!(result.trending[0].total_play_count_details.spotify, 30);
+    assert_eq!(result.trending[0].weekly_play_count_details.apple, 15);
     assert_eq!(result.trending[1].total_play_count, 20);
     assert_eq!(result.trending[1].weekly_play_count, 20);
+    assert_eq!(result.trending[1].total_play_count_details.amazon, 5);
+    assert_eq!(result.trending[1].weekly_play_count_details.youtube, 5);
 }
 
 #[tokio::test]
@@ -241,9 +216,9 @@ async fn test_get_trending_by_upc_preserves_track_number_order() {
         });
 
     plays_daily_repo
-        .expect_mock_find_by_isrcs()
-        .times(1)
-        .returning(|_| Ok(vec![]));
+        .expect_mock_aggregate_by_isrcs()
+        .times(2)
+        .returning(|_, _, _, _| Ok(vec![]));
 
     tracks_repo
         .expect_mock_get_by_isrcs()

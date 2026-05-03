@@ -1,7 +1,8 @@
 use async_trait::async_trait;
 use domain::entities::plays_daily::{ActiveModel as PlaysDailyActiveModel, Model as PlaysDaily};
-use domain::repositories::plays_daily_repo::PlaysDailyRepository;
+use domain::repositories::plays_daily_repo::{PlayCountAggregate, PlaysDailyRepository};
 use mockall::automock;
+use sea_orm::prelude::Date;
 use shared::error::domain_err::DomainError;
 
 #[automock]
@@ -45,6 +46,24 @@ pub trait MockPlaysDailyRepo {
         start_date: String,
         end_date: String,
     ) -> Result<Vec<PlaysDaily>, DomainError>;
+    async fn mock_sum_by_isrcs_until(
+        &self,
+        isrcs: Vec<String>,
+        end_date: Date,
+    ) -> Result<i64, DomainError>;
+    async fn mock_sum_by_isrcs_between(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Date,
+        end_date: Date,
+    ) -> Result<i64, DomainError>;
+    async fn mock_aggregate_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<Date>,
+        end_date: Option<Date>,
+        limit: Option<u64>,
+    ) -> Result<Vec<PlayCountAggregate>, DomainError>;
 }
 
 #[async_trait]
@@ -122,6 +141,35 @@ impl PlaysDailyRepository for MockMockPlaysDailyRepo {
         end_date: &str,
     ) -> Result<Vec<PlaysDaily>, DomainError> {
         self.mock_find_between_start_and_end(start_date.to_string(), end_date.to_string())
+            .await
+    }
+
+    async fn sum_by_isrcs_until(
+        &self,
+        isrcs: Vec<String>,
+        end_date: Date,
+    ) -> Result<i64, DomainError> {
+        self.mock_sum_by_isrcs_until(isrcs, end_date).await
+    }
+
+    async fn sum_by_isrcs_between(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Date,
+        end_date: Date,
+    ) -> Result<i64, DomainError> {
+        self.mock_sum_by_isrcs_between(isrcs, start_date, end_date)
+            .await
+    }
+
+    async fn aggregate_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<Date>,
+        end_date: Option<Date>,
+        limit: Option<u64>,
+    ) -> Result<Vec<PlayCountAggregate>, DomainError> {
+        self.mock_aggregate_by_isrcs(isrcs, start_date, end_date, limit)
             .await
     }
 }

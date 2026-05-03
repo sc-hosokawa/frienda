@@ -1,16 +1,15 @@
 use async_trait::async_trait;
-use chrono::{Duration, NaiveDate};
+use chrono::Duration;
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::sync::Arc;
 
-use domain::entities::plays_daily::Model as PlaysDaily;
 use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Products;
 use domain::entities::tracks::Model as Track;
 
 use domain::repositories::artists_repo::ArtistsRepository;
-use domain::repositories::plays_daily_repo::PlaysDailyRepository;
+use domain::repositories::plays_daily_repo::{PlayCountAggregate, PlaysDailyRepository};
 use domain::repositories::product_track_repo::ProductTrackRepository;
 use domain::repositories::products_repo::ProductsRepository;
 use domain::repositories::tracks_repo::TracksRepository;
@@ -91,54 +90,29 @@ impl GetTrendingUsecase {
         }
     }
 
-    fn aggregate_daily_totals(
-        plays: &[PlaysDaily],
-        start: Option<NaiveDate>,
-        end: Option<NaiveDate>,
-    ) -> (HashMap<String, i32>, HashMap<String, PlayCountDetails>) {
-        let mut totals: HashMap<String, i32> = HashMap::new();
-        let mut details: HashMap<String, PlayCountDetails> = HashMap::new();
+    fn aggregate_map(aggregates: Vec<PlayCountAggregate>) -> HashMap<String, PlayCountAggregate> {
+        aggregates
+            .into_iter()
+            .map(|aggregate| (aggregate.isrc.clone(), aggregate))
+            .collect()
+    }
 
-        for play in plays {
-            let date = match play.date {
-                Some(date) => date,
-                None => continue,
-            };
-
-            if let Some(start_date) = start {
-                if date < start_date {
-                    continue;
-                }
-            }
-            if let Some(end_date) = end {
-                if date > end_date {
-                    continue;
-                }
-            }
-
-            let isrc = match &play.isrc {
-                Some(isrc) => isrc.clone(),
-                None => continue,
-            };
-
-            let entry = details.entry(isrc.clone()).or_insert(PlayCountDetails {
+    fn details_from_aggregate(aggregate: Option<&PlayCountAggregate>) -> PlayCountDetails {
+        aggregate
+            .map(|aggregate| PlayCountDetails {
+                spotify: aggregate.spotify as i32,
+                apple: aggregate.apple as i32,
+                line: aggregate.line as i32,
+                amazon: aggregate.amazon as i32,
+                youtube: aggregate.youtube as i32,
+            })
+            .unwrap_or(PlayCountDetails {
                 spotify: 0,
                 apple: 0,
                 line: 0,
                 amazon: 0,
                 youtube: 0,
-            });
-
-            entry.spotify += play.spotify;
-            entry.apple += play.apple;
-            entry.line += play.line;
-            entry.amazon += play.amazon.unwrap_or(0);
-            entry.youtube += play.youtube.unwrap_or(0);
-
-            *totals.entry(isrc).or_insert(0) += play.sum.unwrap_or(0);
-        }
-
-        (totals, details)
+            })
     }
 }
 
@@ -164,25 +138,21 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
             .into_iter()
             .collect();
 
-        let plays_daily_all: Vec<PlaysDaily> =
-            self.plays_daily_repo.find_by_isrcs(isrcs.clone()).await?;
-
         // 日本時間基準での現在時刻を取得
         let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
         let end_date_for_total = today_jst - Duration::days(3);
-        let (plays_by_isrc, plays_by_isrc_details) =
-            Self::aggregate_daily_totals(&plays_daily_all, None, Some(end_date_for_total));
+        let total_aggregates = self
+            .plays_daily_repo
+            .aggregate_by_isrcs(isrcs.clone(), None, Some(end_date_for_total), Some(5))
+            .await?;
 
-        // 再生数で降順ソートして上位5件を取得
-        let mut top_plays: Vec<(String, i32)> = plays_by_isrc.into_iter().collect();
-        top_plays.sort_by(|a, b| b.1.cmp(&a.1));
-        let top_5_isrcs: Vec<String> = top_plays
+        let top_5_isrcs: Vec<String> = total_aggregates
             .iter()
-            .take(5)
-            .map(|(isrc, _)| isrc.clone())
+            .map(|aggregate| aggregate.isrc.clone())
             .collect();
         tracing::info!("top_5_isrcs: {:?}", top_5_isrcs);
+        let plays_by_isrc = Self::aggregate_map(total_aggregates);
 
         // 過去7日間の再生数を取得
         let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
@@ -190,57 +160,60 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         let start_date = today_jst - Duration::days(9);
         let end_date = today_jst - Duration::days(3);
 
-        let plays_daily_in_top5: Vec<PlaysDaily> = self
+        let weekly_aggregates = self
             .plays_daily_repo
-            .find_by_isrcs(top_5_isrcs.clone())
+            .aggregate_by_isrcs(top_5_isrcs.clone(), Some(start_date), Some(end_date), None)
             .await?;
+        let plays_by_isrc_daily = Self::aggregate_map(weekly_aggregates);
 
-        let (plays_by_isrc_daily, plays_by_isrc_daily_details) =
-            Self::aggregate_daily_totals(&plays_daily_in_top5, Some(start_date), Some(end_date));
-
-        let tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(top_5_isrcs).await?;
+        let mut tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(top_5_isrcs.clone()).await?;
+        let isrc_order: HashMap<String, usize> = top_5_isrcs
+            .iter()
+            .enumerate()
+            .map(|(index, isrc)| (isrc.clone(), index))
+            .collect();
+        tracks.sort_by_key(|track| isrc_order.get(&track.isrc).copied().unwrap_or(usize::MAX));
+        let product_by_upc: HashMap<String, Products> = products
+            .into_iter()
+            .map(|product| (product.upc.clone(), product))
+            .collect();
+        let mut product_track_by_isrc: HashMap<String, ProductTrack> = HashMap::new();
+        for product_track in product_tracks {
+            product_track_by_isrc
+                .entry(product_track.isrc.clone())
+                .or_insert(product_track);
+        }
 
         let mut trending: Vec<TrendTrack> = vec![];
 
         for track in tracks {
-            let mapping: Vec<ProductTrack> =
-                self.product_track_repo.get_by_isrc(&track.isrc).await?;
-            let product_in_top5: Option<ProductTrack> = mapping.first().cloned();
-            let product_upc_in_top5 = product_in_top5.unwrap().upc;
-            let product_info = products.iter().find(|p| p.upc == product_upc_in_top5);
+            let product_upc_in_top5 = product_track_by_isrc
+                .get(&track.isrc)
+                .map(|product_track| product_track.upc.clone());
+            let product_info = product_upc_in_top5
+                .as_ref()
+                .and_then(|upc| product_by_upc.get(upc));
             let product_title = product_info.map(|p| p.title.clone());
-            let product_img_url = product_info.map(|p| p.img_url.clone().unwrap());
+            let product_img_url = product_info.and_then(|p| p.img_url.clone());
             trending.push(TrendTrack {
                 isrc: track.isrc.clone(),
                 track_title: Some(track.title),
                 upc_title: product_title,
                 image_url: product_img_url,
-                total_play_count: top_plays
-                    .iter()
-                    .find(|(isrc, _)| isrc == &track.isrc)
-                    .map(|(_, count)| *count)
+                total_play_count: plays_by_isrc
+                    .get(&track.isrc)
+                    .map(|aggregate| aggregate.total as i32)
                     .unwrap_or(0),
-                weekly_play_count: plays_by_isrc_daily.get(&track.isrc).copied().unwrap_or(0),
-                total_play_count_details: plays_by_isrc_details
+                weekly_play_count: plays_by_isrc_daily
                     .get(&track.isrc)
-                    .cloned()
-                    .unwrap_or(PlayCountDetails {
-                        spotify: 0,
-                        apple: 0,
-                        line: 0,
-                        amazon: 0,
-                        youtube: 0,
-                    }),
-                weekly_play_count_details: plays_by_isrc_daily_details
-                    .get(&track.isrc)
-                    .cloned()
-                    .unwrap_or(PlayCountDetails {
-                        spotify: 0,
-                        apple: 0,
-                        line: 0,
-                        amazon: 0,
-                        youtube: 0,
-                    }),
+                    .map(|aggregate| aggregate.total as i32)
+                    .unwrap_or(0),
+                total_play_count_details: Self::details_from_aggregate(
+                    plays_by_isrc.get(&track.isrc),
+                ),
+                weekly_play_count_details: Self::details_from_aggregate(
+                    plays_by_isrc_daily.get(&track.isrc),
+                ),
             });
         }
 
@@ -266,17 +239,15 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
 
         let isrcs_in_upc: Vec<String> = product_tracks.iter().map(|p| p.isrc.clone()).collect();
 
-        let plays_daily: Vec<PlaysDaily> = self
-            .plays_daily_repo
-            .find_by_isrcs(isrcs_in_upc.clone())
-            .await?;
-
         // 日本時間基準での現在時刻を取得
         let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
         let today_jst = chrono::Utc::now().with_timezone(&jst).date_naive();
         let end_date_for_total = today_jst - Duration::days(3);
-        let (plays_by_isrc, plays_by_isrc_details) =
-            Self::aggregate_daily_totals(&plays_daily, None, Some(end_date_for_total));
+        let plays_by_isrc = Self::aggregate_map(
+            self.plays_daily_repo
+                .aggregate_by_isrcs(isrcs_in_upc.clone(), None, Some(end_date_for_total), None)
+                .await?,
+        );
 
         // 日本時間基準での週間集計
         let jst = chrono::FixedOffset::east_opt(9 * 3600).unwrap();
@@ -284,8 +255,11 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
         let start_date = today_jst - Duration::days(9); // 9日前
         let end_date = today_jst - Duration::days(3); // 3日前
 
-        let (plays_by_isrc_daily, plays_by_isrc_daily_details) =
-            Self::aggregate_daily_totals(&plays_daily, Some(start_date), Some(end_date));
+        let plays_by_isrc_daily = Self::aggregate_map(
+            self.plays_daily_repo
+                .aggregate_by_isrcs(isrcs_in_upc.clone(), Some(start_date), Some(end_date), None)
+                .await?,
+        );
 
         let mut tracks: Vec<Track> = self.tracks_repo.get_by_isrcs(isrcs_in_upc).await?;
 
@@ -307,27 +281,18 @@ impl GetTrendingUsecaseTrait for GetTrendingUsecase {
                 track_title: Some(track.title),
                 upc_title: None,
                 image_url: None,
-                total_play_count: plays_by_isrc.get(&isrc).unwrap_or(&0).clone(),
-                weekly_play_count: plays_by_isrc_daily.get(&isrc).unwrap_or(&0).clone(),
-                total_play_count_details: plays_by_isrc_details.get(&isrc).cloned().unwrap_or(
-                    PlayCountDetails {
-                        spotify: 0,
-                        apple: 0,
-                        line: 0,
-                        amazon: 0,
-                        youtube: 0,
-                    },
-                ),
-                weekly_play_count_details: plays_by_isrc_daily_details
+                total_play_count: plays_by_isrc
                     .get(&isrc)
-                    .cloned()
-                    .unwrap_or(PlayCountDetails {
-                        spotify: 0,
-                        apple: 0,
-                        line: 0,
-                        amazon: 0,
-                        youtube: 0,
-                    }),
+                    .map(|aggregate| aggregate.total as i32)
+                    .unwrap_or(0),
+                weekly_play_count: plays_by_isrc_daily
+                    .get(&isrc)
+                    .map(|aggregate| aggregate.total as i32)
+                    .unwrap_or(0),
+                total_play_count_details: Self::details_from_aggregate(plays_by_isrc.get(&isrc)),
+                weekly_play_count_details: Self::details_from_aggregate(
+                    plays_by_isrc_daily.get(&isrc),
+                ),
             });
         }
 

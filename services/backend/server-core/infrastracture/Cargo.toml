@@ -31,3 +31,6 @@ tokio = { workspace = true }
 alloy = { workspace = true }
 reqwest = { workspace = true }
 flate2 = { workspace = true }
+
+[dev-dependencies]
+sea-orm = { workspace = true, features = ["mock"] }

@@ -164,6 +164,25 @@ impl UsersRepository for UsersRepoImpl {
         Ok(count as i64)
     }
 
+    async fn sum_fsp(&self) -> Result<i64, DomainError> {
+        let total = UserEntity::find()
+            .select_only()
+            .column_as(sea_orm::sea_query::Expr::col(Column::Fsp).sum(), "sum_fsp")
+            .into_tuple::<Option<i64>>()
+            .one(&self.db)
+            .await?;
+
+        Ok(total.flatten().unwrap_or(0))
+    }
+
+    async fn count_mobile_app_users(&self) -> Result<i64, DomainError> {
+        let count = UserEntity::find()
+            .filter(Column::FcmToken.is_not_null())
+            .count(&self.db)
+            .await?;
+        Ok(count as i64)
+    }
+
     async fn find_by_username_or_email(
         &self,
         username_or_email: &str,

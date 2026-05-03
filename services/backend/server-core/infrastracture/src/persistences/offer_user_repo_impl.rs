@@ -4,9 +4,11 @@ use sea_orm::*;
 
 use domain::entities::offer_user::{
     ActiveModel as OfferUserActiveModel, Column, Entity as OfferUserEntity, Model as OfferUser,
+    Relation,
 };
+use domain::entities::offers::{Column as OfferColumn, Entity as OfferEntity};
 use domain::entities::sea_orm_active_enums::OfferStatus;
-use domain::repositories::offer_user_repo::OfferUserRepository;
+use domain::repositories::offer_user_repo::{OfferStatsAggregate, OfferUserRepository};
 use shared::error::domain_err::DomainError;
 
 #[derive(new)]
@@ -109,6 +111,50 @@ impl OfferUserRepository for OfferUserRepoImpl {
             .await?;
 
         Ok(offer_users)
+    }
+
+    async fn aggregate_stats_by_user_id(
+        &self,
+        user_id: &str,
+    ) -> Result<OfferStatsAggregate, DomainError> {
+        let status_counts: Vec<(OfferStatus, i64)> = OfferUserEntity::find()
+            .select_only()
+            .column(Column::Status)
+            .column_as(Column::Id.count(), "count")
+            .filter(Column::UserId.eq(user_id))
+            .group_by(Column::Status)
+            .into_tuple()
+            .all(&self.db)
+            .await?;
+
+        let mut aggregate = OfferStatsAggregate::default();
+
+        for (status, count) in status_counts {
+            aggregate.total_offers += count;
+            match status {
+                OfferStatus::Ongoing => aggregate.ongoing_offers = count,
+                OfferStatus::Applied => aggregate.applied_offers = count,
+                OfferStatus::Finished => aggregate.completed_offers = count,
+                _ => {}
+            }
+        }
+
+        let total_earnings = OfferUserEntity::find()
+            .select_only()
+            .join(JoinType::InnerJoin, Relation::Offers.def())
+            .filter(Column::UserId.eq(user_id))
+            .filter(Column::Status.eq(OfferStatus::Finished))
+            .column_as(
+                sea_orm::sea_query::Expr::col((OfferEntity, OfferColumn::Fee)).sum(),
+                "total_earnings",
+            )
+            .into_tuple::<Option<i64>>()
+            .one(&self.db)
+            .await?;
+
+        aggregate.total_earnings = total_earnings.flatten().unwrap_or(0);
+
+        Ok(aggregate)
     }
 
     async fn cancel_other_applications(

@@ -1,8 +1,7 @@
 use async_trait::async_trait;
-use chrono::{Duration, FixedOffset, NaiveDate, Utc};
+use chrono::{Duration, FixedOffset, Utc};
 use std::sync::Arc;
 
-use domain::entities::plays_daily::Model as PlaysDaily;
 use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Product;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
@@ -51,30 +50,9 @@ impl PlaybackOverviewUsecase {
         }
     }
 
-    fn aggregate_sum(
-        plays_daily: &[PlaysDaily],
-        start: Option<NaiveDate>,
-        end: Option<NaiveDate>,
-    ) -> i32 {
-        plays_daily
-            .iter()
-            .filter_map(|p| {
-                let date = p.date?;
-
-                if let Some(start_date) = start {
-                    if date < start_date {
-                        return None;
-                    }
-                }
-                if let Some(end_date) = end {
-                    if date > end_date {
-                        return None;
-                    }
-                }
-
-                Some(p.sum.unwrap_or(0))
-            })
-            .sum()
+    fn today_jst() -> chrono::NaiveDate {
+        let jst = FixedOffset::east_opt(9 * 3600).unwrap();
+        Utc::now().with_timezone(&jst).date_naive()
     }
 }
 
@@ -92,20 +70,20 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
         let product_tracks: Vec<ProductTrack> = self.product_track_repo.get_by_upcs(upcs).await?;
         let isrcs: Vec<String> = product_tracks.iter().map(|p| p.isrc.clone()).collect();
 
-        let plays_daily: Vec<PlaysDaily> =
-            self.plays_daily_repo.find_by_isrcs(isrcs.clone()).await?;
-        // 日本時間基準での現在時刻を取得
-        let jst = FixedOffset::east_opt(9 * 3600).unwrap();
-        let today_jst = Utc::now().with_timezone(&jst).date_naive();
-
         // 直近3日を除いた全期間の合計（従来の月次 + 当月日次相当）
+        let today_jst = Self::today_jst();
         let end_date_for_total = today_jst - Duration::days(3);
-        let total_play_count = Self::aggregate_sum(&plays_daily, None, Some(end_date_for_total));
+        let total_play_count = self
+            .plays_daily_repo
+            .sum_by_isrcs_until(isrcs.clone(), end_date_for_total)
+            .await? as i32;
 
         let start_date_weekly = today_jst - Duration::days(9);
         let end_date_weekly = today_jst - Duration::days(3);
-        let weekly_play_count =
-            Self::aggregate_sum(&plays_daily, Some(start_date_weekly), Some(end_date_weekly));
+        let weekly_play_count = self
+            .plays_daily_repo
+            .sum_by_isrcs_between(isrcs, start_date_weekly, end_date_weekly)
+            .await? as i32;
 
         Ok(PlaybackOverviewUsecaseOutput {
             total_play_count,
@@ -121,21 +99,20 @@ impl PlaybackOverviewUsecaseTrait for PlaybackOverviewUsecase {
             let product_track: Vec<ProductTrack> = self.product_track_repo.get_by_upc(&upc).await?;
             let isrcs: Vec<String> = product_track.iter().map(|p| p.isrc.clone()).collect();
 
-            let plays_daily: Vec<PlaysDaily> =
-                self.plays_daily_repo.find_by_isrcs(isrcs.clone()).await?;
-            // 日本時間基準での現在時刻を取得
-            let jst = FixedOffset::east_opt(9 * 3600).unwrap();
-            let today_jst = Utc::now().with_timezone(&jst).date_naive();
-
             // 直近3日を除いた全期間の合計
+            let today_jst = Self::today_jst();
             let end_date_for_total = today_jst - Duration::days(3);
-            let total_play_count =
-                Self::aggregate_sum(&plays_daily, None, Some(end_date_for_total));
+            let total_play_count = self
+                .plays_daily_repo
+                .sum_by_isrcs_until(isrcs.clone(), end_date_for_total)
+                .await? as i32;
 
             let start_date_weekly = today_jst - Duration::days(9);
             let end_date_weekly = today_jst - Duration::days(3);
-            let weekly_play_count =
-                Self::aggregate_sum(&plays_daily, Some(start_date_weekly), Some(end_date_weekly));
+            let weekly_play_count = self
+                .plays_daily_repo
+                .sum_by_isrcs_between(isrcs, start_date_weekly, end_date_weekly)
+                .await? as i32;
 
             Ok(PlaybackOverviewUsecaseOutput {
                 total_play_count,

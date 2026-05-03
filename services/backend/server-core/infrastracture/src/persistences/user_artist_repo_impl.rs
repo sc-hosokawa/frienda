@@ -2,10 +2,10 @@ use async_trait::async_trait;
 use derive_new::new;
 use sea_orm::*;
 
+use domain::entities::sea_orm_active_enums::UserArtistStatus;
 use domain::entities::user_artist::{
     ActiveModel as UserArtistActiveModel, Column, Entity as UserArtistEntity, Model as UserArtist,
 };
-use domain::entities::sea_orm_active_enums::UserArtistStatus;
 use domain::repositories::user_artist_repo::UserArtistRepository;
 use shared::error::domain_err::DomainError;
 

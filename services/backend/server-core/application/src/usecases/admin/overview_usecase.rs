@@ -80,19 +80,19 @@ impl OverviewUsecase {
 #[async_trait]
 impl OverviewUsecaseTrait for OverviewUsecase {
     async fn get_system_overview(&self) -> Result<OverviewOutput, anyhow::Error> {
-        let all_users: Vec<User> = self.users_repo.get_all_users().await?;
-        let all_fsps: i32 = all_users.iter().map(|user| user.fsp).sum::<i32>();
+        let total_users = self.users_repo.count().await?;
+        let total_fsp = self.users_repo.sum_fsp().await?;
         let total_artists: i64 = self.artists_repo.count().await?;
-        let mobile_app_users_count: i32 = self.get_balance_mobile_app_users().await?;
+        let mobile_app_users_count = self.users_repo.count_mobile_app_users().await?;
         let total_play_count: i64 = self.plays_monthly_repo.get_total_play_count_all().await?;
 
         Ok(OverviewOutput {
-            total_users: all_users.len() as i64,
+            total_users,
             total_artists,
-            total_fsp: all_fsps as i64,
+            total_fsp,
             total_revenue: 0,
             total_play_count,
-            mobile_app_users_count,
+            mobile_app_users_count: mobile_app_users_count as i32,
         })
     }
 
@@ -142,8 +142,7 @@ impl OverviewUsecaseTrait for OverviewUsecase {
     }
 
     async fn get_balance_mobile_app_users(&self) -> Result<i32, anyhow::Error> {
-        let users: Vec<User> = self.users_repo.get_all_users().await?;
-        let mobile_app_users_count = users.iter().filter(|user| user.fcm_token.is_some()).count();
+        let mobile_app_users_count = self.users_repo.count_mobile_app_users().await?;
         Ok(mobile_app_users_count as i32)
     }
 

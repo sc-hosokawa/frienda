@@ -150,11 +150,13 @@ async fn test_get_all_pending_members_batches_users_and_artists() {
     let member_id = "member1";
     let artist_id = "artist1";
 
-    mock_users_repo.expect_mock_find_by_id().returning(move |_| {
-        let mut user = create_test_user(admin_id);
-        user.is_superadmin = Some(true);
-        Ok(Some(user))
-    });
+    mock_users_repo
+        .expect_mock_find_by_id()
+        .returning(move |_| {
+            let mut user = create_test_user(admin_id);
+            user.is_superadmin = Some(true);
+            Ok(Some(user))
+        });
 
     mock_user_artist_repo
         .expect_mock_find_by_status()
@@ -188,5 +190,8 @@ async fn test_get_all_pending_members_batches_users_and_artists() {
     assert_eq!(output.members.len(), 1);
     assert_eq!(output.members[0].member.id, member_id);
     assert_eq!(output.members[0].artist_id, artist_id);
-    assert_eq!(output.members[0].artist_name, format!("Artist {}", artist_id));
+    assert_eq!(
+        output.members[0].artist_name,
+        format!("Artist {}", artist_id)
+    );
 }

@@ -173,10 +173,13 @@ async fn test_request_to_access_batches_existing_mappings_and_artists() {
     mock_user_artist_repo
         .expect_mock_find_by_user_id_and_artist_ids()
         .times(1)
-        .with(eq(user_id.to_string()), eq(vec![
-            existing_artist_id.to_string(),
-            new_artist_id.to_string(),
-        ]))
+        .with(
+            eq(user_id.to_string()),
+            eq(vec![
+                existing_artist_id.to_string(),
+                new_artist_id.to_string(),
+            ]),
+        )
         .returning(move |_, _| {
             Ok(vec![create_test_user_artist(
                 1,

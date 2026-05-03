@@ -1,6 +1,18 @@
 use crate::entities::plays_daily::{ActiveModel as PlaysDailyActiveModel, Model as PlaysDaily};
 use async_trait::async_trait;
+use sea_orm::prelude::Date;
 use shared::error::domain_err::DomainError;
+
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct PlayCountAggregate {
+    pub isrc: String,
+    pub total: i64,
+    pub spotify: i64,
+    pub apple: i64,
+    pub line: i64,
+    pub amazon: i64,
+    pub youtube: i64,
+}
 
 #[async_trait]
 pub trait PlaysDailyRepository: Send + Sync {
@@ -33,4 +45,22 @@ pub trait PlaysDailyRepository: Send + Sync {
         start_date: &str,
         end_date: &str,
     ) -> Result<Vec<PlaysDaily>, DomainError>;
+    async fn sum_by_isrcs_until(
+        &self,
+        isrcs: Vec<String>,
+        end_date: Date,
+    ) -> Result<i64, DomainError>;
+    async fn sum_by_isrcs_between(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Date,
+        end_date: Date,
+    ) -> Result<i64, DomainError>;
+    async fn aggregate_by_isrcs(
+        &self,
+        isrcs: Vec<String>,
+        start_date: Option<Date>,
+        end_date: Option<Date>,
+        limit: Option<u64>,
+    ) -> Result<Vec<PlayCountAggregate>, DomainError>;
 }

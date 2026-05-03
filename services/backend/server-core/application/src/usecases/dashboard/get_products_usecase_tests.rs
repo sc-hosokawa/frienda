@@ -51,11 +51,11 @@ async fn test_get_products_groups_products_and_sorts_tracks() {
         .returning(|_| {
             Ok(vec![
                 ProductTrack {
-                id: 1,
-                upc: "SINGLE1".to_string(),
-                isrc: "S-1".to_string(),
-                track_no: Some(1),
-            },
+                    id: 1,
+                    upc: "SINGLE1".to_string(),
+                    isrc: "S-1".to_string(),
+                    track_no: Some(1),
+                },
                 ProductTrack {
                     id: 3,
                     upc: "ALBUM1".to_string(),

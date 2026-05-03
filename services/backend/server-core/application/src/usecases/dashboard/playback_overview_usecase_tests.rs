@@ -6,7 +6,6 @@ use crate::usecases::dashboard::playback_overview_usecase::{
     PlaybackOverviewUsecase, PlaybackOverviewUsecaseInput, PlaybackOverviewUsecaseTrait,
 };
 use chrono::{Duration, FixedOffset, NaiveDate, Utc};
-use domain::entities::plays_daily::Model as PlaysDaily;
 use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Product;
 use std::sync::Arc;
@@ -50,45 +49,21 @@ async fn test_get_playback_overview_excludes_recent_three_days() {
         });
 
     plays_daily_repo
-        .expect_mock_find_by_isrcs()
+        .expect_mock_sum_by_isrcs_until()
         .times(1)
-        .returning(move |_| {
-            Ok(vec![
-                PlaysDaily {
-                    id: 1,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(today - Duration::days(4)),
-                    spotify: 0,
-                    apple: 0,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(40),
-                },
-                PlaysDaily {
-                    id: 2,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(today - Duration::days(8)),
-                    spotify: 0,
-                    apple: 0,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(30),
-                },
-                PlaysDaily {
-                    id: 3,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(today - Duration::days(2)),
-                    spotify: 0,
-                    apple: 0,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(99),
-                },
-            ])
-        });
+        .withf(move |isrcs, end_date| {
+            isrcs == &vec!["ISRC1".to_string()] && *end_date == today - Duration::days(3)
+        })
+        .returning(|_, _| Ok(70));
+    plays_daily_repo
+        .expect_mock_sum_by_isrcs_between()
+        .times(1)
+        .withf(move |isrcs, start_date, end_date| {
+            isrcs == &vec!["ISRC1".to_string()]
+                && *start_date == today - Duration::days(9)
+                && *end_date == today - Duration::days(3)
+        })
+        .returning(|_, _, _| Ok(70));
 
     let usecase = PlaybackOverviewUsecase::new(
         Arc::new(plays_daily_repo),
