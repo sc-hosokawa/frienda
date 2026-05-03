@@ -1,6 +1,8 @@
 use async_trait::async_trait;
 use domain::entities::products::{ActiveModel as ProductActiveModel, Model as Product};
-use domain::repositories::products_repo::{ProductsRepository, SearchProductsOptions};
+use domain::repositories::products_repo::{
+    DashboardProductRow, ProductsRepository, SearchProductsOptions,
+};
 use mockall::automock;
 use shared::error::domain_err::DomainError;
 
@@ -17,6 +19,10 @@ pub trait MockProductsRepo {
     async fn mock_get_by_upc(&self, upc: String) -> Result<Option<Product>, DomainError>;
     async fn mock_get_by_upcs(&self, upcs: Vec<String>) -> Result<Vec<Product>, DomainError>;
     async fn mock_find_by_artist_id(&self, artist_id: String) -> Result<Vec<Product>, DomainError>;
+    async fn mock_find_dashboard_products_by_artist_id(
+        &self,
+        artist_id: String,
+    ) -> Result<Vec<DashboardProductRow>, DomainError>;
     async fn mock_find_all(&self) -> Result<Vec<Product>, DomainError>;
     async fn mock_search(
         &self,
@@ -52,6 +58,14 @@ impl ProductsRepository for MockMockProductsRepo {
 
     async fn find_by_artist_id(&self, artist_id: &str) -> Result<Vec<Product>, DomainError> {
         self.mock_find_by_artist_id(artist_id.to_string()).await
+    }
+
+    async fn find_dashboard_products_by_artist_id(
+        &self,
+        artist_id: &str,
+    ) -> Result<Vec<DashboardProductRow>, DomainError> {
+        self.mock_find_dashboard_products_by_artist_id(artist_id.to_string())
+            .await
     }
 
     async fn find_all(&self) -> Result<Vec<Product>, DomainError> {

@@ -1,5 +1,8 @@
 use async_trait::async_trait;
-use std::{collections::HashMap, sync::Arc};
+use std::{
+    collections::{HashMap, HashSet},
+    sync::Arc,
+};
 
 use domain::entities::product_track::Model as ProductTrack;
 use domain::entities::products::Model as Product;
@@ -66,12 +69,10 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
         &self,
         input: GetProductsUsecaseInput,
     ) -> Result<GetProductsUsecaseOutput, anyhow::Error> {
-        let mut products: Vec<Product> = self
+        let rows = self
             .products_repo
-            .find_by_artist_id(&input.artist_id)
+            .find_dashboard_products_by_artist_id(&input.artist_id)
             .await?;
-
-        products.sort_by_key(|product| std::cmp::Reverse(product.distributed_at));
 
         let mut output = GetProductsUsecaseOutput {
             album: vec![],
@@ -79,61 +80,42 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
             ep: vec![],
         };
 
-        let upcs: Vec<String> = products.iter().map(|product| product.upc.clone()).collect();
-        if upcs.is_empty() {
+        if rows.is_empty() {
             return Ok(output);
         }
-        let product_tracks = self.product_track_repo.get_by_upcs(upcs).await?;
-        let isrcs: Vec<String> = product_tracks
-            .iter()
-            .map(|product_track| product_track.isrc.clone())
-            .collect();
-        let mut product_tracks_by_upc: HashMap<String, Vec<ProductTrack>> = HashMap::new();
-        for product_track in product_tracks {
-            product_tracks_by_upc
-                .entry(product_track.upc.clone())
-                .or_default()
-                .push(product_track);
+
+        let mut products: Vec<ProductWithTracks> = vec![];
+        let mut product_index_by_upc: HashMap<String, usize> = HashMap::new();
+
+        for row in rows {
+            let index = match product_index_by_upc.get(&row.product.upc).copied() {
+                Some(index) => index,
+                None => {
+                    let index = products.len();
+                    product_index_by_upc.insert(row.product.upc.clone(), index);
+                    products.push(ProductWithTracks {
+                        product: row.product,
+                        tracks: vec![],
+                    });
+                    index
+                }
+            };
+
+            if let Some(track) = row.track {
+                products[index].tracks.push(track);
+            }
         }
 
-        let tracks_by_isrc: HashMap<String, Track> = if isrcs.is_empty() {
-            HashMap::new()
-        } else {
-            self.tracks_repo
-                .get_by_isrcs(isrcs)
-                .await?
-                .into_iter()
-                .map(|track| (track.isrc.clone(), track))
-                .collect()
-        };
-
-        for product in products {
-            let category: String = product.r#type.clone().unwrap_or("".to_string());
-            let mut product_track_map = product_tracks_by_upc
-                .remove(&product.upc)
+        for product_with_tracks in products {
+            let category = product_with_tracks
+                .product
+                .r#type
+                .clone()
                 .unwrap_or_default();
-
-            // Sort product_track_map by track_no
-            product_track_map.sort_by_key(|pt| pt.track_no.unwrap_or(i32::MAX));
-
-            tracing::debug!("======== after::product_track_map: {:?}", product_track_map);
-
-            let isrc_order: HashMap<String, usize> = product_track_map
-                .iter()
-                .enumerate()
-                .map(|(index, pt)| (pt.isrc.clone(), index))
-                .collect();
-            let mut tracks: Vec<Track> = product_track_map
-                .iter()
-                .filter_map(|pt| tracks_by_isrc.get(&pt.isrc).cloned())
-                .collect();
-            tracks.sort_by_key(|track| isrc_order.get(&track.isrc).copied().unwrap_or(usize::MAX));
-
-            tracing::debug!("======== tracks: {:?}", tracks);
             match category.as_str() {
-                "album" => output.album.push(ProductWithTracks { product, tracks }),
-                "single" => output.single.push(ProductWithTracks { product, tracks }),
-                "ep" => output.ep.push(ProductWithTracks { product, tracks }),
+                "album" => output.album.push(product_with_tracks),
+                "single" => output.single.push(product_with_tracks),
+                "ep" => output.ep.push(product_with_tracks),
                 _ => (),
             }
         }
@@ -153,10 +135,26 @@ impl GetProductsUsecaseTrait for GetProductsUsecase {
         let product_track_map: Vec<ProductTrack> =
             self.product_track_repo.get_by_isrc(&isrc).await?;
 
-        let products: Vec<Product> = self
-            .products_repo
-            .get_by_upcs(product_track_map.iter().map(|pt| pt.upc.clone()).collect())
-            .await?;
+        if product_track_map.is_empty() {
+            return Ok(GetTrackInfoUsecaseOutput {
+                track,
+                product: vec![],
+            });
+        }
+
+        let mut seen_upcs = HashSet::new();
+        let upcs = product_track_map
+            .iter()
+            .filter_map(|pt| {
+                if seen_upcs.insert(pt.upc.clone()) {
+                    Some(pt.upc.clone())
+                } else {
+                    None
+                }
+            })
+            .collect();
+
+        let products: Vec<Product> = self.products_repo.get_by_upcs(upcs).await?;
 
         Ok(GetTrackInfoUsecaseOutput {
             track,
