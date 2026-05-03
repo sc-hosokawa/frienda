@@ -118,3 +118,72 @@ impl GenderGenPlaybackRepository for GenderGenPlaybackRepoImpl {
         Ok(res.first().map_or(0, |record| record.id))
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use domain::repositories::gender_gen_playback_repo::GenderGenPlaybackRepository;
+    use sea_orm::{DbBackend, MockDatabase};
+
+    #[tokio::test]
+    async fn find_by_isrcs_filters_requested_isrcs() {
+        // dashboard の属性集計対象が別 track に広がらないよう、ISRC list filter を固定する。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([Vec::<GenderGenPlayback>::new()])
+            .into_connection();
+        let repo = GenderGenPlaybackRepoImpl::new(db);
+
+        repo.find_by_isrcs(vec!["ISRC1".to_string(), "ISRC2".to_string()])
+            .await
+            .unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("WHERE"), "{log}");
+        assert!(log.contains("gender_gen_playback"), "{log}");
+        assert!(log.contains("isrc"), "{log}");
+        assert!(log.contains(" IN "), "{log}");
+        assert!(log.contains("ISRC1"), "{log}");
+        assert!(log.contains("ISRC2"), "{log}");
+    }
+
+    #[tokio::test]
+    async fn find_by_isrc_and_year_filters_isrc_and_year_prefix() {
+        // 年指定集計では指定 ISRC かつ指定年だけに閉じることを SQL 条件として固定する。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([Vec::<GenderGenPlayback>::new()])
+            .into_connection();
+        let repo = GenderGenPlaybackRepoImpl::new(db);
+
+        repo.find_by_isrc_and_year("ISRC1", "2025").await.unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("gender_gen_playback"), "{log}");
+        assert!(log.contains("isrc"), "{log}");
+        assert!(log.contains(" = "), "{log}");
+        assert!(log.contains("date"), "{log}");
+        assert!(log.contains(" LIKE "), "{log}");
+        assert!(log.contains("2025%"), "{log}");
+    }
+
+    #[tokio::test]
+    async fn find_by_isrcs_and_year_filters_isrc_list_and_year_prefix() {
+        // artist/UPC 由来の複数 ISRC 集計でも、年条件が抜けて全期間集計にならないことを固定する。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([Vec::<GenderGenPlayback>::new()])
+            .into_connection();
+        let repo = GenderGenPlaybackRepoImpl::new(db);
+
+        repo.find_by_isrcs_and_year(vec!["ISRC1".to_string()], "2025")
+            .await
+            .unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("gender_gen_playback"), "{log}");
+        assert!(log.contains("date"), "{log}");
+        assert!(log.contains(" LIKE "), "{log}");
+        assert!(log.contains("isrc"), "{log}");
+        assert!(log.contains(" IN "), "{log}");
+        assert!(log.contains("2025%"), "{log}");
+        assert!(log.contains("ISRC1"), "{log}");
+    }
+}

@@ -16,6 +16,7 @@ fn jst_today() -> NaiveDate {
 
 #[tokio::test]
 async fn test_get_playback_overview_excludes_recent_three_days() {
+    // DSP データの遅延を避けるため、JST 基準で直近 3 日を除外する集計窓を固定する。
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
     let today = jst_today();
 
@@ -55,6 +56,7 @@ async fn test_get_playback_overview_excludes_recent_three_days() {
 
 #[tokio::test]
 async fn test_get_playback_overview_by_upc_uses_single_aggregate_query() {
+    // UPC overview は total/weekly を同じ集計 query で取得し、UI への値だけを詰め替える。
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
     let today = jst_today();
 
@@ -94,6 +96,7 @@ async fn test_get_playback_overview_by_upc_uses_single_aggregate_query() {
 
 #[tokio::test]
 async fn test_get_playback_overview_by_upc_requires_upc() {
+    // UPC 別 overview は UPC が集計キーなので、未指定時は repository に到達する前に失敗する。
     let usecase = PlaybackOverviewUsecase::new(
         Arc::new(MockMockPlaysDailyRepo::new()),
         Arc::new(MockMockProductsRepo::new()),
@@ -113,4 +116,33 @@ async fn test_get_playback_overview_by_upc_requires_upc() {
     };
 
     assert!(error.to_string().contains("UPC is required"));
+}
+
+#[tokio::test]
+async fn test_get_playback_overview_returns_zero_when_aggregate_is_empty() {
+    // 再生実績がない artist でも dashboard が欠落せず、0 件として表示できることを固定する。
+    let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
+
+    plays_daily_repo
+        .expect_mock_aggregate_overview_by_artist_id()
+        .times(1)
+        .returning(|_, _, _| Ok(OverviewPlayCountAggregate::default()));
+
+    let usecase = PlaybackOverviewUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(MockMockProductsRepo::new()),
+        Arc::new(MockMockProductTrackRepo::new()),
+    );
+
+    let result = usecase
+        .get_playback_overview(PlaybackOverviewUsecaseInput {
+            artist_id: "artist-empty".to_string(),
+            user_id: "user-1".to_string(),
+            upc: None,
+        })
+        .await
+        .expect("empty overview succeeds");
+
+    assert_eq!(result.total_play_count, 0);
+    assert_eq!(result.weekly_play_count, 0);
 }

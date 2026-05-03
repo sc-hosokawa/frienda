@@ -22,6 +22,7 @@ fn jst_today() -> NaiveDate {
 
 #[tokio::test]
 async fn test_get_trending_aggregates_top_tracks() {
+    // artist trending は repository 側で top 順に集計済みの値を、UI DTO へ欠落なく詰め替える。
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
     let products_repo = MockMockProductsRepo::new();
     let tracks_repo = MockMockTracksRepo::new();
@@ -109,6 +110,7 @@ async fn test_get_trending_aggregates_top_tracks() {
 
 #[tokio::test]
 async fn test_get_trending_by_upc_preserves_track_number_order() {
+    // UPC trending は track_no 順の repository 結果を維持し、ゼロ再生 track も落とさない。
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
     let mut products_repo = MockMockProductsRepo::new();
     let tracks_repo = MockMockTracksRepo::new();
@@ -203,4 +205,40 @@ async fn test_get_trending_by_upc_preserves_track_number_order() {
     assert_eq!(result.trending[0].total_play_count, 0);
     assert_eq!(result.trending[1].total_play_count, 20);
     assert_eq!(result.trending[1].weekly_play_count_details.youtube, 4);
+}
+
+#[tokio::test]
+async fn test_get_trending_returns_empty_when_aggregate_has_no_tracks() {
+    // 再生実績がない artist は空 trending として返し、古い複数 repo read へ戻らないことを固定する。
+    let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
+    let today = jst_today();
+
+    plays_daily_repo
+        .expect_mock_aggregate_trending_by_artist_id()
+        .times(1)
+        .returning(move |artist_id, weekly_start_date, end_date, limit| {
+            assert_eq!(artist_id, "artist-empty");
+            assert_eq!(weekly_start_date, today - Duration::days(9));
+            assert_eq!(end_date, today - Duration::days(3));
+            assert_eq!(limit, 5);
+            Ok(vec![])
+        });
+
+    let usecase = GetTrendingUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(MockMockProductsRepo::new()),
+        Arc::new(MockMockTracksRepo::new()),
+        Arc::new(MockMockProductTrackRepo::new()),
+        Arc::new(MockMockArtistsRepo::new()),
+    );
+
+    let result = usecase
+        .get_trending(GetTrendingUsecaseInput {
+            artist_id: "artist-empty".to_string(),
+            user_id: "user-1".to_string(),
+        })
+        .await
+        .expect("empty trending succeeds");
+
+    assert!(result.trending.is_empty());
 }

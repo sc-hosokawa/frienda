@@ -101,3 +101,47 @@ impl ProductsRepository for ProductsRepoImpl {
         Ok(res)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use domain::repositories::products_repo::ProductsRepository;
+    use sea_orm::{DbBackend, MockDatabase};
+
+    #[tokio::test]
+    async fn find_by_artist_id_filters_artist_products_for_dashboard() {
+        // dashboard の release 起点集計が別 artist の product を混ぜないよう、artist_id filter を固定する。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([Vec::<Products>::new()])
+            .into_connection();
+        let repo = ProductsRepoImpl::new(db);
+
+        repo.find_by_artist_id("artist-1").await.unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("products"), "{log}");
+        assert!(log.contains("artist_id"), "{log}");
+        assert!(log.contains(" = "), "{log}");
+        assert!(log.contains("artist-1"), "{log}");
+    }
+
+    #[tokio::test]
+    async fn get_by_upcs_filters_requested_release_ids() {
+        // track 詳細で紐付く release だけを返すため、UPC list filter が外れないことを固定する。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([Vec::<Products>::new()])
+            .into_connection();
+        let repo = ProductsRepoImpl::new(db);
+
+        repo.get_by_upcs(vec!["UPC1".to_string(), "UPC2".to_string()])
+            .await
+            .unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("products"), "{log}");
+        assert!(log.contains("upc"), "{log}");
+        assert!(log.contains(" IN "), "{log}");
+        assert!(log.contains("UPC1"), "{log}");
+        assert!(log.contains("UPC2"), "{log}");
+    }
+}

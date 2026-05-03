@@ -384,6 +384,13 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
         let row = OverviewPlayCountAggregateRow::find_by_statement(Statement::from_sql_and_values(
             DbBackend::Postgres,
             r#"
+            WITH artist_isrcs AS (
+                SELECT DISTINCT pt.isrc
+                FROM products p
+                INNER JOIN product_track pt ON pt.upc = p.upc
+                WHERE p.artist_id = $1
+                    AND pt.isrc IS NOT NULL
+            )
             SELECT
                 COALESCE(SUM(COALESCE(pd."sum", 0)), 0)::BIGINT AS total,
                 COALESCE(SUM(
@@ -392,11 +399,9 @@ impl PlaysDailyRepository for PlaysDailyRepoImpl {
                         ELSE 0
                     END
                 ), 0)::BIGINT AS weekly
-            FROM products p
-            INNER JOIN product_track pt ON pt.upc = p.upc
-            INNER JOIN plays_daily pd ON pd.isrc = pt.isrc
-            WHERE p.artist_id = $1
-                AND pd.isrc IS NOT NULL
+            FROM artist_isrcs ai
+            INNER JOIN plays_daily pd ON pd.isrc = ai.isrc
+            WHERE pd.isrc IS NOT NULL
                 AND pd."date" IS NOT NULL
                 AND pd."date" <= $3
             "#,
@@ -738,6 +743,7 @@ mod tests {
 
     #[tokio::test]
     async fn aggregate_by_isrcs_maps_null_sums_to_zero_and_skips_null_isrc() {
+        // 集計 DTO では DB の NULL 集計結果を 0 に寄せ、ISRC がない行を dashboard 集計から除外する。
         let db = MockDatabase::new(DbBackend::Postgres)
             .append_query_results([[
                 row(vec![
@@ -784,6 +790,7 @@ mod tests {
 
     #[tokio::test]
     async fn sum_by_isrcs_until_returns_zero_when_database_sum_is_null() {
+        // 対象再生がない SUM は NULL になり得るため、overview では 0 として扱うことを固定する。
         let db = MockDatabase::new(DbBackend::Postgres)
             .append_query_results([[row(vec![(
                 "total",
@@ -803,6 +810,7 @@ mod tests {
 
     #[tokio::test]
     async fn aggregate_overview_by_artist_id_maps_null_sums_to_zero_and_joins_release_tables() {
+        // artist overview は product_track 重複で同じ ISRC を二重集計しないよう、ISRC を先に dedupe する。
         let db = MockDatabase::new(DbBackend::Postgres)
             .append_query_results([[row(vec![
                 ("total", Into::<Value>::into(Option::<i64>::None)),
@@ -822,6 +830,8 @@ mod tests {
         assert_eq!(result.weekly, 0);
 
         let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("WITH artist_isrcs AS"), "{log}");
+        assert!(log.contains("SELECT DISTINCT pt.isrc"), "{log}");
         assert!(log.contains("FROM products p"), "{log}");
         assert!(log.contains("INNER JOIN product_track pt"), "{log}");
         assert!(log.contains("INNER JOIN plays_daily pd"), "{log}");
@@ -830,6 +840,7 @@ mod tests {
 
     #[tokio::test]
     async fn aggregate_overview_by_upc_returns_total_and_weekly_from_one_query() {
+        // UPC overview は total/weekly を 1 query で取得し、期間違いの二重 scan を避ける。
         let db = MockDatabase::new(DbBackend::Postgres)
             .append_query_results([[row(vec![
                 ("total", Into::<Value>::into(250_i64)),
@@ -857,6 +868,7 @@ mod tests {
 
     #[tokio::test]
     async fn aggregate_trending_by_artist_id_joins_and_limits_in_one_query() {
+        // artist trending は ISRC 単位で集計し、top5 制限と total desc の並びを DB 側で保証する。
         let db = MockDatabase::new(DbBackend::Postgres)
             .append_query_results([[row(vec![
                 ("isrc", Into::<Value>::into("ISRC1")),
@@ -907,6 +919,7 @@ mod tests {
 
     #[tokio::test]
     async fn aggregate_trending_by_upc_left_joins_play_counts_and_maps_nulls_to_zero() {
+        // UPC trending は再生行がない track も表示対象なので、LEFT JOIN と NULL->0 mapping を守る。
         let db = MockDatabase::new(DbBackend::Postgres)
             .append_query_results([[row(vec![
                 ("isrc", Into::<Value>::into("ISRC1")),

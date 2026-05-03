@@ -107,3 +107,47 @@ impl TracksRepository for TracksRepoImpl {
         Ok(res)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use domain::repositories::tracks_repo::TracksRepository;
+    use sea_orm::{DbBackend, MockDatabase};
+
+    #[tokio::test]
+    async fn get_by_isrcs_filters_requested_tracks_for_dashboard_titles() {
+        // dashboard の track title 解決で別 ISRC の title を混ぜないよう、ISRC list filter を固定する。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([Vec::<Tracks>::new()])
+            .into_connection();
+        let repo = TracksRepoImpl::new(db);
+
+        repo.get_by_isrcs(vec!["ISRC1".to_string(), "ISRC2".to_string()])
+            .await
+            .unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("tracks"), "{log}");
+        assert!(log.contains("isrc"), "{log}");
+        assert!(log.contains(" IN "), "{log}");
+        assert!(log.contains("ISRC1"), "{log}");
+        assert!(log.contains("ISRC2"), "{log}");
+    }
+
+    #[tokio::test]
+    async fn find_by_artist_id_filters_artist_tracks() {
+        // artist 単位で track を扱う dashboard 系処理が、他 artist の track を含めないことを固定する。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([Vec::<Tracks>::new()])
+            .into_connection();
+        let repo = TracksRepoImpl::new(db);
+
+        repo.find_by_artist_id("artist-1").await.unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("tracks"), "{log}");
+        assert!(log.contains("artist_id"), "{log}");
+        assert!(log.contains(" = "), "{log}");
+        assert!(log.contains("artist-1"), "{log}");
+    }
+}

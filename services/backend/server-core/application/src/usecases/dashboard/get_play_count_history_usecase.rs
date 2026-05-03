@@ -112,6 +112,13 @@ impl GetPlayCountHistoryUsecase {
         Ok((start_month, end_date))
     }
 
+    fn validate_period(period: i32) -> Result<(), anyhow::Error> {
+        match period {
+            7 | 30 | 12 | 36 | -1 => Ok(()),
+            _ => Err(anyhow::anyhow!("Invalid period")),
+        }
+    }
+
     fn aggregate_daily_by_month(
         plays: Vec<PlaysDaily>,
         start: Option<NaiveDate>,
@@ -120,6 +127,10 @@ impl GetPlayCountHistoryUsecase {
         let mut aggregated_data: HashMap<String, ChartDataByDSP> = HashMap::new();
 
         for play in plays.into_iter() {
+            if play.isrc.is_none() {
+                continue;
+            }
+
             let date = match play.date {
                 Some(date) => date,
                 None => continue,
@@ -228,6 +239,8 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
         &self,
         input: GetAllHistroyUsecaseInput,
     ) -> Result<GetAllHistoryUsecaseOutput, anyhow::Error> {
+        Self::validate_period(input.period)?;
+
         let products_by_artist = self
             .products_repo
             .find_by_artist_id(&input.artist_id)
@@ -253,9 +266,15 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
             let mut aggregated_data: HashMap<String, ChartDataByDSP> = HashMap::new();
 
             for play in plays_daily_by_isrcs.iter() {
-                let date = play.date.unwrap().format("%Y-%m-%d").to_string();
+                if play.isrc.is_none() {
+                    continue;
+                }
+                let Some(date) = play.date else {
+                    continue;
+                };
+                let date = date.format("%Y-%m-%d").to_string();
                 aggregated_data
-                    .entry(date)
+                    .entry(date.clone())
                     .and_modify(|e| {
                         e.spotify += play.spotify;
                         e.apple += play.apple;
@@ -264,7 +283,7 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                         e.youtube += play.youtube.unwrap_or(0);
                     })
                     .or_insert(ChartDataByDSP {
-                        date: play.date.unwrap().format("%Y-%m-%d").to_string(),
+                        date,
                         spotify: play.spotify,
                         apple: play.apple,
                         line: play.line,
@@ -291,8 +310,6 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 self.plays_daily_repo.find_by_isrcs(isrcs).await?;
 
             chart_data = Self::aggregate_daily_by_month(plays_daily_by_isrcs, None, None);
-        } else {
-            return Err(anyhow::anyhow!("Invalid period"));
         }
 
         Ok(GetAllHistoryUsecaseOutput { chart_data })
@@ -301,6 +318,8 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
         &self,
         input: GetUPCHistoryUsecaseInput,
     ) -> Result<GetUPCHistoryUsecaseOutput, anyhow::Error> {
+        Self::validate_period(input.period)?;
+
         let product_track: Vec<ProductTrack> =
             self.product_track_repo.get_by_upc(&input.upc).await?;
         let isrcs: Vec<String> = product_track
@@ -326,13 +345,14 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 .iter()
                 .filter_map(|p| {
                     let isrc = p.isrc.clone()?;
+                    let date = p.date?;
                     let title = isrc_to_title.get(&isrc)?.clone();
 
                     let mut title_count: HashMap<String, i32> = HashMap::new();
                     title_count.insert(title, p.sum.unwrap_or(0));
 
                     Some(ChartDataByISRC {
-                        date: p.date.unwrap().format("%Y-%m-%d").to_string(),
+                        date: date.format("%Y-%m-%d").to_string(),
                         track_count: title_count,
                     })
                 })
@@ -342,7 +362,11 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
             for data in chart_data {
                 merged_data
                     .entry(data.date)
-                    .and_modify(|e| e.extend(data.track_count.clone()))
+                    .and_modify(|e| {
+                        for (title, count) in data.track_count.iter() {
+                            *e.entry(title.clone()).or_insert(0) += count;
+                        }
+                    })
                     .or_insert(data.track_count.clone());
             }
 
@@ -373,8 +397,6 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
                 None,
                 &isrc_to_title,
             );
-        } else {
-            return Err(anyhow::anyhow!("Invalid period"));
         }
 
         Ok(GetUPCHistoryUsecaseOutput { chart_data })
@@ -384,35 +406,41 @@ impl GetPlayCountHistoryUsecaseTrait for GetPlayCountHistoryUsecase {
         &self,
         input: GetISRCHistoryUsecaseInput,
     ) -> Result<GetISRCHistoryUsecaseOutput, anyhow::Error> {
+        Self::validate_period(input.period)?;
+
         let chart_data = if input.period == 7 || input.period == 30 {
             let plays_daily_by_isrcs: Vec<PlaysDaily> = self
                 .plays_daily_repo
                 .find_by_isrc_and_period(&input.isrc, input.period)
                 .await?;
-            plays_daily_by_isrcs
+            let mut chart_data = plays_daily_by_isrcs
                 .iter()
-                .map(|p| ChartDataByDSP {
-                    date: p.date.unwrap().format("%Y-%m-%d").to_string(),
-                    spotify: p.spotify,
-                    apple: p.apple,
-                    line: p.line,
-                    amazon: p.amazon.unwrap_or(0),
-                    youtube: p.youtube.unwrap_or(0),
+                .filter_map(|p| {
+                    p.isrc.as_ref()?;
+                    let date = p.date?;
+                    Some(ChartDataByDSP {
+                        date: date.format("%Y-%m-%d").to_string(),
+                        spotify: p.spotify,
+                        apple: p.apple,
+                        line: p.line,
+                        amazon: p.amazon.unwrap_or(0),
+                        youtube: p.youtube.unwrap_or(0),
+                    })
                 })
-                .collect::<Vec<ChartDataByDSP>>()
+                .collect::<Vec<ChartDataByDSP>>();
+            chart_data.sort_by(|a, b| a.date.cmp(&b.date));
+            chart_data
         } else if input.period == 12 || input.period == 36 {
             let (start, end) = Self::monthly_range(input.period)?;
             let plays_daily_by_isrcs: Vec<PlaysDaily> =
                 self.plays_daily_repo.find_by_isrc(&input.isrc).await?;
 
             Self::aggregate_daily_by_month(plays_daily_by_isrcs, Some(start), Some(end))
-        } else if input.period == -1 {
+        } else {
             let plays_daily_by_isrcs: Vec<PlaysDaily> =
                 self.plays_daily_repo.find_by_isrc(&input.isrc).await?;
 
             Self::aggregate_daily_by_month(plays_daily_by_isrcs, None, None)
-        } else {
-            return Err(anyhow::anyhow!("Invalid period"));
         };
 
         Ok(GetISRCHistoryUsecaseOutput { chart_data })
