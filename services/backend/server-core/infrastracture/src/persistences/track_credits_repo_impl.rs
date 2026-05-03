@@ -8,6 +8,7 @@ use domain::entities::track_credits::{
 };
 use domain::repositories::track_credits_repo::TrackCreditsRepository;
 use shared::error::domain_err::DomainError;
+use shared::numeric::checked_u64_to_i64;
 
 #[derive(new)]
 pub struct TrackCreditsRepoImpl {
@@ -73,7 +74,7 @@ impl TrackCreditsRepository for TrackCreditsRepoImpl {
 
     async fn count_credits(&self) -> Result<i64, DomainError> {
         let res: u64 = TrackCreditsEntity::find().count(&self.db).await?;
-        Ok(res as i64)
+        checked_u64_to_i64(res, "track_credits_count").map_err(DomainError::UnexpectedError)
     }
 
     async fn delete_by_isrc(&self, isrc: &str) -> Result<(), DomainError> {

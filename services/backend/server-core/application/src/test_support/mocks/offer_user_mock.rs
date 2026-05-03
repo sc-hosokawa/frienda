@@ -4,7 +4,7 @@ use domain::entities::sea_orm_active_enums::OfferStatus;
 use mockall::automock;
 use shared::error::domain_err::DomainError;
 
-use domain::repositories::offer_user_repo::OfferUserRepository;
+use domain::repositories::offer_user_repo::{OfferStatsAggregate, OfferUserRepository};
 
 #[automock]
 #[async_trait]
@@ -32,6 +32,10 @@ pub trait MockOfferUserRepo {
         user_id: String,
         status: OfferStatus,
     ) -> Result<Vec<OfferUser>, DomainError>;
+    async fn mock_aggregate_stats_by_user_id(
+        &self,
+        user_id: String,
+    ) -> Result<OfferStatsAggregate, DomainError>;
     async fn mock_cancel_other_applications(
         &self,
         offer_id: i32,
@@ -88,6 +92,14 @@ impl OfferUserRepository for MockMockOfferUserRepo {
         status: OfferStatus,
     ) -> Result<Vec<OfferUser>, DomainError> {
         self.mock_get_by_user_id_and_status(user_id.to_string(), status)
+            .await
+    }
+
+    async fn aggregate_stats_by_user_id(
+        &self,
+        user_id: &str,
+    ) -> Result<OfferStatsAggregate, DomainError> {
+        self.mock_aggregate_stats_by_user_id(user_id.to_string())
             .await
     }
 

@@ -1,6 +1,6 @@
 use async_trait::async_trait;
 use sea_orm::ActiveValue;
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 
 use domain::entities::sea_orm_active_enums::UserArtistStatus;
 use domain::entities::user_artist::{ActiveModel as UserArtistActiveModel, Model as UserArtist};
@@ -83,28 +83,38 @@ impl MarkAsMemberUsecaseTrait for MarkAsMemberUsecase {
             }
         }
 
+        let target_user_ids: Vec<String> = input
+            .mapping
+            .iter()
+            .map(|user_status| user_status.user_id.clone())
+            .collect();
+        let existing_by_user_id: HashMap<String, UserArtist> = self
+            .user_artist_repo
+            .find_by_artist_id_and_user_ids(
+                &input.artist_id,
+                target_user_ids.iter().map(String::as_str).collect(),
+            )
+            .await?
+            .into_iter()
+            .map(|mapping| (mapping.user_id.clone(), mapping))
+            .collect();
+
         let mut results: Vec<UserArtist> = Vec::new();
 
         for user_status in input.mapping {
-            let existing = self
-                .user_artist_repo
-                .find_by_artist_id_and_user_id(&input.artist_id, &user_status.user_id)
-                .await?;
+            let existing_record = existing_by_user_id
+                .get(&user_status.user_id)
+                .ok_or(DomainError::NotFound)?;
+            let user_artist_mapping = UserArtistActiveModel {
+                id: ActiveValue::Set(existing_record.id),
+                artist_id: ActiveValue::Set(input.artist_id.clone()),
+                user_id: ActiveValue::Set(user_status.user_id),
+                status: ActiveValue::Set(user_status.status),
+                ..Default::default()
+            };
 
-            if let Some(existing_record) = existing {
-                let user_artist_mapping = UserArtistActiveModel {
-                    id: ActiveValue::Set(existing_record.id),
-                    artist_id: ActiveValue::Set(input.artist_id.clone()),
-                    user_id: ActiveValue::Set(user_status.user_id),
-                    status: ActiveValue::Set(user_status.status),
-                    ..Default::default()
-                };
-
-                let result = self.user_artist_repo.update(user_artist_mapping).await?;
-                results.push(result);
-            } else {
-                return Err(DomainError::NotFound);
-            }
+            let result = self.user_artist_repo.update(user_artist_mapping).await?;
+            results.push(result);
         }
 
         Ok(results)

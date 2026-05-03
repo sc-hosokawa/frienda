@@ -4438,6 +4438,7 @@ dependencies = [
  "application",
  "infrastracture",
  "sea-orm",
+ "shared",
  "tracing",
 ]
 

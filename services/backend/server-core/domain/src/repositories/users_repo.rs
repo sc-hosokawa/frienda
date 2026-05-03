@@ -26,6 +26,8 @@ pub trait UsersRepository: Send + Sync {
     async fn update_status(&self, id: &str, status: UserStatus) -> Result<User, DomainError>;
     async fn find_by_category(&self, category: UserCategory) -> Result<Vec<User>, DomainError>;
     async fn count(&self) -> Result<i64, DomainError>;
+    async fn sum_fsp(&self) -> Result<i64, DomainError>;
+    async fn count_mobile_app_users(&self) -> Result<i64, DomainError>;
     async fn find_by_username_or_email(
         &self,
         username_or_email: &str,

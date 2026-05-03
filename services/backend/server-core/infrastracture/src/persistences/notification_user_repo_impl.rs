@@ -8,6 +8,7 @@ use domain::entities::notification_user::{
 };
 use domain::repositories::notification_user_repo::NotificationUserRepository;
 use shared::error::domain_err::DomainError;
+use shared::numeric::checked_u64_to_i32;
 
 #[derive(new)]
 pub struct NotificationUserRepoImpl {
@@ -44,7 +45,8 @@ impl NotificationUserRepository for NotificationUserRepoImpl {
         let res = NotificationUserEntity::delete_by_id(id)
             .exec(&self.db)
             .await?;
-        Ok(res.rows_affected as i32)
+        checked_u64_to_i32(res.rows_affected, "deleted_notification_users")
+            .map_err(DomainError::UnexpectedError)
     }
 
     async fn get_by_id(&self, id: i32) -> Result<Option<NotificationUser>, DomainError> {

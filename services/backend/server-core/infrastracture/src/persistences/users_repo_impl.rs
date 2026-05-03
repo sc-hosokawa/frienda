@@ -8,6 +8,7 @@ use domain::entities::users::{
 };
 use domain::repositories::users_repo::UsersRepository;
 use shared::error::domain_err::DomainError;
+use shared::numeric::checked_u64_to_i64;
 
 #[derive(new)]
 pub struct UsersRepoImpl {
@@ -161,7 +162,26 @@ impl UsersRepository for UsersRepoImpl {
 
     async fn count(&self) -> Result<i64, DomainError> {
         let count = UserEntity::find().count(&self.db).await?;
-        Ok(count as i64)
+        checked_u64_to_i64(count, "users_count").map_err(DomainError::UnexpectedError)
+    }
+
+    async fn sum_fsp(&self) -> Result<i64, DomainError> {
+        let total = UserEntity::find()
+            .select_only()
+            .column_as(sea_orm::sea_query::Expr::col(Column::Fsp).sum(), "sum_fsp")
+            .into_tuple::<Option<i64>>()
+            .one(&self.db)
+            .await?;
+
+        Ok(total.flatten().unwrap_or(0))
+    }
+
+    async fn count_mobile_app_users(&self) -> Result<i64, DomainError> {
+        let count = UserEntity::find()
+            .filter(Column::FcmToken.is_not_null())
+            .count(&self.db)
+            .await?;
+        checked_u64_to_i64(count, "mobile_app_users_count").map_err(DomainError::UnexpectedError)
     }
 
     async fn find_by_username_or_email(

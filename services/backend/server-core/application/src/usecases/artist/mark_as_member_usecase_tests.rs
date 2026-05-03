@@ -69,6 +69,14 @@ async fn test_mark_as_member_success() {
         .expect_mock_find_by_artist_id_and_user_id()
         .returning(|_, _| Ok(Some(create_test_user_artist("user_id", "artist_id", true))));
 
+    user_artist_repo
+        .expect_mock_find_by_artist_id_and_user_ids()
+        .with(
+            mockall::predicate::eq("artist_id".to_string()),
+            mockall::predicate::eq(vec!["user_id".to_string()]),
+        )
+        .returning(|_, _| Ok(vec![create_test_user_artist("user_id", "artist_id", false)]));
+
     // Mock the behavior of user_artist_repo.update
     user_artist_repo
         .expect_mock_update()

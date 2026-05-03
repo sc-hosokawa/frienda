@@ -83,7 +83,10 @@ impl RegisterTaskUsecaseTrait for RegisterTaskUsecase {
 
         if let Some(attached_imgs) = input.attached_imgs {
             if !attached_imgs.is_empty() {
-                tracing::debug!("Attached imgs: {:?}", attached_imgs);
+                tracing::debug!(
+                    "register_task image attachments: count={}",
+                    attached_imgs.len()
+                );
                 let offer_img_attaches: Vec<OfferAttachActiveModel> = attached_imgs
                     .into_iter()
                     .map(|media_url| OfferAttachActiveModel {
@@ -102,7 +105,10 @@ impl RegisterTaskUsecaseTrait for RegisterTaskUsecase {
 
         if let Some(attached_files) = input.attached_files {
             if !attached_files.is_empty() {
-                tracing::debug!("Attached files: {:?}", attached_files);
+                tracing::debug!(
+                    "register_task file attachments: count={}",
+                    attached_files.len()
+                );
                 let offer_file_attaches: Vec<OfferAttachActiveModel> = attached_files
                     .into_iter()
                     .map(|media_url| OfferAttachActiveModel {

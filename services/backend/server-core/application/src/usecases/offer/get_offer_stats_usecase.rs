@@ -1,9 +1,9 @@
 use async_trait::async_trait;
 use std::sync::Arc;
 
-use domain::entities::sea_orm_active_enums::OfferStatus;
 use domain::repositories::offer_user_repo::OfferUserRepository;
 use domain::repositories::offers_repo::OffersRepository;
+use shared::numeric::checked_i64_to_i32;
 
 //
 // Define the input for the usecase
@@ -35,7 +35,7 @@ pub trait GetOfferStatsUsecaseTrait: Send + Sync {
 // Implement the usecase
 //
 pub struct GetOfferStatsUsecase {
-    offers_repo: Arc<dyn OffersRepository>,
+    _offers_repo: Arc<dyn OffersRepository>,
     offer_user_repo: Arc<dyn OfferUserRepository>,
 }
 
@@ -45,9 +45,13 @@ impl GetOfferStatsUsecase {
         offer_user_repo: Arc<dyn OfferUserRepository>,
     ) -> Self {
         Self {
-            offers_repo,
+            _offers_repo: offers_repo,
             offer_user_repo,
         }
+    }
+
+    fn stat_to_i32(value: i64, field: &str) -> Result<i32, anyhow::Error> {
+        checked_i64_to_i32(value, field).map_err(anyhow::Error::msg)
     }
 }
 
@@ -60,38 +64,17 @@ impl GetOfferStatsUsecaseTrait for GetOfferStatsUsecase {
         &self,
         input: GetOfferStatsInput,
     ) -> Result<GetOfferStatsOutput, anyhow::Error> {
-        let offers = self.offer_user_repo.get_by_user_id(&input.user_id).await?;
-
-        let total_offers = offers.len() as i32;
-        let mut ongoing_offers = 0;
-        let mut applied_offers = 0;
-        let mut completed_offers = 0;
-        let mut total_earnings = 0;
-
-        for offer in offers {
-            match offer.status {
-                OfferStatus::Ongoing => ongoing_offers += 1,
-                OfferStatus::Applied => applied_offers += 1,
-                OfferStatus::Finished => {
-                    completed_offers += 1;
-                    let completed_offer_fee = self
-                        .offers_repo
-                        .get_by_id(offer.offer_id)
-                        .await?
-                        .ok_or_else(|| anyhow::anyhow!("Offer not found"))?
-                        .fee;
-                    total_earnings += completed_offer_fee;
-                }
-                _ => {}
-            }
-        }
+        let aggregate = self
+            .offer_user_repo
+            .aggregate_stats_by_user_id(&input.user_id)
+            .await?;
 
         Ok(GetOfferStatsOutput {
-            total_offers,
-            ongoing_offers,
-            applied_offers,
-            completed_offers,
-            total_earnings,
+            total_offers: Self::stat_to_i32(aggregate.total_offers, "total_offers")?,
+            ongoing_offers: Self::stat_to_i32(aggregate.ongoing_offers, "ongoing_offers")?,
+            applied_offers: Self::stat_to_i32(aggregate.applied_offers, "applied_offers")?,
+            completed_offers: Self::stat_to_i32(aggregate.completed_offers, "completed_offers")?,
+            total_earnings: Self::stat_to_i32(aggregate.total_earnings, "total_earnings")?,
         })
     }
 }

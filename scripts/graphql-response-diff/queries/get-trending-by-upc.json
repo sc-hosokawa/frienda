@@ -1,0 +1,10 @@
+{
+  "description": "Dashboard UPC trending.",
+  "requiredVariables": [
+    { "field": "upc", "type": "String!", "sourceEnv": "UPC" },
+    { "field": "userId", "type": "String!", "sourceEnv": "USER_ID" }
+  ],
+  "operationName": "GetTrendingByUpc",
+  "query": "query GetTrendingByUpc($upc: String!, $userId: String!) { getTrendingByUpc(upc: $upc, userId: $userId) { artistName productImgUrl productTitle trendingTracks { isrc trackTitle upcTitle imageUrl totalPlayCount weeklyPlayCount totalPlayCountDetails { spotify apple line amazon youtube } weeklyPlayCountDetails { spotify apple line amazon youtube } } } }",
+  "variables": {}
+}

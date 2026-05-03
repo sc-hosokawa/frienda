@@ -35,6 +35,14 @@ impl OffersRepository for OffersRepoImpl {
         Ok(offer)
     }
 
+    async fn get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Offer>, DomainError> {
+        let offers = OfferEntity::find()
+            .filter(Column::Id.is_in(ids))
+            .all(&self.db)
+            .await?;
+        Ok(offers)
+    }
+
     async fn delete(&self, id: i32) -> Result<(), DomainError> {
         let _res = OfferEntity::delete_by_id(id).exec(&self.db).await?;
         Ok(())

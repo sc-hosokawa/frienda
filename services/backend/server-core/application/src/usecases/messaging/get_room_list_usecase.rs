@@ -1,13 +1,18 @@
 use async_trait::async_trait;
-use futures::stream::{self, StreamExt, TryStreamExt};
-use std::sync::Arc;
+use std::{
+    collections::{HashMap, HashSet},
+    sync::Arc,
+};
 use uuid::Uuid;
 
 use domain::entities::room_user::Model as RoomUser;
+use domain::entities::rooms::Model as Room;
 use domain::entities::sea_orm_active_enums::MessageRoomType;
+use domain::entities::users::Model as User;
 use domain::repositories::room_user_repo::RoomUserRepository;
 use domain::repositories::rooms_repo::RoomsRepository;
 use domain::repositories::users_repo::UsersRepository;
+use shared::numeric::checked_usize_to_i32;
 
 //
 // Define the input for the usecase
@@ -72,6 +77,101 @@ impl GetRoomListUsecase {
             users_repo,
         }
     }
+
+    fn room_count_to_i32(value: usize) -> Result<i32, anyhow::Error> {
+        checked_usize_to_i32(value, "count_of_messages_rooms").map_err(anyhow::Error::msg)
+    }
+
+    async fn build_room_data(
+        &self,
+        user_rooms: Vec<RoomUser>,
+        viewer_user_id: &str,
+    ) -> Result<Vec<RoomData>, anyhow::Error> {
+        if user_rooms.is_empty() {
+            return Ok(vec![]);
+        }
+
+        let room_ids: Vec<Uuid> = user_rooms.iter().map(|room| room.room_id).collect();
+        let rooms_by_id: HashMap<Uuid, Room> = self
+            .rooms_repo
+            .get_by_ids(room_ids.clone())
+            .await?
+            .into_iter()
+            .map(|room| (room.id, room))
+            .collect();
+
+        let room_users = self.room_user_repo.get_by_room_ids(room_ids).await?;
+        let mut seen_counter_party_user_ids = HashSet::new();
+        let counter_party_user_ids: Vec<String> = room_users
+            .iter()
+            .filter(|room_user| room_user.user_id != viewer_user_id)
+            .map(|room_user| room_user.user_id.clone())
+            .filter(|user_id| seen_counter_party_user_ids.insert(user_id.clone()))
+            .collect();
+        let users_by_id: HashMap<String, User> = if counter_party_user_ids.is_empty() {
+            HashMap::new()
+        } else {
+            self.users_repo
+                .find_by_ids(counter_party_user_ids.iter().map(String::as_str).collect())
+                .await?
+                .into_iter()
+                .map(|user| (user.id.clone(), user))
+                .collect()
+        };
+
+        let mut room_users_by_room_id: HashMap<Uuid, Vec<RoomUser>> = HashMap::new();
+        for room_user in room_users {
+            room_users_by_room_id
+                .entry(room_user.room_id)
+                .or_default()
+                .push(room_user);
+        }
+
+        user_rooms
+            .into_iter()
+            .map(|room| {
+                let room_id = room.room_id;
+                let room_info = rooms_by_id
+                    .get(&room_id)
+                    .ok_or_else(|| anyhow::anyhow!("Room not found"))?;
+                let users = room_users_by_room_id
+                    .get(&room_id)
+                    .map(|room_users| {
+                        room_users
+                            .iter()
+                            .filter(|room_user| room_user.user_id != viewer_user_id)
+                            .map(|room_user| {
+                                let user_data = users_by_id
+                                    .get(&room_user.user_id)
+                                    .ok_or_else(|| anyhow::anyhow!("User not found"))?;
+                                Ok::<SimpleUser, anyhow::Error>(SimpleUser {
+                                    id: user_data.id.clone(),
+                                    name: user_data.username.clone(),
+                                    image_url: user_data.img_url.clone(),
+                                })
+                            })
+                            .collect::<Result<Vec<SimpleUser>, anyhow::Error>>()
+                    })
+                    .transpose()?
+                    .unwrap_or_default();
+
+                Ok(RoomData {
+                    id: room_id.to_string(),
+                    category: Some(room_info.r#type.clone()),
+                    latest_message: room_info.latest_message.clone(),
+                    latest_message_id: room_info.latest_message_id,
+                    latest_sent_at: room_info.latest_sent_at.map(|dt| dt.and_utc()),
+                    is_read: match (room.last_read_message_id, room_info.latest_message_id) {
+                        (None, None) => true,
+                        (None, Some(_)) => false,
+                        (Some(last_read), Some(latest)) => last_read == latest,
+                        (Some(_), None) => true,
+                    },
+                    users,
+                })
+            })
+            .collect()
+    }
 }
 
 //
@@ -84,70 +184,9 @@ impl GetRoomListUsecaseTrait for GetRoomListUsecase {
         input: GetRoomListInput,
     ) -> Result<GetRoomListOutput, anyhow::Error> {
         let rooms: Vec<RoomUser> = self.room_user_repo.get_by_user_id(&input.user_id).await?;
-        let user_id = input.user_id.clone();
+        let room_data = self.build_room_data(rooms, &input.user_id).await?;
 
-        let room_data: Vec<RoomData> = stream::iter(rooms)
-            .map(|room| {
-                let user_id = user_id.clone();
-                async move {
-                    let room_id = room.room_id;
-                    let room_info: domain::entities::rooms::Model = self
-                        .rooms_repo
-                        .get_by_id(room_id)
-                        .await?
-                        .ok_or_else(|| anyhow::anyhow!("Room not found"))?;
-
-                    let room_users: Vec<RoomUser> =
-                        self.room_user_repo.get_by_room_id(room_id).await?;
-
-                    // user_idをcloneして使用
-                    let user_id = user_id.clone();
-                    let counter_party_users: Vec<RoomUser> = room_users
-                        .into_iter()
-                        .filter(|user| user.user_id != user_id)
-                        .collect();
-
-                    // counter_party_usersからUserSimpleDataのベクターを作成
-                    let users: Vec<SimpleUser> = stream::iter(counter_party_users)
-                        .map(|user| async move {
-                            let user_data = self
-                                .users_repo
-                                .find_by_id(&user.user_id)
-                                .await?
-                                .ok_or_else(|| anyhow::anyhow!("User not found"))?;
-
-                            Ok::<SimpleUser, anyhow::Error>(SimpleUser {
-                                id: user_data.id,
-                                name: user_data.username,
-                                image_url: user_data.img_url,
-                            })
-                        })
-                        .buffer_unordered(10)
-                        .try_collect()
-                        .await?;
-
-                    // RoomDataを構築
-                    Ok::<RoomData, anyhow::Error>(RoomData {
-                        id: room_id.to_string(),
-                        category: Some(room_info.r#type),
-                        latest_message: room_info.latest_message,
-                        latest_message_id: room_info.latest_message_id,
-                        latest_sent_at: room_info.latest_sent_at.map(|dt| dt.and_utc()),
-                        is_read: match (room.last_read_message_id, room_info.latest_message_id) {
-                            (None, None) => true,     // 両方メッセージIDがない場合は既読
-                            (None, Some(_)) => false, // 未読メッセージがある場合は未読
-                            (Some(last_read), Some(latest)) => last_read == latest, // 両方ある場合は比較
-                            (Some(_), None) => true, // 最新メッセージがない場合は既読
-                        },
-                        users,
-                    })
-                }
-            })
-            .buffer_unordered(10)
-            .try_collect()
-            .await?;
-
-        let count_of_messages_rooms: i32 = room_data.len() as i32;
+        let count_of_messages_rooms: i32 = Self::room_count_to_i32(room_data.len())?;
 
         Ok(GetRoomListOutput {
             rooms: room_data,
@@ -156,69 +195,7 @@ impl GetRoomListUsecaseTrait for GetRoomListUsecase {
     }
     async fn get_active_rooms(&self, user_id: String) -> Result<GetRoomListOutput, anyhow::Error> {
         let rooms: Vec<RoomUser> = self.room_user_repo.get_by_user_id(&user_id).await?;
-        let user_id = user_id.clone();
-
-        // 各ルームの最新メッセージと未読状態を取得
-        let mut room_data: Vec<RoomData> = stream::iter(rooms)
-            .map(|room| {
-                let user_id = user_id.clone();
-                async move {
-                    let room_id = room.room_id;
-                    let room_info = self
-                        .rooms_repo
-                        .get_by_id(room_id)
-                        .await?
-                        .ok_or_else(|| anyhow::anyhow!("Room not found"))?;
-                    let room_users: Vec<RoomUser> =
-                        self.room_user_repo.get_by_room_id(room_id).await?;
-
-                    // user_idをcloneして使用
-                    let user_id = user_id.clone();
-                    let counter_party_users: Vec<RoomUser> = room_users
-                        .into_iter()
-                        .filter(|user| user.user_id != user_id)
-                        .collect();
-
-                    // counter_party_usersからUserSimpleDataのベクターを作成
-                    let users: Vec<SimpleUser> = stream::iter(counter_party_users)
-                        .map(|user| async move {
-                            let user_data = self
-                                .users_repo
-                                .find_by_id(&user.user_id)
-                                .await?
-                                .ok_or_else(|| anyhow::anyhow!("User not found"))?;
-
-                            Ok::<SimpleUser, anyhow::Error>(SimpleUser {
-                                id: user_data.id,
-                                name: user_data.username,
-                                image_url: user_data.img_url,
-                            })
-                        })
-                        .buffer_unordered(10)
-                        .try_collect()
-                        .await?;
-
-                    let is_read = match (room.last_read_message_id, room_info.latest_message_id) {
-                        (None, None) => true,     // 両方メッセージIDがない場合は既読
-                        (None, Some(_)) => false, // 未読メッセージがある場合は未読
-                        (Some(last_read), Some(latest)) => last_read == latest, // 両方ある場合は比較
-                        (Some(_), None) => true, // 最新メッセージがない場合は既読
-                    };
-
-                    Ok::<RoomData, anyhow::Error>(RoomData {
-                        id: room_id.to_string(),
-                        category: Some(room_info.r#type),
-                        latest_message: room_info.latest_message,
-                        latest_message_id: room_info.latest_message_id,
-                        latest_sent_at: room_info.latest_sent_at.map(|dt| dt.and_utc()),
-                        is_read,
-                        users,
-                    })
-                }
-            })
-            .buffer_unordered(10)
-            .try_collect::<Vec<RoomData>>()
-            .await?;
+        let mut room_data = self.build_room_data(rooms, &user_id).await?;
 
         // 未読メッセージを優先し、その後に最新のメッセージで並べ替え
         room_data.sort_by(|a, b| {
@@ -230,7 +207,7 @@ impl GetRoomListUsecaseTrait for GetRoomListUsecase {
         // 最大5件に制限
         room_data.truncate(5);
 
-        let count_of_messages_rooms = room_data.len() as i32;
+        let count_of_messages_rooms = Self::room_count_to_i32(room_data.len())?;
 
         Ok(GetRoomListOutput {
             rooms: room_data,

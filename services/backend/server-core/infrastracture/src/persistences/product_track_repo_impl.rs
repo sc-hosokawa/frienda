@@ -116,3 +116,47 @@ impl ProductTrackRepository for ProductTrackRepoImpl {
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use domain::repositories::product_track_repo::ProductTrackRepository;
+    use sea_orm::{DbBackend, MockDatabase};
+
+    #[tokio::test]
+    async fn get_by_upcs_filters_release_track_mappings() {
+        // dashboard の artist release 展開で対象 UPC 以外の track mapping を混ぜないことを固定する。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([Vec::<ProductTrack>::new()])
+            .into_connection();
+        let repo = ProductTrackRepoImpl::new(db);
+
+        repo.get_by_upcs(vec!["UPC1".to_string(), "UPC2".to_string()])
+            .await
+            .unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("product_track"), "{log}");
+        assert!(log.contains("upc"), "{log}");
+        assert!(log.contains(" IN "), "{log}");
+        assert!(log.contains("UPC1"), "{log}");
+        assert!(log.contains("UPC2"), "{log}");
+    }
+
+    #[tokio::test]
+    async fn get_by_upc_filters_single_release_tracks() {
+        // UPC dashboard は指定 release の track だけを対象にするため、単一 UPC filter を固定する。
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_query_results([Vec::<ProductTrack>::new()])
+            .into_connection();
+        let repo = ProductTrackRepoImpl::new(db);
+
+        repo.get_by_upc("UPC1").await.unwrap();
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("product_track"), "{log}");
+        assert!(log.contains("upc"), "{log}");
+        assert!(log.contains(" = "), "{log}");
+        assert!(log.contains("UPC1"), "{log}");
+    }
+}

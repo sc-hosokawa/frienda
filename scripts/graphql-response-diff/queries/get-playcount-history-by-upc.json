@@ -1,0 +1,10 @@
+{
+  "description": "Dashboard UPC play count history.",
+  "requiredVariables": [
+    { "field": "upc", "type": "String!", "sourceEnv": "UPC" },
+    { "field": "period", "type": "Int!", "sourceEnv": "PERIOD", "default": 30 }
+  ],
+  "operationName": "GetPlaycountHistoryByUpc",
+  "query": "query GetPlaycountHistoryByUpc($upc: String!, $period: Int!) { getPlaycountHistoryByUpc(upc: $upc, period: $period) { lineChartData { date trackCount } } }",
+  "variables": {}
+}

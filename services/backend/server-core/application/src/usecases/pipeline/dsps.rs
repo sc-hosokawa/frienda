@@ -11,6 +11,7 @@ use domain::repositories::gender_gen_playback_repo::GenderGenPlaybackRepository;
 use domain::repositories::plays_daily_repo::PlaysDailyRepository;
 use domain::repositories::plays_monthly_repo::PlaysMonthlyRepository;
 use domain::repositories::tracks_repo::TracksRepository;
+use shared::numeric::checked_i64_to_i32;
 
 #[async_trait]
 pub trait DspsUsecaseTrait: Send + Sync {
@@ -295,7 +296,10 @@ impl DspsUsecaseTrait for DspsUsecase {
                 ),
                 gender: ActiveValue::Set(Some(data.gender)),
                 age: ActiveValue::Set(Some(data.age)),
-                play_count: ActiveValue::Set(data.play_count as i32),
+                play_count: ActiveValue::Set(
+                    checked_i64_to_i32(data.play_count, "gender_gen_play_count")
+                        .map_err(anyhow::Error::msg)?,
+                ),
             });
             next_id += 1;
         }

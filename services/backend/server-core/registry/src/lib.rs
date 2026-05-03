@@ -1,4 +1,5 @@
 use sea_orm::DatabaseConnection;
+use shared::db::clone_database_connection;
 use std::sync::Arc;
 use tracing;
 
@@ -255,41 +256,43 @@ pub struct Usecases {
 
 pub fn create_repositories(db: DatabaseConnection) -> RepositoriesImpl {
     tracing::info!("Creating Repositories...");
+    let clone_db = || clone_database_connection(&db);
+
     RepositoriesImpl {
-        health_check: Arc::new(HealthCheckRepoImpl::new(db.clone())),
-        tracks: Arc::new(TracksRepoImpl::new(db.clone())),
-        users: Arc::new(UsersRepoImpl::new(db.clone())),
-        artists: Arc::new(ArtistsRepoImpl::new(db.clone())),
-        user_artist: Arc::new(UserArtistRepoImpl::new(db.clone())),
-        offers: Arc::new(OffersRepoImpl::new(db.clone())),
-        txs_fsp: Arc::new(TxsFspRepoImpl::new(db.clone())),
-        rooms: Arc::new(RoomsRepoImpl::new(db.clone())),
-        exchange_prize_history: Arc::new(ExchangePrizeHistoryRepoImpl::new(db.clone())),
-        prizes: Arc::new(PrizesRepoImpl::new(db.clone())),
-        room_user: Arc::new(RoomUserRepoImpl::new(db.clone())),
-        messages: Arc::new(MessagesRepoImpl::new(db.clone())),
-        offer_attach: Arc::new(OfferAttachRepoImpl::new(db.clone())),
-        offer_user: Arc::new(OfferUserRepoImpl::new(db.clone())),
-        message_attach: Arc::new(MessageAttachRepoImpl::new(db.clone())),
-        quests: Arc::new(QuestsRepoImpl::new(db.clone())),
-        quest_user: Arc::new(QuestUserRepoImpl::new(db.clone())),
-        product_track: Arc::new(ProductTrackRepoImpl::new(db.clone())),
-        products: Arc::new(ProductsRepoImpl::new(db.clone())),
-        plays_monthly: Arc::new(PlaysMonthlyRepoImpl::new(db.clone())),
-        plays_daily: Arc::new(PlaysDailyRepoImpl::new(db.clone())),
-        gender_gen_playback: Arc::new(GenderGenPlaybackRepoImpl::new(db.clone())),
-        track_credits: Arc::new(TrackCreditsRepoImpl::new(db.clone())),
-        favorites: Arc::new(FavoritesRepoImpl::new(db.clone())),
-        short_notes: Arc::new(ShortNotesRepoImpl::new(db.clone())),
-        notifications: Arc::new(NotificationsRepoImpl::new(db.clone())),
-        notification_user: Arc::new(NotificationUserRepoImpl::new(db.clone())),
-        invitations: Arc::new(InvitationsRepoImpl::new(db.clone())),
-        portfolios: Arc::new(PortfoliosRepoImpl::new(db.clone())),
-        user_report: Arc::new(UserReportRepoImpl::new(db.clone())),
-        offer_report: Arc::new(OfferReportRepoImpl::new(db.clone())),
-        release_report: Arc::new(ReleaseReportRepoImpl::new(db.clone())),
-        user_blocks: Arc::new(UserBlocksRepoImpl::new(db.clone())),
-        plays_yearly: Arc::new(PlaysYearlyRepoImpl::new(db.clone())),
+        health_check: Arc::new(HealthCheckRepoImpl::new(clone_db())),
+        tracks: Arc::new(TracksRepoImpl::new(clone_db())),
+        users: Arc::new(UsersRepoImpl::new(clone_db())),
+        artists: Arc::new(ArtistsRepoImpl::new(clone_db())),
+        user_artist: Arc::new(UserArtistRepoImpl::new(clone_db())),
+        offers: Arc::new(OffersRepoImpl::new(clone_db())),
+        txs_fsp: Arc::new(TxsFspRepoImpl::new(clone_db())),
+        rooms: Arc::new(RoomsRepoImpl::new(clone_db())),
+        exchange_prize_history: Arc::new(ExchangePrizeHistoryRepoImpl::new(clone_db())),
+        prizes: Arc::new(PrizesRepoImpl::new(clone_db())),
+        room_user: Arc::new(RoomUserRepoImpl::new(clone_db())),
+        messages: Arc::new(MessagesRepoImpl::new(clone_db())),
+        offer_attach: Arc::new(OfferAttachRepoImpl::new(clone_db())),
+        offer_user: Arc::new(OfferUserRepoImpl::new(clone_db())),
+        message_attach: Arc::new(MessageAttachRepoImpl::new(clone_db())),
+        quests: Arc::new(QuestsRepoImpl::new(clone_db())),
+        quest_user: Arc::new(QuestUserRepoImpl::new(clone_db())),
+        product_track: Arc::new(ProductTrackRepoImpl::new(clone_db())),
+        products: Arc::new(ProductsRepoImpl::new(clone_db())),
+        plays_monthly: Arc::new(PlaysMonthlyRepoImpl::new(clone_db())),
+        plays_daily: Arc::new(PlaysDailyRepoImpl::new(clone_db())),
+        gender_gen_playback: Arc::new(GenderGenPlaybackRepoImpl::new(clone_db())),
+        track_credits: Arc::new(TrackCreditsRepoImpl::new(clone_db())),
+        favorites: Arc::new(FavoritesRepoImpl::new(clone_db())),
+        short_notes: Arc::new(ShortNotesRepoImpl::new(clone_db())),
+        notifications: Arc::new(NotificationsRepoImpl::new(clone_db())),
+        notification_user: Arc::new(NotificationUserRepoImpl::new(clone_db())),
+        invitations: Arc::new(InvitationsRepoImpl::new(clone_db())),
+        portfolios: Arc::new(PortfoliosRepoImpl::new(clone_db())),
+        user_report: Arc::new(UserReportRepoImpl::new(clone_db())),
+        offer_report: Arc::new(OfferReportRepoImpl::new(clone_db())),
+        release_report: Arc::new(ReleaseReportRepoImpl::new(clone_db())),
+        user_blocks: Arc::new(UserBlocksRepoImpl::new(clone_db())),
+        plays_yearly: Arc::new(PlaysYearlyRepoImpl::new(clone_db())),
     }
 }
 

@@ -11,6 +11,7 @@ use domain::repositories::track_credits_repo::TrackCreditsRepository;
 use domain::repositories::tracks_repo::TracksRepository;
 use domain::repositories::txs_fsp_repo::TxsFspRepository;
 use domain::repositories::users_repo::UsersRepository;
+use shared::numeric::checked_i64_to_i32;
 
 pub struct OverviewOutput {
     pub total_users: i64,
@@ -75,24 +76,31 @@ impl OverviewUsecase {
             plays_monthly_repo,
         }
     }
+
+    fn count_to_i32(value: i64, field: &str) -> Result<i32, anyhow::Error> {
+        checked_i64_to_i32(value, field).map_err(anyhow::Error::msg)
+    }
 }
 
 #[async_trait]
 impl OverviewUsecaseTrait for OverviewUsecase {
     async fn get_system_overview(&self) -> Result<OverviewOutput, anyhow::Error> {
-        let all_users: Vec<User> = self.users_repo.get_all_users().await?;
-        let all_fsps: i32 = all_users.iter().map(|user| user.fsp).sum::<i32>();
+        let total_users = self.users_repo.count().await?;
+        let total_fsp = self.users_repo.sum_fsp().await?;
         let total_artists: i64 = self.artists_repo.count().await?;
-        let mobile_app_users_count: i32 = self.get_balance_mobile_app_users().await?;
+        let mobile_app_users_count = self.users_repo.count_mobile_app_users().await?;
         let total_play_count: i64 = self.plays_monthly_repo.get_total_play_count_all().await?;
 
         Ok(OverviewOutput {
-            total_users: all_users.len() as i64,
+            total_users,
             total_artists,
-            total_fsp: all_fsps as i64,
+            total_fsp,
             total_revenue: 0,
             total_play_count,
-            mobile_app_users_count,
+            mobile_app_users_count: Self::count_to_i32(
+                mobile_app_users_count,
+                "mobile_app_users_count",
+            )?,
         })
     }
 
@@ -142,9 +150,8 @@ impl OverviewUsecaseTrait for OverviewUsecase {
     }
 
     async fn get_balance_mobile_app_users(&self) -> Result<i32, anyhow::Error> {
-        let users: Vec<User> = self.users_repo.get_all_users().await?;
-        let mobile_app_users_count = users.iter().filter(|user| user.fcm_token.is_some()).count();
-        Ok(mobile_app_users_count as i32)
+        let mobile_app_users_count = self.users_repo.count_mobile_app_users().await?;
+        Self::count_to_i32(mobile_app_users_count, "mobile_app_users_count")
     }
 
     async fn get_all_users(&self) -> Result<Vec<User>, anyhow::Error> {

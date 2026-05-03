@@ -10,4 +10,5 @@ pub trait RoomsRepository: Send + Sync {
     async fn update(&self, room: RoomActiveModel) -> Result<Room, DomainError>;
 
     async fn get_by_id(&self, id: Uuid) -> Result<Option<Room>, DomainError>;
+    async fn get_by_ids(&self, ids: Vec<Uuid>) -> Result<Vec<Room>, DomainError>;
 }

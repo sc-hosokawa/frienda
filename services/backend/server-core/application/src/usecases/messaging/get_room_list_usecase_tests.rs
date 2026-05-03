@@ -98,18 +98,21 @@ async fn test_get_room_list_success() {
         .returning(move |_| Ok(vec![test_room_users[0].clone()]));
 
     room_user_repo
-        .expect_mock_get_by_room_id()
+        .expect_mock_get_by_room_ids()
+        .times(1)
         .returning(move |_| Ok(test_room_users_clone.clone()));
 
     let test_room = create_test_room(room_id, Some(latest_message_id));
     rooms_repo
-        .expect_mock_get_by_id()
-        .returning(move |_| Ok(Some(test_room.clone())));
+        .expect_mock_get_by_ids()
+        .times(1)
+        .returning(move |_| Ok(vec![test_room.clone()]));
 
     let other_user = create_test_user(&other_user_id);
     users_repo
-        .expect_mock_find_by_id()
-        .returning(move |_| Ok(Some(other_user.clone())));
+        .expect_mock_find_by_ids()
+        .times(1)
+        .returning(move |_| Ok(vec![other_user.clone()]));
 
     let usecase = GetRoomListUsecase::new(
         Arc::new(room_user_repo),
@@ -180,36 +183,29 @@ async fn test_get_active_rooms_success() {
         });
 
     room_user_repo
-        .expect_mock_get_by_room_id()
-        .returning(move |room_id| {
-            Ok(if room_id == room_id1 {
-                test_room_users1_clone.clone()
-            } else {
-                test_room_users2_clone.clone()
-            })
+        .expect_mock_get_by_room_ids()
+        .times(1)
+        .returning(move |_| {
+            let mut room_users = test_room_users1_clone.clone();
+            room_users.extend(test_room_users2_clone.clone());
+            Ok(room_users)
         });
 
     // Setup rooms repo mock with consistent latest_message_ids
     let test_room1 = create_test_room(room_id1, Some(Uuid::new_v4()));
     let test_room2 = create_test_room(room_id2, Some(Uuid::new_v4()));
-    rooms_repo.expect_mock_get_by_id().returning(move |id| {
-        Ok(Some(if id == room_id1 {
-            test_room1.clone()
-        } else {
-            test_room2.clone()
-        }))
-    });
+    rooms_repo
+        .expect_mock_get_by_ids()
+        .times(1)
+        .returning(move |_| Ok(vec![test_room1.clone(), test_room2.clone()]));
 
     // Setup users repo mock
     let other_user1 = create_test_user(&other_user_id1);
     let other_user2 = create_test_user(&other_user_id2);
-    users_repo.expect_mock_find_by_id().returning(move |id| {
-        Ok(Some(if id == other_user_id1 {
-            other_user1.clone()
-        } else {
-            other_user2.clone()
-        }))
-    });
+    users_repo
+        .expect_mock_find_by_ids()
+        .times(1)
+        .returning(move |_| Ok(vec![other_user1.clone(), other_user2.clone()]));
 
     let usecase = GetRoomListUsecase::new(
         Arc::new(room_user_repo),

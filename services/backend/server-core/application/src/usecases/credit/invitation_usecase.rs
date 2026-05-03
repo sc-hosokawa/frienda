@@ -13,6 +13,7 @@ use domain::repositories::invitations_repo::InvitationsRepository;
 use domain::repositories::track_credits_repo::TrackCreditsRepository;
 use domain::repositories::users_repo::UsersRepository;
 use domain::services::email::Email;
+use shared::numeric::checked_i64_to_i32;
 
 pub struct InvitationUsecaseOutput {
     pub invitation: Vec<Invitation>,
@@ -60,8 +61,12 @@ impl InvitationUsecaseTrait for InvitationUsecase {
         }
 
         let count: i64 = self.track_credits_repo.count_credits().await?;
-        let registered_credits: Vec<TrackCredits> =
-            self.track_credits_repo.all_credits(count as i32).await?;
+        let registered_credits: Vec<TrackCredits> = self
+            .track_credits_repo
+            .all_credits(
+                checked_i64_to_i32(count, "track_credits_count").map_err(anyhow::Error::msg)?,
+            )
+            .await?;
 
         let invitations: Vec<Invitation> = self.invitations_repo.find_all().await?;
         let invited_user_emails: Vec<String> = invitations

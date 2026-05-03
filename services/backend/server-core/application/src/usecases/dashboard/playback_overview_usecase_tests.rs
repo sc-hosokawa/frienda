@@ -6,9 +6,7 @@ use crate::usecases::dashboard::playback_overview_usecase::{
     PlaybackOverviewUsecase, PlaybackOverviewUsecaseInput, PlaybackOverviewUsecaseTrait,
 };
 use chrono::{Duration, FixedOffset, NaiveDate, Utc};
-use domain::entities::plays_daily::Model as PlaysDaily;
-use domain::entities::product_track::Model as ProductTrack;
-use domain::entities::products::Model as Product;
+use domain::repositories::plays_daily_repo::OverviewPlayCountAggregate;
 use std::sync::Arc;
 
 fn jst_today() -> NaiveDate {
@@ -18,82 +16,29 @@ fn jst_today() -> NaiveDate {
 
 #[tokio::test]
 async fn test_get_playback_overview_excludes_recent_three_days() {
+    // DSP データの遅延を避けるため、JST 基準で直近 3 日を除外する集計窓を固定する。
     let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
-    let mut products_repo = MockMockProductsRepo::new();
-    let mut product_track_repo = MockMockProductTrackRepo::new();
     let today = jst_today();
 
-    products_repo
-        .expect_mock_find_by_artist_id()
-        .times(1)
-        .returning(move |_| {
-            Ok(vec![Product {
-                upc: "UPC1".to_string(),
-                title: "Release".to_string(),
-                img_url: None,
-                r#type: Some("single".to_string()),
-                distributed_at: Some(today),
-                artist_id: Some("artist-1".to_string()),
-            }])
-        });
-
-    product_track_repo
-        .expect_mock_get_by_upcs()
-        .times(1)
-        .returning(|_| {
-            Ok(vec![ProductTrack {
-                id: 1,
-                upc: "UPC1".to_string(),
-                isrc: "ISRC1".to_string(),
-                track_no: Some(1),
-            }])
-        });
-
     plays_daily_repo
-        .expect_mock_find_by_isrcs()
+        .expect_mock_aggregate_overview_by_artist_id()
         .times(1)
-        .returning(move |_| {
-            Ok(vec![
-                PlaysDaily {
-                    id: 1,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(today - Duration::days(4)),
-                    spotify: 0,
-                    apple: 0,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(40),
-                },
-                PlaysDaily {
-                    id: 2,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(today - Duration::days(8)),
-                    spotify: 0,
-                    apple: 0,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(30),
-                },
-                PlaysDaily {
-                    id: 3,
-                    isrc: Some("ISRC1".to_string()),
-                    date: Some(today - Duration::days(2)),
-                    spotify: 0,
-                    apple: 0,
-                    line: 0,
-                    amazon: Some(0),
-                    youtube: Some(0),
-                    sum: Some(99),
-                },
-            ])
+        .withf(move |artist_id, start_date, end_date| {
+            artist_id == "artist-1"
+                && *start_date == today - Duration::days(9)
+                && *end_date == today - Duration::days(3)
+        })
+        .returning(|_, _, _| {
+            Ok(OverviewPlayCountAggregate {
+                total: 100,
+                weekly: 70,
+            })
         });
 
     let usecase = PlaybackOverviewUsecase::new(
         Arc::new(plays_daily_repo),
-        Arc::new(products_repo),
-        Arc::new(product_track_repo),
+        Arc::new(MockMockProductsRepo::new()),
+        Arc::new(MockMockProductTrackRepo::new()),
     );
 
     let result = usecase
@@ -105,12 +50,53 @@ async fn test_get_playback_overview_excludes_recent_three_days() {
         .await
         .expect("overview succeeds");
 
-    assert_eq!(result.total_play_count, 70);
+    assert_eq!(result.total_play_count, 100);
     assert_eq!(result.weekly_play_count, 70);
 }
 
 #[tokio::test]
+async fn test_get_playback_overview_by_upc_uses_single_aggregate_query() {
+    // UPC overview は total/weekly を同じ集計 query で取得し、UI への値だけを詰め替える。
+    let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
+    let today = jst_today();
+
+    plays_daily_repo
+        .expect_mock_aggregate_overview_by_upc()
+        .times(1)
+        .withf(move |upc, start_date, end_date| {
+            upc == "UPC1"
+                && *start_date == today - Duration::days(9)
+                && *end_date == today - Duration::days(3)
+        })
+        .returning(|_, _, _| {
+            Ok(OverviewPlayCountAggregate {
+                total: 250,
+                weekly: 90,
+            })
+        });
+
+    let usecase = PlaybackOverviewUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(MockMockProductsRepo::new()),
+        Arc::new(MockMockProductTrackRepo::new()),
+    );
+
+    let result = usecase
+        .get_playback_overview_by_upc(PlaybackOverviewUsecaseInput {
+            artist_id: "artist-1".to_string(),
+            user_id: "user-1".to_string(),
+            upc: Some("UPC1".to_string()),
+        })
+        .await
+        .expect("overview succeeds");
+
+    assert_eq!(result.total_play_count, 250);
+    assert_eq!(result.weekly_play_count, 90);
+}
+
+#[tokio::test]
 async fn test_get_playback_overview_by_upc_requires_upc() {
+    // UPC 別 overview は UPC が集計キーなので、未指定時は repository に到達する前に失敗する。
     let usecase = PlaybackOverviewUsecase::new(
         Arc::new(MockMockPlaysDailyRepo::new()),
         Arc::new(MockMockProductsRepo::new()),
@@ -130,4 +116,69 @@ async fn test_get_playback_overview_by_upc_requires_upc() {
     };
 
     assert!(error.to_string().contains("UPC is required"));
+}
+
+#[tokio::test]
+async fn test_get_playback_overview_returns_error_when_play_count_exceeds_i32() {
+    // Overview の GraphQL 向け値は i32 なので、巨大な DB aggregate を切り捨てず error にする。
+    let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
+
+    plays_daily_repo
+        .expect_mock_aggregate_overview_by_artist_id()
+        .times(1)
+        .returning(|_, _, _| {
+            Ok(OverviewPlayCountAggregate {
+                total: i64::from(i32::MAX) + 1,
+                weekly: 0,
+            })
+        });
+
+    let usecase = PlaybackOverviewUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(MockMockProductsRepo::new()),
+        Arc::new(MockMockProductTrackRepo::new()),
+    );
+
+    let error = match usecase
+        .get_playback_overview(PlaybackOverviewUsecaseInput {
+            artist_id: "artist-1".to_string(),
+            user_id: "user-1".to_string(),
+            upc: None,
+        })
+        .await
+    {
+        Ok(_) => panic!("overflow aggregate should fail"),
+        Err(error) => error,
+    };
+
+    assert!(error.to_string().contains("total_play_count"));
+}
+
+#[tokio::test]
+async fn test_get_playback_overview_returns_zero_when_aggregate_is_empty() {
+    // 再生実績がない artist でも dashboard が欠落せず、0 件として表示できることを固定する。
+    let mut plays_daily_repo = MockMockPlaysDailyRepo::new();
+
+    plays_daily_repo
+        .expect_mock_aggregate_overview_by_artist_id()
+        .times(1)
+        .returning(|_, _, _| Ok(OverviewPlayCountAggregate::default()));
+
+    let usecase = PlaybackOverviewUsecase::new(
+        Arc::new(plays_daily_repo),
+        Arc::new(MockMockProductsRepo::new()),
+        Arc::new(MockMockProductTrackRepo::new()),
+    );
+
+    let result = usecase
+        .get_playback_overview(PlaybackOverviewUsecaseInput {
+            artist_id: "artist-empty".to_string(),
+            user_id: "user-1".to_string(),
+            upc: None,
+        })
+        .await
+        .expect("empty overview succeeds");
+
+    assert_eq!(result.total_play_count, 0);
+    assert_eq!(result.weekly_play_count, 0);
 }

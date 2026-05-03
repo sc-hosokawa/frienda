@@ -207,7 +207,7 @@ impl GetPlaybackGenderGenUsecaseTrait for GetPlaybackGenderGenUsecase {
 
         let unknown_count: i32 = gender_gen_playback
             .iter()
-            .filter(|p| p.age == Some("unknown".to_string()))
+            .filter(|p| p.age == Some("unknown".to_string()) || p.age.is_none())
             .filter(|p| p.play_count >= 0)
             .map(|p| p.play_count)
             .sum();
