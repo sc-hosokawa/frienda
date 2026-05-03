@@ -4002,7 +4002,7 @@ END $$;
 
 -- AppleMusic_Daily_Country-000000000000.csv -> plays_apple_country_daily
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600140', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600140', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4010,15 +4010,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401769', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401769', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301274', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301274', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52000001', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52000001', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4026,11 +4026,11 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CH', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA3E2610005', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA3E2610005', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4038,19 +4038,19 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502318', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502318', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403603', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403603', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NL4NL2180570', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NL4NL2180570', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922503785', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922503785', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4062,67 +4062,67 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211449', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211449', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'CL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'CL', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200222', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200222', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200223', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200223', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO01509308', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO01509308', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'CO', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'CO', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800135', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800135', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501259', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501259', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPC542504853', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPC542504853', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200329', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200329', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900455', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900455', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922402074', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922402074', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506356', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506356', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506350', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506350', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922110141', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922110141', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500434', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500434', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4142,7 +4142,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPN2020672', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPN2020672', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4150,31 +4150,31 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'CL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'CL', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100706', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100706', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100727', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100727', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200221', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200221', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301626', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301626', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501628', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501628', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100112', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100112', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4182,95 +4182,95 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'CR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'CR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500372', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500372', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109801104', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109801104', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109801103', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109801103', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300741', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300741', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100309', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100309', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201552', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201552', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502461', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502461', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502509', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502509', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200213', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200213', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307808', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307808', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505581', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505581', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506357', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506357', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302416', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302416', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1968910', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1968910', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307146', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307146', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500432', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500432', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922200158', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922200158', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NOTF62510010', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NOTF62510010', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2501061', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2501061', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209554', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209554', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4302,75 +4302,75 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211443', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211443', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500642', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500642', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917755', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917755', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'BR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'BR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800128', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800128', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201398', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201398', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300457', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300457', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700231', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700231', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO01509311', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO01509311', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301566', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301566', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09507903', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09507903', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800118', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800118', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200220', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200220', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401965', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401965', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101608', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101608', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600433', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600433', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900286', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900286', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4386,23 +4386,23 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'DE', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'DE', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800136', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800136', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4410,167 +4410,167 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101401608', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101401608', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301293', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301293', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400274', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400274', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW262300067', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW262300067', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW262100086', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW262100086', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200223', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200223', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100274', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100274', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200858', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200858', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000339', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000339', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600674', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600674', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209471', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209471', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW262000040', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW262000040', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401944', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401944', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301619', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301619', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200118', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200118', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402368', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402368', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200278', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200278', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900012', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900012', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506671', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506671', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QT2VB2444383', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QT2VB2444383', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100005', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100005', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QM7282437181', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QM7282437181', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407187', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407187', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPA2427170', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPA2427170', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407286', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407286', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPS2236364', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPS2236364', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500428', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500428', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506670', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506670', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209553', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209553', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPG1868941', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPG1868941', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPK2055831', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPK2055831', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403510', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403510', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407283', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407283', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504947', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504947', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302219', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302219', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209552', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209552', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2256889', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2256889', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500427', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500427', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506349', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506349', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407280', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407280', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4606,7 +4606,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255837', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255837', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4622,23 +4622,23 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500648', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500648', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211450', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211450', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500641', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500641', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600797', '2026-04-28', 'MX', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600797', '2026-04-28', 'MX', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255838', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255838', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4646,91 +4646,91 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500372', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500372', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301630', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301630', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CL', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391611', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391611', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401053', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401053', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401051', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401051', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800033', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800033', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402434', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402434', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502300', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502300', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401036', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401036', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000317', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000317', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700190', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700190', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00003102', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00003102', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101605', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101605', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101607', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101607', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600143', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600143', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09501601', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09501601', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4738,31 +4738,31 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600137', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600137', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301633', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301633', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600464', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600464', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301624', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301624', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101600123', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101600123', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001223', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001223', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4770,7 +4770,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600469', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600469', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4798,11 +4798,11 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00003102', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00003102', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600245', '2026-04-28', 'CZ', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600245', '2026-04-28', 'CZ', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4810,23 +4810,23 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'ES', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'ES', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600747', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600747', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900559', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900559', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4834,7 +4834,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -4842,275 +4842,275 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502555', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502555', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101301022', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101301022', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900014', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900014', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100500914', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100500914', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW261900008', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW261900008', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200347', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200347', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401823', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401823', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600040', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600040', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502837', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502837', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000543', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000543', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200310', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200310', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301225', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301225', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000452', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000452', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502653', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502653', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301333', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301333', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800071', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800071', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401271', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401271', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300469', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300469', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPJ960900012', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPJ960900012', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301742', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301742', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301564', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301564', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401499', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401499', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200044', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200044', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201576', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201576', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100484', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100484', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501092', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501092', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200176', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200176', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100188', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100188', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807206', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807206', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502856', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502856', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800120', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800120', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502821', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502821', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100440', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100440', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502041', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502041', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501893', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501893', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502029', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502029', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255836', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255836', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917755', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917755', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWAE31901499', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWAE31901499', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USDY42345623', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USDY42345623', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPO2160406', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPO2160406', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600014', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600014', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600004', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600004', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPS2264976', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPS2264976', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302392', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302392', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255837', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255837', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922402072', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922402072', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPE1663832', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPE1663832', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505585', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505585', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2297993', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2297993', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917757', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917757', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504103', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504103', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('KSA002500536', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('KSA002500536', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922300022', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922300022', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506676', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506676', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307806', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307806', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NOTF62509010', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NOTF62509010', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922310467', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922310467', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPF2500278', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPF2500278', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100003', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100003', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPC2493871', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPC2493871', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPV2327794', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPV2327794', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2256782', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2256782', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922310392', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922310392', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZPEW2122249', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZPEW2122249', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51800009', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51800009', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209558', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209558', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5118,59 +5118,59 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPZ2435500', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPZ2435500', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPK2064329', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPK2064329', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922402379', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922402379', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506354', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506354', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922406031', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922406031', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600010', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600010', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506672', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506672', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506355', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506355', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504940', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504940', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2256892', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2256892', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600002', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600002', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500430', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500430', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPK2064317', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPK2064317', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPD2564806', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPD2564806', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5242,7 +5242,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'CH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'CH', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5274,7 +5274,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51800007', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51800007', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5282,11 +5282,11 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500640', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500640', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211442', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211442', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5294,15 +5294,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211447', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211447', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100003', '2026-04-28', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100003', '2026-04-28', 'TW', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917755', '2026-04-28', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917755', '2026-04-28', 'TW', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5310,255 +5310,255 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500641', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500641', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407282', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407282', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505582', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505582', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800135', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800135', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800154', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800154', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100899', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100899', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'CL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'CL', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502521', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502521', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300741', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300741', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301625', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301625', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501691', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501691', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101635', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101635', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501686', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501686', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600712', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600712', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600462', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600462', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501874', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501874', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100942', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100942', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700230', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700230', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600136', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600136', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401822', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401822', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402430', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402430', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900290', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900290', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501688', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501688', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403605', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403605', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100500909', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100500909', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301627', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301627', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800151', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800151', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400775', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400775', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800150', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800150', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600570', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600570', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600466', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600466', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301452', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301452', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800123', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800123', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403608', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403608', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800130', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800130', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501186', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501186', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403601', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403601', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401966', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401966', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700016', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700016', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300758', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300758', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402432', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402432', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301739', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301739', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600313', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600313', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5566,7 +5566,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500372', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500372', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5626,23 +5626,23 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100200', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100200', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CO', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CO', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'DE', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'DE', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'DK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'DK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5650,11 +5650,11 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5662,75 +5662,75 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800136', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800136', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100500914', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100500914', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501541', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501541', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00003101', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00003101', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800132', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800132', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101607', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101607', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502777', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502777', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800154', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800154', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900559', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900559', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101401603', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101401603', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -5738,291 +5738,291 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800028', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800028', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800128', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800128', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'IN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'IN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'IN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'IN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501187', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501187', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000270', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000270', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400340', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400340', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101147', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101147', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502048', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502048', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100585', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100585', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502282', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502282', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301427', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301427', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800122', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800122', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500034', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500034', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100437', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100437', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00807110', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00807110', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000594', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000594', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000737', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000737', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502514', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502514', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300869', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300869', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500561', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500561', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP301800657', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP301800657', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501974', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501974', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501677', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501677', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101000502', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101000502', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500953', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500953', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300524', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300524', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600144', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600144', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300616', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300616', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452306132', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452306132', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900112', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900112', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000311', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000311', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ920802985', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ920802985', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200927', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200927', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301477', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301477', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301569', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301569', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201376', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201376', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100700233', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100700233', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000886', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000886', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301383', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301383', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500881', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500881', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109801111', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109801111', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500328', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500328', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109902401', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109902401', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501505', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501505', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301102', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301102', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700026', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700026', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500957', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500957', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00102403', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00102403', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452306292', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452306292', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201581', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201581', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101200320', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101200320', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101404', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101404', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00600401', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00600401', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900444', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900444', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900443', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900443', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401092', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401092', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100196', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100196', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502470', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502470', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502309', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502309', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401820', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401820', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000801', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000801', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501385', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501385', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101001702', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101001702', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501496', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501496', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600542', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600542', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000490', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000490', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWAE31901502', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWAE31901502', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500645', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500645', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211447', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211447', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403505', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403505', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6030,235 +6030,235 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPM2027008', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPM2027008', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403073', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403073', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NOTF62508010', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NOTF62508010', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900014', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900014', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922410240', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922410240', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500436', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500436', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPX2369068', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPX2369068', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307142', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307142', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1828268', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1828268', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1828269', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1828269', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600015', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600015', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506669', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506669', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302394', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302394', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403511', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403511', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51800007', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51800007', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302414', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302414', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506352', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506352', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922401258', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922401258', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600008', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600008', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NOTF62507010', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NOTF62507010', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPC2423957', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPC2423957', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2129982', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2129982', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307148', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307148', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922303195', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922303195', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506668', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506668', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505584', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505584', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZTL92167481', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZTL92167481', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209556', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209556', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505583', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505583', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600017', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600017', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505625', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922505625', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1828270', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1828270', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307153', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307153', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302395', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302395', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('KSA002500535', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('KSA002500535', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922311436', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922311436', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504941', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504941', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500435', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500435', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506347', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506347', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922300027', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922300027', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403078', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403078', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPG2538520', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPG2538520', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPQ2141963', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPQ2141963', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922308517', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922308517', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900012', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900012', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922300016', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922300016', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302412', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302412', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922308756', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922308756', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPZ2455163', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPZ2455163', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QMFMF2408508', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QMFMF2408508', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPY2474299', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPY2474299', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPZ2473615', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPZ2473615', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922311437', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922311437', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255838', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2255838', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500423', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500423', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPE1663829', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPE1663829', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500424', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500424', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407284', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922407284', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6266,63 +6266,63 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500433', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500433', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900020', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900020', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('KSA002501256', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('KSA002501256', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPQ2112704', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPQ2112704', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403512', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403512', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPG1868944', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPG1868944', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZK6N2598153', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZK6N2598153', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600013', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600013', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506353', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506353', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922402380', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922402380', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922300031', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922300031', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51800006', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51800006', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NLC242600588', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('NLC242600588', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307811', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307811', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506351', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922506351', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6330,31 +6330,31 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100004', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100004', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307149', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922307149', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403515', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403515', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900011', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900011', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1828265', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPI1828265', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPL2030340', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPL2030340', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZFZ72424497', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZFZ72424497', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6362,15 +6362,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922301966', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922301966', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZQAY2212886', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZQAY2212886', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403513', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922403513', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6378,7 +6378,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QM24S2200413', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QM24S2200413', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6518,7 +6518,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501682', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501682', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6582,7 +6582,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211447', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211447', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6590,7 +6590,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500646', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500646', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6598,27 +6598,27 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211444', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211444', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500647', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500647', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211449', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211449', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500645', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500645', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500648', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500648', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211448', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211448', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6626,23 +6626,23 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211451', '2026-04-28', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211451', '2026-04-28', 'KR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900014', '2026-04-28', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51900014', '2026-04-28', 'TW', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPE1663830', '2026-04-28', 'PH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPE1663830', '2026-04-28', 'PH', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600797', '2026-04-28', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600797', '2026-04-28', 'TW', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100009', '2026-04-28', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100009', '2026-04-28', 'TW', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6650,19 +6650,19 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211450', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922211450', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500645', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500645', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600797', '2026-04-28', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922600797', '2026-04-28', 'US', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500423', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500423', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6670,11 +6670,11 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPE1663832', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPE1663832', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504943', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504943', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6682,15 +6682,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917755', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('QZHZ51917755', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6698,15 +6698,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101605', '2026-04-28', 'AU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101605', '2026-04-28', 'AU', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6714,31 +6714,31 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'BR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'BR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101608', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101608', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00003102', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00003102', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101605', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101605', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800132', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800132', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391605', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391605', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6746,15 +6746,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800136', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800136', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6762,7 +6762,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -6770,391 +6770,391 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'CA', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500988', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500988', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'CL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'CL', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'CL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'CL', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'CL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800129', '2026-04-28', 'CL', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700156', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700156', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'CL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'CL', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500950', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500950', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401691', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401691', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403304', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403304', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300671', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300671', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700236', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700236', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100500914', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100500914', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501689', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501689', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200224', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200224', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401629', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401629', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452606795', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452606795', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501100', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501100', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101600245', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101600245', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100013', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100013', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502905', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502905', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403603', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403603', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101386', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101386', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100900327', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100900327', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500171', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500171', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300116', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300116', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600258', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600258', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600465', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600465', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900529', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900529', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700118', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700118', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100014', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100014', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501690', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501690', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391502', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391502', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502555', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502555', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101401608', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101401608', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600159', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600159', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB602087539', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB602087539', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391601', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391601', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100017', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100017', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501683', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501683', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900289', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900289', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700110', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700110', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100801201', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100801201', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700233', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700233', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452005639', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452005639', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301632', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301632', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100400713', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100400713', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502067', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502067', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800153', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800153', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501072', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501072', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401063', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401063', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100826', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100826', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401057', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401057', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502052', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502052', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301569', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301569', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100198', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100198', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501933', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501933', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800023', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800023', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000263', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000263', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502064', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502064', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501687', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501687', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800152', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800152', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501685', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501685', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100709', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100709', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000522', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000522', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400702', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400702', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402435', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402435', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301570', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301570', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301629', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301629', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201524', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201524', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501253', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501253', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391606', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391606', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501732', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501732', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000230', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000230', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302000193', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302000193', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401736', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401736', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000306', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000306', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921907876', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921907876', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391605', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391605', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301568', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301568', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101606', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101606', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501734', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501734', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301567', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301567', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403604', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403604', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100012', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100012', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600538', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600538', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502597', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502597', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -7162,15 +7162,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100015', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100015', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402476', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402476', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300456', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300456', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -7286,7 +7286,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900697', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900697', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -7294,39 +7294,39 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'CR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'CO', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'CO', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'DE', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'CZ', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'CZ', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'DE', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800028', '2026-04-28', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800028', '2026-04-28', 'DE', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101303001', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'DE', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'DK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'DK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -7334,35 +7334,35 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200218', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'ES', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'ES', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402031', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402031', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100201', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200648', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -7370,63 +7370,63 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800127', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600245', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600245', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'FR', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800128', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800128', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100199', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100199', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101605', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101605', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101649', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900558', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101606', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101606', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501826', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501826', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101608', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101608', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800028', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800028', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201668', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -7434,7 +7434,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000522', '2026-04-28', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000522', '2026-04-28', 'GB', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -7446,7 +7446,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000230', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000230', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -7454,519 +7454,519 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA3E2610002', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA3E2610002', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09504801', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09504801', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900555', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900555', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101391609', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500532', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500532', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600751', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600751', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600614', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600614', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800131', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-04-28', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-04-28', 'HK', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800126', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401427', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401427', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPSR00000521', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700119', '2026-04-28', 'ID', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100991', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100991', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'IL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-04-28', 'IL', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401962', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401962', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'IT', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800130', '2026-04-28', 'IT', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101600114', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101600114', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500306', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500306', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600390', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600390', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400067', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400067', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001203', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001203', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400032', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400032', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502886', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502886', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402354', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402354', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109901702', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109901702', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800154', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800154', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500895', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500895', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000588', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000588', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400909', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400909', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000057', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000057', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502287', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502287', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101000129', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101000129', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502808', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502808', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW262300066', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPW262300066', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402066', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402066', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502476', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502476', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402523', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402523', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200117', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200117', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700163', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101700163', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101100303', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101100303', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900092', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900092', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500622', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500622', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600801', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600801', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301043', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301043', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301700', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301700', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000386', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000386', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301226', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301226', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600861', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600861', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600442', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600442', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPU800700052', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPU800700052', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201308', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201308', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400318', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400318', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502863', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502863', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502349', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502349', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501844', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501844', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500798', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500798', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100700220', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100700220', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501320', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501320', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600797', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600797', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000800', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000800', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100467', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100467', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109801109', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG109801109', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600520', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600520', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921901792', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921901792', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400281', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400281', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300095', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300095', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401583', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401583', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600611', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600611', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300691', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300691', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402069', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402069', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501659', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501659', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408104', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408104', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300300', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300300', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501569', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501569', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600620', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600620', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201377', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201377', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200043', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200043', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800006', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800006', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300951', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300951', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301289', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301289', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200259', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200259', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300061', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300061', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502315', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502315', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452105790', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB452105790', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600444', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600444', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200713', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200713', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201578', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201578', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPJ960900011', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPJ960900011', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300228', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300228', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300096', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300096', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300097', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300097', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301012', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301012', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00109300', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00109300', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000954', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000954', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708794', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708794', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400343', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400343', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501338', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501338', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500284', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500284', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101017', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101017', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00600410', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00600410', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201215', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201215', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200523', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200523', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201643', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201643', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600437', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600437', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600574', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600574', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403304', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101403304', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600328', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600328', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000323', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000323', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501568', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501568', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPC02211038', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPC02211038', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000062', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000062', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402216', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102402216', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600667', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600667', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201586', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201586', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000952', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000952', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501866', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501866', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301128', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301128', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800134', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600871', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600871', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600593', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600593', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100433', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100433', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301628', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301628', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -7974,37 +7974,37 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209656', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922209656', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500426', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922500426', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPF2596738', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPF2596738', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302413', '2026-04-28', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922302413', '2026-04-28', 'JP', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100009', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ52100009', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2256889', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPT2256889', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922501836', '2026-04-28', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922501836', '2026-04-28', 'CN', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 
 -- AppleMusic_Daily_Age-000000000000.csv -> plays_apple_age_daily
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302414', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302414', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -8012,11 +8012,11 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868942', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868942', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912143', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912143', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -8032,19 +8032,19 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600010', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600010', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407284', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407284', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPS2236364', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPS2236364', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504947', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504947', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -8076,35 +8076,35 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910483', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910483', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302412', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302412', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004505', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004505', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500432', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500432', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922501836', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922501836', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2302395', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2302395', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('KSA002500535', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('KSA002500535', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901786', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901786', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -8168,67 +8168,67 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2493871', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2493871', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708786', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708786', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912140', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912140', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('KSA002501255', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('KSA002501255', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00405705', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00405705', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902402856', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902402856', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPE1663829', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPE1663829', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2055831', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2055831', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505582', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505582', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPE1663830', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPE1663830', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302100511', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302100511', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPC02211038', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPC02211038', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302102044', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302102044', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922311436', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922311436', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004507', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004507', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807003', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807003', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -8352,135 +8352,135 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408102', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408102', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922206746', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922206746', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828268', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828268', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922502380', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922502380', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPSR00003103', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPSR00003103', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPT701300358', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPT701300358', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51600002', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51600002', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902403808', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902403808', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901786', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901786', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922200158', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922200158', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505377', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505377', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902500450', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902500450', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922206743', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922206743', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZFZ72424497', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZFZ72424497', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800303', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800303', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922303195', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922303195', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403510', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403510', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPS2264976', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPS2264976', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004505', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004505', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710101', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710101', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2302392', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2302392', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00600403', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00600403', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922310392', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922310392', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407282', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407282', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504103', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504103', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NL4NL2180570', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NL4NL2180570', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910490', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910490', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2256782', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2256782', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00602602', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00602602', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307149', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307149', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921903534', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921903534', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922401258', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922401258', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921409279', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921409279', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -8728,267 +8728,267 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102578', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102578', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407765', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407765', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922110141', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922110141', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509314', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509314', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504945', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504945', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922308755', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922308755', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403515', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403515', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708790', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708790', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912142', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912142', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZHN52410313', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZHN52410313', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507902', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507902', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403510', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403510', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPX492002329', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPX492002329', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800294', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800294', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2473011', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2473011', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921902687', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921902687', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902302525', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902302525', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QMFMF2408508', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QMFMF2408508', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500436', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500436', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910479', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910479', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901787', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901787', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901580', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901580', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302416', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302416', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506668', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506668', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZK6N2598153', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZK6N2598153', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209556', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209556', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500426', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500426', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00256020', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00256020', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800300', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800300', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408103', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408103', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPY492400047', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPY492400047', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPY492300092', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPY492300092', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922406031', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922406031', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902301741', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902301741', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407187', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407187', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPF2500278', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPF2500278', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506347', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506347', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922311437', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922311437', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NOTF62509010', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NOTF62509010', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708789', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708789', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807102', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807102', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505583', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505583', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPP2129982', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPP2129982', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922300016', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922300016', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922110141', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922110141', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPD2564806', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPD2564806', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307153', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307153', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPQ2112704', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPQ2112704', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209558', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209558', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800301', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800301', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2302394', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2302394', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868944', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868944', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2455163', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2455163', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910484', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910484', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403073', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403073', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828264', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828264', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09715001', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09715001', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600010', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600010', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504940', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504940', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901580', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901580', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506668', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506668', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600015', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600015', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500424', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500424', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004506', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004506', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPV2327794', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPV2327794', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2473615', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2473615', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -9468,7 +9468,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWAE31901502', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWAE31901502', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -9476,507 +9476,507 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800303', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800303', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403506', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403506', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922310467', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922310467', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPB2452253', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPB2452253', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500423', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500423', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09609701', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09609701', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWAE31901502', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWAE31901502', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708794', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708794', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09715001', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09715001', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408106', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408106', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPE1663832', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPE1663832', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102573', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102573', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPS2264976', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPS2264976', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922303195', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922303195', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710112', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710112', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51900014', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51900014', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPV752511814', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPV752511814', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922308517', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922308517', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302102049', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302102049', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708787', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708787', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403074', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403074', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00256020', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00256020', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708783', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708783', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507904', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507904', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1968910', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1968910', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506348', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506348', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09800503', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09800503', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG2538520', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG2538520', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910490', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910490', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2302393', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2302393', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307145', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307145', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912062', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912062', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509313', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509313', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509309', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509309', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU800700045', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU800700045', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500426', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500426', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004201', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004201', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408103', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408103', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912062', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912062', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509310', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509310', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922501836', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922501836', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710110', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710110', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912064', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912064', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505378', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505378', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922212876', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922212876', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09501602', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09501602', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZPEW2122249', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZPEW2122249', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507905', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507905', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921802104', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921802104', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2423957', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2423957', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901792', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901792', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00255960', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00255960', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00810205', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00810205', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00256040', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00256040', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921609948', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921609948', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09612501', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09612501', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2423957', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2423957', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPY2474299', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPY2474299', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708790', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708790', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWAE31901499', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWAE31901499', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51900014', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51900014', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408111', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408111', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00810204', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00810204', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPQ2141963', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPQ2141963', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPY492400009', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPY492400009', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902402856', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902402856', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505581', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505581', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2435500', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2435500', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921705707', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921705707', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407283', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407283', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600013', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600013', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00602603', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00602603', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922310467', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922310467', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800297', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800297', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPN2020672', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPN2020672', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504941', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504941', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZHZ51917757', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZHZ51917757', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307148', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307148', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2256889', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2256889', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500423', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500423', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708794', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708794', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ920802985', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ920802985', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600017', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600017', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00102403', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00102403', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NOTF62510010', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NOTF62510010', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09805801', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09805801', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807002', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807002', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPX2369068', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPX2369068', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2493871', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPC2493871', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800296', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800296', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302412', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302412', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00102404', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00102404', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2489726', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2489726', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922009588', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922009588', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922310786', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922310786', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51600004', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51600004', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807004', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807004', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922100379', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922100379', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302414', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302414', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910485', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910485', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500435', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500435', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307146', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307146', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708791', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708791', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922402380', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922402380', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00600406', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00600406', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912142', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912142', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800302', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800302', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901790', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901790', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901789', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901789', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09501602', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09501602', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2064317', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2064317', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('KSA002500536', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('KSA002500536', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403512', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403512', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2255836', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2255836', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QMFMF2408508', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QMFMF2408508', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807106', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807106', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921816031', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921816031', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800304', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800304', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZTL92167481', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZTL92167481', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP631700237', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP631700237', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USDY42345623', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USDY42345623', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800295', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800295', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPA2427170', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPA2427170', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901788', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901788', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500427', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500427', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708792', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708792', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -9984,15 +9984,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922401220', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922401220', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPL2030340', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPL2030340', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910488', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910488', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -10000,7 +10000,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZK6N2598153', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZK6N2598153', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -10008,7 +10008,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507906', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507906', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -10520,7 +10520,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00706401', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00706401', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -10776,7 +10776,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710107', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710107', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -10904,7 +10904,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910480', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910480', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -10968,7 +10968,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504944', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504944', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -10984,7 +10984,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710109', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710109', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -10992,43 +10992,43 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408108', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408108', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912143', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912143', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912145', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912145', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004510', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004510', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922009588', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922009588', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922212874', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922212874', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600836', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600836', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921902682', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921902682', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307143', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307143', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00803801', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00803801', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -11036,511 +11036,511 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910482', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910482', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09705401', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09705401', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600008', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600008', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00102404', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00102404', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZTL92167481', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZTL92167481', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708791', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708791', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2064329', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2064329', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2055831', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2055831', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102572', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102572', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302200857', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302200857', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004508', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004508', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZFZ72424497', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZFZ72424497', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209058', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209058', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600013', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600013', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902401636', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902401636', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500434', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500434', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51800007', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51800007', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302102044', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302102044', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209557', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209557', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403076', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403076', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403513', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403513', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302200498', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302200498', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868944', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868944', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828265', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828265', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921902686', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921902686', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408110', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408110', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710103', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710103', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910488', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910488', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708789', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708789', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868941', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868941', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600011', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600011', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505581', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505581', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500433', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500433', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403514', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403514', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307147', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307147', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901791', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901791', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZHZ51917757', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZHZ51917757', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504940', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504940', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828269', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828269', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710102', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710102', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403511', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403511', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828270', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828270', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922401220', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922401220', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2255836', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2255836', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102579', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102579', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901788', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901788', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2256889', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2256889', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPP2129929', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPP2129929', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504933', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504933', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912141', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912141', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922100379', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922100379', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710104', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710104', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504941', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504941', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZHZ51917756', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZHZ51917756', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500424', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500424', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910481', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910481', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507901', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507901', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004506', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004506', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403516', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403516', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2255837', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2255837', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921902685', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921902685', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ52100003', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ52100003', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708793', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708793', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807107', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807107', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922100380', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922100380', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901790', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901790', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09805801', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09805801', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708792', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708792', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910484', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910484', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910487', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910487', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPA2427170', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPA2427170', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708785', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708785', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004501', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004501', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800304', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800304', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901792', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901792', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922205701', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922205701', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828266', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828266', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102576', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922102576', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403512', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403512', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09800502', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09800502', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09612501', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09612501', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2473615', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPZ2473615', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504939', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504939', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504946', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504946', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912144', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912144', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209656', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209656', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403505', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403505', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408110', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408110', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2255838', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2255838', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800299', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800299', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302413', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302413', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922300031', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922300031', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807001', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807001', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509313', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509313', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505584', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505584', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708238', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708238', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPW262100061', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPW262100061', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912063', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912063', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ52000001', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ52000001', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506672', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506672', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910920', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910920', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407286', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407286', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912066', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912066', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506669', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506669', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403078', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403078', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NLC242600588', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NLC242600588', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600008', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600008', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51800009', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51800009', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807005', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807005', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51600002', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51600002', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507901', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507901', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPO2160406', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPO2160406', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708793', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708793', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU800700052', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU800700052', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ52100003', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ52100003', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710105', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710105', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921811358', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921811358', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901787', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901787', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307142', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307142', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500430', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500430', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807105', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00807105', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ52100005', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ52100005', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302102049', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302102049', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507905', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507905', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708786', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708786', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509309', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509309', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710104', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710104', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -11548,255 +11548,255 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302416', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302416', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800294', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921800294', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407280', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407280', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710108', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00710108', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00405708', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00405708', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307811', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307811', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901791', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921901791', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPX492002329', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPX492002329', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00803801', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00803801', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403513', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403513', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600014', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922600014', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922402074', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922402074', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209552', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209552', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPY492400021', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPY492400021', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403511', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403511', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPW261900009', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPW261900009', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00255960', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00255960', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500428', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500428', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828270', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828270', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922402072', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922402072', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912141', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912141', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ920801386', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ920801386', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00405702', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00405702', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209553', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209553', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500433', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500433', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51900020', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51900020', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922300022', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922300022', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403515', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403515', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09805802', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09805802', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004502', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004502', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPB2452253', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPB2452253', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902401636', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902401636', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922308756', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922308756', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP421900003', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP421900003', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209656', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209656', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPF2596738', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPF2596738', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209554', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922209554', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZPEW2122249', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZPEW2122249', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509310', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO01509310', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922200158', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922200158', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51900012', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51900012', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZQAY2212886', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QZQAY2212886', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828265', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828265', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51800006', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51800006', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NOTF62508010', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NOTF62508010', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00255990', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPPO00255990', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408101', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408101', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504943', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922504943', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922100380', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922100380', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505625', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505625', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507906', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09507906', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPR502302124', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPR502302124', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506350', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506350', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('KSA002501256', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('KSA002501256', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505585', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922505585', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922308517', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922308517', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506349', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506349', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPE1663832', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPE1663832', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302219', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922302219', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921811367', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921811367', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506354', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506354', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307806', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922307806', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407284', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922407284', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -11804,127 +11804,127 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP421900001', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP421900001', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302200498', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPP302200498', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09812328', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09812328', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828269', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828269', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921206157', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921206157', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2501061', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('USYBL2501061', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2297993', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPT2297993', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828268', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1828268', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500434', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500434', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004510', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF01004510', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912134', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912134', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00705103', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00705103', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09703101', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09703101', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1968910', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPI1968910', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910480', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921910480', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506348', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922506348', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QM7282437181', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('QM7282437181', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868941', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPG1868941', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921816030', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921816030', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408105', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408105', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403505', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922403505', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902204715', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPU902204715', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921413210', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921413210', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NOTF62507010', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('NOTF62507010', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51800007', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TWCJ51800007', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708785', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921708785', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408104', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408104', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2064329', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPK2064329', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00402201', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00402201', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912064', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921912064', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408109', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408109', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -11932,31 +11932,31 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPR751900177', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPR751900177', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922300027', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922300027', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408106', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF00408106', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09800503', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPTF09800503', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922301966', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922301966', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500436', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ922500436', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921911970', '2026-04-28', '25-34', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('JPZ921911970', '2026-04-28', '25-34', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -11968,7 +11968,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPQ2112704', '2026-04-28', '18-24', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_age_daily" ("isrc", "date", "age_band", "play_count") VALUES ('TCJPQ2112704', '2026-04-28', '18-24', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -12006,19 +12006,19 @@ END $$;
 
 -- AppleMusic_Daily_Gender-000000000000.csv -> plays_apple_gender_daily
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101211301', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101211301', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905340', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905340', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610008', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610008', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100999929', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100999929', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -12026,23 +12026,23 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600122', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600122', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105856', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105856', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700116', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700116', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC542504853', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC542504853', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500385', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500385', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -12062,43 +12062,43 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306291', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306291', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306229', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306229', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700155', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700155', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700078', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700078', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302810', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302810', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600120', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600120', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500184', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500184', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610008', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610008', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105856', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105856', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600117', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600117', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -12138,79 +12138,79 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127504', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127504', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500029', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500029', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101001702', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101001702', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205997', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205997', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500005', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500005', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92S2530781', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92S2530781', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300320', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300320', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701402', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701402', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700038', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700038', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203505', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203505', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401607', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401607', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500306', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500306', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FRX452478523', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FRX452478523', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900207', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900207', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101102107', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101102107', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403607', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403607', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127507', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127507', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101402002', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101402002', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600107', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600107', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -12230,7 +12230,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301015', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301015', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -12290,155 +12290,155 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005507', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005507', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127503', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127503', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400116', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400116', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600120', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600120', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105832', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105832', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700233', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700233', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101102108', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101102108', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306289', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306289', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100103102', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100103102', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127507', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127507', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306224', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306224', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127502', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127502', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100306', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100306', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306230', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306230', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC542504853', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC542504853', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600112', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600112', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602087539', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602087539', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202100337', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202100337', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300515', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300515', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR9W12308448', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR9W12308448', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105854', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105854', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105791', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105791', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343202', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343202', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100300348', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100300348', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399813', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399813', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306227', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306227', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700119', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700119', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500171', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500171', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306132', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306132', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('CNZ512100443', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('CNZ512100443', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003002', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003002', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000125', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000125', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399811', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399811', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPF302200121', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPF302200121', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701405', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701405', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200801', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200801', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406524', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406524', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500384', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500384', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -12602,299 +12602,299 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602087539', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602087539', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905341', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905341', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105791', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105791', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300517', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300517', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105854', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105854', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500916', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500916', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005493', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005493', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600114', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600114', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127509', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127509', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500913', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500913', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700027', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700027', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399802', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399802', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500169', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500169', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403609', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403609', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205987', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205987', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005640', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005640', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301009', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301009', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700037', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700037', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700226', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700226', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302801', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302801', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302804', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302804', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403406', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403406', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801201', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801201', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401610', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401610', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02400390', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02400390', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600121', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600121', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202200393', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202200393', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700224', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700224', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300301', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300301', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700117', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700117', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205965', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205965', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700119', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700119', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101201210', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101201210', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306225', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306225', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202200392', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202200392', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100314', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100314', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700234', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700234', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPCO02513220', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPCO02513220', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100305', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100305', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005441', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005441', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403407', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403407', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602092374', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602092374', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406482', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406482', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600504', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600504', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600119', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600119', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343207', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343207', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343214', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343214', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000128', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000128', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105790', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105790', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000128', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000128', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105854', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105854', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600060', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600060', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500383', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500383', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101499733', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101499733', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000130', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000130', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105830', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105830', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701401', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701401', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700154', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700154', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306230', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306230', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301460', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301460', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602192680', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602192680', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2209469', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2209469', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500913', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500913', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300513', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300513', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205987', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205987', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401609', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401609', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500028', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500028', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399823', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399823', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105855', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105855', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300290', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300290', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500306', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500306', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700038', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700038', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700089', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700089', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000129', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000129', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -12902,7 +12902,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200805', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200805', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -12990,7 +12990,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102402051', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102402051', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -13214,7 +13214,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600117', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600117', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -13222,539 +13222,539 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DGA0M2411667', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DGA0M2411667', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610002', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610002', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127505', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127505', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200803', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200803', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600113', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600113', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500911', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500911', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403408', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403408', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005566', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005566', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127501', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127501', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPD862601473', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPD862601473', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101303002', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101303002', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700110', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700110', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2209469', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2209469', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403610', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403610', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005509', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005509', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100302', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100302', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406525', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406525', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701405', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701405', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005639', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005639', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701406', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701406', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306227', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306227', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700038', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700038', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500916', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500916', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100304', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100304', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100300307', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100300307', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600110', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600110', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401608', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401608', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306203', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306203', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500915', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500915', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399828', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399828', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701401', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701401', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600117', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600117', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905324', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905324', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500185', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500185', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403503', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403503', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105857', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105857', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406525', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406525', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005493', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005493', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100313', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100313', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700222', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700222', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400120', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400120', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500305', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500305', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399816', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399816', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600114', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600114', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200802', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200802', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600144', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600144', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600122', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600122', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700118', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700118', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500184', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500184', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005511', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005511', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000226', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000226', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602082336', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602082336', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602192680', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602192680', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203506', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203506', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700126', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700126', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100303', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100303', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100200208', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100200208', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600118', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600118', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500384', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500384', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500032', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500032', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600125', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600125', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600119', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600119', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200806', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200806', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000129', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000129', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600313', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600313', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905200', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905200', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000159', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000159', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100309', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100309', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343205', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343205', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300305', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300305', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900208', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900208', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600124', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600124', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300517', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300517', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600126', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600126', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000125', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000125', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005505', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005505', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306132', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306132', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600123', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600123', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203502', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203502', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600120', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600120', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700110', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700110', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306292', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306292', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801002', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801002', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000131', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000131', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301470', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301470', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203503', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203503', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700220', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700220', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399810', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399810', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105790', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105790', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343208', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343208', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400121', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400121', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200808', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200808', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100311', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100311', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306204', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306204', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700082', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700082', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000235', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000235', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DED622300054', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DED622300054', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343203', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343203', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DED622300063', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DED622300063', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101499744', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101499744', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399804', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399804', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399803', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399803', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500307', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500307', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DED622300055', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DED622300055', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700072', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700072', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500169', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500169', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600002', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600002', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPCO02513220', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPCO02513220', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403604', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403604', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306228', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306228', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500185', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500185', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399806', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399806', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300517', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300517', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306289', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306289', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500304', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500304', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700907', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700907', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300301', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300301', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500187', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500187', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403606', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403606', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399828', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399828', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005441', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005441', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452206000', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452206000', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301016', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301016', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200804', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200804', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401607', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401607', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401610', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401610', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC101900106', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC101900106', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403302', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403302', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700039', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700039', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700034', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700034', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400120', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400120', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403605', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403605', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406482', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406482', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700153', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700153', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -13762,63 +13762,63 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399822', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399822', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205986', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205986', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399808', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399808', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700110', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700110', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101211301', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101211301', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801006', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801006', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127504', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127504', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202200381', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202200381', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000126', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000126', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700040', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700040', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905200', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905200', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005495', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005495', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR9W12308449', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR9W12308449', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600114', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600114', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200802', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200802', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -13826,15 +13826,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101414301', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101414301', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343201', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343201', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403502', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403502', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -13982,11 +13982,11 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102600697', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102600697', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306224', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306224', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -13998,7 +13998,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102000261', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102000261', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -14006,11 +14006,11 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPZ922104354', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPZ922104354', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102300822', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102300822', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -14266,7 +14266,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005504', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005504', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -14394,7 +14394,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452506644', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452506644', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -14458,7 +14458,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700016', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700016', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -14474,1203 +14474,1203 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003001', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003001', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600112', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600112', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005502', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005502', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500915', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500915', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005511', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005511', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005505', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005505', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500030', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500030', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200809', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200809', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127506', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127506', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610005', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610005', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403302', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403302', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500031', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500031', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403305', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403305', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500912', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500912', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302801', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302801', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101303003', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101303003', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205999', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205999', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105830', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105830', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100103103', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100103103', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302807', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302807', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306204', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306204', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306290', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306290', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600117', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600117', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700156', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700156', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403601', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403601', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300513', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300513', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101391507', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101391507', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700118', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700118', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500032', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500032', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005503', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005503', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600012', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600012', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005510', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005510', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101391504', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101391504', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701401', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701401', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406371', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406371', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000502', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000502', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306225', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306225', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2311428', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2311428', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306226', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306226', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302803', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302803', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700125', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700125', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500028', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500028', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500188', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500188', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500033', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500033', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801003', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801003', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000130', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000130', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600126', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600126', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600121', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600121', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100312', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100312', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700221', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700221', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500913', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500913', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300518', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300518', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200807', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200807', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406524', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406524', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005508', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005508', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100301', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100301', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400117', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400117', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403606', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403606', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005506', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005506', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FRX452478523', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FRX452478523', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602075562', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602075562', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300290', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300290', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600125', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600125', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100999923', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100999923', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300512', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300512', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306288', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306288', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200805', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200805', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300310', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300310', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401603', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401603', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403401', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403401', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306287', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306287', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403304', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403304', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600116', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600116', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600115', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600115', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302806', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302806', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100308', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100308', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500171', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500171', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306229', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306229', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900201', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900201', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403301', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403301', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000126', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000126', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399807', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399807', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900327', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900327', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205986', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205986', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406484', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406484', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600122', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600122', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700223', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700223', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403608', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403608', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301016', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301016', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100144', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100144', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000227', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000227', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403603', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403603', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301460', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301460', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500188', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500188', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200801', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200801', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306227', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306227', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343209', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343209', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500187', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500187', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005503', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005503', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700907', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700907', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700229', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700229', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600124', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600124', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343211', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343211', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700093', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700093', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105855', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105855', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301022', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101301022', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003002', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003002', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003004', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003004', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306228', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306228', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343201', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343201', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101102107', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101102107', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DGA052596123', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DGA052596123', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403404', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403404', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600116', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600116', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500910', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500910', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005495', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005495', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPES09600780', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPES09600780', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600240', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600240', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500182', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500182', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000241', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000241', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700115', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700115', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR9W12308446', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR9W12308446', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306290', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306290', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700124', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700124', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600067', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600067', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('CNZ512100443', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('CNZ512100443', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700153', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700153', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801006', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801006', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600147', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600147', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602090265', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602090265', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DED622300055', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DED622300055', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700225', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700225', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301440', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301440', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900206', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100900206', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200316', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200316', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR9W12308449', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR9W12308449', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403306', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403306', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100307', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100307', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105831', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105831', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100300302', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100300302', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102300059', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102300059', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801008', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100801008', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2311428', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2311428', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403605', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403605', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403604', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403604', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000502', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000502', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600241', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600241', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343204', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343204', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101391504', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101391504', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302808', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302808', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700157', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700157', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300514', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300514', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343210', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343210', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101202401', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101202401', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600118', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600118', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200803', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200803', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500186', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500186', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700072', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700072', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700154', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700154', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000230', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000230', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005510', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005510', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403409', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403409', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500307', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500307', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610016', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA3E2610016', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343212', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343212', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700034', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700034', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100400713', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100400713', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB590805004', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB590805004', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600239', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600239', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403601', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403601', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101303003', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101303003', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600245', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600245', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399810', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399810', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700122', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700122', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399809', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399809', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500386', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500386', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500052', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500052', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302809', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302809', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500911', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500911', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600146', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600146', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003005', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100003005', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500183', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500183', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100800707', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100800707', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203402', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100203402', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600106', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600106', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600128', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600128', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700123', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700123', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406526', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406526', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700155', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700155', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403607', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403607', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005504', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005504', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302805', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302805', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399951', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399951', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700120', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700120', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005494', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005494', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701406', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701406', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500180', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500180', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500386', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500386', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005508', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005508', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306288', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306288', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127508', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127508', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399950', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399950', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403609', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403609', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500188', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500188', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005506', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005506', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500183', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500183', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700016', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700016', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202100367', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202100367', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400118', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400118', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701403', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100701403', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2311428', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2311428', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400121', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400121', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600115', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600115', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600178', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600178', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600313', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600313', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306203', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306203', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127502', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100127502', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399824', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399824', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343206', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101343206', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399801', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399801', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105857', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105857', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905342', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905342', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DGA052596123', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('DGA052596123', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400117', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400117', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500058', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500058', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105791', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105791', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101415602', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101415602', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500182', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500182', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105831', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452105831', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000226', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000226', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500916', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500916', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302808', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101302808', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200203', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200203', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700234', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700234', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500005', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPA2H2500005', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905324', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB451905324', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401608', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401608', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205997', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205997', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100309', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101100309', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602087539', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602087539', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401611', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401611', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100999923', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100999923', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205965', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205965', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500912', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500912', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403601', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403601', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500915', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500915', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200806', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200806', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200803', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200803', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306287', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306287', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406526', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452406526', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300310', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300310', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600108', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600108', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600125', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600125', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400119', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400119', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403406', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403406', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700157', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700157', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600245', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600245', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000502', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000502', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500911', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100500911', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200320', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200320', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399807', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399807', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500305', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500305', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005507', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005507', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602075562', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602075562', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205998', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452205998', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR96X2474056', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('FR96X2474056', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306290', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306290', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000231', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000231', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102600796', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102600796', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2209471', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JP92A2209471', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600012', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101600012', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306204', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452306204', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399809', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399809', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005640', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005640', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700025', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700025', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300320', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02300320', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301440', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPFL02301440', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399829', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101399829', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101202401', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101202401', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403608', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403608', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC101900110', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC101900110', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403603', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403603', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401603', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401603', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700156', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700156', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602082336', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB602082336', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600123', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600123', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403407', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403407', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700116', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700116', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403401', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403401', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200808', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200808', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401601', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101401601', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005511', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPB452005511', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500052', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500052', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403610', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403610', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700221', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100700221', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403305', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101403305', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300514', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101300514', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500060', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101500060', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202100337', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202100337', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700026', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101700026', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -15678,15 +15678,15 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101102110', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101102110', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000131', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101000131', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200807', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200807', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -15694,7 +15694,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202200393', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPC202200393', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -15702,7 +15702,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400115', '2026-04-28', '2', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101400115', '2026-04-28', '2', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -15802,7 +15802,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPTF00408105', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPTF00408105', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -15930,7 +15930,7 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPZ922102578', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPZ922102578', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
@@ -15962,19 +15962,19 @@ DO $$ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101900696', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101900696', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102200318', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG102200318', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600142', '2026-04-28', '1', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG100600142', '2026-04-28', '1', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200801', '2026-04-28', '0', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_apple_gender_daily" ("isrc", "date", "gender", "play_count") VALUES ('JPG101200801', '2026-04-28', '0', NULL) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
