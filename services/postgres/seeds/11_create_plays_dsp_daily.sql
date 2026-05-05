@@ -17,7 +17,7 @@ CREATE TABLE "plays_amazon_country_daily" (
   "isrc" varchar NOT NULL,
   "date" date NOT NULL,
   "country_code" varchar NOT NULL,
-  "play_count" int,
+  "play_count" int NOT NULL,
   CONSTRAINT plays_amazon_country_daily_uk UNIQUE ("isrc", "date", "country_code")
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE "plays_youtube_country_daily" (
   "isrc" varchar NOT NULL,
   "date" date NOT NULL,
   "country_code" varchar(2) NOT NULL,
-  "play_count" int,
+  "play_count" numeric NOT NULL,
   CONSTRAINT plays_youtube_country_daily_uk UNIQUE ("isrc", "date", "country_code")
 );
 
@@ -44,7 +44,7 @@ CREATE TABLE "plays_spotify_country_daily" (
   "isrc" varchar NOT NULL,
   "date" date NOT NULL,
   "country_code" varchar(2) NOT NULL,
-  "play_count" int,
+  "play_count" int NOT NULL,
   CONSTRAINT plays_spotify_country_daily_uk UNIQUE ("isrc", "date", "country_code")
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE "plays_line_gender_daily" (
   "isrc" varchar NOT NULL,
   "date" date NOT NULL,
   "sex" varchar NOT NULL,
-  "play_count" int,
+  "play_count" int NOT NULL,
   CONSTRAINT plays_line_gender_daily_uk UNIQUE ("isrc", "date", "sex")
 );
 
@@ -80,7 +80,7 @@ CREATE TABLE "plays_line_age_daily" (
   "isrc" varchar NOT NULL,
   "date" date NOT NULL,
   "age_range" varchar NOT NULL,
-  "play_count" int,
+  "play_count" int NOT NULL,
   CONSTRAINT plays_line_age_daily_uk UNIQUE ("isrc", "date", "age_range")
 );
 
@@ -89,7 +89,7 @@ CREATE TABLE "plays_spotify_gender_daily" (
   "isrc" varchar NOT NULL,
   "date" date NOT NULL,
   "sex" varchar NOT NULL,
-  "play_count" int,
+  "play_count" int NOT NULL,
   CONSTRAINT plays_spotify_gender_daily_uk UNIQUE ("isrc", "date", "sex")
 );
 
@@ -98,7 +98,7 @@ CREATE TABLE "plays_spotify_age_daily" (
   "isrc" varchar NOT NULL,
   "date" date NOT NULL,
   "age_range" varchar NOT NULL,
-  "play_count" int,
+  "play_count" int NOT NULL,
   CONSTRAINT plays_spotify_age_daily_uk UNIQUE ("isrc", "date", "age_range")
 );
 
@@ -107,7 +107,7 @@ CREATE TABLE "plays_youtube_gender_daily" (
   "isrc" varchar NOT NULL,
   "date" date NOT NULL,
   "gender" varchar NOT NULL,
-  "play_count" int,
+  "play_count" numeric NOT NULL,
   CONSTRAINT plays_youtube_gender_daily_uk UNIQUE ("isrc", "date", "gender")
 );
 
@@ -116,7 +116,7 @@ CREATE TABLE "plays_youtube_age_daily" (
   "isrc" varchar NOT NULL,
   "date" date NOT NULL,
   "age_group" varchar NOT NULL,
-  "play_count" int,
+  "play_count" numeric NOT NULL,
   CONSTRAINT plays_youtube_age_daily_uk UNIQUE ("isrc", "date", "age_group")
 );
 
