@@ -44022,4003 +44022,4003 @@ END $$;
 
 -- YouTube_Daily_Country-000000000000.csv -> plays_youtube_country_daily
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'UA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001197', '2026-05-03', 'ID', 307.89091742418452) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'MH', 720.60374408542862) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'CA', 39425.480898669251) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'KG', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'TR', 24019.906719795184) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'IS', 634.984520123839) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'IE', 22784.778225918424) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'KY', 1629.8969072164946) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'IN', 72477.470349297742) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'AO', 3977.1428571428573) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'HK', 284440.07255936461) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500026', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'KZ', 43345.814446509386) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'TW', 92347.86542154121) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'AW', 396.19921363040629) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NA', 26609671266.309639) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'PG', 170.1754385964912) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'JP', 8830972.2057033852) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'MT', 2001.1954656658568) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300059', '2026-05-03', 'FR', 5324.5769976321944) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'LC', 177.32310315430519) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'MX', 292597.39788209635) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'CD', 19957.124183006537) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500661', '2026-05-03', 'AU', 3935.1184275481928) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'NP', 4108.684700793815) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'TN', 2420.3112275589538) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'FJ', 4151.67384821766) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921907876', '2026-05-03', 'DJ', 25186.228287434009) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'SV', 15.384615384615385) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AU', 1911551306818.8254) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'BH', 6614.7278625530862) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'GB', 166224.73492707527) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'TW', 100.23310023310023) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302300174', '2026-05-03', 'JP', 319394.44858597667) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'ES', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'VN', 51810.987813298256) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'BS', 915.625) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'FR', 2506268798350.3027) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'GN', 5809.7187113228074) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BT', 37088208179.007713) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'NA', 2036.2538285518322) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408108', '2026-05-03', 'TW', 78758.904989205243) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'GY', 226.82926829268291) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'CO', 86811.140397215684) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801279', '2026-05-02', 'LV', 569.64285714285711) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'PR', 380562.93677895021) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'MT', 2100.6304176516942) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401049', '2026-05-03', 'FR', 56665.586309963961) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801276', '2026-05-02', 'BO', 432.83146420710614) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'HK', 135090.69002210337) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'ZM', 547.05882352941171) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GA', 24419530498.613117) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'FK', 126.80065760587476) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BS', 43216036168.533264) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'OM', 661.97916666666663) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'UA', 199364.86948214943) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000030', '2026-05-02', 'JP', 7200) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GI', 2720484128.289361) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'AD', 338.92346645402074) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'JP', 1914388212314.365) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'VI', 898.94736842105249) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'KG', 13521.671725633829) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'TN', 1255.8823529411764) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600004', '2026-05-03', 'ID', 9693.1632744175859) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'HU', 4.7036938612808932) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'EE', 33915.428330443159) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'IN', 24.4532279314888) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CN', 24964516283.362835) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'PH', 62.365724282081757) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GB', 4839287673368.7578) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'EC', 11.111111111111111) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'TW', 2027756.8128715944) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'TR', 282.57295558207414) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'MM', 16245.255680685332) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308450', '2026-05-02', 'JP', 25500.380389091522) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'SG', 1179469.9242957407) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'TN', 32.748538011695906) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101399829', '2026-05-03', 'MX', 61169.410145686816) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308448', '2026-05-02', 'KR', 9502.3314868793677) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'KR', 489416.01971772424) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'IN', 6.666666666666667) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'US', 79941.6857658419) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'BO', 15.584415584415584) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'TW', 674425.69883608806) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12435497', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'EH', 7130608534.9406185) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'AO', 1693.4146231450436) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BD', 878588499918.66235) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'VE', 4477.1771708683473) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'JO', 257812903025.57336) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'KE', 3036.7163312693497) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500652', '2026-05-03', 'TR', 11005.233070779061) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'UG', 1758.4108151735272) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'KR', 552689.84022975259) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'BL', 2254.2884988123847) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'ES', 686081.29219799361) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'GH', 1668.1468531468531) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'EC', 49498.706203646514) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'GL', 341.12903732372757) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'SV', 12614.761591451968) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'HN', 17408.737732277456) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'CA', 3505784.177712094) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'GW', 747.44680851063833) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'BR', 10862417.589787237) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'KI', 5968.6893203883492) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302300174', '2026-05-03', 'HK', 1702.8960484487052) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'KR', 567.17948717948707) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'JP', 16044220.567677295) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'ET', 2902.7027027027025) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'PH', 123857.76312257796) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'BR', 192.33918128654972) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2183350', '2026-05-03', 'US', 189910.59051181897) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('AUOYO1800088', '2026-05-02', 'KR', 23.80952380952381) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TD', 361351480.19529456) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'BH', 5068.8941655359558) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MP', 3036260718.8601465) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102746', '2026-05-02', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'CO', 3362901.4298866494) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'SL', 301.44759698899821) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BM', 3204268122.2697821) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'MK', 2008.4879866664166) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500652', '2026-05-03', 'ID', 4764.9290339774725) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'ZZ', 4452.8493815743841) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'KR', 30919594.735342782) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'ST', 509.65803108808291) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'BR', 543937.39719586924) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'GM', 1194.6808510638298) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'UY', 345105558632.15051) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'GM', 532.06541739928855) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SZ', 4085878839.4076905) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'WF', 222783.33333333331) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500652', '2026-05-03', 'US', 13613.594933126968) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600005', '2026-05-02', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'HK', 9693.8640482435057) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'PY', 21391.162365782679) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'TR', 31264258.726242274) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'AL', 1829.4992997198879) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'JP', 83760771.510753512) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'TG', 3022.5656184095737) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'AU', 340878.43205567048) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311428', '2026-05-02', 'MY', 16.872554104389646) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'AR', 127105.41277416227) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'SA', 37.777777777777779) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ID', 17775333542769.188) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'CU', 39944.132214156976) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'US', 1426720.2091741976) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'TZ', 257.2043010752688) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CV', 7480650426.0016384) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'ML', 361.23893805309734) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'US', 37588004948289.57) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'DK', 25) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'EG', 652591275912.81506) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209471', '2026-05-02', 'RU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807205', '2026-05-03', 'HK', 5016.2670882818393) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'ES', 57.63372015472855) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'ZW', 9611.73857711578) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'PE', 99.1211087762812) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'GH', 13723.533276509028) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500024', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'HU', 28279.353339542653) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500024', '2026-05-02', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600359', '2026-05-03', 'RO', 236.80327868852459) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'VN', 154.59244390278872) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'PE', 6140451.9154489767) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'AM', 6273.9035978572019) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'SA', 1048725.1590510972) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'MZ', 1600.5050505050506) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'KR', 2856338.3508930891) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'AG', 6628.5714285714284) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'LT', 124426.3176453332) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'CH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'CL', 194826.02161847998) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'PH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'US', 3273273.0595450089) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'TH', 603.464115677319) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'HT', 10594104223.299255) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'IE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600001', '2026-05-03', 'HK', 9750.31313225872) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'RU', 12.727272727272727) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921910489', '2026-05-03', 'KH', 307106.06327163056) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'KR', 65.906593406593416) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GQ', 2053212388.9814134) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'PR', 19811.307517442045) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GN', 1348828378.4802351) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'MS', 65.2743795875568) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KN', 4185636861.3826466) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2207482', '2026-05-02', 'IN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PR', 277915529806.52618) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'LY', 36.329588014981276) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LR', 1084024722.629395) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'GS', 138.12072293384807) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TZ', 11986369173.639904) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'SN', 1865.1846822086418) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TJ', 76203359666.12355) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'LU', 4098.9513512583108) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500652', '2026-05-03', 'IN', 6039.3791900177539) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'UG', 12925.371240331619) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'CL', 146894.05971917295) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'DZ', 25.581395348837212) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'JP', 1335815.2452567795) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'BS', 10505.06835760323) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'ES', 3471.0426432331183) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'UG', 34111.353540256052) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'GU', 7051.844774621125) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'CN', 78.2959916758112) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'GB', 1585493.6285145557) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'GW', 6345.0949367088615) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'NI', 5437.6323566955907) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'TZ', 301.48148148148152) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'UY', 5848.2403811557324) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'LU', 7626.81865620062) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'LV', 10293.75163902679) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'BG', 61.111111111111107) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'CZ', 603648.27785437042) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'AZ', 2091.7861842105262) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'US', 40085333.788055524) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'AF', 750.36764705882342) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'UA', 3833899.8932486288) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'PG', 1590.6366866118174) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'GE', 291409.45666112035) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'MK', 32218.896485327728) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'RO', 740266.95201242249) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'BF', 512.5) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPJ961000040', '2026-05-03', 'JP', 11532676.558206614) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801278', '2026-05-02', 'LI', 44.464392579293836) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101399829', '2026-05-03', 'JP', 2239871.7658759211) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'LV', 2274.9270761605267) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'CH', 63682.483099065583) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'GA', 28062.89866038899) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'RU', 2626804.4588893759) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'ET', 6667.5675675675675) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'TR', 62725.236031180437) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'PY', 26.050420168067227) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'ID', 151428.40226482318) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'TL', 623.28082981175567) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2183350', '2026-05-03', 'CA', 19642.502960379865) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'PL', 16.666666666666664) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'SG', 265288.97723923222) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'BG', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'RU', 90268.422601557162) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('AUOYO1800088', '2026-05-02', 'UA', 71.428571428571416) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408101', '2026-05-03', 'RU', 2494.4882831181249) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'CW', 160.79046788724207) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'DZ', 277773.9941899993) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'ZZ', 1920.4002106371777) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00810202', '2026-05-03', 'FJ', 300) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'AD', 235.64556962025318) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408101', '2026-05-03', 'TH', 21776.814554566907) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102746', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'HN', 221350.83282370379) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102832', '2026-05-02', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'SA', 85947.728370665442) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'SZ', 74.968632371392715) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GF', 16807031655.89426) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'MT', 827.23711340206182) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CZ', 841057987170.45593) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'SO', 149.93726474278543) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'US', 1506244.4730901935) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'IR', 552.69748410157615) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'DK', 135870.13650903598) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'BW', 1578.7717968157694) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'AU', 2155899.8049880769) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'JE', 78.195488721804509) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'BD', 557158.58537826012) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'SD', 968.75) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'FI', 114724.98666551619) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'DM', 136.72413793103448) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201163', '2026-05-03', 'TH', 25973.259368436451) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'SO', 550.134770889488) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'IE', 382794539459.51526) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DED622300054', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MQ', 16120032620.285231) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'GM', 894.24083769633512) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GP', 20981542545.113457) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'KW', 602.962962962963) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PL', 2582331866711.7705) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'LR', 88.267209223465585) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'US', 304154.64021463518) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'GA', 1059.0812907776406) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'SG', 14240.054437239434) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'LV', 791.8478260869565) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'PG', 9734.78750425262) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'AO', 442.85714285714283) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'PL', 715699.35493994667) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'YE', 2676.9230769230771) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'YE', 30454.420819389485) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'BA', 616.025641025641) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'MX', 29624783.805249657) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'BN', 3940.9390066579931) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'ZA', 743695.04752303334) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'GL', 845.4545454545455) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'UA', 2327310.4680570769) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'YT', 522765.28879965394) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'NZ', 128398.9741700695) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'YE', 664.28571428571422) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'IT', 130925.94205681098) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'JM', 10) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201163', '2026-05-03', 'MX', 26661.080628350908) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'SG', 5.2631578947368416) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'GB', 388339.75747846346) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'NL', 37.815126050420162) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'EE', 110991335546.71526) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'VI', 573.40459472741315) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600764', '2026-05-03', 'HU', 250) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'ES', 9.0909090909090917) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'PH', 248981.54639160776) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'UZ', 19.277108433734941) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LS', 2300560870.2330089) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'MO', 14.285714285714285) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BB', 29819790906.109177) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'AL', 759.798352013921) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CY', 66510573280.046448) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'MD', 823.43749999999989) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SA', 1416463558793.0161) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600003', '2026-05-02', 'JP', 23.52941176470588) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LB', 105334331027.08304) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209471', '2026-05-02', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500652', '2026-05-03', 'KR', 46642.106907758251) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'VU', 1133.1914893617022) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SL', 3195766995.596467) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'IE', 22.377622377622377) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'BO', 21056.940562207848) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'VE', 18.181818181818183) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'UA', 157128.71588377748) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'CL', 37.124887690925426) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'BZ', 391.74860863161882) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'KR', 201.07334004233633) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'SL', 113.15789473684211) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'FR', 307.88102153087226) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'VE', 63684.183078894588) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'ID', 336.38031818578571) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'BE', 261503.27575341158) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'GR', 378.927302582475) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'LK', 235598.08326021966) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600005', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'IN', 179754.25809534974) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'CL', 537.20610333997752) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'BR', 13872018.127712194) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'MG', 4993.4566335517511) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'DZ', 889656.42377899331) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'NE', 1305.0167224080267) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'TW', 5209024.2070015622) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'CA', 16.666666666666664) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'NL', 877107.5290527452) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'GB', 26.495726495726494) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'EC', 979267.46563693509) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'MT', 1270.7783896789592) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'DK', 183655.18937440115) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'AG', 7528.5714285714284) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'IN', 44230.171953747405) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FRX452478523', '2026-05-02', 'BN', 1306.060606060606) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'SG', 276089.74435751088) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'RU', 1575.3496226691666) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'KR', 130551.4434334401) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'CH', 6.557377049180328) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'HK', 12234.396969039533) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'CN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'NO', 6295.0362366489644) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'TN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2183350', '2026-05-03', 'MX', 126804.09156286213) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'TR', 833642.66608362028) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'DZ', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'TH', 120587.64911536574) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'AW', 7358.0718954248368) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NP', 324936624638.09662) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'RE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600001', '2026-05-03', 'ID', 15368.435119325239) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'CO', 19652.262354463372) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'EC', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600764', '2026-05-03', 'CR', 450) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'ID', 24.523809523809522) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'CA', 175370.77612073853) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'MY', 17.857142857142854) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'PT', 131033.88157972276) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'TZ', 1090.9574468085107) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SC', 8536903702.1666994) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'MQ', 1486.3986640599544) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SM', 783433884.62596929) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'MS', 65.2743795875568) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BA', 112685283622.45776) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'PR', 970.228904239469) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CW', 10983482359.002234) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'BA', 15549.551661771207) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AR', 6355884429540.5508) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301469', '2026-05-02', 'KH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BN', 110457871631.17339) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301469', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PW', 4944560312.3668518) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'ZZ', 986.65248089757233) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GM', 2210817816.0073838) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'GU', 41.101694915254235) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SR', 37000317355.726379) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'RE', 4182.1323765641464) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AF', 11462360696.421413) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'AG', 486.38968481375355) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500652', '2026-05-03', 'MX', 4887.5111760346535) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'PF', 1472.1481766820748) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'RS', 264378199242.752) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'HN', 33284.840783334439) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GD', 14861170175.607504) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'OM', 10635.750892044125) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'IR', 147061179334.90594) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'GH', 17683.175979333231) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807205', '2026-05-03', 'ID', 12015.424874365797) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'GH', 13598.143106158584) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807205', '2026-05-03', 'JP', 1527521.1959923655) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'SJ', 424.641685373856) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'PR', 20626.445656853157) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'UG', 2089.9571191891628) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'ID', 335512.31434191129) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'MM', 25.581395348837212) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'PH', 3188.151996742653) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'RO', 25.581395348837212) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100406', '2026-05-03', 'NZ', 211864.48245211088) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'MN', 110.19677996422183) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'SE', 194438.4439694699) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'WS', 124342.98642573977) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'PK', 62424.441903350562) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'PG', 3482.5103122461451) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'BY', 41879.778860928578) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'BH', 210.86956521739128) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'IT', 464116.65384926862) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'CF', 481.32706987668814) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'CR', 155678.43560105053) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'TH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'KR', 2384602.5382618154) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308449', '2026-05-02', 'JP', 393697.38505120215) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'HK', 5498636.5463167895) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'CW', 226.82926829268291) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'AT', 27334.196450883581) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'TZ', 1975.0813892109097) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'CL', 154153.19894707759) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'RU', 30.76923076923077) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'TR', 94755.886381864169) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'BE', 169.07692307692307) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600359', '2026-05-03', 'KR', 26945.41966719773) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'US', 2742.2896729022277) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'SN', 32473.531089182819) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'ET', 2436.847214329634) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'PH', 11072506.682359232) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FRX452478523', '2026-05-02', 'SO', 1077.5) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'TH', 8500763.9085302576) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801273', '2026-05-02', 'LB', 186.95652173913044) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'GE', 298986.40047400154) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'GF', 182.32054015636106) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'AR', 13595256.386811722) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'FJ', 58343.917437513934) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'MA', 366114.18932002841) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'LU', 861.24084536513908) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'ID', 7466372.1187004885) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'DK', 73.333333333333343) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'CO', 1876962.1750816691) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801279', '2026-05-02', 'PA', 161.11111111111111) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'PH', 8066052.8150148541) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'MA', 156.45161290322579) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'PL', 1376855.17522535) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'CV', 136510.76790422719) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'PK', 279751.35853262391) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'EC', 40) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'HK', 626326.26903412968) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801275', '2026-05-02', 'PA', 403.781512605042) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302393', '2026-05-03', 'TW', 232238.773000627) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801278', '2026-05-02', 'TG', 79.667510435023516) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'AR', 474357.83517624036) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801275', '2026-05-02', 'NG', 693.62026862026869) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'IT', 117100.43375562626) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'NZ', 8) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'CY', 17667.919647785657) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'CO', 8) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'BE', 108394.46211940722) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'EC', 6692.8454402942889) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'FR', 479885.96574449097) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'BE', 10) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'KR', 191607.28373926019) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'GM', 6811.7226643454533) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201163', '2026-05-03', 'ID', 23148.352497366657) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'ET', 2248.6486486486488) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'CA', 130423.28506481971) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'PH', 10.526315789473683) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'CZ', 14433.36725579738) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'NO', 10.526315789473683) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'ID', 1940858.2744620249) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'HK', 16.666666666666664) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'DE', 242713.38235048758) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'MU', 248.7179487179487) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'MY', 66520.1763367529) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'SA', 16.666666666666664) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'KR', 4508629.2913148608) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'VN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'TW', 3126986.7466679504) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'PY', 39801.068328768444) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'BE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'MA', 446405.84264884796) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'CA', 4506755.3284195848) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'MK', 387.49999999999994) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'LA', 323799.11789667438) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('AUOYO1800088', '2026-05-02', 'TW', 285.71428571428567) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'UY', 67901.702559054786) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'TC', 432.03319502074686) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'CA', 658843.38356887724) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'EH', 442.85714285714283) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400519', '2026-05-03', 'JP', 2765979.4845643914) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102832', '2026-05-02', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'PA', 720232.54700708354) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'BH', 5570.5002428363287) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ZA', 703616810437.06775) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102746', '2026-05-02', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'PR', 91944.299256362938) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102746', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'CA', 3011022.9248086205) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102832', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'ZA', 58943.239647700939) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2103201', '2026-05-02', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'IT', 1999007.1490852358) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000140', '2026-05-02', 'JP', 31500) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'SE', 26168.895123630053) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'BI', 206.66666666666669) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'AR', 1258396.4022183381) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000080', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'US', 1820296.6589736938) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'FK', 126.80065760587476) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KZ', 2399362721414.4209) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'DM', 74.968632371392715) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KY', 6157448171.4364252) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'MU', 519.90630499046347) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BW', 25777870262.551884) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'DJ', 845.4545454545455) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'LT', 72056.662036296111) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'NA', 74.968632371392715) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'CL', 41740.96917187197) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'VG', 1337.5) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'SV', 88751.242813869045) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'VG', 965.59139784946251) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'CL', 782380.11607190629) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'SM', 54.736842105263158) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'PL', 80590.497690716351) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'EH', 121.7391304347826) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'NL', 831310.97484408773) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'MV', 664.28571428571422) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'JM', 36240.426080411089) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'IS', 664.28571428571422) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'GR', 435668.82978513942) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'CX', 141.60434717457696) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'JP', 2439693.8300382914) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'FJ', 123.96532438478746) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101399803', '2026-05-03', 'BO', 41485.953964913417) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'HK', 5297.5662780358789) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'DO', 5026.913567356768) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'PF', 1007.0063694267517) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'US', 1284877.2687831011) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'TC', 11444.425736967967) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'SE', 25221.964465259938) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'MS', 1672.8571428571427) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'MX', 9364.47861633905) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'JM', 4341.51138716356) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SN', 32712786706.275063) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'LU', 1520.238168025096) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NZ', 430368266145.84668) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'KW', 10508.204676293257) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TW', 442341444363.87885) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'GM', 801.85676392572941) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MW', 5790458067.653101) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'MP', 173.55442176870747) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GE', 272478459182.18787) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'RE', 2310.909090909091) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KI', 766054232.22811031) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600005', '2026-05-02', 'CL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'JP', 1256437.4582675551) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'TV', 80.115830115830121) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MH', 1934430518.6641438) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'CK', 11654.502369668247) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'AR', 432698.52911348618) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'OM', 3616.3646196446484) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100406', '2026-05-03', 'GT', 26354.80810689264) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'OM', 3224.27611977414) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'IS', 7355.459910202936) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308448', '2026-05-02', 'TW', 5512.388918756179) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'NP', 56312.043546753775) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'MU', 515.18987341772163) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'LB', 33366.763549122195) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'MU', 817.22488038277515) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'ZA', 781143.96334691322) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'CW', 1248.4412470023981) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600004', '2026-05-03', 'UA', 2668.9385201184118) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'VI', 718.05225653206662) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'SG', 71150.220996833683) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'JM', 2657.1428571428569) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'CH', 306443.49250986689) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12244269', '2026-05-02', 'TW', 52.574214005385436) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'BE', 603225.28270105028) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'SX', 749.06474820143876) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'RU', 2334437.1698284307) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12244269', '2026-05-02', 'KR', 10940.147773177978) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'PT', 648762.04331712832) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'FM', 713.15068493150682) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'GB', 5110172.3701378163) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'MH', 3301.8831697802675) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'TR', 4747524.7497287784) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'MY', 11.428571428571429) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'TH', 152863.37152415558) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'MV', 483.83581013079373) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'PE', 400628.352832693) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'AU', 4) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101399803', '2026-05-03', 'ID', 97935.937063574442) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311428', '2026-05-02', 'RU', 6.6929133858267713) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'BR', 18760.019526944641) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'SD', 1336.5079365079364) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'MY', 684985.16533958085) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311428', '2026-05-02', 'PE', 28.333333333333336) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2183350', '2026-05-03', 'AR', 69716.395813778436) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'CO', 5.2631578947368416) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'PH', 64160.465390612771) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311428', '2026-05-02', 'CA', 51.515151515151516) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'ID', 137031.04570804548) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500026', '2026-05-02', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'NL', 79530.160072962477) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'AO', 2950.490798512636) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'JP', 172018067.67845085) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'LV', 1068.7203791469194) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600001', '2026-05-03', 'KR', 48745.967366272758) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'MV', 565.3739612188366) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'IT', 2648.5443864440549) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'IE', 13.114754098360656) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'UA', 2523878548094.502) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'BM', 11150.481397401751) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'DK', 413851705983.78052) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'BO', 13.114754098360656) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ZM', 19111303482.246223) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'RS', 13.114754098360656) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PK', 526915088721.68982) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'BG', 14.814814814814813) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AO', 39606995702.555733) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'ZA', 13.793103448275861) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'DZ', 711511032899.648) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'NO', 9.5238095238095237) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SO', 33307277006.236462) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('AUOYO1800088', '2026-05-02', 'JP', 500) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SS', 347468770.47964442) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'HK', 70.898360003428536) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MD', 274654745615.90097) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'ZA', 16.666666666666668) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LK', 150511361501.9072) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600003', '2026-05-02', 'BR', 23.52941176470588) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'RU', 9673120115922.166) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600003', '2026-05-02', 'SE', 23.52941176470588) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'FR', 348557.41419968894) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'SE', 19.806763285024154) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'MO', 23587.339181436029) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'MY', 342.183589125963) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GH', 26798623120.442451) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'BT', 2945.7125433905617) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPM100100620', '2026-05-03', 'KG', 519929.51300184272) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'ZZ', 15.686274509803921) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LI', 743348199.25878465) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'MM', 28.848484848484851) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'TH', 134359.79836777938) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'GB', 111.70217895994602) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'TW', 374392.68310039944) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'KE', 15.384615384615385) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'BR', 242788.06111822114) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'VN', 21.052631578947366) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'LV', 66655.227274642821) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'PH', 213.7926502861792) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'LK', 89135.699700132813) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'PE', 43.04106893508829) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100406', '2026-05-03', 'CH', 127085.61636872658) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'CA', 134.80725623582765) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'AU', 1884281.7547240581) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'AR', 35.338345864661648) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'VN', 721903.36750326166) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'US', 461.15161352089729) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'NL', 422896.33994469786) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'EC', 107.11130139701569) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'RS', 96918.881977520257) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'TH', 75.833625297532421) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'KH', 70600.54275726885) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'CA', 354.17072715985552) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'GT', 150459.83300735953) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'AO', 20558.333333333332) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401049', '2026-05-03', 'TH', 91796.111895165464) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'MP', 5525.595244000503) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'PE', 161479.46120952236) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'YE', 5986.666666666667) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'BY', 899102.05915425159) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500024', '2026-05-02', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'TW', 792367.17505897908) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'BT', 74456.04517325481) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'RS', 511945.01164236525) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'MX', 439.47497126867) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'BO', 1261162.8193567842) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'CN', 15.384615384615385) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'LB', 240544.4557885094) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'BD', 13.333333333333334) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'AU', 2518009.8423872874) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'PY', 99.4013488595317) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'HU', 231556.1216259448) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'TN', 2589.7289314094519) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'CL', 6766651.8227351559) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'NZ', 12.5) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'BE', 969352.20587447425) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'LB', 1954.3478260869563) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'SI', 114247.75007843008) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'HK', 228.96926775522522) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'JO', 110624.13424411457) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'MT', 11.111111111111111) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'LK', 70175.778196063577) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'GE', 3392.9527629233512) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'ET', 17192.557175139238) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'FR', 23.026315789473685) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'CN', 56830.5472120616) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'SC', 1506.5637065637065) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'SG', 45648.984855326024) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'GE', 8737.0451027380641) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600004', '2026-05-03', 'TW', 155008.75827250004) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'TT', 1124.6575342465753) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'MY', 1495791.3990470865) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'JO', 1648.4009397650327) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'UA', 604043.081032399) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'UA', 52.786885245901644) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'ES', 469114.57368850143) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'RU', 646.18844944024193) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'DO', 5172.9381265174452) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'AR', 13.114754098360656) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'FR', 14778.34654653164) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500023', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'DE', 22586.343223037959) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'PE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'PE', 126276.27144151655) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'BO', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201163', '2026-05-03', 'HK', 37462.92541289088) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'AE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2183350', '2026-05-03', 'BR', 333698.98710962542) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2183350', '2026-05-03', 'CL', 13438.197677796783) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'TR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'UA', 16136.801944478006) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'AR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'NZ', 67964.763251425509) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'AL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'VN', 15973.729668909595) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'MA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'MX', 319921.301561769) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'IS', 1927.1012883265821) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-05-03', 'NA', 210.48031388174627) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'RS', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'RU', 2832.3214019866796) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'PK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'DE', 48616.413098692588) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'CO', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'TW', 672142.75345260545) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'BR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF01903704', '2026-05-03', 'JP', 3791539.8351189508) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'NI', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'US', 228852.84900101306) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'ME', 609.65346534653463) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600001', '2026-05-03', 'CA', 3640.9983709674111) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'MU', 1858.8209512152985) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500661', '2026-05-03', 'PH', 4026.7662239051415) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'CA', 12.5) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BE', 417454533438.48993) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'SE', 9.5238095238095237) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'PH', 39934.534950417939) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'ZZ', 7312.6055088921212) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'KR', 3385677.8873558706) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'NL', 7.6923076923076925) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'AR', 147995.06791520622) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'MV', 4400.750303431535) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KM', 586134931.64214754) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'OM', 1069.5724133369511) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MO', 17769626437.82534) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'BA', 2004.6441079634719) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AG', 8082014513.1262236) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'BA', 8882.59026890106) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MY', 3868480398964.7656) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301469', '2026-05-02', 'PH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MN', 406420674645.06793) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'NE', 124591.96353086489) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GT', 725344313508.50623) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'PR', 1760.0849313605042) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'YT', 5001434639.7414427) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'PR', 5402.8326099080568) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MM', 564660256488.77026) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301469', '2026-05-02', 'MY', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LV', 166381891576.30536) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DED622300058', '2026-05-02', 'JP', 100) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CL', 3132454288206.6367) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301469', '2026-05-02', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'FK', 66955860.981213547) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301469', '2026-05-02', 'TH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CH', 261233987786.97748) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'NI', 2245.5251291397226) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NL', 1217460693220.9988) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2207482', '2026-05-02', 'TH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NC', 11717102446.157427) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'TN', 219293.61128764765) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'QA', 118528049057.82661) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'KW', 2524.0720952888191) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CG', 9811649546.0385246) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'RE', 678.60869565217388) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NG', 107815205115.29913) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'MN', 1866.5778118980088) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PE', 4160779274464.81) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'VU', 2050.2206025980358) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MU', 57386472327.718826) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'PF', 543.8256658595642) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'DO', 69216.473857295292) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FRX452478523', '2026-05-02', 'JO', 2052.3809523809523) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408108', '2026-05-03', 'KR', 99662.679329314182) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'PR', 65969.61821474992) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KG', 800591114349.11926) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'KE', 1830.70870429361) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PY', 674014822516.44885) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'KE', 2484.3697314759875) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SV', 455035328469.94189) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'TN', 685.95317725752511) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SX', 4860900445.20981) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'BZ', 22516.18951612903) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AM', 139236801815.46115) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'OM', 2410.0634193366695) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'MY', 93094.163151422166) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'BY', 5637.9383878883391) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'FI', 323565385511.95923) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'UG', 16302.475356621697) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'GB', 39144.9709889276) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'BQ', 135634.74406567414) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPJ901912220', '2026-05-03', 'JP', 156354.3490959855) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'MV', 3762.1621621621621) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'PE', 51695.788553164581) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR96X2474056', '2026-05-02', 'GH', 955.55555555555554) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'HK', 61429.67367820692) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'UG', 11708.65497881408) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'TR', 335976.92448079935) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'NA', 5153.9246837305091) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'AT', 15894.29030371736) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'TN', 210.86956521739128) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'PH', 75995.087498681853) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'PW', 1511.0429447852762) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'KW', 42053.409776186345) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'BL', 2254.2884988123847) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'NO', 138852.90764016166) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'UG', 2871.0217648364332) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'MY', 797515.91267130047) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'VN', 51.162790697674424) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'PT', 200802.26088159057) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'GE', 25.581395348837212) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100406', '2026-05-03', 'DO', 17589.752533423612) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'CG', 875.41436464088383) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'HU', 217369.58066541926) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'BO', 84.615384615384613) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'IQ', 28748.195167698406) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'UY', 925.69444444444434) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'PE', 448581.639177583) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'CM', 486.38968481375355) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'TW', 3822159.7908807211) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'TO', 464.71698113207549) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'CZ', 171933.44397617914) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'MO', 17451.057434296152) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'FI', 86946.0909309217) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'SX', 94570.733729229178) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'CO', 488341.19358625013) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'OM', 5632.4253211640425) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'SA', 356556.67222143337) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'EC', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'US', 25557530.572357) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'BG', 64001.6837002021) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'MX', 1578271.2678486924) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'GE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'SK', 89387.288618787483) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801279', '2026-05-02', 'KN', 107.40740740740739) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300059', '2026-05-03', 'IN', 11754.728227840995) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'BF', 170.1754385964912) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'CH', 36972.181057158654) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'VC', 1268.1818181818182) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'QA', 2328.1121590793718) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'LC', 1072.2838137472284) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'NO', 23451.162155167171) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'GB', 50.441361916771754) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'GR', 7172.54532043406) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'TZ', 519.58525345622115) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'VE', 52231.977084404047) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'TW', 123.07692307692308) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'KW', 276330.313744156) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'ES', 30.76923076923077) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'TH', 474019.40605162852) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'LU', 1911.7479411658935) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'KH', 1345170.3269555187) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'BZ', 1391.7124804590399) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'HK', 191327.15251898198) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'CO', 35.669515669515675) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'DO', 522765.34023051267) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'KR', 864.859943458744) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'SA', 2861061.0221955255) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'PR', 13036.803930181728) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'SE', 472017.67314824479) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'TT', 413.19796954314717) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'TN', 292913.39022031619) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801278', '2026-05-02', 'KY', 52.508833922261488) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'JO', 283922.59315147216) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'HT', 547.80487804878044) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'PA', 246790.64449734581) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'QA', 4357.7776452927483) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'CR', 351853.69329370611) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801275', '2026-05-02', 'LV', 539.26083591331269) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'PL', 3599751.2949698651) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'GA', 757.61904761904759) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'BH', 41775.771765393045) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'BF', 147.61904761904762) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'EG', 924950.0511257028) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'VU', 527.16049382716051) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'US', 40912183.220021509) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'LT', 16609.337897069559) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'BA', 198250.18652129991) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'GL', 3291.9354838709673) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'BN', 32031.710918480167) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR96X2474056', '2026-05-02', 'CI', 2539.4144144144143) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'AZ', 113983.29748020777) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'MM', 23449.21172762027) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'KR', 47768704.419331573) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'PG', 1490.6152346549698) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'MN', 872901.83656336332) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'JM', 8921.0560325915867) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'NI', 150559.05106671969) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'CD', 543.94904458598739) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'DE', 2118712.8477392998) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600003', '2026-05-02', 'SG', 100) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'BY', 149136.07200106126) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600003', '2026-05-02', 'MX', 97.058823529411768) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'CU', 4070.5147890379412) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801276', '2026-05-02', 'NG', 503.97759103641454) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'VN', 5915115.7547084717) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801276', '2026-05-02', 'SI', 74.285714285714292) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'GU', 32473.63258427968) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'TN', 11418.467767326551) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001186', '2026-05-03', 'TR', 22127.604392167861) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'KN', 289.94864269992661) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401049', '2026-05-03', 'HK', 161927.3231396043) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801273', '2026-05-02', 'KN', 662.51851851851848) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'US', 2145601.9556655325) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801275', '2026-05-02', 'KN', 576.57004830917867) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600004', '2026-05-03', 'AR', 8406.1542421339491) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801272', '2026-05-02', 'OM', 180.67226890756302) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'GB', 170329.75086037358) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'CL', 167.66472868217056) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'SA', 107805.51538523025) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'VE', 64.705882352941174) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'DE', 188592.58853942802) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'MG', 66845.957558937109) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301045', '2026-05-03', 'GB', 6937.8315763119444) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FRX452478523', '2026-05-02', 'YE', 3210.2068965517237) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'IE', 93166.3917098478) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'TR', 7.6923076923076925) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'PL', 305972.33375381265) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'AZ', 645.18002322880375) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'SE', 245731.96589911985) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'BH', 23414.262221149635) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'BE', 1965.687658301367) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'SY', 2295.0334104761041) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101399803', '2026-05-03', 'JP', 1440082.2368371265) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'GA', 837.82249385925809) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'JP', 13957512.327738905) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'PG', 343.7037037037037) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'SG', 3560.6186986909265) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'BI', 815.66794942275965) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'TW', 63949.911535486288) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'AR', 165.87301587301587) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2183350', '2026-05-03', 'JP', 17445956.633132905) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'ET', 3275.6756756756754) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'ES', 36828.469772833014) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'CL', 25) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'UA', 121075.01497525953) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'NL', 35) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'CA', 503912.36640344909) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801278', '2026-05-02', 'NC', 65.8104517271922) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201163', '2026-05-03', 'BR', 10370.96734348596) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'TV', 8679.8701298701289) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'GB', 113926.65122498797) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801276', '2026-05-02', 'KG', 50.980392156862742) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201163', '2026-05-03', 'IL', 168.42105263157893) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'AU', 31.578947368421048) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201163', '2026-05-03', 'JP', 1005073.0223617341) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'BR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ST', 1386420500.1047206) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FRX452478523', '2026-05-02', 'AF', 3310.5797101449275) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TCJPP2183350', '2026-05-03', 'TW', 93543.345855745574) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'KR', 51.025641025641022) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'AU', 628812.96749671292) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'DZ', 3334.2429521697813) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'JP', 259026553.36818156) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'IL', 210253.00914774204) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'PT', 28.431372549019606) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'NP', 6617.9792704029769) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'PH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800068', '2026-05-03', 'TW', 611950.12943795172) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'TN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800068', '2026-05-03', 'IT', 14472.857172865206) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'LV', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'UA', 1997871.5623050106) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'GF', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'FO', 3333380636.305923) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'RU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'MM', 536242.41625542636) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000100', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'FM', 5498280541.7278261) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'PH', 1055832.010649258) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600001', '2026-05-03', 'MX', 4920.2690943642783) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'ES', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400519', '2026-05-03', 'KR', 560865.43929409841) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'ZZ', 509.00473933649289) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'NL', 12402.605776923709) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('AUOYO1800088', '2026-05-02', 'US', 95.238095238095241) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NI', 348706830507.78925) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'FJ', 4517.1428571428569) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'ES', 91827.5696331769) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('AUOYO1800088', '2026-05-02', 'HU', 23.80952380952381) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-05-03', 'DE', 681017.2472051864) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'ZZ', 202.84360189573459) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600001', '2026-05-03', 'IL', 483.09523809523807) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'DJ', 88.135593220338976) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00710106', '2026-05-03', 'BR', 5325.3272595738308) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'SY', 310) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'MY', 32008.347242547763) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'TL', 3569.2307692307691) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'IN', 1157841.1797978906) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'GU', 42.465753424657535) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500661', '2026-05-03', 'CL', 6461.530264260673) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'PS', 63.030303030303031) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TH', 5283050478817.3154) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'SN', 145.3125) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'VI', 7934428200.7312365) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'BH', 3285.2527394839162) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'OM', 124777157051.29999) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102832', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'CR', 17097.077975938893) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'SR', 8182.1565939875236) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100406', '2026-05-03', 'PL', 146243.85682918321) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2103201', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'BY', 20604.0085460028) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2103201', '2026-05-02', 'GB', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'NZ', 31651.2921088283) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'MD', 34.701492537313428) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'MX', 145884.90373379472) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102746', '2026-05-02', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'KZ', 5387132.5831314363) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2103201', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302393', '2026-05-03', 'HK', 16557.72718248075) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2103201', '2026-05-02', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401049', '2026-05-03', 'JP', 2215218.8093483704) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'IM', 72.72727272727272) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'IN', 206981.61053715213) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2102832', '2026-05-02', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001186', '2026-05-03', 'PK', 1246.0735171261485) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'MG', 31.000000000000004) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101343206', '2026-05-03', 'IT', 1114.5219747397168) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'GA', 90.434782608695656) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'UA', 318437.15150839463) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'FM', 12335) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'KR', 821776.73041693575) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'SO', 76.470588235294116) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'UG', 14730643764.17742) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'GF', 79.389312977099223) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LY', 85997131769.2544) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'FK', 126.80065760587476) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PA', 408770259323.7829) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'YT', 74.968632371392715) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KH', 462168885775.52423) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'SD', 369.96904024767804) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TL', 9854338948.7805252) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'TG', 74.968632371392715) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'VE', 1211118451717.4902) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'YE', 74.968632371392715) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CM', 8467149070.5045757) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'AW', 1611.209349593496) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'ID', 449957.47617167741) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'BW', 74.968632371392715) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'JP', 3387620.7549184542) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'KW', 368.13863476425053) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100406', '2026-05-03', 'BE', 85040.142720984062) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'BH', 465) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'BR', 31338.983097124568) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'ZZ', 1562.301277821105) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'DE', 193490.99780692172) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'MU', 1484.7368421052631) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'TR', 1294675.9047143988) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'GF', 3577.0540627021473) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-05-03', 'AE', 36873.2978369123) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'TJ', 233.59013867488443) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'KH', 12240.696552772155) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'SX', 764.99877819446351) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'AR', 283170.72579008684) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'CV', 212.29973823954833) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'SY', 16250.971120733797) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'GI', 1144.6879856176679) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'AL', 74732.726002893847) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'TC', 755.45459044790891) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'IT', 2774892.3477174686) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'NF', 91.30611297993272) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600004', '2026-05-03', 'KR', 131663.97625899865) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'GY', 812.88621592499226) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'NO', 296810.5491371298) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'NF', 91.30611297993272) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401049', '2026-05-03', 'TW', 571170.945780543) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'NF', 91.30611297993272) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302393', '2026-05-03', 'KR', 271569.8040803831) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'ME', 6638.8888888888887) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'SG', 13584.238791100592) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'AO', 1181.450113852874) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'GB', 1929454.1833709471) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'CX', 141.60434717457696) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'BR', 99817.713593200926) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'CX', 141.60434717457696) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'NG', 16105.406878560982) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'PF', 18.637992831541219) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001197', '2026-05-03', 'PE', 107.69230769230769) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'GF', 1240.8839779005523) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'NL', 113917.65845012634) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'AG', 152.33834025780334) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302102048', '2026-05-03', 'TW', 3672.3443022356055) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000120', '2026-05-02', 'JP', 799.99999999999989) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'HK', 114891.69279873952) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'GE', 3407.8354520554371) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'JP', 3591726.2472245255) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160132', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'GB', 10892.776392223464) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'UG', 364.89147676437142) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'GB', 99086.413010552787) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'PM', 11491.121495327101) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'JP', 43228720.910028353) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'TO', 62157.800361480171) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GW', 1008976105.0234526) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'SI', 13273.333889753327) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NE', 938910610.759754) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAOPL2300014', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'VU', 1537904527.9999566) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308447', '2026-05-02', 'KR', 114.52991452991452) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GY', 57705838426.00502) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'BM', 1276.4650621442306) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AT', 300764512019.26666) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'GM', 1109.4771241830065) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'RO', 1089070831030.4103) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DED622300057', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CI', 32174552000.515545) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'GM', 156.26950476473539) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MT', 24123970986.054184) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'MR', 8451.6030508416989) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NR', 999830437.91945386) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'KW', 762.5) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'FJ', 26256261990.896229) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'NR', 193010.44546850998) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'JE', 5030558656.2106876) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'BZ', 50.28008499130771) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SY', 121818677729.66084) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'SR', 547.05882352941171) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'CA', 240950.52388704769) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'ME', 1070.7236842105262) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PG', 10454765092.600622) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'TV', 80.115830115830121) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807205', '2026-05-03', 'KR', 21615.43637887319) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'TV', 80.115830115830121) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500652', '2026-05-03', 'JP', 12266280.870347867) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'OM', 427.29729729729729) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'NG', 70398.495424402412) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'GN', 258.33333333333331) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'TW', 788137.50664084416) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'OM', 4945.7980244302389) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'VN', 276625.12551076425) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'OM', 508.75) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408108', '2026-05-03', 'JP', 10876198.293676417) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DED622300055', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'KW', 3133.3240034592695) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'CD', 603.7790697674418) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'FR', 1852841.63553533) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'NR', 41575.98774333093) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'AR', 1292963.4597232051) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308448', '2026-05-02', 'JP', 42302.926653187977) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'SG', 423075.39852447686) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'MT', 9980.4481761153256) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-05-03', 'CN', 74468.947414489419) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'MU', 1729.6091708244239) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'CH', 270066.73640258244) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'BG', 2154.2332933173266) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'HK', 1074943.4947165595) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'CX', 498.60097323600979) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'BD', 505666.76165880257) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311428', '2026-05-02', 'GB', 222.93316016499574) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001197', '2026-05-03', 'KR', 1448.9802154151707) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'VI', 972.77936962750709) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'BE', 28935.088938713263) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'CD', 81.36363636363636) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600359', '2026-05-03', 'UA', 357.00571971409295) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'VI', 1178.7356321839079) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'ZA', 31762.093458927349) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'CI', 572.76282369397791) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'BG', 698350.221181957) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'OM', 2916.4050806484493) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'ID', 27561254.393977012) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DED622300063', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'GR', 886190.57343666081) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'HT', 320.68965517241378) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'LY', 152777.1609024918) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'DJ', 45675.390323116386) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302300174', '2026-05-03', 'TW', 5276.91654594521) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12244269', '2026-05-02', 'JP', 607.2780128166371) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'VE', 465095.80244346621) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'AW', 3642.9254409857631) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'MY', 2367434.1747536492) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'TM', 259.33926302414233) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'IN', 7134599.1452465979) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'NC', 37481.593502340373) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401049', '2026-05-03', 'MY', 44853.464708980966) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'LC', 1375.5741916485003) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'CH', 443898.50812417926) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'TG', 865.95744680851067) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00710106', '2026-05-03', 'JP', 12625345.958756387) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'BN', 1684.8089996588378) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'KW', 16189.707805853) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'ET', 678.33333333333337) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'HK', 38280.207735469085) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'BQ', 945.11087594844184) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'CZ', 46778.352870222923) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'MD', 10333.176495190297) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'CL', 165421.22041617692) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'TT', 11964.493928335545) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'FI', 28434.753873802594) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'BR', 5.7142857142857144) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'IN', 55940.416671713916) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'SS', 2777.0530157690328) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'AU', 667848.36292850412) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'HK', 5.7142857142857144) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001186', '2026-05-03', 'KR', 318352.88544163783) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'CZ', 5.7142857142857144) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'BE', 6969.0889497155213) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'PE', 3.0769230769230771) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101343206', '2026-05-03', 'SG', 2899.0003541968354) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'TH', 10) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'PL', 41548.499414106976) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311428', '2026-05-02', 'PH', 28.333333333333336) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'CH', 88512.01323771743) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311428', '2026-05-02', 'MA', 28.333333333333336) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'TH', 1471964.9082076869) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'TW', 19.317524580682473) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101343206', '2026-05-03', 'ES', 8995.026125207) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'GB', 5.2631578947368416) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'IN', 76368.141122776156) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311427', '2026-05-02', 'JP', 909.24465008675531) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302102048', '2026-05-03', 'ID', 3975.7743480352174) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2311428', '2026-05-02', 'CO', 103.03030303030303) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'TW', 395957.75531678216) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'TH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101343206', '2026-05-03', 'US', 121888.26389752557) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'CD', 27584.379340063031) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'SG', 189336.37009015621) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'RW', 664.25071914106161) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'HU', 2086.7170679246397) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'AO', 50541.030236883409) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'KR', 819232.50460521784) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'CM', 2.8169014084507045) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'BE', 853.19660998728159) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308450', '2026-05-02', 'TW', 2696.0134059606953) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'RO', 27761.919447842603) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'UZ', 3154.1742979242977) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921910489', '2026-05-03', 'IQ', 26809.678107326166) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'UZ', 1.8867924528301887) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'RO', 1058.1937854683633) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'ME', 13450.46999512931) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AS', 6161359596.5002241) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'PY', 4.5454545454545459) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CO', 2408340214115.3726) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'CK', 16271.422177814518) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'DE', 3250958857973.8696) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'BO', 8.51063829787234) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PH', 9749533147113.3984) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'CM', 691.24298543255054) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TV', 303517870.20300359) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'IT', 7.4074074074074066) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SB', 1848032715.465378) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'PF', 6080.7692307692305) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MR', 8300261294.0084257) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'IQ', 8264.59618200427) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ES', 1805684950241.8005) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'AT', 24.242424242424242) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'IM', 3640859162.790668) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'TR', 7.8431372549019605) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'WS', 3955595546.2117844) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'BD', 16.666666666666664) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BY', 630264090729.06787) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'LT', 13.793103448275861) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GG', 2517466190.1322279) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'CH', 17.777777777777779) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'HU', 461264339892.12714) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'IO', 18818.189804516016) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LT', 220684718822.64267) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'LK', 17.777777777777779) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ZZ', 353593674246.74744) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'PT', 17.391304347826086) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GL', 2565415392.9206705) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'NL', 45.295055821371605) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ML', 5546942305.8258867) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'IQ', 12.307692307692308) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SD', 5209547536.9335155) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'PL', 23.859649122807017) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MA', 492923483535.08862) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'DZ', 17.675544794188859) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SE', 570434741798.36987) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'BD', 33.30529857022708) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CA', 3139346384371.9741) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600003', '2026-05-02', 'GB', 23.52941176470588) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AW', 9469561605.0548) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209471', '2026-05-02', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MZ', 19680810591.506069) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600003', '2026-05-02', 'UA', 94.117647058823522) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TR', 4274040370344.8271) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'PE', 22.222222222222221) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-05-03', 'TH', 1480782.3520718378) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'EE', 15.384615384615385) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TO', 2799478871.1136665) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'MY', 160.94944208551397) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GU', 29352624833.339748) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'AF', 1345.4545454545455) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'JM', 192555576317.03452) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'SE', 88.981435489175425) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807205', '2026-05-03', 'AR', 3622.56116274574) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'VU', 1506.5637065637065) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BF', 6093622683.3593159) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'SG', 53.077578857630009) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TN', 145700886987.69608) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'KZ', 70.7396944008498) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'VC', 9154968791.84623) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'AU', 335.72741313330943) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'ID', 87774.758050051911) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'GN', 247.61904761904762) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807205', '2026-05-03', 'TH', 1422.0302942428214) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'BH', 1436.0509396390346) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'CR', 2548.4830441498566) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'MO', 17.777777777777779) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'BE', 1789.1308839692995) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'FR', 69.987092895210651) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408108', '2026-05-03', 'IN', 46353.929719783322) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'MM', 16.666666666666664) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'IN', 539229.15642217407) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'DZ', 37.021276595744681) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408108', '2026-05-03', 'NG', 4116.0441729437716) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'IT', 70.233100233100231) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408101', '2026-05-03', 'JP', 19200455.68823389) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'ID', 22.222222222222221) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'MY', 304259.41305417061) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'RS', 25.925925925925924) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'TR', 136653.47383175319) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'MX', 201.2571510443851) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'ID', 12088.725909501236) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'MN', 33.360323886639677) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'TR', 1193.2059626536445) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'UA', 202.9432348190112) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'JP', 3004444.4583767541) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'AU', 58.429858429858427) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'KG', 1613.718326710434) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'AF', 226.08695652173913) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'EC', 106244.25190794836) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'VE', 16.666666666666664) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'EG', 124225.64155927765) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'RU', 22.222222222222221) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'HN', 36670.562352514746) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'BR', 185.23018517903427) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'DE', 1395644.3361877913) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'DE', 145.12189564821142) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'RU', 192529.6756980858) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'IR', 17.777777777777779) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'AT', 175245.40874450828) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'BR', 22.222222222222221) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'KZ', 138189.59720885244) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'PL', 14.285714285714285) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'EE', 44364.315311568) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'MX', 22.222222222222221) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'ID', 1530518.4137977236) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'TW', 223.94864733967697) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'BO', 709672.05788050336) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'PY', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101343206', '2026-05-03', 'JP', 6469090.3231774122) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500026', '2026-05-02', 'TH', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'FI', 26195.42842168807) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'BR', 708.68061782248378) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'PY', 11101.850195198655) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'CM', 1186.8421052631579) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'SK', 8248.4747469032463) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500024', '2026-05-02', 'IT', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'BO', 39706.866861320043) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'YT', 263.29113924050637) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'VN', 921083.29983651545) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500024', '2026-05-02', 'FR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'GT', 45308.672901006306) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500024', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'RS', 7243.7142319103832) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'KW', 2146.5275893145395) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'AZ', 1583941.9417995317) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'WS', 309.00793650793651) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600359', '2026-05-03', 'JP', 369720.03901875752) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'MG', 1152.8138528138529) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'EC', 1792547.371906976) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'RE', 695.72649572649584) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'AT', 325294.469351845) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'IN', 315.18523263942745) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'VE', 2496257.7773312) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'RE', 1110.8374384236454) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'GB', 3042989.1384015954) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'ID', 587.80060449302289) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'KE', 93606.573364857715) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'RE', 738.78504672897179) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'ZA', 558266.583608692) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'PM', 174352.17391304346) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401049', '2026-05-03', 'AU', 46811.978621543014) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308450', '2026-05-02', 'KR', 3203.6062049477841) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'VN', 8413273.6389448922) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'BN', 60.159074475777295) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'RO', 1557524.3412201381) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'TN', 6099.7252747252751) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'HU', 648919.69827950047) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'BT', 1679.6345314073192) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'UY', 173950.08330702304) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'UZ', 16.666666666666664) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'NG', 702503.62529115414) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'MV', 24197.319219166311) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'KH', 258558.49832377917) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'LY', 1323.5772357723579) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'AL', 38395.902756079187) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'MK', 5005.0663104423065) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300059', '2026-05-03', 'AU', 14576.152708088404) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'LY', 1810.8571428571427) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'SE', 543679.46836820641) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'AL', 1540.7407407407406) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'TH', 13543832.549316822) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'EE', 1076.6135928055432) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'MX', 8841471.7662581932) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'TH', 88.547008547008545) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300059', '2026-05-03', 'KR', 117965.07637398323) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'PH', 40.4040404040404) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'SV', 296884.60606426158) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'US', 59.82905982905983) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'GT', 399556.37324689212) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'CM', 581.25) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301045', '2026-05-03', 'KR', 22342.086431460029) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'GM', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302102048', '2026-05-03', 'KR', 6922.6653297122393) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'ES', 49.841269841269842) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302300174', '2026-05-03', 'KR', 20666.822677321168) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'BH', 2978.5627137769316) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPJ961000040', '2026-05-03', 'UA', 13122.951298911756) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'CM', 1029.5514511873353) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPJ961000040', '2026-05-03', 'CA', 15499.26998042696) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'AR', 708.80677962330526) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'PH', 7010122.3668855047) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'CD', 268.69630469774825) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'KH', 97774.786809431753) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'JM', 2194.489523173118) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'UY', 8601.2938379066836) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'TM', 4881.818181818182) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'TH', 2658927.4265819238) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'GP', 7861.6629538698071) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001186', '2026-05-03', 'IN', 46719.167058898944) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'AG', 25805.291005291005) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'TR', 338329.26834525331) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'HK', 6.557377049180328) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'BR', 178720.07563930744) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2308043', '2026-05-02', 'CN', 33.333333333333329) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'NL', 379362.27743803267) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'AZ', 1681.9148936170213) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001186', '2026-05-03', 'NG', 5308.8699690402482) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'IT', 6.557377049180328) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101399803', '2026-05-03', 'PE', 30590.974843215183) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'RW', 6216.0590380112071) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001186', '2026-05-03', 'US', 82481.901581173865) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500023', '2026-05-02', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'DK', 17512.404160518963) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'AM', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101343206', '2026-05-03', 'TH', 58412.119147979487) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'HK', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'MX', 206466.34489878084) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'MN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'FR', 98468.730761685831) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'BW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'CR', 17916.37875086569) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'ME', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'VN', 125708.54024382972) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'NL', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102201163', '2026-05-03', 'AR', 12785.807853941924) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'BE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'BR', 666349.43793621811) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'MX', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'KZ', 48697.340231645925) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302102048', '2026-05-03', 'PH', 609.16666666666674) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'MY', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'PL', 59651.144246778007) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'VE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900700', '2026-05-03', 'HK', 964139.6215879519) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'AT', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'JP', 7043088.7667966047) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'DO', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302102048', '2026-05-03', 'JP', 154773.99931185853) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'RU', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'FR', 22762.054555031449) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'PT', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302102048', '2026-05-03', 'DE', 6062.174881648566) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'EG', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'KR', 737264.776684789) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'MZ', 11.111111111111111) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101343206', '2026-05-03', 'IN', 48121.326216065863) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'CR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'AU', 10657.559473997038) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'ZA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'US', 100517.6879642292) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'FI', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'CH', 1155.5216550186312) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'GR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'LV', 175.14149274849663) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'SA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'KR', 187509.67642712226) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'JO', 631.17709437963936) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921708905', '2026-05-03', 'KG', 677.28245055805871) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'VN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'TH', 14774.558693066911) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'BR', 9.5238095238095237) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'FI', 922.78824830313317) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'IT', 9229.5876081021652) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'IN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ921907876', '2026-05-03', 'EH', 6932.9563073851177) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'IT', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF01903704', '2026-05-03', 'KR', 93251.095724233135) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'ZA', 9.5238095238095237) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301044', '2026-05-03', 'GB', 6124.4261849336553) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BR', 21589813236926.039) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'PL', 13.333333333333334) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'JP', 26488.706001260674) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'JE', 15331.942606647843) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500661', '2026-05-03', 'JP', 5358395.0131092407) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'SO', 5354.2537246655629) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ZW', 11965189108.466057) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'TH', 22.251082251082252) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'TW', 8407.4130348375384) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'PY', 9.5238095238095237) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'UA', 304719.94656492473) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'PH', 9.5238095238095237) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'ES', 14616.845322124653) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12432850', '2026-05-02', 'JP', 3000) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LC', 11673673162.281126) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'ZM', 2891.2164449112092) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TG', 7829897251.73773) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'MX', 16.025641025641026) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BH', 72718284860.660812) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'TW', 88.1851481851482) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400765', '2026-05-03', 'ID', 417110.49936862022) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'MN', 3342.3160190691806) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'IN', 5118188198762.7314) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2428515', '2026-05-02', 'VN', 44.88095238095238) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'IL', 291004562246.60352) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'PS', 1842.4418604651164) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'DM', 5562384373.1803265) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'MG', 6273.9143487373813) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'HK', 336007062716.503) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'MN', 2809.9802079129918) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NO', 361931731487.88544) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'BA', 6689.4703172153395) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'UZ', 945611663199.935) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'MN', 3857.0337154600511) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CD', 13559716281.295347) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'BA', 4708.4929359823582) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MF', 2039123389.3823347) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'AW', 684.5758354755784) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PS', 66012975541.222496) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'AI', 1208.1500946397648) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'IS', 24733298149.030121) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FRX452478523', '2026-05-02', 'ME', 3315.3846153846157) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PF', 15400029220.547121) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'BA', 14782.831243241246) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'EC', 1573922181899.8972) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'MS', 65.2743795875568) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MG', 18065938243.298779) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'KW', 23235.146696913322) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TC', 5078440399.07556) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'DO', 32.770270270270267) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'IT', 2070575719296.4785) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'MU', 8630.0156123534816) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BI', 764903630.98288655) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301469', '2026-05-02', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BG', 295072311081.66016) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'LB', 34.275618374558306) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MV', 60790758167.496262) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'SC', 32627.320565907521) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CU', 146111613371.97092) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'HR', 5198.1138759331488) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BJ', 5069306243.0277224) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301469', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'VG', 2581323648.2247882) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301469', '2026-05-02', 'LA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AX', 430608435.33588129) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301468', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SI', 66685302140.5655) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2301468', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'RE', 52883861387.312065) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12446887', '2026-05-02', 'TW', 195.45454545454547) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AE', 519421018335.78986) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2207482', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BO', 1170333703982.7102) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2207482', '2026-05-02', 'TW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CR', 399939086934.23566) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2207482', '2026-05-02', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BZ', 40957759293.0361) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12435497', '2026-05-02', 'KR', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KE', 129397520079.68835) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'UZ', 7530.0990571667253) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SK', 233378445070.40305) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'LA', 14485.713780879945) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ME', 35810339412.509682) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'AL', 1110.5520532797823) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KR', 3230632311951.4795) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12446887', '2026-05-02', 'KR', 4.5454545454545459) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'HN', 526570475778.33203) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'FO', 1729.5681063122925) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MC', 415715308.20655072) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'CM', 2840.8163265306125) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AI', 1301302757.0934885) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'RE', 515.0870406189556) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LA', 224836446273.62848) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'PF', 534.36018957345971) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'CK', 1856011226.2197742) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'KY', 27399.999999999996) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'NU', 120131469.55837791) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'PF', 20561.425914802345) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'HR', 180360662112.40958) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'AL', 359.68992248062023) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AZ', 564341417261.77344) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'IS', 317.96875) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-05-03', 'NL', 231903.4448282175) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR96X2474056', '2026-05-02', 'IM', 555.55555555555554) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'SG', 389379058394.53046) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'MD', 2074.64196895635) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'DJ', 5961580069.63193) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'GH', 243.31622789343754) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'IQ', 1342674240324.262) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'GS', 138.12072293384807) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'VN', 8962630984466.543) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'KE', 5026.9446336203728) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AD', 2754684845.9049463) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'GS', 138.12072293384807) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'GR', 378394999303.83838) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'TN', 2977.2990125943529) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'YE', 31424158569.148312) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'AG', 618.732782369146) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'ET', 30495879957.519348) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'BH', 8365.63936660648) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MK', 78096173865.44162) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'PF', 1529.759253972785) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'PT', 552980649305.06738) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'PF', 1352.4292279766732) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'DO', 660156508698.28125) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'DM', 425596.95900658722) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500652', '2026-05-03', 'BR', 4279.7778872205881) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'GH', 46720.346152860882) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'LU', 23613991328.707329) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'CG', 30601.964877106053) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'AL', 154245215907.71286) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'TL', 409.62059620596204) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'BQ', 1361220384.4799569) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'BS', 1172.8669022379272) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408108', '2026-05-03', 'HK', 63572.419280813061) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'PA', 5097.2292013971573) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807205', '2026-05-03', 'CO', 1243.2531619324072) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'FO', 7557.7777777777774) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807205', '2026-05-03', 'PL', 62.264150943396224) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'IM', 3046.2686567164178) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102500652', '2026-05-03', 'AU', 30987.966418889111) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201790', '2026-05-02', 'VG', 668300.8265923186) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'KR', 7227330.3069037963) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'GH', 10381.645576276536) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF09807205', '2026-05-03', 'NZ', 17121.089233628743) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'SA', 34364.112772747852) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'TR', 58249.330127118483) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'VC', 1026.25) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'TH', 124349.47181725556) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'GA', 597.34042553191489) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'TH', 211112.00278900788) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'UG', 6447.5928192574447) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102301745', '2026-05-03', 'AR', 44682.065160144295) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'TG', 853.82932166301975) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'JP', 48141142.3774518) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'LU', 521.79487179487171) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'GB', 99293.9312349618) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'AZ', 5088.62293144208) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408101', '2026-05-03', 'AR', 59637.035661435817) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'MD', 415.30612244897964) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100127501', '2026-05-03', 'CO', 112190.10137058834) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'AZ', 12273.502584372151) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00408101', '2026-05-03', 'KR', 129029.92534193009) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'BJ', 40948.406879082788) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200373', '2026-05-03', 'JP', 4683275.0562759088) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'IS', 863.48773841961838) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'JM', 10597.10842111668) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'UG', 1514.5944757572033) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100406', '2026-05-03', 'CR', 40130.586725338733) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801278', '2026-05-02', 'MU', 3377.2727272727275) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102100406', '2026-05-03', 'IT', 248210.69617821847) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12435497', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'HK', 641889.1490100699) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'HN', 25.581395348837212) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'IN', 12282.626243749537) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'TR', 25.581395348837212) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101900553', '2026-05-03', 'KH', 33126.761209380704) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'PT', 25.581395348837212) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'TW', 37656.308932235137) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'JM', 25.581395348837212) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'KR', 121317.53665747457) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'BL', 2254.2884988123851) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'TN', 17046.525932407942) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'EC', 84.615384615384613) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102502859', '2026-05-03', 'MY', 5028.0880311060682) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308447', '2026-05-02', 'TW', 474.48107448107447) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'HR', 43028.545441706614) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308447', '2026-05-02', 'JP', 1410.9890109890109) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'BR', 3073791.6691247034) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201883', '2026-05-02', 'GA', 1311.1701532040515) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'NI', 33778.11539181383) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'PG', 1816.8174357513844) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'NZ', 235641.84684686916) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'BT', 1211.4615820119095) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'GR', 72636.297380555421) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'TC', 260) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'NG', 603074.77591831831) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'IS', 1463.155200486596) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-05-03', 'MN', 151119.30957699884) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12440600', '2026-05-02', 'JP', 19900) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'BO', 133477.7645123) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2360320', '2026-05-02', 'NZ', 147.56592292089249) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'TH', 1278860.5799794062) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2310794', '2026-05-02', 'US', 27.027027027027025) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'MY', 3170346.2202444351) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'AD', 678.60869565217388) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'IN', 3134734.5195926703) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201888', '2026-05-02', 'PG', 1088.2207792207794) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'SI', 47314.082901990107) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'MR', 477.09497206703907) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'RO', 439092.60350218456) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'BD', 378.25727106076772) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'DZ', 26781.987346088448) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'KW', 321.20963327859874) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'IE', 141512.54877088586) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'HU', 18297.754525938952) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'TZ', 15953.725680650618) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'MX', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'TT', 922.52129997385009) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'DE', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'AE', 210592.35215018858) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'CA', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'KE', 35367.736429590419) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'BO', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'MA', 42050.470502481658) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'MN', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200387', '2026-05-03', 'AZ', 16137.453885322555) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'MM', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800068', '2026-05-03', 'BO', 11448.448827701404) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'ID', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'PH', 16213.297496821007) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA570500025', '2026-05-02', 'KR', 58.2375478927203) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102000850', '2026-05-03', 'KY', 233.84507246783579) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'ML', 533.49168646080761) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'AR', 214619.0793936121) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'CV', 533.49168646080761) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'PT', 32732.61208440299) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'ET', 1087.012987012987) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'PL', 103655.82442339585) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'BS', 35755.553339658931) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'CZ', 22613.432537352972) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'GD', 8145.232815964524) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'BR', 312093.57239093096) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'TZ', 422.72727272727275) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'MX', 555315.42028938024) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'LA', 1425.0008396861754) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'MO', 9456.5477006972324) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'TZ', 1114.0410480349346) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'FR', 168264.26891196312) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92N2310794', '2026-05-02', 'JP', 4972.9729729729734) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'PH', 325778.34935188765) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'TZ', 2857.2164163300786) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'AU', 142334.20687090568) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'TN', 6326.4500223985451) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'IT', 69294.7938949182) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'CY', 2398.1236649913403) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'KR', 2426156.2171597281) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'TH', 167.52136752136752) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'AZ', 9035.4443697369479) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'US', 37.3266078184111) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'RU', 675239.11910548015) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308449', '2026-05-02', 'TW', 7031.8088698970159) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'ES', 1951323.2180103033) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'BB', 422.86753599010007) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'PY', 659001.13008406945) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'GG', 26.735218508997427) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'UY', 343850.33897022583) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'ZW', 1959.5038540665246) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600246', '2026-05-03', 'HN', 10331.482415922415) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'TN', 3529.516258379138) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'BH', 109428.51817308702) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'GB', 466.72048591820254) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102600359', '2026-05-03', 'ID', 7755.04791501724) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801273', '2026-05-02', 'MO', 159.25925925925924) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'FR', 2728645.8762071412) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2209469', '2026-05-02', 'DE', 165.6873626438844) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'IQ', 1686019.0211296089) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR9W12308449', '2026-05-02', 'KR', 7501.5245539741281) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'NG', 422567.97659137117) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'CO', 61.111111111111107) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'CR', 1104890.2502606155) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'GL', 15421.422420468976) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'DK', 181577.65007135316) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'CD', 1074.2372881355932) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'PK', 304067.10515119461) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'TG', 520.70552147239266) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'RU', 20775791.146774713) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'CW', 312098.18983886106) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'IE', 242333.97145586225) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801273', '2026-05-02', 'DO', 195.45454545454547) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'GT', 1685851.7673021429) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'SV', 12765.392311192807) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'NZ', 358526.9899779727) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'MW', 1336.1454358663743) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102300059', '2026-05-03', 'JP', 2632866.8989748931) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'BJ', 541.4673046251994) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'CY', 207168.09651162676) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'ZZ', 58287.996428830753) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'DE', 2939861.4089390421) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'AL', 44707.567098806219) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'MY', 12604743.489534087) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'CU', 220.45454545454547) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'NI', 513241.7780380536) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'MA', 11315.951184436479) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'TW', 10058003.084923545) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'KG', 1683.4427426605509) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'SV', 930091.11141092121) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'CI', 895.72235673930584) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'IN', 4518365.58084841) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'KW', 77030.633075388061) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'IE', 327187.28373981651) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'BY', 7072.6861112774759) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102101564', '2026-05-03', 'AE', 868449.22928118031) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'MD', 24138.089225589229) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'AT', 333568.16979989194) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801279', '2026-05-02', 'BD', 181.25) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'ES', 1997003.6055282077) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'VI', 20402.123995407579) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'IS', 25855.621716904767) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'KG', 344.91525423728808) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'CL', 4514075.388197598) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'QA', 1955.270204692355) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'AR', 6660192.59466501) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'TL', 543.8256658595642) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'FR', 5631635.894593196) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'HN', 7710.9857846420618) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401049', '2026-05-03', 'RS', 2209.4444444444443) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801273', '2026-05-02', 'GH', 186.95652173913044) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'SG', 602782.84183490614) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201889', '2026-05-02', 'NI', 2524.8302928259382) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'NZ', 634010.89213913737) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'PG', 2313.2532159847747) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'AE', 325088.4890312879) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'UG', 3040.5007116074821) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'LT', 289052.33907150209) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'CG', 451.35593220338978) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'CZ', 352188.53110693849) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'AT', 7872.6271888734009) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'UZ', 58163.474413382435) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'CD', 736.2264150943397) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'KZ', 381424.73123768769) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-02', 'KN', 196.09375) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'FI', 609175.92351388547) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-02', 'GH', 306.09756097560972) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'KG', 155040.69913217344) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600003', '2026-05-02', 'US', 191.17647058823528) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'JP', 30962177.410258736) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('HKH331600003', '2026-05-02', 'ID', 200) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'HK', 1982380.3631609448) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801279', '2026-05-02', 'KH', 152.63157894736841) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTF00710106', '2026-05-03', 'ID', 45059.689638002325) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801275', '2026-05-02', 'SI', 119.23076923076924) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'PE', 3342924.5490843211) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'TG', 506.27376425855505) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPTO00101604', '2026-05-03', 'NP', 772678.9417406487) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2360320', '2026-05-02', 'US', 111.1111111111111) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101800068', '2026-05-03', 'JP', 4343600.0492636729) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'US', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600001', '2026-05-03', 'TW', 159277.55730103562) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'MT', 4551.8681804554035) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302393', '2026-05-03', 'AU', 31812.007940108255) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801276', '2026-05-02', 'KN', 113.04347826086956) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302393', '2026-05-03', 'VN', 5142.4001324181863) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201887', '2026-05-02', 'MT', 3454.6521345560327) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102401049', '2026-05-03', 'US', 400952.54273972334) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'BF', 2514.1284030881757) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101399829', '2026-05-03', 'CL', 10436.670516833419) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801276', '2026-05-02', 'MO', 248.18181818181819) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('USYBL2302393', '2026-05-03', 'ID', 90483.822846000417) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'MR', 1223.9782016348772) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600004', '2026-05-03', 'HK', 12162.469674041597) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'YE', 194.7035506451885) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('TWCJ51600004', '2026-05-03', 'TH', 11534.846566397315) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801278', '2026-05-02', 'PF', 60.603588907014682) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'BH', 5251.2196479885051) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201885', '2026-05-02', 'CY', 5951.3723808305685) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101399829', '2026-05-03', 'US', 516622.47402871534) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'TL', 447.12041884816756) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'UA', 169008.52586029039) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('DGA0M2411667', '2026-05-02', 'MG', 156.45161290322579) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'FR', 195154.29375213003) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'IN', 98.914728682170562) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'MX', 1173574.0524883657) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'PE', 141.45006839945279) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'NG', 115863.55509728906) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'SZ', 229990.83913416322) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'ID', 4001827.9584705918) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FRX452478523', '2026-05-02', 'MW', 1346.875) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'IN', 777248.39292445569) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'SM', 23.52941176470588) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'RU', 53155.133222453114) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92A2319499', '2026-05-02', 'JP', 1293.8993975059548) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102501216', '2026-05-03', 'TW', 5253318.7008976573) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'KH', 8) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'PR', 29906.455987184949) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'DK', 7.6923076923076925) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'DE', 875132.19581402617) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'MF', 74258.018032678068) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'CA', 563236.693256918) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'UA', 8) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'JP', 333803.6202521497) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801276', '2026-05-02', 'PY', 113.04347826086956) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'LV', 68421.280983657445) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'LU', 14.285714285714285) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'US', 5871630.1464493349) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'AR', 24.358974358974358) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001186', '2026-05-03', 'DE', 2494.024506705045) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201877', '2026-05-02', 'GA', 1458.1241015477804) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400811', '2026-05-03', 'AT', 60914.53744722488) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201884', '2026-05-02', 'BF', 25136.740853214447) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'MX', 13646.888465376156) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'LT', 17414.589003587113) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101399803', '2026-05-03', 'KR', 172358.37262412882) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'GN', 264217.72350567806) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001186', '2026-05-03', 'JP', 5372475.214646711) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801277', '2026-05-02', 'TH', 337.32228603709632) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPR752200670', '2026-05-03', 'TR', 15222.841747344941) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801279', '2026-05-02', 'DK', 1337.2877440383161) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102400519', '2026-05-03', 'IN', 45110.903346728315) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92J2500959', '2026-05-02', 'TW', 14.285714285714285) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG101500388', '2026-05-03', 'AE', 2559.9056603773583) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JP92S2530781', '2026-05-02', 'JP', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TM', 18046970477.769341) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'ET', 4272.9729729729725) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102001186', '2026-05-03', 'NZ', 977.06766917293226) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'SN', 1765.4552229495712) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'AU', 59772.972248136219) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201881', '2026-05-02', 'ET', 3304.6983621011223) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'US', 970527.78504360211) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'GM', 6811.7226643454524) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'CO', 54323.487954861055) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201878', '2026-05-02', 'ET', 7022.8101395334015) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'DE', 80394.517006317124) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('', '2026-05-02', 'GM', 6811.7226643454524) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'VN', 53948.644476935762) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801275', '2026-05-02', 'DZ', 106.89655172413792) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801274', '2026-05-03', 'TW', 406208.75555535895) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPB450801279', '2026-05-02', 'LU', 181.25) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPZ922504103', '2026-05-03', 'CO', 1278.7878787878788) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201880', '2026-05-02', 'SX', 1150.9133986928105) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302102048', '2026-05-03', 'BR', 113.33333333333334) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CAENV2160138', '2026-05-02', 'JO', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302102048', '2026-05-03', 'NZ', 113.33333333333334) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201882', '2026-05-02', 'WF', 4641.9645670413229) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'AR', 10469.621617377006) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201879', '2026-05-02', 'LU', 981.60919540229884) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPP302100510', '2026-05-03', 'CL', 11716.898615640541) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR4GL1040922', '2026-05-02', 'GI', 221.95751439348817) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPPO00256020', '2026-05-03', 'JP', 6617113.2030462883) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPA651201886', '2026-05-02', 'ZZ', 659.71563981042652) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG102200554', '2026-05-03', 'SE', 1245.7837468638402) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('CNZ512100443', '2026-05-02', 'CY', 581.25) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'KW', 158283616127.43307) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'ZW', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'MX', 11350402582982.441) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'MY', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'TT', 192412601082.84634) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 DO $$ BEGIN
-  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('FR77F2000070', '2026-05-02', 'LT', 0) ON CONFLICT DO NOTHING;
+  INSERT INTO "plays_youtube_country_daily" ("isrc", "date", "country_code", "play_count") VALUES ('JPG100800133', '2026-05-03', 'RW', 5855078538.8691292) ON CONFLICT DO NOTHING;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 
