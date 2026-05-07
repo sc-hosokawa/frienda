@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use chrono::Utc;
 use sea_orm::ActiveValue;
 use shared::error::domain_err::DomainError;
 use std::{
@@ -27,9 +28,11 @@ pub struct RequestToAccessArtistRequest {
     pub message: Option<String>,
 }
 
+#[derive(Debug)]
 pub struct RequestToAccessUsecaseOutput {
     pub created_mappings: Vec<ArtistSimpleInfoWithMappingId>,
 }
+#[derive(Debug)]
 pub struct ArtistSimpleInfoWithMappingId {
     pub mapping_id: i32,
     pub id: Uuid,
@@ -147,6 +150,7 @@ impl RequestToAccessUsecaseTrait for RequestToAccessUsecase {
                 user_id: ActiveValue::Set(input.user_id.clone()),
                 artist_id: ActiveValue::Set(artist_id.clone()),
                 request_message: ActiveValue::Set(request_message.clone()),
+                requested_at: ActiveValue::Set(Some(Utc::now().naive_utc())),
                 ..Default::default()
             };
             let created_mapping: UserArtist = self.user_artist_repo.create(user_artist).await?;

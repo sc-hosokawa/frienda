@@ -99,6 +99,7 @@ async fn test_update_user_profile_success() {
                 status: UserArtistStatus::Check,
                 request_message: None,
                 is_default: false,
+                requested_at: None,
                 // ... other fields ...
             }])
         });

@@ -18,6 +18,9 @@ use application::usecases::artist::{
     manage_artists_usecase::{ManageArtistsUsecase, ManageArtistsUsecaseTrait},
     mark_as_member_usecase::{MarkAsMemberUsecase, MarkAsMemberUsecaseTrait},
     request_to_access_usecase::{RequestToAccessUsecase, RequestToAccessUsecaseTrait},
+    resend_request_to_access_usecase::{
+        ResendRequestToAccessUsecase, ResendRequestToAccessUsecaseTrait,
+    },
 };
 use application::usecases::basic::{
     block_usecase::{UserBlocksUsecase, UserBlocksUsecaseTrait},
@@ -218,6 +221,7 @@ pub struct Usecases {
     pub mark_as_read: Arc<dyn MarkAsReadUsecaseTrait>,
     pub get_offer_details: Arc<dyn GetOfferDetailsUsecaseTrait>,
     pub request_to_access: Arc<dyn RequestToAccessUsecaseTrait>,
+    pub resend_request_to_access: Arc<dyn ResendRequestToAccessUsecaseTrait>,
     pub get_members: Arc<dyn GetMembersUsecaseTrait>,
     pub get_quests: Arc<dyn GetQuestsUsecaseTrait>,
     pub create_quest: Arc<dyn CreateQuestUsecaseTrait>,
@@ -421,6 +425,12 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         request_to_access: Arc::new(RequestToAccessUsecase::new(
             repos.user_artist.clone(),
             repos.artists.clone(),
+        )),
+        resend_request_to_access: Arc::new(ResendRequestToAccessUsecase::new(
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+            repos.notifications.clone(),
+            repos.notification_user.clone(),
         )),
         get_quests: Arc::new(GetQuestsUsecase::new(
             repos.quests.clone(),

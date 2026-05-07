@@ -14,6 +14,7 @@ pub struct Model {
     pub status: UserArtistStatus,
     pub request_message: Option<String>,
     pub is_default: bool,
+    pub requested_at: Option<DateTime>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

@@ -97,6 +97,7 @@ async fn test_get_user_profile_combines_recent_owned_and_participated_offers() {
                 status: UserArtistStatus::Accept,
                 request_message: None,
                 is_default: false,
+                requested_at: None,
             }])
         });
 

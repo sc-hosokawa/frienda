@@ -73,6 +73,7 @@ fn user_artist(user_id: &str, artist_id: &str) -> UserArtist {
         status: UserArtistStatus::Check,
         request_message: None,
         is_default: false,
+        requested_at: None,
     }
 }
 

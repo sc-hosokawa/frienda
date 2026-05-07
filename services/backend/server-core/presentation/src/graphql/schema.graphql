@@ -475,6 +475,7 @@ type MutationRoot {
 	createNewArtist(input: [CreateNewArtistInput!]!): CreateNewArtistsResponse!
 	updateArtist(input: UpdateArtistInput!): UpdateArtistResponse!
 	requestToAccessArtist(input: RequestToAccessArtistInput!): RequestToAccessArtistResponse!
+	resendRequestToAccessArtist(input: ResendRequestToAccessArtistInput!): ResendRequestToAccessArtistResponse!
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
@@ -849,6 +850,16 @@ input RequestToAccessArtistItemInput {
 
 type RequestToAccessArtistResponse {
 	createdMappings: [ArtistByUserDataWithMappingId!]!
+}
+
+input ResendRequestToAccessArtistInput {
+	userId: String!
+	artistId: String!
+	message: String
+}
+
+type ResendRequestToAccessArtistResponse {
+	updatedMapping: ArtistByUserDataWithMappingId!
 }
 
 input SearchOptionsOffersInput {

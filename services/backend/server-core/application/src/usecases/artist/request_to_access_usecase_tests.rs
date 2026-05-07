@@ -43,6 +43,7 @@ fn create_test_user_artist(id: i32, user_id: &str, artist_id: &str) -> UserArtis
         is_admin: false,
         request_message: None,
         is_default: false,
+        requested_at: None,
     }
 }
 
@@ -82,6 +83,7 @@ async fn test_request_to_access_success() {
                 is_admin: false,
                 request_message: Some(message.to_string()),
                 is_default: false,
+                requested_at: Some(chrono::Utc::now().naive_utc()),
             })
         });
 
@@ -240,6 +242,7 @@ async fn test_request_to_access_batches_existing_mappings_and_artists() {
                 is_admin: false,
                 request_message: Some(message.to_string()),
                 is_default: false,
+                requested_at: Some(chrono::Utc::now().naive_utc()),
             })
         });
 
@@ -299,6 +302,10 @@ async fn test_request_to_access_without_message_sets_null() {
         .expect_mock_create()
         .returning(move |user_artist| {
             assert_eq!(user_artist.request_message, ActiveValue::Set(None));
+            assert!(matches!(
+                user_artist.requested_at,
+                ActiveValue::Set(Some(_))
+            ));
             Ok(create_test_user_artist(1, user_id, artist_id))
         });
 

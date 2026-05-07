@@ -94,6 +94,7 @@ fn user_artist_with_details(
         status,
         request_message,
         is_default,
+        requested_at: None,
     }
 }
 

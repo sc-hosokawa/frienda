@@ -299,7 +299,8 @@ CREATE TABLE "user_artist" (
   "is_admin" bool NOT NULL DEFAULT 'false',
   "status" user_artist_status NOT NULL DEFAULT 'check',
   "request_message" varchar(200),
-  "is_default" bool NOT NULL DEFAULT 'false'
+  "is_default" bool NOT NULL DEFAULT 'false',
+  "requested_at" timestamp
 );
 
 CREATE TABLE "products" (

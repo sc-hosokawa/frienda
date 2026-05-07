@@ -156,6 +156,18 @@ pub struct RequestToAccessArtistResponse {
 }
 
 #[derive(InputObject)]
+pub struct ResendRequestToAccessArtistInput {
+    pub user_id: String,
+    pub artist_id: String,
+    pub message: Option<String>,
+}
+
+#[derive(SimpleObject)]
+pub struct ResendRequestToAccessArtistResponse {
+    pub updated_mapping: ArtistByUserDataWithMappingId,
+}
+
+#[derive(InputObject)]
 pub struct MarkAsMemberInput {
     pub member: String,
     pub artist_id: String,

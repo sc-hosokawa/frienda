@@ -2,6 +2,9 @@ use crate::graphql::models;
 use application::usecases::artist::request_to_access_usecase::{
     RequestToAccessArtistRequest, RequestToAccessUsecaseInput,
 };
+use application::usecases::artist::resend_request_to_access_usecase::{
+    ResendRequestToAccessError, ResendRequestToAccessUsecaseInput,
+};
 use async_graphql::{Context, Error, ErrorExtensions, Object, Result};
 use registry::Usecases;
 use shared::error::domain_err::DomainError;
@@ -30,6 +33,24 @@ fn map_request_to_access_error(error: DomainError) -> Error {
         }
         DomainError::AuthorizationError(message) => graphql_error(message, "FORBIDDEN"),
         other => graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR"),
+    }
+}
+
+fn map_resend_request_to_access_error(error: ResendRequestToAccessError) -> Error {
+    match error {
+        ResendRequestToAccessError::BadUserInput(message) => bad_user_input(message),
+        ResendRequestToAccessError::NotFound => {
+            graphql_error("Artist request mapping not found", "NOT_FOUND")
+        }
+        ResendRequestToAccessError::InvalidState(message) => {
+            graphql_error(message, "INVALID_STATE")
+        }
+        ResendRequestToAccessError::Domain(DomainError::AuthorizationError(message)) => {
+            graphql_error(message, "FORBIDDEN")
+        }
+        ResendRequestToAccessError::Domain(other) => {
+            graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR")
+        }
     }
 }
 
@@ -87,6 +108,18 @@ fn validate_request_message(message: Option<&String>) -> Result<()> {
     }
 
     Ok(())
+}
+
+pub(crate) fn normalize_resend_request_to_access_input(
+    input: models::artists::ResendRequestToAccessArtistInput,
+) -> Result<ResendRequestToAccessUsecaseInput> {
+    validate_request_message(input.message.as_ref())?;
+
+    Ok(ResendRequestToAccessUsecaseInput {
+        user_id: input.user_id,
+        artist_id: input.artist_id,
+        message: input.message,
+    })
 }
 
 #[Object]
@@ -184,7 +217,28 @@ impl ArtistMutation {
                     models::artists::ArtistByUserDataWithMappingId::from_domain_on_request_to_access(mapping)
                         .unwrap()
                 })
-                .collect(),
+            .collect(),
+        })
+    }
+
+    async fn resend_request_to_access_artist(
+        &self,
+        ctx: &Context<'_>,
+        input: models::artists::ResendRequestToAccessArtistInput,
+    ) -> Result<models::artists::ResendRequestToAccessArtistResponse> {
+        let input = normalize_resend_request_to_access_input(input)?;
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .resend_request_to_access
+            .resend_request_to_access(input)
+            .await
+            .map_err(map_resend_request_to_access_error)?;
+        Ok(models::artists::ResendRequestToAccessArtistResponse {
+            updated_mapping:
+                models::artists::ArtistByUserDataWithMappingId::from_domain_on_request_to_access(
+                    res.updated_mapping,
+                )
+                .unwrap(),
         })
     }
 
@@ -265,6 +319,14 @@ mod tests {
             user_id: "user123".to_string(),
             requests,
             artist_ids,
+        }
+    }
+
+    fn resend_input(message: Option<String>) -> models::artists::ResendRequestToAccessArtistInput {
+        models::artists::ResendRequestToAccessArtistInput {
+            user_id: "user123".to_string(),
+            artist_id: "artist123".to_string(),
+            message,
         }
     }
 
@@ -352,5 +414,46 @@ mod tests {
         .expect_err("message over 200 chars should be rejected");
 
         assert_eq!(error_code(&error), Some("BAD_USER_INPUT".to_string()));
+    }
+
+    #[test]
+    fn normalize_resend_request_to_access_accepts_optional_message() {
+        let normalized = normalize_resend_request_to_access_input(resend_input(Some(
+            "再申請します".to_string(),
+        )))
+        .expect("resend input should be accepted");
+
+        assert_eq!(normalized.user_id, "user123");
+        assert_eq!(normalized.artist_id, "artist123");
+        assert_eq!(normalized.message, Some("再申請します".to_string()));
+
+        let normalized = normalize_resend_request_to_access_input(resend_input(None))
+            .expect("empty optional message should be accepted");
+        assert_eq!(normalized.message, None);
+    }
+
+    #[test]
+    fn normalize_resend_request_to_access_rejects_invalid_message() {
+        let error = normalize_resend_request_to_access_input(resend_input(Some(String::new())))
+            .expect_err("empty message should be rejected");
+        assert_eq!(error_code(&error), Some("BAD_USER_INPUT".to_string()));
+
+        let error = normalize_resend_request_to_access_input(resend_input(Some("あ".repeat(201))))
+            .expect_err("message over 200 chars should be rejected");
+        assert_eq!(error_code(&error), Some("BAD_USER_INPUT".to_string()));
+    }
+
+    #[test]
+    fn map_resend_request_to_access_errors_sets_graphql_codes() {
+        let not_found = map_resend_request_to_access_error(ResendRequestToAccessError::NotFound);
+        assert_eq!(error_code(&not_found), Some("NOT_FOUND".to_string()));
+
+        let invalid_state = map_resend_request_to_access_error(
+            ResendRequestToAccessError::InvalidState("cannot resend".to_string()),
+        );
+        assert_eq!(
+            error_code(&invalid_state),
+            Some("INVALID_STATE".to_string())
+        );
     }
 }
