@@ -1,0 +1,11 @@
+{
+  "description": "Dashboard UPC overview.",
+  "requiredVariables": [
+    { "field": "artistId", "type": "String!", "sourceEnv": "ARTIST_ID" },
+    { "field": "userId", "type": "String!", "sourceEnv": "USER_ID" },
+    { "field": "upc", "type": "String!", "sourceEnv": "UPC" }
+  ],
+  "operationName": "GetOverviewByUpc",
+  "query": "query GetOverviewByUpc($artistId: String!, $userId: String!, $upc: String!) { getOverviewByUpc(artistId: $artistId, userId: $userId, upc: $upc) { totalPlaybacks weeklyPlaybacks } }",
+  "variables": {}
+}

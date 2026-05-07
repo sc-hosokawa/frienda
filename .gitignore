@@ -26,3 +26,6 @@ services/mobile/apps/client/lib/data/graphql/schema.graphql
 
 # Generated GraphQL code outside __generated__ directories
 services/mobile/apps/client/lib/data/graphql/schema.graphql.dart
+
+# GraphQL response diff tooling output
+.graphql-response-diff/

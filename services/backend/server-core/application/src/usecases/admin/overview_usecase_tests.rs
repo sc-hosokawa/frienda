@@ -89,15 +89,15 @@ async fn test_get_system_overview_summarizes_users_artists_and_play_count() {
     let txs_fsp_repo = MockMockTxsFspRepo::new();
     let mut plays_monthly_repo = MockMockPlaysMonthlyRepo::new();
 
-    let users = vec![
-        user("user-1", "Alice", 10, Some("fcm-1")),
-        user("user-2", "Bob", 20, None),
-    ];
-
+    users_repo.expect_mock_count().times(1).returning(|| Ok(2));
     users_repo
-        .expect_mock_get_all_users()
-        .times(2)
-        .returning(move || Ok(users.clone()));
+        .expect_mock_sum_fsp()
+        .times(1)
+        .returning(|| Ok(30));
+    users_repo
+        .expect_mock_count_mobile_app_users()
+        .times(1)
+        .returning(|| Ok(1));
     artists_repo
         .expect_mock_count()
         .times(1)

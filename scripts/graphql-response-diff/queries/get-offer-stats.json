@@ -1,0 +1,9 @@
+{
+  "description": "Offer stats for the dashboard user.",
+  "requiredVariables": [
+    { "field": "userId", "type": "String!", "sourceEnv": "USER_ID" }
+  ],
+  "operationName": "GetOfferStats",
+  "query": "query GetOfferStats($userId: String!) { getOfferStatsByUser(userId: $userId) { totalOffers ongoingOffers appliedOffers completedOffers totalEarnings } }",
+  "variables": {}
+}

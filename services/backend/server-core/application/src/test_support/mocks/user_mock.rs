@@ -33,6 +33,8 @@ pub trait MockUsersRepo {
     async fn mock_find_by_category(&self, category: UserCategory)
         -> Result<Vec<User>, DomainError>;
     async fn mock_count(&self) -> Result<i64, DomainError>;
+    async fn mock_sum_fsp(&self) -> Result<i64, DomainError>;
+    async fn mock_count_mobile_app_users(&self) -> Result<i64, DomainError>;
     async fn mock_find_by_username_or_email(
         &self,
         username_or_email: String,
@@ -112,6 +114,14 @@ impl UsersRepository for MockMockUsersRepo {
 
     async fn count(&self) -> Result<i64, DomainError> {
         self.mock_count().await
+    }
+
+    async fn sum_fsp(&self) -> Result<i64, DomainError> {
+        self.mock_sum_fsp().await
+    }
+
+    async fn count_mobile_app_users(&self) -> Result<i64, DomainError> {
+        self.mock_count_mobile_app_users().await
     }
 
     async fn find_by_username_or_email(

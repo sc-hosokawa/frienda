@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 
 use domain::entities::exchange_prize_history::Model as ExchangePrizeHistory;
 use domain::entities::prizes::Model as Prize;
@@ -154,26 +154,38 @@ impl GetPrizeListUsecaseTrait for GetPrizeListUsecase {
             .get_by_prize_id(prize_id)
             .await?;
 
-        println!("exchange_prize_history: {:?}", exchange_prize_history);
+        tracing::debug!(
+            "prize history loaded: prize_id={}, history_count={}",
+            prize_id,
+            exchange_prize_history.len()
+        );
+
+        let users_by_id: HashMap<String, User> = if exchange_prize_history.is_empty() {
+            HashMap::new()
+        } else {
+            self.users_repo
+                .find_by_ids(
+                    exchange_prize_history
+                        .iter()
+                        .map(|history| history.user.as_str())
+                        .collect(),
+                )
+                .await
+                .map_err(|e| anyhow::anyhow!("Failed to fetch users: {}", e))?
+                .into_iter()
+                .map(|user| (user.id.clone(), user))
+                .collect()
+        };
 
         let mut used_history: Vec<ExchangeHistory> = Vec::new();
         let mut requested_history: Vec<ExchangeHistory> = Vec::new();
         let mut un_used_history: Vec<ExchangeHistory> = Vec::new();
 
         for history in exchange_prize_history {
-            let user: User = match self.users_repo.find_by_id(&history.user).await {
-                Ok(Some(user)) => user,
-                Ok(None) => {
-                    // ユーザーが見つからない場合はスキップして次へ
-                    continue;
-                }
-                Err(e) => {
-                    // データベースエラーなどの場合はエラーを伝播
-                    return Err(anyhow::anyhow!("Failed to fetch user: {}", e));
-                }
+            let user = match users_by_id.get(&history.user) {
+                Some(user) => user.clone(),
+                None => continue,
             };
-
-            println!("user: {:?}", user);
 
             let exchange_history = ExchangeHistory {
                 history: history.clone(),

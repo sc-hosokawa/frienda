@@ -20,6 +20,7 @@ pub trait OffersRepository: Send + Sync {
     async fn update(&self, offer: OfferActiveModel) -> Result<Offer, DomainError>;
 
     async fn get_by_id(&self, id: i32) -> Result<Option<Offer>, DomainError>;
+    async fn get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Offer>, DomainError>;
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
     async fn list(&self, limit: u32, offset: u32) -> Result<Vec<Offer>, DomainError>;
     async fn get_active_offers(&self) -> Result<Vec<Offer>, DomainError>;

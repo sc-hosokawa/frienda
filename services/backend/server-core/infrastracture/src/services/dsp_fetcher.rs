@@ -16,6 +16,7 @@ use flate2::read::GzDecoder;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use shared::numeric::checked_i64_to_i32;
 use std::fs::File;
 use std::io::{self, BufReader, BufWriter, Write};
 
@@ -104,7 +105,7 @@ impl DspFetcherService {
 
         if response.status().is_success() {
             let auth_response: AuthResponse = response.json().await?;
-            println!("Access Token: {}", auth_response.access_token);
+            tracing::debug!("PIPELINE::DSPFetcherService:: authorization token acquired");
             Ok(auth_response.access_token)
         } else {
             Err(anyhow::anyhow!(
@@ -155,9 +156,9 @@ impl DspFetcherService {
             let file_info: FileInfo = serde_json::from_str(line)
                 .map_err(|_| anyhow::anyhow!("Failed to parse file info"))?;
 
-            println!(
-                "Downloading and decompressing '{}' from {}",
-                file_info.description, file_info.uri
+            tracing::debug!(
+                "Downloading and decompressing gender/gen file: description={}",
+                file_info.description
             );
 
             let response = client.get(&file_info.uri).send().await?;
@@ -169,9 +170,12 @@ impl DspFetcherService {
                 writer.write_all(decompressed_text.as_bytes())?;
                 writer.write_all(b"\n")?;
 
-                println!("Appended content from {}", file_info.description);
+                tracing::debug!(
+                    "Appended gender/gen content: description={}",
+                    file_info.description
+                );
             } else {
-                println!(
+                tracing::warn!(
                     "Download failed for {}: HTTP {}",
                     file_info.description,
                     response.status()
@@ -512,7 +516,10 @@ impl DspFetcherServiceTrait for DspFetcherService {
                 .get("streams")
                 .and_then(|streams| streams.get("total"))
                 .and_then(|total| total.as_i64())
-                .unwrap_or(0) as i32;
+                .map(|total| checked_i64_to_i32(total, "sparse_stream_count"))
+                .transpose()
+                .map_err(anyhow::Error::msg)?
+                .unwrap_or(0);
 
             let isrc = match data.get("trackv2").and_then(|t| t.get("isrc")) {
                 Some(isrc) => isrc.as_str().unwrap_or("").to_string(),

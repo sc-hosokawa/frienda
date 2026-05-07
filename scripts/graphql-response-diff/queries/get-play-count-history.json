@@ -1,0 +1,11 @@
+{
+  "description": "Dashboard artist play count history.",
+  "requiredVariables": [
+    { "field": "artistId", "type": "String!", "sourceEnv": "ARTIST_ID" },
+    { "field": "userId", "type": "String!", "sourceEnv": "USER_ID" },
+    { "field": "period", "type": "Int!", "sourceEnv": "PERIOD", "default": 30 }
+  ],
+  "operationName": "GetPlayCountHistory",
+  "query": "query GetPlayCountHistory($artistId: String!, $userId: String!, $period: Int!) { getPlayCountHistory(artistId: $artistId, userId: $userId, period: $period) { lineChartData { date spotify apple line amazon youtube } } }",
+  "variables": {}
+}

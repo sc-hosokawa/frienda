@@ -18,6 +18,7 @@ use domain::repositories::track_credits_repo::TrackCreditsRepository;
 use domain::repositories::txs_fsp_repo::TxsFspRepository;
 use domain::repositories::user_artist_repo::UserArtistRepository;
 use domain::repositories::users_repo::UsersRepository;
+use shared::numeric::checked_usize_to_i32;
 
 pub struct UserConnectionsOutput {
     pub community: Vec<UserConnection>,
@@ -86,6 +87,10 @@ impl GetUserConnectionsUsecase {
             short_notes_repo,
             offers_repo,
         }
+    }
+
+    fn connection_weight(value: usize) -> Result<i32, anyhow::Error> {
+        checked_usize_to_i32(value, "connection_weight").map_err(anyhow::Error::msg)
     }
 }
 
@@ -221,7 +226,7 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
             let last_logged_in: Option<String> =
                 connected_user.last_login_at.map(|date| date.to_string());
             let connections: Vec<String> = reasons;
-            let weight: i32 = connections.len() as i32;
+            let weight: i32 = Self::connection_weight(connections.len())?;
 
             let user_connection = UserConnection {
                 id: connected_user_id,
@@ -383,7 +388,7 @@ impl GetUserConnectionsUsecaseTrait for GetUserConnectionsUsecase {
             let last_logged_in: Option<String> =
                 connected_user.last_login_at.map(|date| date.to_string());
             let connections: Vec<String> = reasons;
-            let weight: i32 = connections.len() as i32;
+            let weight: i32 = Self::connection_weight(connections.len())?;
 
             let user_connection = UserConnection {
                 id: connected_user_id,

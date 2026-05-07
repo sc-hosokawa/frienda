@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use domain::entities::sea_orm_active_enums::UserArtistStatus;
 use domain::entities::user_artist::{ActiveModel as UserArtistActiveModel, Model as UserArtist};
 use mockall::automock;
 use shared::error::domain_err::DomainError;
@@ -36,6 +37,20 @@ pub trait MockUserArtistRepo {
     async fn mock_find_by_artist_ids(
         &self,
         artist_ids: Vec<String>,
+    ) -> Result<Vec<UserArtist>, DomainError>;
+    async fn mock_find_by_user_id_and_artist_ids(
+        &self,
+        user_id: String,
+        artist_ids: Vec<String>,
+    ) -> Result<Vec<UserArtist>, DomainError>;
+    async fn mock_find_by_artist_id_and_user_ids(
+        &self,
+        artist_id: String,
+        user_ids: Vec<String>,
+    ) -> Result<Vec<UserArtist>, DomainError>;
+    async fn mock_find_by_status(
+        &self,
+        status: UserArtistStatus,
     ) -> Result<Vec<UserArtist>, DomainError>;
 }
 
@@ -92,5 +107,36 @@ impl UserArtistRepository for MockMockUserArtistRepo {
     ) -> Result<Vec<UserArtist>, DomainError> {
         self.mock_find_by_artist_ids(artist_ids.iter().map(|s| s.to_string()).collect())
             .await
+    }
+
+    async fn find_by_user_id_and_artist_ids(
+        &self,
+        user_id: &str,
+        artist_ids: Vec<&str>,
+    ) -> Result<Vec<UserArtist>, DomainError> {
+        self.mock_find_by_user_id_and_artist_ids(
+            user_id.to_string(),
+            artist_ids.iter().map(|s| s.to_string()).collect(),
+        )
+        .await
+    }
+
+    async fn find_by_artist_id_and_user_ids(
+        &self,
+        artist_id: &str,
+        user_ids: Vec<&str>,
+    ) -> Result<Vec<UserArtist>, DomainError> {
+        self.mock_find_by_artist_id_and_user_ids(
+            artist_id.to_string(),
+            user_ids.iter().map(|s| s.to_string()).collect(),
+        )
+        .await
+    }
+
+    async fn find_by_status(
+        &self,
+        status: UserArtistStatus,
+    ) -> Result<Vec<UserArtist>, DomainError> {
+        self.mock_find_by_status(status).await
     }
 }

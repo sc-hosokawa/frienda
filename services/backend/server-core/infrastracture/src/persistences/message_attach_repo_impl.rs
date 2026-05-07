@@ -46,13 +46,15 @@ impl MessageAttachRepository for MessageAttachRepoImpl {
         &self,
         message_attaches: Vec<MessageAttachActiveModel>,
     ) -> Result<Vec<MessageAttach>, DomainError> {
+        let txn = self.db.begin().await?;
         let res = MessageAttachEntity::insert_many(message_attaches)
-            .exec(&self.db)
+            .exec(&txn)
             .await?;
 
         let created_message_attaches = MessageAttachEntity::find_by_id(res.last_insert_id)
-            .all(&self.db)
+            .all(&txn)
             .await?;
+        txn.commit().await?;
 
         Ok(created_message_attaches)
     }
@@ -105,5 +107,73 @@ impl MessageAttachRepository for MessageAttachRepoImpl {
             .one(&self.db)
             .await?;
         Ok(message_attach)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use chrono::NaiveDate;
+    use domain::repositories::message_attach_repo::MessageAttachRepository;
+    use sea_orm::{ActiveValue::Set, DbBackend, MockDatabase, MockExecResult};
+
+    fn created_at() -> chrono::NaiveDateTime {
+        NaiveDate::from_ymd_opt(2026, 1, 1)
+            .unwrap()
+            .and_hms_opt(12, 0, 0)
+            .unwrap()
+    }
+
+    fn message_id() -> Uuid {
+        Uuid::from_u128(1)
+    }
+
+    fn model(id: i32) -> MessageAttach {
+        MessageAttach {
+            id,
+            sender: Some("sender".to_string()),
+            message_id: Some(message_id()),
+            attached_img_url: Some(format!("img-{id}")),
+            attached_file_url: None,
+            created_at: created_at(),
+            deleted_at: None,
+        }
+    }
+
+    fn active_model(id: i32) -> MessageAttachActiveModel {
+        MessageAttachActiveModel {
+            id: Set(id),
+            sender: Set(Some("sender".to_string())),
+            message_id: Set(Some(message_id())),
+            attached_img_url: Set(Some(format!("img-{id}"))),
+            attached_file_url: Set(None),
+            created_at: Set(created_at()),
+            deleted_at: Set(None),
+        }
+    }
+
+    #[tokio::test]
+    async fn create_many_wraps_insert_and_select_in_one_transaction() {
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_exec_results([MockExecResult {
+                last_insert_id: 1,
+                rows_affected: 2,
+            }])
+            .append_query_results([[model(1)], [model(1)]])
+            .into_connection();
+        let repo = MessageAttachRepoImpl::new(db);
+
+        let created = repo
+            .create_many(vec![active_model(1), active_model(2)])
+            .await
+            .unwrap();
+
+        assert_eq!(created, vec![model(1)]);
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("BEGIN"), "{log}");
+        assert!(log.contains("INSERT"), "{log}");
+        assert!(log.contains("SELECT"), "{log}");
+        assert!(log.contains("COMMIT"), "{log}");
+        assert!(!log.contains("ROLLBACK"), "{log}");
     }
 }

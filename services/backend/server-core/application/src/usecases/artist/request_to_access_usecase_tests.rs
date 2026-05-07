@@ -52,22 +52,19 @@ async fn test_request_to_access_success() {
     let artist = create_test_artist(artist_id, "Test Artist");
     let user_artist = create_test_user_artist(1, user_id, artist_id);
 
-    // Mock exists check
     mock_user_artist_repo
-        .expect_mock_exists()
-        .with(eq(user_id.to_string()), eq(artist_id.to_string()))
-        .returning(|_, _| Ok(false));
+        .expect_mock_find_by_user_id_and_artist_ids()
+        .with(eq(user_id.to_string()), eq(vec![artist_id.to_string()]))
+        .returning(|_, _| Ok(vec![]));
 
-    // Mock create
+    mock_artists_repo
+        .expect_mock_find_by_ids()
+        .with(eq(vec![artist_id.to_string()]))
+        .returning(move |_| Ok(vec![artist.clone()]));
+
     mock_user_artist_repo
         .expect_mock_create()
         .returning(move |_| Ok(user_artist.clone()));
-
-    // Mock find_by_id
-    mock_artists_repo
-        .expect_mock_find_by_id()
-        .with(eq(artist_id.to_string()))
-        .returning(move |_| Ok(Some(artist.clone())));
 
     let usecase =
         RequestToAccessUsecase::new(Arc::new(mock_user_artist_repo), Arc::new(mock_artists_repo));
@@ -106,11 +103,10 @@ async fn test_request_to_access_existing_mapping() {
     let user_id = "user123";
     let artist_id = "artist123";
 
-    // Mock exists check - return true to simulate existing mapping
     mock_user_artist_repo
-        .expect_mock_exists()
-        .with(eq(user_id.to_string()), eq(artist_id.to_string()))
-        .returning(|_, _| Ok(true));
+        .expect_mock_find_by_user_id_and_artist_ids()
+        .with(eq(user_id.to_string()), eq(vec![artist_id.to_string()]))
+        .returning(move |_, _| Ok(vec![create_test_user_artist(1, user_id, artist_id)]));
 
     let usecase =
         RequestToAccessUsecase::new(Arc::new(mock_user_artist_repo), Arc::new(mock_artists_repo));
@@ -138,28 +134,15 @@ async fn test_request_to_access_artist_not_found() {
     let user_id = "user123";
     let artist_id = "artist123";
 
-    // Mock exists check
     mock_user_artist_repo
-        .expect_mock_exists()
-        .with(eq(user_id.to_string()), eq(artist_id.to_string()))
-        .returning(|_, _| Ok(false));
+        .expect_mock_find_by_user_id_and_artist_ids()
+        .with(eq(user_id.to_string()), eq(vec![artist_id.to_string()]))
+        .returning(|_, _| Ok(vec![]));
 
-    // Mock create
-    mock_user_artist_repo
-        .expect_mock_create()
-        .returning(move |user_artist| {
-            Ok(create_test_user_artist(
-                1,
-                &user_artist.user_id.unwrap(),
-                &user_artist.artist_id.unwrap(),
-            ))
-        });
-
-    // Mock find_by_id - return None to simulate artist not found
     mock_artists_repo
-        .expect_mock_find_by_id()
-        .with(eq(artist_id.to_string()))
-        .returning(|_| Ok(None));
+        .expect_mock_find_by_ids()
+        .with(eq(vec![artist_id.to_string()]))
+        .returning(|_| Ok(vec![]));
 
     let usecase =
         RequestToAccessUsecase::new(Arc::new(mock_user_artist_repo), Arc::new(mock_artists_repo));
@@ -174,4 +157,64 @@ async fn test_request_to_access_artist_not_found() {
 
     // Assert
     assert!(result.is_err());
+}
+
+#[tokio::test]
+async fn test_request_to_access_batches_existing_mappings_and_artists() {
+    let mut mock_user_artist_repo = MockMockUserArtistRepo::new();
+    let mut mock_artists_repo = MockMockArtistsRepo::new();
+
+    let user_id = "user123";
+    let existing_artist_id = "artist_existing";
+    let new_artist_id = "artist_new";
+    let artist = create_test_artist(new_artist_id, "New Artist");
+    let user_artist = create_test_user_artist(2, user_id, new_artist_id);
+
+    mock_user_artist_repo
+        .expect_mock_find_by_user_id_and_artist_ids()
+        .times(1)
+        .with(
+            eq(user_id.to_string()),
+            eq(vec![
+                existing_artist_id.to_string(),
+                new_artist_id.to_string(),
+            ]),
+        )
+        .returning(move |_, _| {
+            Ok(vec![create_test_user_artist(
+                1,
+                user_id,
+                existing_artist_id,
+            )])
+        });
+
+    mock_artists_repo
+        .expect_mock_find_by_ids()
+        .times(1)
+        .with(eq(vec![new_artist_id.to_string()]))
+        .returning(move |_| Ok(vec![artist.clone()]));
+
+    mock_user_artist_repo
+        .expect_mock_create()
+        .times(1)
+        .returning(move |_| Ok(user_artist.clone()));
+
+    let usecase =
+        RequestToAccessUsecase::new(Arc::new(mock_user_artist_repo), Arc::new(mock_artists_repo));
+
+    let output = usecase
+        .request_to_access(RequestToAccessUsecaseInput {
+            user_id: user_id.to_string(),
+            artist_ids: vec![
+                existing_artist_id.to_string(),
+                new_artist_id.to_string(),
+                new_artist_id.to_string(),
+            ],
+        })
+        .await
+        .expect("new mapping should be created");
+
+    assert_eq!(output.created_mappings.len(), 1);
+    assert_eq!(output.created_mappings[0].artist_id, new_artist_id);
+    assert_eq!(output.created_mappings[0].name, "New Artist");
 }

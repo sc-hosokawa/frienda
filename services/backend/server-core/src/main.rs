@@ -5,7 +5,7 @@ use actix_web_httpauth::extractors::AuthenticationError;
 use actix_web_httpauth::middleware::HttpAuthentication;
 use dotenvy::dotenv;
 use server_core::{auth, configure_app, schema_builder};
-use shared::db::connect::establish_db_connection;
+use shared::db::{clone_database_connection, connect::establish_db_connection};
 use shared::logger::init_logger;
 use std::env;
 use std::time::Duration;
@@ -33,13 +33,13 @@ async fn bootstrap() -> Result<(), std::io::Error> {
         .await
         .expect("Failed to connect to database");
 
-    let repos = create_repositories(db.clone());
+    let repos = create_repositories(clone_database_connection(&db));
     let services = create_services().await;
     let usecases = std::sync::Arc::new(create_usecases(repos, services));
 
     let schema = schema_builder()
         .data(usecases.clone())
-        .data(db.clone())
+        .data(clone_database_connection(&db))
         .finish();
 
     tracing::info!("Starting server...");

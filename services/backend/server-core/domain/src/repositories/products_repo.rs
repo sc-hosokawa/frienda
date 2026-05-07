@@ -1,4 +1,5 @@
 use crate::entities::products::{ActiveModel as ProductActiveModel, Model as Product};
+use crate::entities::tracks::Model as Track;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
@@ -7,6 +8,12 @@ pub struct SearchProductsOptions {
     pub upc: Option<String>,
     pub product_title: Option<String>,
     pub product_type: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct DashboardProductRow {
+    pub product: Product,
+    pub track: Option<Track>,
 }
 
 #[async_trait]
@@ -19,6 +26,10 @@ pub trait ProductsRepository: Send + Sync {
     async fn get_by_upc(&self, upc: &str) -> Result<Option<Product>, DomainError>;
     async fn get_by_upcs(&self, upcs: Vec<String>) -> Result<Vec<Product>, DomainError>;
     async fn find_by_artist_id(&self, artist_id: &str) -> Result<Vec<Product>, DomainError>;
+    async fn find_dashboard_products_by_artist_id(
+        &self,
+        artist_id: &str,
+    ) -> Result<Vec<DashboardProductRow>, DomainError>;
     async fn find_all(&self) -> Result<Vec<Product>, DomainError>;
     async fn search(&self, options: SearchProductsOptions) -> Result<Vec<Product>, DomainError>;
 }

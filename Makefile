@@ -192,6 +192,12 @@ help:
 	@echo 'gql-mobile'
 	@echo '  - Regenerate GraphQL code for mobile apps'
 	@echo
+	@echo 'graphql-response-diff'
+	@echo '  - Run GraphQL response comparison via scripts/graphql-response-diff.sh'
+	@echo
+	@echo 'graphql-response-capture'
+	@echo '  - Capture baseline responses (GRAPHQL_DIFF_MODE=capture)'
+	@echo
 	@echo '=== Browser ==='
 	@echo
 	@echo 'open-client'
@@ -578,6 +584,14 @@ gql-webui:
 gql-mobile:
 	cd services/mobile/apps/client && fvm dart run build_runner build --delete-conflicting-outputs
 	cd services/mobile/apps/admin && fvm dart run build_runner build --delete-conflicting-outputs
+
+.PHONY: graphql-response-diff
+graphql-response-diff:
+	./scripts/graphql-response-diff.sh
+
+.PHONY: graphql-response-capture
+graphql-response-capture:
+	GRAPHQL_DIFF_MODE=capture ./scripts/graphql-response-diff.sh
 
 # --- Browser ---
 

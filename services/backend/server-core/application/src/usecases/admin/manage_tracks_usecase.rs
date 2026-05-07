@@ -19,6 +19,7 @@ use domain::repositories::product_track_repo::ProductTrackRepository;
 use domain::repositories::products_repo::{ProductsRepository, SearchProductsOptions};
 use domain::repositories::track_credits_repo::TrackCreditsRepository;
 use domain::repositories::tracks_repo::{SearchTracksOptions, TracksRepository};
+use shared::numeric::checked_usize_to_i32;
 
 pub struct RegisterReleasesInput {
     pub releases: Vec<Release>,
@@ -443,12 +444,15 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
 
                 // 各プロダクトに対応するトラック数を取得
                 for product in products {
-                    let track_count: i32 = self
-                        .product_track_repo
-                        .get_by_upc(&product.upc)
-                        .await
-                        .map_err(|e| anyhow::anyhow!(e))?
-                        .len() as i32;
+                    let track_count: i32 = checked_usize_to_i32(
+                        self.product_track_repo
+                            .get_by_upc(&product.upc)
+                            .await
+                            .map_err(|e| anyhow::anyhow!(e))?
+                            .len(),
+                        "number_of_tracks",
+                    )
+                    .map_err(anyhow::Error::msg)?;
 
                     res_from_artist_id.push(SearchProductsOutput {
                         upc: product.upc,
@@ -484,12 +488,15 @@ impl ManageTracksUsecaseTrait for ManageTracksUsecase {
                     .map_err(|e| anyhow::anyhow!(e))?;
 
                 // プロダクトに紐づくトラック数を取得
-                let track_count = self
-                    .product_track_repo
-                    .get_by_upc(&product.upc)
-                    .await
-                    .map_err(|e| anyhow::anyhow!(e))?
-                    .len() as i32;
+                let track_count = checked_usize_to_i32(
+                    self.product_track_repo
+                        .get_by_upc(&product.upc)
+                        .await
+                        .map_err(|e| anyhow::anyhow!(e))?
+                        .len(),
+                    "number_of_tracks",
+                )
+                .map_err(anyhow::Error::msg)?;
 
                 res_from_upc.push(SearchProductsOutput {
                     upc: product.upc.clone(),

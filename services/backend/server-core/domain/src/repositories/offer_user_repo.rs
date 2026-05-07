@@ -3,6 +3,15 @@ use crate::entities::sea_orm_active_enums::OfferStatus;
 use async_trait::async_trait;
 use shared::error::domain_err::DomainError;
 
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct OfferStatsAggregate {
+    pub total_offers: i64,
+    pub ongoing_offers: i64,
+    pub applied_offers: i64,
+    pub completed_offers: i64,
+    pub total_earnings: i64,
+}
+
 #[async_trait]
 pub trait OfferUserRepository: Send + Sync {
     async fn create(&self, offer_user: OfferUserActiveModel) -> Result<OfferUser, DomainError>;
@@ -24,6 +33,10 @@ pub trait OfferUserRepository: Send + Sync {
         user_id: &str,
         status: OfferStatus,
     ) -> Result<Vec<OfferUser>, DomainError>;
+    async fn aggregate_stats_by_user_id(
+        &self,
+        user_id: &str,
+    ) -> Result<OfferStatsAggregate, DomainError>;
     async fn cancel_other_applications(
         &self,
         offer_id: i32,

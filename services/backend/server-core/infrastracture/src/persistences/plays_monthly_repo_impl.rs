@@ -139,9 +139,13 @@ impl PlaysMonthlyRepository for PlaysMonthlyRepoImpl {
     }
 
     async fn get_total_play_count_all(&self) -> Result<i64, DomainError> {
-        let res: Vec<PlaysMonthly> = PlaysMonthlyEntity::find().all(&self.db).await?;
-        let total_play_count: i64 = res.iter().map(|play| play.sum.unwrap_or(0) as i64).sum();
-        Ok(total_play_count)
+        let total = PlaysMonthlyEntity::find()
+            .select_only()
+            .column_as(sea_orm::sea_query::Expr::col(Column::Sum).sum(), "total")
+            .into_tuple::<Option<i64>>()
+            .one(&self.db)
+            .await?;
+        Ok(total.flatten().unwrap_or(0))
     }
 
     async fn get_all(&self) -> Result<Vec<PlaysMonthly>, DomainError> {

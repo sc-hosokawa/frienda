@@ -40,4 +40,12 @@ impl RoomsRepository for RoomsRepoImpl {
         let room = RoomEntity::find_by_id(id).one(&self.db).await?;
         Ok(room)
     }
+
+    async fn get_by_ids(&self, ids: Vec<Uuid>) -> Result<Vec<Room>, DomainError> {
+        let rooms = RoomEntity::find()
+            .filter(domain::entities::rooms::Column::Id.is_in(ids))
+            .all(&self.db)
+            .await?;
+        Ok(rooms)
+    }
 }

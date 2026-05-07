@@ -1,0 +1,10 @@
+{
+  "description": "Dashboard artist trending.",
+  "requiredVariables": [
+    { "field": "artistId", "type": "String!", "sourceEnv": "ARTIST_ID" },
+    { "field": "userId", "type": "String!", "sourceEnv": "USER_ID" }
+  ],
+  "operationName": "GetTrending",
+  "query": "query GetTrending($artistId: String!, $userId: String!) { getTrending(artistId: $artistId, userId: $userId) { trendingTracks { isrc trackTitle upcTitle imageUrl totalPlayCount weeklyPlayCount totalPlayCountDetails { spotify apple line amazon youtube } weeklyPlayCountDetails { spotify apple line amazon youtube } } } }",
+  "variables": {}
+}

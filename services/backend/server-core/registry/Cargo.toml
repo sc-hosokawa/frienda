@@ -7,6 +7,7 @@ edition = "2021"
 application = { path = "../application" }
 infrastracture = { path = "../infrastracture" }
 domain = { path = "../domain" }
+shared = { path = "../../shared" }
 tracing = { workspace = true }
 sea-orm = { workspace = true }
 async-trait = { workspace = true }
