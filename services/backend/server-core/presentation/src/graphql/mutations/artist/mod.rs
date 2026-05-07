@@ -1,12 +1,93 @@
 use crate::graphql::models;
-use async_graphql::{Context, Object, Result};
+use application::usecases::artist::request_to_access_usecase::{
+    RequestToAccessArtistRequest, RequestToAccessUsecaseInput,
+};
+use async_graphql::{Context, Error, ErrorExtensions, Object, Result};
 use registry::Usecases;
+use shared::error::domain_err::DomainError;
 use std::sync::Arc;
 
 use domain::entities::sea_orm_active_enums::UserArtistStatus;
 
 #[derive(Default)]
 pub struct ArtistMutation;
+
+fn graphql_error(message: impl Into<String>, code: &'static str) -> Error {
+    Error::new(message).extend_with(|_, extensions| {
+        extensions.set("code", code);
+    })
+}
+
+fn bad_user_input(message: impl Into<String>) -> Error {
+    graphql_error(message, "BAD_USER_INPUT")
+}
+
+fn map_request_to_access_error(error: DomainError) -> Error {
+    match error {
+        DomainError::NotFound => graphql_error("Artist not found", "NOT_FOUND"),
+        DomainError::ValidationError(message) | DomainError::InvalidParameter(message) => {
+            bad_user_input(message)
+        }
+        DomainError::AuthorizationError(message) => graphql_error(message, "FORBIDDEN"),
+        other => graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR"),
+    }
+}
+
+pub(crate) fn normalize_request_to_access_input(
+    input: models::artists::RequestToAccessArtistInput,
+) -> Result<RequestToAccessUsecaseInput> {
+    let has_requests = input.requests.is_some();
+    let has_artist_ids = input.artist_ids.is_some();
+
+    if has_requests == has_artist_ids {
+        return Err(bad_user_input(
+            "Specify exactly one of requests or artistIds",
+        ));
+    }
+
+    let requests = if let Some(requests) = input.requests {
+        requests
+            .into_iter()
+            .map(|request| {
+                validate_request_message(request.message.as_ref())?;
+                Ok(RequestToAccessArtistRequest {
+                    artist_id: request.artist_id,
+                    message: request.message,
+                })
+            })
+            .collect::<Result<Vec<_>>>()?
+    } else {
+        input
+            .artist_ids
+            .unwrap_or_default()
+            .into_iter()
+            .map(|artist_id| RequestToAccessArtistRequest {
+                artist_id,
+                message: None,
+            })
+            .collect()
+    };
+
+    Ok(RequestToAccessUsecaseInput {
+        user_id: input.user_id,
+        requests,
+    })
+}
+
+fn validate_request_message(message: Option<&String>) -> Result<()> {
+    if let Some(message) = message {
+        if message.is_empty() {
+            return Err(bad_user_input("request message must not be empty"));
+        }
+        if message.chars().count() > 200 {
+            return Err(bad_user_input(
+                "request message must be 200 characters or fewer",
+            ));
+        }
+    }
+
+    Ok(())
+}
 
 #[Object]
 impl ArtistMutation {
@@ -88,14 +169,13 @@ impl ArtistMutation {
         ctx: &Context<'_>,
         input: models::artists::RequestToAccessArtistInput,
     ) -> Result<models::artists::RequestToAccessArtistResponse> {
+        let input = normalize_request_to_access_input(input)?;
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let res = usecases
             .request_to_access
-            .request_to_access(application::usecases::artist::request_to_access_usecase::RequestToAccessUsecaseInput {
-                user_id: input.user_id,
-                artist_ids: input.artist_ids,
-            })
-            .await?;
+            .request_to_access(input)
+            .await
+            .map_err(map_request_to_access_error)?;
         Ok(models::artists::RequestToAccessArtistResponse {
             created_mappings: res
                 .created_mappings
@@ -169,5 +249,107 @@ impl ArtistMutation {
         Ok(models::artists::MarkAsAdminResponse {
             checked_user_id: res.user_id.to_string(),
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn input(
+        requests: Option<Vec<models::artists::RequestToAccessArtistItemInput>>,
+        artist_ids: Option<Vec<String>>,
+    ) -> models::artists::RequestToAccessArtistInput {
+        models::artists::RequestToAccessArtistInput {
+            user_id: "user123".to_string(),
+            requests,
+            artist_ids,
+        }
+    }
+
+    fn error_code(error: &Error) -> Option<String> {
+        error.extensions.as_ref().and_then(|extensions| {
+            extensions
+                .get("code")
+                .map(|value| value.to_string().trim_matches('"').to_string())
+        })
+    }
+
+    #[test]
+    fn normalize_request_to_access_accepts_requests() {
+        let normalized = normalize_request_to_access_input(input(
+            Some(vec![models::artists::RequestToAccessArtistItemInput {
+                artist_id: "artist123".to_string(),
+                message: Some("所属申請をお願いします。".to_string()),
+            }]),
+            None,
+        ))
+        .expect("requests input should be accepted");
+
+        assert_eq!(normalized.user_id, "user123");
+        assert_eq!(normalized.requests.len(), 1);
+        assert_eq!(normalized.requests[0].artist_id, "artist123");
+        assert_eq!(
+            normalized.requests[0].message,
+            Some("所属申請をお願いします。".to_string())
+        );
+    }
+
+    #[test]
+    fn normalize_request_to_access_accepts_legacy_artist_ids() {
+        let normalized =
+            normalize_request_to_access_input(input(None, Some(vec!["artist123".to_string()])))
+                .expect("artistIds input should be accepted");
+
+        assert_eq!(normalized.requests.len(), 1);
+        assert_eq!(normalized.requests[0].artist_id, "artist123");
+        assert_eq!(normalized.requests[0].message, None);
+    }
+
+    #[test]
+    fn normalize_request_to_access_rejects_both_input_shapes() {
+        let error = normalize_request_to_access_input(input(
+            Some(vec![]),
+            Some(vec!["artist123".to_string()]),
+        ))
+        .expect_err("both input shapes should be rejected");
+
+        assert_eq!(error_code(&error), Some("BAD_USER_INPUT".to_string()));
+    }
+
+    #[test]
+    fn normalize_request_to_access_rejects_missing_input_shapes() {
+        let error = normalize_request_to_access_input(input(None, None))
+            .expect_err("missing input shapes should be rejected");
+
+        assert_eq!(error_code(&error), Some("BAD_USER_INPUT".to_string()));
+    }
+
+    #[test]
+    fn normalize_request_to_access_rejects_empty_message() {
+        let error = normalize_request_to_access_input(input(
+            Some(vec![models::artists::RequestToAccessArtistItemInput {
+                artist_id: "artist123".to_string(),
+                message: Some(String::new()),
+            }]),
+            None,
+        ))
+        .expect_err("empty message should be rejected");
+
+        assert_eq!(error_code(&error), Some("BAD_USER_INPUT".to_string()));
+    }
+
+    #[test]
+    fn normalize_request_to_access_rejects_message_over_200_chars() {
+        let error = normalize_request_to_access_input(input(
+            Some(vec![models::artists::RequestToAccessArtistItemInput {
+                artist_id: "artist123".to_string(),
+                message: Some("あ".repeat(201)),
+            }]),
+            None,
+        ))
+        .expect_err("message over 200 chars should be rejected");
+
+        assert_eq!(error_code(&error), Some("BAD_USER_INPUT".to_string()));
     }
 }

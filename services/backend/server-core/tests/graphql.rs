@@ -124,3 +124,15 @@ async fn graphql_endpoint_rejects_malformed_json() {
 
     assert_eq!(resp.status(), StatusCode::BAD_REQUEST);
 }
+
+#[actix_web::test]
+async fn graphql_schema_exposes_request_to_access_artist_message_fields() {
+    let schema = server_core::schema_builder().finish().sdl();
+
+    assert!(schema.contains("input RequestToAccessArtistItemInput"));
+    assert!(schema.contains("artistId: String!"));
+    assert!(schema.contains("message: String"));
+    assert!(schema.contains("requests: [RequestToAccessArtistItemInput!]"));
+    assert!(schema.contains("artistIds: [String!]"));
+    assert!(schema.contains("requestMessage: String"));
+}

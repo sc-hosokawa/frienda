@@ -95,6 +95,7 @@ async fn test_get_user_profile_combines_recent_owned_and_participated_offers() {
                 artist_id: "artist-1".to_string(),
                 is_admin: true,
                 status: UserArtistStatus::Accept,
+                request_message: None,
             }])
         });
 

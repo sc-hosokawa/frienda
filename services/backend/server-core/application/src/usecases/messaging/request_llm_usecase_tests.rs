@@ -84,6 +84,7 @@ async fn test_request_llm_formats_context_and_returns_answer() {
                 artist_id: "artist-1".to_string(),
                 is_admin: true,
                 status: UserArtistStatus::Accept,
+                request_message: None,
             }])
         });
 

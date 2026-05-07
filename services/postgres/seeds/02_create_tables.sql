@@ -296,7 +296,8 @@ CREATE TABLE "user_artist" (
   "user_id" varchar(28) NOT NULL,
   "artist_id" varchar(28) NOT NULL,
   "is_admin" bool NOT NULL DEFAULT 'false',
-  "status" user_artist_status NOT NULL DEFAULT 'check'
+  "status" user_artist_status NOT NULL DEFAULT 'check',
+  "request_message" varchar(200)
 );
 
 CREATE TABLE "products" (

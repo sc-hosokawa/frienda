@@ -47,6 +47,7 @@ pub struct ArtistByUserDataWithMappingId {
     pub fsp: i32,
     pub status: String,
     pub is_admin: bool,
+    pub request_message: Option<String>,
 }
 
 #[derive(SimpleObject)]
@@ -135,9 +136,16 @@ pub struct UpdateArtistResponse {
 }
 
 #[derive(InputObject)]
+pub struct RequestToAccessArtistItemInput {
+    pub artist_id: String,
+    pub message: Option<String>,
+}
+
+#[derive(InputObject)]
 pub struct RequestToAccessArtistInput {
     pub user_id: String,
-    pub artist_ids: Vec<String>,
+    pub requests: Option<Vec<RequestToAccessArtistItemInput>>,
+    pub artist_ids: Option<Vec<String>>,
 }
 
 #[derive(SimpleObject)]
@@ -226,6 +234,7 @@ impl ArtistByUserDataWithMappingId {
                 UserArtistStatus::Reject => "Reject".to_string(),
             },
             is_admin: domain.is_admin,
+            request_message: domain.request_message,
         })
     }
 }

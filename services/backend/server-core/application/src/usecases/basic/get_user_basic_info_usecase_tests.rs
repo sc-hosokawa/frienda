@@ -74,6 +74,7 @@ fn user_artist(user_id: &str, artist_id: &str, is_admin: bool) -> UserArtist {
         artist_id: artist_id.to_string(),
         is_admin,
         status: UserArtistStatus::Check,
+        request_message: None,
     }
 }
 

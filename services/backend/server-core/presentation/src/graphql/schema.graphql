@@ -35,6 +35,7 @@ type ArtistByUserDataWithMappingId {
 	fsp: Int!
 	status: String!
 	isAdmin: Boolean!
+	requestMessage: String
 }
 
 type ArtistData {
@@ -89,7 +90,6 @@ input BlockUserInput {
 type BlockUserResponse {
 	id: Int!
 }
-
 
 type ChartData {
 	lineChartData: [LineChartData!]!
@@ -298,7 +298,6 @@ type ExchangePrizeResponse {
 	txId: String!
 }
 
-
 type FspHistory {
 	date: String!
 	from: String!
@@ -337,8 +336,6 @@ type GetAllCreditsOutput {
 type HealthCheck {
 	status: String!
 }
-
-
 
 """
 A scalar that can represent any JSON Object value.
@@ -517,6 +514,7 @@ type OfferData {
 	fee: Int!
 	category: String
 	place: String!
+	publicity: Boolean!
 }
 
 type OfferDetailData {
@@ -838,7 +836,13 @@ type RequestPrizeResponse {
 
 input RequestToAccessArtistInput {
 	userId: String!
-	artistIds: [String!]!
+	requests: [RequestToAccessArtistItemInput!]
+	artistIds: [String!]
+}
+
+input RequestToAccessArtistItemInput {
+	artistId: String!
+	message: String
 }
 
 type RequestToAccessArtistResponse {
@@ -888,7 +892,6 @@ input StatusUser {
 	userId: String!
 	status: String!
 }
-
 
 type TotalOverviewData {
 	totalPlaybacks: Int!
@@ -1230,7 +1233,13 @@ type UsersInOfferData {
 	users: [UserInOfferData!]!
 }
 
+"""
+Directs the executor to include this field or fragment only when the `if` argument is true.
+"""
 directive @include(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+"""
+Directs the executor to skip this field or fragment when the `if` argument is true.
+"""
 directive @skip(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
 schema {
 	query: QueryRoot
