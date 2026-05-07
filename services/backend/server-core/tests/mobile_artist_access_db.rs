@@ -29,6 +29,7 @@ use sea_orm::{
     QueryFilter, Statement,
 };
 use serde_json::{json, Value};
+use shared::db::clone_database_connection;
 use std::{env, sync::Arc};
 
 macro_rules! graphql {
@@ -329,13 +330,13 @@ async fn mobile_artist_access_graphql_flows_work_against_local_postgres() {
     cleanup_fixture(&db).await;
     insert_fixture(&db).await;
 
-    let repos = create_repositories(db.clone());
+    let repos = create_repositories(clone_database_connection(&db));
     let usecases = Arc::new(create_usecases(repos, stub_services()));
     let schema = server_core::schema_builder().data(usecases).finish();
     let app = test::init_service(
         common::test_app()
             .with_schema(schema)
-            .with_db(db.clone())
+            .with_db(clone_database_connection(&db))
             .configure(App::new()),
     )
     .await;
