@@ -1,5 +1,5 @@
 ARG POSTGRES_VERSION=16
-FROM postgres:${POSTGRES_VERSION}
+FROM postgres:${POSTGRES_VERSION}-alpine
 
 COPY ./seeds/01_full_schema.sql /schema/01_full_schema.sql
 COPY ./seeds/00_apply_full_schema.sh /docker-entrypoint-initdb.d/00_apply_full_schema.sh
