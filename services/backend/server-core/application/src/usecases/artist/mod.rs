@@ -1,3 +1,4 @@
+pub mod cancel_request_to_access_usecase;
 pub mod get_artist_usecase;
 pub mod get_members_usecase;
 pub mod manage_artists_usecase;

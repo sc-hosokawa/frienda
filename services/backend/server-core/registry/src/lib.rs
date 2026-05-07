@@ -13,6 +13,9 @@ use application::usecases::admin::{
     overview_usecase::{OverviewUsecase, OverviewUsecaseTrait},
 };
 use application::usecases::artist::{
+    cancel_request_to_access_usecase::{
+        CancelRequestToAccessUsecase, CancelRequestToAccessUsecaseTrait,
+    },
     get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait},
     get_members_usecase::{GetMembersUsecase, GetMembersUsecaseTrait},
     manage_artists_usecase::{ManageArtistsUsecase, ManageArtistsUsecaseTrait},
@@ -222,6 +225,7 @@ pub struct Usecases {
     pub get_offer_details: Arc<dyn GetOfferDetailsUsecaseTrait>,
     pub request_to_access: Arc<dyn RequestToAccessUsecaseTrait>,
     pub resend_request_to_access: Arc<dyn ResendRequestToAccessUsecaseTrait>,
+    pub cancel_request_to_access: Arc<dyn CancelRequestToAccessUsecaseTrait>,
     pub get_members: Arc<dyn GetMembersUsecaseTrait>,
     pub get_quests: Arc<dyn GetQuestsUsecaseTrait>,
     pub create_quest: Arc<dyn CreateQuestUsecaseTrait>,
@@ -431,6 +435,10 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.artists.clone(),
             repos.notifications.clone(),
             repos.notification_user.clone(),
+        )),
+        cancel_request_to_access: Arc::new(CancelRequestToAccessUsecase::new(
+            repos.user_artist.clone(),
+            repos.artists.clone(),
         )),
         get_quests: Arc::new(GetQuestsUsecase::new(
             repos.quests.clone(),

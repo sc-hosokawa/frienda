@@ -93,6 +93,15 @@ type BlockUserResponse {
 	id: Int!
 }
 
+input CancelRequestToAccessArtistInput {
+	userId: String!
+	artistId: String!
+}
+
+type CancelRequestToAccessArtistResponse {
+	canceledMapping: ArtistByUserDataWithMappingId!
+}
+
 type ChartData {
 	lineChartData: [LineChartData!]!
 }
@@ -476,6 +485,7 @@ type MutationRoot {
 	updateArtist(input: UpdateArtistInput!): UpdateArtistResponse!
 	requestToAccessArtist(input: RequestToAccessArtistInput!): RequestToAccessArtistResponse!
 	resendRequestToAccessArtist(input: ResendRequestToAccessArtistInput!): ResendRequestToAccessArtistResponse!
+	cancelRequestToAccessArtist(input: CancelRequestToAccessArtistInput!): CancelRequestToAccessArtistResponse!
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!

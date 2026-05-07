@@ -168,6 +168,17 @@ pub struct ResendRequestToAccessArtistResponse {
 }
 
 #[derive(InputObject)]
+pub struct CancelRequestToAccessArtistInput {
+    pub user_id: String,
+    pub artist_id: String,
+}
+
+#[derive(SimpleObject)]
+pub struct CancelRequestToAccessArtistResponse {
+    pub canceled_mapping: ArtistByUserDataWithMappingId,
+}
+
+#[derive(InputObject)]
 pub struct MarkAsMemberInput {
     pub member: String,
     pub artist_id: String,
@@ -309,6 +320,7 @@ impl ArtistFullData {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use application::usecases::artist::request_to_access_usecase::ArtistSimpleInfoWithMappingId;
     use application::usecases::basic::get_user_basic_info_usecase::ArtistSimpleInfo;
     use uuid::Uuid;
 
@@ -334,5 +346,27 @@ mod tests {
             Some("キャンセル前の申請メッセージ".to_string())
         );
         assert!(data.is_default);
+    }
+
+    #[test]
+    fn artist_by_user_data_with_mapping_id_maps_canceled_request_message() {
+        let data = ArtistByUserDataWithMappingId::from_domain_on_request_to_access(
+            ArtistSimpleInfoWithMappingId {
+                mapping_id: 7,
+                id: Uuid::new_v4(),
+                artist_id: "artist-1".to_string(),
+                name: "Band One".to_string(),
+                img_url: None,
+                fsp: 12,
+                status: UserArtistStatus::Canceled,
+                is_admin: false,
+                request_message: Some("キャンセルした申請".to_string()),
+            },
+        )
+        .expect("artist data should map");
+
+        assert_eq!(data.mapping_id, 7);
+        assert_eq!(data.status, "Canceled");
+        assert_eq!(data.request_message, Some("キャンセルした申請".to_string()));
     }
 }

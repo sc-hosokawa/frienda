@@ -1,4 +1,7 @@
 use crate::graphql::models;
+use application::usecases::artist::cancel_request_to_access_usecase::{
+    CancelRequestToAccessError, CancelRequestToAccessUsecaseInput,
+};
 use application::usecases::artist::request_to_access_usecase::{
     RequestToAccessArtistRequest, RequestToAccessUsecaseInput,
 };
@@ -49,6 +52,23 @@ fn map_resend_request_to_access_error(error: ResendRequestToAccessError) -> Erro
             graphql_error(message, "FORBIDDEN")
         }
         ResendRequestToAccessError::Domain(other) => {
+            graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR")
+        }
+    }
+}
+
+fn map_cancel_request_to_access_error(error: CancelRequestToAccessError) -> Error {
+    match error {
+        CancelRequestToAccessError::NotFound => {
+            graphql_error("Artist request mapping not found", "NOT_FOUND")
+        }
+        CancelRequestToAccessError::InvalidState(message) => {
+            graphql_error(message, "INVALID_STATE")
+        }
+        CancelRequestToAccessError::Domain(DomainError::AuthorizationError(message)) => {
+            graphql_error(message, "FORBIDDEN")
+        }
+        CancelRequestToAccessError::Domain(other) => {
             graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR")
         }
     }
@@ -120,6 +140,15 @@ pub(crate) fn normalize_resend_request_to_access_input(
         artist_id: input.artist_id,
         message: input.message,
     })
+}
+
+pub(crate) fn normalize_cancel_request_to_access_input(
+    input: models::artists::CancelRequestToAccessArtistInput,
+) -> CancelRequestToAccessUsecaseInput {
+    CancelRequestToAccessUsecaseInput {
+        user_id: input.user_id,
+        artist_id: input.artist_id,
+    }
 }
 
 #[Object]
@@ -242,6 +271,27 @@ impl ArtistMutation {
         })
     }
 
+    async fn cancel_request_to_access_artist(
+        &self,
+        ctx: &Context<'_>,
+        input: models::artists::CancelRequestToAccessArtistInput,
+    ) -> Result<models::artists::CancelRequestToAccessArtistResponse> {
+        let input = normalize_cancel_request_to_access_input(input);
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .cancel_request_to_access
+            .cancel_request_to_access(input)
+            .await
+            .map_err(map_cancel_request_to_access_error)?;
+        Ok(models::artists::CancelRequestToAccessArtistResponse {
+            canceled_mapping:
+                models::artists::ArtistByUserDataWithMappingId::from_domain_on_request_to_access(
+                    res.canceled_mapping,
+                )
+                .unwrap(),
+        })
+    }
+
     async fn mark_as_member(
         &self,
         ctx: &Context<'_>,
@@ -327,6 +377,13 @@ mod tests {
             user_id: "user123".to_string(),
             artist_id: "artist123".to_string(),
             message,
+        }
+    }
+
+    fn cancel_input() -> models::artists::CancelRequestToAccessArtistInput {
+        models::artists::CancelRequestToAccessArtistInput {
+            user_id: "user123".to_string(),
+            artist_id: "artist123".to_string(),
         }
     }
 
@@ -450,6 +507,28 @@ mod tests {
 
         let invalid_state = map_resend_request_to_access_error(
             ResendRequestToAccessError::InvalidState("cannot resend".to_string()),
+        );
+        assert_eq!(
+            error_code(&invalid_state),
+            Some("INVALID_STATE".to_string())
+        );
+    }
+
+    #[test]
+    fn normalize_cancel_request_to_access_maps_input() {
+        let normalized = normalize_cancel_request_to_access_input(cancel_input());
+
+        assert_eq!(normalized.user_id, "user123");
+        assert_eq!(normalized.artist_id, "artist123");
+    }
+
+    #[test]
+    fn map_cancel_request_to_access_errors_sets_graphql_codes() {
+        let not_found = map_cancel_request_to_access_error(CancelRequestToAccessError::NotFound);
+        assert_eq!(error_code(&not_found), Some("NOT_FOUND".to_string()));
+
+        let invalid_state = map_cancel_request_to_access_error(
+            CancelRequestToAccessError::InvalidState("cannot cancel".to_string()),
         );
         assert_eq!(
             error_code(&invalid_state),
