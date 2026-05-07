@@ -353,6 +353,16 @@ A scalar that can represent any JSON Object value.
 """
 scalar JSONObject
 
+input LeaveBelongedArtistInput {
+	operatorUserId: String!
+	userId: String!
+	artistId: String!
+}
+
+type LeaveBelongedArtistResponse {
+	leftArtist: ArtistByUserData!
+}
+
 type LineChartData {
 	date: String!
 	spotify: Int!
@@ -486,6 +496,7 @@ type MutationRoot {
 	requestToAccessArtist(input: RequestToAccessArtistInput!): RequestToAccessArtistResponse!
 	resendRequestToAccessArtist(input: ResendRequestToAccessArtistInput!): ResendRequestToAccessArtistResponse!
 	cancelRequestToAccessArtist(input: CancelRequestToAccessArtistInput!): CancelRequestToAccessArtistResponse!
+	leaveBelongedArtist(input: LeaveBelongedArtistInput!): LeaveBelongedArtistResponse!
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!

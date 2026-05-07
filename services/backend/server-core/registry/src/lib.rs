@@ -18,6 +18,7 @@ use application::usecases::artist::{
     },
     get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait},
     get_members_usecase::{GetMembersUsecase, GetMembersUsecaseTrait},
+    leave_belonged_artist_usecase::{LeaveBelongedArtistUsecase, LeaveBelongedArtistUsecaseTrait},
     manage_artists_usecase::{ManageArtistsUsecase, ManageArtistsUsecaseTrait},
     mark_as_member_usecase::{MarkAsMemberUsecase, MarkAsMemberUsecaseTrait},
     request_to_access_usecase::{RequestToAccessUsecase, RequestToAccessUsecaseTrait},
@@ -226,6 +227,7 @@ pub struct Usecases {
     pub request_to_access: Arc<dyn RequestToAccessUsecaseTrait>,
     pub resend_request_to_access: Arc<dyn ResendRequestToAccessUsecaseTrait>,
     pub cancel_request_to_access: Arc<dyn CancelRequestToAccessUsecaseTrait>,
+    pub leave_belonged_artist: Arc<dyn LeaveBelongedArtistUsecaseTrait>,
     pub get_members: Arc<dyn GetMembersUsecaseTrait>,
     pub get_quests: Arc<dyn GetQuestsUsecaseTrait>,
     pub create_quest: Arc<dyn CreateQuestUsecaseTrait>,
@@ -437,6 +439,11 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
             repos.notification_user.clone(),
         )),
         cancel_request_to_access: Arc::new(CancelRequestToAccessUsecase::new(
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+        )),
+        leave_belonged_artist: Arc::new(LeaveBelongedArtistUsecase::new(
+            repos.users.clone(),
             repos.user_artist.clone(),
             repos.artists.clone(),
         )),

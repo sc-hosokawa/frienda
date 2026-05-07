@@ -2,6 +2,9 @@ use crate::graphql::models;
 use application::usecases::artist::cancel_request_to_access_usecase::{
     CancelRequestToAccessError, CancelRequestToAccessUsecaseInput,
 };
+use application::usecases::artist::leave_belonged_artist_usecase::{
+    LeaveBelongedArtistError, LeaveBelongedArtistUsecaseInput,
+};
 use application::usecases::artist::request_to_access_usecase::{
     RequestToAccessArtistRequest, RequestToAccessUsecaseInput,
 };
@@ -69,6 +72,22 @@ fn map_cancel_request_to_access_error(error: CancelRequestToAccessError) -> Erro
             graphql_error(message, "FORBIDDEN")
         }
         CancelRequestToAccessError::Domain(other) => {
+            graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR")
+        }
+    }
+}
+
+fn map_leave_belonged_artist_error(error: LeaveBelongedArtistError) -> Error {
+    match error {
+        LeaveBelongedArtistError::NotFound => {
+            graphql_error("Belonged artist not found", "NOT_FOUND")
+        }
+        LeaveBelongedArtistError::Forbidden(message) => graphql_error(message, "FORBIDDEN"),
+        LeaveBelongedArtistError::InvalidState(message) => graphql_error(message, "INVALID_STATE"),
+        LeaveBelongedArtistError::Domain(DomainError::AuthorizationError(message)) => {
+            graphql_error(message, "FORBIDDEN")
+        }
+        LeaveBelongedArtistError::Domain(other) => {
             graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR")
         }
     }
@@ -146,6 +165,16 @@ pub(crate) fn normalize_cancel_request_to_access_input(
     input: models::artists::CancelRequestToAccessArtistInput,
 ) -> CancelRequestToAccessUsecaseInput {
     CancelRequestToAccessUsecaseInput {
+        user_id: input.user_id,
+        artist_id: input.artist_id,
+    }
+}
+
+pub(crate) fn normalize_leave_belonged_artist_input(
+    input: models::artists::LeaveBelongedArtistInput,
+) -> LeaveBelongedArtistUsecaseInput {
+    LeaveBelongedArtistUsecaseInput {
+        operator_user_id: input.operator_user_id,
         user_id: input.user_id,
         artist_id: input.artist_id,
     }
@@ -292,6 +321,23 @@ impl ArtistMutation {
         })
     }
 
+    async fn leave_belonged_artist(
+        &self,
+        ctx: &Context<'_>,
+        input: models::artists::LeaveBelongedArtistInput,
+    ) -> Result<models::artists::LeaveBelongedArtistResponse> {
+        let input = normalize_leave_belonged_artist_input(input);
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .leave_belonged_artist
+            .leave_belonged_artist(input)
+            .await
+            .map_err(map_leave_belonged_artist_error)?;
+        Ok(models::artists::LeaveBelongedArtistResponse {
+            left_artist: models::artists::ArtistByUserData::from_domain(res.left_artist).unwrap(),
+        })
+    }
+
     async fn mark_as_member(
         &self,
         ctx: &Context<'_>,
@@ -382,6 +428,14 @@ mod tests {
 
     fn cancel_input() -> models::artists::CancelRequestToAccessArtistInput {
         models::artists::CancelRequestToAccessArtistInput {
+            user_id: "user123".to_string(),
+            artist_id: "artist123".to_string(),
+        }
+    }
+
+    fn leave_input() -> models::artists::LeaveBelongedArtistInput {
+        models::artists::LeaveBelongedArtistInput {
+            operator_user_id: "operator123".to_string(),
             user_id: "user123".to_string(),
             artist_id: "artist123".to_string(),
         }
@@ -529,6 +583,34 @@ mod tests {
 
         let invalid_state = map_cancel_request_to_access_error(
             CancelRequestToAccessError::InvalidState("cannot cancel".to_string()),
+        );
+        assert_eq!(
+            error_code(&invalid_state),
+            Some("INVALID_STATE".to_string())
+        );
+    }
+
+    #[test]
+    fn normalize_leave_belonged_artist_maps_input() {
+        let normalized = normalize_leave_belonged_artist_input(leave_input());
+
+        assert_eq!(normalized.operator_user_id, "operator123");
+        assert_eq!(normalized.user_id, "user123");
+        assert_eq!(normalized.artist_id, "artist123");
+    }
+
+    #[test]
+    fn map_leave_belonged_artist_errors_sets_graphql_codes() {
+        let not_found = map_leave_belonged_artist_error(LeaveBelongedArtistError::NotFound);
+        assert_eq!(error_code(&not_found), Some("NOT_FOUND".to_string()));
+
+        let forbidden = map_leave_belonged_artist_error(LeaveBelongedArtistError::Forbidden(
+            "not allowed".to_string(),
+        ));
+        assert_eq!(error_code(&forbidden), Some("FORBIDDEN".to_string()));
+
+        let invalid_state = map_leave_belonged_artist_error(
+            LeaveBelongedArtistError::InvalidState("cannot leave".to_string()),
         );
         assert_eq!(
             error_code(&invalid_state),

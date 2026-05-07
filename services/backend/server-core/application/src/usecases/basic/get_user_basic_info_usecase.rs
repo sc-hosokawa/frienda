@@ -21,6 +21,7 @@ pub struct GetUserBasicInfoOutput {
     pub user: User,
     pub belongs_to_artists: Vec<ArtistSimpleInfo>,
 }
+#[derive(Debug)]
 pub struct ArtistSimpleInfo {
     pub id: Uuid,
     pub artist_id: String,
