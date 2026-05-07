@@ -35,6 +35,8 @@ pub struct ArtistByUserData {
     pub fsp: i32,
     pub status: String,
     pub is_admin: bool,
+    pub request_message: Option<String>,
+    pub is_default: bool,
 }
 
 #[derive(SimpleObject)]
@@ -211,8 +213,11 @@ impl ArtistByUserData {
                 UserArtistStatus::Check => "Check".to_string(),
                 UserArtistStatus::Accept => "Accept".to_string(),
                 UserArtistStatus::Reject => "Reject".to_string(),
+                UserArtistStatus::Canceled => "Canceled".to_string(),
             },
             is_admin: domain.is_admin,
+            request_message: domain.request_message,
+            is_default: domain.is_default,
         })
     }
 }
@@ -232,6 +237,7 @@ impl ArtistByUserDataWithMappingId {
                 UserArtistStatus::Check => "Check".to_string(),
                 UserArtistStatus::Accept => "Accept".to_string(),
                 UserArtistStatus::Reject => "Reject".to_string(),
+                UserArtistStatus::Canceled => "Canceled".to_string(),
             },
             is_admin: domain.is_admin,
             request_message: domain.request_message,
@@ -285,5 +291,36 @@ impl ArtistFullData {
             amazon_key: domain.amazon_key,
             youtube_key: domain.youtube_key,
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use application::usecases::basic::get_user_basic_info_usecase::ArtistSimpleInfo;
+    use uuid::Uuid;
+
+    #[test]
+    fn artist_by_user_data_from_domain_maps_api_44_fields() {
+        let data = ArtistByUserData::from_domain(ArtistSimpleInfo {
+            id: Uuid::new_v4(),
+            artist_id: "artist-1".to_string(),
+            name: "Band One".to_string(),
+            img_url: Some("https://cdn.example.com/artist.png".to_string()),
+            fsp: 99,
+            status: UserArtistStatus::Canceled,
+            is_admin: true,
+            request_message: Some("キャンセル前の申請メッセージ".to_string()),
+            is_default: true,
+        })
+        .expect("artist data should map");
+
+        assert_eq!(data.artist_id, "artist-1");
+        assert_eq!(data.status, "Canceled");
+        assert_eq!(
+            data.request_message,
+            Some("キャンセル前の申請メッセージ".to_string())
+        );
+        assert!(data.is_default);
     }
 }

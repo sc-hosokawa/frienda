@@ -172,6 +172,8 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
                     fsp: artist.fsp,
                     is_admin: user_artist.is_admin,
                     status: user_artist.status.clone(),
+                    request_message: user_artist.request_message.clone(),
+                    is_default: user_artist.is_default,
                 }
             })
             .collect();
@@ -220,6 +222,8 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
             fsp: artist.fsp,
             is_admin: updated_user_artist.is_admin,
             status: updated_user_artist.status,
+            request_message: updated_user_artist.request_message,
+            is_default: updated_user_artist.is_default,
         };
 
         Ok(UpdateBelongsToArtistStatusOutput {

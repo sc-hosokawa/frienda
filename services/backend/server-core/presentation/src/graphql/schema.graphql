@@ -20,6 +20,8 @@ type ArtistByUserData {
 	fsp: Int!
 	status: String!
 	isAdmin: Boolean!
+	requestMessage: String
+	isDefault: Boolean!
 }
 
 type ArtistByUserDataList {

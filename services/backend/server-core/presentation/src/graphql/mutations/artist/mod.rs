@@ -211,6 +211,7 @@ impl ArtistMutation {
                                         "Check" => UserArtistStatus::Check,
                                         "Accept" => UserArtistStatus::Accept,
                                         "Reject" => UserArtistStatus::Reject,
+                                        "Canceled" => UserArtistStatus::Canceled,
                                         _ => {
                                             return Err(async_graphql::Error::new("Invalid status"))
                                         }

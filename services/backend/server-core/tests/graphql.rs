@@ -135,4 +135,5 @@ async fn graphql_schema_exposes_request_to_access_artist_message_fields() {
     assert!(schema.contains("requests: [RequestToAccessArtistItemInput!]"));
     assert!(schema.contains("artistIds: [String!]"));
     assert!(schema.contains("requestMessage: String"));
+    assert!(schema.contains("isDefault: Boolean!"));
 }

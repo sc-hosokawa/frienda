@@ -29,6 +29,8 @@ pub struct ArtistSimpleInfo {
     pub fsp: i32,
     pub status: UserArtistStatus,
     pub is_admin: bool,
+    pub request_message: Option<String>,
+    pub is_default: bool,
 }
 
 //
@@ -115,6 +117,8 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
                     fsp: artist.fsp,
                     status: user_artist.status.clone(),
                     is_admin: user_artist.is_admin,
+                    request_message: user_artist.request_message.clone(),
+                    is_default: user_artist.is_default,
                 }
             })
             .collect();
@@ -158,6 +162,8 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
                     fsp: artist.fsp,
                     status: user_artist.status.clone(),
                     is_admin: user_artist.is_admin,
+                    request_message: user_artist.request_message.clone(),
+                    is_default: user_artist.is_default,
                 }
             })
             .collect();

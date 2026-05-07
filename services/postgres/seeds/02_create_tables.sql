@@ -1,7 +1,8 @@
 CREATE TYPE "user_artist_status" AS ENUM (
   'accept',
   'reject',
-  'check'
+  'check',
+  'canceled'
 );
 
 CREATE TYPE "offer_status" AS ENUM (
@@ -297,7 +298,8 @@ CREATE TABLE "user_artist" (
   "artist_id" varchar(28) NOT NULL,
   "is_admin" bool NOT NULL DEFAULT 'false',
   "status" user_artist_status NOT NULL DEFAULT 'check',
-  "request_message" varchar(200)
+  "request_message" varchar(200),
+  "is_default" bool NOT NULL DEFAULT 'false'
 );
 
 CREATE TABLE "products" (

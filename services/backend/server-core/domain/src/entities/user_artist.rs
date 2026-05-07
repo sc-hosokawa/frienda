@@ -13,6 +13,7 @@ pub struct Model {
     pub is_admin: bool,
     pub status: UserArtistStatus,
     pub request_message: Option<String>,
+    pub is_default: bool,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

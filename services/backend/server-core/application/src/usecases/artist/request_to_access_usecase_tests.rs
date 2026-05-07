@@ -42,6 +42,7 @@ fn create_test_user_artist(id: i32, user_id: &str, artist_id: &str) -> UserArtis
         status: UserArtistStatus::Check,
         is_admin: false,
         request_message: None,
+        is_default: false,
     }
 }
 
@@ -80,6 +81,7 @@ async fn test_request_to_access_success() {
                 status: UserArtistStatus::Check,
                 is_admin: false,
                 request_message: Some(message.to_string()),
+                is_default: false,
             })
         });
 
@@ -237,6 +239,7 @@ async fn test_request_to_access_batches_existing_mappings_and_artists() {
                 status: UserArtistStatus::Check,
                 is_admin: false,
                 request_message: Some(message.to_string()),
+                is_default: false,
             })
         });
 

@@ -235,6 +235,7 @@ pub fn from_string_to_user_artist_status(s: &str) -> Result<UserArtistStatus, St
         "Check" => Ok(UserArtistStatus::Check),
         "Accept" => Ok(UserArtistStatus::Accept),
         "Reject" => Ok(UserArtistStatus::Reject),
+        "Canceled" => Ok(UserArtistStatus::Canceled),
         _ => Err(format!("Invalid UserArtistStatus: {}", s)),
     }
 }

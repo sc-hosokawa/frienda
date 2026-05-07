@@ -85,6 +85,7 @@ async fn test_request_llm_formats_context_and_returns_answer() {
                 is_admin: true,
                 status: UserArtistStatus::Accept,
                 request_message: None,
+                is_default: false,
             }])
         });
 

@@ -52,6 +52,7 @@ fn create_test_user_artist(user_id: &str, artist_id: &str, is_admin: bool) -> Us
         is_admin,
         status: UserArtistStatus::Check,
         request_message: None,
+        is_default: false,
     }
 }
 
