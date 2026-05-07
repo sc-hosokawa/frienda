@@ -191,6 +191,17 @@ pub struct LeaveBelongedArtistResponse {
 }
 
 #[derive(InputObject)]
+pub struct SetDefaultBelongedArtistInput {
+    pub user_id: String,
+    pub artist_id: String,
+}
+
+#[derive(SimpleObject)]
+pub struct SetDefaultBelongedArtistResponse {
+    pub default_artist: ArtistByUserData,
+}
+
+#[derive(InputObject)]
 pub struct MarkAsMemberInput {
     pub member: String,
     pub artist_id: String,
@@ -400,6 +411,27 @@ mod tests {
         assert_eq!(data.status, "Reject");
         assert!(!data.is_admin);
         assert!(!data.is_default);
+        assert_eq!(data.request_message, Some("所属時の申請".to_string()));
+    }
+
+    #[test]
+    fn artist_by_user_data_from_domain_maps_default_artist_fields() {
+        let data = ArtistByUserData::from_domain(ArtistSimpleInfo {
+            id: Uuid::new_v4(),
+            artist_id: "artist-1".to_string(),
+            name: "Band One".to_string(),
+            img_url: None,
+            fsp: 12,
+            status: UserArtistStatus::Accept,
+            is_admin: true,
+            request_message: Some("所属時の申請".to_string()),
+            is_default: true,
+        })
+        .expect("artist data should map");
+
+        assert_eq!(data.status, "Accept");
+        assert!(data.is_admin);
+        assert!(data.is_default);
         assert_eq!(data.request_message, Some("所属時の申請".to_string()));
     }
 }

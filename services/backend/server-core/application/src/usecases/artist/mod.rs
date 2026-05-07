@@ -6,3 +6,4 @@ pub mod manage_artists_usecase;
 pub mod mark_as_member_usecase;
 pub mod request_to_access_usecase;
 pub mod resend_request_to_access_usecase;
+pub mod set_default_belonged_artist_usecase;

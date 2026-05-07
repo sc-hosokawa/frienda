@@ -11,6 +11,9 @@ use application::usecases::artist::request_to_access_usecase::{
 use application::usecases::artist::resend_request_to_access_usecase::{
     ResendRequestToAccessError, ResendRequestToAccessUsecaseInput,
 };
+use application::usecases::artist::set_default_belonged_artist_usecase::{
+    SetDefaultBelongedArtistError, SetDefaultBelongedArtistUsecaseInput,
+};
 use async_graphql::{Context, Error, ErrorExtensions, Object, Result};
 use registry::Usecases;
 use shared::error::domain_err::DomainError;
@@ -88,6 +91,23 @@ fn map_leave_belonged_artist_error(error: LeaveBelongedArtistError) -> Error {
             graphql_error(message, "FORBIDDEN")
         }
         LeaveBelongedArtistError::Domain(other) => {
+            graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR")
+        }
+    }
+}
+
+fn map_set_default_belonged_artist_error(error: SetDefaultBelongedArtistError) -> Error {
+    match error {
+        SetDefaultBelongedArtistError::NotFound => {
+            graphql_error("Belonged artist not found", "NOT_FOUND")
+        }
+        SetDefaultBelongedArtistError::InvalidState(message) => {
+            graphql_error(message, "INVALID_STATE")
+        }
+        SetDefaultBelongedArtistError::Domain(DomainError::AuthorizationError(message)) => {
+            graphql_error(message, "FORBIDDEN")
+        }
+        SetDefaultBelongedArtistError::Domain(other) => {
             graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR")
         }
     }
@@ -175,6 +195,15 @@ pub(crate) fn normalize_leave_belonged_artist_input(
 ) -> LeaveBelongedArtistUsecaseInput {
     LeaveBelongedArtistUsecaseInput {
         operator_user_id: input.operator_user_id,
+        user_id: input.user_id,
+        artist_id: input.artist_id,
+    }
+}
+
+pub(crate) fn normalize_set_default_belonged_artist_input(
+    input: models::artists::SetDefaultBelongedArtistInput,
+) -> SetDefaultBelongedArtistUsecaseInput {
+    SetDefaultBelongedArtistUsecaseInput {
         user_id: input.user_id,
         artist_id: input.artist_id,
     }
@@ -338,6 +367,24 @@ impl ArtistMutation {
         })
     }
 
+    async fn set_default_belonged_artist(
+        &self,
+        ctx: &Context<'_>,
+        input: models::artists::SetDefaultBelongedArtistInput,
+    ) -> Result<models::artists::SetDefaultBelongedArtistResponse> {
+        let input = normalize_set_default_belonged_artist_input(input);
+        let usecases = ctx.data::<Arc<Usecases>>()?;
+        let res = usecases
+            .set_default_belonged_artist
+            .set_default_belonged_artist(input)
+            .await
+            .map_err(map_set_default_belonged_artist_error)?;
+        Ok(models::artists::SetDefaultBelongedArtistResponse {
+            default_artist: models::artists::ArtistByUserData::from_domain(res.default_artist)
+                .unwrap(),
+        })
+    }
+
     async fn mark_as_member(
         &self,
         ctx: &Context<'_>,
@@ -436,6 +483,13 @@ mod tests {
     fn leave_input() -> models::artists::LeaveBelongedArtistInput {
         models::artists::LeaveBelongedArtistInput {
             operator_user_id: "operator123".to_string(),
+            user_id: "user123".to_string(),
+            artist_id: "artist123".to_string(),
+        }
+    }
+
+    fn set_default_input() -> models::artists::SetDefaultBelongedArtistInput {
+        models::artists::SetDefaultBelongedArtistInput {
             user_id: "user123".to_string(),
             artist_id: "artist123".to_string(),
         }
@@ -611,6 +665,29 @@ mod tests {
 
         let invalid_state = map_leave_belonged_artist_error(
             LeaveBelongedArtistError::InvalidState("cannot leave".to_string()),
+        );
+        assert_eq!(
+            error_code(&invalid_state),
+            Some("INVALID_STATE".to_string())
+        );
+    }
+
+    #[test]
+    fn normalize_set_default_belonged_artist_maps_input() {
+        let normalized = normalize_set_default_belonged_artist_input(set_default_input());
+
+        assert_eq!(normalized.user_id, "user123");
+        assert_eq!(normalized.artist_id, "artist123");
+    }
+
+    #[test]
+    fn map_set_default_belonged_artist_errors_sets_graphql_codes() {
+        let not_found =
+            map_set_default_belonged_artist_error(SetDefaultBelongedArtistError::NotFound);
+        assert_eq!(error_code(&not_found), Some("NOT_FOUND".to_string()));
+
+        let invalid_state = map_set_default_belonged_artist_error(
+            SetDefaultBelongedArtistError::InvalidState("cannot set default".to_string()),
         );
         assert_eq!(
             error_code(&invalid_state),

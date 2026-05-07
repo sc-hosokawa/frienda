@@ -301,7 +301,86 @@ impl UserDetailData {
                 .into_iter()
                 .map(|a| ArtistByUserData::from_domain(a).unwrap())
                 .collect(),
-            primary_artist: None,
+            primary_artist: domain
+                .primary_artist
+                .map(|a| ArtistByUserData::from_domain(a).unwrap()),
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use application::usecases::basic::get_user_basic_info_usecase::{
+        ArtistSimpleInfo, GetUserBasicInfoOutput,
+    };
+    use chrono::Utc;
+    use domain::entities::sea_orm_active_enums::UserStatus;
+    use domain::entities::users::Model as User;
+    use uuid::Uuid;
+
+    fn user(user_id: &str) -> User {
+        User {
+            id: user_id.to_string(),
+            id_token: Some(user_id.to_string()),
+            fcm_token: None,
+            username: "User One".to_string(),
+            realname: "Real Name".to_string(),
+            email: "user@example.com".to_string(),
+            img_url: None,
+            evm_addr: None,
+            status: UserStatus::Joined,
+            invited_by: None,
+            fsp: 10,
+            fsp_temp: 0,
+            credential: 0,
+            category: UserCategory::Musician,
+            primary_category: UserCategory::Musician,
+            is_superadmin: Some(false),
+            publicity: true,
+            greeting: None,
+            skill: None,
+            x_handle: None,
+            instagram_handle: None,
+            fb_handle: None,
+            interest_offer: Some(OfferCategory::Creation),
+            created_at: Utc::now().naive_utc(),
+            updated_at: Utc::now().naive_utc(),
+            last_login_at: None,
+        }
+    }
+
+    fn artist(artist_id: &str, is_default: bool) -> ArtistSimpleInfo {
+        ArtistSimpleInfo {
+            id: Uuid::new_v4(),
+            artist_id: artist_id.to_string(),
+            name: "Band One".to_string(),
+            img_url: None,
+            fsp: 12,
+            status: UserArtistStatus::Accept,
+            is_admin: false,
+            request_message: Some("所属時の申請".to_string()),
+            is_default,
+        }
+    }
+
+    #[test]
+    fn user_detail_data_from_domain_maps_primary_artist() {
+        let primary_artist = artist("artist-1", true);
+        let data = UserDetailData::from_domain(GetUserBasicInfoOutput {
+            user: user("user-1"),
+            belongs_to_artists: vec![primary_artist.clone()],
+            primary_artist: Some(primary_artist),
+        })
+        .expect("user detail data should map");
+
+        assert_eq!(data.belongs_to_artists.len(), 1);
+        assert_eq!(
+            data.primary_artist
+                .as_ref()
+                .map(|artist| artist.artist_id.as_str()),
+            Some("artist-1")
+        );
+        assert!(data.primary_artist.unwrap().is_default);
     }
 }

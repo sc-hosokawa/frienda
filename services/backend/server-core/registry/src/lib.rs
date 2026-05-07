@@ -25,6 +25,9 @@ use application::usecases::artist::{
     resend_request_to_access_usecase::{
         ResendRequestToAccessUsecase, ResendRequestToAccessUsecaseTrait,
     },
+    set_default_belonged_artist_usecase::{
+        SetDefaultBelongedArtistUsecase, SetDefaultBelongedArtistUsecaseTrait,
+    },
 };
 use application::usecases::basic::{
     block_usecase::{UserBlocksUsecase, UserBlocksUsecaseTrait},
@@ -228,6 +231,7 @@ pub struct Usecases {
     pub resend_request_to_access: Arc<dyn ResendRequestToAccessUsecaseTrait>,
     pub cancel_request_to_access: Arc<dyn CancelRequestToAccessUsecaseTrait>,
     pub leave_belonged_artist: Arc<dyn LeaveBelongedArtistUsecaseTrait>,
+    pub set_default_belonged_artist: Arc<dyn SetDefaultBelongedArtistUsecaseTrait>,
     pub get_members: Arc<dyn GetMembersUsecaseTrait>,
     pub get_quests: Arc<dyn GetQuestsUsecaseTrait>,
     pub create_quest: Arc<dyn CreateQuestUsecaseTrait>,
@@ -444,6 +448,10 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         )),
         leave_belonged_artist: Arc::new(LeaveBelongedArtistUsecase::new(
             repos.users.clone(),
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+        )),
+        set_default_belonged_artist: Arc::new(SetDefaultBelongedArtistUsecase::new(
             repos.user_artist.clone(),
             repos.artists.clone(),
         )),

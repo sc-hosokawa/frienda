@@ -136,6 +136,8 @@ async fn graphql_schema_exposes_request_to_access_artist_message_fields() {
     assert!(schema.contains("type CancelRequestToAccessArtistResponse"));
     assert!(schema.contains("input LeaveBelongedArtistInput"));
     assert!(schema.contains("type LeaveBelongedArtistResponse"));
+    assert!(schema.contains("input SetDefaultBelongedArtistInput"));
+    assert!(schema.contains("type SetDefaultBelongedArtistResponse"));
     assert!(schema.contains("artistId: String!"));
     assert!(schema.contains("operatorUserId: String!"));
     assert!(schema.contains("message: String"));
@@ -145,6 +147,9 @@ async fn graphql_schema_exposes_request_to_access_artist_message_fields() {
     assert!(schema.contains("cancelRequestToAccessArtist(input: CancelRequestToAccessArtistInput!): CancelRequestToAccessArtistResponse!"));
     assert!(schema.contains(
         "leaveBelongedArtist(input: LeaveBelongedArtistInput!): LeaveBelongedArtistResponse!"
+    ));
+    assert!(schema.contains(
+        "setDefaultBelongedArtist(input: SetDefaultBelongedArtistInput!): SetDefaultBelongedArtistResponse!"
     ));
     assert!(schema.contains("requestMessage: String"));
     assert!(schema.contains("isDefault: Boolean!"));

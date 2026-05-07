@@ -21,6 +21,11 @@ pub trait MockUserArtistRepo {
         &self,
         user_artist: UserArtistActiveModel,
     ) -> Result<UserArtist, DomainError>;
+    async fn mock_set_default_for_user(
+        &self,
+        user_id: String,
+        artist_id: String,
+    ) -> Result<UserArtist, DomainError>;
     async fn mock_delete(&self, id: i32) -> Result<(), DomainError>;
     async fn mock_find_all(&self) -> Result<Vec<UserArtist>, DomainError>;
     async fn mock_find_by_user_id(&self, user_id: String) -> Result<Vec<UserArtist>, DomainError>;
@@ -69,6 +74,15 @@ impl UserArtistRepository for MockMockUserArtistRepo {
         user_artist: UserArtistActiveModel,
     ) -> Result<UserArtist, DomainError> {
         self.mock_update_status(user_artist).await
+    }
+
+    async fn set_default_for_user(
+        &self,
+        user_id: &str,
+        artist_id: &str,
+    ) -> Result<UserArtist, DomainError> {
+        self.mock_set_default_for_user(user_id.to_string(), artist_id.to_string())
+            .await
     }
 
     async fn delete(&self, id: i32) -> Result<(), DomainError> {

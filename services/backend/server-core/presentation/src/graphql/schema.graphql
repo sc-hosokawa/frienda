@@ -497,6 +497,7 @@ type MutationRoot {
 	resendRequestToAccessArtist(input: ResendRequestToAccessArtistInput!): ResendRequestToAccessArtistResponse!
 	cancelRequestToAccessArtist(input: CancelRequestToAccessArtistInput!): CancelRequestToAccessArtistResponse!
 	leaveBelongedArtist(input: LeaveBelongedArtistInput!): LeaveBelongedArtistResponse!
+	setDefaultBelongedArtist(input: SetDefaultBelongedArtistInput!): SetDefaultBelongedArtistResponse!
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
@@ -920,6 +921,15 @@ type SendMessageResponse {
 	sentAt: String!
 	attachedFile: [String!]
 	attachedImg: [String!]
+}
+
+input SetDefaultBelongedArtistInput {
+	userId: String!
+	artistId: String!
+}
+
+type SetDefaultBelongedArtistResponse {
+	defaultArtist: ArtistByUserData!
 }
 
 input StatusUser {
