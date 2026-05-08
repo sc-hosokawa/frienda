@@ -13,6 +13,11 @@ pub trait UserArtistRepository: Send + Sync {
         &self,
         user_artist: UserArtistActiveModel,
     ) -> Result<UserArtist, DomainError>;
+    async fn set_default_for_user(
+        &self,
+        user_id: &str,
+        artist_id: &str,
+    ) -> Result<UserArtist, DomainError>;
 
     async fn delete(&self, id: i32) -> Result<(), DomainError>;
 

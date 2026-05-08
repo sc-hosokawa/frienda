@@ -20,6 +20,8 @@ type ArtistByUserData {
 	fsp: Int!
 	status: String!
 	isAdmin: Boolean!
+	requestMessage: String
+	isDefault: Boolean!
 }
 
 type ArtistByUserDataList {
@@ -35,6 +37,7 @@ type ArtistByUserDataWithMappingId {
 	fsp: Int!
 	status: String!
 	isAdmin: Boolean!
+	requestMessage: String
 }
 
 type ArtistData {
@@ -90,6 +93,14 @@ type BlockUserResponse {
 	id: Int!
 }
 
+input CancelRequestToAccessArtistInput {
+	userId: String!
+	artistId: String!
+}
+
+type CancelRequestToAccessArtistResponse {
+	canceledMapping: ArtistByUserDataWithMappingId!
+}
 
 type ChartData {
 	lineChartData: [LineChartData!]!
@@ -298,7 +309,6 @@ type ExchangePrizeResponse {
 	txId: String!
 }
 
-
 type FspHistory {
 	date: String!
 	from: String!
@@ -338,12 +348,20 @@ type HealthCheck {
 	status: String!
 }
 
-
-
 """
 A scalar that can represent any JSON Object value.
 """
 scalar JSONObject
+
+input LeaveBelongedArtistInput {
+	operatorUserId: String!
+	userId: String!
+	artistId: String!
+}
+
+type LeaveBelongedArtistResponse {
+	leftArtist: ArtistByUserData!
+}
 
 type LineChartData {
 	date: String!
@@ -476,6 +494,10 @@ type MutationRoot {
 	createNewArtist(input: [CreateNewArtistInput!]!): CreateNewArtistsResponse!
 	updateArtist(input: UpdateArtistInput!): UpdateArtistResponse!
 	requestToAccessArtist(input: RequestToAccessArtistInput!): RequestToAccessArtistResponse!
+	resendRequestToAccessArtist(input: ResendRequestToAccessArtistInput!): ResendRequestToAccessArtistResponse!
+	cancelRequestToAccessArtist(input: CancelRequestToAccessArtistInput!): CancelRequestToAccessArtistResponse!
+	leaveBelongedArtist(input: LeaveBelongedArtistInput!): LeaveBelongedArtistResponse!
+	setDefaultBelongedArtist(input: SetDefaultBelongedArtistInput!): SetDefaultBelongedArtistResponse!
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
@@ -517,6 +539,7 @@ type OfferData {
 	fee: Int!
 	category: String
 	place: String!
+	publicity: Boolean!
 }
 
 type OfferDetailData {
@@ -838,11 +861,27 @@ type RequestPrizeResponse {
 
 input RequestToAccessArtistInput {
 	userId: String!
-	artistIds: [String!]!
+	requests: [RequestToAccessArtistItemInput!]
+	artistIds: [String!]
+}
+
+input RequestToAccessArtistItemInput {
+	artistId: String!
+	message: String
 }
 
 type RequestToAccessArtistResponse {
 	createdMappings: [ArtistByUserDataWithMappingId!]!
+}
+
+input ResendRequestToAccessArtistInput {
+	userId: String!
+	artistId: String!
+	message: String
+}
+
+type ResendRequestToAccessArtistResponse {
+	updatedMapping: ArtistByUserDataWithMappingId!
 }
 
 input SearchOptionsOffersInput {
@@ -884,11 +923,19 @@ type SendMessageResponse {
 	attachedImg: [String!]
 }
 
+input SetDefaultBelongedArtistInput {
+	userId: String!
+	artistId: String!
+}
+
+type SetDefaultBelongedArtistResponse {
+	defaultArtist: ArtistByUserData!
+}
+
 input StatusUser {
 	userId: String!
 	status: String!
 }
-
 
 type TotalOverviewData {
 	totalPlaybacks: Int!
@@ -1230,7 +1277,13 @@ type UsersInOfferData {
 	users: [UserInOfferData!]!
 }
 
+"""
+Directs the executor to include this field or fragment only when the `if` argument is true.
+"""
 directive @include(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+"""
+Directs the executor to skip this field or fragment when the `if` argument is true.
+"""
 directive @skip(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
 schema {
 	query: QueryRoot

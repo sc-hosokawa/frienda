@@ -20,7 +20,9 @@ pub struct GetUserBasicInfoInput {
 pub struct GetUserBasicInfoOutput {
     pub user: User,
     pub belongs_to_artists: Vec<ArtistSimpleInfo>,
+    pub primary_artist: Option<ArtistSimpleInfo>,
 }
+#[derive(Clone, Debug)]
 pub struct ArtistSimpleInfo {
     pub id: Uuid,
     pub artist_id: String,
@@ -29,6 +31,61 @@ pub struct ArtistSimpleInfo {
     pub fsp: i32,
     pub status: UserArtistStatus,
     pub is_admin: bool,
+    pub request_message: Option<String>,
+    pub is_default: bool,
+}
+
+pub(crate) fn build_artist_info_with_effective_default(
+    belongs_to_artists: &[UserArtist],
+    artists: Vec<Artist>,
+) -> (Vec<ArtistSimpleInfo>, Option<ArtistSimpleInfo>) {
+    let explicit_default_artist_id = belongs_to_artists
+        .iter()
+        .filter(|user_artist| {
+            matches!(user_artist.status, UserArtistStatus::Accept) && user_artist.is_default
+        })
+        .map(|user_artist| user_artist.artist_id.as_str())
+        .min();
+
+    let fallback_default_artist_id = belongs_to_artists
+        .iter()
+        .filter(|user_artist| matches!(user_artist.status, UserArtistStatus::Accept))
+        .map(|user_artist| user_artist.artist_id.as_str())
+        .min();
+
+    let effective_default_artist_id = explicit_default_artist_id.or(fallback_default_artist_id);
+
+    let artist_info: Vec<ArtistSimpleInfo> = artists
+        .into_iter()
+        .map(|artist| {
+            let user_artist = belongs_to_artists
+                .iter()
+                .find(|ua| ua.artist_id == artist.artist_id)
+                .expect("UserArtist should exist for this artist");
+            let is_effective_default = effective_default_artist_id
+                == Some(artist.artist_id.as_str())
+                && matches!(user_artist.status, UserArtistStatus::Accept);
+
+            ArtistSimpleInfo {
+                id: artist.id,
+                artist_id: artist.artist_id,
+                name: artist.display_name_jp,
+                img_url: artist.img_url,
+                fsp: artist.fsp,
+                status: user_artist.status.clone(),
+                is_admin: user_artist.is_admin,
+                request_message: user_artist.request_message.clone(),
+                is_default: is_effective_default,
+            }
+        })
+        .collect();
+
+    let primary_artist = artist_info
+        .iter()
+        .find(|artist| artist.is_default && matches!(artist.status, UserArtistStatus::Accept))
+        .cloned();
+
+    (artist_info, primary_artist)
 }
 
 //
@@ -99,29 +156,13 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
             )
             .await?;
 
-        let artist_info: Vec<ArtistSimpleInfo> = artists
-            .into_iter()
-            .map(|artist| {
-                let user_artist = belongs_to_artists
-                    .iter()
-                    .find(|ua| ua.artist_id == artist.artist_id)
-                    .expect("UserArtist should exist for this artist");
-
-                ArtistSimpleInfo {
-                    id: artist.id,
-                    artist_id: artist.artist_id,
-                    name: artist.display_name_jp,
-                    img_url: artist.img_url,
-                    fsp: artist.fsp,
-                    status: user_artist.status.clone(),
-                    is_admin: user_artist.is_admin,
-                }
-            })
-            .collect();
+        let (artist_info, primary_artist) =
+            build_artist_info_with_effective_default(&belongs_to_artists, artists);
 
         Ok(GetUserBasicInfoOutput {
             user,
             belongs_to_artists: artist_info,
+            primary_artist,
         })
     }
 
@@ -142,25 +183,8 @@ impl GetUserBasicInfoUsecaseTrait for GetUserBasicInfoUsecase {
             )
             .await?;
 
-        let artist_info: Vec<ArtistSimpleInfo> = artists
-            .into_iter()
-            .map(|artist| {
-                let user_artist = belongs_to_artists
-                    .iter()
-                    .find(|ua| ua.artist_id == artist.artist_id)
-                    .expect("UserArtist should exist for this artist");
-
-                ArtistSimpleInfo {
-                    id: artist.id,
-                    artist_id: artist.artist_id,
-                    name: artist.display_name_jp,
-                    img_url: artist.img_url,
-                    fsp: artist.fsp,
-                    status: user_artist.status.clone(),
-                    is_admin: user_artist.is_admin,
-                }
-            })
-            .collect();
+        let (artist_info, _) =
+            build_artist_info_with_effective_default(&belongs_to_artists, artists);
 
         Ok(artist_info)
     }

@@ -8,6 +8,8 @@ use domain::repositories::users_repo::UsersRepository;
 use sea_orm::ActiveValue;
 use std::sync::Arc;
 
+use crate::usecases::basic::get_user_basic_info_usecase::build_artist_info_with_effective_default;
+
 //
 // Define the input for the usecase
 //
@@ -156,31 +158,14 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
             )
             .await?;
 
-        let artist_info = artists
-            .into_iter()
-            .map(|artist| {
-                let user_artist = belongs_to_artists
-                    .iter()
-                    .find(|ua| ua.artist_id == artist.artist_id)
-                    .expect("UserArtist should exist for this artist");
-
-                crate::usecases::basic::get_user_basic_info_usecase::ArtistSimpleInfo {
-                    id: artist.id,
-                    artist_id: artist.artist_id,
-                    name: artist.display_name_jp,
-                    img_url: artist.img_url,
-                    fsp: artist.fsp,
-                    is_admin: user_artist.is_admin,
-                    status: user_artist.status.clone(),
-                }
-            })
-            .collect();
+        let (artist_info, primary_artist) =
+            build_artist_info_with_effective_default(&belongs_to_artists, artists);
 
         Ok(UpdateUserProfileOutput {
             updated_user,
             artists: RelatedArtists {
                 belongs_to_artists: artist_info,
-                primary_artist: None,
+                primary_artist,
             },
         })
     }
@@ -220,6 +205,8 @@ impl UpdateUserProfileUsecaseTrait for UpdateUserProfileUsecase {
             fsp: artist.fsp,
             is_admin: updated_user_artist.is_admin,
             status: updated_user_artist.status,
+            request_message: updated_user_artist.request_message,
+            is_default: updated_user_artist.is_default,
         };
 
         Ok(UpdateBelongsToArtistStatusOutput {
