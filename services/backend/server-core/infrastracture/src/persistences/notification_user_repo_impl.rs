@@ -98,4 +98,62 @@ impl NotificationUserRepository for NotificationUserRepoImpl {
             .await?;
         Ok(notification_user)
     }
+
+    async fn mark_as_read_by_ids(
+        &self,
+        user_id: &str,
+        notification_user_ids: Vec<i32>,
+    ) -> Result<i32, DomainError> {
+        if notification_user_ids.is_empty() {
+            return Ok(0);
+        }
+
+        let res = NotificationUserEntity::update_many()
+            .col_expr(Column::IsRead, sea_orm::sea_query::Expr::value(true))
+            .filter(Column::User.eq(user_id))
+            .filter(Column::Id.is_in(notification_user_ids))
+            .filter(Column::IsDeleted.eq(false))
+            .filter(Column::IsRead.eq(false))
+            .exec(&self.db)
+            .await?;
+
+        checked_u64_to_i32(res.rows_affected, "marked_notification_users")
+            .map_err(DomainError::UnexpectedError)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use domain::repositories::notification_user_repo::NotificationUserRepository;
+    use sea_orm::{DbBackend, MockDatabase, MockExecResult};
+
+    #[tokio::test]
+    async fn mark_as_read_by_ids_updates_only_target_users_undeleted_unread_rows() {
+        let db = MockDatabase::new(DbBackend::Postgres)
+            .append_exec_results([MockExecResult {
+                last_insert_id: 0,
+                rows_affected: 2,
+            }])
+            .into_connection();
+        let repo = NotificationUserRepoImpl::new(db);
+
+        let updated = repo
+            .mark_as_read_by_ids("user-1", vec![10, 20, 30])
+            .await
+            .expect("bulk mark read succeeds");
+
+        assert_eq!(updated, 2);
+
+        let log = format!("{:?}", repo.db.into_transaction_log());
+        assert!(log.contains("UPDATE"), "{log}");
+        assert!(log.contains("notification_user"), "{log}");
+        assert!(log.contains("is_read"), "{log}");
+        assert!(log.contains("user-1"), "{log}");
+        assert!(log.contains("is_deleted"), "{log}");
+        assert!(log.contains(" IN "), "{log}");
+        assert!(log.contains("10"), "{log}");
+        assert!(log.contains("20"), "{log}");
+        assert!(log.contains("30"), "{log}");
+    }
 }

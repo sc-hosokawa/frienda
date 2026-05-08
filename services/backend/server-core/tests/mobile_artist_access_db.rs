@@ -10,6 +10,9 @@ use application::services::{
 };
 use domain::{
     entities::{
+        notification_channels::{
+            Column as NotificationChannelColumn, Entity as NotificationChannelEntity,
+        },
         notification_user::{Column as NotificationUserColumn, Entity as NotificationUserEntity},
         notifications::{Column as NotificationColumn, Entity as NotificationEntity},
         sea_orm_active_enums::UserArtistStatus,
@@ -288,6 +291,99 @@ ON CONFLICT (id) DO UPDATE SET
   request_message = EXCLUDED.request_message,
   is_default = EXCLUDED.is_default,
   requested_at = EXCLUDED.requested_at
+"#,
+    )
+    .await;
+}
+
+async fn cleanup_notification_list_fixture(db: &DatabaseConnection) {
+    execute_sql(
+        db,
+        r#"
+DELETE FROM public.notification_user
+WHERE "user" IN ('it_notify_user', 'it_notify_other')
+   OR notification_id BETWEEN 91001 AND 91005
+"#,
+    )
+    .await;
+    execute_sql(
+        db,
+        "DELETE FROM public.notifications WHERE id BETWEEN 91001 AND 91005",
+    )
+    .await;
+    execute_sql(
+        db,
+        "DELETE FROM public.users WHERE id IN ('it_notify_user', 'it_notify_other')",
+    )
+    .await;
+}
+
+async fn insert_notification_list_fixture(db: &DatabaseConnection) {
+    execute_sql(
+        db,
+        r#"
+INSERT INTO public.users (id, username, email, category, primary_category)
+VALUES
+  ('it_notify_user', 'notify-user', 'notify-user@example.com', 'supporter', 'supporter'),
+  ('it_notify_other', 'notify-other', 'notify-other@example.com', 'supporter', 'supporter')
+ON CONFLICT (id) DO UPDATE SET
+  username = EXCLUDED.username,
+  email = EXCLUDED.email,
+  category = EXCLUDED.category,
+  primary_category = EXCLUDED.primary_category
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+INSERT INTO public.notifications (id, title, content, category, created_at)
+VALUES
+  (91001, 'Mobile unread', 'Visible unread mobile notification', 'admin', '2026-01-05 10:00:00'),
+  (91002, 'Email only', 'Hidden email notification', 'admin', '2026-01-06 10:00:00'),
+  (91003, 'Deleted mobile', 'Deleted mobile notification', 'admin', '2026-01-07 10:00:00'),
+  (91004, 'Other user', 'Other user mobile notification', 'admin', '2026-01-08 10:00:00'),
+  (91005, 'Mobile read', 'Visible read mobile notification', 'admin', '2026-01-04 10:00:00')
+ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  content = EXCLUDED.content,
+  category = EXCLUDED.category,
+  created_at = EXCLUDED.created_at
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+INSERT INTO public.notification_channels (notification_id, channel)
+VALUES
+  (91001, 'MOBILE_PUSH'),
+  (91002, 'EMAIL'),
+  (91003, 'MOBILE_PUSH'),
+  (91004, 'MOBILE_PUSH'),
+  (91005, 'MOBILE_PUSH')
+ON CONFLICT (notification_id, channel) DO NOTHING
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+INSERT INTO public.notification_user (id, notification_id, "user", is_read, is_deleted)
+VALUES
+  (91001, 91001, 'it_notify_user', false, false),
+  (91002, 91002, 'it_notify_user', false, false),
+  (91003, 91003, 'it_notify_user', false, true),
+  (91004, 91004, 'it_notify_other', false, false),
+  (91005, 91005, 'it_notify_user', true, false)
+ON CONFLICT (id) DO UPDATE SET
+  notification_id = EXCLUDED.notification_id,
+  "user" = EXCLUDED."user",
+  is_read = EXCLUDED.is_read,
+  is_deleted = EXCLUDED.is_deleted
 "#,
     )
     .await;
@@ -850,4 +946,90 @@ mutation($input: SetDefaultBelongedArtistInput!) {
     assert_eq!(error_code(&set_default_non_accept), Some("INVALID_STATE"));
 
     cleanup_fixture(&db).await;
+}
+
+#[actix_web::test]
+#[ignore = "requires local Postgres container initialized by services/postgres/seeds"]
+async fn mobile_notification_list_filters_mobile_push_and_marks_rows_read() {
+    let db = connect_db().await;
+    cleanup_notification_list_fixture(&db).await;
+    insert_notification_list_fixture(&db).await;
+
+    let repos = create_repositories(clone_database_connection(&db));
+    let usecases = Arc::new(create_usecases(repos, stub_services()));
+    let schema = server_core::schema_builder().data(usecases).finish();
+    let app = test::init_service(
+        common::test_app()
+            .with_schema(schema)
+            .with_db(clone_database_connection(&db))
+            .configure(App::new()),
+    )
+    .await;
+
+    let first = graphql!(
+        app,
+        r#"
+query($userId: String!, $limit: Int, $offset: Int) {
+  getNotificationList(userId: $userId, limit: $limit, offset: $offset) {
+    unreadCount
+    hasNextPage
+    notifications {
+      id
+      title
+      content
+      isRead
+      createdAt
+    }
+  }
+}
+"#,
+        json!({ "userId": "it_notify_user", "limit": 20, "offset": 0 })
+    );
+    assert_no_graphql_errors(&first);
+    let first_data = &first["data"]["getNotificationList"];
+    assert_eq!(first_data["unreadCount"], 1);
+    assert_eq!(first_data["hasNextPage"], false);
+    let first_notifications = first_data["notifications"]
+        .as_array()
+        .expect("notifications should be an array");
+    assert_eq!(first_notifications.len(), 2);
+    assert_eq!(first_notifications[0]["id"], 91001);
+    assert_eq!(first_notifications[0]["title"], "Mobile unread");
+    assert_eq!(first_notifications[0]["isRead"], false);
+    assert_eq!(first_notifications[1]["id"], 91005);
+    assert_eq!(first_notifications[1]["isRead"], true);
+
+    let second = graphql!(
+        app,
+        r#"
+query($userId: String!) {
+  getNotificationList(userId: $userId) {
+    unreadCount
+    notifications {
+      id
+      isRead
+    }
+  }
+}
+"#,
+        json!({ "userId": "it_notify_user" })
+    );
+    assert_no_graphql_errors(&second);
+    let second_data = &second["data"]["getNotificationList"];
+    assert_eq!(second_data["unreadCount"], 0);
+    let second_notifications = second_data["notifications"]
+        .as_array()
+        .expect("notifications should be an array");
+    assert_eq!(second_notifications[0]["id"], 91001);
+    assert_eq!(second_notifications[0]["isRead"], true);
+
+    let channels = NotificationChannelEntity::find()
+        .filter(NotificationChannelColumn::NotificationId.eq(91002))
+        .all(&db)
+        .await
+        .expect("query channels");
+    assert_eq!(channels.len(), 1);
+    assert_eq!(channels[0].channel, "EMAIL");
+
+    cleanup_notification_list_fixture(&db).await;
 }

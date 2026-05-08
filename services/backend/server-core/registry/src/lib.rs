@@ -611,6 +611,7 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         get_notifications: Arc::new(GetNotificationsUsecase::new(
             repos.notification_user.clone(),
             repos.notifications.clone(),
+            repos.users.clone(),
         )),
         mark_notification_as_read: Arc::new(MarkNotificationAsReadUsecase::new(
             repos.notification_user.clone(),

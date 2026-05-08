@@ -522,6 +522,20 @@ type NotificationData {
 	createdAt: String!
 }
 
+type NotificationListData {
+	notifications: [NotificationListItem!]!
+	unreadCount: Int!
+	hasNextPage: Boolean!
+}
+
+type NotificationListItem {
+	id: Int!
+	title: String!
+	content: String!
+	isRead: Boolean!
+	createdAt: String!
+}
+
 type NotificationsData {
 	notifications: [NotificationData!]!
 }
@@ -728,6 +742,7 @@ type QueryRoot {
 	getMessagesInProgress(userId: String!): MessageRoomsByUserData!
 	getMessagesByMessageRoomId(userId: String!, messageRoomId: String!): MessagesByRoomIdByUserData!
 	askLlm(userId: String!, question: String!): String!
+	getNotificationList(userId: String!, limit: Int! = 20, offset: Int! = 0): NotificationListData!
 	getNotifications(userId: String!): [NotificationData!]!
 	getAllNotifications: NotificationsData!
 	getAllUsers: AllUsersData!

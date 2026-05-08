@@ -58,7 +58,8 @@ export function middleware(request: NextRequest) {
   }
 
   // If a user accesses a page with a specific locale, update their preference
-  const pathLocale = pathname.split("/")[1];
+  const pathLocale = pathname.split("/")[1] ?? "";
+  const currentLocale = isValidLocale(pathLocale) ? pathLocale : locale;
   const response = NextResponse.next();
 
   // 現在のロケールが有効な場合のみクッキーを設定
@@ -69,44 +70,56 @@ export function middleware(request: NextRequest) {
     });
   }
 
-  const isRoot = pathname === `/${locale}`;
+  const isRoot = pathname === `/${currentLocale}`;
 
   // ルートパスの処理
   if (isRoot) {
     if (session) {
-      return NextResponse.redirect(new URL(`/${locale}/home`, request.url));
+      return NextResponse.redirect(
+        new URL(`/${currentLocale}/home`, request.url),
+      );
     }
-    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+    return NextResponse.redirect(
+      new URL(`/${currentLocale}/login`, request.url),
+    );
   }
 
   // /offerへのアクセスを常に/homeにリダイレクト
-  if (pathname.startsWith(`/${locale}/offer`)) {
-    return NextResponse.redirect(new URL(`/${locale}/home`, request.url));
+  if (pathname.startsWith(`/${currentLocale}/offer`)) {
+    return NextResponse.redirect(
+      new URL(`/${currentLocale}/home`, request.url),
+    );
   }
 
   // パブリックにアクセス可能なページの場合はセッションをチェックしない
   if (
-    pathname.startsWith(`/${locale}/login`) ||
-    pathname.startsWith(`/${locale}/signin`) ||
-    pathname.startsWith(`/${locale}/termofservice`) ||
-    pathname.startsWith(`/${locale}/privacypolicy`) ||
-    pathname.startsWith(`/${locale}/tokutei`)
+    pathname.startsWith(`/${currentLocale}/login`) ||
+    pathname.startsWith(`/${currentLocale}/signin`) ||
+    pathname.startsWith(`/${currentLocale}/termofservice`) ||
+    pathname.startsWith(`/${currentLocale}/privacypolicy`) ||
+    pathname.startsWith(`/${currentLocale}/tokutei`) ||
+    pathname.startsWith(`/${currentLocale}/faq`)
   ) {
     // セッションがある場合はダッシュボードにリダイレクト（利用規約とプライバシーポリシーページは除く）
     if (
       session &&
-      !pathname.startsWith(`/${locale}/termofservice`) &&
-      !pathname.startsWith(`/${locale}/privacypolicy`) &&
-      !pathname.startsWith(`/${locale}/tokutei`)
+      !pathname.startsWith(`/${currentLocale}/termofservice`) &&
+      !pathname.startsWith(`/${currentLocale}/privacypolicy`) &&
+      !pathname.startsWith(`/${currentLocale}/tokutei`) &&
+      !pathname.startsWith(`/${currentLocale}/faq`)
     ) {
-      return NextResponse.redirect(new URL(`/${locale}/home`, request.url));
+      return NextResponse.redirect(
+        new URL(`/${currentLocale}/home`, request.url),
+      );
     }
     return response;
   }
 
   // セッションがない場合は /login にリダイレクト
   if (!session) {
-    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+    return NextResponse.redirect(
+      new URL(`/${currentLocale}/login`, request.url),
+    );
   }
 
   return response;

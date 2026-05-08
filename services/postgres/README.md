@@ -13,6 +13,7 @@
 1. `00_apply_full_schema.sh`
 2. `02_phase1_mobile_graphql_artist_access.sql`
 3. `03_dummy_mobile_graphql_artist_access.sql`
+4. `04_notification_channels.sql`
 
 The staging schema dump is kept at `seeds/01_full_schema.sql` and is applied by `00_apply_full_schema.sh`.
 

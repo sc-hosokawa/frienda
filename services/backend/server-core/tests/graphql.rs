@@ -154,3 +154,22 @@ async fn graphql_schema_exposes_request_to_access_artist_message_fields() {
     assert!(schema.contains("requestMessage: String"));
     assert!(schema.contains("isDefault: Boolean!"));
 }
+
+#[actix_web::test]
+async fn graphql_schema_exposes_notification_list_fields() {
+    let schema = server_core::schema_builder().finish().sdl();
+
+    assert!(schema.contains("type NotificationListItem"));
+    assert!(schema.contains("type NotificationListData"));
+    assert!(schema.contains("id: Int!"));
+    assert!(schema.contains("title: String!"));
+    assert!(schema.contains("content: String!"));
+    assert!(schema.contains("isRead: Boolean!"));
+    assert!(schema.contains("createdAt: String!"));
+    assert!(schema.contains("notifications: [NotificationListItem!]!"));
+    assert!(schema.contains("unreadCount: Int!"));
+    assert!(schema.contains("hasNextPage: Boolean!"));
+    assert!(schema.contains(
+        "getNotificationList(userId: String!, limit: Int! = 20, offset: Int! = 0): NotificationListData!"
+    ));
+}

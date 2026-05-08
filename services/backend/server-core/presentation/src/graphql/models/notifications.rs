@@ -17,6 +17,22 @@ pub struct NotificationsData {
     pub notifications: Vec<NotificationData>,
 }
 
+#[derive(SimpleObject)]
+pub struct NotificationListItem {
+    pub id: i32,
+    pub title: String,
+    pub content: String,
+    pub is_read: bool,
+    pub created_at: String,
+}
+
+#[derive(SimpleObject)]
+pub struct NotificationListData {
+    pub notifications: Vec<NotificationListItem>,
+    pub unread_count: i32,
+    pub has_next_page: bool,
+}
+
 // ===== Mutation =====
 #[derive(InputObject)]
 pub struct CreateNewNotificationInput {

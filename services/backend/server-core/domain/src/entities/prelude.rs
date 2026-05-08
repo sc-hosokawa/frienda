@@ -11,6 +11,7 @@ pub use super::maps::Entity as Maps;
 pub use super::message_attach::Entity as MessageAttach;
 pub use super::messages::Entity as Messages;
 pub use super::news::Entity as News;
+pub use super::notification_channels::Entity as NotificationChannels;
 pub use super::notification_user::Entity as NotificationUser;
 pub use super::notifications::Entity as Notifications;
 pub use super::offer_attach::Entity as OfferAttach;
