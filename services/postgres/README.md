@@ -12,10 +12,12 @@
 
 1. `00_apply_full_schema.sh`
 2. `02_phase1_mobile_graphql_artist_access.sql`
-3. `03_dummy_mobile_graphql_artist_access.sql`
-4. `04_notification_channels.sql`
+3. `03_notification_channels.sql`
+4. `04_dummy_mobile_graphql_artist_access.sql`
 
 The staging schema dump is kept at `seeds/01_full_schema.sql` and is applied by `00_apply_full_schema.sh`.
+Schema/table extension files run before dummy data. `04_dummy_mobile_graphql_artist_access.sql` is intentionally last and
+inserts local users, artists, artist access mappings, tracks, and notification records including `notification_channels`.
 
 Useful local IDs for mobile GraphQL artist access testing:
 
@@ -32,3 +34,5 @@ Useful local IDs for mobile GraphQL artist access testing:
 | Artist Alpha | `artist_alpha_0001` |
 | Artist Beta | `artist_beta_0001` |
 | Artist Gamma | `artist_gamma_0001` |
+| Local artist request notification | `10001` |
+| Local notification recipient | `usr_artist_admin_01` |

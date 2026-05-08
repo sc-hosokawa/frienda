@@ -1,4 +1,4 @@
--- Mobile notification list channel storage.
+-- Mobile notification list channel storage schema.
 -- Keep this separate from 01_full_schema.sql so existing schema dumps remain comparable.
 
 CREATE TABLE IF NOT EXISTS public.notification_channels (
@@ -20,8 +20,3 @@ ALTER TABLE ONLY public.notification_channels
 
 CREATE INDEX IF NOT EXISTS notification_channels_channel_notification_id_idx
   ON public.notification_channels (channel, notification_id);
-
-INSERT INTO public.notification_channels (notification_id, channel)
-SELECT id, 'MOBILE_PUSH'
-FROM public.notifications
-ON CONFLICT (notification_id, channel) DO NOTHING;
