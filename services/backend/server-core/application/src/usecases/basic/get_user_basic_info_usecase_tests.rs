@@ -68,12 +68,33 @@ fn artist(artist_id: &str, name: &str) -> Artist {
 }
 
 fn user_artist(user_id: &str, artist_id: &str, is_admin: bool) -> UserArtist {
+    user_artist_with_details(
+        user_id,
+        artist_id,
+        is_admin,
+        UserArtistStatus::Check,
+        None,
+        false,
+    )
+}
+
+fn user_artist_with_details(
+    user_id: &str,
+    artist_id: &str,
+    is_admin: bool,
+    status: UserArtistStatus,
+    request_message: Option<String>,
+    is_default: bool,
+) -> UserArtist {
     UserArtist {
         id: 1,
         user_id: user_id.to_string(),
         artist_id: artist_id.to_string(),
         is_admin,
-        status: UserArtistStatus::Check,
+        status,
+        request_message,
+        is_default,
+        requested_at: None,
     }
 }
 
@@ -119,6 +140,71 @@ async fn test_get_user_basic_info_returns_user_and_artist_memberships() {
     assert_eq!(result.belongs_to_artists[0].artist_id, "artist-1");
     assert_eq!(result.belongs_to_artists[0].name, "Band One");
     assert!(result.belongs_to_artists[0].is_admin);
+    assert_eq!(result.belongs_to_artists[0].request_message, None);
+    assert!(!result.belongs_to_artists[0].is_default);
+    assert!(result.primary_artist.is_none());
+}
+
+#[tokio::test]
+async fn test_get_user_basic_info_preserves_artist_request_message_and_default() {
+    let user_id = "user-1";
+
+    let mut users_repo = MockMockUsersRepo::new();
+    let mut user_artist_repo = MockMockUserArtistRepo::new();
+    let mut artists_repo = MockMockArtistsRepo::new();
+
+    users_repo
+        .expect_mock_find_by_id()
+        .with(eq(user_id.to_string()))
+        .times(1)
+        .returning(move |_| Ok(Some(user(user_id))));
+    user_artist_repo
+        .expect_mock_find_by_user_id()
+        .with(eq(user_id.to_string()))
+        .times(1)
+        .returning(move |_| {
+            Ok(vec![user_artist_with_details(
+                user_id,
+                "artist-1",
+                true,
+                UserArtistStatus::Accept,
+                Some("所属申請をお願いします。".to_string()),
+                true,
+            )])
+        });
+    artists_repo
+        .expect_mock_find_by_ids()
+        .with(eq(vec!["artist-1".to_string()]))
+        .times(1)
+        .returning(|_| Ok(vec![artist("artist-1", "Band One")]));
+
+    let usecase = GetUserBasicInfoUsecase::new(
+        Arc::new(users_repo),
+        Arc::new(user_artist_repo),
+        Arc::new(artists_repo),
+    );
+
+    let result = usecase
+        .get_user_basic_info(GetUserBasicInfoInput {
+            user_id: user_id.to_string(),
+        })
+        .await
+        .unwrap();
+
+    let artist = &result.belongs_to_artists[0];
+    assert_eq!(
+        artist.request_message,
+        Some("所属申請をお願いします。".to_string())
+    );
+    assert!(artist.is_default);
+    assert_eq!(artist.status, UserArtistStatus::Accept);
+    assert_eq!(
+        result
+            .primary_artist
+            .as_ref()
+            .map(|artist| artist.artist_id.as_str()),
+        Some("artist-1")
+    );
 }
 
 #[tokio::test]
@@ -183,4 +269,249 @@ async fn test_get_belongs_to_artists_returns_empty_when_user_has_no_memberships(
         .unwrap();
 
     assert!(result.is_empty());
+}
+
+#[tokio::test]
+async fn test_get_belongs_to_artists_returns_request_message_default_and_canceled_status() {
+    let user_id = "user-1";
+
+    let users_repo = MockMockUsersRepo::new();
+    let mut user_artist_repo = MockMockUserArtistRepo::new();
+    let mut artists_repo = MockMockArtistsRepo::new();
+
+    user_artist_repo
+        .expect_mock_find_by_user_id()
+        .with(eq(user_id.to_string()))
+        .times(1)
+        .returning(move |_| {
+            Ok(vec![user_artist_with_details(
+                user_id,
+                "artist-1",
+                false,
+                UserArtistStatus::Canceled,
+                Some("キャンセル前の申請メッセージ".to_string()),
+                true,
+            )])
+        });
+    artists_repo
+        .expect_mock_find_by_ids()
+        .with(eq(vec!["artist-1".to_string()]))
+        .times(1)
+        .returning(|_| Ok(vec![artist("artist-1", "Band One")]));
+
+    let usecase = GetUserBasicInfoUsecase::new(
+        Arc::new(users_repo),
+        Arc::new(user_artist_repo),
+        Arc::new(artists_repo),
+    );
+
+    let result = usecase
+        .get_belongs_to_artists(user_id.to_string())
+        .await
+        .unwrap();
+
+    assert_eq!(result.len(), 1);
+    assert_eq!(result[0].status, UserArtistStatus::Canceled);
+    assert_eq!(
+        result[0].request_message,
+        Some("キャンセル前の申請メッセージ".to_string())
+    );
+    assert!(!result[0].is_default);
+}
+
+#[tokio::test]
+async fn test_get_user_basic_info_uses_explicit_default_as_primary_artist() {
+    let user_id = "user-1";
+
+    let mut users_repo = MockMockUsersRepo::new();
+    let mut user_artist_repo = MockMockUserArtistRepo::new();
+    let mut artists_repo = MockMockArtistsRepo::new();
+
+    users_repo
+        .expect_mock_find_by_id()
+        .with(eq(user_id.to_string()))
+        .times(1)
+        .returning(move |_| Ok(Some(user(user_id))));
+    user_artist_repo
+        .expect_mock_find_by_user_id()
+        .with(eq(user_id.to_string()))
+        .times(1)
+        .returning(move |_| {
+            Ok(vec![
+                user_artist_with_details(
+                    user_id,
+                    "artist-1",
+                    false,
+                    UserArtistStatus::Accept,
+                    None,
+                    false,
+                ),
+                user_artist_with_details(
+                    user_id,
+                    "artist-2",
+                    false,
+                    UserArtistStatus::Accept,
+                    None,
+                    true,
+                ),
+            ])
+        });
+    artists_repo
+        .expect_mock_find_by_ids()
+        .with(eq(vec!["artist-1".to_string(), "artist-2".to_string()]))
+        .times(1)
+        .returning(|_| {
+            Ok(vec![
+                artist("artist-1", "Band One"),
+                artist("artist-2", "Band Two"),
+            ])
+        });
+
+    let usecase = GetUserBasicInfoUsecase::new(
+        Arc::new(users_repo),
+        Arc::new(user_artist_repo),
+        Arc::new(artists_repo),
+    );
+
+    let result = usecase
+        .get_user_basic_info(GetUserBasicInfoInput {
+            user_id: user_id.to_string(),
+        })
+        .await
+        .unwrap();
+
+    assert!(!result.belongs_to_artists[0].is_default);
+    assert!(result.belongs_to_artists[1].is_default);
+    assert_eq!(
+        result
+            .primary_artist
+            .as_ref()
+            .map(|artist| &artist.artist_id),
+        Some(&"artist-2".to_string())
+    );
+}
+
+#[tokio::test]
+async fn test_get_belongs_to_artists_falls_back_to_smallest_accepted_artist_id() {
+    let user_id = "user-1";
+
+    let users_repo = MockMockUsersRepo::new();
+    let mut user_artist_repo = MockMockUserArtistRepo::new();
+    let mut artists_repo = MockMockArtistsRepo::new();
+
+    user_artist_repo
+        .expect_mock_find_by_user_id()
+        .with(eq(user_id.to_string()))
+        .times(1)
+        .returning(move |_| {
+            Ok(vec![
+                user_artist_with_details(
+                    user_id,
+                    "artist-2",
+                    false,
+                    UserArtistStatus::Accept,
+                    None,
+                    false,
+                ),
+                user_artist_with_details(
+                    user_id,
+                    "artist-1",
+                    false,
+                    UserArtistStatus::Accept,
+                    None,
+                    false,
+                ),
+                user_artist_with_details(
+                    user_id,
+                    "artist-0",
+                    false,
+                    UserArtistStatus::Check,
+                    None,
+                    false,
+                ),
+            ])
+        });
+    artists_repo
+        .expect_mock_find_by_ids()
+        .with(eq(vec![
+            "artist-2".to_string(),
+            "artist-1".to_string(),
+            "artist-0".to_string(),
+        ]))
+        .times(1)
+        .returning(|_| {
+            Ok(vec![
+                artist("artist-0", "Pending Band"),
+                artist("artist-1", "Band One"),
+                artist("artist-2", "Band Two"),
+            ])
+        });
+
+    let usecase = GetUserBasicInfoUsecase::new(
+        Arc::new(users_repo),
+        Arc::new(user_artist_repo),
+        Arc::new(artists_repo),
+    );
+
+    let result = usecase
+        .get_belongs_to_artists(user_id.to_string())
+        .await
+        .unwrap();
+
+    let defaults: Vec<&str> = result
+        .iter()
+        .filter(|artist| artist.is_default)
+        .map(|artist| artist.artist_id.as_str())
+        .collect();
+    assert_eq!(defaults, vec!["artist-1"]);
+}
+
+#[tokio::test]
+async fn test_get_user_basic_info_has_no_primary_artist_without_accepted_membership() {
+    let user_id = "user-1";
+
+    let mut users_repo = MockMockUsersRepo::new();
+    let mut user_artist_repo = MockMockUserArtistRepo::new();
+    let mut artists_repo = MockMockArtistsRepo::new();
+
+    users_repo
+        .expect_mock_find_by_id()
+        .with(eq(user_id.to_string()))
+        .times(1)
+        .returning(move |_| Ok(Some(user(user_id))));
+    user_artist_repo
+        .expect_mock_find_by_user_id()
+        .with(eq(user_id.to_string()))
+        .times(1)
+        .returning(move |_| {
+            Ok(vec![user_artist_with_details(
+                user_id,
+                "artist-1",
+                false,
+                UserArtistStatus::Reject,
+                None,
+                true,
+            )])
+        });
+    artists_repo
+        .expect_mock_find_by_ids()
+        .with(eq(vec!["artist-1".to_string()]))
+        .times(1)
+        .returning(|_| Ok(vec![artist("artist-1", "Band One")]));
+
+    let usecase = GetUserBasicInfoUsecase::new(
+        Arc::new(users_repo),
+        Arc::new(user_artist_repo),
+        Arc::new(artists_repo),
+    );
+
+    let result = usecase
+        .get_user_basic_info(GetUserBasicInfoInput {
+            user_id: user_id.to_string(),
+        })
+        .await
+        .unwrap();
+
+    assert!(result.primary_artist.is_none());
+    assert!(!result.belongs_to_artists[0].is_default);
 }

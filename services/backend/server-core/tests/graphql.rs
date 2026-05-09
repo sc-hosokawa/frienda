@@ -124,3 +124,33 @@ async fn graphql_endpoint_rejects_malformed_json() {
 
     assert_eq!(resp.status(), StatusCode::BAD_REQUEST);
 }
+
+#[actix_web::test]
+async fn graphql_schema_exposes_request_to_access_artist_message_fields() {
+    let schema = server_core::schema_builder().finish().sdl();
+
+    assert!(schema.contains("input RequestToAccessArtistItemInput"));
+    assert!(schema.contains("input ResendRequestToAccessArtistInput"));
+    assert!(schema.contains("type ResendRequestToAccessArtistResponse"));
+    assert!(schema.contains("input CancelRequestToAccessArtistInput"));
+    assert!(schema.contains("type CancelRequestToAccessArtistResponse"));
+    assert!(schema.contains("input LeaveBelongedArtistInput"));
+    assert!(schema.contains("type LeaveBelongedArtistResponse"));
+    assert!(schema.contains("input SetDefaultBelongedArtistInput"));
+    assert!(schema.contains("type SetDefaultBelongedArtistResponse"));
+    assert!(schema.contains("artistId: String!"));
+    assert!(schema.contains("operatorUserId: String!"));
+    assert!(schema.contains("message: String"));
+    assert!(schema.contains("requests: [RequestToAccessArtistItemInput!]"));
+    assert!(schema.contains("artistIds: [String!]"));
+    assert!(schema.contains("resendRequestToAccessArtist(input: ResendRequestToAccessArtistInput!): ResendRequestToAccessArtistResponse!"));
+    assert!(schema.contains("cancelRequestToAccessArtist(input: CancelRequestToAccessArtistInput!): CancelRequestToAccessArtistResponse!"));
+    assert!(schema.contains(
+        "leaveBelongedArtist(input: LeaveBelongedArtistInput!): LeaveBelongedArtistResponse!"
+    ));
+    assert!(schema.contains(
+        "setDefaultBelongedArtist(input: SetDefaultBelongedArtistInput!): SetDefaultBelongedArtistResponse!"
+    ));
+    assert!(schema.contains("requestMessage: String"));
+    assert!(schema.contains("isDefault: Boolean!"));
+}

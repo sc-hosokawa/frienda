@@ -15,11 +15,21 @@ use application::usecases::admin::{
     overview_usecase::{OverviewUsecase, OverviewUsecaseTrait},
 };
 use application::usecases::artist::{
+    cancel_request_to_access_usecase::{
+        CancelRequestToAccessUsecase, CancelRequestToAccessUsecaseTrait,
+    },
     get_artist_usecase::{GetArtistUsecase, GetArtistUsecaseTrait},
     get_members_usecase::{GetMembersUsecase, GetMembersUsecaseTrait},
+    leave_belonged_artist_usecase::{LeaveBelongedArtistUsecase, LeaveBelongedArtistUsecaseTrait},
     manage_artists_usecase::{ManageArtistsUsecase, ManageArtistsUsecaseTrait},
     mark_as_member_usecase::{MarkAsMemberUsecase, MarkAsMemberUsecaseTrait},
     request_to_access_usecase::{RequestToAccessUsecase, RequestToAccessUsecaseTrait},
+    resend_request_to_access_usecase::{
+        ResendRequestToAccessUsecase, ResendRequestToAccessUsecaseTrait,
+    },
+    set_default_belonged_artist_usecase::{
+        SetDefaultBelongedArtistUsecase, SetDefaultBelongedArtistUsecaseTrait,
+    },
 };
 use application::usecases::basic::{
     block_usecase::{UserBlocksUsecase, UserBlocksUsecaseTrait},
@@ -220,6 +230,10 @@ pub struct Usecases {
     pub mark_as_read: Arc<dyn MarkAsReadUsecaseTrait>,
     pub get_offer_details: Arc<dyn GetOfferDetailsUsecaseTrait>,
     pub request_to_access: Arc<dyn RequestToAccessUsecaseTrait>,
+    pub resend_request_to_access: Arc<dyn ResendRequestToAccessUsecaseTrait>,
+    pub cancel_request_to_access: Arc<dyn CancelRequestToAccessUsecaseTrait>,
+    pub leave_belonged_artist: Arc<dyn LeaveBelongedArtistUsecaseTrait>,
+    pub set_default_belonged_artist: Arc<dyn SetDefaultBelongedArtistUsecaseTrait>,
     pub get_members: Arc<dyn GetMembersUsecaseTrait>,
     pub get_quests: Arc<dyn GetQuestsUsecaseTrait>,
     pub create_quest: Arc<dyn CreateQuestUsecaseTrait>,
@@ -471,6 +485,25 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         register_credit: Arc::new(RegisterUsecase::new(repos.track_credits.clone())),
         manage_credit: Arc::new(ManageCreditUsecase::new(repos.track_credits.clone())),
         request_to_access: Arc::new(RequestToAccessUsecase::new(
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+        )),
+        resend_request_to_access: Arc::new(ResendRequestToAccessUsecase::new(
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+            repos.notifications.clone(),
+            repos.notification_user.clone(),
+        )),
+        cancel_request_to_access: Arc::new(CancelRequestToAccessUsecase::new(
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+        )),
+        leave_belonged_artist: Arc::new(LeaveBelongedArtistUsecase::new(
+            repos.users.clone(),
+            repos.user_artist.clone(),
+            repos.artists.clone(),
+        )),
+        set_default_belonged_artist: Arc::new(SetDefaultBelongedArtistUsecase::new(
             repos.user_artist.clone(),
             repos.artists.clone(),
         )),
