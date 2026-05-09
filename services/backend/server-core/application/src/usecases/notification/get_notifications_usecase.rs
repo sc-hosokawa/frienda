@@ -1,12 +1,11 @@
 use async_trait::async_trait;
+use chrono::{FixedOffset, NaiveDateTime, TimeZone};
 use std::sync::Arc;
 
 use domain::entities::notification_user::Model as NotificationUser;
 use domain::entities::notifications::Model as Notification;
 use domain::repositories::notification_user_repo::NotificationUserRepository;
-use domain::repositories::notifications_repo::{
-    NotificationListRecord, NotificationsRepository,
-};
+use domain::repositories::notifications_repo::{NotificationListRecord, NotificationsRepository};
 use domain::repositories::users_repo::UsersRepository;
 use shared::error::domain_err::DomainError;
 use shared::numeric::checked_i64_to_i32;
@@ -96,8 +95,16 @@ fn into_notification_list_item(record: NotificationListRecord) -> NotificationLi
         title: record.title,
         content: record.content,
         is_read: record.is_read,
-        created_at: record.created_at.to_string(),
+        created_at: format_jst_rfc3339(record.created_at),
     }
+}
+
+fn format_jst_rfc3339(created_at: NaiveDateTime) -> String {
+    let jst = FixedOffset::east_opt(9 * 60 * 60).expect("JST offset should be valid");
+    jst.from_local_datetime(&created_at)
+        .single()
+        .expect("fixed offset should map local datetime unambiguously")
+        .to_rfc3339()
 }
 
 #[async_trait]

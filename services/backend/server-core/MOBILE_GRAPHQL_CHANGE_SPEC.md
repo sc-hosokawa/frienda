@@ -414,12 +414,13 @@ type MutationRoot {
 - 通知一覧の対象は、`MOBILE_PUSH` channel で送付された通知とします。
 - 詳細取得は行わないため、一覧でタイトルと本文を返します。
 - `category` は返却しません。
-- pagination は `limit` / `offset` 方式にします。`limit` は `1` 以上 `100` 以下、default は `20` とし、範囲外は `BAD_USER_INPUT` を返します。`offset` は `0` 以上とし、負数は `BAD_USER_INPUT` を返します。
+- pagination は `limit` / `offset` 方式にします。`limit` は `1` 以上 `100` 以下、default は `20` とし、範囲外は `BAD_USER_INPUT` を返します。`offset` は `0` 以上、default は `0` とし、負数は `BAD_USER_INPUT` を返します。GraphQL schema 上は default 付きの non-null argument として `limit: Int! = 20`、`offset: Int! = 0` を利用します。
 - `notification_user.is_deleted = false` のみを返却します。
 - 削除済み通知は一覧に返しません。削除済みであることを個別エラーとして返す詳細取得 API は追加しません。
 - `notifications.created_at` 降順で返却します。
+- `createdAt` は JST の RFC3339 文字列で返却します。例: `2026-01-05T10:00:00+09:00`。
 - `hasNextPage` は、同条件の総件数が `offset + notifications.length` より大きい場合に `true` とします。
-- 既読化は `getNotificationList` を実行して通知一覧を確認したタイミングで行います。レスポンスの `isRead` / `unreadCount` は既読化前の状態を返し、その後で取得対象ユーザーの未削除通知を既読に更新します。次回取得時やバッジ再計算時には New 表示が消える想定です。
+- 既読化は `getNotificationList` を実行して通知一覧を確認したタイミングで行います。レスポンスの `isRead` / `unreadCount` は既読化前の状態を返し、その後で取得対象ユーザーの `MOBILE_PUSH` channel かつ `notification_user.is_deleted = false` の全通知を既読に更新します。ページングで返却された通知だけでなく、同条件の全通知が既読化対象です。次回取得時やバッジ再計算時には New 表示が消える想定です。
 - `getNotificationList` の `userId` が存在しない場合は `NOT_FOUND` を返します。
 - 他人の通知一覧を取得しようとした場合は `FORBIDDEN` を返します。
 
@@ -443,8 +444,8 @@ type NotificationListData {
 type QueryRoot {
   getNotificationList(
     userId: String!
-    limit: Int = 20
-    offset: Int = 0
+    limit: Int! = 20
+    offset: Int! = 0
   ): NotificationListData!
 }
 ```

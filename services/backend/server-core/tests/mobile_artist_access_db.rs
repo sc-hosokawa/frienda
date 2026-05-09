@@ -995,6 +995,10 @@ query($userId: String!, $limit: Int, $offset: Int) {
     assert_eq!(first_notifications.len(), 2);
     assert_eq!(first_notifications[0]["id"], 91001);
     assert_eq!(first_notifications[0]["title"], "Mobile unread");
+    assert_eq!(
+        first_notifications[0]["createdAt"],
+        "2026-01-05T10:00:00+09:00"
+    );
     assert_eq!(first_notifications[0]["isRead"], false);
     assert_eq!(first_notifications[1]["id"], 91005);
     assert_eq!(first_notifications[1]["isRead"], true);

@@ -1,18 +1,17 @@
 use crate::test_support::mocks::{
     notification_mock::MockMockNotificationsRepo,
-    notification_user_mock::MockMockNotificationUserRepo,
-    user_mock::MockMockUsersRepo,
+    notification_user_mock::MockMockNotificationUserRepo, user_mock::MockMockUsersRepo,
 };
 use crate::usecases::notification::get_notifications_usecase::{
     GetNotificationsUsecase, GetNotificationsUsecaseTrait,
 };
-use chrono::Utc;
+use chrono::{NaiveDate, Utc};
 use domain::entities::notification_user::Model as NotificationUser;
+use domain::entities::notifications::Model as Notification;
 use domain::entities::sea_orm_active_enums::{UserCategory, UserStatus};
 use domain::entities::users::Model as User;
 use domain::repositories::notifications_repo::NotificationListRecord;
 use shared::error::domain_err::DomainError;
-use domain::entities::notifications::Model as Notification;
 use std::sync::Arc;
 
 fn user(id: &str) -> User {
@@ -116,7 +115,10 @@ async fn test_get_notifications_uses_read_state_from_notification_user() {
 
 #[tokio::test]
 async fn test_get_notification_list_returns_pre_mark_state_and_marks_mobile_push_as_read() {
-    let created_at = Utc::now().naive_utc();
+    let created_at = NaiveDate::from_ymd_opt(2026, 1, 5)
+        .expect("date")
+        .and_hms_opt(10, 0, 0)
+        .expect("time");
     let mut users_repo = MockMockUsersRepo::new();
     let mut notification_user_repo = MockMockNotificationUserRepo::new();
     let mut notifications_repo = MockMockNotificationsRepo::new();
@@ -204,6 +206,10 @@ async fn test_get_notification_list_returns_pre_mark_state_and_marks_mobile_push
     assert_eq!(result.unread_count, 2);
     assert!(result.has_next_page);
     assert_eq!(result.notifications[0].id, 30);
+    assert_eq!(
+        result.notifications[0].created_at,
+        "2026-01-05T10:00:00+09:00"
+    );
     assert!(!result.notifications[0].is_read);
     assert!(result.notifications[1].is_read);
 }
