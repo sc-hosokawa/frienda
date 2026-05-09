@@ -422,7 +422,9 @@ type MutationRoot {
 - `hasNextPage` は、同条件の総件数が `offset + notifications.length` より大きい場合に `true` とします。
 - 既読化は `getNotificationList` を実行して通知一覧を確認したタイミングで行います。レスポンスの `isRead` / `unreadCount` は既読化前の状態を返し、その後で取得対象ユーザーの `MOBILE_PUSH` channel かつ `notification_user.is_deleted = false` の全通知を既読に更新します。ページングで返却された通知だけでなく、同条件の全通知が既読化対象です。次回取得時やバッジ再計算時には New 表示が消える想定です。
 - `getNotificationList` の `userId` が存在しない場合は `NOT_FOUND` を返します。
-- 他人の通知一覧を取得しようとした場合は `FORBIDDEN` を返します。
+- `getNotificationList` は GraphQL context 上の認証済みユーザー ID と引数 `userId` を照合します。一致する場合のみ取得可能です。
+- GraphQL context に認証済みユーザー ID が存在しない場合、または認証済みユーザー ID と引数 `userId` が一致しない場合は `FORBIDDEN` を返します。
+- HTTP `Authorization` header / Bearer JWT の検証および GraphQL context への認証済みユーザー ID 注入は、GraphQL field schema ではなくサーバー側の認証配線で行います。
 
 #### 利用可能にする schema
 
@@ -453,15 +455,27 @@ type QueryRoot {
 ### 管理者送付仕様
 
 - `createAdminNotification` は管理者画面からの手動送付用 Mutation とします。バッチ送付は事前定義された内部処理から実行します。
-- 管理者画面からの送付時は、`notifications` に通知本文と送付 channel を保存します。
+- 管理者画面からの送付時は、`notifications` に通知本文を保存し、`notification_channels` に送付 channel を保存します。
+- 管理者画面から作成した通知の `notifications.category` は `admin` 固定とします。
 - `MOBILE_PUSH` channel を含む場合のみ、モバイル通知一覧表示用の `notification_user` を作成します。
-- `title` は1文字以上50文字以内、`content` は1文字以上100文字以内とします。空文字、上限超過は `BAD_USER_INPUT` を返します。
+- `title` は1文字以上50文字以内、`content` は1文字以上100文字以内とします。文字数は Rust の `chars().count()` 等で Unicode scalar value 数として扱います。
+- `title` / `content` は前後空白を `trim()` した後に1文字以上である必要があります。空文字、空白のみ、上限超過は `BAD_USER_INPUT` を返します。エラーメッセージには対象 field 名を含めます。
+- 文字数制限は管理者画面からの手動送付だけでなく、server-core 側のバッチ送付にも同じ条件を適用します。
+- 文字数制限は usecase の入力 validation で担保します。DB column の長さ制約追加は本仕様の必須要件には含めません。
 - 管理者通知作成権限がない場合は `FORBIDDEN` を返します。
+- 管理者権限は GraphQL context 上の認証済みユーザーから判定します。判定ロジックは現行の管理者権限設計に合わせ、権限がない場合は `FORBIDDEN` を返します。
+- `channels` は1件以上必須です。空配列、重複 channel、未対応 channel は `BAD_USER_INPUT` を返します。
 - 送付対象は以下を選択可能にします。
   - 全体通知: 全登録ユーザーへ送付します。
   - アーティスト代表者通知: 指定アーティストの代表者へ送付します。
 - アーティスト代表者は、`user_artist.status = Accept` かつ `user_artist.is_admin = true` のユーザーとして扱います。
+- `audienceType = ALL` の場合、`artistIds` は指定しません。指定された場合は空配列であっても `BAD_USER_INPUT` を返します。
+- `audienceType = ARTIST_REPRESENTATIVES` の場合、`artistIds` は1件以上必須です。重複した `artistId` は重複排除して扱います。
 - `audienceType = ARTIST_REPRESENTATIVES` で指定された `artistIds` が存在しない場合は `NOT_FOUND` を返します。
+- 重複排除後の送付対象ユーザーが0件の場合は、通知を作成せず `BAD_USER_INPUT` を返します。
+- `notifications`、`notification_channels`、`notification_user` の作成は1つの DB transaction で実行します。途中で失敗した場合はすべて rollback します。
+- `EMAIL` / `HOME` channel は v1 では channel 情報の保存のみ行います。実メール送信処理、HOME表示用API、HOME表示時の既読管理は別仕様で扱います。
+- 作成者ユーザーIDは現行 `notifications` table に保存先がないため、v1では永続化しません。監査要件が必要な場合は別途 `created_by` 等の schema 追加を検討します。
 
 #### 利用可能にする schema
 
@@ -497,7 +511,7 @@ type MutationRoot {
 }
 ```
 
-`deliveredUserCount` は、重複排除後の送付対象ユーザー数を返します。
+`deliveredUserCount` は、重複排除後に `notification_user` を作成したユーザー数を返します。外部 push 通知や email の送信成功件数ではありません。`MOBILE_PUSH` channel を含まない通知では `notification_user` を作成しないため、`deliveredUserCount` は `0` になります。
 
 ### 不明点・確認事項
 
