@@ -26,6 +26,7 @@ use domain::{
         notification::PushNotification,
     },
 };
+use presentation::graphql::context::AuthenticatedUser;
 use registry::{create_repositories, create_usecases, ServicesImpl};
 use sea_orm::{
     ColumnTrait, ConnectionTrait, Database, DatabaseConnection, DbBackend, EntityTrait,
@@ -957,7 +958,12 @@ async fn mobile_notification_list_filters_mobile_push_and_marks_rows_read() {
 
     let repos = create_repositories(clone_database_connection(&db));
     let usecases = Arc::new(create_usecases(repos, stub_services()));
-    let schema = server_core::schema_builder().data(usecases).finish();
+    let schema = server_core::schema_builder()
+        .data(usecases.clone())
+        .data(AuthenticatedUser {
+            user_id: "it_notify_user".to_string(),
+        })
+        .finish();
     let app = test::init_service(
         common::test_app()
             .with_schema(schema)
@@ -1034,6 +1040,34 @@ query($userId: String!) {
         .expect("query channels");
     assert_eq!(channels.len(), 1);
     assert_eq!(channels[0].channel, "EMAIL");
+
+    let forbidden_schema = server_core::schema_builder()
+        .data(usecases)
+        .data(AuthenticatedUser {
+            user_id: "it_notify_other".to_string(),
+        })
+        .finish();
+    let forbidden_app = test::init_service(
+        common::test_app()
+            .with_schema(forbidden_schema)
+            .with_db(clone_database_connection(&db))
+            .configure(App::new()),
+    )
+    .await;
+    let forbidden = graphql!(
+        forbidden_app,
+        r#"
+query($userId: String!) {
+  getNotificationList(userId: $userId) {
+    notifications {
+      id
+    }
+  }
+}
+"#,
+        json!({ "userId": "it_notify_user" })
+    );
+    assert_eq!(error_code(&forbidden), Some("FORBIDDEN"));
 
     cleanup_notification_list_fixture(&db).await;
 }

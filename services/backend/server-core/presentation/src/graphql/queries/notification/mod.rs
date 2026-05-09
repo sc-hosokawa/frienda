@@ -1,4 +1,4 @@
-use crate::graphql::models;
+use crate::graphql::{context::AuthenticatedUser, models};
 use async_graphql::{Context, Error, ErrorExtensions, Object, Result};
 use registry::Usecases;
 use shared::error::domain_err::DomainError;
@@ -18,8 +18,19 @@ fn map_get_notification_list_error(error: DomainError) -> Error {
         DomainError::ValidationError(message) | DomainError::InvalidParameter(message) => {
             graphql_error(message, "BAD_USER_INPUT")
         }
+        DomainError::AuthorizationError(message) => graphql_error(message, "FORBIDDEN"),
         DomainError::NotFound => graphql_error("User not found", "NOT_FOUND"),
         other => graphql_error(other.to_string(), "INTERNAL_SERVER_ERROR"),
+    }
+}
+
+fn authorize_notification_list_user(
+    authenticated_user: Option<&AuthenticatedUser>,
+    requested_user_id: &str,
+) -> Result<()> {
+    match authenticated_user {
+        Some(authenticated_user) if authenticated_user.user_id == requested_user_id => Ok(()),
+        _ => Err(graphql_error("Forbidden", "FORBIDDEN")),
     }
 }
 
@@ -32,6 +43,8 @@ impl NotificationQuery {
         #[graphql(default = 20)] limit: i32,
         #[graphql(default = 0)] offset: i32,
     ) -> Result<models::notifications::NotificationListData> {
+        authorize_notification_list_user(ctx.data_opt::<AuthenticatedUser>(), &user_id)?;
+
         let usecases = ctx.data::<Arc<Usecases>>()?;
         let result = usecases
             .get_notifications
@@ -95,5 +108,30 @@ mod tests {
 
         let missing = map_get_notification_list_error(DomainError::NotFound);
         assert_eq!(error_code(&missing), Some("NOT_FOUND".to_string()));
+
+        let forbidden = map_get_notification_list_error(DomainError::AuthorizationError(
+            "no permission".to_string(),
+        ));
+        assert_eq!(error_code(&forbidden), Some("FORBIDDEN".to_string()));
+    }
+
+    #[test]
+    fn authorize_notification_list_user_requires_matching_authenticated_user() {
+        let missing = authorize_notification_list_user(None, "user-1")
+            .expect_err("missing authenticated user should be forbidden");
+        assert_eq!(error_code(&missing), Some("FORBIDDEN".to_string()));
+
+        let other = AuthenticatedUser {
+            user_id: "other-user".to_string(),
+        };
+        let mismatch = authorize_notification_list_user(Some(&other), "user-1")
+            .expect_err("different authenticated user should be forbidden");
+        assert_eq!(error_code(&mismatch), Some("FORBIDDEN".to_string()));
+
+        let matched = AuthenticatedUser {
+            user_id: "user-1".to_string(),
+        };
+        authorize_notification_list_user(Some(&matched), "user-1")
+            .expect("matching authenticated user should be allowed");
     }
 }
