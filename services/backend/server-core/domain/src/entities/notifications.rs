@@ -17,6 +17,8 @@ pub struct Model {
 pub enum Relation {
     #[sea_orm(has_many = "super::notification_channels::Entity")]
     NotificationChannels,
+    #[sea_orm(has_many = "super::notification_recipients::Entity")]
+    NotificationRecipients,
     #[sea_orm(has_many = "super::notification_user::Entity")]
     NotificationUser,
 }
@@ -24,6 +26,12 @@ pub enum Relation {
 impl Related<super::notification_channels::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::NotificationChannels.def()
+    }
+}
+
+impl Related<super::notification_recipients::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::NotificationRecipients.def()
     }
 }
 

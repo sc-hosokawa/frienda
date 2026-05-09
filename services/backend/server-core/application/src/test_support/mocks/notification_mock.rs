@@ -6,7 +6,8 @@ use mockall::automock;
 use shared::error::domain_err::DomainError;
 
 use domain::repositories::notifications_repo::{
-    NotificationListRecord, NotificationsRepository,
+    AdminNotificationDetailRecord, AdminNotificationListRecord, NotificationListRecord,
+    NotificationsRepository,
 };
 
 #[automock]
@@ -46,6 +47,19 @@ pub trait MockNotificationsRepo {
         &self,
         user_id: String,
     ) -> Result<Vec<i32>, DomainError>;
+
+    async fn mock_list_admin_notifications(
+        &self,
+        limit: u64,
+        offset: u64,
+    ) -> Result<Vec<AdminNotificationListRecord>, DomainError>;
+
+    async fn mock_count_admin_notifications(&self) -> Result<i64, DomainError>;
+
+    async fn mock_get_admin_notification_detail(
+        &self,
+        notification_id: i32,
+    ) -> Result<Option<AdminNotificationDetailRecord>, DomainError>;
 }
 
 #[async_trait]
@@ -102,5 +116,24 @@ impl NotificationsRepository for MockMockNotificationsRepo {
     ) -> Result<Vec<i32>, DomainError> {
         self.mock_get_mobile_push_notification_user_ids(user_id.to_string())
             .await
+    }
+
+    async fn list_admin_notifications(
+        &self,
+        limit: u64,
+        offset: u64,
+    ) -> Result<Vec<AdminNotificationListRecord>, DomainError> {
+        self.mock_list_admin_notifications(limit, offset).await
+    }
+
+    async fn count_admin_notifications(&self) -> Result<i64, DomainError> {
+        self.mock_count_admin_notifications().await
+    }
+
+    async fn get_admin_notification_detail(
+        &self,
+        notification_id: i32,
+    ) -> Result<Option<AdminNotificationDetailRecord>, DomainError> {
+        self.mock_get_admin_notification_detail(notification_id).await
     }
 }

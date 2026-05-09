@@ -70,6 +70,7 @@ use application::usecases::messaging::{
 };
 use application::usecases::news::{UpdateNewsUsecase, UpdateNewsUsecaseTrait};
 use application::usecases::notification::{
+    admin_notifications_usecase::{AdminNotificationsUsecase, AdminNotificationsUsecaseTrait},
     get_notifications_usecase::{GetNotificationsUsecase, GetNotificationsUsecaseTrait},
     mark_notification_as_read_usecase::{
         MarkNotificationAsReadUsecase, MarkNotificationAsReadUsecaseTrait,
@@ -251,6 +252,7 @@ pub struct Usecases {
     pub add_shortnote: Arc<dyn AddShortnoteUsecaseTrait>,
     pub manage_artists: Arc<dyn ManageArtistsUsecaseTrait>,
     pub get_notifications: Arc<dyn GetNotificationsUsecaseTrait>,
+    pub admin_notifications: Arc<dyn AdminNotificationsUsecaseTrait>,
     pub mark_notification_as_read: Arc<dyn MarkNotificationAsReadUsecaseTrait>,
     pub manage_users_in_offer: Arc<dyn ManageUsersInOfferUsecaseTrait>,
     pub get_user_connections: Arc<dyn GetUserConnectionsUsecaseTrait>,
@@ -610,6 +612,10 @@ pub fn create_usecases(repos: RepositoriesImpl, services: ServicesImpl) -> Useca
         mark_as_read: Arc::new(MarkAsReadUsecase::new(repos.room_user.clone())),
         get_notifications: Arc::new(GetNotificationsUsecase::new(
             repos.notification_user.clone(),
+            repos.notifications.clone(),
+            repos.users.clone(),
+        )),
+        admin_notifications: Arc::new(AdminNotificationsUsecase::new(
             repos.notifications.clone(),
             repos.users.clone(),
         )),

@@ -340,6 +340,11 @@ VALUES
   (10001, 'MOBILE_PUSH')
 ON CONFLICT (notification_id, channel) DO NOTHING;
 
+INSERT INTO public.notification_recipients (notification_id, user_id)
+VALUES
+  (10001, 'usr_artist_admin_01')
+ON CONFLICT (notification_id, user_id) DO NOTHING;
+
 SELECT setval(
   pg_get_serial_sequence('public.user_artist', 'id'),
   GREATEST((SELECT max(id) FROM public.user_artist), 1)

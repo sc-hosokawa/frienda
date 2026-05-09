@@ -456,7 +456,7 @@ type QueryRoot {
 
 - `createAdminNotification` は管理者画面からの手動送付用 Mutation とします。バッチ送付は事前定義された内部処理から実行します。
 - 管理者画面からの送付時は、`notifications` に通知本文を保存し、`notification_channels` に送付 channel を保存します。
-- 管理者画面からの送付時は、重複排除後の送信先ユーザーを送信先 snapshot として永続化します。この snapshot は管理者向け通知詳細取得で利用します。
+- 管理者画面からの送付時は、重複排除後の送信先ユーザーIDを `notification_recipients` に送信先 snapshot として永続化します。この snapshot は管理者向け通知詳細取得で利用します。
 - 管理者画面から作成した通知の `notifications.category` は `admin` 固定とします。
 - `MOBILE_PUSH` channel を含む場合のみ、モバイル通知一覧表示用の `notification_user` を作成します。
 - `title` は1文字以上50文字以内、`content` は1文字以上100文字以内とします。文字数は Rust の `chars().count()` 等で Unicode scalar value 数として扱います。
@@ -527,14 +527,16 @@ type MutationRoot {
 - 本項目は管理者画面向けの通知履歴確認機能です。モバイルアプリ向けの `getNotificationList` schema には影響しません。
 - 管理者は、これまでに作成された通知を一覧で確認し、個別通知ごとに本文、送付 channel、送信先ユーザーを確認できます。
 - 一覧取得と個別詳細取得を分けます。一覧は軽量な通知履歴、個別詳細は送信先ユーザーを含む詳細情報を返します。
-- 管理者権限がない場合、または GraphQL context に認証済みユーザーが存在しない場合は `FORBIDDEN` を返します。
+- GraphQL context に認証済みユーザーが存在しない場合、context の user ID に対応する `users` record が存在しない場合、または認証済みユーザーの `users.is_superadmin` が `true` でない場合は `FORBIDDEN` を返します。
 - 個別詳細の `notificationId` が存在しない場合は `NOT_FOUND` を返します。
 - `limit` は `1` 以上 `100` 以下、default は `20` とします。`offset` は `0` 以上、default は `0` とします。範囲外は `BAD_USER_INPUT` を返します。
-- 一覧は `notifications.created_at` 降順で返却します。`createdAt` は JST の RFC3339 文字列で返却します。
+- 一覧は `notifications.created_at DESC, notifications.id DESC` で返却します。`createdAt` は JST の RFC3339 文字列で返却します。
 - 通知の送付 channel は `notification_channels` から取得します。
-- 送信先ユーザーは通知作成時点の snapshot として保存されたデータから取得します。`notification_user` はモバイル通知一覧・既読/削除状態用に引き続き利用します。
-- 全 channel の送信先を後から確認できるよう、`notification_recipients` 相当の永続化を導入します。少なくとも `notification_id`、`user_id` を保存し、`users` と結合して `username` / `email` を返します。
-- `mobilePushIsRead` / `mobilePushIsDeleted` は `MOBILE_PUSH` channel の `notification_user` 状態です。`MOBILE_PUSH` を含まない通知では `null` を返します。
+- 送信先ユーザーは通知作成時点の送信先 ID snapshot として保存された `notification_recipients` から取得します。`notification_user` はモバイル通知一覧・既読/削除状態用に引き続き利用します。
+- `notification_recipients` は `notification_id`、`user_id`、`created_at` を保持します。主キーは `(notification_id, user_id)`、`notification_id` は `notifications.id` へ `ON DELETE CASCADE`、`user_id` は `users.id` へ外部キーを設定します。
+- `username` / `email` は `notification_recipients.user_id` と `users` を結合して取得する現在値です。ユーザー名・メールアドレス自体の作成時点 snapshot は保持しません。
+- 詳細取得の送信先ユーザー一覧は `notification_recipients.created_at ASC, notification_recipients.user_id ASC` で返却します。
+- `mobilePushIsRead` / `mobilePushIsDeleted` は `MOBILE_PUSH` channel の `notification_user` 状態です。`MOBILE_PUSH` を含まない通知、または該当する `notification_user` が存在しない場合は `null` を返します。
 - 送信先 snapshot は `EMAIL` / `HOME` のみの通知でも保存します。
 
 ### 利用可能にする schema
@@ -586,9 +588,9 @@ type QueryRoot {
 }
 ```
 
-### 不明点・確認事項
+### 実装メモ
 
-- 送信先 snapshot 用 table の正式名称と追加columnは、実装時のDB命名規則に合わせます。本仕様では `notification_recipients` 相当の永続化として扱います。
+- 送信先 snapshot 用 table の正式名称は `notification_recipients` です。
 
 ## 8. d-2 Query `getOverview`
 

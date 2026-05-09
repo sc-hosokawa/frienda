@@ -2,6 +2,40 @@ type AddShortnoteResponse {
 	id: String!
 }
 
+type AdminNotificationDetail {
+	id: Int!
+	title: String!
+	content: String!
+	category: String
+	channels: [NotificationChannel!]!
+	recipients: [AdminNotificationRecipient!]!
+	createdAt: String!
+}
+
+type AdminNotificationListData {
+	notifications: [AdminNotificationListItem!]!
+	totalCount: Int!
+	hasNextPage: Boolean!
+}
+
+type AdminNotificationListItem {
+	id: Int!
+	title: String!
+	content: String!
+	category: String
+	channels: [NotificationChannel!]!
+	recipientCount: Int!
+	createdAt: String!
+}
+
+type AdminNotificationRecipient {
+	userId: String!
+	username: String!
+	email: String!
+	mobilePushIsRead: Boolean
+	mobilePushIsDeleted: Boolean
+}
+
 type AllPendingMember {
 	member: PendingMember!
 	artistName: String!
@@ -513,6 +547,12 @@ type MutationRoot {
 	deleteProduct(upc: String!): Boolean!
 }
 
+enum NotificationChannel {
+	MOBILE_PUSH
+	EMAIL
+	HOME
+}
+
 type NotificationData {
 	id: String!
 	title: String!
@@ -717,6 +757,8 @@ type QueryRoot {
 	getProducts(artistId: String!): ProductsData!
 	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
 	getTrackInfo(isrc: String!): TrackInfoData!
+	getAdminNotificationList(limit: Int! = 20, offset: Int! = 0): AdminNotificationListData!
+	getAdminNotificationDetail(notificationId: Int!): AdminNotificationDetail!
 	getSystemOverview: OverviewData!
 	getFspHistoryForAdmin(count: Int!): [FspHistory!]!
 	getTrackCreditsHistoryForAdmin(count: Int!): [Credit!]!
