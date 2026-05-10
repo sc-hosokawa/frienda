@@ -32,4 +32,9 @@ pub trait NotificationUserRepository: Send + Sync {
         user_id: &str,
         notification_id: i32,
     ) -> Result<Option<NotificationUser>, DomainError>;
+    async fn mark_as_read_by_ids(
+        &self,
+        user_id: &str,
+        notification_user_ids: Vec<i32>,
+    ) -> Result<i32, DomainError>;
 }

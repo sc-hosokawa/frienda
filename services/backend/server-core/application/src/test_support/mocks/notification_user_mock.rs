@@ -45,6 +45,12 @@ pub trait MockNotificationUserRepo {
         user_id: String,
         notification_id: i32,
     ) -> Result<Option<NotificationUser>, DomainError>;
+
+    async fn mock_mark_as_read_by_ids(
+        &self,
+        user_id: String,
+        notification_user_ids: Vec<i32>,
+    ) -> Result<i32, DomainError>;
 }
 
 #[async_trait]
@@ -97,6 +103,15 @@ impl NotificationUserRepository for MockMockNotificationUserRepo {
         notification_id: i32,
     ) -> Result<Option<NotificationUser>, DomainError> {
         self.mock_get_by_user_id_and_notification_id(user_id.to_string(), notification_id)
+            .await
+    }
+
+    async fn mark_as_read_by_ids(
+        &self,
+        user_id: &str,
+        notification_user_ids: Vec<i32>,
+    ) -> Result<i32, DomainError> {
+        self.mock_mark_as_read_by_ids(user_id.to_string(), notification_user_ids)
             .await
     }
 }

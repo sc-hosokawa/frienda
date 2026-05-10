@@ -13,6 +13,8 @@ pub mod maps;
 pub mod message_attach;
 pub mod messages;
 pub mod news;
+pub mod notification_channels;
+pub mod notification_recipients;
 pub mod notification_user;
 pub mod notifications;
 pub mod offer_attach;
