@@ -1,76 +1,136 @@
-use alcoholic_jwt::{token_kid, validate, Validation, JWKS};
-use serde::{Deserialize, Serialize};
-use std::error::Error;
+use alcoholic_jwt::{token_kid, validate, Validation, JWK, JWKS};
+use presentation::graphql::context::AuthenticatedUser;
+use std::sync::RwLock;
 
-#[derive(Debug, Serialize, Deserialize)]
-struct Claims {
-    sub: String,
-    company: String,
-    exp: usize,
+#[derive(Debug, derive_more::Display)]
+pub enum AuthError {
+    #[display("Invalid token")]
+    InvalidToken,
+
+    #[display("Token is missing kid")]
+    MissingKeyId,
+
+    #[display("Token is missing subject")]
+    MissingSubject,
+
+    #[display("JWKS key not found")]
+    KeyNotFound,
+
+    #[display("Could not fetch JWKS: {_0}")]
+    JwksFetchError(String),
+
+    #[display("Invalid JWT configuration: {_0}")]
+    InvalidConfiguration(String),
 }
 
-pub async fn validate_token(token: &str) -> Result<bool, ServiceError> {
-    let jwk_url: String = std::env::var("JWK_URL").expect("JWK_URL must be set");
-    let jwk_issuer: String = std::env::var("JWK_ISSUER").expect("JWK_ISSUER must be set");
-    println!("jwk_url:{}", jwk_url);
-    println!("jwk_issuer:[{}]", jwk_issuer);
-
-    let jwks = fetch_jwks(jwk_url.as_str())
-        .await
-        .expect("failed to fetch jwks");
-
-    // issとsub（user_id）をチェック
-    // 必須ではなく、カスタマイズできる
-    let validations = vec![Validation::Issuer(jwk_issuer), Validation::SubjectPresent];
-
-    let kid = match token_kid(token) {
-        Ok(res) => res.expect("failed to decode kid"),
-        Err(_) => return Err(ServiceError::JWKSFetchError),
-    };
-
-    println!("kid:{:?}", kid);
-
-    let jwk = jwks.find(&kid).expect("Specified key not found in set");
-
-    println!("jwk:{:?}", jwk);
-
-    let res = validate(token, jwk, validations);
-    println!("res.is_ok():{}", res.is_ok());
-    Ok(res.is_ok())
+#[async_trait::async_trait]
+pub trait TokenValidator: Send + Sync {
+    async fn validate(&self, token: &str) -> Result<AuthenticatedUser, AuthError>;
 }
 
-async fn fetch_jwks(uri: &str) -> Result<JWKS, Box<dyn Error>> {
-    let res = reqwest::get(uri).await?;
-    let val = res.json::<JWKS>().await?;
-    Ok(val)
+pub struct JwksTokenValidator {
+    jwk_url: String,
+    jwk_issuer: String,
+    jwk_audience: String,
+    http_client: reqwest::Client,
+    jwks: RwLock<Option<JWKS>>,
 }
 
-use actix_web::{error::ResponseError, HttpResponse};
-use derive_more::Display;
+impl JwksTokenValidator {
+    pub fn from_env() -> Result<Self, AuthError> {
+        let jwk_url = std::env::var("JWK_URL")
+            .map_err(|_| AuthError::InvalidConfiguration("JWK_URL must be set".to_string()))?;
+        let jwk_issuer = std::env::var("JWK_ISSUER")
+            .map_err(|_| AuthError::InvalidConfiguration("JWK_ISSUER must be set".to_string()))?;
+        let jwk_audience = std::env::var("JWK_AUDIENCE").unwrap_or_else(|_| {
+            jwk_issuer
+                .rsplit('/')
+                .next()
+                .unwrap_or_default()
+                .to_string()
+        });
 
-#[derive(Debug, Display)]
-pub enum ServiceError {
-    #[display("Internal Server Error")]
-    InternalServerError,
-
-    #[display("BadRequest: {_0}")]
-    BadRequest(String),
-
-    #[display("JWKSFetchError")]
-    JWKSFetchError,
-}
-
-// impl ResponseError trait allows to convert our errors into http responses with appropriate data
-impl ResponseError for ServiceError {
-    fn error_response(&self) -> HttpResponse {
-        match self {
-            ServiceError::InternalServerError => {
-                HttpResponse::InternalServerError().json("Internal Server Error, Please try later")
-            }
-            ServiceError::BadRequest(ref message) => HttpResponse::BadRequest().json(message),
-            ServiceError::JWKSFetchError => {
-                HttpResponse::InternalServerError().json("Could not fetch JWKS")
-            }
+        if jwk_audience.is_empty() {
+            return Err(AuthError::InvalidConfiguration(
+                "JWK_AUDIENCE must be set or derivable from JWK_ISSUER".to_string(),
+            ));
         }
+
+        Ok(Self::new(jwk_url, jwk_issuer, jwk_audience))
+    }
+
+    pub fn new(jwk_url: String, jwk_issuer: String, jwk_audience: String) -> Self {
+        Self {
+            jwk_url,
+            jwk_issuer,
+            jwk_audience,
+            http_client: reqwest::Client::new(),
+            jwks: RwLock::new(None),
+        }
+    }
+
+    fn cached_jwk(&self, kid: &str) -> Option<JWK> {
+        self.jwks
+            .read()
+            .ok()
+            .and_then(|jwks| jwks.as_ref().and_then(|jwks| jwks.find(kid).cloned()))
+    }
+
+    async fn fetch_jwks(&self) -> Result<JWKS, AuthError> {
+        let response = self
+            .http_client
+            .get(&self.jwk_url)
+            .send()
+            .await
+            .map_err(|error| AuthError::JwksFetchError(error.to_string()))?
+            .error_for_status()
+            .map_err(|error| AuthError::JwksFetchError(error.to_string()))?;
+
+        response
+            .json::<JWKS>()
+            .await
+            .map_err(|error| AuthError::JwksFetchError(error.to_string()))
+    }
+
+    async fn find_jwk(&self, kid: &str) -> Result<JWK, AuthError> {
+        if let Some(jwk) = self.cached_jwk(kid) {
+            return Ok(jwk);
+        }
+
+        let jwks = self.fetch_jwks().await?;
+        let jwk = jwks.find(kid).cloned().ok_or(AuthError::KeyNotFound)?;
+
+        if let Ok(mut cache) = self.jwks.write() {
+            *cache = Some(jwks);
+        }
+
+        Ok(jwk)
+    }
+}
+
+#[async_trait::async_trait]
+impl TokenValidator for JwksTokenValidator {
+    async fn validate(&self, token: &str) -> Result<AuthenticatedUser, AuthError> {
+        let kid = token_kid(token)
+            .map_err(|_| AuthError::InvalidToken)?
+            .ok_or(AuthError::MissingKeyId)?;
+        let jwk = self.find_jwk(&kid).await?;
+
+        let validations = vec![
+            Validation::Issuer(self.jwk_issuer.clone()),
+            Validation::Audience(self.jwk_audience.clone()),
+            Validation::SubjectPresent,
+            Validation::NotExpired,
+        ];
+
+        let valid_jwt = validate(token, &jwk, validations).map_err(|_| AuthError::InvalidToken)?;
+        let user_id = valid_jwt
+            .claims
+            .get("sub")
+            .and_then(|value| value.as_str())
+            .ok_or(AuthError::MissingSubject)?
+            .to_string();
+
+        Ok(AuthenticatedUser { user_id })
     }
 }

@@ -4,7 +4,10 @@ use actix_web::{
     http::{header, StatusCode},
     test, App,
 };
+use presentation::graphql::context::AuthenticatedUser;
 use serde::{Deserialize, Serialize};
+use server_core::auth::{AuthError, TokenValidator};
+use std::sync::Arc;
 
 #[derive(Serialize)]
 struct GraphqlRequestBody<'a> {
@@ -32,6 +35,24 @@ struct GraphqlErrorResponse {
     errors: Vec<GraphqlError>,
 }
 
+struct TestTokenValidator;
+
+#[async_trait::async_trait]
+impl TokenValidator for TestTokenValidator {
+    async fn validate(&self, token: &str) -> Result<AuthenticatedUser, AuthError> {
+        match token {
+            "valid-test-token" => Ok(AuthenticatedUser {
+                user_id: "test-user".to_string(),
+            }),
+            _ => Err(AuthError::InvalidToken),
+        }
+    }
+}
+
+fn test_token_validator() -> Arc<dyn TokenValidator> {
+    Arc::new(TestTokenValidator)
+}
+
 #[actix_web::test]
 async fn graphiql_endpoint_returns_html() {
     let app = test::init_service(common::test_app().configure(App::new())).await;
@@ -53,7 +74,7 @@ async fn graphiql_endpoint_returns_html() {
 }
 
 #[actix_web::test]
-async fn graphql_endpoint_returns_validation_errors_for_unknown_field() {
+async fn graphql_endpoint_requires_bearer_token_for_protected_queries() {
     let app = test::init_service(
         common::test_app()
             .with_default_schema()
@@ -64,29 +85,27 @@ async fn graphql_endpoint_returns_validation_errors_for_unknown_field() {
     let req = test::TestRequest::post()
         .uri("/graphql")
         .set_json(GraphqlRequestBody {
-            query: "{ unknownField }",
+            query: "{ __typename }",
         })
         .to_request();
     let resp = test::call_service(&app, req).await;
 
-    assert_eq!(resp.status(), StatusCode::OK);
-
-    let body: GraphqlErrorResponse = test::read_body_json(resp).await;
-    assert_eq!(body.errors.len(), 1);
-    assert!(body.errors[0].message.contains("unknownField"));
+    assert_eq!(resp.status(), StatusCode::UNAUTHORIZED);
 }
 
 #[actix_web::test]
-async fn graphql_endpoint_executes_simple_query_successfully() {
+async fn graphql_endpoint_executes_protected_query_with_valid_bearer_token() {
     let app = test::init_service(
         common::test_app()
             .with_default_schema()
+            .with_token_validator(test_token_validator())
             .configure(App::new()),
     )
     .await;
 
     let req = test::TestRequest::post()
         .uri("/graphql")
+        .insert_header((header::AUTHORIZATION, "Bearer valid-test-token"))
         .set_json(GraphqlRequestBody {
             query: "{ __typename }",
         })
@@ -104,6 +123,92 @@ async fn graphql_endpoint_executes_simple_query_successfully() {
 
     let body: GraphqlSuccessResponse = test::read_body_json(resp).await;
     assert_eq!(body.data.typename, "QueryRoot");
+}
+
+#[actix_web::test]
+async fn graphql_endpoint_returns_validation_errors_for_unknown_field_with_valid_bearer_token() {
+    let app = test::init_service(
+        common::test_app()
+            .with_default_schema()
+            .with_token_validator(test_token_validator())
+            .configure(App::new()),
+    )
+    .await;
+
+    let req = test::TestRequest::post()
+        .uri("/graphql")
+        .insert_header((header::AUTHORIZATION, "Bearer valid-test-token"))
+        .set_json(GraphqlRequestBody {
+            query: "{ unknownField }",
+        })
+        .to_request();
+    let resp = test::call_service(&app, req).await;
+
+    assert_eq!(resp.status(), StatusCode::OK);
+
+    let body: GraphqlErrorResponse = test::read_body_json(resp).await;
+    assert_eq!(body.errors.len(), 1);
+    assert!(body.errors[0].message.contains("unknownField"));
+}
+
+#[actix_web::test]
+async fn graphql_endpoint_allows_current_admin_fields_without_bearer_token() {
+    let app = test::init_service(
+        common::test_app()
+            .with_default_schema()
+            .configure(App::new()),
+    )
+    .await;
+
+    let req = test::TestRequest::post()
+        .uri("/graphql")
+        .set_json(GraphqlRequestBody {
+            query: "query GetAllArtists { getAllArtists { artistList { id } } }",
+        })
+        .to_request();
+    let resp = test::call_service(&app, req).await;
+
+    assert_eq!(resp.status(), StatusCode::OK);
+}
+
+#[actix_web::test]
+async fn graphql_endpoint_does_not_trust_operation_name_for_admin_bypass() {
+    let app = test::init_service(
+        common::test_app()
+            .with_default_schema()
+            .configure(App::new()),
+    )
+    .await;
+
+    let req = test::TestRequest::post()
+        .uri("/graphql")
+        .set_json(GraphqlRequestBody {
+            query: r#"query GetAllArtists { getUserData(userId: "test-user") { id } }"#,
+        })
+        .to_request();
+    let resp = test::call_service(&app, req).await;
+
+    assert_eq!(resp.status(), StatusCode::UNAUTHORIZED);
+}
+
+#[actix_web::test]
+async fn graphql_endpoint_rejects_mixed_admin_and_protected_fields_without_bearer_token() {
+    let app = test::init_service(
+        common::test_app()
+            .with_default_schema()
+            .configure(App::new()),
+    )
+    .await;
+
+    let req = test::TestRequest::post()
+        .uri("/graphql")
+        .set_json(GraphqlRequestBody {
+            query: r#"query Mixed { getAllArtists { artistList { id } } getUserData(userId: "test-user") { id } }"#,
+        })
+        .to_request();
+    let resp = test::call_service(&app, req).await;
+
+    assert_eq!(resp.status(), StatusCode::UNAUTHORIZED);
 }
 
 #[actix_web::test]

@@ -1,7 +1,5 @@
 # モバイルアプリ向け GraphQL 改修仕様
 
-作成日: 2026-04-22
-
 この文書は、`server-core` の現行 GraphQL 実装を前提に、モバイルアプリ開発会社へ共有するための改修仕様を整理したものです。
 
 「改修」は既存の GraphQL schema / resolver / usecase を軸に拡張します。「新設」は新しい GraphQL field / input / output / usecase を追加します。ここに記載する schema は外部公開仕様案であり、実装完了後は `presentation/src/graphql/schema.graphql` の生成結果と照合してください。API-39〜API-5 は現行実装に反映済みです。
@@ -30,9 +28,25 @@
 - `weekly`: 直近確定日を終端とする直近7日間。
 - `daily`: 直近確定日1日分。
 
+### JWT 認証
+
+モバイルアプリから GraphQL API にアクセスする際は、Firebase ID token を HTTP header に付与してください。
+
+- ログイン済みで Firebase ID token を取得できる場合は、GraphQL request の HTTP header に `Authorization: Bearer <token>` を付与します。
+- token を取得できない場合は、空の `Authorization` header を送信しません。
+- 保護対象の GraphQL field を未ログイン状態、または token なしで呼び出した場合は、バックエンドが `401 Unauthorized` を返します。アプリ側は通常の未認証エラーとして扱います。
+
 ### 認可
 
-現行 resolver は `userId` を受け取るものの、dashboard 系の一部 usecase では `userId` が実質的に使われていません。外部公開仕様としては、`userId` が対象 `artistId` への閲覧権限を持つかを `user_artist` で確認する方針を推奨します。
+dashboard 系 Query では、以下の認可チェックを行います。
+
+- `artistId` を受け取る Query は、`userId` が対象 `artistId` を閲覧可能か `user_artist` で確認します。
+- `upc` を受け取る Query は、`upc` から対象 `artistId` を特定し、`userId` がその `artistId` を閲覧可能か確認します。
+- `isrc` を受け取る Query は、`isrc` から対象 `artistId` を特定し、`userId` がその `artistId` を閲覧可能か確認します。
+- `artistId` と `upc` / `isrc` を同時に受け取る Query は、`userId` が `artistId` を閲覧可能であることに加えて、`upc` / `isrc` がその `artistId` 配下であることを確認します。
+- `users.is_superadmin` が `true` のユーザーは管理者ユーザーとして扱い、対象 `artistId` への `user_artist` mapping がなくても閲覧可能とします。
+- 閲覧権限がない場合は `FORBIDDEN` を返します。
+- 対象の `artistId` / `upc` / `isrc` が存在しない場合、または `upc` / `isrc` と `artistId` の対応関係が不正な場合は `NOT_FOUND` を返します。
 
 ### GraphQL エラー
 

@@ -1,14 +1,10 @@
 use actix_cors::Cors;
-use actix_web::{dev::ServiceRequest, web, App, Error, HttpServer, Result};
-use actix_web_httpauth::extractors::bearer::{BearerAuth, Config};
-use actix_web_httpauth::extractors::AuthenticationError;
-use actix_web_httpauth::middleware::HttpAuthentication;
+use actix_web::{web, App, HttpServer, Result};
 use dotenvy::dotenv;
 use server_core::{auth, configure_app, schema_builder};
 use shared::db::{clone_database_connection, connect::establish_db_connection};
 use shared::logger::init_logger;
-use std::env;
-use std::time::Duration;
+use std::{env, sync::Arc, time::Duration};
 use tracing_actix_web::TracingLogger;
 
 use registry::*;
@@ -41,11 +37,12 @@ async fn bootstrap() -> Result<(), std::io::Error> {
         .data(usecases.clone())
         .data(clone_database_connection(&db))
         .finish();
+    let token_validator: Arc<dyn auth::TokenValidator> =
+        Arc::new(auth::JwksTokenValidator::from_env().expect("Failed to configure JWT validator"));
 
     tracing::info!("Starting server...");
 
     HttpServer::new(move || {
-        // let auth = HttpAuthentication::bearer(validator);
         let cors = Cors::default()
             .allow_any_origin()
             .allow_any_method()
@@ -56,6 +53,7 @@ async fn bootstrap() -> Result<(), std::io::Error> {
             .wrap(TracingLogger::default())
             .app_data(web::Data::new(schema.clone()))
             .app_data(web::Data::new(usecases.clone()))
+            .app_data(web::Data::new(token_validator.clone()))
             .configure(configure_app)
     })
     .client_request_timeout(Duration::from_secs(300))
@@ -64,24 +62,4 @@ async fn bootstrap() -> Result<(), std::io::Error> {
     .await?;
 
     Ok(())
-}
-async fn validator(
-    req: ServiceRequest,
-    credentials: BearerAuth,
-) -> Result<ServiceRequest, (Error, ServiceRequest)> {
-    let config = req.app_data::<Config>().cloned().unwrap_or_default();
-
-    println!("req.app_data::<Config>():{:?}", req.app_data::<Config>());
-    println!("credentials.token():{}", credentials.token());
-
-    match auth::validate_token(credentials.token()).await {
-        Ok(res) => {
-            if res {
-                Ok(req)
-            } else {
-                Err((AuthenticationError::from(config).into(), req))
-            }
-        }
-        Err(_) => Err((AuthenticationError::from(config).into(), req)),
-    }
 }

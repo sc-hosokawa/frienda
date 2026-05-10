@@ -17,10 +17,18 @@ const httpLink = createHttpLink({
 // 認証リンクの作成
 const authLink = setContext(async (_, { headers }) => {
   const token = await auth.currentUser?.getIdToken();
+  if (!token) {
+    return {
+      headers: {
+        ...headers,
+      },
+    };
+  }
+
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: `Bearer ${token}`,
     },
   };
 });
