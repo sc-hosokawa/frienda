@@ -26,6 +26,7 @@ const GET_PENDING_MEMBERS = gql`
       }
       artistName
       artistId
+      requestMessage
     }
   }
 `;
@@ -56,6 +57,7 @@ type PendingMember = {
   };
   artistName: string;
   artistId: string;
+  requestMessage?: string | null;
 };
 
 export default function SuperAdminDialog() {
@@ -152,7 +154,7 @@ export default function SuperAdminDialog() {
         </Button>
       )}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="w-4/5 max-w-5xl h-[80vh] max-h-[80vh] flex flex-col p-0 gap-0">
+        <DialogContent className="w-[92vw] max-w-6xl h-[90vh] max-h-[90vh] flex flex-col p-0 gap-0">
           <DialogHeader className="p-6 pb-2">
             <DialogTitle>{t("common.list-of-access-request")}</DialogTitle>
           </DialogHeader>
@@ -165,24 +167,33 @@ export default function SuperAdminDialog() {
               ) : (
                 data?.getAllPendingMembers?.map((item: PendingMember) => (
                   <div
-                    key={item.member.id}
-                    className="flex items-center justify-between bg-secondary p-4 rounded-lg"
+                    key={`${item.member.id}-${item.artistId}`}
+                    className="grid grid-cols-1 gap-4 bg-secondary p-5 rounded-lg lg:grid-cols-[1fr_1.2fr_1.1fr_2fr_auto] lg:items-start"
                   >
-                    <div>
+                    <div className="min-w-0">
                       <h3 className="font-semibold">{item.member.name}</h3>
                     </div>
-                    <div className="flex flex-col gap-1">
+                    <div className="flex min-w-0 flex-col gap-1">
                       <p className="text-muted-foreground">
                         {item.member.realname}
                       </p>
-                      <p className="text-muted-foreground">
+                      <p className="break-all text-muted-foreground">
                         {item.member.email}
                       </p>
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-muted-foreground">{item.artistName}</p>
                     </div>
-                    <div className="space-x-2">
+                    <div className="min-w-0">
+                      <p className="whitespace-pre-wrap break-words text-sm leading-6">
+                        {item.requestMessage || (
+                          <span className="text-muted-foreground/60">
+                            {t("common.none")}
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2 lg:justify-end">
                       <Button
                         onClick={() =>
                           handleApprove(item.member.id, item.artistId)

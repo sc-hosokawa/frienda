@@ -162,6 +162,7 @@ impl ArtistQuery {
                 },
                 artist_name: member.artist_name,
                 artist_id: member.artist_id,
+                request_message: member.request_message,
             })
             .collect())
     }

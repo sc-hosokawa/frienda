@@ -165,7 +165,11 @@ async fn test_get_all_pending_members_batches_users_and_artists() {
         .expect_mock_find_by_status()
         .times(1)
         .with(mockall::predicate::eq(UserArtistStatus::Check))
-        .returning(move |_| Ok(vec![create_test_user_artist(member_id, artist_id, false)]));
+        .returning(move |_| {
+            let mut mapping = create_test_user_artist(member_id, artist_id, false);
+            mapping.request_message = Some("所属申請をお願いします。".to_string());
+            Ok(vec![mapping])
+        });
 
     mock_users_repo
         .expect_mock_find_by_ids()
@@ -196,5 +200,9 @@ async fn test_get_all_pending_members_batches_users_and_artists() {
     assert_eq!(
         output.members[0].artist_name,
         format!("Artist {}", artist_id)
+    );
+    assert_eq!(
+        output.members[0].request_message,
+        Some("所属申請をお願いします。".to_string())
     );
 }

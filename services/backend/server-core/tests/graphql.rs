@@ -258,6 +258,9 @@ async fn graphql_schema_exposes_request_to_access_artist_message_fields() {
     ));
     assert!(schema.contains("requestMessage: String"));
     assert!(schema.contains("isDefault: Boolean!"));
+    assert!(schema.contains(
+        "type AllPendingMember {\n\tmember: PendingMember!\n\tartistName: String!\n\tartistId: String!\n\trequestMessage: String\n}"
+    ));
 }
 
 #[actix_web::test]

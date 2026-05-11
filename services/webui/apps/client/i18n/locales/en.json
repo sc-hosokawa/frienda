@@ -52,6 +52,7 @@
   "common.only-admin": "Only Admin",
   "common.list-of-access-request": "List of Access Request",
   "common.no-access-request-to-handle": "No access request to handle",
+  "common.none": "None",
   "common.admit-as-admin": "Admit as Admin",
   "common.enter-comment": "Enter Comment",
   "common.send-noun": "Send",

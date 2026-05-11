@@ -52,6 +52,7 @@
   "common.only-admin": "管理者専用",
   "common.list-of-access-request": "アクセス権限リクエスト一覧",
   "common.no-access-request-to-handle": "処理すべきリクエストはありません",
+  "common.none": "なし",
   "common.admit-as-admin": "管理者として許可",
   "common.enter-comment": "コメントを入力",
   "common.send-noun": "送信",

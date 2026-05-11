@@ -65,6 +65,7 @@ export type AllPendingMember = {
   artistId: Scalars['String']['output'];
   artistName: Scalars['String']['output'];
   member: PendingMember;
+  requestMessage?: Maybe<Scalars['String']['output']>;
 };
 
 export type AllUsersData = {
