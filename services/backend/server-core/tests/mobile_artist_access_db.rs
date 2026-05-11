@@ -1,6 +1,9 @@
 mod common;
 
-use actix_web::{http::StatusCode, test, App};
+use actix_web::{
+    http::{header, StatusCode},
+    test, App,
+};
 use application::services::{
     dsp_fetcher::{DspFetcherServiceTrait, DspsData, GenderGenData, SparseData},
     onchain_fetcher::{CredentialBalance, OnchainFetcherServiceTrait},
@@ -33,6 +36,7 @@ use sea_orm::{
     QueryFilter, Statement,
 };
 use serde_json::{json, Value};
+use server_core::auth::{AuthError, TokenValidator};
 use shared::db::clone_database_connection;
 use std::{env, sync::Arc};
 
@@ -40,6 +44,7 @@ macro_rules! graphql {
     ($app:expr, $query:expr, $variables:expr) => {{
         let req = test::TestRequest::post()
             .uri("/graphql")
+            .insert_header((header::AUTHORIZATION, "Bearer valid-test-token"))
             .set_json(json!({
                 "query": $query,
                 "variables": $variables,
@@ -50,6 +55,28 @@ macro_rules! graphql {
         serde_json::from_slice::<Value>(&test::read_body(resp).await)
             .expect("GraphQL response should be valid JSON")
     }};
+}
+
+struct FixedTokenValidator {
+    user_id: String,
+}
+
+#[async_trait::async_trait]
+impl TokenValidator for FixedTokenValidator {
+    async fn validate(&self, token: &str) -> Result<AuthenticatedUser, AuthError> {
+        match token {
+            "valid-test-token" => Ok(AuthenticatedUser {
+                user_id: self.user_id.clone(),
+            }),
+            _ => Err(AuthError::InvalidToken),
+        }
+    }
+}
+
+fn token_validator_for(user_id: &str) -> Arc<dyn TokenValidator> {
+    Arc::new(FixedTokenValidator {
+        user_id: user_id.to_string(),
+    })
 }
 
 #[derive(Default)]
@@ -138,9 +165,11 @@ fn stub_services() -> ServicesImpl {
 async fn connect_db() -> DatabaseConnection {
     let database_url = env::var("DATABASE_URL")
         .unwrap_or_else(|_| "postgres://postgres:postgres@localhost:5432/postgres".to_string());
-    Database::connect(database_url)
+    let db = Database::connect(database_url)
         .await
-        .expect("local Postgres should be running")
+        .expect("local Postgres should be running");
+    execute_sql(&db, "SELECT pg_advisory_lock(765432101)").await;
+    db
 }
 
 async fn execute_sql(db: &DatabaseConnection, sql: &str) {
@@ -150,6 +179,21 @@ async fn execute_sql(db: &DatabaseConnection, sql: &str) {
 }
 
 async fn cleanup_fixture(db: &DatabaseConnection) {
+    ensure_notification_recipients_schema(db).await;
+    execute_sql(
+        db,
+        r#"
+DELETE FROM public.notification_recipients
+WHERE user_id LIKE 'it_%'
+   OR notification_id IN (
+        SELECT id
+        FROM public.notifications
+        WHERE content LIKE '%Integration Artist%'
+           OR title LIKE 'Integration artist access%'
+    )
+"#,
+    )
+    .await;
     execute_sql(
         db,
         r#"
@@ -527,6 +571,7 @@ async fn mobile_artist_access_graphql_flows_work_against_local_postgres() {
         common::test_app()
             .with_schema(schema)
             .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("usr_fallback_00001"))
             .configure(App::new()),
     )
     .await;
@@ -1061,6 +1106,7 @@ async fn mobile_notification_list_filters_mobile_push_and_marks_rows_read() {
         common::test_app()
             .with_schema(schema)
             .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("it_notify_user"))
             .configure(App::new()),
     )
     .await;
@@ -1144,6 +1190,7 @@ query($userId: String!) {
         common::test_app()
             .with_schema(forbidden_schema)
             .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("it_notify_other"))
             .configure(App::new()),
     )
     .await;
@@ -1184,6 +1231,7 @@ async fn admin_notification_history_lists_and_details_recipients() {
         common::test_app()
             .with_schema(schema)
             .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("it_notify_admin"))
             .configure(App::new()),
     )
     .await;
@@ -1307,6 +1355,7 @@ query($notificationId: Int!) {
         common::test_app()
             .with_schema(forbidden_schema)
             .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("it_notify_user"))
             .configure(App::new()),
     )
     .await;
