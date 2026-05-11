@@ -80,10 +80,36 @@ export function RequestForViewDialog() {
 
   // アクセスリクエストミューテーション
   const [requestAccess] = useMutation(REQUEST_ACCESS, {
-    onCompleted: () => {
+    onCompleted: (data) => {
+      const createdMappings =
+        data?.requestToAccessArtist?.createdMappings ?? [];
+
       toast({
         title: t("common.success"),
-        description: t("home.sent-access-request"),
+        description: (
+          <div className="space-y-2">
+            <p>{t("home.sent-access-request")}</p>
+            {createdMappings.length > 0 && (
+              <ul className="space-y-1">
+                {createdMappings.map(
+                  (mapping: {
+                    artistId: string;
+                    name: string;
+                    requestMessage?: string | null;
+                  }) => (
+                    <li key={mapping.artistId}>
+                      <span className="font-medium">{mapping.name}</span>
+                      <span className="text-muted-foreground">
+                        {" "}
+                        - {mapping.requestMessage || t("common.none")}
+                      </span>
+                    </li>
+                  ),
+                )}
+              </ul>
+            )}
+          </div>
+        ),
       });
       setSelectedArtists(new Set());
       setSelectedArtistDetails(new Map());

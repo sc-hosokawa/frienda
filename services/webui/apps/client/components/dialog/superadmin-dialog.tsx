@@ -9,7 +9,7 @@ import {
 import { useQuery, useMutation, gql } from "@apollo/client";
 import { Button } from "@ui/components/ui/button";
 import { ScrollArea } from "@ui/components/ui/scroll-area";
-import { Check, X, ShieldCheck } from "lucide-react";
+import { Check, Loader2, X, ShieldCheck } from "lucide-react";
 import useUserStore from "~/store/user";
 import { useState } from "react";
 import { useTranslation } from "~/i18n/client";
@@ -60,8 +60,17 @@ type PendingMember = {
   requestMessage?: string | null;
 };
 
+type PendingAction = {
+  artistId: string;
+  memberId: string;
+  type: "approve" | "adminApprove" | "deny";
+};
+
 export default function SuperAdminDialog() {
   const [open, setOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<PendingAction | null>(
+    null,
+  );
   const { t } = useTranslation();
   const { user } = useUserStore();
 
@@ -70,19 +79,21 @@ export default function SuperAdminDialog() {
     skip: !user?.id,
   });
 
-  const [markAsMember] = useMutation(MARK_AS_MEMBER, {
-    onCompleted: () => {
-      refetch();
-    },
-  });
+  const [markAsMember] = useMutation(MARK_AS_MEMBER);
 
-  const [markAsAdmin] = useMutation(MARK_AS_ADMIN, {
-    onCompleted: () => {
-      refetch();
-    },
-  });
+  const [markAsAdmin] = useMutation(MARK_AS_ADMIN);
+
+  const isPendingAction = (
+    memberId: string,
+    artistId: string,
+    type: PendingAction["type"],
+  ) =>
+    pendingAction?.memberId === memberId &&
+    pendingAction.artistId === artistId &&
+    pendingAction.type === type;
 
   const handleApprove = async (memberId: string, artistName: string) => {
+    setPendingAction({ memberId, artistId: artistName, type: "approve" });
     try {
       await markAsMember({
         variables: {
@@ -98,12 +109,16 @@ export default function SuperAdminDialog() {
           },
         },
       });
+      await refetch();
     } catch (error) {
       console.error("Error approving member:", error);
+    } finally {
+      setPendingAction(null);
     }
   };
 
   const handleAdminApprove = async (memberId: string, artistName: string) => {
+    setPendingAction({ memberId, artistId: artistName, type: "adminApprove" });
     try {
       await markAsAdmin({
         variables: {
@@ -114,12 +129,16 @@ export default function SuperAdminDialog() {
           },
         },
       });
+      await refetch();
     } catch (error) {
       console.error("Error approving admin:", error);
+    } finally {
+      setPendingAction(null);
     }
   };
 
   const handleDeny = async (memberId: string, artistName: string) => {
+    setPendingAction({ memberId, artistId: artistName, type: "deny" });
     try {
       await markAsMember({
         variables: {
@@ -135,8 +154,11 @@ export default function SuperAdminDialog() {
           },
         },
       });
+      await refetch();
     } catch (error) {
       console.error("Error denying member:", error);
+    } finally {
+      setPendingAction(null);
     }
   };
 
@@ -198,8 +220,17 @@ export default function SuperAdminDialog() {
                         }
                         size="sm"
                         className="bg-green-500 hover:bg-green-600"
+                        disabled={pendingAction !== null}
                       >
-                        <Check className="mr-2 h-4 w-4" />
+                        {isPendingAction(
+                          item.member.id,
+                          item.artistId,
+                          "approve",
+                        ) ? (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                          <Check className="mr-2 h-4 w-4" />
+                        )}
                         {t("common.admit")}
                       </Button>
                       <Button
@@ -208,8 +239,17 @@ export default function SuperAdminDialog() {
                         }
                         size="sm"
                         className="bg-blue-500 hover:bg-blue-600"
+                        disabled={pendingAction !== null}
                       >
-                        <Check className="mr-2 h-4 w-4" />
+                        {isPendingAction(
+                          item.member.id,
+                          item.artistId,
+                          "adminApprove",
+                        ) ? (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                          <Check className="mr-2 h-4 w-4" />
+                        )}
                         {t("common.admit-as-admin")}
                       </Button>
                       <Button
@@ -218,8 +258,13 @@ export default function SuperAdminDialog() {
                         }
                         size="sm"
                         variant="destructive"
+                        disabled={pendingAction !== null}
                       >
-                        <X className="mr-2 h-4 w-4" />
+                        {isPendingAction(item.member.id, item.artistId, "deny") ? (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                          <X className="mr-2 h-4 w-4" />
+                        )}
                         {t("common.reject")}
                       </Button>
                     </div>
