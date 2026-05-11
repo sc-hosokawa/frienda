@@ -168,12 +168,10 @@ export default function SuperAdminDialog() {
                 data?.getAllPendingMembers?.map((item: PendingMember) => (
                   <div
                     key={`${item.member.id}-${item.artistId}`}
-                    className="grid grid-cols-1 gap-4 bg-secondary p-5 rounded-lg lg:grid-cols-[1fr_1.2fr_1.1fr_2fr_auto] lg:items-start"
+                    className="grid grid-cols-1 gap-4 bg-secondary p-5 rounded-lg lg:grid-cols-[1.4fr_1.1fr_2fr_auto] lg:items-start"
                   >
-                    <div className="min-w-0">
-                      <h3 className="font-semibold">{item.member.name}</h3>
-                    </div>
                     <div className="flex min-w-0 flex-col gap-1">
+                      <h3 className="font-semibold">{item.member.name}</h3>
                       <p className="text-muted-foreground">
                         {item.member.realname}
                       </p>
@@ -193,7 +191,7 @@ export default function SuperAdminDialog() {
                         )}
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-2 lg:justify-end">
+                    <div className="flex flex-col gap-2 lg:items-stretch">
                       <Button
                         onClick={() =>
                           handleApprove(item.member.id, item.artistId)
