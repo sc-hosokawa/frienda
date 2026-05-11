@@ -5,65 +5,54 @@ import { Card } from "@ui/components/ui/card";
 import Image from "next/image";
 import { gql, useQuery } from "@apollo/client";
 import useUserStore from "~/store/user";
-import Link from "next/link";
 import { useTranslation } from "~/i18n/client";
+import type { NotificationListData } from "~/generated/graphql";
 
 const GET_NOTIFICATIONS = gql`
-  query GetNotifications($userId: String!) {
-    getNotifications(userId: $userId) {
-      id
-      title
-      category
-      content
-      isRead
-      createdAt
+  query GetNotificationList($userId: String!, $limit: Int!, $offset: Int!) {
+    getNotificationList(userId: $userId, limit: $limit, offset: $offset) {
+      notifications {
+        id
+        title
+        content
+        isRead
+        createdAt
+      }
     }
   }
 `;
 
+function formatNotificationDate(createdAt: string) {
+  const date = new Date(createdAt);
+  const jstDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+
+  return jstDate.toLocaleString("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 export default function NotificationList() {
   const { user } = useUserStore();
   const { t } = useTranslation();
-  const { loading, error, data } = useQuery(GET_NOTIFICATIONS, {
+  const { loading, error, data } = useQuery<{
+    getNotificationList: NotificationListData;
+  }>(GET_NOTIFICATIONS, {
     variables: {
-      userId: user?.id,
+      userId: user?.id ?? "",
+      limit: 20,
+      offset: 0,
     },
+    skip: !user?.id,
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (!user?.id || loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  const notifications =
-    data?.getNotifications.map((notification: any) => {
-      let color = "";
-      let textColor = "text-black";
-
-      switch (notification.category) {
-        case "message":
-          color = "bg-[#FF7178]";
-          break;
-        case "offer":
-          color = "bg-[#FF692D]";
-          break;
-        case "fsp":
-          color = "bg-[#2D78FF]";
-          textColor = "text-white";
-          break;
-        default:
-          color = "bg-[#e8ff26]";
-      }
-
-      return {
-        id: notification.id,
-        category: notification.category,
-        color: color,
-        textColor: textColor,
-        highlighted: !notification.isRead,
-        title: notification.title,
-        content: notification.content,
-        createdAt: notification.createdAt,
-      };
-    }) || [];
+  const notifications = data?.getNotificationList.notifications ?? [];
 
   return (
     <div className="container max-w-6xl mx-auto">
@@ -96,109 +85,31 @@ export default function NotificationList() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {notifications.map((notification: any) =>
-            notification.category === "info" ? (
-              <Card
-                key={notification.id}
-                className="h-full overflow-hidden relative border rounded-3xl border-white/30"
-              >
-                <div className="p-4 flex flex-col h-[240px]">
-                  <div className="flex items-center justify-between mb-2">
-                    <span
-                      className={`text-sm my-2 px-4 py-2 rounded-full ${notification.color} ${notification.textColor}`}
-                    >
-                      {notification.category.toUpperCase()}
-                    </span>
-                  </div>
-                  <h2 className="text-lg mb-2 line-clamp-3 flex-grow">
-                    {notification.title}
-                  </h2>
-                  <p className="text-sm text-white line-clamp-2">
-                    {notification.content}
-                  </p>
-                  <span className="text-xs mt-4 text-muted-foreground">
-                    {(() => {
-                      const date = new Date(notification.createdAt);
-                      const jstDate = new Date(
-                        date.getTime() + 9 * 60 * 60 * 1000,
-                      );
-                      return jstDate.toLocaleString("ja-JP", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      });
-                    })()}
-                  </span>
-                </div>
-              </Card>
-            ) : (
-              <Link
-                key={notification.id}
-                href={`/${notification.category}`}
-                className="block h-full"
-              >
-                <Card className="h-full overflow-hidden hover:shadow-lg transition-all hover:bg-white/30 relative border rounded-3xl border-white/30">
-                  {notification.highlighted && (
-                    <span className="absolute top-0 left-0 z-10 bg-[#E1F000] text-black py-4 px-6 rounded-3xl text-xs font-light">
-                      NEW
-                    </span>
-                  )}
-                  <div className="p-4 flex flex-col h-[240px]">
-                    <div className="flex items-center justify-between mb-2">
-                      <span
-                        className={`text-sm my-2 px-4 py-2 rounded-full ${notification.color} ${notification.textColor}`}
-                      >
-                        {notification.category.toUpperCase()}
-                      </span>
-                    </div>
-                    <h2 className="text-lg mb-2 line-clamp-3 flex-grow">
+        <ul className="space-y-4">
+          {notifications.map((notification) => (
+            <li key={notification.id}>
+              <Card className="border rounded-3xl border-white/30 bg-transparent">
+                <div className="flex flex-col gap-3 p-5 md:flex-row md:items-start md:justify-between">
+                  <div className="min-w-0 flex-1">
+                    <h2 className="text-lg font-light leading-snug">
                       {notification.title}
                     </h2>
-                    <p className="text-sm text-white line-clamp-2">
+                    <p className="mt-2 text-sm leading-6 text-white/80">
                       {notification.content}
                     </p>
-                    <span className="text-xs mt-4 text-muted-foreground">
-                      {(() => {
-                        const date = new Date(notification.createdAt);
-                        const jstDate = new Date(
-                          date.getTime() + 9 * 60 * 60 * 1000,
-                        );
-                        return jstDate.toLocaleString("ja-JP", {
-                          year: "numeric",
-                          month: "2-digit",
-                          day: "2-digit",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        });
-                      })()}
-                    </span>
                   </div>
-                </Card>
-              </Link>
-            ),
-          )}
-        </div>
+                  <time
+                    className="shrink-0 text-xs text-muted-foreground md:pt-1"
+                    dateTime={notification.createdAt}
+                  >
+                    {formatNotificationDate(notification.createdAt)}
+                  </time>
+                </div>
+              </Card>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
-  );
-}
-
-function ArrowIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </svg>
   );
 }
