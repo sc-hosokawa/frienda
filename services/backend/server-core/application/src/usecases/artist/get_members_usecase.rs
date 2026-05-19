@@ -28,6 +28,7 @@ pub struct AllPendingMember {
     pub member: User,
     pub artist_name: String,
     pub artist_id: String,
+    pub request_message: Option<String>,
 }
 
 #[async_trait]
@@ -180,6 +181,7 @@ impl GetMembersUsecaseTrait for GetMembersUsecase {
                 member: user.clone(),
                 artist_name: artist.display_name_jp.clone(),
                 artist_id: mapping.artist_id,
+                request_message: mapping.request_message,
             });
         }
 

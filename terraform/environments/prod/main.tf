@@ -107,6 +107,18 @@ resource "google_cloud_run_v2_service" "frienda_server" {
         name  = "DATABASE_URL"
         value = "postgres://${google_sql_user.users.name}:${google_sql_user.users.password}@${google_sql_database_instance.main.private_ip_address}/${google_sql_database.frienda_db.name}"
       }
+      env {
+        name  = "JWK_URL"
+        value = "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"
+      }
+      env {
+        name  = "JWK_ISSUER"
+        value = "https://securetoken.google.com/friendship-dao"
+      }
+      env {
+        name  = "JWK_AUDIENCE"
+        value = "friendship-dao"
+      }
     }
     vpc_access {
       connector = google_vpc_access_connector.connector.id

@@ -5,6 +5,7 @@ use actix_web::{
 use presentation::graphql::AppSchema;
 use registry::Usecases;
 use sea_orm::DatabaseConnection;
+use server_core::auth::TokenValidator;
 use std::sync::Arc;
 
 #[allow(dead_code)]
@@ -12,6 +13,7 @@ pub struct TestAppDataBuilder {
     schema: Option<web::Data<AppSchema>>,
     usecases: Option<web::Data<Arc<Usecases>>>,
     db: Option<web::Data<DatabaseConnection>>,
+    token_validator: Option<web::Data<Arc<dyn TokenValidator>>>,
 }
 
 #[allow(dead_code)]
@@ -21,6 +23,7 @@ impl TestAppDataBuilder {
             schema: None,
             usecases: None,
             db: None,
+            token_validator: None,
         }
     }
 
@@ -43,6 +46,11 @@ impl TestAppDataBuilder {
         self
     }
 
+    pub fn with_token_validator(mut self, token_validator: Arc<dyn TokenValidator>) -> Self {
+        self.token_validator = Some(web::Data::new(token_validator));
+        self
+    }
+
     pub fn configure<T>(self, app: App<T>) -> App<T>
     where
         T: ServiceFactory<ServiceRequest, Config = (), Error = Error, InitError = ()>,
@@ -59,6 +67,11 @@ impl TestAppDataBuilder {
         };
         let app = if let Some(db) = self.db {
             app.app_data(db)
+        } else {
+            app
+        };
+        let app = if let Some(token_validator) = self.token_validator {
+            app.app_data(token_validator)
         } else {
             app
         };

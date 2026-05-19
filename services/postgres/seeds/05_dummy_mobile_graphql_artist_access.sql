@@ -1,5 +1,5 @@
--- Local dummy data for mobile GraphQL artist access flows.
--- Applied after 01_full_schema.sql and 02_mobile_graphql_artist_access.sql.
+-- Local dummy data for mobile GraphQL artist access and notification flows.
+-- Applied after schema extension SQL files.
 
 INSERT INTO public.users (
   id,
@@ -334,6 +334,16 @@ ON CONFLICT (id) DO UPDATE SET
   notification_id = EXCLUDED.notification_id,
   "user" = EXCLUDED."user",
   is_read = EXCLUDED.is_read;
+
+INSERT INTO public.notification_channels (notification_id, channel)
+VALUES
+  (10001, 'MOBILE_PUSH')
+ON CONFLICT (notification_id, channel) DO NOTHING;
+
+INSERT INTO public.notification_recipients (notification_id, user_id)
+VALUES
+  (10001, 'usr_artist_admin_01')
+ON CONFLICT (notification_id, user_id) DO NOTHING;
 
 SELECT setval(
   pg_get_serial_sequence('public.user_artist', 'id'),

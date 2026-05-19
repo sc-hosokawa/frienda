@@ -29,3 +29,4 @@ services/mobile/apps/client/lib/data/graphql/schema.graphql.dart
 
 # GraphQL response diff tooling output
 .graphql-response-diff/
+.codex/

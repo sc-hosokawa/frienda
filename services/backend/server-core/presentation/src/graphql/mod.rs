@@ -1,3 +1,4 @@
+pub mod context;
 pub mod models;
 pub mod mutations;
 pub mod queries;

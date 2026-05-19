@@ -5,6 +5,7 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import { Button } from "@ui/components/ui/button";
 import { Input } from "@ui/components/ui/input";
 import { Checkbox } from "@ui/components/ui/checkbox";
+import { Textarea } from "@ui/components/ui/textarea";
 import {
   Dialog,
   DialogContent,
@@ -35,8 +36,11 @@ const SEARCH_ARTISTS = gql`
 `;
 
 const REQUEST_ACCESS = gql`
-  mutation RequestAccess($userId: String!, $artistIds: [String!]!) {
-    requestToAccessArtist(input: { userId: $userId, artistIds: $artistIds }) {
+  mutation RequestAccess(
+    $userId: String!
+    $requests: [RequestToAccessArtistItemInput!]!
+  ) {
+    requestToAccessArtist(input: { userId: $userId, requests: $requests }) {
       createdMappings {
         mappingId
         id
@@ -46,6 +50,7 @@ const REQUEST_ACCESS = gql`
         fsp
         status
         isAdmin
+        requestMessage
       }
     }
   }
@@ -60,6 +65,9 @@ export function RequestForViewDialog() {
   const [selectedArtistDetails, setSelectedArtistDetails] = useState<
     Map<string, any>
   >(new Map());
+  const [requestMessages, setRequestMessages] = useState<Map<string, string>>(
+    new Map(),
+  );
   const { user } = useUserStore();
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -72,13 +80,40 @@ export function RequestForViewDialog() {
 
   // アクセスリクエストミューテーション
   const [requestAccess] = useMutation(REQUEST_ACCESS, {
-    onCompleted: () => {
+    onCompleted: (data) => {
+      const createdMappings =
+        data?.requestToAccessArtist?.createdMappings ?? [];
+
       toast({
         title: t("common.success"),
-        description: t("home.sent-access-request"),
+        description: (
+          <div className="space-y-2">
+            <p>{t("home.sent-access-request")}</p>
+            {createdMappings.length > 0 && (
+              <ul className="space-y-1">
+                {createdMappings.map(
+                  (mapping: {
+                    artistId: string;
+                    name: string;
+                    requestMessage?: string | null;
+                  }) => (
+                    <li key={mapping.artistId}>
+                      <span className="font-medium">{mapping.name}</span>
+                      <span className="text-muted-foreground">
+                        {" "}
+                        - {mapping.requestMessage || t("common.none")}
+                      </span>
+                    </li>
+                  ),
+                )}
+              </ul>
+            )}
+          </div>
+        ),
       });
       setSelectedArtists(new Set());
       setSelectedArtistDetails(new Map());
+      setRequestMessages(new Map());
       setOpen(false);
     },
     onError: (error) => {
@@ -101,26 +136,39 @@ export function RequestForViewDialog() {
   const handleArtistSelect = (artist: any) => {
     const newSelected = new Set(selectedArtists);
     const newSelectedDetails = new Map(selectedArtistDetails);
+    const newRequestMessages = new Map(requestMessages);
 
     if (newSelected.has(artist.artistId)) {
       newSelected.delete(artist.artistId);
       newSelectedDetails.delete(artist.artistId);
+      newRequestMessages.delete(artist.artistId);
     } else {
       newSelected.add(artist.artistId);
       newSelectedDetails.set(artist.artistId, artist);
+      newRequestMessages.set(artist.artistId, "");
     }
     setSelectedArtists(newSelected);
     setSelectedArtistDetails(newSelectedDetails);
+    setRequestMessages(newRequestMessages);
   };
 
   // 選択解除ハンドラー
   const handleRemoveSelection = (artistId: string) => {
     const newSelected = new Set(selectedArtists);
     const newSelectedDetails = new Map(selectedArtistDetails);
+    const newRequestMessages = new Map(requestMessages);
     newSelected.delete(artistId);
     newSelectedDetails.delete(artistId);
+    newRequestMessages.delete(artistId);
     setSelectedArtists(newSelected);
     setSelectedArtistDetails(newSelectedDetails);
+    setRequestMessages(newRequestMessages);
+  };
+
+  const handleRequestMessageChange = (artistId: string, message: string) => {
+    const newRequestMessages = new Map(requestMessages);
+    newRequestMessages.set(artistId, message);
+    setRequestMessages(newRequestMessages);
   };
 
   // リクエスト送信ハンドラー
@@ -128,7 +176,14 @@ export function RequestForViewDialog() {
     requestAccess({
       variables: {
         userId: user?.id,
-        artistIds: Array.from(selectedArtists),
+        requests: Array.from(selectedArtists).map((artistId) => {
+          const message = requestMessages.get(artistId)?.trim();
+
+          return {
+            artistId,
+            message: message ? message : null,
+          };
+        }),
       },
     });
   };
@@ -177,19 +232,45 @@ export function RequestForViewDialog() {
             <div className="text-sm text-muted-foreground">
               {t("common.selecting")}: {selectedArtists.size}
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="space-y-3">
               {Array.from(selectedArtistDetails.values()).map((artist) => (
                 <div
                   key={artist.artistId}
-                  className="flex items-center gap-1 bg-secondary px-2 py-1 rounded-full text-sm"
+                  className="space-y-2 rounded-md bg-secondary p-3 text-sm"
                 >
-                  <span>{artist.name}</span>
-                  <button
-                    onClick={() => handleRemoveSelection(artist.artistId)}
-                    className="hover:text-destructive"
-                  >
-                    ×
-                  </button>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-medium">{artist.name}</span>
+                    <button
+                      onClick={() => handleRemoveSelection(artist.artistId)}
+                      className="text-muted-foreground hover:text-destructive"
+                      type="button"
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <div className="space-y-1">
+                    <label
+                      className="text-xs text-muted-foreground"
+                      htmlFor={`request-message-${artist.artistId}`}
+                    >
+                      {t("home.request-message-label")}
+                    </label>
+                    <Textarea
+                      id={`request-message-${artist.artistId}`}
+                      value={requestMessages.get(artist.artistId) ?? ""}
+                      onChange={(event) =>
+                        handleRequestMessageChange(
+                          artist.artistId,
+                          event.target.value,
+                        )
+                      }
+                      maxLength={200}
+                      placeholder={t("home.request-message-placeholder")}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      {t("home.request-message-helper")}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>

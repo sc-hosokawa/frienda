@@ -26,6 +26,7 @@ alcoholic_jwt = { workspace = true }
 serde = { workspace = true }
 reqwest = { workspace = true }
 derive_more = { workspace = true }
+async-trait = { workspace = true }
 
 [dev-dependencies]
 anyhow = { workspace = true }

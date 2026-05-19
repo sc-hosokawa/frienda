@@ -235,6 +235,7 @@ pub struct AllPendingMember {
     pub member: PendingMember,
     pub artist_name: String,
     pub artist_id: String,
+    pub request_message: Option<String>,
 }
 #[derive(SimpleObject)]
 pub struct PendingMember {

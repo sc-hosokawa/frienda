@@ -1,6 +1,9 @@
 mod common;
 
-use actix_web::{http::StatusCode, test, App};
+use actix_web::{
+    http::{header, StatusCode},
+    test, App,
+};
 use application::services::{
     dsp_fetcher::{DspFetcherServiceTrait, DspsData, GenderGenData, SparseData},
     onchain_fetcher::{CredentialBalance, OnchainFetcherServiceTrait},
@@ -10,6 +13,9 @@ use application::services::{
 };
 use domain::{
     entities::{
+        notification_channels::{
+            Column as NotificationChannelColumn, Entity as NotificationChannelEntity,
+        },
         notification_user::{Column as NotificationUserColumn, Entity as NotificationUserEntity},
         notifications::{Column as NotificationColumn, Entity as NotificationEntity},
         sea_orm_active_enums::UserArtistStatus,
@@ -23,12 +29,14 @@ use domain::{
         notification::PushNotification,
     },
 };
+use presentation::graphql::context::AuthenticatedUser;
 use registry::{create_repositories, create_usecases, ServicesImpl};
 use sea_orm::{
     ColumnTrait, ConnectionTrait, Database, DatabaseConnection, DbBackend, EntityTrait,
     QueryFilter, Statement,
 };
 use serde_json::{json, Value};
+use server_core::auth::{AuthError, TokenValidator};
 use shared::db::clone_database_connection;
 use std::{env, sync::Arc};
 
@@ -36,6 +44,7 @@ macro_rules! graphql {
     ($app:expr, $query:expr, $variables:expr) => {{
         let req = test::TestRequest::post()
             .uri("/graphql")
+            .insert_header((header::AUTHORIZATION, "Bearer valid-test-token"))
             .set_json(json!({
                 "query": $query,
                 "variables": $variables,
@@ -46,6 +55,28 @@ macro_rules! graphql {
         serde_json::from_slice::<Value>(&test::read_body(resp).await)
             .expect("GraphQL response should be valid JSON")
     }};
+}
+
+struct FixedTokenValidator {
+    user_id: String,
+}
+
+#[async_trait::async_trait]
+impl TokenValidator for FixedTokenValidator {
+    async fn validate(&self, token: &str) -> Result<AuthenticatedUser, AuthError> {
+        match token {
+            "valid-test-token" => Ok(AuthenticatedUser {
+                user_id: self.user_id.clone(),
+            }),
+            _ => Err(AuthError::InvalidToken),
+        }
+    }
+}
+
+fn token_validator_for(user_id: &str) -> Arc<dyn TokenValidator> {
+    Arc::new(FixedTokenValidator {
+        user_id: user_id.to_string(),
+    })
 }
 
 #[derive(Default)]
@@ -134,9 +165,11 @@ fn stub_services() -> ServicesImpl {
 async fn connect_db() -> DatabaseConnection {
     let database_url = env::var("DATABASE_URL")
         .unwrap_or_else(|_| "postgres://postgres:postgres@localhost:5432/postgres".to_string());
-    Database::connect(database_url)
+    let db = Database::connect(database_url)
         .await
-        .expect("local Postgres should be running")
+        .expect("local Postgres should be running");
+    execute_sql(&db, "SELECT pg_advisory_lock(765432101)").await;
+    db
 }
 
 async fn execute_sql(db: &DatabaseConnection, sql: &str) {
@@ -146,6 +179,21 @@ async fn execute_sql(db: &DatabaseConnection, sql: &str) {
 }
 
 async fn cleanup_fixture(db: &DatabaseConnection) {
+    ensure_notification_recipients_schema(db).await;
+    execute_sql(
+        db,
+        r#"
+DELETE FROM public.notification_recipients
+WHERE user_id LIKE 'it_%'
+   OR notification_id IN (
+        SELECT id
+        FROM public.notifications
+        WHERE content LIKE '%Integration Artist%'
+           OR title LIKE 'Integration artist access%'
+    )
+"#,
+    )
+    .await;
     execute_sql(
         db,
         r#"
@@ -293,6 +341,192 @@ ON CONFLICT (id) DO UPDATE SET
     .await;
 }
 
+async fn cleanup_notification_list_fixture(db: &DatabaseConnection) {
+    ensure_notification_recipients_schema(db).await;
+    execute_sql(
+        db,
+        r#"
+DELETE FROM public.notification_recipients
+WHERE user_id IN ('it_notify_user', 'it_notify_other', 'it_notify_admin')
+   OR notification_id BETWEEN 91001 AND 91005
+"#,
+    )
+    .await;
+    execute_sql(
+        db,
+        r#"
+DELETE FROM public.notification_user
+WHERE "user" IN ('it_notify_user', 'it_notify_other')
+   OR notification_id BETWEEN 91001 AND 91005
+"#,
+    )
+    .await;
+    execute_sql(
+        db,
+        "DELETE FROM public.notifications WHERE id BETWEEN 91001 AND 91005",
+    )
+    .await;
+    execute_sql(
+        db,
+        "DELETE FROM public.users WHERE id IN ('it_notify_user', 'it_notify_other', 'it_notify_admin')",
+    )
+    .await;
+}
+
+async fn ensure_notification_recipients_schema(db: &DatabaseConnection) {
+    execute_sql(
+        db,
+        r#"
+CREATE TABLE IF NOT EXISTS public.notification_recipients (
+  notification_id integer NOT NULL,
+  user_id character varying(28) NOT NULL,
+  created_at timestamp without time zone DEFAULT now() NOT NULL,
+  CONSTRAINT notification_recipients_pkey PRIMARY KEY (notification_id, user_id)
+)
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+ALTER TABLE ONLY public.notification_recipients
+  DROP CONSTRAINT IF EXISTS notification_recipients_notification_id_fkey
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+ALTER TABLE ONLY public.notification_recipients
+  ADD CONSTRAINT notification_recipients_notification_id_fkey
+  FOREIGN KEY (notification_id)
+  REFERENCES public.notifications(id)
+  ON DELETE CASCADE
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+ALTER TABLE ONLY public.notification_recipients
+  DROP CONSTRAINT IF EXISTS notification_recipients_user_id_fkey
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+ALTER TABLE ONLY public.notification_recipients
+  ADD CONSTRAINT notification_recipients_user_id_fkey
+  FOREIGN KEY (user_id)
+  REFERENCES public.users(id)
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+CREATE INDEX IF NOT EXISTS notification_recipients_user_id_notification_id_idx
+  ON public.notification_recipients (user_id, notification_id)
+"#,
+    )
+    .await;
+}
+
+async fn insert_notification_list_fixture(db: &DatabaseConnection) {
+    execute_sql(
+        db,
+        r#"
+INSERT INTO public.users (id, username, email, category, primary_category, is_superadmin)
+VALUES
+  ('it_notify_user', 'notify-user', 'notify-user@example.com', 'supporter', 'supporter', false),
+  ('it_notify_other', 'notify-other', 'notify-other@example.com', 'supporter', 'supporter', false),
+  ('it_notify_admin', 'notify-admin', 'notify-admin@example.com', 'supporter', 'supporter', true)
+ON CONFLICT (id) DO UPDATE SET
+  username = EXCLUDED.username,
+  email = EXCLUDED.email,
+  category = EXCLUDED.category,
+  primary_category = EXCLUDED.primary_category,
+  is_superadmin = EXCLUDED.is_superadmin
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+INSERT INTO public.notifications (id, title, content, category, created_at)
+VALUES
+  (91001, 'Mobile unread', 'Visible unread mobile notification', 'admin', '2030-01-05 10:00:00'),
+  (91002, 'Email only', 'Hidden email notification', 'admin', '2030-01-06 10:00:00'),
+  (91003, 'Deleted mobile', 'Deleted mobile notification', 'admin', '2030-01-07 10:00:00'),
+  (91004, 'Other user', 'Other user mobile notification', 'admin', '2030-01-08 10:00:00'),
+  (91005, 'Mobile read', 'Visible read mobile notification', 'admin', '2030-01-04 10:00:00')
+ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  content = EXCLUDED.content,
+  category = EXCLUDED.category,
+  created_at = EXCLUDED.created_at
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+INSERT INTO public.notification_channels (notification_id, channel)
+VALUES
+  (91001, 'MOBILE_PUSH'),
+  (91002, 'EMAIL'),
+  (91003, 'MOBILE_PUSH'),
+  (91004, 'MOBILE_PUSH'),
+  (91005, 'MOBILE_PUSH')
+ON CONFLICT (notification_id, channel) DO NOTHING
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+INSERT INTO public.notification_user (id, notification_id, "user", is_read, is_deleted)
+VALUES
+  (91001, 91001, 'it_notify_user', false, false),
+  (91002, 91002, 'it_notify_user', false, false),
+  (91003, 91003, 'it_notify_user', false, true),
+  (91004, 91004, 'it_notify_other', false, false),
+  (91005, 91005, 'it_notify_user', true, false)
+ON CONFLICT (id) DO UPDATE SET
+  notification_id = EXCLUDED.notification_id,
+  "user" = EXCLUDED."user",
+  is_read = EXCLUDED.is_read,
+  is_deleted = EXCLUDED.is_deleted
+"#,
+    )
+    .await;
+
+    execute_sql(
+        db,
+        r#"
+INSERT INTO public.notification_recipients (notification_id, user_id, created_at)
+VALUES
+  (91001, 'it_notify_user', '2030-01-05 10:00:00'),
+  (91002, 'it_notify_user', '2030-01-06 10:00:00'),
+  (91003, 'it_notify_user', '2030-01-07 10:00:00'),
+  (91004, 'it_notify_other', '2030-01-08 10:00:00'),
+  (91005, 'it_notify_user', '2030-01-04 10:00:00')
+ON CONFLICT (notification_id, user_id) DO UPDATE SET
+  created_at = EXCLUDED.created_at
+"#,
+    )
+    .await;
+}
+
 async fn find_mapping(db: &DatabaseConnection, user_id: &str, artist_id: &str) -> UserArtist {
     UserArtistEntity::find()
         .filter(UserArtistColumn::UserId.eq(user_id))
@@ -337,6 +571,7 @@ async fn mobile_artist_access_graphql_flows_work_against_local_postgres() {
         common::test_app()
             .with_schema(schema)
             .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("usr_fallback_00001"))
             .configure(App::new()),
     )
     .await;
@@ -850,4 +1085,292 @@ mutation($input: SetDefaultBelongedArtistInput!) {
     assert_eq!(error_code(&set_default_non_accept), Some("INVALID_STATE"));
 
     cleanup_fixture(&db).await;
+}
+
+#[actix_web::test]
+#[ignore = "requires local Postgres container initialized by services/postgres/seeds"]
+async fn mobile_notification_list_filters_mobile_push_and_marks_rows_read() {
+    let db = connect_db().await;
+    cleanup_notification_list_fixture(&db).await;
+    insert_notification_list_fixture(&db).await;
+
+    let repos = create_repositories(clone_database_connection(&db));
+    let usecases = Arc::new(create_usecases(repos, stub_services()));
+    let schema = server_core::schema_builder()
+        .data(usecases.clone())
+        .data(AuthenticatedUser {
+            user_id: "it_notify_user".to_string(),
+        })
+        .finish();
+    let app = test::init_service(
+        common::test_app()
+            .with_schema(schema)
+            .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("it_notify_user"))
+            .configure(App::new()),
+    )
+    .await;
+
+    let first = graphql!(
+        app,
+        r#"
+query($userId: String!, $limit: Int, $offset: Int) {
+  getNotificationList(userId: $userId, limit: $limit, offset: $offset) {
+    unreadCount
+    hasNextPage
+    notifications {
+      id
+      title
+      content
+      isRead
+      createdAt
+    }
+  }
+}
+"#,
+        json!({ "userId": "it_notify_user", "limit": 20, "offset": 0 })
+    );
+    assert_no_graphql_errors(&first);
+    let first_data = &first["data"]["getNotificationList"];
+    assert_eq!(first_data["unreadCount"], 1);
+    assert_eq!(first_data["hasNextPage"], false);
+    let first_notifications = first_data["notifications"]
+        .as_array()
+        .expect("notifications should be an array");
+    assert_eq!(first_notifications.len(), 2);
+    assert_eq!(first_notifications[0]["id"], 91001);
+    assert_eq!(first_notifications[0]["title"], "Mobile unread");
+    assert_eq!(
+        first_notifications[0]["createdAt"],
+        "2030-01-05T10:00:00+09:00"
+    );
+    assert_eq!(first_notifications[0]["isRead"], false);
+    assert_eq!(first_notifications[1]["id"], 91005);
+    assert_eq!(first_notifications[1]["isRead"], true);
+
+    let second = graphql!(
+        app,
+        r#"
+query($userId: String!) {
+  getNotificationList(userId: $userId) {
+    unreadCount
+    notifications {
+      id
+      isRead
+    }
+  }
+}
+"#,
+        json!({ "userId": "it_notify_user" })
+    );
+    assert_no_graphql_errors(&second);
+    let second_data = &second["data"]["getNotificationList"];
+    assert_eq!(second_data["unreadCount"], 0);
+    let second_notifications = second_data["notifications"]
+        .as_array()
+        .expect("notifications should be an array");
+    assert_eq!(second_notifications[0]["id"], 91001);
+    assert_eq!(second_notifications[0]["isRead"], true);
+
+    let channels = NotificationChannelEntity::find()
+        .filter(NotificationChannelColumn::NotificationId.eq(91002))
+        .all(&db)
+        .await
+        .expect("query channels");
+    assert_eq!(channels.len(), 1);
+    assert_eq!(channels[0].channel, "EMAIL");
+
+    let forbidden_schema = server_core::schema_builder()
+        .data(usecases)
+        .data(AuthenticatedUser {
+            user_id: "it_notify_other".to_string(),
+        })
+        .finish();
+    let forbidden_app = test::init_service(
+        common::test_app()
+            .with_schema(forbidden_schema)
+            .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("it_notify_other"))
+            .configure(App::new()),
+    )
+    .await;
+    let forbidden = graphql!(
+        forbidden_app,
+        r#"
+query($userId: String!) {
+  getNotificationList(userId: $userId) {
+    notifications {
+      id
+    }
+  }
+}
+"#,
+        json!({ "userId": "it_notify_user" })
+    );
+    assert_eq!(error_code(&forbidden), Some("FORBIDDEN"));
+
+    cleanup_notification_list_fixture(&db).await;
+}
+
+#[actix_web::test]
+#[ignore = "requires local Postgres container initialized by services/postgres/seeds"]
+async fn admin_notification_history_lists_and_details_recipients() {
+    let db = connect_db().await;
+    cleanup_notification_list_fixture(&db).await;
+    insert_notification_list_fixture(&db).await;
+
+    let repos = create_repositories(clone_database_connection(&db));
+    let usecases = Arc::new(create_usecases(repos, stub_services()));
+    let schema = server_core::schema_builder()
+        .data(usecases.clone())
+        .data(AuthenticatedUser {
+            user_id: "it_notify_admin".to_string(),
+        })
+        .finish();
+    let app = test::init_service(
+        common::test_app()
+            .with_schema(schema)
+            .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("it_notify_admin"))
+            .configure(App::new()),
+    )
+    .await;
+
+    let list = graphql!(
+        app,
+        r#"
+query($limit: Int, $offset: Int) {
+  getAdminNotificationList(limit: $limit, offset: $offset) {
+    totalCount
+    hasNextPage
+    notifications {
+      id
+      title
+      channels
+      recipientCount
+      createdAt
+    }
+  }
+}
+"#,
+        json!({ "limit": 3, "offset": 0 })
+    );
+    assert_no_graphql_errors(&list);
+    let list_data = &list["data"]["getAdminNotificationList"];
+    assert!(
+        list_data["totalCount"]
+            .as_i64()
+            .expect("totalCount should be integer")
+            >= 5
+    );
+    assert_eq!(list_data["hasNextPage"], true);
+    let notifications = list_data["notifications"]
+        .as_array()
+        .expect("admin notifications should be array");
+    assert_eq!(notifications.len(), 3);
+    assert_eq!(notifications[0]["id"], 91004);
+    assert_eq!(notifications[0]["channels"][0], "MOBILE_PUSH");
+    assert_eq!(notifications[0]["recipientCount"], 1);
+    assert_eq!(notifications[0]["createdAt"], "2030-01-08T10:00:00+09:00");
+    assert_eq!(notifications[2]["id"], 91002);
+    assert_eq!(notifications[2]["channels"][0], "EMAIL");
+
+    let mobile_detail = graphql!(
+        app,
+        r#"
+query($notificationId: Int!) {
+  getAdminNotificationDetail(notificationId: $notificationId) {
+    id
+    title
+    channels
+    recipients {
+      userId
+      username
+      email
+      mobilePushIsRead
+      mobilePushIsDeleted
+    }
+    createdAt
+  }
+}
+"#,
+        json!({ "notificationId": 91001 })
+    );
+    assert_no_graphql_errors(&mobile_detail);
+    let detail = &mobile_detail["data"]["getAdminNotificationDetail"];
+    assert_eq!(detail["id"], 91001);
+    assert_eq!(detail["channels"][0], "MOBILE_PUSH");
+    let recipients = detail["recipients"]
+        .as_array()
+        .expect("recipients should be array");
+    assert_eq!(recipients.len(), 1);
+    assert_eq!(recipients[0]["userId"], "it_notify_user");
+    assert_eq!(recipients[0]["mobilePushIsRead"], false);
+    assert_eq!(recipients[0]["mobilePushIsDeleted"], false);
+    assert_eq!(detail["createdAt"], "2030-01-05T10:00:00+09:00");
+
+    let email_detail = graphql!(
+        app,
+        r#"
+query($notificationId: Int!) {
+  getAdminNotificationDetail(notificationId: $notificationId) {
+    id
+    channels
+    recipients {
+      userId
+      mobilePushIsRead
+      mobilePushIsDeleted
+    }
+  }
+}
+"#,
+        json!({ "notificationId": 91002 })
+    );
+    assert_no_graphql_errors(&email_detail);
+    let email_recipient = &email_detail["data"]["getAdminNotificationDetail"]["recipients"][0];
+    assert_eq!(email_recipient["userId"], "it_notify_user");
+    assert!(email_recipient["mobilePushIsRead"].is_null());
+    assert!(email_recipient["mobilePushIsDeleted"].is_null());
+
+    let missing = graphql!(
+        app,
+        r#"
+query($notificationId: Int!) {
+  getAdminNotificationDetail(notificationId: $notificationId) {
+    id
+  }
+}
+"#,
+        json!({ "notificationId": 99999 })
+    );
+    assert_eq!(error_code(&missing), Some("NOT_FOUND"));
+
+    let forbidden_schema = server_core::schema_builder()
+        .data(usecases)
+        .data(AuthenticatedUser {
+            user_id: "it_notify_user".to_string(),
+        })
+        .finish();
+    let forbidden_app = test::init_service(
+        common::test_app()
+            .with_schema(forbidden_schema)
+            .with_db(clone_database_connection(&db))
+            .with_token_validator(token_validator_for("it_notify_user"))
+            .configure(App::new()),
+    )
+    .await;
+    let forbidden = graphql!(
+        forbidden_app,
+        r#"
+query {
+  getAdminNotificationList {
+    totalCount
+  }
+}
+"#,
+        json!({})
+    );
+    assert_eq!(error_code(&forbidden), Some("FORBIDDEN"));
+
+    cleanup_notification_list_fixture(&db).await;
 }

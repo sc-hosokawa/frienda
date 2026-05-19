@@ -2,10 +2,45 @@ type AddShortnoteResponse {
 	id: String!
 }
 
+type AdminNotificationDetail {
+	id: Int!
+	title: String!
+	content: String!
+	category: String
+	channels: [NotificationChannel!]!
+	recipients: [AdminNotificationRecipient!]!
+	createdAt: String!
+}
+
+type AdminNotificationListData {
+	notifications: [AdminNotificationListItem!]!
+	totalCount: Int!
+	hasNextPage: Boolean!
+}
+
+type AdminNotificationListItem {
+	id: Int!
+	title: String!
+	content: String!
+	category: String
+	channels: [NotificationChannel!]!
+	recipientCount: Int!
+	createdAt: String!
+}
+
+type AdminNotificationRecipient {
+	userId: String!
+	username: String!
+	email: String!
+	mobilePushIsRead: Boolean
+	mobilePushIsDeleted: Boolean
+}
+
 type AllPendingMember {
 	member: PendingMember!
 	artistName: String!
 	artistId: String!
+	requestMessage: String
 }
 
 type AllUsersData {
@@ -20,6 +55,8 @@ type ArtistByUserData {
 	fsp: Int!
 	status: String!
 	isAdmin: Boolean!
+	requestMessage: String
+	isDefault: Boolean!
 }
 
 type ArtistByUserDataList {
@@ -35,6 +72,7 @@ type ArtistByUserDataWithMappingId {
 	fsp: Int!
 	status: String!
 	isAdmin: Boolean!
+	requestMessage: String
 }
 
 type ArtistData {
@@ -90,6 +128,14 @@ type BlockUserResponse {
 	id: Int!
 }
 
+input CancelRequestToAccessArtistInput {
+	userId: String!
+	artistId: String!
+}
+
+type CancelRequestToAccessArtistResponse {
+	canceledMapping: ArtistByUserDataWithMappingId!
+}
 
 type ChartData {
 	lineChartData: [LineChartData!]!
@@ -298,7 +344,6 @@ type ExchangePrizeResponse {
 	txId: String!
 }
 
-
 type FspHistory {
 	date: String!
 	from: String!
@@ -326,6 +371,8 @@ type GenderGenRateData {
 type GenderPlaybackRate {
 	maleCount: Int!
 	femaleCount: Int!
+	neutralCount: Int!
+	unknownCount: Int!
 }
 
 type GetAllCreditsOutput {
@@ -336,12 +383,20 @@ type HealthCheck {
 	status: String!
 }
 
-
-
 """
 A scalar that can represent any JSON Object value.
 """
 scalar JSONObject
+
+input LeaveBelongedArtistInput {
+	operatorUserId: String!
+	userId: String!
+	artistId: String!
+}
+
+type LeaveBelongedArtistResponse {
+	leftArtist: ArtistByUserData!
+}
 
 type LineChartData {
 	date: String!
@@ -474,6 +529,10 @@ type MutationRoot {
 	createNewArtist(input: [CreateNewArtistInput!]!): CreateNewArtistsResponse!
 	updateArtist(input: UpdateArtistInput!): UpdateArtistResponse!
 	requestToAccessArtist(input: RequestToAccessArtistInput!): RequestToAccessArtistResponse!
+	resendRequestToAccessArtist(input: ResendRequestToAccessArtistInput!): ResendRequestToAccessArtistResponse!
+	cancelRequestToAccessArtist(input: CancelRequestToAccessArtistInput!): CancelRequestToAccessArtistResponse!
+	leaveBelongedArtist(input: LeaveBelongedArtistInput!): LeaveBelongedArtistResponse!
+	setDefaultBelongedArtist(input: SetDefaultBelongedArtistInput!): SetDefaultBelongedArtistResponse!
 	markAsMember(input: MarkAsMemberInput!): MarkAsMemberResponse!
 	markAsAdmin(input: MarkAsAdminInput!): MarkAsAdminResponse!
 	registerCredit(input: RegisterCreditInput!): RegisterCreditResponse!
@@ -483,12 +542,36 @@ type MutationRoot {
 	deleteUserReport(id: Int!): Boolean!
 	deleteOfferReport(id: Int!): Boolean!
 	deleteReleaseReport(id: Int!): Boolean!
+	updateTrack(input: UpdateTrackInput!): String!
+	updateProduct(input: UpdateProductInput!): String!
+	deleteTrack(isrc: String!): Boolean!
+	deleteProduct(upc: String!): Boolean!
+}
+
+enum NotificationChannel {
+	MOBILE_PUSH
+	EMAIL
+	HOME
 }
 
 type NotificationData {
 	id: String!
 	title: String!
 	category: String
+	content: String!
+	isRead: Boolean!
+	createdAt: String!
+}
+
+type NotificationListData {
+	notifications: [NotificationListItem!]!
+	unreadCount: Int!
+	hasNextPage: Boolean!
+}
+
+type NotificationListItem {
+	id: Int!
+	title: String!
 	content: String!
 	isRead: Boolean!
 	createdAt: String!
@@ -511,6 +594,7 @@ type OfferData {
 	fee: Int!
 	category: String
 	place: String!
+	publicity: Boolean!
 }
 
 type OfferDetailData {
@@ -638,6 +722,17 @@ type Product {
 	artistId: String
 }
 
+type ProductData {
+	upc: String!
+	title: String!
+	imgUrl: String
+	productType: String
+	distributedAt: String
+	artistId: String!
+	artistNameJa: String!
+	numberOfTracks: Int!
+}
+
 type ProductWithTracks {
 	product: Product!
 	tracks: [Track!]!
@@ -656,10 +751,15 @@ type QueryRoot {
 	getTrending(artistId: String!, userId: String!): TrendingData!
 	getPlayCountHistory(artistId: String!, userId: String!, period: Int!): ChartData!
 	getPlaycountHistoryByUpc(upc: String!, period: Int!): ChartDataByUPC!
+	getPlaycountHistoryByIsrc(isrc: String!, period: Int!): ChartData!
 	getGenderGenRateByArtist(artistId: String!, userId: String!): GenderGenRateData!
 	getGenderGenRateByUpc(artistId: String!, userId: String!, upc: String!): GenderGenRateData!
+	getGenderGenRateByIsrc(artistId: String!, userId: String!, isrc: String!): GenderGenRateData!
 	getProducts(artistId: String!): ProductsData!
 	getTrendingByUpc(upc: String!, userId: String!): TrendingByUPCData!
+	getTrackInfo(isrc: String!): TrackInfoData!
+	getAdminNotificationList(limit: Int! = 20, offset: Int! = 0): AdminNotificationListData!
+	getAdminNotificationDetail(notificationId: Int!): AdminNotificationDetail!
 	getSystemOverview: OverviewData!
 	getFspHistoryForAdmin(count: Int!): [FspHistory!]!
 	getTrackCreditsHistoryForAdmin(count: Int!): [Credit!]!
@@ -669,6 +769,8 @@ type QueryRoot {
 	getAllOfferReports: [OfferReport!]!
 	getAllReleaseReports: [ReleaseReport!]!
 	getAllBlockData: [BlockUserDataResponse!]!
+	searchTracks(input: SearchTracksQuery!): [TrackData!]!
+	searchProducts(input: SearchProductsQuery!): [ProductData!]!
 	getOwnCommunity(userId: String!): ConnectedUsersData!
 	getOtherUserCommunity(viewerId: String!, targetUserId: String!): ConnectedUsersData!
 	getUserProfile(viewerId: String!, userId: String!): UserDataOnDetailPage!
@@ -683,6 +785,7 @@ type QueryRoot {
 	getMessagesInProgress(userId: String!): MessageRoomsByUserData!
 	getMessagesByMessageRoomId(userId: String!, messageRoomId: String!): MessagesByRoomIdByUserData!
 	askLlm(userId: String!, question: String!): String!
+	getNotificationList(userId: String!, limit: Int! = 20, offset: Int! = 0): NotificationListData!
 	getNotifications(userId: String!): [NotificationData!]!
 	getAllNotifications: NotificationsData!
 	getAllUsers: AllUsersData!
@@ -706,7 +809,7 @@ type QueryRoot {
 	getAllPrizes: [PrizeData!]!
 	getPrizeDetail(prizeId: Int!): PrizeDetailData!
 	getPrizeByUserId(userId: String!): PrizesByUserIdData!
-	getPrizeHistoryByUserId(userId: String!): PrizesHistoryByUserIdData!
+	getPrizeHistoryByUserId(userId: String!, prizeId: Int!): PrizesHistoryByUserIdData!
 	getFspHistory(userId: String!, count: Int!): TransactionsData!
 	getFspHistoryByUser(userId: String!, count: Int!): TransactionsByUserData!
 	getQuests: [QuestData!]!
@@ -816,11 +919,27 @@ type RequestPrizeResponse {
 
 input RequestToAccessArtistInput {
 	userId: String!
-	artistIds: [String!]!
+	requests: [RequestToAccessArtistItemInput!]
+	artistIds: [String!]
+}
+
+input RequestToAccessArtistItemInput {
+	artistId: String!
+	message: String
 }
 
 type RequestToAccessArtistResponse {
 	createdMappings: [ArtistByUserDataWithMappingId!]!
+}
+
+input ResendRequestToAccessArtistInput {
+	userId: String!
+	artistId: String!
+	message: String
+}
+
+type ResendRequestToAccessArtistResponse {
+	updatedMapping: ArtistByUserDataWithMappingId!
 }
 
 input SearchOptionsOffersInput {
@@ -831,6 +950,19 @@ input SearchOptionsOffersInput {
 	minPrice: Int
 	maxPrice: Int
 	sortBy: String
+}
+
+input SearchProductsQuery {
+	upc: String
+	productTitle: String
+	artistId: String
+	productType: String
+}
+
+input SearchTracksQuery {
+	isrc: String
+	trackTitle: String
+	artistId: String
 }
 
 input SendMessageInput {
@@ -849,11 +981,19 @@ type SendMessageResponse {
 	attachedImg: [String!]
 }
 
+input SetDefaultBelongedArtistInput {
+	userId: String!
+	artistId: String!
+}
+
+type SetDefaultBelongedArtistResponse {
+	defaultArtist: ArtistByUserData!
+}
+
 input StatusUser {
 	userId: String!
 	status: String!
 }
-
 
 type TotalOverviewData {
 	totalPlaybacks: Int!
@@ -889,6 +1029,19 @@ type TrackCreditsByAdmin {
 	isInvite: Boolean
 	memo: String
 	createdAt: String!
+}
+
+type TrackData {
+	isrc: String!
+	trackTitle: String!
+	artistId: String!
+	artistName: String!
+	productTitle: String!
+}
+
+type TrackInfoData {
+	track: Track!
+	product: [Product!]!
 }
 
 type TransactionByUserData {
@@ -1035,6 +1188,20 @@ type UpdatePortfolioResponse {
 	portfolioId: Int!
 }
 
+input UpdateProductInput {
+	upc: String!
+	title: String
+	imgUrl: String
+	type: String
+	distributedAt: String
+	artistId: String
+}
+
+input UpdateTrackInput {
+	isrc: String!
+	title: String
+}
+
 input UpdateUserDataInput {
 	id: String!
 	email: String
@@ -1168,7 +1335,13 @@ type UsersInOfferData {
 	users: [UserInOfferData!]!
 }
 
+"""
+Directs the executor to include this field or fragment only when the `if` argument is true.
+"""
 directive @include(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+"""
+Directs the executor to skip this field or fragment when the `if` argument is true.
+"""
 directive @skip(if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
 schema {
 	query: QueryRoot

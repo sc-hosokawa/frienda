@@ -5,7 +5,10 @@ use domain::entities::notifications::{
 use mockall::automock;
 use shared::error::domain_err::DomainError;
 
-use domain::repositories::notifications_repo::NotificationsRepository;
+use domain::repositories::notifications_repo::{
+    AdminNotificationDetailRecord, AdminNotificationListRecord, NotificationListRecord,
+    NotificationsRepository,
+};
 
 #[automock]
 #[async_trait]
@@ -25,6 +28,38 @@ pub trait MockNotificationsRepo {
     async fn mock_get_by_ids(&self, ids: Vec<i32>) -> Result<Vec<Notification>, DomainError>;
 
     async fn mock_get_by_category(&self, category: &str) -> Result<Vec<Notification>, DomainError>;
+
+    async fn mock_list_mobile_push_by_user(
+        &self,
+        user_id: String,
+        limit: u64,
+        offset: u64,
+    ) -> Result<Vec<NotificationListRecord>, DomainError>;
+
+    async fn mock_count_mobile_push_by_user(&self, user_id: String) -> Result<i64, DomainError>;
+
+    async fn mock_count_unread_mobile_push_by_user(
+        &self,
+        user_id: String,
+    ) -> Result<i64, DomainError>;
+
+    async fn mock_get_mobile_push_notification_user_ids(
+        &self,
+        user_id: String,
+    ) -> Result<Vec<i32>, DomainError>;
+
+    async fn mock_list_admin_notifications(
+        &self,
+        limit: u64,
+        offset: u64,
+    ) -> Result<Vec<AdminNotificationListRecord>, DomainError>;
+
+    async fn mock_count_admin_notifications(&self) -> Result<i64, DomainError>;
+
+    async fn mock_get_admin_notification_detail(
+        &self,
+        notification_id: i32,
+    ) -> Result<Option<AdminNotificationDetailRecord>, DomainError>;
 }
 
 #[async_trait]
@@ -53,5 +88,52 @@ impl NotificationsRepository for MockMockNotificationsRepo {
 
     async fn get_by_category(&self, category: &str) -> Result<Vec<Notification>, DomainError> {
         self.mock_get_by_category(category).await
+    }
+
+    async fn list_mobile_push_by_user(
+        &self,
+        user_id: &str,
+        limit: u64,
+        offset: u64,
+    ) -> Result<Vec<NotificationListRecord>, DomainError> {
+        self.mock_list_mobile_push_by_user(user_id.to_string(), limit, offset)
+            .await
+    }
+
+    async fn count_mobile_push_by_user(&self, user_id: &str) -> Result<i64, DomainError> {
+        self.mock_count_mobile_push_by_user(user_id.to_string())
+            .await
+    }
+
+    async fn count_unread_mobile_push_by_user(&self, user_id: &str) -> Result<i64, DomainError> {
+        self.mock_count_unread_mobile_push_by_user(user_id.to_string())
+            .await
+    }
+
+    async fn get_mobile_push_notification_user_ids(
+        &self,
+        user_id: &str,
+    ) -> Result<Vec<i32>, DomainError> {
+        self.mock_get_mobile_push_notification_user_ids(user_id.to_string())
+            .await
+    }
+
+    async fn list_admin_notifications(
+        &self,
+        limit: u64,
+        offset: u64,
+    ) -> Result<Vec<AdminNotificationListRecord>, DomainError> {
+        self.mock_list_admin_notifications(limit, offset).await
+    }
+
+    async fn count_admin_notifications(&self) -> Result<i64, DomainError> {
+        self.mock_count_admin_notifications().await
+    }
+
+    async fn get_admin_notification_detail(
+        &self,
+        notification_id: i32,
+    ) -> Result<Option<AdminNotificationDetailRecord>, DomainError> {
+        self.mock_get_admin_notification_detail(notification_id).await
     }
 }
